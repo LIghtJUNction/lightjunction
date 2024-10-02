@@ -1,4 +1,4 @@
-### Hi there 👋
+### Hi there 👋  
 
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
@@ -11,9 +11,9 @@
 > Contact me? 🙌 email: lightjunction.me@gmail.com
 
 
-- 🌱 I’m currently learning AI
-- 🤔 I’m studing at Zhengzhou University now
-- 💬 Ask me about game < my steam account : lightjunction.steam@gmail.com>
-- 📫 How to reach me: lightjunction.me@gmail.com
-- 😄 Pronouns: LIghtJUNction
-- ⚡ Fun fact: O(∩_∩)O
+- 🌱 I’m currently learning ## AI
+- 🤔 I’m studing at ## Zhengzhou University now
+- 💬 Ask me about game ## < my steam account : lightjunction.steam@gmail.com>
+- 📫 How to reach me:## lightjunction.me@gmail.com
+- 😄 Pronouns:## LIghtJUNction
+- ⚡ Fun fact:## O(∩_∩)O
