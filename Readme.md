@@ -6,7 +6,8 @@
 
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=lightjunction&show_icons=true&theme=merko)](https://github.com/anuraghazra/github-readme-stats)
 
-
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=lightjunction)](https://github.com/anuraghazra/github-readme-stats)
+</br>
 > Contact me? 🙌 email: lightjunction.me@gmail.com
 
 
