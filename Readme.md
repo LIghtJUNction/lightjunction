@@ -4,7 +4,7 @@
 
 <br/>
 
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=happysnaker&show_icons=true&theme=merko)](https://github.com/anuraghazra/github-readme-stats)
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=lightjunction&show_icons=true&theme=merko)](https://github.com/anuraghazra/github-readme-stats)
 
 
 > Contact me? 🙌 email: lightjunction.me@gmail.com
