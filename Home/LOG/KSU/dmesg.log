@@ -1,0 +1,261 @@
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd463]
+[    0.000000] Linux version 5.10.198-android12-9-o-g9879b9c8974a (build-user@build-host) (Android (7284624, based on r416183b) clang version 12.0.5 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee), LLD 12.0.5 (/buildbot/src/android/llvm-toolchain/out/llvm-project/lld c935d99d7cf2016289302412d708641d52d2f7ee)) #1 SMP PREEMPT Wed Jul 10 12:31:20 UTC 2024
+[    0.000000] random: crng init done
+[    0.000000] Machine model: Qualcomm Technologies, Inc. Cape MTP, Udon
+[    0.000000] Stack Depot is disabled
+[    0.000000] KVM is not available. Ignoring kvm-arm.mode
+[    0.000000] CHP     0     0 I swapper         : cmdline_parse_prjname:3122 support prj:22803 oat_supported:1
+[    0.000000] efi: UEFI not found.
+[    0.000000] OF: fdt: Reserved memory: failed to reserve memory for node 'qheebsp_reserved_region@e0000000': base 0x00000000e0000000, size 0 MiB
+[    0.000000] Reserved memory: created CMA memory pool at 0x0000000b7d000000, size 48 MiB
+[    0.000000] OF: reserved mem: initialized node mem_dump_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000fec00000, size 16 MiB
+[    0.000000] OF: reserved mem: initialized node user_contig_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x0000000b7a800000, size 40 MiB
+[    0.000000] OF: reserved mem: initialized node demura_heap_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000fdc00000, size 16 MiB
+[    0.000000] OF: reserved mem: initialized node sp_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000fd400000, size 8 MiB
+[    0.000000] OF: reserved mem: initialized node sdsp_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000fd000000, size 4 MiB
+[    0.000000] OF: reserved mem: initialized node cdsp_eva_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000f2c00000, size 164 MiB
+[    0.000000] OF: reserved mem: initialized node non_secure_display_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000dbc00000, size 72 MiB
+[    0.000000] OF: reserved mem: initialized node qseecom_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000e6c00000, size 28 MiB
+[    0.000000] OF: reserved mem: initialized node audio_cma_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x0000000b79400000, size 16 MiB
+[    0.000000] OF: reserved mem: initialized node va_md_mem_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000f1c00000, size 16 MiB
+[    0.000000] OF: reserved mem: initialized node qseecom_ta_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000d9c00000, size 32 MiB
+[    0.000000] OF: reserved mem: initialized node linux,cma, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000e6000000, size 12 MiB
+[    0.000000] OF: reserved mem: initialized node adsp_heap_region, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000d7c00000, size 32 MiB
+[    0.000000] OF: reserved mem: initialized node cnss_wlan_region, compatible id shared-dma-pool
+[    0.000000] cma: Reserved 3840 MiB at 0x0000000840000000
+[    0.000000] CHP     0     0 I swapper         : cont_pte_cma_reserve:3163 cont_pte_cma: reserved 3840 MiB
+[    0.000000] Zone ranges:
+[    0.000000] DMA32    empty
+[    0.000000] Normal   [mem 0x0000000080000000-0x0000000b7fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000] node   0: [mem 0x0000000080000000-0x00000000808f3fff]
+[    0.000000] node   0: [mem 0x00000000808f4000-0x00000000808fffff]
+[    0.000000] node   0: [mem 0x0000000080900000-0x0000000080cfffff]
+[    0.000000] node   0: [mem 0x0000000080d00000-0x00000000856fffff]
+[    0.000000] node   0: [mem 0x0000000085700000-0x0000000087efffff]
+[    0.000000] node   0: [mem 0x0000000087f00000-0x0000000087ffffff]
+[    0.000000] node   0: [mem 0x0000000088000000-0x000000008b91bfff]
+[    0.000000] node   0: [mem 0x000000008b91c000-0x000000008b9fffff]
+[    0.000000] node   0: [mem 0x000000008ba00000-0x00000000a03fffff]
+[    0.000000] node   0: [mem 0x00000000a0400000-0x00000000a6dfffff]
+[    0.000000] node   0: [mem 0x00000000a6e00000-0x00000000a6e3ffff]
+[    0.000000] node   0: [mem 0x00000000a6e40000-0x00000000a6efffff]
+[    0.000000] node   0: [mem 0x00000000a6f00000-0x00000000a6ffffff]
+[    0.000000] node   0: [mem 0x00000000a7000000-0x00000000e05fffff]
+[    0.000000] node   0: [mem 0x00000000e0600000-0x00000000e56fffff]
+[    0.000000] node   0: [mem 0x00000000e5700000-0x00000000e87fffff]
+[    0.000000] node   0: [mem 0x00000000e8800000-0x00000000e9ffffff]
+[    0.000000] node   0: [mem 0x00000000f1400000-0x00000000ffffffff]
+[    0.000000] node   0: [mem 0x0000000800000000-0x00000008382fffff]
+[    0.000000] node   0: [mem 0x0000000840000000-0x0000000b7fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000080000000-0x0000000b7fffffff]
+[    0.000000] On node 0 totalpages: 4132608
+[    0.000000] Normal zone: 64572 pages used for memmap
+[    0.000000] Normal zone: 4132608 pages, LIFO batch:63
+[    0.000000] On node 0, zone Normal: 256 pages in unavailable ranges
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.
+[    0.000000] psci: SMC Calling Convention v1.0
+[    0.000000] psci: OSI mode supported.
+[    0.000000] Load bootconfig: 947 bytes 58 nodes
+[    0.000000] percpu: Embedded 33 pages/cpu s96536 r8192 d30440 u135168
+[    0.000000] pcpu-alloc: s96536 r8192 d30440 u135168 alloc=33*4096
+[    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 [0] 4 [0] 5 [0] 6 [0] 7 
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: SYS_ID_AA64MMFR1_EL1[11:8]: forced to 0
+[    0.000000] CPU features: detected: GIC system register CPU interface
+[    0.000000] CPU features: kernel page table isolation forced OFF by kpti command line option
+[    0.000000] CPU features: detected: Hardware dirty bit management
+[    0.000000] CPU features: detected: Spectre-v4
+[    0.000000] CPU features: detected: Address authentication (architected algorithm)
+[    0.000000] CPU features: detected: Branch Target Identification
+[    0.000000] CPU features: detected: ARM erratum 2457168
+[    0.000000] alternatives: patching kernel code
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 4068036
+[    0.000000] Kernel command line: stack_depot_disable=on kasan.stacktrace=off kvm-arm.mode=protected cgroup_disable=pressure cgroup.memory=nokmem console=ttyMSM0,115200n8 loglevel=6 kpti=0 log_buf_len=2M kernel.panic_on_rcu_stall=1 swiotlb=noforce loop.max_part=7 cgroup.memory=nokmem,nosocket pcie_ports=compat msm_rtb.filter=0x237 allow_mismatched_32bit_el0 kasan=off rcupdate.rcu_expedited=1 rcu_nocbs=0-7 ftrace_dump_on_oops pstore.compress=none cpufreq.default_governor=performance can.stats_timer=0 fsa4480_i2c.async_probe=1 slub_debug=- disable_dma32=on video=vfb:640x400,bpp=32,memsize=3072000 msm_geni_serial.con_enabled=0 bootconfig buildvariant=user  lk_version=V1.0 oplusboot.startupmode=hard_reset oplusboot.mode=reboot  phx_rus_conf.main_on=1 phx_rus_conf.recovery_method=2 phx_rus_conf.kernel_time=240 phx_rus_conf.android_time=250 smooth_soc_switch=0 backcover_type= simcardnum.simcardnum=1 oplusboot.prjname=22803 oplus.avbkeysha256=d8fbe5d80b6dccc8040b2835434566081c52
+[    0.000000] cgroup: Disabling pressure control group feature
+[    0.000000] printk: log_buf_len: 2097152 bytes
+[    0.000000] printk: early log buf free: 123384(94%)
+[    0.000000] Dentry cache hash table entries: 2097152 (order: 12, 16777216 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+[    0.000000] software IO TLB: mapped [mem 0x00000000ffffe000-0x00000000ffffe800] (0MB)
+[    0.000000] Memory: 11074960K/16530432K available (26752K kernel code, 2094K rwdata, 10528K rodata, 3136K init, 2027K bss, 1007216K reserved, 4448256K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1
+[    0.000000] 
+[    0.000000] **********************************************************
+[    0.000000] **   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
+[    0.000000] **                                                      **
+[    0.000000] ** trace_printk() being used. Allocating extra memory.  **
+[    0.000000] **                                                      **
+[    0.000000] ** This means that this is a DEBUG kernel and it is     **
+[    0.000000] ** unsafe for production use.                           **
+[    0.000000] **                                                      **
+[    0.000000] ** If you see this message and you are not debugging    **
+[    0.000000] ** the kernel, report this immediately to your vendor!  **
+[    0.000000] **                                                      **
+[    0.000000] **   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
+[    0.000000] **********************************************************
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] rcu: 	RCU dyntick-idle grace-period acceleration is enabled.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=32 to nr_cpu_ids=8.
+[    0.000000] rcu: 	RCU priority boosting: priority 1 delay 500 ms.
+[    0.000000] 	All grace periods are expedited (rcu_expedited).
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=8
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] GICv3: 988 SPIs implemented
+[    0.000000] GICv3: 0 Extended SPIs implemented
+[    0.000000] GICv3: Distributor has no Range Selector support
+[    0.000000] GICv3: 16 PPIs implemented
+[    0.000000] GICv3: Enabling SGIs without active state
+[    0.000000] GICv3: CPU0: found redistributor 0 region 0:0x0000000017180000
+[    0.000000] ITS [mem 0x17140000-0x1715ffff]
+[    0.000000] ITS@0x0000000017140000: Devices Table too large, reduce ids 32->19
+[    0.000000] ITS@0x0000000017140000: Devices too large, reduce ITS pages 1024->256
+[    0.000000] ITS@0x0000000017140000: allocated 131072 Devices @81300000 (indirect, esz 8, psz 4K, shr 1)
+[    0.000000] ITS@0x0000000017140000: allocated 4096 Interrupt Collections @8123b000 (flat, esz 1, psz 4K, shr 1)
+[    0.000000] GICv3: using LPI property table @0x0000000081250000
+[    0.000000] GICv3: CPU0: using allocated LPI pending table @0x0000000081260000
+[    0.000000] rcu: 	Offload RCU callbacks from CPUs: 0-7.
+[    0.000000] kfence: initialized - using 524288 bytes for 63 objects at 0x(____ptrval____)-0x(____ptrval____)
+[    0.000000] arch_timer: cp15 and mmio timer(s) running at 19.20MHz (virt/virt).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x46d987e47, max_idle_ns: 440795202767 ns
+[    0.000002] sched_clock: 56 bits at 19MHz, resolution 52ns, wraps every 4398046511078ns
+[    0.005878] Calibrating delay loop (skipped), value calculated using timer frequency.. 38.40 BogoMIPS (lpj=76800)
+[    0.005889] pid_max: default: 32768 minimum: 301
+[    0.005981] LSM: Security Framework initializing
+[    0.006017] SELinux:  Initializing.
+[    0.006127] Mount-cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.006143] Mountpoint-cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.007701] rcu: Hierarchical SRCU implementation.
+[    0.008315] Platform MSI: msi-controller@17140000 domain created
+[    0.009249] PCI/MSI: /soc/interrupt-controller@17100000/msi-controller@17140000 domain created
+[    0.010097] EFI services will not be available.
+[    0.010361] smp: Bringing up secondary CPUs ...
+[    0.011791] Detected PIPT I-cache on CPU1
+[    0.011812] GICv3: CPU1: found redistributor 100 region 0:0x00000000171c0000
+[    0.011929] GICv3: CPU1: using allocated LPI pending table @0x0000000081270000
+[    0.012020] CPU1: Booted secondary processor 0x0000000100 [0x410fd463]
+[    0.013643] Detected PIPT I-cache on CPU2
+[    0.013663] GICv3: CPU2: found redistributor 200 region 0:0x0000000017200000
+[    0.013772] GICv3: CPU2: using allocated LPI pending table @0x0000000081280000
+[    0.013856] CPU2: Booted secondary processor 0x0000000200 [0x410fd463]
+[    0.015504] Detected PIPT I-cache on CPU3
+[    0.015521] GICv3: CPU3: found redistributor 300 region 0:0x0000000017240000
+[    0.015625] GICv3: CPU3: using allocated LPI pending table @0x0000000081290000
+[    0.015705] CPU3: Booted secondary processor 0x0000000300 [0x410fd463]
+[    0.019379] CPU features: detected: ARM erratum 2067961 or 2054223
+[    0.019381] CPU features: detected: Spectre-BHB
+[    0.019389] Detected PIPT I-cache on CPU4
+[    0.019392] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x00000011212122, CPU4: 0x00000010212122
+[    0.019400] CPU features: Unsupported CPU feature variation detected.
+[    0.019406] GICv3: CPU4: found redistributor 400 region 0:0x0000000017280000
+[    0.019464] GICv3: CPU4: using allocated LPI pending table @0x00000000812a0000
+[    0.019524] CPU4: Booted secondary processor 0x0000000400 [0x412fd470]
+[    0.020873] Detected PIPT I-cache on CPU5
+[    0.020877] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x00000011212122, CPU5: 0x00000010212122
+[    0.020886] GICv3: CPU5: found redistributor 500 region 0:0x00000000172c0000
+[    0.020950] GICv3: CPU5: using allocated LPI pending table @0x00000000812b0000
+[    0.021011] CPU5: Booted secondary processor 0x0000000500 [0x412fd470]
+[    0.022384] Detected PIPT I-cache on CPU6
+[    0.022387] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x00000011212122, CPU6: 0x00000010212122
+[    0.022396] GICv3: CPU6: found redistributor 600 region 0:0x0000000017300000
+[    0.022455] GICv3: CPU6: using allocated LPI pending table @0x00000000812c0000
+[    0.022517] CPU6: Booted secondary processor 0x0000000600 [0x412fd470]
+[    0.026129] Detected PIPT I-cache on CPU7
+[    0.026131] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x00000011212122, CPU7: 0x00000010212122
+[    0.026139] GICv3: CPU7: found redistributor 700 region 0:0x0000000017340000
+[    0.026195] GICv3: CPU7: using allocated LPI pending table @0x00000000812d0000
+[    0.026252] CPU7: Booted secondary processor 0x0000000700 [0x412fd480]
+[    0.026308] smp: Brought up 1 node, 8 CPUs
+[    0.026335] SMP: Total of 8 processors activated.
+[    0.026338] CPU features: detected: Privileged Access Never
+[    0.026341] CPU features: detected: LSE atomic instructions
+[    0.026343] CPU features: detected: User Access Override
+[    0.026347] CPU features: detected: Common not Private translations
+[    0.026350] CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+[    0.026353] CPU features: detected: Stage-2 Force Write-Back
+[    0.026355] CPU features: detected: CRC32 instructions
+[    0.026358] CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+[    0.026360] CPU features: detected: Speculation barrier (SB)
+[    0.026362] CPU features: detected: Generic authentication (architected algorithm)
+[    0.026365] CPU features: detected: E0PD
+[    0.026368] CPU features: detected: ARMv8.4 Translation Table Level
+[    0.026370] CPU features: detected: TLB range maintenance instructions
+[    0.026373] CPU features: detected: RCpc load-acquire (LDAPR)
+[    0.056491] CPU features: detected CPU3: Activity Monitors Unit (AMU)
+[    0.056494] CPU features: detected CPU0: Activity Monitors Unit (AMU)
+[    0.056497] CPU features: detected CPU2: Activity Monitors Unit (AMU)
+[    0.056500] CPU features: detected CPU1: Activity Monitors Unit (AMU)
+[    0.056508] CPU features: detected CPU7: Activity Monitors Unit (AMU)
+[    0.056513] CPU features: detected CPU5: Activity Monitors Unit (AMU)
+[    0.056518] CPU features: detected CPU6: Activity Monitors Unit (AMU)
+[    0.056524] CPU features: detected CPU4: Activity Monitors Unit (AMU)
+[    0.087492] CPU: All CPU(s) started at EL1
+[    0.139520] Registered cp15_barrier emulation handler
+[    0.139531] Registered setend emulation handler
+[    0.139534] KASLR enabled
+[    0.139571] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.139579] futex hash table entries: 2048 (order: 5, 131072 bytes, linear)
+[    0.156154] CHP     1     1 I swapper/0       : huge_page_pool_init:557 success.
+[    0.156345] pinctrl core: initialized pinctrl subsystem
+[    0.156565] NET: Registered protocol family 16
+[    0.161247] DMA: preallocated 2048 KiB GFP_KERNEL pool for atomic allocations
+[    0.161298] audit: initializing netlink subsys (disabled)
+[    0.161408] audit: type=2000 audit(0.132:1): state=initialized audit_enabled=0 res=1
+[    0.161517] thermal_sys: Registered thermal governor 'step_wise'
+[    0.161519] thermal_sys: Registered thermal governor 'user_space'
+[    0.161520] thermal_sys: Registered thermal governor 'power_allocator'
+[    0.163050] thermal_sys: failed to build thermal zone cpu-1-5: -19
+[    0.164840] cpuidle: using governor menu
+[    0.164891] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.165034] ASID allocator initialised with 65536 entries
+[    0.165081] Serial: AMBA PL011 UART driver
+[    0.165214] printk: console [ramoops-1] enabled
+[    0.165226] pstore: Registered ramoops as persistent store backend
+[    0.165227] ramoops: using 0x240000@0xb7a5c0000, ecc: 0
+[    0.173391] OF: /soc/spf_core_platform/lpass-cdc/va-macro@33F0000: could not get #gpio-cells for /soc/interrupt-controller@17100000
+[    0.196561] iommu: Default domain type: Translated 
+[    0.196746] SCSI subsystem initialized
+[    0.196774] usbcore: registered new interface driver usbfs
+[    0.196783] usbcore: registered new interface driver hub
+[    0.196789] usbcore: registered new device driver usb
+[    0.196817] mc: Linux media interface: v0.10
+[    0.196821] videodev: Linux video capture interface: v2.00
+[    0.196843] EDAC MC: Ver: 3.0.0
+[    0.196971] CPUidle PSCI: Initialized CPU PM domain topology
+[    0.197191] Advanced Linux Sound Architecture Driver Initialized.
+[    0.197280] Bluetooth: Core ver 2.22
+[    0.197284] NET: Registered protocol family 31
+[    0.197284] Bluetooth: HCI device and connection manager initialized
+[    0.197286] Bluetooth: HCI socket layer initialized
+[    0.197288] Bluetooth: L2CAP socket layer initialized
+[    0.197290] Bluetooth: SCO socket layer initialized
+[    0.197314] nfc: nfc_init: NFC Core ver 0.1
+[    0.197318] NET: Registered protocol family 39
+[    0.197498] CPU features: Asymmetric 32-bit EL0 support detected on CPU 4; CPU hot-unplug disabled on CPU 4
+[    0.197732] clocksource: Switched to clocksource arch_sys_counter
+[    0.208672] VFS: Disk quotas dquot_6.6.0
+[    0.208689] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.208839] NET: Registered protocol family 2
+[    0.208949] IP idents hash table entries: 262144 (order: 9, 20
