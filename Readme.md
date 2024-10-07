@@ -12,7 +12,7 @@
 
 
 - 🌱 I’m currently learning AI
-- 🤔 I’m studing at Zhengzhou University now
+-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 - 💬 Ask me about game < my steam account : lightjunction.steam@gmail.com>
 - 📫 How to reach me: lightjunction.me@gmail.com
 - 😄 Pronouns:## LIghtJUNction
