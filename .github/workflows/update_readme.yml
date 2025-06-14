@@ -43,44 +43,52 @@ jobs:
           REPO_LIST_MD_VALUE: ${{ steps.run_script.outputs.REPO_LIST_MD }}
         run: |
           echo "Received Title Image Path: $TITLE_IMG_PATH_VALUE"
-          echo "Received Repo List Markdown: $REPO_LIST_MD_VALUE"
+          # REPO_LIST_MD_VALUE MIGHT BE MULTILINE
+          # echo "Received Repo List Markdown: $REPO_LIST_MD_VALUE"
 
           if [ -z "$TITLE_IMG_PATH_VALUE" ] || [ -z "$REPO_LIST_MD_VALUE" ]; then
             echo "Error: Script output variables are not set correctly."
             exit 1
           fi
 
+          # Write content to temporary files to safely handle special characters/newlines
+          echo "![最新项目]($TITLE_IMG_PATH_VALUE)" > title_image_insert.txt
+          echo "$REPO_LIST_MD_VALUE" > repo_list_insert.txt
+          # For debugging the content of repo_list_insert.txt
+          echo "--- repo_list_insert.txt content ---"
+          cat repo_list_insert.txt
+          echo "--- end of repo_list_insert.txt content ---"
+
           START_COMMENT_TITLE_IMG="<!-- START_DYNAMIC_TITLE_IMAGE -->"
           END_COMMENT_TITLE_IMG="<!-- END_DYNAMIC_TITLE_IMAGE -->"
           START_COMMENT_REPO_LIST="<!-- START_DYNAMIC_REPO_LIST -->"
           END_COMMENT_REPO_LIST="<!-- END_DYNAMIC_REPO_LIST -->"
 
-          # Create a temporary Readme.md for manipulations
           cp Readme.md Readme.md.tmp
 
-          # Update title image section
-          awk -v start="$START_COMMENT_TITLE_IMG" -v end="$END_COMMENT_TITLE_IMG" -v content="\n![最新项目]($TITLE_IMG_PATH_VALUE)\n" '
+          # Update title image section using the temporary file
+          awk -v start="$START_COMMENT_TITLE_IMG" -v end="$END_COMMENT_TITLE_IMG" '
           BEGIN {p=1}
-          $0 == start {print; print content; p=0}
+          $0 == start {print; printf "\n"; system("cat title_image_insert.txt"); printf "\n"; p=0}
           $0 == end {p=1}
           p {print}
           ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
 
-          # Update repo list section
-          awk -v start="$START_COMMENT_REPO_LIST" -v end="$END_COMMENT_REPO_LIST" -v content="\n${REPO_LIST_MD_VALUE}\n" '
+          # Update repo list section using the temporary file
+          awk -v start="$START_COMMENT_REPO_LIST" -v end="$END_COMMENT_REPO_LIST" '
           BEGIN {p=1}
-          $0 == start {print; print content; p=0}
+          $0 == start {print; printf "\n"; system("cat repo_list_insert.txt"); printf "\n"; p=0}
           $0 == end {p=1}
           p {print}
           ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
 
-          # Move temporary file to original
           mv Readme.md.tmp Readme.md
+          rm title_image_insert.txt repo_list_insert.txt
 
           echo "Readme.md updated locally."
-          echo "--- Updated Readme.md content ---"
-          cat Readme.md
-          echo "--- End of Readme.md content ---"
+          # echo "--- Updated Readme.md content ---"
+          # cat Readme.md # Avoid very long output in logs
+          # echo "--- End of Readme.md content ---"
 
       - name: Commit and push changes
         run: |
@@ -99,4 +107,4 @@ jobs:
           else
             echo "No changes to commit."
           fi
-
+```
