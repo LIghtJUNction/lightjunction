@@ -34,11 +34,19 @@
 
 ### ✨ 最新项目 (Latest Projects)
 <!-- START_DYNAMIC_TITLE_IMAGE -->
-<!-- 这个图片将由 Action 自动更新 -->
+
+![最新项目](generated_images/latest_projects_title.png)
+
 <!-- END_DYNAMIC_TITLE_IMAGE -->
 
 <!-- START_DYNAMIC_REPO_LIST -->
-<!-- 这个列表将由 Action 自动更新 -->
+
+- [Unicron](https://github.com/LIghtJUNction/Unicron): Magisk / Apatch / kernelsu , rmm project.
+- [gogogo](https://github.com/LIghtJUNction/gogogo): Rmm project 
+- [MagicSub](https://github.com/LIghtJUNction/MagicSub): An rmm Project Magisk Module , Use sub store on Android.
+- [MagicNet](https://github.com/LIghtJUNction/MagicNet): An Rmm project . Magic + Net
+- [RMMP](https://github.com/LIghtJUNction/RMMP): RMMP TEST
+
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
