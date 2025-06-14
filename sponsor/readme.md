@@ -11,6 +11,6 @@ https://afdian.com/a/lightjunction
 
 ## USDT
 0x93E3A17270938DC817350d2938FCdA04510e20FD
-
+0x382bd0664ea3f5c5f92d48a614ac6a590e639c14
 
 # 联系我 - <lightjunction.me@gmail.com>
