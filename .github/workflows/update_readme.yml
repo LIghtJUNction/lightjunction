@@ -1,0 +1,109 @@
+name: Update Readme Weekly
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # 每周日午夜运行 (UTC time)
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  update_readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 需要写入仓库内容的权限
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests Pillow numpy
+
+      - name: Run script to get data and generate image
+        id: run_script
+        run: |
+          python update_readme_data.py > script_output.txt
+          echo "TITLE_IMG_PATH=$(grep 'TITLE_IMG_PATH:' script_output.txt | cut -d':' -f2- | tr -d '\r\n')" >> $GITHUB_OUTPUT
+          echo "REPO_LIST_MD<<EOF" >> $GITHUB_OUTPUT
+          sed -n '/---REPO_LIST_START---/,/---REPO_LIST_END---/{ /---REPO_LIST_START---/d; /---REPO_LIST_END---/d; p; }' script_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "--- Script Output (script_output.txt) ---"
+          cat script_output.txt
+          echo "--- End of Script Output ---"
+
+      - name: Update Readme.md
+        env:
+          TITLE_IMG_PATH_VALUE: ${{ steps.run_script.outputs.TITLE_IMG_PATH }}
+          REPO_LIST_MD_VALUE: ${{ steps.run_script.outputs.REPO_LIST_MD }}
+        run: |
+          echo "Received Title Image Path: $TITLE_IMG_PATH_VALUE"
+          # REPO_LIST_MD_VALUE MIGHT BE MULTILINE
+          # echo "Received Repo List Markdown: $REPO_LIST_MD_VALUE"
+
+          if [ -z "$TITLE_IMG_PATH_VALUE" ] || [ -z "$REPO_LIST_MD_VALUE" ]; then
+            echo "Error: Script output variables are not set correctly."
+            exit 1
+          fi
+
+          # Write content to temporary files to safely handle special characters/newlines
+          echo "![最新项目]($TITLE_IMG_PATH_VALUE)" > title_image_insert.txt
+          echo "$REPO_LIST_MD_VALUE" > repo_list_insert.txt
+          # For debugging the content of repo_list_insert.txt
+          echo "--- repo_list_insert.txt content ---"
+          cat repo_list_insert.txt
+          echo "--- end of repo_list_insert.txt content ---"
+
+          START_COMMENT_TITLE_IMG="<!-- START_DYNAMIC_TITLE_IMAGE -->"
+          END_COMMENT_TITLE_IMG="<!-- END_DYNAMIC_TITLE_IMAGE -->"
+          START_COMMENT_REPO_LIST="<!-- START_DYNAMIC_REPO_LIST -->"
+          END_COMMENT_REPO_LIST="<!-- END_DYNAMIC_REPO_LIST -->"
+
+          cp Readme.md Readme.md.tmp
+
+          # Update title image section using the temporary file
+          awk -v start="$START_COMMENT_TITLE_IMG" -v end="$END_COMMENT_TITLE_IMG" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat title_image_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+
+          # Update repo list section using the temporary file
+          awk -v start="$START_COMMENT_REPO_LIST" -v end="$END_COMMENT_REPO_LIST" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat repo_list_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+
+          mv Readme.md.tmp Readme.md
+          rm title_image_insert.txt repo_list_insert.txt
+
+          echo "Readme.md updated locally."
+          # echo "--- Updated Readme.md content ---"
+          # cat Readme.md # Avoid very long output in logs
+          # echo "--- End of Readme.md content ---"
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # git status # For debugging
+
+          # Check if there are any changes in Readme.md or the generated_images directory
+          # Add generated_images/* to ensure any new or modified image is included.
+          if ! git diff --quiet Readme.md generated_images/; then
+            echo "Changes detected in Readme.md or generated_images/."
+            git add Readme.md generated_images/
+            git commit -m "自动化: 更新最新项目列表和标题图片 (Automated: Update latest projects and title image)"
+            git push
+          else
+            echo "No changes to commit."
+          fi
