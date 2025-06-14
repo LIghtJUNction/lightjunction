@@ -1,32 +1,34 @@
 ### Hi there 👋   
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
-  <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=lightjunction&show_icons=true&theme=merko&card_width=824" />
+  <img height=200 src="https://github-readme-stats.vercel.app/api?username=lightjunction&show_icons=true&theme=tokyonight" />
 </a>
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
-  <img height=50 align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=lightjunction&layout=compact&langs_count=8&card_width=4000&show_icons=true&theme=merko" />
+  <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs?username=lightjunction&layout=compact&langs_count=8&show_icons=true&theme=tokyonight" />
 </a>
 
 ---
 
 ### 🙋‍♂️ 关于我 (About Me)
 <!-- 在这里写下关于您的简介 -->
-我是一名热衷于探索新技术的开发者。欢迎来到我的 GitHub 主页！
+你好！我是一名充满热情的开发者，专注于创造实用且富有创意的解决方案。我对探索新技术和分享知识充满兴趣。欢迎访问我的 GitHub 主页，期待与你交流！
 
 ---
 
 ### 🛠️ 我的技能 (My Skills)
 <!-- 列出您的主要技能，例如：Python, JavaScript, Docker, K8s, AI/ML -->
-- 技能1
-- 技能2
-- 技能3
+- **Programming Languages:** Python, JavaScript, Java, C++
+- **Frameworks & Libraries:** React, Node.js, Django, Spring Boot
+- **Tools & Platforms:** Git, Docker, Kubernetes, AWS
+- **Databases:** MySQL, PostgreSQL, MongoDB
 
 ---
 
 ### 🎯 当前重点 (Current Focus)
 <!-- 描述您目前正在学习或从事的项目/领域 -->
-- 🌱 我目前正在深入学习人工智能 (AI) 领域。
-- 💡 我对 [具体AI方向，例如：自然语言处理、计算机视觉] 特别感兴趣。
+- 🌱 我目前正在深入学习人工智能 (AI) 及其在自然语言处理 (NLP) 和计算机视觉 (CV) 中的应用。
+- 💡 我对构建智能聊天机器人和图像识别系统特别感兴趣，并积极探索相关的最新研究。
+- 🚀 我正在进行一个关于智能文本摘要器的项目。
 
 ---
 
@@ -44,9 +46,8 @@
 <details>
   <summary>💬 其他信息 (More Info)</summary>
 
-  - 🎮 问我关于游戏的事情 (Ask me about games) &lt; my steam account : lightjunction.steam@gmail.com&gt;
+  - 🎮 问我关于游戏的事情 (Ask me about games) - [My Steam Profile](https://steamcommunity.com/id/LIghtJUNction/)
   - 📫 如何联系我 (How to reach me): lightjunction.me@gmail.com
-  - 😄 代词 (Pronouns): ## LIghtJUNction
   - ⚡ 有趣的事实 (Fun fact): ## O(∩_∩)O
 
 </details>
