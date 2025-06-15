@@ -9,26 +9,6 @@
 
 ---
 
-### 🙋‍♂️ 关于我 (About Me)
-<!-- 在这里写下关于您的简介 -->
-你好！我是一名充满热情的开发者，专注于创造实用且富有创意的解决方案。我对探索新技术和分享知识充满兴趣。欢迎访问我的 GitHub 主页，期待与你交流！
-
----
-
-### 🛠️ 我的技能 (My Skills)
-<!-- 列出您的主要技能，例如：Python, JavaScript, Docker, K8s, AI/ML -->
-- **Programming Languages:** Python, JavaScript, Java, C++
-- **Frameworks & Libraries:** React, Node.js, Django, Spring Boot
-- **Tools & Platforms:** Git, Docker, Kubernetes, AWS
-- **Databases:** MySQL, PostgreSQL, MongoDB
-
----
-
-### 🎯 当前重点 (Current Focus)
-<!-- 描述您目前正在学习或从事的项目/领域 -->
-- 🌱 我目前正在深入学习人工智能 (AI) 及其在自然语言处理 (NLP) 和计算机视觉 (CV) 中的应用。
-- 💡 我对构建智能聊天机器人和图像识别系统特别感兴趣，并积极探索相关的最新研究。
-- 🚀 我正在进行一个关于智能文本摘要器的项目。
 
 ---
 
