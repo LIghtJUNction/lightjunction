@@ -21,11 +21,11 @@
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- [Action_OnePlus_MKSU_SUSFS](https://github.com/LIghtJUNction/Action_OnePlus_MKSU_SUSFS): 使用Github Action自动编译一加SukiSU内核
+- [Payload_Repack_Tool](https://github.com/LIghtJUNction/Payload_Repack_Tool): Android payload.bin repack tool
+- [rmmp](https://github.com/LIghtJUNction/rmmp): No description available.
 - [Unicron](https://github.com/LIghtJUNction/Unicron): Magisk / Apatch / kernelsu , rmm project.
 - [gogogo](https://github.com/LIghtJUNction/gogogo): Rmm project 
-- [MagicSub](https://github.com/LIghtJUNction/MagicSub): An rmm Project Magisk Module , Use sub store on Android.
-- [MagicNet](https://github.com/LIghtJUNction/MagicNet): An Rmm project . Magic + Net
-- [YumeDark](https://github.com/LIghtJUNction/YumeDark): A blend of Dark and pink theme.
 
 <!-- END_DYNAMIC_REPO_LIST -->
 
