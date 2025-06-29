@@ -21,11 +21,11 @@
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- [zed](https://github.com/LIghtJUNction/zed): Code at the speed of thought – Zed is a high-performance, multiplayer code editor from the creators of Atom and Tree-sitter.--windows
 - [Action_OnePlus_MKSU_SUSFS](https://github.com/LIghtJUNction/Action_OnePlus_MKSU_SUSFS): 使用Github Action自动编译一加SukiSU内核
 - [Payload_Repack_Tool](https://github.com/LIghtJUNction/Payload_Repack_Tool): Android payload.bin repack tool
 - [rmmp](https://github.com/LIghtJUNction/rmmp): No description available.
 - [Unicron](https://github.com/LIghtJUNction/Unicron): Magisk / Apatch / kernelsu , rmm project.
-- [gogogo](https://github.com/LIghtJUNction/gogogo): Rmm project 
 
 <!-- END_DYNAMIC_REPO_LIST -->
 
