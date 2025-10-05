@@ -24,6 +24,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests Pillow numpy
+          
+      - name: Install Chinese fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk
 
       - name: Run script to get data and generate image
         id: run_script
@@ -41,9 +46,6 @@ jobs:
           echo "SUMMARY_MD<<EOF" >> $GITHUB_OUTPUT
           sed -n '/---SUMMARY_START---/,/---SUMMARY_END---/{ /---SUMMARY_START---/d; /---SUMMARY_END---/d; p; }' script_output.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-          echo "AI_ACTIONS_MD<<EOF" >> $GITHUB_OUTPUT
-          sed -n '/---AI_ACTIONS_START---/,/---AI_ACTIONS_END---/{ /---AI_ACTIONS_START---/d; /---AI_ACTIONS_END---/d; p; }' script_output.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
           echo "--- Script Output (script_output.txt) ---"
           cat script_output.txt
           echo "--- End of Script Output ---"
@@ -54,7 +56,6 @@ jobs:
           REPO_LIST_MD_VALUE: ${{ steps.run_script.outputs.REPO_LIST_MD }}
           COMMITS_MD_VALUE: ${{ steps.run_script.outputs.COMMITS_MD }}
           SUMMARY_MD_VALUE: ${{ steps.run_script.outputs.SUMMARY_MD }}
-          AI_ACTIONS_MD_VALUE: ${{ steps.run_script.outputs.AI_ACTIONS_MD }}
         run: |
           echo "Received Title Image Path: $TITLE_IMG_PATH_VALUE"
 
@@ -68,7 +69,6 @@ jobs:
           echo "$REPO_LIST_MD_VALUE" > repo_list_insert.txt
           echo "$COMMITS_MD_VALUE" > commits_insert.txt
           echo "$SUMMARY_MD_VALUE" > summary_insert.txt
-          echo "$AI_ACTIONS_MD_VALUE" > ai_actions_insert.txt
           
           # For debugging
           echo "--- repo_list_insert.txt content ---"
@@ -83,8 +83,6 @@ jobs:
           END_COMMENT_COMMITS="<!-- END_DYNAMIC_COMMITS -->"
           START_COMMENT_SUMMARY="<!-- START_DYNAMIC_SUMMARY -->"
           END_COMMENT_SUMMARY="<!-- END_DYNAMIC_SUMMARY -->"
-          START_COMMENT_AI_ACTIONS="<!-- START_DYNAMIC_AI_ACTIONS -->"
-          END_COMMENT_AI_ACTIONS="<!-- END_DYNAMIC_AI_ACTIONS -->"
 
           cp Readme.md Readme.md.tmp
 
@@ -120,16 +118,8 @@ jobs:
           p {print}
           ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
 
-          # Update AI actions section
-          awk -v start="$START_COMMENT_AI_ACTIONS" -v end="$END_COMMENT_AI_ACTIONS" '
-          BEGIN {p=1}
-          $0 == start {print; printf "\n"; system("cat ai_actions_insert.txt"); printf "\n"; p=0}
-          $0 == end {p=1}
-          p {print}
-          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
-
           mv Readme.md.tmp Readme.md
-          rm title_image_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt ai_actions_insert.txt
+          rm title_image_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt
 
           echo "Readme.md updated locally."
 
@@ -140,12 +130,12 @@ jobs:
 
           # git status # For debugging
 
-          # Check if there are any changes in Readme.md or the generated_images directory
-          # Add generated_images/* to ensure any new or modified image is included.
-          if ! git diff --quiet Readme.md generated_images/; then
-            echo "Changes detected in Readme.md or generated_images/."
-            git add Readme.md generated_images/
-            git commit -m "自动化: 更新最新项目列表和标题图片 (Automated: Update latest projects and title image)"
+          # Check if there are any changes in Readme.md, generated_images directory, or archives
+          # Add archives/* to ensure archived reports are committed
+          if ! git diff --quiet Readme.md generated_images/ archives/ 2>/dev/null || [ -n "$(git ls-files --others --exclude-standard archives/)" ]; then
+            echo "Changes detected in Readme.md, generated_images/, or archives/."
+            git add Readme.md generated_images/ archives/
+            git commit -m "自动化: 更新最新项目列表、标题图片和周报存档 (Automated: Update latest projects, title image, and weekly report archives)"
             git push
           else
             echo "No changes to commit."

@@ -8,17 +8,17 @@ This script automatically updates your GitHub profile README with:
 - Latest repository information with detailed stats
 - Recent commits from the last 7 days
 - Weekly activity summary
-- GitHub Actions + AI integration resources
+- Automatic archival of previous weekly reports
 
 Features:
 - GitHub API authentication to avoid rate limits
-- Beautiful gradient title images
+- Beautiful gradient title images with Chinese character support
 - Collapsible sections for better readability
 - Detailed repository statistics (stars, forks, language, last update)
-- AI-enhanced content discovery
+- Weekly report archival system with 4-year retention
 
 Author: LIghtJUNction
-Updated: 2024
+Updated: 2025
 """
 
 import requests
@@ -26,6 +26,8 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 from datetime import datetime, timedelta
 import json
+import shutil
+import glob
 
 def generate_title_image(text, width, height, font_path="arial.ttf", font_size=50, stats=None):
     """Generates a title image with the given text and optional statistics."""
@@ -220,59 +222,9 @@ def format_commits_to_markdown(commits):
     
     return "\n".join(markdown_list)
 
-def search_github_ai_actions(token='', max_results=5):
-    """Search for popular GitHub Actions related to AI."""
-    search_queries = [
-        'github actions AI topic:actions stars:>100',
-        'github actions machine learning topic:actions stars:>50',
-        'github actions openai topic:actions',
-    ]
-    
-    all_results = []
-    seen_repos = set()
-    
-    for query in search_queries:
-        search_url = f"https://api.github.com/search/repositories?q={query}&sort=stars&order=desc&per_page=5"
-        data = make_github_request(search_url, token)
-        
-        if data and 'items' in data:
-            for item in data['items']:
-                repo_full_name = item.get('full_name', '')
-                if repo_full_name not in seen_repos:
-                    seen_repos.add(repo_full_name)
-                    all_results.append({
-                        'name': item.get('name', ''),
-                        'full_name': repo_full_name,
-                        'url': item.get('html_url', ''),
-                        'description': item.get('description', 'No description available.'),
-                        'stars': item.get('stargazers_count', 0),
-                        'language': item.get('language', 'Unknown')
-                    })
-        
-        if len(all_results) >= max_results:
-            break
-    
-    return all_results[:max_results]
 
-def format_ai_actions_to_markdown(actions):
-    """Format AI-related GitHub Actions into markdown."""
-    if not actions:
-        return "No AI-related GitHub Actions found."
-    
-    markdown_list = []
-    markdown_list.append("以下是一些与 GitHub Actions 和 AI 集成相关的热门项目：\n")
-    
-    for action in actions:
-        description = action['description'].replace('\n', ' ').replace('\r', '')
-        markdown_list.append(
-            f"- **[{action['full_name']}]({action['url']})** ⭐ {action['stars']}\n"
-            f"  - {description}\n"
-            f"  - 💻 Language: {action['language']}"
-        )
-    
-    return "\n".join(markdown_list)
 
-def get_weekly_summary(username, token=''):
+def get_weekly_summary(username, token='', previous_archive_link=''):
     """Generate a weekly summary of user activities."""
     repos = get_latest_repos(username, count=10, token=token)
     commits = get_recent_commits(username, token=token, days=7, max_commits=20)
@@ -299,7 +251,89 @@ def get_weekly_summary(username, token=''):
     if repos:
         summary.append(f"\n- 🔄 最近更新的仓库: **{repos[0].get('name')}**")
     
+    # Add link to previous week's report if available
+    if previous_archive_link:
+        summary.append(f"\n- 📋 [查看上周报告 (View Last Week's Report)]({previous_archive_link})")
+    
     return "\n".join(summary)
+
+def archive_weekly_report(readme_path='Readme.md', archive_dir='archives/weekly_reports', max_archives=208):
+    """
+    Archive the current README as a weekly report.
+    
+    Args:
+        readme_path: Path to the README file
+        archive_dir: Directory to store archived reports
+        max_archives: Maximum number of archives to keep (default: 208 = 4 years of weekly reports)
+    
+    Returns:
+        str: Path to the archived file (relative path for GitHub links)
+    """
+    # Create archive directory if it doesn't exist
+    os.makedirs(archive_dir, exist_ok=True)
+    
+    # Check if README exists
+    if not os.path.exists(readme_path):
+        print(f"Warning: {readme_path} not found, cannot archive.")
+        return None
+    
+    # Generate timestamp for archive filename
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    archive_filename = f"weekly_report_{timestamp}.md"
+    archive_path = os.path.join(archive_dir, archive_filename)
+    
+    # Copy current README to archive
+    try:
+        shutil.copy2(readme_path, archive_path)
+        print(f"Archived weekly report to: {archive_path}")
+    except Exception as e:
+        print(f"Error archiving report: {e}")
+        return None
+    
+    # Clean up old archives if we exceed max_archives
+    cleanup_old_archives(archive_dir, max_archives)
+    
+    return archive_path
+
+def cleanup_old_archives(archive_dir, max_archives):
+    """
+    Remove oldest archives if we exceed the maximum number.
+    
+    Args:
+        archive_dir: Directory containing archived reports
+        max_archives: Maximum number of archives to keep
+    """
+    # Get all archive files sorted by modification time (oldest first)
+    archive_pattern = os.path.join(archive_dir, "weekly_report_*.md")
+    archives = sorted(glob.glob(archive_pattern), key=os.path.getmtime)
+    
+    # Remove oldest archives if we exceed the limit
+    if len(archives) > max_archives:
+        archives_to_remove = archives[:len(archives) - max_archives]
+        for archive in archives_to_remove:
+            try:
+                os.remove(archive)
+                print(f"Removed old archive: {archive}")
+            except Exception as e:
+                print(f"Error removing archive {archive}: {e}")
+
+def get_latest_archive_link(archive_dir='archives/weekly_reports'):
+    """
+    Get the relative link to the most recent archived report.
+    
+    Args:
+        archive_dir: Directory containing archived reports
+    
+    Returns:
+        str: Relative path to the latest archive, or empty string if none found
+    """
+    archive_pattern = os.path.join(archive_dir, "weekly_report_*.md")
+    archives = sorted(glob.glob(archive_pattern), key=os.path.getmtime, reverse=True)
+    
+    if archives:
+        # Return relative path for GitHub
+        return archives[0]
+    return ''
 
 if __name__ == "__main__":
     # Create generated_images directory if it doesn't exist
@@ -321,35 +355,33 @@ if __name__ == "__main__":
     title_image_height = 120
     title_font_size = 40
 
-    # Attempt to use a common Chinese font, fallback to arial or default
-    # Common fonts on typical CI/CD runners might be limited.
-    # Noto Sans CJK is a good option if available.
-    # For broader compatibility, stick to common system fonts or ensure font installation.
+    # Use Noto Sans CJK for proper Chinese character rendering
+    # Priority order: Noto Sans CJK (best for Chinese) > Liberation > DejaVu > fallback
     font_paths = [
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+        "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
         "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
-        "msyh.ttc", 
-        "simsun.ttc", 
-        "NotoSansCJK-Regular.otf", 
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "msyh.ttc",  # Microsoft YaHei (Windows)
+        "simsun.ttc",  # SimSun (Windows)
         "arial.ttf"
     ]
-    selected_font_path = "arial.ttf" # Default fallback
+    selected_font_path = "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc" # Default
 
     font_found = False
     for font_path_option in font_paths:
         try:
-            # Test if font can be loaded - this doesn't guarantee it has Chinese glyphs
-            # but it's a basic check for font file availability.
-            ImageFont.truetype(font_path_option, 10)
+            # Test if font can be loaded with Chinese characters
+            test_font = ImageFont.truetype(font_path_option, 10)
             selected_font_path = font_path_option
             font_found = True
             print(f"Using font: {selected_font_path}")
             break
-        except IOError:
-            print(f"Font {font_path_option} not found or cannot be opened.")
+        except (IOError, OSError) as e:
+            print(f"Font {font_path_option} not found or cannot be opened: {e}")
 
     if not font_found:
-        print("None of the specified fonts were found. Will rely on Pillow's default font or a basic system font.")
+        print("Warning: None of the specified fonts were found. Chinese characters may not render correctly.")
 
     title_image = generate_title_image(
         title_text, 
@@ -382,19 +414,18 @@ if __name__ == "__main__":
     print(commits_markdown)
     print("---COMMITS_END---")
 
-    # Generate weekly summary
+    # Archive current README before generating new content
+    print("Archiving previous weekly report...")
+    archive_path = archive_weekly_report(readme_path='Readme.md', archive_dir='archives/weekly_reports', max_archives=208)
+    
+    # Get link to latest archive for inclusion in summary
+    previous_archive_link = get_latest_archive_link('archives/weekly_reports')
+    print(f"Previous archive link: {previous_archive_link}")
+
+    # Generate weekly summary with link to previous report
     print("Generating weekly summary...")
-    weekly_summary = get_weekly_summary(github_username, token=github_token)
+    weekly_summary = get_weekly_summary(github_username, token=github_token, previous_archive_link=previous_archive_link)
 
     print("---SUMMARY_START---")
     print(weekly_summary)
     print("---SUMMARY_END---")
-
-    # Search for AI-related GitHub Actions
-    print("Searching for AI-related GitHub Actions...")
-    ai_actions = search_github_ai_actions(token=github_token, max_results=5)
-    ai_actions_markdown = format_ai_actions_to_markdown(ai_actions)
-
-    print("---AI_ACTIONS_START---")
-    print(ai_actions_markdown)
-    print("---AI_ACTIONS_END---")
