@@ -29,6 +29,126 @@ import json
 import shutil
 import glob
 
+def generate_3d_pixel_text_image(text, width, height, font_path="arial.ttf", font_size=50, stats=None):
+    """
+    Generate 3D pixel-style text inspired by Minecraft/cube-3d-text.
+    Creates a layered 3D effect with depth and shadows.
+    
+    Args:
+        text: The text to render in 3D pixel style
+        width: Image width
+        height: Image height  
+        font_path: Path to font file
+        font_size: Size of the font
+        stats: Optional statistics to add to the image
+    
+    Returns:
+        PIL Image object or None if failed
+    """
+    try:
+        # Load font
+        try:
+            font = ImageFont.truetype(font_path, font_size)
+            small_font = ImageFont.truetype(font_path, font_size // 2)
+        except IOError:
+            print(f"Font not found at {font_path}, using default font.")
+            font = ImageFont.load_default()
+            small_font = ImageFont.load_default()
+        
+        # Create image with gradient background (sky-like)
+        image = Image.new("RGB", (width, height), color="white")
+        draw = ImageDraw.Draw(image)
+        
+        # Draw gradient background (from darker blue at top to lighter at bottom)
+        for i in range(height):
+            # Gradient from darker blue to lighter blue (Minecraft sky-like)
+            r = int(100 + (180 - 100) * i / height)
+            g = int(149 + (220 - 149) * i / height)
+            b = int(237 + (255 - 237) * i / height)
+            draw.rectangle([(0, i), (width, i + 1)], fill=(r, g, b))
+        
+        # Calculate text size and position
+        try:
+            text_bbox = draw.textbbox((0, 0), text, font=font)
+        except AttributeError:
+            text_width, text_height = draw.textsize(text, font=font)
+            text_bbox = (0, 0, text_width, text_height)
+        
+        text_width = text_bbox[2] - text_bbox[0]
+        text_height = text_bbox[3] - text_bbox[1]
+        
+        # Center the main text
+        base_x = (width - text_width) // 2
+        base_y = (height - text_height) // 2 - (15 if stats else 0)
+        
+        # Draw 3D depth layers (creating the cube/block effect)
+        depth = 6  # Number of layers for 3D effect
+        
+        # Draw back layers (darker, creating depth)
+        for d in range(depth, 0, -1):
+            offset_x = base_x + d
+            offset_y = base_y + d
+            
+            # Calculate shadow color (darker as we go deeper)
+            shadow_factor = d / depth
+            shadow_r = int(40 * shadow_factor)
+            shadow_g = int(40 * shadow_factor)
+            shadow_b = int(60 * shadow_factor)
+            
+            draw.text((offset_x, offset_y), text, font=font, fill=(shadow_r, shadow_g, shadow_b))
+        
+        # Draw side faces for 3D cube effect
+        # Right side face (slightly darker)
+        for d in range(depth):
+            side_x = base_x + depth + d
+            side_y = base_y + d
+            draw.text((side_x, side_y), text, font=font, fill=(80, 60, 20))
+        
+        # Bottom face (darkest)
+        for d in range(depth):
+            bottom_x = base_x + d
+            bottom_y = base_y + depth + d
+            draw.text((bottom_x, bottom_y), text, font=font, fill=(60, 50, 10))
+        
+        # Draw the front face (brightest - main text)
+        # Add a slight outline first for better definition
+        outline_color = (200, 180, 50)
+        for dx, dy in [(-1,-1), (-1,1), (1,-1), (1,1)]:
+            draw.text((base_x + dx, base_y + dy), text, font=font, fill=outline_color)
+        
+        # Main text in bright yellow/gold (Minecraft-style gold)
+        draw.text((base_x, base_y), text, font=font, fill=(255, 215, 0))
+        
+        # Add highlight on top edge for more 3D effect
+        highlight_y = base_y - 1
+        draw.text((base_x, highlight_y), text, font=font, fill=(255, 255, 150))
+        
+        # Add statistics if provided
+        if stats:
+            stats_y = base_y + text_height + depth + 15
+            stats_text = f"📊 {stats.get('repos', 0)} Repos | ⭐ {stats.get('stars', 0)} Stars | 🍴 {stats.get('forks', 0)} Forks"
+            
+            try:
+                stats_bbox = draw.textbbox((0, 0), stats_text, font=small_font)
+                stats_width = stats_bbox[2] - stats_bbox[0]
+            except AttributeError:
+                stats_width, _ = draw.textsize(stats_text, font=small_font)
+            
+            stats_x = (width - stats_width) // 2
+            
+            # Draw stats with shadow for readability
+            draw.text((stats_x + 1, stats_y + 1), stats_text, font=small_font, fill=(50, 50, 50))
+            draw.text((stats_x, stats_y), stats_text, font=small_font, fill=(255, 255, 255))
+        
+        print(f"3D pixel text image generated successfully")
+        return image
+        
+    except Exception as e:
+        print(f"Error generating 3D pixel text: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+
 def generate_title_image(text, width, height, font_path="arial.ttf", font_size=50, stats=None):
     """Generates a title image with the given text and optional statistics."""
     try:
@@ -383,7 +503,11 @@ if __name__ == "__main__":
     if not font_found:
         print("Warning: None of the specified fonts were found. Chinese characters may not render correctly.")
 
-    title_image = generate_title_image(
+    title_image_path = "generated_images/latest_projects_title.png"
+    
+    # Generate 3D pixel-style text (inspired by cube-3d-text/Minecraft)
+    print("Generating 3D pixel-style title image...")
+    title_image = generate_3d_pixel_text_image(
         title_text, 
         title_image_width, 
         title_image_height, 
@@ -391,7 +515,19 @@ if __name__ == "__main__":
         font_size=title_font_size,
         stats=user_stats
     )
-    title_image_path = "generated_images/latest_projects_title.png"
+    
+    # If 3D generation fails, fall back to the traditional method
+    if title_image is None:
+        print("3D generation failed, using fallback title image generation...")
+        title_image = generate_title_image(
+            title_text, 
+            title_image_width, 
+            title_image_height, 
+            font_path=selected_font_path, 
+            font_size=title_font_size,
+            stats=user_stats
+        )
+    
     title_image.save(title_image_path)
 
     print(f"TITLE_IMG_PATH:{title_image_path}")
