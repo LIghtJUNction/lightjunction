@@ -23,7 +23,13 @@
 
 ### 📊 本周活动摘要 (Weekly Activity Summary)
 
-- 📝 本周暂无提交活动
+- 📝 本周共有 **7** 次提交分布在 **3** 个仓库中
+- 🔥 最活跃的仓库:
+  - **PeakMods**: 5 次提交
+  - **lightjunction**: 1 次提交
+  - **Foothold**: 1 次提交
+
+- 🔄 最近更新的仓库: **lightjunction**
 
 <!-- END_DYNAMIC_SUMMARY -->
 
@@ -31,11 +37,16 @@
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-- [zed](https://github.com/LIghtJUNction/zed): Code at the speed of thought – Zed is a high-performance, multiplayer code editor from the creators of Atom and Tree-sitter.--windows
-- [Action_OnePlus_MKSU_SUSFS](https://github.com/LIghtJUNction/Action_OnePlus_MKSU_SUSFS): 使用Github Action自动编译一加SukiSU内核
-- [Payload_Repack_Tool](https://github.com/LIghtJUNction/Payload_Repack_Tool): Android payload.bin repack tool
-- [rmmp](https://github.com/LIghtJUNction/rmmp): No description available.
-- [Unicron](https://github.com/LIghtJUNction/Unicron): Magisk / Apatch / kernelsu , rmm project.
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - 📊 `⭐ 1 | 🍴 0 | 💻 Python | 🕒 2025-10-05`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - peak modding
+  - 📊 `⭐ 1 | 🍴 0 | 💻 C# | 🕒 2025-10-05`
+- **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
+  - 📊 `⭐ 36 | 🍴 5 | 💻 Shell | 🕒 2025-10-04`
+- **[Foothold](https://github.com/LIghtJUNction/Foothold)** - A mod for PEAK that visualizes standable ground
+  - 📊 `⭐ 0 | 🍴 0 | 💻 C# | 🕒 2025-10-04`
+- **[rmmp](https://github.com/LIghtJUNction/rmmp)** - No description available.
+  - 📊 `⭐ 0 | 🍴 0 | 💻 Go | 🕒 2025-10-02`
 
 <!-- END_DYNAMIC_REPO_LIST -->
 
@@ -46,7 +57,13 @@
 
 <!-- START_DYNAMIC_COMMITS -->
 
-No recent commits found.
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [36bcd2e](https://github.com/LIghtJUNction/lightjunction/commit/36bcd2eb313b276e9b8072dc9ad1033324f1965e) - Merge pull request #2 from LIghtJUNction/copilot/fix-b9d16e1c-b43f-4715-ac57-cc54740a770a `2025-10-05 18:21`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [6148fb2](https://github.com/LIghtJUNction/PeakMods/commit/6148fb23fc86048b7f84bdfacfb4c238b7faa96c) - Merge branch 'main' of https://github.com/LIghtJUNction/PeakMods `2025-10-05 05:09`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [5e277b0](https://github.com/LIghtJUNction/PeakMods/commit/5e277b0f729ec160448621d4cfa92703c00ae900) - x `2025-10-05 05:08`
+- **[Foothold](https://github.com/LIghtJUNction/Foothold)** - [d01707d](https://github.com/LIghtJUNction/Foothold/commit/d01707d30286964a097846d3aff2f4850f629d03) - Merge pull request #1 from LIghtJUNction/copilot/fix-4b6933fb-007c-46fa-b860-5808f5242e9b `2025-10-04 20:05`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [89513ed](https://github.com/LIghtJUNction/PeakMods/commit/89513edef07c8a9fa7adef233b029148c6b1a28f) - Merge pull request #2 from LIghtJUNction/copilot/fix-1f08d49d-404a-4e38-8d3c-e3845d588818 `2025-10-04 18:37`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [d04925c](https://github.com/LIghtJUNction/PeakMods/commit/d04925cffb6942b4c5450aaf27851376abeb265f) - Delete img directory `2025-10-04 17:46`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [83bc8ff](https://github.com/LIghtJUNction/PeakMods/commit/83bc8ff63ad115e78b21d75dbe51d7a7773a4a10) - Update PeakChatOps section in README.md `2025-10-04 17:45`
 
 <!-- END_DYNAMIC_COMMITS -->
 
@@ -59,7 +76,23 @@ No recent commits found.
 
 <!-- START_DYNAMIC_AI_ACTIONS -->
 
-No AI-related GitHub Actions found.
+以下是一些与 GitHub Actions 和 AI 集成相关的热门项目：
+
+- **[google-github-actions/run-gemini-cli](https://github.com/google-github-actions/run-gemini-cli)** ⭐ 1346
+  - A GitHub Action invoking the Gemini CLI.
+  - 💻 Language: Shell
+- **[MaurerKrisztian/issue-improver-action](https://github.com/MaurerKrisztian/issue-improver-action)** ⭐ 10
+  - GitHub Action that automates issue improvement suggestions using OpenAI GPT.
+  - 💻 Language: TypeScript
+- **[SamYuan1990/OpenAI_CodeAgent-action](https://github.com/SamYuan1990/OpenAI_CodeAgent-action)** ⭐ 9
+  - A Github action which invokes openAI API as GenAI agent and coding in pipeline offline.
+  - 💻 Language: JavaScript
+- **[mattsavarino/ai-code-review](https://github.com/mattsavarino/ai-code-review)** ⭐ 4
+  - AI Code Review with GitHub Actions
+  - 💻 Language: None
+- **[mateoguzmana/semantic-pr-composer](https://github.com/mateoguzmana/semantic-pr-composer)** ⭐ 4
+  - Compose a pull request title and description based on a semantic branch name. Includes optional OpenAI integration
+  - 💻 Language: TypeScript
 
 <!-- END_DYNAMIC_AI_ACTIONS -->
 
