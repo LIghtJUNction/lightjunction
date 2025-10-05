@@ -277,8 +277,8 @@ def archive_weekly_report(readme_path='Readme.md', archive_dir='archives/weekly_
         print(f"Warning: {readme_path} not found, cannot archive.")
         return None
     
-    # Generate timestamp for archive filename
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # Generate timestamp for archive filename with microseconds to ensure uniqueness
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
     archive_filename = f"weekly_report_{timestamp}.md"
     archive_path = os.path.join(archive_dir, archive_filename)
     
