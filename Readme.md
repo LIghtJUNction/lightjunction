@@ -19,6 +19,16 @@
 
 <!-- END_DYNAMIC_TITLE_IMAGE -->
 
+<!-- START_DYNAMIC_SUMMARY -->
+
+### 📊 本周活动摘要 (Weekly Activity Summary)
+
+- 📝 本周暂无提交活动
+
+<!-- END_DYNAMIC_SUMMARY -->
+
+---
+
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - [zed](https://github.com/LIghtJUNction/zed): Code at the speed of thought – Zed is a high-performance, multiplayer code editor from the creators of Atom and Tree-sitter.--windows
@@ -32,13 +42,26 @@
 ---
 
 <details>
-  <summary>📝 近期提交 (Recent Commits)</summary>
+  <summary>📝 近期提交 (Recent Commits - 最近7天)</summary>
 
 <!-- START_DYNAMIC_COMMITS -->
 
 No recent commits found.
 
 <!-- END_DYNAMIC_COMMITS -->
+
+</details>
+
+---
+
+<details>
+  <summary>🤖 GitHub Actions + AI 集成资源 (GitHub Actions + AI Integration Resources)</summary>
+
+<!-- START_DYNAMIC_AI_ACTIONS -->
+
+No AI-related GitHub Actions found.
+
+<!-- END_DYNAMIC_AI_ACTIONS -->
 
 </details>
 

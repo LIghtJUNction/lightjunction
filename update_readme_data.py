@@ -1,4 +1,26 @@
 # -*- coding: utf-8 -*-
+"""
+GitHub Profile README Auto-Update Script
+=========================================
+
+This script automatically updates your GitHub profile README with:
+- Enhanced title image with gradient background and statistics
+- Latest repository information with detailed stats
+- Recent commits from the last 7 days
+- Weekly activity summary
+- GitHub Actions + AI integration resources
+
+Features:
+- GitHub API authentication to avoid rate limits
+- Beautiful gradient title images
+- Collapsible sections for better readability
+- Detailed repository statistics (stars, forks, language, last update)
+- AI-enhanced content discovery
+
+Author: LIghtJUNction
+Updated: 2024
+"""
+
 import requests
 from PIL import Image, ImageDraw, ImageFont
 import os
@@ -198,6 +220,87 @@ def format_commits_to_markdown(commits):
     
     return "\n".join(markdown_list)
 
+def search_github_ai_actions(token='', max_results=5):
+    """Search for popular GitHub Actions related to AI."""
+    search_queries = [
+        'github actions AI topic:actions stars:>100',
+        'github actions machine learning topic:actions stars:>50',
+        'github actions openai topic:actions',
+    ]
+    
+    all_results = []
+    seen_repos = set()
+    
+    for query in search_queries:
+        search_url = f"https://api.github.com/search/repositories?q={query}&sort=stars&order=desc&per_page=5"
+        data = make_github_request(search_url, token)
+        
+        if data and 'items' in data:
+            for item in data['items']:
+                repo_full_name = item.get('full_name', '')
+                if repo_full_name not in seen_repos:
+                    seen_repos.add(repo_full_name)
+                    all_results.append({
+                        'name': item.get('name', ''),
+                        'full_name': repo_full_name,
+                        'url': item.get('html_url', ''),
+                        'description': item.get('description', 'No description available.'),
+                        'stars': item.get('stargazers_count', 0),
+                        'language': item.get('language', 'Unknown')
+                    })
+        
+        if len(all_results) >= max_results:
+            break
+    
+    return all_results[:max_results]
+
+def format_ai_actions_to_markdown(actions):
+    """Format AI-related GitHub Actions into markdown."""
+    if not actions:
+        return "No AI-related GitHub Actions found."
+    
+    markdown_list = []
+    markdown_list.append("以下是一些与 GitHub Actions 和 AI 集成相关的热门项目：\n")
+    
+    for action in actions:
+        description = action['description'].replace('\n', ' ').replace('\r', '')
+        markdown_list.append(
+            f"- **[{action['full_name']}]({action['url']})** ⭐ {action['stars']}\n"
+            f"  - {description}\n"
+            f"  - 💻 Language: {action['language']}"
+        )
+    
+    return "\n".join(markdown_list)
+
+def get_weekly_summary(username, token=''):
+    """Generate a weekly summary of user activities."""
+    repos = get_latest_repos(username, count=10, token=token)
+    commits = get_recent_commits(username, token=token, days=7, max_commits=20)
+    
+    summary = []
+    summary.append("### 📊 本周活动摘要 (Weekly Activity Summary)\n")
+    
+    # Count commits by repo
+    commit_counts = {}
+    for commit in commits:
+        repo = commit['repo']
+        commit_counts[repo] = commit_counts.get(repo, 0) + 1
+    
+    if commit_counts:
+        summary.append(f"- 📝 本周共有 **{len(commits)}** 次提交分布在 **{len(commit_counts)}** 个仓库中")
+        summary.append("- 🔥 最活跃的仓库:")
+        sorted_repos = sorted(commit_counts.items(), key=lambda x: x[1], reverse=True)[:3]
+        for repo, count in sorted_repos:
+            summary.append(f"  - **{repo}**: {count} 次提交")
+    else:
+        summary.append("- 📝 本周暂无提交活动")
+    
+    # Recent repo updates
+    if repos:
+        summary.append(f"\n- 🔄 最近更新的仓库: **{repos[0].get('name')}**")
+    
+    return "\n".join(summary)
+
 if __name__ == "__main__":
     # Create generated_images directory if it doesn't exist
     if not os.path.exists("generated_images"):
@@ -278,3 +381,20 @@ if __name__ == "__main__":
     print("---COMMITS_START---")
     print(commits_markdown)
     print("---COMMITS_END---")
+
+    # Generate weekly summary
+    print("Generating weekly summary...")
+    weekly_summary = get_weekly_summary(github_username, token=github_token)
+
+    print("---SUMMARY_START---")
+    print(weekly_summary)
+    print("---SUMMARY_END---")
+
+    # Search for AI-related GitHub Actions
+    print("Searching for AI-related GitHub Actions...")
+    ai_actions = search_github_ai_actions(token=github_token, max_results=5)
+    ai_actions_markdown = format_ai_actions_to_markdown(ai_actions)
+
+    print("---AI_ACTIONS_START---")
+    print(ai_actions_markdown)
+    print("---AI_ACTIONS_END---")
