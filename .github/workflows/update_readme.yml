@@ -27,11 +27,16 @@ jobs:
 
       - name: Run script to get data and generate image
         id: run_script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python update_readme_data.py > script_output.txt
           echo "TITLE_IMG_PATH=$(grep 'TITLE_IMG_PATH:' script_output.txt | cut -d':' -f2- | tr -d '\r\n')" >> $GITHUB_OUTPUT
           echo "REPO_LIST_MD<<EOF" >> $GITHUB_OUTPUT
           sed -n '/---REPO_LIST_START---/,/---REPO_LIST_END---/{ /---REPO_LIST_START---/d; /---REPO_LIST_END---/d; p; }' script_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "COMMITS_MD<<EOF" >> $GITHUB_OUTPUT
+          sed -n '/---COMMITS_START---/,/---COMMITS_END---/{ /---COMMITS_START---/d; /---COMMITS_END---/d; p; }' script_output.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           echo "--- Script Output (script_output.txt) ---"
           cat script_output.txt
@@ -41,10 +46,9 @@ jobs:
         env:
           TITLE_IMG_PATH_VALUE: ${{ steps.run_script.outputs.TITLE_IMG_PATH }}
           REPO_LIST_MD_VALUE: ${{ steps.run_script.outputs.REPO_LIST_MD }}
+          COMMITS_MD_VALUE: ${{ steps.run_script.outputs.COMMITS_MD }}
         run: |
           echo "Received Title Image Path: $TITLE_IMG_PATH_VALUE"
-          # REPO_LIST_MD_VALUE MIGHT BE MULTILINE
-          # echo "Received Repo List Markdown: $REPO_LIST_MD_VALUE"
 
           if [ -z "$TITLE_IMG_PATH_VALUE" ] || [ -z "$REPO_LIST_MD_VALUE" ]; then
             echo "Error: Script output variables are not set correctly."
@@ -54,15 +58,22 @@ jobs:
           # Write content to temporary files to safely handle special characters/newlines
           echo "![最新项目]($TITLE_IMG_PATH_VALUE)" > title_image_insert.txt
           echo "$REPO_LIST_MD_VALUE" > repo_list_insert.txt
-          # For debugging the content of repo_list_insert.txt
+          echo "$COMMITS_MD_VALUE" > commits_insert.txt
+          
+          # For debugging
           echo "--- repo_list_insert.txt content ---"
           cat repo_list_insert.txt
           echo "--- end of repo_list_insert.txt content ---"
+          echo "--- commits_insert.txt content ---"
+          cat commits_insert.txt
+          echo "--- end of commits_insert.txt content ---"
 
           START_COMMENT_TITLE_IMG="<!-- START_DYNAMIC_TITLE_IMAGE -->"
           END_COMMENT_TITLE_IMG="<!-- END_DYNAMIC_TITLE_IMAGE -->"
           START_COMMENT_REPO_LIST="<!-- START_DYNAMIC_REPO_LIST -->"
           END_COMMENT_REPO_LIST="<!-- END_DYNAMIC_REPO_LIST -->"
+          START_COMMENT_COMMITS="<!-- START_DYNAMIC_COMMITS -->"
+          END_COMMENT_COMMITS="<!-- END_DYNAMIC_COMMITS -->"
 
           cp Readme.md Readme.md.tmp
 
@@ -82,13 +93,18 @@ jobs:
           p {print}
           ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
 
+          # Update commits section using the temporary file
+          awk -v start="$START_COMMENT_COMMITS" -v end="$END_COMMENT_COMMITS" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat commits_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+
           mv Readme.md.tmp Readme.md
-          rm title_image_insert.txt repo_list_insert.txt
+          rm title_image_insert.txt repo_list_insert.txt commits_insert.txt
 
           echo "Readme.md updated locally."
-          # echo "--- Updated Readme.md content ---"
-          # cat Readme.md # Avoid very long output in logs
-          # echo "--- End of Readme.md content ---"
 
       - name: Commit and push changes
         run: |

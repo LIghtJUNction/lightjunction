@@ -32,6 +32,19 @@
 ---
 
 <details>
+  <summary>📝 近期提交 (Recent Commits)</summary>
+
+<!-- START_DYNAMIC_COMMITS -->
+
+No recent commits found.
+
+<!-- END_DYNAMIC_COMMITS -->
+
+</details>
+
+---
+
+<details>
   <summary>💬 其他信息 (More Info)</summary>
 
   - 🎮 问我关于游戏的事情 (Ask me about games) - [My Steam Profile](https://steamcommunity.com/id/LIghtJUNction/)
