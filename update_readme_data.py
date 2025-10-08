@@ -28,6 +28,80 @@ from datetime import datetime, timedelta
 import json
 import shutil
 import glob
+import re
+
+def remove_unsupported_chars(text, font):
+    """
+    Remove or replace characters that cannot be rendered by the given font.
+    
+    Args:
+        text: The text to process
+        font: The ImageFont object to check against
+        
+    Returns:
+        Processed text with unsupported characters removed/replaced
+    """
+    # Common emoji to Unicode symbol replacements that are more widely supported
+    # Using basic Unicode symbols that are more likely to be in CJK fonts
+    emoji_replacements = {
+        '📊': '■',    # Box for stats
+        '⭐': '★',    # Black star (U+2605) - widely supported
+        '🍴': '⚑',    # Flag for fork (U+2691)
+        '📝': '✎',    # Pencil (U+270E)
+        '🔥': '▲',    # Triangle for fire
+        '🔄': '↻',    # Circular arrow (U+21BB)
+        '📋': '▣',    # Box with fill
+        '💻': '◆',    # Diamond for code
+        '🕒': '◷',    # Clock symbol (U+25F7)
+        '📁': '▤',    # Folder
+        '🎮': '◈',    # Game controller
+        '📫': '✉',    # Envelope (U+2709)
+        '⚡': '⚡',    # Keep lightning bolt (U+26A1) - commonly supported
+        '💰': '$',    # Dollar sign
+    }
+    
+    result = text
+    for emoji, replacement in emoji_replacements.items():
+        result = result.replace(emoji, replacement)
+    
+    return result
+
+def draw_text_with_emoji_support(draw, position, text, font, fill=(0, 0, 0), emoji_font_path=None):
+    """
+    Draw text with better emoji handling by trying to use an emoji font as fallback.
+    
+    Args:
+        draw: ImageDraw object
+        position: (x, y) tuple for text position
+        text: Text to draw
+        font: Primary font for text
+        fill: Text color
+        emoji_font_path: Optional path to emoji font file
+        
+    Returns:
+        None (draws directly on the image)
+    """
+    x, y = position
+    
+    # Try to detect if we have emojis
+    emoji_pattern = re.compile(
+        "["
+        "\U0001F300-\U0001F9FF"  # Emoticons
+        "\U0001F600-\U0001F64F"  # Emoticons
+        "\U0001F680-\U0001F6FF"  # Transport and map symbols
+        "\U00002600-\U000027BF"  # Miscellaneous symbols
+        "]+", 
+        flags=re.UNICODE
+    )
+    
+    has_emoji = bool(emoji_pattern.search(text))
+    
+    if has_emoji:
+        # Remove emojis for better compatibility
+        text = remove_unsupported_chars(text, font)
+    
+    # Draw the text normally
+    draw.text((x, y), text, font=font, fill=fill)
 
 def generate_3d_pixel_text_image(text, width, height, font_path="arial.ttf", font_size=50, stats=None):
     """
@@ -128,6 +202,9 @@ def generate_3d_pixel_text_image(text, width, height, font_path="arial.ttf", fon
             stats_y = base_y + text_height + depth + 15
             stats_text = f"📊 {stats.get('repos', 0)} Repos | ⭐ {stats.get('stars', 0)} Stars | 🍴 {stats.get('forks', 0)} Forks"
             
+            # Remove unsupported emojis for better rendering
+            stats_text = remove_unsupported_chars(stats_text, small_font)
+            
             try:
                 stats_bbox = draw.textbbox((0, 0), stats_text, font=small_font)
                 stats_width = stats_bbox[2] - stats_bbox[0]
@@ -196,6 +273,10 @@ def generate_title_image(text, width, height, font_path="arial.ttf", font_size=5
     if stats:
         stats_y = y + text_height + 10
         stats_text = f"📊 {stats.get('repos', 0)} Repos | ⭐ {stats.get('stars', 0)} Stars | 🍴 {stats.get('forks', 0)} Forks"
+        
+        # Remove unsupported emojis for better rendering
+        stats_text = remove_unsupported_chars(stats_text, small_font)
+        
         try:
             stats_bbox = draw.textbbox((0, 0), stats_text, font=small_font)
             stats_width = stats_bbox[2] - stats_bbox[0]
