@@ -23,15 +23,15 @@
 
 ### 📊 本周活动摘要 (Weekly Activity Summary)
 
-- 📝 本周共有 **13** 次提交分布在 **4** 个仓库中
+- 📝 本周共有 **20** 次提交分布在 **5** 个仓库中
 - 🔥 最活跃的仓库:
   - **PeakMods**: 5 次提交
-  - **lightjunction**: 4 次提交
-  - **AstrBot**: 3 次提交
+  - **AstrBotCanary**: 5 次提交
+  - **lightjunction**: 5 次提交
 
-- 🔄 最近更新的仓库: **lightjunction**
+- 🔄 最近更新的仓库: **BFM_config-**
 
-- 📋 [查看上周报告 (View Last Week's Report)](archives/weekly_reports/weekly_report_20251005_183959_580141.md)
+- 📋 [查看上周报告 (View Last Week's Report)](archives/weekly_reports/weekly_report_20251005_211717_051891.md)
 
 <!-- END_DYNAMIC_SUMMARY -->
 
@@ -39,16 +39,16 @@
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - 📊 `⭐ 1 | 🍴 0 | 💻 Python | 🕒 2025-10-05`
-- **[AstrBot](https://github.com/LIghtJUNction/AstrBot)** - ✨ 易上手的多平台 LLM 聊天机器人及开发框架 ✨ 平台支持 QQ、QQ频道、Telegram、微信、企微、飞书 | MCP 服务器、OpenAI、DeepSeek、Gemini、硅基流动、月之暗面、Ollama、OneAPI、Dify 等。附带 WebUI。
-  - 📊 `⭐ 1 | 🍴 0 | 💻 Python | 🕒 2025-10-05`
-- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - peak modding
-  - 📊 `⭐ 1 | 🍴 0 | 💻 C# | 🕒 2025-10-05`
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - 📊 `⭐ 36 | 🍴 5 | 💻 Shell | 🕒 2025-10-04`
-- **[Foothold](https://github.com/LIghtJUNction/Foothold)** - A mod for PEAK that visualizes standable ground
-  - 📊 `⭐ 0 | 🍴 0 | 💻 C# | 🕒 2025-10-04`
+  - 📊 `⭐ 36 | 🍴 5 | 💻 Shell | 🕒 2025-10-11`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - peak modding
+  - 📊 `⭐ 1 | 🍴 0 | 💻 C# | 🕒 2025-10-11`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - This is an officially supported Astrbot
+  - 📊 `⭐ 1 | 🍴 0 | 💻 Python | 🕒 2025-10-11`
+- **[HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT)** - 这是一个给agent阅读的仓库，人类免入
+  - 📊 `⭐ 1 | 🍴 0 | 💻 None | 🕒 2025-10-10`
+- **[AstrBot](https://github.com/LIghtJUNction/AstrBot)** - ✨ 易上手的多平台 LLM 聊天机器人及开发框架 ✨ 平台支持 QQ、QQ频道、Telegram、微信、企微、飞书 | MCP 服务器、OpenAI、DeepSeek、Gemini、硅基流动、月之暗面、Ollama、OneAPI、Dify 等。附带 WebUI。
+  - 📊 `⭐ 1 | 🍴 0 | 💻 Python | 🕒 2025-10-08`
 
 <!-- END_DYNAMIC_REPO_LIST -->
 
@@ -59,16 +59,16 @@
 
 <!-- START_DYNAMIC_COMMITS -->
 
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [32926d6](https://github.com/LIghtJUNction/lightjunction/commit/32926d6249c7f532022f3cd264b0ae0caa0cc598) - Merge pull request #4 from LIghtJUNction/copilot/fix-ddbe4042-6ab5-408e-b08a-b47e907377b3 `2025-10-05 21:06`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [d1810fd](https://github.com/LIghtJUNction/lightjunction/commit/d1810fd3fc2feedfdd5b147dcd2c25280338262a) - Merge pull request #6 from LIghtJUNction/copilot/fix-34a2f04a-4d7e-42c5-899c-deadccb99d9f `2025-10-05 21:05`
-- **[AstrBot](https://github.com/LIghtJUNction/AstrBot)** - [778f7dd](https://github.com/LIghtJUNction/AstrBot/commit/778f7dde8014506dafdf5bcd293aa232a9fdfabc) - Merge pull request #18 from LIghtJUNction/copilot/fix-fb5ef0d7-a957-43fc-93b0-7117270acb98 `2025-10-05 21:02`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [181b61a](https://github.com/LIghtJUNction/lightjunction/commit/181b61a0514775264e94b0ade498a54c1db27028) - Merge pull request #3 from LIghtJUNction/copilot/fix-51825c29-c71f-4c37-8f98-36030bbfe3f0 `2025-10-05 20:32`
-- **[AstrBot](https://github.com/LIghtJUNction/AstrBot)** - [868e7ed](https://github.com/LIghtJUNction/AstrBot/commit/868e7ed6c0dd33a07eeb14d5ff309ff9157db308) - Merge pull request #17 from LIghtJUNction/copilot/fix-75aad06e-e3d7-4176-8c60-4a8836cc1212 `2025-10-05 19:35`
-- **[AstrBot](https://github.com/LIghtJUNction/AstrBot)** - [b384e32](https://github.com/LIghtJUNction/AstrBot/commit/b384e3259a773d291c78716fb317f1f227bf6660) - Merge pull request #16 from LIghtJUNction/copilot/fix-c3219fff-d7f0-4879-9222-064aba43d36a `2025-10-05 19:07`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [36bcd2e](https://github.com/LIghtJUNction/lightjunction/commit/36bcd2eb313b276e9b8072dc9ad1033324f1965e) - Merge pull request #2 from LIghtJUNction/copilot/fix-b9d16e1c-b43f-4715-ac57-cc54740a770a `2025-10-05 18:21`
-- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [6148fb2](https://github.com/LIghtJUNction/PeakMods/commit/6148fb23fc86048b7f84bdfacfb4c238b7faa96c) - Merge branch 'main' of https://github.com/LIghtJUNction/PeakMods `2025-10-05 05:09`
-- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [5e277b0](https://github.com/LIghtJUNction/PeakMods/commit/5e277b0f729ec160448621d4cfa92703c00ae900) - x `2025-10-05 05:08`
-- **[Foothold](https://github.com/LIghtJUNction/Foothold)** - [d01707d](https://github.com/LIghtJUNction/Foothold/commit/d01707d30286964a097846d3aff2f4850f629d03) - Merge pull request #1 from LIghtJUNction/copilot/fix-4b6933fb-007c-46fa-b860-5808f5242e9b `2025-10-04 20:05`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [acdf162](https://github.com/LIghtJUNction/PeakMods/commit/acdf162dbb3c59cc7e573ff411515c07e1379dad) - 更新 README.md `2025-10-11 17:25`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [732682b](https://github.com/LIghtJUNction/AstrBotCanary/commit/732682b846075b7de85341e644484be80fab20d2) - Delete tmp directory `2025-10-11 17:21`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [511a469](https://github.com/LIghtJUNction/AstrBotCanary/commit/511a469719cfee2ae1512e5cfccd7d5336e7a845) - 更新 README.md `2025-10-11 16:26`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [68f8046](https://github.com/LIghtJUNction/AstrBotCanary/commit/68f80468e6cd86d35c1fd00e760e667bde5abe0d) - 更新 README.MD `2025-10-11 16:25`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [ff0f1d5](https://github.com/LIghtJUNction/AstrBotCanary/commit/ff0f1d55c08cdf0b743ed5d724db15fb67dc6b5d) - 更新 README.MD `2025-10-11 16:24`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [ebe55b8](https://github.com/LIghtJUNction/AstrBotCanary/commit/ebe55b85158da4b7df87c3783424402c4f3a2e15) - 基本组件完善 `2025-10-11 15:54`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [e49672c](https://github.com/LIghtJUNction/PeakMods/commit/e49672cca6d35249127d8ffe1025964b09d92191) - update icon.png readme.md `2025-10-11 06:57`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [e0edfaf](https://github.com/LIghtJUNction/PeakMods/commit/e0edfaf33b5ce195882d33a242888585ef2733a4) - Merge branch 'main' of https://github.com/LIghtJUNction/PeakMods `2025-10-11 06:25`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [adb4b7b](https://github.com/LIghtJUNction/PeakMods/commit/adb4b7bc97942dbb8c253c6993e96c171c156f2c) - -fix 添加回激活按键配置 `2025-10-11 06:24`
+- **[HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT)** - [e24270f](https://github.com/LIghtJUNction/HI_AGENT/commit/e24270f42e9d41bbf2dc3ea2f0bc446adc94db8b) - 更新 README.md `2025-10-10 16:47`
 
 <!-- END_DYNAMIC_COMMITS -->
 
