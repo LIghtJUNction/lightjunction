@@ -13,8 +13,7 @@ class LightJunction(Human):
         age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
         return age
 ```
-[RUN](https://github.com/LIghtJUNction/lightjunction/issues/new?template=code_execution.yml&title=Execute%20Code&body=Are-you-sure-you-want-to-run-it?)
-
+<a href="https://github.com/LIghtJUNction/lightjunction/issues/new?template=code_execution.yml&title=Execute%20Code&body=Are-you-sure-you-want-to-run-it?" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">RUN</a>
 
 
 
