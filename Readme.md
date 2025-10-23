@@ -1,8 +1,4 @@
 
-
-
-## Code Snippet
-
 ```python
 class LightJunction(Human):
     name: str = "lightjunction"
@@ -16,16 +12,12 @@ class LightJunction(Human):
         return age
 ```
 
-## Dynamic Badges
-
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![GitHub Followers](https://img.shields.io/github/followers/LIghtJUNction?label=Follow&style=social)
 
-## Animated Banner
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=LightJunction&fontSize=50&animation=fadeIn" alt="Banner" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=-------&fontSize=50&animation=fadeIn" alt="Banner" />
 ```
-
 
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
