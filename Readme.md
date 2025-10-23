@@ -19,7 +19,7 @@ class LightJunction(Human):
 ```
 
 <div style="position: relative; display: inline-block;">
-  <a href="https://github.com/LIghtJUNction/lightjunction/compare" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #4CAF50; color: white; padding: 5px 10px; border: none; border-radius: 4px; text-decoration: none; font-weight: bold;">↗↑EDIT↑↖</a>
+  <a href="https://github.com/LIghtJUNction/lightjunction/compare" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%)</a>
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=↗↑EDIT↑↖&fontSize=50&animation=fadeIn" alt="RUN Banner" />
 </div>
 
