@@ -1,5 +1,90 @@
 ### Hi there 👋   
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LightJunction Code Snippet</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+        pre { background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        button { margin-top: 10px; padding: 10px 20px; background: #4a5568; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #2d3748; }
+        #output { margin-top: 20px; padding: 10px; background: #edf2f7; border: 1px solid #cbd5e0; border-radius: 5px; white-space: pre-wrap; }
+        #clock { margin-top: 20px; font-size: 18px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>LightJunction Code Snippet</h2>
+    <div id="clock">当前时间: </div>
+    <pre><code class="language-python">
+class LightJunction(Human):
+    name: str = "lightjunction"
+    
+    @property
+    def age(self):
+        from datetime import datetime
+        birth_date = datetime(2005, 10, 14)
+        current_date = datetime.now()
+        age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
+        return age
+    </code></pre>
+    
+    <button id="runBtn">点击运行代码并显示结果</button>
+    <div id="output"></div>
 
+    <script>
+        let pyodide;
+        async function initPyodide() {
+            pyodide = await loadPyodide({
+                indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/"
+            });
+            await pyodide.runPython(`
+class Human:
+    pass
+
+class LightJunction(Human):
+    name: str = "lightjunction"
+    
+    @property
+    def age(self):
+        from datetime import datetime
+        birth_date = datetime(2005, 10, 14)
+        current_date = datetime.now()
+        age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
+        return age
+            `);
+        }
+
+        document.getElementById('runBtn').addEventListener('click', async () => {
+            if (!pyodide) await initPyodide();
+            try {
+                const result1 = pyodide.runPython('LightJunction.name');
+                const result2 = pyodide.runPython('obj = LightJunction(); obj.age');
+                document.getElementById('output').textContent = 
+                    `name: ${result1}\nage: ${result2}`;
+            } catch (error) {
+                document.getElementById('output').textContent = `错误: ${error.message}`;
+            }
+        });
+
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', { timeZone: 'UTC' });
+            document.getElementById('clock').textContent = `当前时间 (UTC): ${timeString}`;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
+```
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
   <img height=200 src="https://github-readme-stats.vercel.app/api?username=lightjunction&show_icons=true&theme=tokyonight" />
 </a>
