@@ -17,9 +17,8 @@ class LightJunction(Human):
         age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
         return age
 ```
-
 <div style="position: relative; display: inline-block;">
-  <a href="https://github.com/LIghtJUNction/lightjunction/compare" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #4CAF50; color: white; padding: 5px 10px; border: none; border-radius: 4px; text-decoration: none; font-weight: bold;">提交新代码</a>
+  <a href="https://github.com/LIghtJUNction/lightjunction/compare" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #4CAF50; color: white; padding: 5px 10px; border: none; border-radius: 4px; text-decoration: none; font-weight: bold;"></a>
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&animation=fadeIn" alt="RUN Banner" />
 </div>
 
