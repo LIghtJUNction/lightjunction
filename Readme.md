@@ -1,11 +1,13 @@
 
 ```python
+from datetime import datetime
+
 class LightJunction(Human):
     name: str = "lightjunction"
     
     @property
     def age(self):
-        from datetime import datetime
+        
         birth_date = datetime(2005, 10, 14)
         current_date = datetime.now()
         age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
@@ -17,8 +19,6 @@ class LightJunction(Human):
 
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=-------&fontSize=50&animation=fadeIn" alt="Banner" />
-```
-
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
   <img height=180 src="https://github-readme-stats.vercel.app/api?username=LIghtJUNction&show_icons=true&theme=radical" />
