@@ -1,3 +1,4 @@
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=RUN&fontSize=50&animation=fadeIn" alt="Banner" />
 
 ```python
 from datetime import datetime
@@ -13,15 +14,15 @@ class LightJunction(Human):
         age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
         return age
 ```
-<a href="https://github.com/LIghtJUNction/lightjunction/issues/new?template=code_execution.yml&title=Execute%20Code&body=Are-you-sure-you-want-to-run-it?" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">RUN</a>
+```result
 
+```
 
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![GitHub Followers](https://img.shields.io/github/followers/LIghtJUNction?label=Follow&style=social)
 
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=-------&fontSize=50&animation=fadeIn" alt="Banner" />
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
   <img height=180 src="https://github-readme-stats.vercel.app/api?username=LIghtJUNction&show_icons=true&theme=radical" />
