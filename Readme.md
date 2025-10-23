@@ -1,4 +1,3 @@
-```markdown
 # LightJunction
 
 <div align="center">
