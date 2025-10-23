@@ -1,5 +1,5 @@
 ### Hi there 👋   
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,7 +84,8 @@ class LightJunction(Human):
     </script>
 </body>
 </html>
-```
+
+
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
   <img height=200 src="https://github-readme-stats.vercel.app/api?username=lightjunction&show_icons=true&theme=tokyonight" />
 </a>
