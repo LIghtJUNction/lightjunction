@@ -1,8 +1,5 @@
-# LightJunction
 
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=LIghtJUNction&show_icons=true&theme=radical" alt="GitHub Stats" />
-</div>
+
 
 ## Code Snippet
 
@@ -31,12 +28,12 @@ class LightJunction(Human):
 
 
 
+<a href="https://steamcommunity.com/id/LIghtJUNction/">
+  <img height=180 src="https://github-readme-stats.vercel.app/api?username=LIghtJUNction&show_icons=true&theme=radical" />
+</a>
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
-  <img height=200 src="https://github-readme-stats.vercel.app/api?username=lightjunction&show_icons=true&theme=tokyonight" />
-</a>
-<a href="https://steamcommunity.com/id/LIghtJUNction/">
-  <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs?username=lightjunction&layout=compact&langs_count=8&show_icons=true&theme=tokyonight" />
+  <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs?username=lightjunction&layout=compact&langs_count=20&show_icons=true&theme=tokyonight" />
 </a>
 
 ---
