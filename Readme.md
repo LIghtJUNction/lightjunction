@@ -1,5 +1,8 @@
+<a href="https://github.com/LIghtJUNction/lightjunction/issues/new?template=code_execution.yml&title=Execute%20Code&body=Are-you-sure-you-want-to-run-it?">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=RUN&fontSize=50&animation=fadeIn" alt="RUN Banner" />
+</a>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=RUN&fontSize=50&animation=fadeIn&link=https://github.com/LIghtJUNction/lightjunction/issues/new?template=code_execution.yml&title=Execute%20Code&body=Are-you-sure-you-want-to-run-it?" alt="Banner" />
+
 ```python
 from datetime import datetime
 
