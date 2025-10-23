@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 GitHub Profile README Auto-Update Script
 =========================================
