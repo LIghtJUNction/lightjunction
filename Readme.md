@@ -17,6 +17,10 @@ class LightJunction(Human):
         age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
         return age
 ```
+
+
+
+
 ```result
 
 ```
