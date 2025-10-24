@@ -1,33 +1,3 @@
-<a href="https://github.com/LIghtJUNction/lightjunction/issues/new?template=code_execution.yml&title=Execute%20Code&body=Are-you-sure-you-want-to-run-it?">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=↘↓RUN↓↙&fontSize=50&animation=fadeIn" alt="RUN Banner" />
-</a>
-
-
-```python
-from datetime import datetime
-
-class LightJunction(Human):
-    name: str = "lightjunction"
-    
-    @property
-    def age(self):
-        
-        birth_date = datetime(2005, 10, 14)
-        current_date = datetime.now()
-        age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
-        return age
-```
-
-<div style="position: relative; display: inline-block;">
-  <a href="https://github.com/LIghtJUNction/lightjunction/compare" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%)</a>
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=150&section=header&text=↗↑EDIT↑↖&fontSize=50&animation=fadeIn" alt="RUN Banner" />
-</div>
-
-
-
-```result
-
-```
 
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
