@@ -1,5 +1,4 @@
 
-
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![GitHub Followers](https://img.shields.io/github/followers/LIghtJUNction?label=Follow&style=social)
 
@@ -80,11 +79,12 @@
 ---
 
 <details>
-  <summary>💬 其他信息 (More Info)</summary>
+  <summary>💬 点击执行</summary>
 
-  - 🎮 问我关于游戏的事情 (Ask me about games) - [My Steam Profile](https://steamcommunity.com/id/LIghtJUNction/)
-  - 📫 如何联系我 (How to reach me): lightjunction.me@gmail.com
-  - ⚡ 有趣的事实 (Fun fact): ## O(∩_∩)O
+  - 🎮 轻度游戏，喜欢玩生存建造模拟类游戏，比如缺氧（但实际上玩的时长也不算长）
+  - 📫 如何联系我 : lightjunction.me@gmail.com
+  - ⚡ 为什么编程?因为好玩
+
 
 </details>
 
