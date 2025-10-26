@@ -26,15 +26,15 @@
 
 ### 📊 本周活动摘要 (Weekly Activity Summary)
 
-- 📝 本周共有 **9** 次提交分布在 **4** 个仓库中
+- 📝 本周共有 **14** 次提交分布在 **4** 个仓库中
 - 🔥 最活跃的仓库:
   - **AstrBotCanary**: 5 次提交
-  - **PromptAssembler**: 2 次提交
-  - **WechatPublicAPI**: 1 次提交
+  - **lightjunction**: 5 次提交
+  - **AIVK**: 2 次提交
 
-- 🔄 最近更新的仓库: **AstrBotCanary**
+- 🔄 最近更新的仓库: **BFM_config-**
 
-- 📋 [查看上周报告 (View Last Week's Report)](archives/weekly_reports/weekly_report_20251005_211314_076998.md)
+- 📋 [查看上周报告 (View Last Week's Report)](archives/weekly_reports/weekly_report_20251005_204409_433336.md)
 
 <!-- END_DYNAMIC_SUMMARY -->
 
@@ -42,16 +42,16 @@
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - This is an officially supported Astrbot
-  - 📊 `⭐ 1 | 🍴 0 | 💻 Python | 🕒 2025-10-18`
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - 📊 `⭐ 36 | 🍴 5 | 💻 Shell | 🕒 2025-10-18`
-- **[Robyn](https://github.com/LIghtJUNction/Robyn)** - Robyn is a Super Fast Async Python Web Framework with a Rust runtime.
-  - 📊 `⭐ 0 | 🍴 0 | 💻 None | 🕒 2025-10-14`
-- **[taskiq](https://github.com/LIghtJUNction/taskiq)** - Distributed task queue with full async support
-  - 📊 `⭐ 0 | 🍴 0 | 💻 None | 🕒 2025-10-14`
-- **[WechatPublicAPI](https://github.com/LIghtJUNction/WechatPublicAPI)** - fuckUhacker
-  - 📊 `⭐ 125 | 🍴 8 | 💻 Python | 🕒 2025-10-13`
+  - 📊 `⭐ 36 | 🍴 5 | 💻 Shell | 🕒 2025-10-25`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - This is an officially supported Astrbot
+  - 📊 `⭐ 2 | 🍴 0 | 💻 Python | 🕒 2025-10-25`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - 📊 `⭐ 1 | 🍴 0 | 💻 Python | 🕒 2025-10-24`
+- **[AIVK](https://github.com/LIghtJUNction/AIVK)** - AI内核计划
+  - 📊 `⭐ 1 | 🍴 0 | 💻 Python | 🕒 2025-10-22`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - peak modding
+  - 📊 `⭐ 1 | 🍴 1 | 💻 C# | 🕒 2025-10-21`
 
 <!-- END_DYNAMIC_REPO_LIST -->
 
@@ -62,15 +62,16 @@
 
 <!-- START_DYNAMIC_COMMITS -->
 
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [ee6183e](https://github.com/LIghtJUNction/AstrBotCanary/commit/ee6183e589a7f2c4117a4f7d39dedafaefbdbd56) - 基础工作 `2025-10-18 23:09`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [fce6048](https://github.com/LIghtJUNction/AstrBotCanary/commit/fce604800a821b36fa0317e42db0e7d3a24b042b) - 开发消息调度系统 `2025-10-18 22:35`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [b14b196](https://github.com/LIghtJUNction/AstrBotCanary/commit/b14b196c5b643e6602c2339c4022f1ee726eb139) - 任务系统！ `2025-10-18 20:01`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [933573c](https://github.com/LIghtJUNction/AstrBotCanary/commit/933573c929021785f949ab6c4ae3c9cd13f36447) - 控制台支持 `2025-10-18 17:46`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [31fa4a2](https://github.com/LIghtJUNction/AstrBotCanary/commit/31fa4a232d0936240c93a828f452bb0eb0cceb7a) - Update README.md `2025-10-18 14:02`
-- **[WechatPublicAPI](https://github.com/LIghtJUNction/WechatPublicAPI)** - [25daa3b](https://github.com/LIghtJUNction/WechatPublicAPI/commit/25daa3bf39044411a8307c905de55cc4b8ad9f70) - 更新 README.md `2025-10-13 20:17`
-- **[PromptAssembler](https://github.com/LIghtJUNction/PromptAssembler)** - [01fe26b](https://github.com/LIghtJUNction/PromptAssembler/commit/01fe26bb15d03f58f6dc271e3f8337ce9a70d99e) - 更新 README.md `2025-10-13 20:14`
-- **[PromptAssembler](https://github.com/LIghtJUNction/PromptAssembler)** - [743cd08](https://github.com/LIghtJUNction/PromptAssembler/commit/743cd08f9c5280f7e315aca3b8b8b0154a678285) - 更新 README.md `2025-10-13 20:12`
-- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [c6553f6](https://github.com/LIghtJUNction/PeakMods/commit/c6553f68133a4ee32f6ad976c337cf6ff0bfddb0) - 更新 README.md `2025-10-13 19:58`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [4df3bcc](https://github.com/LIghtJUNction/AstrBotCanary/commit/4df3bcc0b7116d8eee8aacd90c3932d59cb21dfd) - Update README.md `2025-10-25 16:18`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [50d7bf8](https://github.com/LIghtJUNction/lightjunction/commit/50d7bf887e4f5428e526f71d9406742cdaea9189) - 更新 Readme.md `2025-10-24 20:04`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [40e3911](https://github.com/LIghtJUNction/AstrBotCanary/commit/40e39119d72832de512863b3316725d0d14aad02) - 更新 README.md `2025-10-24 09:01`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [8d3560a](https://github.com/LIghtJUNction/AstrBotCanary/commit/8d3560a7776f90704d3c84c865030fd81e767523) - 更新 README.md `2025-10-24 02:14`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [d6935b5](https://github.com/LIghtJUNction/lightjunction/commit/d6935b524e563fa46a920ed39c37414f73191e5f) - 更新 Readme.md `2025-10-24 01:58`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [bcd15b1](https://github.com/LIghtJUNction/lightjunction/commit/bcd15b176a828e063f8a39cc6b94534177f17364) - 更新 Readme.md `2025-10-23 23:14`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [efec103](https://github.com/LIghtJUNction/lightjunction/commit/efec1036a21f7f1c2f5ca9461417f87a2aaa68a4) - 更新 Readme.md `2025-10-23 23:12`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [eb875a2](https://github.com/LIghtJUNction/lightjunction/commit/eb875a232e2b278a4312ea5eddbd83b66e792959) - 更新 Readme.md `2025-10-23 23:10`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [4cd1d8f](https://github.com/LIghtJUNction/AstrBotCanary/commit/4cd1d8fbe2b6c9b91585f0f69787c90c83f9f9b6) - 更新 README.md `2025-10-22 22:42`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [c023bcd](https://github.com/LIghtJUNction/AstrBotCanary/commit/c023bcd8a24f8e4d5b6e8d84a3c4d9feca269b22) - 更新 README.md `2025-10-22 21:48`
 
 <!-- END_DYNAMIC_COMMITS -->
 
