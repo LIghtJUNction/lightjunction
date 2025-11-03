@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "iteration_cycle": "ab",
+  "current_version": "a",
+  "last_update": "",
+  "files": {
+    "process_code_showcase": {
+      "a": "process_code_showcase_a.py",
+      "b": "process_code_showcase_b.py",
+      "active": "a"
+    },
+    "update_readme_data": {
+      "a": "update_readme_data_a.py",
+      "b": "update_readme_data_b.py",
+      "active": "a"
+    },
+    "process_qa": {
+      "a": "process_qa_a.py",
+      "b": "process_qa_b.py",
+      "active": "a"
+    }
+  },
+  "evolution_history": [],
+  "model": "gpt-4o-mini",
+  "max_history": 100
+}

@@ -1,11 +1,12 @@
 [project]
 name = "lightjunction-readme-updater"
 version = "1.0.0"
-description = "Automated GitHub Profile README updater"
+description = "Automated GitHub Profile README updater with self-evolution"
 requires-python = ">=3.8"
 dependencies = [
     "requests>=2.31.0",
     "Pillow>=10.0.0",
+    "openai-agents>=0.4.0",
 ]
 
 [build-system]
