@@ -33,7 +33,7 @@ jobs:
 
       - name: 📦 Install dependencies
         run: |
-          uv pip install --system requests Pillow openai-agents
+          uv pip install requests Pillow openai-agents
 
       - name: 🛠️ Install Chinese fonts
         run: |
