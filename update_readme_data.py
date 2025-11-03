@@ -367,6 +367,55 @@ def get_recent_commits(username, token='', days=7, max_commits=10):
     all_commits.sort(key=lambda x: x['date'], reverse=True)
     return all_commits[:max_commits]
 
+def get_detailed_weekly_stats(username, token='', days=7):
+    """Get comprehensive statistics for the week including code additions/deletions."""
+    repos_url = f"https://api.github.com/users/{username}/repos?sort=updated&direction=desc&per_page=20"
+    repos = make_github_request(repos_url, token)
+    
+    if not repos:
+        return None
+    
+    stats = {
+        'total_commits': 0,
+        'total_additions': 0,
+        'total_deletions': 0,
+        'files_changed': 0,
+        'languages': {},
+        'repo_count': 0,
+        'commit_details': []
+    }
+    
+    since_date = (datetime.now() - timedelta(days=days)).isoformat()
+    
+    for repo in repos:
+        # Get commits for this repo
+        commits_url = f"https://api.github.com/repos/{username}/{repo['name']}/commits?author={username}&since={since_date}&per_page=30"
+        commits = make_github_request(commits_url, token)
+        
+        if commits:
+            stats['repo_count'] += 1
+            stats['total_commits'] += len(commits)
+            
+            # Get detailed stats for each commit
+            for commit in commits[:10]:  # Limit to avoid rate limits
+                commit_sha = commit['sha']
+                commit_detail_url = f"https://api.github.com/repos/{username}/{repo['name']}/commits/{commit_sha}"
+                commit_detail = make_github_request(commit_detail_url, token)
+                
+                if commit_detail and 'stats' in commit_detail:
+                    stats['total_additions'] += commit_detail['stats'].get('additions', 0)
+                    stats['total_deletions'] += commit_detail['stats'].get('deletions', 0)
+                    
+                    if 'files' in commit_detail:
+                        stats['files_changed'] += len(commit_detail['files'])
+        
+        # Track languages
+        lang = repo.get('language')
+        if lang:
+            stats['languages'][lang] = stats['languages'].get(lang, 0) + 1
+    
+    return stats
+
 def format_repos_to_markdown(repos):
     """Formats the list of repository data into a Markdown string with detailed information."""
     markdown_list = []
@@ -425,31 +474,188 @@ def format_commits_to_markdown(commits):
 
 
 def get_weekly_summary(username, token='', previous_archive_link=''):
-    """Generate a weekly summary of user activities."""
-    repos = get_latest_repos(username, count=10, token=token)
-    commits = get_recent_commits(username, token=token, days=7, max_commits=20)
+    """Generate a comprehensive weekly summary of user activities with detailed statistics."""
+    repos = get_latest_repos(username, count=20, token=token)
+    commits = get_recent_commits(username, token=token, days=7, max_commits=50)  # Get more commits for better stats
+    detailed_stats = get_detailed_weekly_stats(username, token=token, days=7)  # Get code change stats
     
     summary = []
     summary.append("### 📊 本周活动摘要 (Weekly Activity Summary)\n")
     
     # Count commits by repo
     commit_counts = {}
+    commit_languages = {}  # Track languages used
+    commit_times = []  # Track commit times
+    commit_messages_length = []
+    
     for commit in commits:
         repo = commit['repo']
         commit_counts[repo] = commit_counts.get(repo, 0) + 1
+        commit_times.append(commit['date'])
+        commit_messages_length.append(len(commit['message']))
     
     if commit_counts:
-        summary.append(f"- 📝 本周共有 **{len(commits)}** 次提交分布在 **{len(commit_counts)}** 个仓库中")
-        summary.append("- 🔥 最活跃的仓库:")
+        # Basic commit stats
+        summary.append(f"- 📝 **提交统计**")
+        summary.append(f"  - 本周共有 **{len(commits)}** 次提交分布在 **{len(commit_counts)}** 个仓库中")
+        
+        # Calculate average commits per day
+        avg_commits_per_day = len(commits) / 7
+        summary.append(f"  - 平均每天 **{avg_commits_per_day:.1f}** 次提交")
+        
+        # Add code change statistics if available
+        if detailed_stats and detailed_stats['total_commits'] > 0:
+            summary.append(f"  - 代码变更: **+{detailed_stats['total_additions']}** / **-{detailed_stats['total_deletions']}** 行")
+            if detailed_stats['files_changed'] > 0:
+                summary.append(f"  - 修改文件数: **{detailed_stats['files_changed']}** 个")
+            
+            # Calculate code churn rate
+            total_changes = detailed_stats['total_additions'] + detailed_stats['total_deletions']
+            if total_changes > 0:
+                summary.append(f"  - 总代码变更量: **{total_changes:,}** 行")
+                avg_per_commit = total_changes / detailed_stats['total_commits']
+                summary.append(f"  - 平均每次提交: **{avg_per_commit:.0f}** 行变更")
+        
+        # Most active repositories
+        summary.append(f"\n- 🔥 **最活跃的仓库**:")
         sorted_repos = sorted(commit_counts.items(), key=lambda x: x[1], reverse=True)[:3]
-        for repo, count in sorted_repos:
-            summary.append(f"  - **{repo}**: {count} 次提交")
+        for idx, (repo, count) in enumerate(sorted_repos, 1):
+            percentage = (count / len(commits)) * 100
+            summary.append(f"  {idx}. **{repo}**: {count} 次提交 ({percentage:.1f}%)")
+        
+        # Commit activity analysis
+        if commit_times:
+            try:
+                from datetime import datetime as dt
+                # Parse dates and find most active day
+                dates = []
+                for time_str in commit_times:
+                    try:
+                        date = dt.fromisoformat(time_str.replace('Z', '+00:00'))
+                        dates.append(date)
+                    except:
+                        continue
+                
+                if dates:
+                    # Group by day
+                    day_counts = {}
+                    for date in dates:
+                        day_name = date.strftime('%A')  # Monday, Tuesday, etc.
+                        day_counts[day_name] = day_counts.get(day_name, 0) + 1
+                    
+                    if day_counts:
+                        most_active_day = max(day_counts.items(), key=lambda x: x[1])
+                        summary.append(f"\n- 📅 **活跃时间**")
+                        summary.append(f"  - 最活跃的一天: **{most_active_day[0]}** ({most_active_day[1]} 次提交)")
+                        
+                        # Hour distribution (optional)
+                        hour_counts = {}
+                        for date in dates:
+                            hour = date.hour
+                            if hour < 6:
+                                period = "凌晨 (00:00-06:00)"
+                            elif hour < 12:
+                                period = "上午 (06:00-12:00)"
+                            elif hour < 18:
+                                period = "下午 (12:00-18:00)"
+                            else:
+                                period = "晚上 (18:00-24:00)"
+                            hour_counts[period] = hour_counts.get(period, 0) + 1
+                        
+                        if hour_counts:
+                            most_active_period = max(hour_counts.items(), key=lambda x: x[1])
+                            summary.append(f"  - 最活跃时段: **{most_active_period[0]}** ({most_active_period[1]} 次提交)")
+            except Exception as e:
+                print(f"Warning: Could not analyze commit times: {e}")
+        
+        # Commit message stats
+        if commit_messages_length:
+            avg_msg_length = sum(commit_messages_length) / len(commit_messages_length)
+            summary.append(f"\n- 💬 **提交信息**")
+            summary.append(f"  - 平均提交信息长度: **{avg_msg_length:.0f}** 字符")
+        
+        # Get language statistics from repos
+        if repos:
+            languages = {}
+            for repo in repos:
+                lang = repo.get('language')
+                if lang:
+                    languages[lang] = languages.get(lang, 0) + 1
+            
+            if languages:
+                summary.append(f"\n- 💻 **编程语言分布**")
+                sorted_langs = sorted(languages.items(), key=lambda x: x[1], reverse=True)[:5]
+                total_lang_repos = sum(languages.values())
+                for lang, count in sorted_langs:
+                    percentage = (count / total_lang_repos) * 100
+                    bar_length = int(percentage / 10)
+                    bar = '█' * bar_length + '░' * (10 - bar_length)
+                    summary.append(f"  - {bar} **{lang}**: {count} 个仓库 ({percentage:.1f}%)")
+        
+        # Activity intensity analysis
+        if len(commits) > 0:
+            summary.append(f"\n- 📈 **活跃度分析**")
+            
+            # Calculate weekly activity score (commits * weight factors)
+            activity_score = len(commits) * 10
+            if detailed_stats:
+                activity_score += (detailed_stats['total_additions'] + detailed_stats['total_deletions']) / 10
+            
+            summary.append(f"  - 本周活跃度得分: **{activity_score:.0f}**")
+            
+            # Productivity metrics
+            if avg_commits_per_day >= 3:
+                summary.append(f"  - 🔥 高强度开发周 (日均 {avg_commits_per_day:.1f} 次提交)")
+            elif avg_commits_per_day >= 1:
+                summary.append(f"  - ✨ 稳定开发周 (日均 {avg_commits_per_day:.1f} 次提交)")
+            else:
+                summary.append(f"  - 💤 轻度活跃周 (日均 {avg_commits_per_day:.1f} 次提交)")
+            
+            # Compare with repo count
+            repos_per_commit = len(commit_counts) / len(commits)
+            if repos_per_commit > 0.5:
+                summary.append(f"  - 🎯 多仓库协作模式 ({len(commit_counts)} 个活跃仓库)")
+            else:
+                summary.append(f"  - 🎯 专注单仓库开发")
     else:
         summary.append("- 📝 本周暂无提交活动")
     
-    # Recent repo updates
+    # Repository statistics
     if repos:
-        summary.append(f"\n- 🔄 最近更新的仓库: **{repos[0].get('name')}**")
+        total_stars = sum(repo.get('stargazers_count', 0) for repo in repos)
+        total_forks = sum(repo.get('forks_count', 0) for repo in repos)
+        total_watchers = sum(repo.get('watchers_count', 0) for repo in repos)
+        total_open_issues = sum(repo.get('open_issues_count', 0) for repo in repos)
+        
+        # Find most starred and most forked repos
+        repos_sorted_by_stars = sorted(repos, key=lambda x: x.get('stargazers_count', 0), reverse=True)
+        repos_sorted_by_forks = sorted(repos, key=lambda x: x.get('forks_count', 0), reverse=True)
+        
+        summary.append(f"\n- 🌟 **仓库概况**")
+        summary.append(f"  - 总仓库数: **{len(repos)}** 个（最近活跃）")
+        summary.append(f"  - 累计 Stars: ⭐ **{total_stars}** | Forks: 🍴 **{total_forks}** | Watchers: 👀 **{total_watchers}**")
+        
+        if repos_sorted_by_stars[0].get('stargazers_count', 0) > 0:
+            top_starred = repos_sorted_by_stars[0]
+            summary.append(f"  - 最受欢迎: **{top_starred['name']}** (⭐ {top_starred['stargazers_count']})")
+        
+        if repos_sorted_by_forks[0].get('forks_count', 0) > 0 and repos_sorted_by_forks[0]['name'] != repos_sorted_by_stars[0]['name']:
+            top_forked = repos_sorted_by_forks[0]
+            summary.append(f"  - 最多 Fork: **{top_forked['name']}** (🍴 {top_forked['forks_count']})")
+        
+        summary.append(f"  - 最近更新: **{repos[0].get('name')}**")
+        
+        if total_open_issues > 0:
+            summary.append(f"  - 待处理 Issues: **{total_open_issues}** 个")
+        
+        # Repository size statistics
+        total_size = sum(repo.get('size', 0) for repo in repos)
+        if total_size > 0:
+            size_mb = total_size / 1024
+            if size_mb > 1024:
+                summary.append(f"  - 总代码量: **{size_mb/1024:.2f} GB**")
+            else:
+                summary.append(f"  - 总代码量: **{size_mb:.1f} MB**")
     
     # Add link to previous week's report if available
     if previous_archive_link:

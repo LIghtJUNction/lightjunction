@@ -1,0 +1,125 @@
+name: 🤖 AI Q&A Assistant
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: string
+
+jobs:
+  answer_question:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Get issue number
+        id: issue
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "number=${{ inputs.issue_number }}" >> $GITHUB_OUTPUT
+          else
+            echo "number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if issue has qa label
+        id: check_label
+        if: github.event_name == 'issues'
+        run: |
+          LABELS='${{ toJson(github.event.issue.labels.*.name) }}'
+          if echo "$LABELS" | grep -q "qa"; then
+            echo "has_label=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_label=false" >> $GITHUB_OUTPUT
+            echo "Issue does not have 'qa' label, skipping..."
+          fi
+
+      - name: Process Q&A with AI
+        if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
+        id: process
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          uv run python process_qa.py ${{ steps.issue.outputs.number }} > qa_output.txt 2>&1
+          
+          echo "QA_MD<<EOF" >> $GITHUB_OUTPUT
+          sed -n '/---QA_START---/,/---QA_END---/{ /---QA_START---/d; /---QA_END---/d; p; }' qa_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          echo "--- Q&A Output ---"
+          cat qa_output.txt
+          echo "--- End of Q&A Output ---"
+
+      - name: Update README with Q&A
+        if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
+        env:
+          QA_MD_VALUE: ${{ steps.process.outputs.QA_MD }}
+        run: |
+          if [ -z "$QA_MD_VALUE" ]; then
+            echo "Error: No Q&A content generated"
+            exit 1
+          fi
+
+          echo "$QA_MD_VALUE" > qa_insert.txt
+          
+          START_COMMENT="<!-- START_QA_SECTION -->"
+          END_COMMENT="<!-- END_QA_SECTION -->"
+
+          cp Readme.md Readme.md.tmp
+
+          # Update Q&A section
+          awk -v start="$START_COMMENT" -v end="$END_COMMENT" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat qa_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md
+
+          rm Readme.md.tmp qa_insert.txt
+
+          echo "README updated with Q&A"
+
+      - name: Commit and push changes
+        if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          if ! git diff --quiet Readme.md 2>/dev/null; then
+            echo "Changes detected in Readme.md"
+            git add Readme.md
+            git commit -m "🤖 更新 AI 问答 (Update AI Q&A) - Issue #${{ steps.issue.outputs.number }}"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+      - name: Comment on issue
+        if: (github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true') && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: ${{ steps.issue.outputs.number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ AI 助手已回答您的问题！\n\n查看回答: [README - AI 问答区](https://github.com/${{ github.repository }}#-ai-问答-ai-qa)\n\n*Powered by GitHub Copilot* 🤖'
+            })
