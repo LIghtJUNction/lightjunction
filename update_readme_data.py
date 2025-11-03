@@ -395,9 +395,9 @@ def format_repos_to_markdown(repos):
             else:
                 updated_str = "Unknown"
             
-            # Build repository entry with badges
+            # Build repository entry with minimalist style (no emojis)
             repo_entry = f"- **[{name}]({url})** - {description_oneline}\n"
-            repo_entry += f"  - 📊 `⭐ {stars} | 🍴 {forks} | 💻 {language} | 🕒 {updated_str}`"
+            repo_entry += f"  - `Stars: {stars} | Forks: {forks} | Language: {language} | Updated: {updated_str}`"
             
             markdown_list.append(repo_entry)
     return "\n".join(markdown_list)
@@ -430,7 +430,7 @@ def get_weekly_summary(username, token='', previous_archive_link=''):
     commits = get_recent_commits(username, token=token, days=7, max_commits=20)
     
     summary = []
-    summary.append("### 📊 本周活动摘要 (Weekly Activity Summary)\n")
+    summary.append("### 本周活动摘要 (Weekly Activity Summary)\n")
     
     # Count commits by repo
     commit_counts = {}
@@ -439,21 +439,21 @@ def get_weekly_summary(username, token='', previous_archive_link=''):
         commit_counts[repo] = commit_counts.get(repo, 0) + 1
     
     if commit_counts:
-        summary.append(f"- 📝 本周共有 **{len(commits)}** 次提交分布在 **{len(commit_counts)}** 个仓库中")
-        summary.append("- 🔥 最活跃的仓库:")
+        summary.append(f"- 本周共有 **{len(commits)}** 次提交分布在 **{len(commit_counts)}** 个仓库中")
+        summary.append("- 最活跃的仓库:")
         sorted_repos = sorted(commit_counts.items(), key=lambda x: x[1], reverse=True)[:3]
         for repo, count in sorted_repos:
             summary.append(f"  - **{repo}**: {count} 次提交")
     else:
-        summary.append("- 📝 本周暂无提交活动")
+        summary.append("- 本周暂无提交活动")
     
     # Recent repo updates
     if repos:
-        summary.append(f"\n- 🔄 最近更新的仓库: **{repos[0].get('name')}**")
+        summary.append(f"\n- 最近更新的仓库: **{repos[0].get('name')}**")
     
     # Add link to previous week's report if available
     if previous_archive_link:
-        summary.append(f"\n- 📋 [查看上周报告 (View Last Week's Report)]({previous_archive_link})")
+        summary.append(f"\n- [查看上周报告 (View Last Week's Report)]({previous_archive_link})")
     
     return "\n".join(summary)
 
