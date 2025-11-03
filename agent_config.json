@@ -3,6 +3,11 @@
   "iteration_cycle": "ab",
   "current_version": "a",
   "last_update": "",
+  "self_evolve_agent": {
+    "a": "self_evolve_agent_a.py",
+    "b": "self_evolve_agent_b.py",
+    "active": "a"
+  },
   "files": {
     "process_code_showcase": {
       "a": "process_code_showcase_a.py",

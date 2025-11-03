@@ -40,8 +40,43 @@ repos:
         pass_filenames: true
 
       - id: check-immutable-files
-        name: Check immutable files
-        entry: bash -c 'if git diff --cached --name-only | grep -E "(meta_agent\.py|\.github/workflows/meta_evolve\.yml)"; then echo "ERROR: Immutable files cannot be modified!"; exit 1; fi'
+        name: Check immutable files protection
+        entry: bash -c 'if git diff --cached --name-only | grep -E "(meta_agent\.py|\.github/workflows/main\.yml)"; then echo "❌ ERROR: Immutable files cannot be modified!"; exit 1; fi'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: validate-ab-versions
+        name: Validate A/B version consistency
+        entry: python .pre-commit-hooks/validate_ab_versions.py
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: backup-before-evolution
+        name: Create backup before evolution changes
+        entry: python .pre-commit-hooks/create_backup.py
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: test-evolution-files
+        name: Test evolution agent files
+        entry: python .pre-commit-hooks/test_evolution.py
+        language: system
+        files: ^(self_evolve_agent|meta_agent|orchestrator)\.py$
+        pass_filenames: true
+
+      - id: validate-config-json
+        name: Validate configuration JSON files
+        entry: python .pre-commit-hooks/validate_configs.py
+        language: system
+        files: ^(agent_config|meta_agent_config)\.json$
+        pass_filenames: true
+
+      - id: check-evolution-safety
+        name: Check evolution system safety
+        entry: python .pre-commit-hooks/check_safety.py
         language: system
         pass_filenames: false
         always_run: true

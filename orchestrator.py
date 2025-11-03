@@ -88,14 +88,36 @@ class SystemOrchestrator:
             self.log(f"Could not check last meta update: {e}", "WARNING")
             return False
     
+    def get_active_self_evolve_agent(self) -> str:
+        """Get the currently active self-evolution agent file."""
+        try:
+            config_path = Path("agent_config.json")
+            if config_path.exists():
+                with open(config_path) as f:
+                    config = json.load(f)
+                
+                self_evolve_info = config.get('self_evolve_agent', {})
+                active = self_evolve_info.get('active', 'a')
+                active_file = self_evolve_info.get(active, 'self_evolve_agent_a.py')
+                
+                if Path(active_file).exists():
+                    return active_file
+            
+            # Fallback to version a
+            return 'self_evolve_agent_a.py'
+        except Exception as e:
+            self.log(f"Error getting active agent: {e}", "WARNING")
+            return 'self_evolve_agent_a.py'
+    
     async def run_self_evolution(self) -> bool:
-        """Run self-evolution cycle."""
-        self.log("🧬 Starting Self-Evolution", "RUNNING")
+        """Run self-evolution cycle using the active agent version."""
+        active_agent = self.get_active_self_evolve_agent()
+        self.log(f"🧬 Starting Self-Evolution (using {active_agent})", "RUNNING")
         
         try:
             # Import and run self-evolution
             result = subprocess.run(
-                [sys.executable, "self_evolve_agent.py"],
+                [sys.executable, active_agent],
                 capture_output=True,
                 text=True,
                 timeout=600  # 10 minutes max

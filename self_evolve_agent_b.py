@@ -28,65 +28,10 @@ except ImportError:
     Agent = None
     Runner = None
 
-
-class IterationLogger:
-    """Logs detailed iteration information."""
-    
-    def __init__(self, log_file='logs/self_evolution.log'):
-        self.log_file = Path(log_file)
-        self.log_file.parent.mkdir(parents=True, exist_ok=True)
-        self.session_start = datetime.now()
-        self.log("=" * 70, raw=True)
-        self.log(f"Self-Evolution Session Started", level="SESSION")
-        self.log("=" * 70, raw=True)
-    
-    def log(self, message, level="INFO", raw=False):
-        """Write a log message."""
-        timestamp = datetime.now().isoformat()
-        if raw:
-            log_entry = f"{message}\n"
-        else:
-            log_entry = f"[{timestamp}] [{level:8}] {message}\n"
-        
-        with open(self.log_file, 'a') as f:
-            f.write(log_entry)
-        
-        # Also print to console
-        if not raw:
-            print(f"[{level}] {message}")
-    
-    def log_evolution_start(self, target_version, files):
-        """Log the start of an evolution cycle."""
-        self.log(f"Target version: {target_version}", "CYCLE")
-        self.log(f"Files to evolve: {len(files)}", "CYCLE")
-        for file_key in files:
-            self.log(f"  - {file_key}", "CYCLE")
-    
-    def log_file_evolution(self, file_key, status, details=None):
-        """Log evolution of a single file."""
-        self.log(f"File: {file_key} - Status: {status}", "FILE")
-        if details:
-            for key, value in details.items():
-                self.log(f"  {key}: {value}", "FILE")
-    
-    def log_session_end(self, results):
-        """Log the end of a session."""
-        duration = (datetime.now() - self.session_start).total_seconds()
-        self.log("=" * 70, raw=True)
-        self.log(f"Session completed in {duration:.1f}s", "SESSION")
-        
-        success = sum(1 for r in results if r.get('status') == 'success')
-        failed = sum(1 for r in results if r.get('status') == 'failed')
-        
-        self.log(f"Results: {success} success, {failed} failed", "SESSION")
-        self.log("=" * 70, raw=True)
-
 class SelfEvolvingAgent:
     def __init__(self, config_path='agent_config.json'):
         self.config_path = config_path
-        self.logger = IterationLogger()
         self.load_config()
-        self.logger.log(f"Loaded config: {config_path}", "INIT")
         
     def load_config(self):
         """Load agent configuration."""
@@ -295,9 +240,6 @@ Return the improved code only."""
         print(f"📅 Time: {datetime.now().isoformat()}")
         print(f"🤖 Model: {self.config['model']}")
         
-        # Log evolution start
-        self.logger.log_evolution_start(next_version, self.config['files'])
-        
         results = []
         
         # Evolve each file
@@ -313,12 +255,10 @@ Return the improved code only."""
             
             # Step 1: Analyze
             print(f"  🔍 Analyzing with AI agent...")
-            self.logger.log(f"Analyzing {file_key}", "ANALYZE")
             improvements = await self.analyze_file(current_active)
             
             if not improvements:
                 print(f"  ❌ Analysis failed")
-                self.logger.log_file_evolution(file_key, "FAILED", {"reason": "Analysis failed"})
                 results.append({
                     'file': file_key,
                     'status': 'failed',
@@ -327,16 +267,13 @@ Return the improved code only."""
                 continue
             
             print(f"  ✅ Analysis complete")
-            self.logger.log(f"Analysis complete for {file_key}", "ANALYZE")
             
             # Step 2: Apply improvements
             print(f"  🛠️  Applying improvements with AI agent...")
-            self.logger.log(f"Applying improvements to {file_key}", "IMPROVE")
             improved_code = await self.apply_improvements(current_active, improvements)
             
             if not improved_code:
                 print(f"  ❌ Could not apply improvements")
-                self.logger.log_file_evolution(file_key, "FAILED", {"reason": "Could not apply improvements"})
                 results.append({
                     'file': file_key,
                     'status': 'failed',
@@ -349,20 +286,13 @@ Return the improved code only."""
                 f.write(improved_code)
             
             print(f"  ✅ Improvements applied")
-            self.logger.log(f"Improvements written to {target_file}", "IMPROVE")
             
             # Step 3: Test
             print(f"  🧪 Testing...")
-            self.logger.log(f"Testing {target_file}", "TEST")
             test_passed, test_message = self.test_file(target_file)
             
             if test_passed:
                 print(f"  ✅ Tests passed")
-                self.logger.log_file_evolution(file_key, "SUCCESS", {
-                    "target_file": target_file,
-                    "version": next_version,
-                    "test_result": "passed"
-                })
                 results.append({
                     'file': file_key,
                     'status': 'success',
@@ -371,17 +301,12 @@ Return the improved code only."""
                 })
             else:
                 print(f"  ❌ Tests failed: {test_message}")
-                self.logger.log_file_evolution(file_key, "FAILED", {
-                    "reason": "Tests failed",
-                    "message": test_message
-                })
                 # Revert to original
                 with open(current_active, 'r') as f:
                     original = f.read()
                 with open(target_file, 'w') as f:
                     f.write(original)
                 
-                self.logger.log(f"Reverted {target_file} to original", "TEST")
                 results.append({
                     'file': file_key,
                     'status': 'failed',
@@ -421,9 +346,6 @@ Return the improved code only."""
         print("\n" + "=" * 60)
         print("🏁 Evolution Cycle Complete")
         print("=" * 60)
-        
-        # Log session end
-        self.logger.log_session_end(results)
         
         return results
 

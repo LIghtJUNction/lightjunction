@@ -170,17 +170,31 @@ class MetaAgent:
     
     async def improve_self_evolve_script(self, performance_metrics):
         """
-        Use AI to improve the self_evolve_agent.py script based on performance.
+        Use AI to improve the self_evolve_agent script based on performance.
         
         This is the core meta-learning function.
+        Improves the currently ACTIVE version as a baseline.
         """
         if Agent is None or Runner is None:
             print("OpenAI Agents SDK not available, skipping improvement")
             return None
         
-        # Read current self-evolve script
-        with open(SELF_EVOLVE_SCRIPT, 'r') as f:
-            current_code = f.read()
+        # Read the currently ACTIVE self-evolve script to use as baseline
+        try:
+            with open('agent_config.json', 'r') as f:
+                config = json.load(f)
+            self_evolve_info = config.get('self_evolve_agent', {})
+            active_version = self_evolve_info.get('active', 'a')
+            active_file = self_evolve_info.get(active_version, 'self_evolve_agent_a.py')
+            
+            with open(active_file, 'r') as f:
+                current_code = f.read()
+            
+            print(f"📖 Using active version {active_version} ({active_file}) as baseline")
+        except Exception as e:
+            print(f"⚠️  Could not read active version, using fallback: {e}")
+            with open('self_evolve_agent_a.py', 'r') as f:
+                current_code = f.read()
         
         # Create analysis prompt
         system_instructions = """You are a meta-level AI system architect.
@@ -289,29 +303,55 @@ Return the improved code wrapped in ```python``` markers."""
             if os.path.exists(temp_file):
                 os.remove(temp_file)
     
+    def get_next_self_evolve_version(self):
+        """Get the next version of self_evolve_agent to improve (A/B iteration)."""
+        try:
+            with open('agent_config.json', 'r') as f:
+                config = json.load(f)
+            
+            self_evolve_info = config.get('self_evolve_agent', {})
+            current_active = self_evolve_info.get('active', 'a')
+            
+            # Improve the non-active version
+            next_version = 'b' if current_active == 'a' else 'a'
+            return next_version, self_evolve_info.get(next_version, f'self_evolve_agent_{next_version}.py')
+        except Exception as e:
+            print(f"Error getting next version: {e}")
+            return 'b', 'self_evolve_agent_b.py'
+    
     def apply_improvement(self, improved_code):
         """
-        Apply the improved code to self_evolve_agent.py.
+        Apply the improved code to the non-active self_evolve_agent version.
         
+        Uses A/B iteration: improves the version that's NOT currently active.
         Creates backup before applying.
         """
+        # Get the version to improve
+        next_version, target_file = self.get_next_self_evolve_version()
+        
+        print(f"📝 Applying improvement to version {next_version}: {target_file}")
+        
         # Create backup
-        backup_file = f"{SELF_EVOLVE_SCRIPT}.backup.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        backup_file = f"{target_file}.backup.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         
         try:
             # Backup current version
-            with open(SELF_EVOLVE_SCRIPT, 'r') as f:
-                current_code = f.read()
-            
-            with open(backup_file, 'w') as f:
-                f.write(current_code)
+            if os.path.exists(target_file):
+                with open(target_file, 'r') as f:
+                    current_code = f.read()
+                
+                with open(backup_file, 'w') as f:
+                    f.write(current_code)
             
             # Apply improvement
-            with open(SELF_EVOLVE_SCRIPT, 'w') as f:
+            with open(target_file, 'w') as f:
                 f.write(improved_code)
             
-            print(f"✅ Improvement applied successfully")
+            print(f"✅ Improvement applied successfully to {target_file}")
             print(f"📦 Backup saved: {backup_file}")
+            
+            # The active version will be switched by self_evolve_agent on next run
+            print(f"ℹ️  Active version will switch to {next_version} after validation")
             
             return True
             
@@ -321,7 +361,7 @@ Return the improved code wrapped in ```python``` markers."""
             if os.path.exists(backup_file):
                 with open(backup_file, 'r') as f:
                     backup_code = f.read()
-                with open(SELF_EVOLVE_SCRIPT, 'w') as f:
+                with open(target_file, 'w') as f:
                     f.write(backup_code)
                 print(f"🔄 Restored from backup")
             
