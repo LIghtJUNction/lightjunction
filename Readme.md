@@ -9,7 +9,7 @@
 </a>
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
-  <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs?username=lightjunction&layout=compact&langs_count=5&show_icons=true&theme=tokyonight" />
+  <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs?username=LIghtJUNction&layout=compact&langs_count=5&show_icons=true&theme=tokyonight" />
 </a>
 
 ---
