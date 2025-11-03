@@ -1,0 +1,73 @@
+.PHONY: help install install-dev lint format type-check test pre-commit clean
+
+help:
+	@echo "🧬 LightJunction AI Evolution System"
+	@echo ""
+	@echo "Available commands:"
+	@echo "  make install      - Install production dependencies"
+	@echo "  make install-dev  - Install development dependencies"
+	@echo "  make lint         - Run ruff linter"
+	@echo "  make format       - Format code with ruff"
+	@echo "  make type-check   - Run mypy type checking"
+	@echo "  make test         - Run basic tests"
+	@echo "  make pre-commit   - Install and run pre-commit hooks"
+	@echo "  make clean        - Clean temporary files"
+
+install:
+	@echo "📦 Installing production dependencies..."
+	uv pip install -e .
+
+install-dev:
+	@echo "📦 Installing development dependencies..."
+	uv pip install -e ".[dev]"
+	pre-commit install
+
+lint:
+	@echo "🔍 Running ruff linter..."
+	ruff check .
+
+format:
+	@echo "✨ Formatting code with ruff..."
+	ruff format .
+	ruff check --fix .
+
+type-check:
+	@echo "🔎 Running mypy type checking..."
+	mypy update_readme_data.py || true
+	mypy process_code_showcase.py || true
+	mypy process_qa.py || true
+	mypy self_evolve_agent.py || true
+	mypy meta_agent.py || true
+
+test:
+	@echo "🧪 Running basic tests..."
+	@python -m py_compile update_readme_data.py
+	@python -m py_compile update_readme_data_a.py
+	@python -m py_compile update_readme_data_b.py
+	@python -m py_compile process_code_showcase.py
+	@python -m py_compile process_code_showcase_a.py
+	@python -m py_compile process_code_showcase_b.py
+	@python -m py_compile process_qa.py
+	@python -m py_compile process_qa_a.py
+	@python -m py_compile process_qa_b.py
+	@python -m py_compile self_evolve_agent.py
+	@python -m py_compile meta_agent.py
+	@echo "✅ All files compile successfully!"
+
+pre-commit:
+	@echo "🔧 Setting up pre-commit hooks..."
+	pre-commit install
+	@echo "✅ Pre-commit hooks installed!"
+	@echo ""
+	@echo "Running pre-commit on all files..."
+	pre-commit run --all-files || true
+
+clean:
+	@echo "🧹 Cleaning temporary files..."
+	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+	find . -type f -name "*.pyc" -delete
+	find . -type f -name "*.pyo" -delete
+	find . -type f -name "*.log" -delete
+	find . -type f -name ".DS_Store" -delete
+	rm -rf .mypy_cache .ruff_cache
+	@echo "✅ Cleanup complete!"

@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "iteration_cycle": "ab",
+  "current_version": "a",
+  "last_update": "2025-11-03T19:25:46.906707",
+  "self_evolve_agent": {
+    "a": "self_evolve_agent_a.py",
+    "b": "self_evolve_agent_b.py",
+    "active": "a"
+  },
+  "files": {
+    "process_code_showcase": {
+      "a": "process_code_showcase_a.py",
+      "b": "process_code_showcase_b.py",
+      "active": "a"
+    },
+    "update_readme_data": {
+      "a": "update_readme_data_a.py",
+      "b": "update_readme_data_b.py",
+      "active": "a"
+    },
+    "process_qa": {
+      "a": "process_qa_a.py",
+      "b": "process_qa_b.py",
+      "active": "a"
+    }
+  },
+  "evolution_history": [
+    {
+      "timestamp": "2025-11-03T19:25:46.906696",
+      "target_version": "b",
+      "results": [
+        {
+          "file": "process_code_showcase",
+          "status": "failed",
+          "reason": "Analysis failed"
+        },
+        {
+          "file": "update_readme_data",
+          "status": "failed",
+          "reason": "Analysis failed"
+        },
+        {
+          "file": "process_qa",
+          "status": "failed",
+          "reason": "Analysis failed"
+        }
+      ],
+      "model": "gpt-4o-mini"
+    }
+  ],
+  "model": "gpt-4o-mini",
+  "max_history": 100
+}

@@ -1,0 +1,221 @@
+name: 🚀 Main System Orchestrator
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      force_all:
+        description: 'Force run all tasks'
+        required: false
+        default: 'false'
+
+jobs:
+  orchestrate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔧 Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: 🐍 Set up Python 3.12
+        run: uv python install 3.12
+
+      - name: 📦 Install dependencies
+        run: |
+          uv pip install --system requests Pillow openai-agents
+
+      - name: 🛠️ Install Chinese fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk
+
+      - name: 🚀 Run System Orchestrator
+        id: orchestrate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          echo "Starting system orchestrator..."
+          python orchestrator.py > orchestrator_log.txt 2>&1 || true
+          
+          echo "Orchestration completed"
+          
+          # Display log
+          echo "=== Orchestrator Log ==="
+          cat orchestrator_log.txt
+          echo "========================"
+          
+          # Check if README was updated
+          if [ -f "orchestrator_output.txt" ]; then
+            echo "TITLE_IMG_PATH=$(grep 'TITLE_IMG_PATH:' orchestrator_output.txt | cut -d':' -f2- | tr -d '\r\n')" >> $GITHUB_OUTPUT
+            
+            echo "REPO_LIST_MD<<EOF" >> $GITHUB_OUTPUT
+            sed -n '/---REPO_LIST_START---/,/---REPO_LIST_END---/{ /---REPO_LIST_START---/d; /---REPO_LIST_END---/d; p; }' orchestrator_output.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            
+            echo "COMMITS_MD<<EOF" >> $GITHUB_OUTPUT
+            sed -n '/---COMMITS_START---/,/---COMMITS_END---/{ /---COMMITS_START---/d; /---COMMITS_END---/d; p; }' orchestrator_output.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            
+            echo "SUMMARY_MD<<EOF" >> $GITHUB_OUTPUT
+            sed -n '/---SUMMARY_START---/,/---SUMMARY_END---/{ /---SUMMARY_START---/d; /---SUMMARY_END---/d; p; }' orchestrator_output.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 📝 Update README.md
+        if: steps.orchestrate.outputs.TITLE_IMG_PATH != ''
+        env:
+          TITLE_IMG_PATH_VALUE: ${{ steps.orchestrate.outputs.TITLE_IMG_PATH }}
+          REPO_LIST_MD_VALUE: ${{ steps.orchestrate.outputs.REPO_LIST_MD }}
+          COMMITS_MD_VALUE: ${{ steps.orchestrate.outputs.COMMITS_MD }}
+          SUMMARY_MD_VALUE: ${{ steps.orchestrate.outputs.SUMMARY_MD }}
+        run: |
+          echo "Updating README with new content..."
+          
+          echo "![最新项目]($TITLE_IMG_PATH_VALUE)" > title_image_insert.txt
+          echo "$REPO_LIST_MD_VALUE" > repo_list_insert.txt
+          echo "$COMMITS_MD_VALUE" > commits_insert.txt
+          echo "$SUMMARY_MD_VALUE" > summary_insert.txt
+          
+          START_COMMENT_TITLE_IMG="<!-- START_DYNAMIC_TITLE_IMAGE -->"
+          END_COMMENT_TITLE_IMG="<!-- END_DYNAMIC_TITLE_IMAGE -->"
+          START_COMMENT_REPO_LIST="<!-- START_DYNAMIC_REPO_LIST -->"
+          END_COMMENT_REPO_LIST="<!-- END_DYNAMIC_REPO_LIST -->"
+          START_COMMENT_COMMITS="<!-- START_DYNAMIC_COMMITS -->"
+          END_COMMENT_COMMITS="<!-- END_DYNAMIC_COMMITS -->"
+          START_COMMENT_SUMMARY="<!-- START_DYNAMIC_SUMMARY -->"
+          END_COMMENT_SUMMARY="<!-- END_DYNAMIC_SUMMARY -->"
+
+          cp Readme.md Readme.md.tmp
+
+          # Update title image section
+          awk -v start="$START_COMMENT_TITLE_IMG" -v end="$END_COMMENT_TITLE_IMG" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat title_image_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+
+          # Update repo list section
+          awk -v start="$START_COMMENT_REPO_LIST" -v end="$END_COMMENT_REPO_LIST" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat repo_list_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+
+          # Update commits section
+          awk -v start="$START_COMMENT_COMMITS" -v end="$END_COMMENT_COMMITS" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat commits_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+
+          # Update summary section
+          awk -v start="$START_COMMENT_SUMMARY" -v end="$END_COMMENT_SUMMARY" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat summary_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+
+          mv Readme.md.tmp Readme.md
+          rm title_image_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt
+
+      - name: 💾 Commit and Push Changes
+        run: |
+          git config --global user.name 'lightjunction-bot[bot]'
+          git config --global user.email 'lightjunction-bot[bot]@users.noreply.github.com'
+          
+          # Check for changes
+          if ! git diff --quiet Readme.md generated_images/ archives/ agent_config.json meta_agent_config.json self_evolve_agent.py 2>/dev/null; then
+            echo "Changes detected, committing..."
+            
+            # Determine commit message based on what changed
+            COMMIT_MSG="🤖 Automated system update - $(date -u +'%Y-%m-%d %H:%M UTC')"
+            
+            if git diff --quiet self_evolve_agent.py 2>/dev/null; then
+              EVOLUTION_TYPE=""
+            else
+              EVOLUTION_TYPE="🧠 Meta-evolution applied | "
+            fi
+            
+            if ! git diff --quiet agent_config.json 2>/dev/null; then
+              EVOLUTION_TYPE="${EVOLUTION_TYPE}🧬 Self-evolution | "
+            fi
+            
+            git add Readme.md generated_images/ archives/ agent_config.json meta_agent_config.json self_evolve_agent.py self_evolve_agent.py.backup.* 2>/dev/null || true
+            git commit -m "${COMMIT_MSG}
+
+            ${EVOLUTION_TYPE}📊 Weekly report updated
+            
+            Automated by system orchestrator combining:
+            - Self-evolution (A/B code improvement)
+            - Meta-evolution (system improvement)
+            - README and statistics update"
+            
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+      - name: 📊 Display Results
+        if: always()
+        run: |
+          echo "=== System Status ==="
+          if [ -f "orchestrator_results.json" ]; then
+            cat orchestrator_results.json | python -m json.tool
+          else
+            echo "No results file generated"
+          fi
+
+      - name: 📝 Create Issue on Failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let log = '';
+            try {
+              log = fs.readFileSync('orchestrator_log.txt', 'utf8');
+            } catch (e) {
+              log = 'Could not read orchestrator log';
+            }
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 System Orchestrator Failed',
+              body: `## System Failure
+              
+              **Time:** ${new Date().toISOString()}
+              **Workflow:** ${context.runId}
+              
+              ### Log Output
+              
+              \`\`\`
+              ${log.slice(0, 10000)}
+              \`\`\`
+              
+              Please check the logs for details.
+              `,
+              labels: ['automated', 'system-failure']
+            });
+
+      - name: ✅ Complete
+        if: success()
+        run: |
+          echo "🎉 System orchestration completed successfully!"
