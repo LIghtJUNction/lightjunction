@@ -103,6 +103,34 @@ class SelfEvolvingAgent:
         current = self.config['current_version']
         return 'b' if current == 'a' else 'a'
     
+    def get_baseline_file(self, file_key):
+        """
+        Get the baseline file path for a given file key.
+        Baseline files serve as stable reference when A/B evolution fails.
+        They are manually promoted from well-performing variants.
+        """
+        baseline_file = f"{file_key}.py"
+        if Path(baseline_file).exists():
+            return baseline_file
+        return None
+    
+    def should_use_baseline(self, file_key):
+        """
+        Check if we should use baseline as reference for this file.
+        Use baseline when recent evolution attempts have failed repeatedly.
+        """
+        # Check recent evolution history for this file
+        recent_failures = 0
+        history_to_check = min(3, len(self.config.get('evolution_history', [])))
+        
+        for record in self.config.get('evolution_history', [])[-history_to_check:]:
+            for result in record.get('results', []):
+                if result.get('file') == file_key and result.get('status') == 'failed':
+                    recent_failures += 1
+        
+        # If 2 or more recent failures, use baseline
+        return recent_failures >= 2
+    
     async def call_ai_agent(self, prompt, system_instructions="You are a helpful coding assistant."):
         """
         Call AI agent using OpenAI Agents SDK.
@@ -308,13 +336,24 @@ Return the improved code only."""
             target_file = file_info[next_version]
             current_active = file_info[self.config['current_version']]
             
-            print(f"  Current active: {current_active}")
+            # Check if we should use baseline as reference
+            reference_file = current_active
+            use_baseline = self.should_use_baseline(file_key)
+            baseline_file = self.get_baseline_file(file_key)
+            
+            if use_baseline and baseline_file:
+                reference_file = baseline_file
+                print(f"  📋 Using baseline as reference: {baseline_file}")
+                self.logger.log(f"Using baseline reference for {file_key}: {baseline_file}", "BASELINE")
+            else:
+                print(f"  Current active: {current_active}")
+            
             print(f"  Evolving: {target_file}")
             
             # Step 1: Analyze
             print(f"  🔍 Analyzing with AI agent...")
-            self.logger.log(f"Analyzing {file_key}", "ANALYZE")
-            improvements = await self.analyze_file(current_active)
+            self.logger.log(f"Analyzing {file_key} (reference: {reference_file})", "ANALYZE")
+            improvements = await self.analyze_file(reference_file)
             
             if not improvements:
                 print(f"  ❌ Analysis failed")
@@ -331,8 +370,8 @@ Return the improved code only."""
             
             # Step 2: Apply improvements
             print(f"  🛠️  Applying improvements with AI agent...")
-            self.logger.log(f"Applying improvements to {file_key}", "IMPROVE")
-            improved_code = await self.apply_improvements(current_active, improvements)
+            self.logger.log(f"Applying improvements to {file_key} (based on {reference_file})", "IMPROVE")
+            improved_code = await self.apply_improvements(reference_file, improvements)
             
             if not improved_code:
                 print(f"  ❌ Could not apply improvements")

@@ -1,0 +1,127 @@
+name: 🎯 Promote Variant to Baseline
+
+on:
+  workflow_dispatch:
+    inputs:
+      variant:
+        description: 'Which variant to promote (a or b)'
+        required: true
+        type: choice
+        options:
+          - a
+          - b
+      reason:
+        description: 'Reason for promotion (e.g., "Good README generation")'
+        required: false
+        type: string
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🎯 Promote variant ${{ inputs.variant }} to baseline
+        run: |
+          VARIANT="${{ inputs.variant }}"
+          REASON="${{ inputs.reason }}"
+          
+          echo "🎯 Promoting variant '$VARIANT' to baseline files..."
+          echo "📝 Reason: $REASON"
+          
+          # List of files to promote
+          FILES=(
+            "process_code_showcase"
+            "process_qa"
+            "update_readme_data"
+          )
+          
+          PROMOTED=0
+          for file_base in "${FILES[@]}"; do
+            SOURCE_FILE="${file_base}_${VARIANT}.py"
+            TARGET_FILE="${file_base}.py"
+            
+            if [ -f "$SOURCE_FILE" ]; then
+              echo "✅ Copying $SOURCE_FILE → $TARGET_FILE"
+              cp "$SOURCE_FILE" "$TARGET_FILE"
+              PROMOTED=$((PROMOTED + 1))
+            else
+              echo "⚠️  Warning: $SOURCE_FILE not found, skipping..."
+            fi
+          done
+          
+          echo ""
+          echo "📊 Summary: Promoted $PROMOTED files from variant '$VARIANT' to baseline"
+          
+          # Create a promotion record
+          mkdir -p .promotion_history
+          cat > ".promotion_history/promotion_$(date +%Y%m%d_%H%M%S).json" <<EOF
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "variant": "$VARIANT",
+            "reason": "$REASON",
+            "promoted_files": $PROMOTED,
+            "promoted_by": "${{ github.actor }}"
+          }
+          EOF
+
+      - name: 💾 Commit and Push Changes
+        env:
+          VARIANT: ${{ inputs.variant }}
+          REASON: ${{ inputs.reason }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Check for changes
+          if ! git diff --quiet; then
+            echo "Changes detected, committing..."
+            
+            git add process_code_showcase.py process_qa.py update_readme_data.py
+            git add .promotion_history/
+            
+            TIMESTAMP=$(date -u +'%Y-%m-%d %H:%M UTC')
+            
+            git commit -m "🎯 Promote variant '$VARIANT' to baseline" \
+              -m "" \
+              -m "Reason: $REASON" \
+              -m "Promoted by: $ACTOR" \
+              -m "Timestamp: $TIMESTAMP" \
+              -m "" \
+              -m "This establishes new baseline files for evolution reference and fallback."
+            
+            git push
+            
+            echo "✅ Successfully promoted and committed changes"
+          else
+            echo "⚠️  No changes detected"
+          fi
+
+      - name: 📊 Summary
+        if: always()
+        run: |
+          echo "=========================================="
+          echo "🎯 Promotion Summary"
+          echo "=========================================="
+          echo "Variant promoted: ${{ inputs.variant }}"
+          echo "Reason: ${{ inputs.reason }}"
+          echo "Promoted by: @${{ github.actor }}"
+          echo "Timestamp: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          echo "=========================================="
+          echo ""
+          echo "📁 Updated baseline files:"
+          echo "  - process_code_showcase.py"
+          echo "  - process_qa.py"
+          echo "  - update_readme_data.py"
+          echo ""
+          echo "These files now serve as:"
+          echo "  1. Reference baseline for evolution"
+          echo "  2. Fallback when A/B evolution fails"
+          echo "  3. Known-good versions for recovery"
