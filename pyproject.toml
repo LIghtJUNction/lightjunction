@@ -1,0 +1,13 @@
+[project]
+name = "lightjunction-readme-updater"
+version = "1.0.0"
+description = "Automated GitHub Profile README updater"
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.31.0",
+    "Pillow>=10.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

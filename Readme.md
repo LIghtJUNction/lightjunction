@@ -23,7 +23,7 @@
 
 ---
 
-### 最新项目 (Latest Projects)
+### ✨ 最新项目 (Latest Projects)
 <!-- START_DYNAMIC_TITLE_IMAGE -->
 
 ![最新项目](generated_images/latest_projects_title.png)
@@ -32,15 +32,15 @@
 
 <!-- START_DYNAMIC_SUMMARY -->
 
-### 本周活动摘要 (Weekly Activity Summary)
+### 📊 本周活动摘要 (Weekly Activity Summary)
 
-- 本周共有 **5** 次提交分布在 **1** 个仓库中
-- 最活跃的仓库:
+- 📝 本周共有 **5** 次提交分布在 **1** 个仓库中
+- 🔥 最活跃的仓库:
   - **AstrBotCanary**: 5 次提交
 
-- 最近更新的仓库: **BFM_config-**
+- 🔄 最近更新的仓库: **BFM_config-**
 
-- [查看上周报告 (View Last Week's Report)](archives/weekly_reports/weekly_report_20251026_015445_037829.md)
+- 📋 [查看上周报告 (View Last Week's Report)](archives/weekly_reports/weekly_report_20251026_015445_037829.md)
 
 <!-- END_DYNAMIC_SUMMARY -->
 
@@ -49,22 +49,22 @@
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-01`
+  - 📊 `⭐ 36 | 🍴 5 | 💻 Shell | 🕒 2025-11-01`
 - **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - This is an officially supported Astrbot
-  - `Stars: 3 | Forks: 0 | Language: Python | Updated: 2025-11-01`
+  - 📊 `⭐ 3 | 🍴 0 | 💻 Python | 🕒 2025-11-01`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: Python | Updated: 2025-10-26`
+  - 📊 `⭐ 1 | 🍴 0 | 💻 Python | 🕒 2025-10-26`
 - **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - peak modding
-  - `Stars: 1 | Forks: 1 | Language: C# | Updated: 2025-10-21`
+  - 📊 `⭐ 1 | 🍴 1 | 💻 C# | 🕒 2025-10-21`
 - **[Robyn](https://github.com/LIghtJUNction/Robyn)** - Robyn is a Super Fast Async Python Web Framework with a Rust runtime.
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-10-14`
+  - 📊 `⭐ 0 | 🍴 0 | 💻 None | 🕒 2025-10-14`
 
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
 
 <details>
-  <summary>近期提交 (Recent Commits - 最近7天)</summary>
+  <summary>📝 近期提交 (Recent Commits - 最近7天)</summary>
 
 <!-- START_DYNAMIC_COMMITS -->
 
@@ -80,7 +80,35 @@
 
 ---
 
-### 有趣的工具 (Interesting Tools)
+### 🎨 代码展示 (Code Showcase)
+
+在这里展示有趣的代码片段和执行结果！通过创建带有 `code-showcase` 标签的 issue 来提交代码。
+
+<details>
+  <summary>📝 如何提交代码展示</summary>
+
+1. 创建一个新的 [Issue](../../issues/new)
+2. 添加标签 `code-showcase`
+3. 在 issue 正文中使用代码块格式：
+
+\`\`\`python
+print("Hello, World!")
+\`\`\`
+
+4. 提交后，工作流会自动执行代码并更新到这里
+5. 支持的语言: Python, JavaScript/Node.js, Bash/Shell
+
+</details>
+
+<!-- START_CODE_SHOWCASE -->
+
+*暂无代码展示，通过创建带有 `code-showcase` 标签的 issue 来添加第一个代码展示！*
+
+<!-- END_CODE_SHOWCASE -->
+
+---
+
+### 🛠️ 有趣的工具 (Interesting Tools)
 
 <details>
   <summary>展开查看推荐工具</summary>

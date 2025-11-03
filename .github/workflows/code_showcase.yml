@@ -1,0 +1,132 @@
+name: 🎨 Update Code Showcase
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: string
+
+jobs:
+  update_showcase:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Get issue number
+        id: issue
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "number=${{ inputs.issue_number }}" >> $GITHUB_OUTPUT
+          else
+            echo "number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if issue has code-showcase label
+        id: check_label
+        if: github.event_name == 'issues'
+        run: |
+          LABELS='${{ toJson(github.event.issue.labels.*.name) }}'
+          if echo "$LABELS" | grep -q "code-showcase"; then
+            echo "has_label=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_label=false" >> $GITHUB_OUTPUT
+            echo "Issue does not have 'code-showcase' label, skipping..."
+          fi
+
+      - name: Process code showcase
+        if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
+        id: process
+        run: |
+          # SECURITY: Run code processing with minimal environment
+          # Only pass necessary variables, NOT GITHUB_TOKEN
+          env -i \
+            PATH="$PATH" \
+            HOME="$HOME" \
+            GITHUB_REPOSITORY_OWNER="${{ github.repository_owner }}" \
+            GITHUB_REPOSITORY="${{ github.repository }}" \
+            GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            uv run python process_code_showcase.py ${{ steps.issue.outputs.number }} > showcase_output.txt 2>&1
+          
+          # Note: GITHUB_TOKEN is only used to fetch issue content, 
+          # it's cleared before any user code execution
+          
+          echo "SHOWCASE_MD<<EOF" >> $GITHUB_OUTPUT
+          sed -n '/---SHOWCASE_START---/,/---SHOWCASE_END---/{ /---SHOWCASE_START---/d; /---SHOWCASE_END---/d; p; }' showcase_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          echo "--- Showcase Output ---"
+          cat showcase_output.txt
+          echo "--- End of Showcase Output ---"
+
+      - name: Update README with code showcase
+        if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
+        env:
+          SHOWCASE_MD_VALUE: ${{ steps.process.outputs.SHOWCASE_MD }}
+        run: |
+          if [ -z "$SHOWCASE_MD_VALUE" ]; then
+            echo "Error: No showcase content generated"
+            exit 1
+          fi
+
+          echo "$SHOWCASE_MD_VALUE" > showcase_insert.txt
+          
+          START_COMMENT="<!-- START_CODE_SHOWCASE -->"
+          END_COMMENT="<!-- END_CODE_SHOWCASE -->"
+
+          cp Readme.md Readme.md.tmp
+
+          # Update code showcase section
+          awk -v start="$START_COMMENT" -v end="$END_COMMENT" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat showcase_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md
+
+          rm Readme.md.tmp showcase_insert.txt
+
+          echo "README updated with code showcase"
+
+      - name: Commit and push changes
+        if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          if ! git diff --quiet Readme.md 2>/dev/null; then
+            echo "Changes detected in Readme.md"
+            git add Readme.md
+            git commit -m "🎨 更新代码展示 (Update code showcase) - Issue #${{ steps.issue.outputs.number }}"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+      - name: Comment on issue
+        if: (github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true') && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: ${{ steps.issue.outputs.number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ 代码展示已更新到 README！\n\n查看最新展示: [README](https://github.com/${{ github.repository }}#-代码展示-code-showcase)'
+            })

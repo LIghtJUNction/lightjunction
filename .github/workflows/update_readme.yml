@@ -15,15 +15,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          python-version: '3.x'
+          enable-cache: true
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests Pillow numpy
+      - name: Set up Python
+        run: uv python install 3.12
           
       - name: Install Chinese fonts
         run: |
@@ -35,7 +33,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python update_readme_data.py > script_output.txt
+          uv run python update_readme_data.py > script_output.txt
           echo "TITLE_IMG_PATH=$(grep 'TITLE_IMG_PATH:' script_output.txt | cut -d':' -f2- | tr -d '\r\n')" >> $GITHUB_OUTPUT
           echo "REPO_LIST_MD<<EOF" >> $GITHUB_OUTPUT
           sed -n '/---REPO_LIST_START---/,/---REPO_LIST_END---/{ /---REPO_LIST_START---/d; /---REPO_LIST_END---/d; p; }' script_output.txt >> $GITHUB_OUTPUT
