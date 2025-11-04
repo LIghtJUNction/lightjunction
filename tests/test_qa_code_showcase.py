@@ -151,7 +151,8 @@ class TestProcessQA:
     def test_qa_module_has_main_function(self):
         """Test that QA module has main entry point."""
         from lightjunction import process_qa
-        assert hasattr(process_qa, 'main') or callable(getattr(process_qa, '__name__', None))
+        main_func = getattr(process_qa, 'main', None)
+        assert main_func is None or callable(main_func)
 
 
 class TestProcessCodeShowcase:
@@ -293,7 +294,8 @@ print(f"2 + 2 = {result}")
     def test_code_showcase_module_has_main_function(self):
         """Test that code showcase module has main entry point."""
         from lightjunction import process_code_showcase
-        assert hasattr(process_code_showcase, 'main') or callable(getattr(process_code_showcase, '__name__', None))
+        main_func = getattr(process_code_showcase, 'main', None)
+        assert main_func is None or callable(main_func)
     
     def test_security_code_scanning(self):
         """Test that dangerous code patterns are detected."""

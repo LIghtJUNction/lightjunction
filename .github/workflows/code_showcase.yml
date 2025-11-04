@@ -44,7 +44,7 @@ jobs:
         run: |
           LABELS='${{ toJson(github.event.issue.labels.*.name) }}'
           # Check for code-showcase label and exclude qa label
-          if echo "$LABELS" | grep -q "code-showcase" && ! echo "$LABELS" | grep -q '"qa"'; then
+          if echo "$LABELS" | grep -q '"code-showcase"' && ! echo "$LABELS" | grep -q '"qa"'; then
             echo "has_label=true" >> $GITHUB_OUTPUT
             echo "✅ Issue has 'code-showcase' label and not 'qa' label"
           else

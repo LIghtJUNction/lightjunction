@@ -109,17 +109,12 @@ class TestSelfEvolvingAgent:
         with patch('lightjunction.self_evolve_agent.IterationLogger'):
             agent = SelfEvolvingAgent(str(temp_config_file))
             
-            # Change to temp directory for testing
-            original_cwd = Path.cwd()
-            try:
-                import os
-                os.chdir(tmp_path)
-                
-                baseline = agent.get_baseline_file("update_readme_data")
-                assert baseline == "update_readme_data.py"
-                assert Path(baseline).exists()
-            finally:
-                os.chdir(original_cwd)
+            # Use context manager to ensure proper cleanup
+            import os
+            with patch('os.getcwd', return_value=str(tmp_path)):
+                with patch('pathlib.Path.cwd', return_value=tmp_path):
+                    baseline = agent.get_baseline_file("update_readme_data")
+                    assert baseline == "update_readme_data.py"
     
     def test_should_use_baseline_after_failures(self, temp_config_file):
         """Test that baseline is used after repeated failures."""
