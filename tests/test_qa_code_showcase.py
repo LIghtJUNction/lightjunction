@@ -262,6 +262,39 @@ no language specified
         blocks = extract_code_blocks(markdown)
         assert len(blocks) == 0
     
+    def test_extract_code_blocks_single_line(self):
+        """Test extracting code blocks with code on same line as opening fence."""
+        from lightjunction.process_code_showcase import extract_code_blocks
+        
+        # Test single-line format (like issue #17)
+        markdown = '```python print("Hello, World!") ```'
+        
+        blocks = extract_code_blocks(markdown)
+        assert len(blocks) == 1
+        assert blocks[0]['language'] == 'python'
+        assert blocks[0]['code'] == 'print("Hello, World!")'
+    
+    def test_extract_code_blocks_mixed_formats(self):
+        """Test extracting code blocks with both single-line and multi-line formats."""
+        from lightjunction.process_code_showcase import extract_code_blocks
+        
+        markdown = """
+        Single-line format:
+        ```python print("Single line") ```
+        
+        Multi-line format:
+        ```javascript
+        console.log("Multi line");
+        ```
+        """
+        
+        blocks = extract_code_blocks(markdown)
+        assert len(blocks) == 2
+        assert blocks[0]['language'] == 'python'
+        assert blocks[0]['code'] == 'print("Single line")'
+        assert blocks[1]['language'] == 'javascript'
+        assert 'console.log' in blocks[1]['code']
+    
     def test_execute_code_python_success(self):
         """Test executing valid Python code."""
         from lightjunction.process_code_showcase import execute_code
