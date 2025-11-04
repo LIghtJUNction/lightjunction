@@ -103,13 +103,13 @@ make format
 
 ```bash
 # Test orchestrator
-uv run python orchestrator.py
+uv run python -m lightjunction.orchestrator
 
 # Test README update
-uv run python update_readme_data.py
+uv run python -m lightjunction.update_readme_data
 
 # Test self-evolution (if needed)
-uv run python self_evolve_agent.py
+uv run python -m lightjunction.self_evolve_agent
 ```
 
 ### 4. Commit Changes
@@ -231,7 +231,7 @@ Runs all pre-commit hooks on all files.
 
 ```bash
 # Run with output
-uv run python orchestrator.py
+uv run python -m lightjunction.orchestrator
 
 # Check results
 cat orchestrator_results.json | uv run python -m json.tool
@@ -241,7 +241,7 @@ cat orchestrator_results.json | uv run python -m json.tool
 
 ```bash
 # Run evolution cycle
-uv run python self_evolve_agent.py
+uv run python -m lightjunction.self_evolve_agent
 
 # Check config
 cat agent_config.json | uv run python -m json.tool
@@ -251,7 +251,7 @@ cat agent_config.json | uv run python -m json.tool
 
 ```bash
 # Run meta-evolution
-uv run python meta_agent.py
+uv run python -m lightjunction.meta_agent
 
 # Check config
 cat meta_agent_config.json | uv run python -m json.tool

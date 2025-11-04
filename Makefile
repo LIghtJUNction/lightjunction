@@ -33,25 +33,21 @@ format:
 
 type-check:
 	@echo "🔎 Running mypy type checking..."
-	uv run mypy update_readme_data.py || true
-	uv run mypy process_code_showcase.py || true
-	uv run mypy process_qa.py || true
-	uv run mypy self_evolve_agent.py || true
-	uv run mypy meta_agent.py || true
+	uv run mypy src/lightjunction/ || true
 
 test:
 	@echo "🧪 Running basic tests..."
-	@uv run python -m py_compile update_readme_data.py
-	@uv run python -m py_compile update_readme_data_a.py
-	@uv run python -m py_compile update_readme_data_b.py
-	@uv run python -m py_compile process_code_showcase.py
-	@uv run python -m py_compile process_code_showcase_a.py
-	@uv run python -m py_compile process_code_showcase_b.py
-	@uv run python -m py_compile process_qa.py
-	@uv run python -m py_compile process_qa_a.py
-	@uv run python -m py_compile process_qa_b.py
-	@uv run python -m py_compile self_evolve_agent.py
-	@uv run python -m py_compile meta_agent.py
+	@uv run python -m py_compile src/lightjunction/update_readme_data.py
+	@uv run python -m py_compile src/lightjunction/update_readme_data_a.py
+	@uv run python -m py_compile src/lightjunction/update_readme_data_b.py
+	@uv run python -m py_compile src/lightjunction/process_code_showcase.py
+	@uv run python -m py_compile src/lightjunction/process_code_showcase_a.py
+	@uv run python -m py_compile src/lightjunction/process_code_showcase_b.py
+	@uv run python -m py_compile src/lightjunction/process_qa.py
+	@uv run python -m py_compile src/lightjunction/process_qa_a.py
+	@uv run python -m py_compile src/lightjunction/process_qa_b.py
+	@uv run python -m py_compile src/lightjunction/self_evolve_agent.py
+	@uv run python -m py_compile src/lightjunction/meta_agent.py
 	@echo "✅ All files compile successfully!"
 
 pre-commit:

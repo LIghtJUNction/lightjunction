@@ -58,7 +58,7 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          uv run python process_qa.py ${{ steps.issue.outputs.number }} > qa_output.txt 2>&1
+          uv run python -m lightjunction.process_qa ${{ steps.issue.outputs.number }} > qa_output.txt 2>&1
           
           echo "QA_MD<<EOF" >> $GITHUB_OUTPUT
           sed -n '/---QA_START---/,/---QA_END---/{ /---QA_START---/d; /---QA_END---/d; p; }' qa_output.txt >> $GITHUB_OUTPUT
