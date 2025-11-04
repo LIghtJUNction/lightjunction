@@ -194,12 +194,7 @@ def main():
         # Provide fallback answer
         answer = """抱歉，当前无法连接到 AI 服务生成回答。
 
-请稍后重试，或者直接在 issue 中等待社区成员的回复。
-
-如果问题紧急，建议：
-1. 查看相关文档
-2. 在社区论坛提问
-3. 查找类似问题的解决方案"""
+请稍后重试，或者直接在 issue 中等待社区成员的回复。"""
     
     print(f"Answer generated: {len(answer)} characters")
     
