@@ -748,7 +748,7 @@ if __name__ == "__main__":
 
     # Get GitHub token for API authentication
     github_token = get_github_token()
-    github_username = "LIghtJUNction"
+    github_username = os.environ.get('GITHUB_REPOSITORY_OWNER', 'LIghtJUNction')
 
     # Fetch user statistics
     print("Fetching user statistics...")
