@@ -43,7 +43,7 @@ class SystemOrchestrator:
     
     def should_run_self_evolution(self) -> bool:
         """Check if self-evolution should run (daily at 00:00)."""
-        # For manual trigger, check if it's been > 20 hours since last run
+        # Check if it's a new day since last run
         config_path = Path("agent_config.json")
         if not config_path.exists():
             return True
@@ -56,11 +56,17 @@ class SystemOrchestrator:
             if not last_update:
                 return True
             
-            from datetime import datetime, timedelta
+            from datetime import datetime
+            # Parse timestamps and compare dates (UTC)
             last_dt = datetime.fromisoformat(last_update)
-            hours_since = (datetime.now() - last_dt).total_seconds() / 3600
+            current_dt = datetime.now()
             
-            return hours_since >= 20  # Run if > 20 hours
+            # Check if it's a different calendar day (UTC)
+            # Convert to UTC date for comparison
+            last_date = last_dt.date()
+            current_date = current_dt.date()
+            
+            return current_date > last_date  # Run if it's a new day
         except Exception as e:
             self.log(f"Could not check last update: {e}", "WARNING")
             return False
@@ -79,11 +85,16 @@ class SystemOrchestrator:
             if not last_update:
                 return True
             
-            from datetime import datetime, timedelta
+            from datetime import datetime
+            # Parse timestamps and compare dates (UTC)
             last_dt = datetime.fromisoformat(last_update)
-            hours_since = (datetime.now() - last_dt).total_seconds() / 3600
+            current_dt = datetime.now()
             
-            return hours_since >= 22  # Run if > 22 hours
+            # Check if it's a different calendar day (UTC)
+            last_date = last_dt.date()
+            current_date = current_dt.date()
+            
+            return current_date > last_date  # Run if it's a new day
         except Exception as e:
             self.log(f"Could not check last meta update: {e}", "WARNING")
             return False
