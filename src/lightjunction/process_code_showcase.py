@@ -41,7 +41,8 @@ def fetch_issue_content(owner, repo, issue_number, token=''):
 def extract_code_blocks(markdown_text):
     """Extract code blocks from markdown text."""
     # Pattern to match code blocks with optional language specifier
-    pattern = r'```(\w+)?\n(.*?)```'
+    # Supports both formats: ```python\ncode``` and ```python code```
+    pattern = r'```(\w+)?[ \t]*\n?(.*?)```'
     matches = re.findall(pattern, markdown_text, re.DOTALL)
     
     code_blocks = []
