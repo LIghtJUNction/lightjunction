@@ -137,13 +137,13 @@ jobs:
           git config --global user.email 'lightjunction-bot[bot]@users.noreply.github.com'
           
           # Check for changes
-          if ! git diff --quiet Readme.md generated_images/ archives/ agent_config.json meta_agent_config.json self_evolve_agent.py 2>/dev/null; then
+          if ! git diff --quiet Readme.md generated_images/ archives/ agent_config.json meta_agent_config.json src/lightjunction/self_evolve_agent.py orchestrator_output.txt orchestrator_results.json 2>/dev/null; then
             echo "Changes detected, committing..."
             
             # Determine commit message based on what changed
             COMMIT_MSG="🤖 Automated system update - $(date -u +'%Y-%m-%d %H:%M UTC')"
             
-            if git diff --quiet self_evolve_agent.py 2>/dev/null; then
+            if git diff --quiet src/lightjunction/self_evolve_agent.py 2>/dev/null; then
               EVOLUTION_TYPE=""
             else
               EVOLUTION_TYPE="🧠 Meta-evolution applied | "
@@ -153,7 +153,7 @@ jobs:
               EVOLUTION_TYPE="${EVOLUTION_TYPE}🧬 Self-evolution | "
             fi
             
-            git add Readme.md generated_images/ archives/ agent_config.json meta_agent_config.json self_evolve_agent.py self_evolve_agent.py.backup.* 2>/dev/null || true
+            git add Readme.md generated_images/ archives/ agent_config.json meta_agent_config.json src/lightjunction/self_evolve_agent.py src/lightjunction/self_evolve_agent.py.backup.* orchestrator_output.txt orchestrator_results.json orchestrator_log.txt 2>/dev/null || true
             git commit -m "${COMMIT_MSG}
 
             ${EVOLUTION_TYPE}📊 Weekly report updated

@@ -43,11 +43,17 @@ jobs:
         if: github.event_name == 'issues'
         run: |
           LABELS='${{ toJson(github.event.issue.labels.*.name) }}'
-          if echo "$LABELS" | grep -q "qa"; then
+          # Check for qa label and exclude code-showcase label
+          if echo "$LABELS" | grep -q '"qa"' && ! echo "$LABELS" | grep -q '"code-showcase"'; then
             echo "has_label=true" >> $GITHUB_OUTPUT
+            echo "✅ Issue has 'qa' label and not 'code-showcase' label"
           else
             echo "has_label=false" >> $GITHUB_OUTPUT
-            echo "Issue does not have 'qa' label, skipping..."
+            if echo "$LABELS" | grep -q '"code-showcase"'; then
+              echo "⏭️  Issue has 'code-showcase' label, skipping Q&A processing..."
+            else
+              echo "⏭️  Issue does not have 'qa' label, skipping..."
+            fi
           fi
 
       - name: Process Q&A with AI
@@ -58,30 +64,63 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
+          echo "🤖 Starting Q&A processing with AI..."
+          
           uv run python -m lightjunction.process_qa ${{ steps.issue.outputs.number }} > qa_output.txt 2>&1
+          
+          PROCESS_EXIT_CODE=$?
+          
+          echo "--- Q&A Output ---"
+          cat qa_output.txt
+          echo "--- End of Q&A Output ---"
+          
+          if [ $PROCESS_EXIT_CODE -ne 0 ]; then
+            echo "❌ Q&A processing failed with exit code $PROCESS_EXIT_CODE"
+            exit 1
+          fi
+          
+          # Check if output markers exist
+          if ! grep -q "---QA_START---" qa_output.txt; then
+            echo "❌ Error: Output markers not found in qa_output.txt"
+            echo "This usually means the processing script failed or GITHUB_TOKEN is invalid"
+            exit 1
+          fi
           
           echo "QA_MD<<EOF" >> $GITHUB_OUTPUT
           sed -n '/---QA_START---/,/---QA_END---/{ /---QA_START---/d; /---QA_END---/d; p; }' qa_output.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
-          echo "--- Q&A Output ---"
-          cat qa_output.txt
-          echo "--- End of Q&A Output ---"
+          echo "✅ Q&A processing completed successfully"
 
       - name: Update README with Q&A
         if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
         env:
           QA_MD_VALUE: ${{ steps.process.outputs.QA_MD }}
         run: |
+          echo "📝 Updating README with Q&A..."
+          
           if [ -z "$QA_MD_VALUE" ]; then
-            echo "Error: No Q&A content generated"
+            echo "❌ Error: No Q&A content generated"
+            echo "QA_MD_VALUE is empty"
             exit 1
           fi
+          
+          echo "Content length: ${#QA_MD_VALUE} characters"
 
           echo "$QA_MD_VALUE" > qa_insert.txt
           
           START_COMMENT="<!-- START_QA_SECTION -->"
           END_COMMENT="<!-- END_QA_SECTION -->"
+          
+          # Verify markers exist in README
+          if ! grep -q "$START_COMMENT" Readme.md; then
+            echo "❌ Error: $START_COMMENT not found in Readme.md"
+            exit 1
+          fi
+          if ! grep -q "$END_COMMENT" Readme.md; then
+            echo "❌ Error: $END_COMMENT not found in Readme.md"
+            exit 1
+          fi
 
           cp Readme.md Readme.md.tmp
 
@@ -95,7 +134,7 @@ jobs:
 
           rm Readme.md.tmp qa_insert.txt
 
-          echo "README updated with Q&A"
+          echo "✅ README updated with Q&A"
 
       - name: Commit and push changes
         if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
