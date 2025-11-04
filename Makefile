@@ -1,4 +1,4 @@
-.PHONY: help install install-dev lint format type-check test pre-commit clean
+.PHONY: help install install-dev lint format type-check test test-compile test-cov pre-commit clean
 
 help:
 	@echo "🧬 LightJunction AI Evolution System"
@@ -9,7 +9,9 @@ help:
 	@echo "  make lint         - Run ruff linter"
 	@echo "  make format       - Format code with ruff"
 	@echo "  make type-check   - Run mypy type checking"
-	@echo "  make test         - Run basic tests"
+	@echo "  make test         - Run pytest with coverage"
+	@echo "  make test-compile - Run basic syntax compilation tests"
+	@echo "  make test-cov     - Run tests and open coverage report"
 	@echo "  make pre-commit   - Install and run pre-commit hooks"
 	@echo "  make clean        - Clean temporary files"
 
@@ -36,7 +38,11 @@ type-check:
 	uv run mypy src/lightjunction/ || true
 
 test:
-	@echo "🧪 Running basic tests..."
+	@echo "🧪 Running pytest with coverage..."
+	uv run pytest
+
+test-compile:
+	@echo "🧪 Running basic compilation tests..."
 	@uv run python -m py_compile src/lightjunction/update_readme_data.py
 	@uv run python -m py_compile src/lightjunction/update_readme_data_a.py
 	@uv run python -m py_compile src/lightjunction/update_readme_data_b.py
@@ -49,6 +55,15 @@ test:
 	@uv run python -m py_compile src/lightjunction/self_evolve_agent.py
 	@uv run python -m py_compile src/lightjunction/meta_agent.py
 	@echo "✅ All files compile successfully!"
+
+test-cov:
+	@echo "🧪 Running tests and generating coverage report..."
+	uv run pytest
+	@echo ""
+	@echo "📊 Opening coverage report..."
+	@which xdg-open > /dev/null 2>&1 && xdg-open htmlcov/index.html || \
+	 which open > /dev/null 2>&1 && open htmlcov/index.html || \
+	 echo "Coverage report generated in htmlcov/index.html"
 
 pre-commit:
 	@echo "🔧 Setting up pre-commit hooks..."
@@ -65,5 +80,5 @@ clean:
 	find . -type f -name "*.pyo" -delete
 	find . -type f -name "*.log" -delete
 	find . -type f -name ".DS_Store" -delete
-	rm -rf .mypy_cache .ruff_cache
+	rm -rf .mypy_cache .ruff_cache .pytest_cache .coverage htmlcov coverage.xml
 	@echo "✅ Cleanup complete!"
