@@ -13,13 +13,12 @@ Features:
 - File modification capabilities
 """
 
-import os
-import sys
-import json
-import subprocess
 import asyncio
+import json
+import os
+import subprocess
+import sys
 from datetime import datetime
-from pathlib import Path
 
 try:
     from agents import Agent, Runner
@@ -32,22 +31,38 @@ class SelfEvolvingAgent:
     def __init__(self, config_path='agent_config.json'):
         self.config_path = config_path
         self.load_config()
-        
+
     def load_config(self):
         """Load agent configuration."""
-        with open(self.config_path, 'r') as f:
+        with open(self.config_path) as f:
             self.config = json.load(f)
-    
+
     def save_config(self):
         """Save agent configuration."""
         with open(self.config_path, 'w') as f:
             json.dump(self.config, f, indent=2)
-    
+
+    def resolve_file_path(self, file_path):
+        """Resolve file path relative to the package directory.
+
+        Args:
+            file_path: Relative or absolute file path
+
+        Returns:
+            Resolved path (relative if input was relative, absolute if input was absolute)
+        """
+        # If already absolute or starts with src/, use as-is
+        if os.path.isabs(file_path) or file_path.startswith('src/'):
+            return file_path
+
+        # Otherwise, assume it's relative to src/lightjunction/
+        return os.path.join('src', 'lightjunction', file_path)
+
     def get_next_version(self):
         """Get the next version to update (alternates between a and b)."""
         current = self.config['current_version']
         return 'b' if current == 'a' else 'a'
-    
+
     async def call_ai_agent(self, prompt, system_instructions="You are a helpful coding assistant."):
         """
         Call AI agent using OpenAI Agents SDK.
@@ -56,7 +71,7 @@ class SelfEvolvingAgent:
         if Agent is None or Runner is None:
             print("OpenAI Agents SDK not available, using fallback")
             return await self._fallback_ai_call(prompt, system_instructions)
-        
+
         try:
             # Create an agent with instructions
             agent = Agent(
@@ -64,32 +79,32 @@ class SelfEvolvingAgent:
                 instructions=system_instructions,
                 model="gpt-4o-mini"  # Free model
             )
-            
+
             # Run the agent with the prompt
             result = await Runner.run(
                 starting_agent=agent,
                 input=prompt
             )
-            
+
             return result.final_output if hasattr(result, 'final_output') else str(result)
-            
+
         except Exception as e:
             print(f"AI agent call failed: {e}")
             return await self._fallback_ai_call(prompt, system_instructions)
-    
+
     async def _fallback_ai_call(self, prompt, system_instructions):
         """Fallback to direct API call if Agents SDK unavailable."""
         import requests
-        
+
         # Use GitHub Models API endpoint (free gpt-4o-mini access)
         api_url = "https://models.inference.ai.azure.com/chat/completions"
         token = os.environ.get('GITHUB_TOKEN', '')
-        
+
         headers = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {token}'
         }
-        
+
         payload = {
             "model": "gpt-4o-mini",
             "messages": [
@@ -99,25 +114,26 @@ class SelfEvolvingAgent:
             "temperature": 0.7,
             "max_tokens": 4000
         }
-        
+
         try:
             response = requests.post(api_url, headers=headers, json=payload, timeout=60)
             response.raise_for_status()
             result = response.json()
-            
+
             if 'choices' in result and len(result['choices']) > 0:
                 return result['choices'][0]['message']['content']
             return None
-                
+
         except Exception as e:
             print(f"Fallback AI call failed: {e}")
             return None
-    
+
     async def analyze_file(self, file_path):
         """Analyze a Python file and suggest improvements using AI agent."""
-        with open(file_path, 'r') as f:
+        resolved_path = self.resolve_file_path(file_path)
+        with open(resolved_path) as f:
             code = f.read()
-        
+
         system_instructions = """You are an expert Python code reviewer and improver.
 Your task is to analyze Python code and suggest concrete improvements for:
 1. Performance optimization
@@ -152,12 +168,13 @@ Format your response as JSON with this structure:
 """
 
         return await self.call_ai_agent(prompt, system_instructions)
-    
+
     async def apply_improvements(self, file_path, improvements_json):
         """Apply improvements to a Python file using AI agent."""
-        with open(file_path, 'r') as f:
+        resolved_path = self.resolve_file_path(file_path)
+        with open(resolved_path) as f:
             original_code = f.read()
-        
+
         system_instructions = """You are an expert Python developer.
 Apply the suggested improvements to the code while maintaining all functionality.
 Return ONLY the improved Python code, no explanations or markdown."""
@@ -175,7 +192,7 @@ Original code:
 Return the improved code only."""
 
         improved_code = await self.call_ai_agent(prompt, system_instructions)
-        
+
         if improved_code:
             # Extract code if it's wrapped in markdown
             if '```python' in improved_code:
@@ -186,41 +203,42 @@ Return the improved code only."""
                 start = improved_code.find('```') + 3
                 end = improved_code.rfind('```')
                 improved_code = improved_code[start:end].strip()
-            
+
             return improved_code
-        
+
         return None
-    
+
     def test_file(self, file_path):
         """Test a Python file for syntax and basic functionality."""
         try:
+            resolved_path = self.resolve_file_path(file_path)
             # Syntax check
             result = subprocess.run(
-                ['python', '-m', 'py_compile', file_path],
+                ['python', '-m', 'py_compile', resolved_path],
                 capture_output=True,
                 text=True,
                 timeout=10
             )
-            
+
             if result.returncode != 0:
                 return False, f"Syntax error: {result.stderr}"
-            
+
             # Try to import and check for obvious issues
             result = subprocess.run(
-                ['python', '-c', f'import importlib.util; spec = importlib.util.spec_from_file_location("test", "{file_path}"); module = importlib.util.module_from_spec(spec)'],
+                ['python', '-c', f'import importlib.util; spec = importlib.util.spec_from_file_location("test", "{resolved_path}"); module = importlib.util.module_from_spec(spec)'],
                 capture_output=True,
                 text=True,
                 timeout=10
             )
-            
+
             if result.returncode != 0:
                 return False, f"Import error: {result.stderr}"
-            
+
             return True, "All tests passed"
-            
+
         except Exception as e:
             return False, f"Test error: {e}"
-    
+
     async def evolve_cycle(self):
         """
         Run one evolution cycle using OpenAI Agents:
@@ -234,65 +252,66 @@ Return the improved code only."""
         print("=" * 60)
         print("🧬 Starting Self-Evolution Cycle (OpenAI Agents)")
         print("=" * 60)
-        
+
         next_version = self.get_next_version()
         print(f"\n📌 Target version: {next_version}")
         print(f"📅 Time: {datetime.now().isoformat()}")
         print(f"🤖 Model: {self.config['model']}")
-        
+
         results = []
-        
+
         # Evolve each file
         for file_key, file_info in self.config['files'].items():
             print(f"\n🔄 Processing: {file_key}")
-            
+
             # Get the file to evolve
             target_file = file_info[next_version]
             current_active = file_info[self.config['current_version']]
-            
+
             print(f"  Current active: {current_active}")
             print(f"  Evolving: {target_file}")
-            
+
             # Step 1: Analyze
-            print(f"  🔍 Analyzing with AI agent...")
+            print("  🔍 Analyzing with AI agent...")
             improvements = await self.analyze_file(current_active)
-            
+
             if not improvements:
-                print(f"  ❌ Analysis failed")
+                print("  ❌ Analysis failed")
                 results.append({
                     'file': file_key,
                     'status': 'failed',
                     'reason': 'Analysis failed'
                 })
                 continue
-            
-            print(f"  ✅ Analysis complete")
-            
+
+            print("  ✅ Analysis complete")
+
             # Step 2: Apply improvements
-            print(f"  🛠️  Applying improvements with AI agent...")
+            print("  🛠️  Applying improvements with AI agent...")
             improved_code = await self.apply_improvements(current_active, improvements)
-            
+
             if not improved_code:
-                print(f"  ❌ Could not apply improvements")
+                print("  ❌ Could not apply improvements")
                 results.append({
                     'file': file_key,
                     'status': 'failed',
                     'reason': 'Could not apply improvements'
                 })
                 continue
-            
+
             # Save improved version
-            with open(target_file, 'w') as f:
+            resolved_target = self.resolve_file_path(target_file)
+            with open(resolved_target, 'w') as f:
                 f.write(improved_code)
-            
-            print(f"  ✅ Improvements applied")
-            
+
+            print("  ✅ Improvements applied")
+
             # Step 3: Test
-            print(f"  🧪 Testing...")
+            print("  🧪 Testing...")
             test_passed, test_message = self.test_file(target_file)
-            
+
             if test_passed:
-                print(f"  ✅ Tests passed")
+                print("  ✅ Tests passed")
                 results.append({
                     'file': file_key,
                     'status': 'success',
@@ -302,17 +321,19 @@ Return the improved code only."""
             else:
                 print(f"  ❌ Tests failed: {test_message}")
                 # Revert to original
-                with open(current_active, 'r') as f:
+                resolved_current = self.resolve_file_path(current_active)
+                resolved_target = self.resolve_file_path(target_file)
+                with open(resolved_current) as f:
                     original = f.read()
-                with open(target_file, 'w') as f:
+                with open(resolved_target, 'w') as f:
                     f.write(original)
-                
+
                 results.append({
                     'file': file_key,
                     'status': 'failed',
                     'reason': test_message
                 })
-        
+
         # Update configuration
         evolution_record = {
             'timestamp': datetime.now().isoformat(),
@@ -320,46 +341,46 @@ Return the improved code only."""
             'results': results,
             'model': self.config['model']
         }
-        
+
         self.config['evolution_history'].append(evolution_record)
-        
+
         # Keep only recent history
         if len(self.config['evolution_history']) > self.config['max_history']:
             self.config['evolution_history'] = self.config['evolution_history'][-self.config['max_history']:]
-        
+
         # Switch active version if all tests passed
         all_passed = all(r['status'] == 'success' for r in results)
         if all_passed:
-            print(f"\n✅ All files evolved successfully!")
+            print("\n✅ All files evolved successfully!")
             print(f"🔄 Switching to version {next_version}")
             self.config['current_version'] = next_version
-            
+
             # Update active version for each file
             for file_key in self.config['files']:
                 self.config['files'][file_key]['active'] = next_version
         else:
             print(f"\n⚠️  Some files failed to evolve. Keeping version {self.config['current_version']}")
-        
+
         self.config['last_update'] = datetime.now().isoformat()
         self.save_config()
-        
+
         print("\n" + "=" * 60)
         print("🏁 Evolution Cycle Complete")
         print("=" * 60)
-        
+
         return results
 
 async def main_async():
     """Run self-evolution agent (async)."""
     agent = SelfEvolvingAgent()
     results = await agent.evolve_cycle()
-    
+
     # Print summary
     print("\n📊 Summary:")
     success_count = sum(1 for r in results if r['status'] == 'success')
     print(f"  ✅ Successful: {success_count}/{len(results)}")
     print(f"  ❌ Failed: {len(results) - success_count}/{len(results)}")
-    
+
     sys.exit(0 if success_count == len(results) else 1)
 
 def main():
