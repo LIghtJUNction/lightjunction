@@ -49,7 +49,7 @@ class SelfEvolvingAgent:
             file_path: Relative or absolute file path
 
         Returns:
-            Resolved absolute path
+            Resolved path (relative if input was relative, absolute if input was absolute)
         """
         # If already absolute or starts with src/, use as-is
         if os.path.isabs(file_path) or file_path.startswith('src/'):
