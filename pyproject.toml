@@ -1,6 +1,6 @@
 [project]
 name = "lightjunction-ai-evolution"
-version = "1.0.0"
+dynamic = ["version"]
 description = "Self-evolving AI system with automated code improvement and GitHub profile management"
 requires-python = ">=3.10"
 dependencies = [
@@ -14,11 +14,24 @@ dev = [
     "mypy>=1.7.0",
     "ruff>=0.1.6",
     "pre-commit>=3.5.0",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.21.0",
 ]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/lightjunction/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lightjunction"]
+exclude = [
+    "**/*_a.py",
+    "**/*_b.py",
+]
 
 [tool.ruff]
 line-length = 120
@@ -62,3 +75,36 @@ module = [
     "agents.*",
 ]
 ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--cov=src/lightjunction",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+    "-v",
+]
+
+[tool.coverage.run]
+source = ["src/lightjunction"]
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "**/*_a.py",
+    "**/*_b.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+]

@@ -44,7 +44,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           echo "Starting system orchestrator..."
-          uv run python orchestrator.py > orchestrator_log.txt 2>&1 || true
+          uv run python -m lightjunction.orchestrator > orchestrator_log.txt 2>&1 || true
           
           echo "Orchestration completed"
           

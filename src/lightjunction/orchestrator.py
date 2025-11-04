@@ -89,7 +89,7 @@ class SystemOrchestrator:
             return False
     
     def get_active_self_evolve_agent(self) -> str:
-        """Get the currently active self-evolution agent file."""
+        """Get the currently active self-evolution agent module."""
         try:
             config_path = Path("agent_config.json")
             if config_path.exists():
@@ -98,16 +98,18 @@ class SystemOrchestrator:
                 
                 self_evolve_info = config.get('self_evolve_agent', {})
                 active = self_evolve_info.get('active', 'a')
-                active_file = self_evolve_info.get(active, 'self_evolve_agent_a.py')
                 
-                if Path(active_file).exists():
-                    return active_file
+                # Return module name instead of file path
+                if active == 'b':
+                    return 'lightjunction.self_evolve_agent_b'
+                else:
+                    return 'lightjunction.self_evolve_agent_a'
             
             # Fallback to version a
-            return 'self_evolve_agent_a.py'
+            return 'lightjunction.self_evolve_agent_a'
         except Exception as e:
             self.log(f"Error getting active agent: {e}", "WARNING")
-            return 'self_evolve_agent_a.py'
+            return 'lightjunction.self_evolve_agent_a'
     
     async def run_self_evolution(self) -> bool:
         """Run self-evolution cycle using the active agent version."""
@@ -117,7 +119,7 @@ class SystemOrchestrator:
         try:
             # Import and run self-evolution
             result = subprocess.run(
-                [sys.executable, active_agent],
+                [sys.executable, "-m", active_agent],
                 capture_output=True,
                 text=True,
                 timeout=600  # 10 minutes max
@@ -159,7 +161,7 @@ class SystemOrchestrator:
         
         try:
             result = subprocess.run(
-                [sys.executable, "meta_agent.py"],
+                [sys.executable, "-m", "lightjunction.meta_agent"],
                 capture_output=True,
                 text=True,
                 timeout=600  # 10 minutes max
@@ -201,7 +203,7 @@ class SystemOrchestrator:
         
         try:
             result = subprocess.run(
-                [sys.executable, "update_readme_data.py"],
+                [sys.executable, "-m", "lightjunction.update_readme_data"],
                 capture_output=True,
                 text=True,
                 timeout=300  # 5 minutes max
