@@ -1,8 +1,7 @@
 """Test orchestrator scheduling logic."""
 
 import json
-import tempfile
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
@@ -23,62 +22,39 @@ class TestSchedulingLogic:
     
     def test_should_run_self_evolution_new_day(self, tmp_path):
         """Test that self-evolution runs on a new calendar day."""
-        # Create a temporary config with yesterday's date
+        # Create a temporary config with yesterday's date (UTC)
         config_file = tmp_path / "agent_config.json"
-        yesterday = datetime.now() - timedelta(days=1)
+        yesterday = datetime.now(timezone.utc) - timedelta(days=1)
         config = {
             "last_update": yesterday.isoformat()
         }
         config_file.write_text(json.dumps(config))
         
+        # Test using a patched Path to use our temp file
+        orchestrator = SystemOrchestrator()
         with patch('lightjunction.orchestrator.Path') as mock_path:
             mock_path.return_value.exists.return_value = True
-            mock_path.return_value.__str__ = lambda self: str(config_file)
-            
-            with patch('builtins.open', open):
-                with patch('lightjunction.orchestrator.Path.__new__') as mock_new:
-                    mock_new.return_value = config_file
-                    orchestrator = SystemOrchestrator()
-                    
-                    # Mock the path to return our temp file
-                    with patch.object(orchestrator, 'should_run_self_evolution') as mock_method:
-                        # Test the actual logic directly
-                        with open(config_file) as f:
-                            config_data = json.load(f)
-                        
-                        last_update = config_data.get('last_update')
-                        last_dt = datetime.fromisoformat(last_update)
-                        current_dt = datetime.now()
-                        
-                        last_date = last_dt.date()
-                        current_date = current_dt.date()
-                        
-                        # Should be True since it's a new day
-                        assert current_date > last_date
+            with patch('builtins.open', lambda p, *args, **kwargs: open(config_file, *args, **kwargs)):
+                result = orchestrator.should_run_self_evolution()
+                assert result is True
     
     def test_should_run_self_evolution_same_day(self, tmp_path):
         """Test that self-evolution does NOT run on the same calendar day."""
-        # Create a temporary config with today's date (1 hour ago)
+        # Create a temporary config with today's date (1 hour ago, UTC)
         config_file = tmp_path / "agent_config.json"
-        one_hour_ago = datetime.now() - timedelta(hours=1)
+        one_hour_ago = datetime.now(timezone.utc) - timedelta(hours=1)
         config = {
             "last_update": one_hour_ago.isoformat()
         }
         config_file.write_text(json.dumps(config))
         
-        # Test the logic directly
-        with open(config_file) as f:
-            config_data = json.load(f)
-        
-        last_update = config_data.get('last_update')
-        last_dt = datetime.fromisoformat(last_update)
-        current_dt = datetime.now()
-        
-        last_date = last_dt.date()
-        current_date = current_dt.date()
-        
-        # Should be False since it's the same day
-        assert not (current_date > last_date)
+        # Test using a patched Path to use our temp file
+        orchestrator = SystemOrchestrator()
+        with patch('lightjunction.orchestrator.Path') as mock_path:
+            mock_path.return_value.exists.return_value = True
+            with patch('builtins.open', lambda p, *args, **kwargs: open(config_file, *args, **kwargs)):
+                result = orchestrator.should_run_self_evolution()
+                assert result is False
     
     def test_should_run_meta_evolution_no_config(self, tmp_path):
         """Test that meta-evolution does NOT run when no config exists."""
@@ -89,27 +65,21 @@ class TestSchedulingLogic:
     
     def test_should_run_meta_evolution_new_day(self, tmp_path):
         """Test that meta-evolution runs on a new calendar day."""
-        # Create a temporary config with yesterday's date
+        # Create a temporary config with yesterday's date (UTC)
         config_file = tmp_path / "meta_agent_config.json"
-        yesterday = datetime.now() - timedelta(days=1)
+        yesterday = datetime.now(timezone.utc) - timedelta(days=1)
         config = {
             "last_meta_evolution": yesterday.isoformat()
         }
         config_file.write_text(json.dumps(config))
         
-        # Test the logic directly
-        with open(config_file) as f:
-            config_data = json.load(f)
-        
-        last_update = config_data.get('last_meta_evolution')
-        last_dt = datetime.fromisoformat(last_update)
-        current_dt = datetime.now()
-        
-        last_date = last_dt.date()
-        current_date = current_dt.date()
-        
-        # Should be True since it's a new day
-        assert current_date > last_date
+        # Test using a patched Path to use our temp file
+        orchestrator = SystemOrchestrator()
+        with patch('lightjunction.orchestrator.Path') as mock_path:
+            mock_path.return_value.exists.return_value = True
+            with patch('builtins.open', lambda p, *args, **kwargs: open(config_file, *args, **kwargs)):
+                result = orchestrator.should_run_meta_evolution()
+                assert result is True
     
     def test_scheduling_logic_with_problem_timestamps(self):
         """Test with the actual timestamps from the problem statement."""
@@ -123,6 +93,12 @@ class TestSchedulingLogic:
         
         last_dt = datetime.fromisoformat(last_update)
         current_dt = datetime.fromisoformat(current_time)
+        
+        # Treat as UTC for consistent comparison
+        if last_dt.tzinfo is None:
+            last_dt = last_dt.replace(tzinfo=timezone.utc)
+        if current_dt.tzinfo is None:
+            current_dt = current_dt.replace(tzinfo=timezone.utc)
         
         last_date = last_dt.date()
         current_date = current_dt.date()

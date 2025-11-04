@@ -56,13 +56,18 @@ class SystemOrchestrator:
             if not last_update:
                 return True
             
-            from datetime import datetime
+            from datetime import datetime, timezone
             # Parse timestamps and compare dates (UTC)
             last_dt = datetime.fromisoformat(last_update)
-            current_dt = datetime.now()
+            
+            # Use UTC for consistent date comparison across timezones
+            # If timestamp is naive, treat it as UTC
+            if last_dt.tzinfo is None:
+                last_dt = last_dt.replace(tzinfo=timezone.utc)
+            
+            current_dt = datetime.now(timezone.utc)
             
             # Check if it's a different calendar day (UTC)
-            # Convert to UTC date for comparison
             last_date = last_dt.date()
             current_date = current_dt.date()
             
@@ -85,10 +90,16 @@ class SystemOrchestrator:
             if not last_update:
                 return True
             
-            from datetime import datetime
+            from datetime import datetime, timezone
             # Parse timestamps and compare dates (UTC)
             last_dt = datetime.fromisoformat(last_update)
-            current_dt = datetime.now()
+            
+            # Use UTC for consistent date comparison across timezones
+            # If timestamp is naive, treat it as UTC
+            if last_dt.tzinfo is None:
+                last_dt = last_dt.replace(tzinfo=timezone.utc)
+            
+            current_dt = datetime.now(timezone.utc)
             
             # Check if it's a different calendar day (UTC)
             last_date = last_dt.date()
