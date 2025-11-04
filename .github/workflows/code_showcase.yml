@@ -43,17 +43,25 @@ jobs:
         if: github.event_name == 'issues'
         run: |
           LABELS='${{ toJson(github.event.issue.labels.*.name) }}'
-          if echo "$LABELS" | grep -q "code-showcase"; then
+          # Check for code-showcase label and exclude qa label
+          if echo "$LABELS" | grep -q "code-showcase" && ! echo "$LABELS" | grep -q '"qa"'; then
             echo "has_label=true" >> $GITHUB_OUTPUT
+            echo "✅ Issue has 'code-showcase' label and not 'qa' label"
           else
             echo "has_label=false" >> $GITHUB_OUTPUT
-            echo "Issue does not have 'code-showcase' label, skipping..."
+            if echo "$LABELS" | grep -q '"qa"'; then
+              echo "⏭️  Issue has 'qa' label, skipping code showcase processing..."
+            else
+              echo "⏭️  Issue does not have 'code-showcase' label, skipping..."
+            fi
           fi
 
       - name: Process code showcase
         if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
         id: process
         run: |
+          echo "🔄 Starting code showcase processing..."
+          
           # SECURITY: Run code processing with minimal environment
           # Only pass necessary variables, NOT GITHUB_TOKEN
           env -i \
@@ -64,31 +72,62 @@ jobs:
             GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
             uv run python -m lightjunction.process_code_showcase ${{ steps.issue.outputs.number }} > showcase_output.txt 2>&1
           
+          PROCESS_EXIT_CODE=$?
+          
           # Note: GITHUB_TOKEN is only used to fetch issue content, 
           # it's cleared before any user code execution
+          
+          echo "--- Showcase Output ---"
+          cat showcase_output.txt
+          echo "--- End of Showcase Output ---"
+          
+          if [ $PROCESS_EXIT_CODE -ne 0 ]; then
+            echo "❌ Code showcase processing failed with exit code $PROCESS_EXIT_CODE"
+            exit 1
+          fi
+          
+          # Check if output markers exist
+          if ! grep -q "---SHOWCASE_START---" showcase_output.txt; then
+            echo "❌ Error: Output markers not found in showcase_output.txt"
+            echo "This usually means the processing script failed"
+            exit 1
+          fi
           
           echo "SHOWCASE_MD<<EOF" >> $GITHUB_OUTPUT
           sed -n '/---SHOWCASE_START---/,/---SHOWCASE_END---/{ /---SHOWCASE_START---/d; /---SHOWCASE_END---/d; p; }' showcase_output.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
-          echo "--- Showcase Output ---"
-          cat showcase_output.txt
-          echo "--- End of Showcase Output ---"
+          echo "✅ Code showcase processing completed successfully"
 
       - name: Update README with code showcase
         if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
         env:
           SHOWCASE_MD_VALUE: ${{ steps.process.outputs.SHOWCASE_MD }}
         run: |
+          echo "📝 Updating README with code showcase..."
+          
           if [ -z "$SHOWCASE_MD_VALUE" ]; then
-            echo "Error: No showcase content generated"
+            echo "❌ Error: No showcase content generated"
+            echo "SHOWCASE_MD_VALUE is empty"
             exit 1
           fi
+          
+          echo "Content length: ${#SHOWCASE_MD_VALUE} characters"
 
           echo "$SHOWCASE_MD_VALUE" > showcase_insert.txt
           
           START_COMMENT="<!-- START_CODE_SHOWCASE -->"
           END_COMMENT="<!-- END_CODE_SHOWCASE -->"
+          
+          # Verify markers exist in README
+          if ! grep -q "$START_COMMENT" Readme.md; then
+            echo "❌ Error: $START_COMMENT not found in Readme.md"
+            exit 1
+          fi
+          if ! grep -q "$END_COMMENT" Readme.md; then
+            echo "❌ Error: $END_COMMENT not found in Readme.md"
+            exit 1
+          fi
 
           cp Readme.md Readme.md.tmp
 
@@ -102,7 +141,7 @@ jobs:
 
           rm Readme.md.tmp showcase_insert.txt
 
-          echo "README updated with code showcase"
+          echo "✅ README updated with code showcase"
 
       - name: Commit and push changes
         if: github.event_name == 'workflow_dispatch' || steps.check_label.outputs.has_label == 'true'
