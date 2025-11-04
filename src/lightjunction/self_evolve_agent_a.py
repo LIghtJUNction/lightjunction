@@ -43,6 +43,22 @@ class SelfEvolvingAgent:
         with open(self.config_path, 'w') as f:
             json.dump(self.config, f, indent=2)
     
+    def resolve_file_path(self, file_path):
+        """Resolve file path relative to the package directory.
+        
+        Args:
+            file_path: Relative or absolute file path
+            
+        Returns:
+            Resolved absolute path
+        """
+        # If already absolute or starts with src/, use as-is
+        if os.path.isabs(file_path) or file_path.startswith('src/'):
+            return file_path
+        
+        # Otherwise, assume it's relative to src/lightjunction/
+        return os.path.join('src', 'lightjunction', file_path)
+    
     def get_next_version(self):
         """Get the next version to update (alternates between a and b)."""
         current = self.config['current_version']
@@ -115,7 +131,8 @@ class SelfEvolvingAgent:
     
     async def analyze_file(self, file_path):
         """Analyze a Python file and suggest improvements using AI agent."""
-        with open(file_path, 'r') as f:
+        resolved_path = self.resolve_file_path(file_path)
+        with open(resolved_path, 'r') as f:
             code = f.read()
         
         system_instructions = """You are an expert Python code reviewer and improver.
@@ -155,7 +172,8 @@ Format your response as JSON with this structure:
     
     async def apply_improvements(self, file_path, improvements_json):
         """Apply improvements to a Python file using AI agent."""
-        with open(file_path, 'r') as f:
+        resolved_path = self.resolve_file_path(file_path)
+        with open(resolved_path, 'r') as f:
             original_code = f.read()
         
         system_instructions = """You are an expert Python developer.
@@ -194,9 +212,10 @@ Return the improved code only."""
     def test_file(self, file_path):
         """Test a Python file for syntax and basic functionality."""
         try:
+            resolved_path = self.resolve_file_path(file_path)
             # Syntax check
             result = subprocess.run(
-                ['python', '-m', 'py_compile', file_path],
+                ['python', '-m', 'py_compile', resolved_path],
                 capture_output=True,
                 text=True,
                 timeout=10
@@ -207,7 +226,7 @@ Return the improved code only."""
             
             # Try to import and check for obvious issues
             result = subprocess.run(
-                ['python', '-c', f'import importlib.util; spec = importlib.util.spec_from_file_location("test", "{file_path}"); module = importlib.util.module_from_spec(spec)'],
+                ['python', '-c', f'import importlib.util; spec = importlib.util.spec_from_file_location("test", "{resolved_path}"); module = importlib.util.module_from_spec(spec)'],
                 capture_output=True,
                 text=True,
                 timeout=10
@@ -282,7 +301,8 @@ Return the improved code only."""
                 continue
             
             # Save improved version
-            with open(target_file, 'w') as f:
+            resolved_target = self.resolve_file_path(target_file)
+            with open(resolved_target, 'w') as f:
                 f.write(improved_code)
             
             print(f"  ✅ Improvements applied")
@@ -302,9 +322,11 @@ Return the improved code only."""
             else:
                 print(f"  ❌ Tests failed: {test_message}")
                 # Revert to original
-                with open(current_active, 'r') as f:
+                resolved_current = self.resolve_file_path(current_active)
+                resolved_target = self.resolve_file_path(target_file)
+                with open(resolved_current, 'r') as f:
                     original = f.read()
-                with open(target_file, 'w') as f:
+                with open(resolved_target, 'w') as f:
                     f.write(original)
                 
                 results.append({
