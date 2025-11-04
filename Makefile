@@ -15,43 +15,43 @@ help:
 
 install:
 	@echo "📦 Installing production dependencies..."
-	uv pip install -e .
+	uv sync --no-dev
 
 install-dev:
 	@echo "📦 Installing development dependencies..."
-	uv pip install -e ".[dev]"
+	uv sync
 	pre-commit install
 
 lint:
 	@echo "🔍 Running ruff linter..."
-	ruff check .
+	uv run ruff check .
 
 format:
 	@echo "✨ Formatting code with ruff..."
-	ruff format .
-	ruff check --fix .
+	uv run ruff format .
+	uv run ruff check --fix .
 
 type-check:
 	@echo "🔎 Running mypy type checking..."
-	mypy update_readme_data.py || true
-	mypy process_code_showcase.py || true
-	mypy process_qa.py || true
-	mypy self_evolve_agent.py || true
-	mypy meta_agent.py || true
+	uv run mypy update_readme_data.py || true
+	uv run mypy process_code_showcase.py || true
+	uv run mypy process_qa.py || true
+	uv run mypy self_evolve_agent.py || true
+	uv run mypy meta_agent.py || true
 
 test:
 	@echo "🧪 Running basic tests..."
-	@python -m py_compile update_readme_data.py
-	@python -m py_compile update_readme_data_a.py
-	@python -m py_compile update_readme_data_b.py
-	@python -m py_compile process_code_showcase.py
-	@python -m py_compile process_code_showcase_a.py
-	@python -m py_compile process_code_showcase_b.py
-	@python -m py_compile process_qa.py
-	@python -m py_compile process_qa_a.py
-	@python -m py_compile process_qa_b.py
-	@python -m py_compile self_evolve_agent.py
-	@python -m py_compile meta_agent.py
+	@uv run python -m py_compile update_readme_data.py
+	@uv run python -m py_compile update_readme_data_a.py
+	@uv run python -m py_compile update_readme_data_b.py
+	@uv run python -m py_compile process_code_showcase.py
+	@uv run python -m py_compile process_code_showcase_a.py
+	@uv run python -m py_compile process_code_showcase_b.py
+	@uv run python -m py_compile process_qa.py
+	@uv run python -m py_compile process_qa_a.py
+	@uv run python -m py_compile process_qa_b.py
+	@uv run python -m py_compile self_evolve_agent.py
+	@uv run python -m py_compile meta_agent.py
 	@echo "✅ All files compile successfully!"
 
 pre-commit:

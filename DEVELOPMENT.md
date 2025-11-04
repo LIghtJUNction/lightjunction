@@ -18,7 +18,7 @@ cd lightjunction
 # Install uv (if not already installed)
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Install dependencies
+# Install dependencies (uv sync will automatically create a virtual environment)
 make install-dev
 
 # Setup pre-commit hooks
@@ -103,13 +103,13 @@ make format
 
 ```bash
 # Test orchestrator
-python orchestrator.py
+uv run python orchestrator.py
 
 # Test README update
-python update_readme_data.py
+uv run python update_readme_data.py
 
 # Test self-evolution (if needed)
-python self_evolve_agent.py
+uv run python self_evolve_agent.py
 ```
 
 ### 4. Commit Changes
@@ -231,30 +231,30 @@ Runs all pre-commit hooks on all files.
 
 ```bash
 # Run with output
-python orchestrator.py
+uv run python orchestrator.py
 
 # Check results
-cat orchestrator_results.json | python -m json.tool
+cat orchestrator_results.json | uv run python -m json.tool
 ```
 
 ### Self-Evolution
 
 ```bash
 # Run evolution cycle
-python self_evolve_agent.py
+uv run python self_evolve_agent.py
 
 # Check config
-cat agent_config.json | python -m json.tool
+cat agent_config.json | uv run python -m json.tool
 ```
 
 ### Meta-Agent
 
 ```bash
 # Run meta-evolution
-python meta_agent.py
+uv run python meta_agent.py
 
 # Check config
-cat meta_agent_config.json | python -m json.tool
+cat meta_agent_config.json | uv run python -m json.tool
 ```
 
 ## Immutable Files
@@ -286,7 +286,7 @@ If you get import errors:
 make install-dev
 
 # Or with uv directly
-uv pip install -e ".[dev]"
+uv sync
 ```
 
 ### Type Checking Errors
