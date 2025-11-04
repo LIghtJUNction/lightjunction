@@ -28,12 +28,8 @@ jobs:
         with:
           enable-cache: true
 
-      - name: 🐍 Set up Python 3.12
-        run: uv python install 3.12
-
-      - name: 📦 Install dependencies
-        run: |
-          uv pip install requests Pillow openai-agents
+      - name: 📦 Sync dependencies
+        run: uv sync
 
       - name: 🛠️ Install Chinese fonts
         run: |
@@ -48,7 +44,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           echo "Starting system orchestrator..."
-          python orchestrator.py > orchestrator_log.txt 2>&1 || true
+          uv run python orchestrator.py > orchestrator_log.txt 2>&1 || true
           
           echo "Orchestration completed"
           
@@ -177,7 +173,7 @@ jobs:
         run: |
           echo "=== System Status ==="
           if [ -f "orchestrator_results.json" ]; then
-            cat orchestrator_results.json | python -m json.tool
+            cat orchestrator_results.json | uv run python -m json.tool
           else
             echo "No results file generated"
           fi
