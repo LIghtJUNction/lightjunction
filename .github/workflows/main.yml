@@ -173,7 +173,7 @@ jobs:
         run: |
           echo "=== System Status ==="
           if [ -f "orchestrator_results.json" ]; then
-            cat orchestrator_results.json | python -m json.tool
+            cat orchestrator_results.json | uv run python -m json.tool
           else
             echo "No results file generated"
           fi
