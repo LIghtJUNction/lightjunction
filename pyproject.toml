@@ -5,7 +5,6 @@ description = "Self-evolving AI system with automated code improvement and GitHu
 requires-python = ">=3.10"
 dependencies = [
     "requests>=2.31.0",
-    "Pillow>=10.0.0",
     "openai-agents>=0.4.0",
 ]
 
@@ -71,7 +70,6 @@ strict_optional = true
 
 [[tool.mypy.overrides]]
 module = [
-    "PIL.*",
     "agents.*",
 ]
 ignore_missing_imports = true

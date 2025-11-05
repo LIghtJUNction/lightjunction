@@ -33,12 +33,12 @@ class SystemOrchestrator:
         """Log a message with timestamp."""
         timestamp = datetime.now().strftime("%H:%M:%S")
         prefix = {
-            "INFO": "ℹ️",
-            "SUCCESS": "✅",
-            "ERROR": "❌",
-            "WARNING": "⚠️",
-            "RUNNING": "🔄"
-        }.get(level, "ℹ️")
+            "INFO": "[INFO]",
+            "SUCCESS": "[OK]",
+            "ERROR": "[ERROR]",
+            "WARNING": "[WARN]",
+            "RUNNING": "[RUN]"
+        }.get(level, "[INFO]")
         print(f"[{timestamp}] {prefix} {message}")
     
     def should_run_self_evolution(self) -> bool:
@@ -136,7 +136,7 @@ class SystemOrchestrator:
     async def run_self_evolution(self) -> bool:
         """Run self-evolution cycle using the active agent version."""
         active_agent = self.get_active_self_evolve_agent()
-        self.log(f"🧬 Starting Self-Evolution (using {active_agent})", "RUNNING")
+        self.log(f"[EVOLVE] Starting Self-Evolution (using {active_agent})", "RUNNING")
         
         try:
             # Import and run self-evolution
@@ -179,7 +179,7 @@ class SystemOrchestrator:
     
     async def run_meta_evolution(self) -> bool:
         """Run meta-evolution cycle."""
-        self.log("🧠 Starting Meta-Evolution", "RUNNING")
+        self.log("[META] Starting Meta-Evolution", "RUNNING")
         
         try:
             result = subprocess.run(
@@ -221,7 +221,7 @@ class SystemOrchestrator:
     
     def run_readme_update(self) -> bool:
         """Run README update with weekly statistics."""
-        self.log("📊 Updating README and Weekly Report", "RUNNING")
+        self.log("[STATS] Updating README and Weekly Report", "RUNNING")
         
         try:
             result = subprocess.run(
@@ -235,35 +235,42 @@ class SystemOrchestrator:
             output = result.stdout
             
             # Extract key outputs
-            title_img = None
+            title_ascii = None
             repo_list = None
             commits = None
             summary = None
             
-            for line in output.split('\n'):
-                if line.startswith('TITLE_IMG_PATH:'):
-                    title_img = line.split(':', 1)[1].strip()
-                elif line == '---REPO_LIST_START---':
-                    start_idx = output.find('---REPO_LIST_START---')
-                    end_idx = output.find('---REPO_LIST_END---')
-                    if start_idx != -1 and end_idx != -1:
-                        repo_list = output[start_idx+len('---REPO_LIST_START---'):end_idx].strip()
-                elif line == '---COMMITS_START---':
-                    start_idx = output.find('---COMMITS_START---')
-                    end_idx = output.find('---COMMITS_END---')
-                    if start_idx != -1 and end_idx != -1:
-                        commits = output[start_idx+len('---COMMITS_START---'):end_idx].strip()
-                elif line == '---SUMMARY_START---':
-                    start_idx = output.find('---SUMMARY_START---')
-                    end_idx = output.find('---SUMMARY_END---')
-                    if start_idx != -1 and end_idx != -1:
-                        summary = output[start_idx+len('---SUMMARY_START---'):end_idx].strip()
+            # Extract ASCII title
+            if 'TITLE_ASCII:' in output:
+                ascii_start = output.find('TITLE_ASCII:')
+                ascii_end = output.find('Fetching latest repositories...', ascii_start)
+                if ascii_start != -1 and ascii_end != -1:
+                    title_ascii = output[ascii_start+len('TITLE_ASCII:'):ascii_end].strip()
             
-            if result.returncode == 0 or title_img:  # Success if we got outputs
+            # Extract other sections
+            if '---REPO_LIST_START---' in output:
+                start_idx = output.find('---REPO_LIST_START---')
+                end_idx = output.find('---REPO_LIST_END---')
+                if start_idx != -1 and end_idx != -1:
+                    repo_list = output[start_idx+len('---REPO_LIST_START---'):end_idx].strip()
+            
+            if '---COMMITS_START---' in output:
+                start_idx = output.find('---COMMITS_START---')
+                end_idx = output.find('---COMMITS_END---')
+                if start_idx != -1 and end_idx != -1:
+                    commits = output[start_idx+len('---COMMITS_START---'):end_idx].strip()
+            
+            if '---SUMMARY_START---' in output:
+                start_idx = output.find('---SUMMARY_START---')
+                end_idx = output.find('---SUMMARY_END---')
+                if start_idx != -1 and end_idx != -1:
+                    summary = output[start_idx+len('---SUMMARY_START---'):end_idx].strip()
+            
+            if result.returncode == 0 or title_ascii:  # Success if we got outputs
                 self.log("README update completed", "SUCCESS")
                 self.results['tasks']['readme_update'] = {
                     'status': 'success',
-                    'title_img': title_img,
+                    'title_ascii': title_ascii,
                     'has_repo_list': repo_list is not None,
                     'has_commits': commits is not None,
                     'has_summary': summary is not None
@@ -299,7 +306,7 @@ class SystemOrchestrator:
     async def run_all(self):
         """Run all tasks in proper order."""
         self.log("=" * 60)
-        self.log("🚀 System Orchestrator Starting")
+        self.log("[START] System Orchestrator Starting")
         self.log("=" * 60)
         
         # Task 1: Self-Evolution (if scheduled)
@@ -327,19 +334,19 @@ class SystemOrchestrator:
         
         # Summary
         self.log("=" * 60)
-        self.log("📊 Orchestration Summary")
+        self.log("[STATS] Orchestration Summary")
         self.log("=" * 60)
         
         for task, result in self.results['tasks'].items():
             status = result.get('status', 'unknown')
             status_emoji = {
-                'success': '✅',
-                'failed': '❌',
-                'error': '❌',
-                'timeout': '⏱️',
-                'skipped': '⏭️',
-                'partial': '⚠️'
-            }.get(status, '❓')
+                'success': '[SUCCESS]',
+                'failed': '[FAIL]',
+                'error': '[FAIL]',
+                'timeout': '[TIMEOUT]',
+                'skipped': '[SKIP]',
+                'partial': '[WARN]'
+            }.get(status, '[?]')
             
             self.log(f"{task}: {status_emoji} {status}")
         
@@ -348,7 +355,7 @@ class SystemOrchestrator:
             json.dump(self.results, f, indent=2)
         
         self.log("=" * 60)
-        self.log("🏁 Orchestration Complete")
+        self.log("[END] Orchestration Complete")
         self.log("=" * 60)
         
         # Return success if critical tasks succeeded
