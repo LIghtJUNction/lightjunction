@@ -1,4 +1,4 @@
-name: 🚀 Main System Orchestrator
+name: [Main] Main System Orchestrator
 
 on:
   schedule:
@@ -18,20 +18,20 @@ jobs:
       contents: write
     
     steps:
-      - name: 📥 Checkout repository
+      - name: [Checkout] Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: 🔧 Install uv
+      - name: [Setup] Install uv
         uses: astral-sh/setup-uv@v3
         with:
           enable-cache: true
 
-      - name: 📦 Sync dependencies
+      - name: [Sync] Sync dependencies
         run: uv sync
 
-      - name: 🚀 Run System Orchestrator
+      - name: [Main] Run System Orchestrator
         id: orchestrate
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
             echo "EOF" >> $GITHUB_OUTPUT
           fi
 
-      - name: 📝 Update README.md
+      - name: [Update] Update README.md
         if: steps.orchestrate.outputs.TITLE_ASCII != ''
         env:
           TITLE_ASCII_VALUE: ${{ steps.orchestrate.outputs.TITLE_ASCII }}
@@ -131,7 +131,7 @@ jobs:
           mv Readme.md.tmp Readme.md
           rm title_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt
 
-      - name: 💾 Commit and Push Changes
+      - name: [Commit] Commit and Push Changes
         run: |
           git config --global user.name 'lightjunction-bot[bot]'
           git config --global user.email 'lightjunction-bot[bot]@users.noreply.github.com'
@@ -168,7 +168,7 @@ jobs:
             echo "No changes to commit"
           fi
 
-      - name: 📊 Display Results
+      - name: [Display] Display Results
         if: always()
         run: |
           echo "=== System Status ==="
@@ -178,7 +178,7 @@ jobs:
             echo "No results file generated"
           fi
 
-      - name: 📝 Create Issue on Failure
+      - name: [Update] Create Issue on Failure
         if: failure()
         uses: actions/github-script@v7
         with:
@@ -194,7 +194,7 @@ jobs:
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '🚨 System Orchestrator Failed',
+              title: '[Alert] System Orchestrator Failed',
               body: `## System Failure
               
               **Time:** ${new Date().toISOString()}
@@ -214,4 +214,4 @@ jobs:
       - name: ✅ Complete
         if: success()
         run: |
-          echo "🎉 System orchestration completed successfully!"
+          echo "[Success] System orchestration completed successfully!"

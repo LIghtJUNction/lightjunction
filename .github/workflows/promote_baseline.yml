@@ -1,4 +1,4 @@
-name: 🎯 Promote Variant to Baseline
+name: [Promote] Promote Variant to Baseline
 
 on:
   workflow_dispatch:
@@ -22,18 +22,18 @@ jobs:
       contents: write
     
     steps:
-      - name: 📥 Checkout repository
+      - name: [Checkout] Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: 🎯 Promote variant ${{ inputs.variant }} to baseline
+      - name: [Promote] Promote variant ${{ inputs.variant }} to baseline
         run: |
           VARIANT="${{ inputs.variant }}"
           REASON="${{ inputs.reason }}"
           
-          echo "🎯 Promoting variant '$VARIANT' to baseline files..."
-          echo "📝 Reason: $REASON"
+          echo "[Promote] Promoting variant '$VARIANT' to baseline files..."
+          echo "[Note] Reason: $REASON"
           
           # List of files to promote
           FILES=(
@@ -46,16 +46,16 @@ jobs:
             TARGET_FILE="${file_base}.py"
             
             if [ -f "$SOURCE_FILE" ]; then
-              echo "✅ Copying $SOURCE_FILE → $TARGET_FILE"
+              echo "[OK] Copying $SOURCE_FILE → $TARGET_FILE"
               cp "$SOURCE_FILE" "$TARGET_FILE"
               PROMOTED=$((PROMOTED + 1))
             else
-              echo "⚠️  Warning: $SOURCE_FILE not found, skipping..."
+              echo "[WARN]  Warning: $SOURCE_FILE not found, skipping..."
             fi
           done
           
           echo ""
-          echo "📊 Summary: Promoted $PROMOTED files from variant '$VARIANT' to baseline"
+          echo "[Summary] Summary: Promoted $PROMOTED files from variant '$VARIANT' to baseline"
           
           # Create a promotion record
           mkdir -p .promotion_history
@@ -69,7 +69,7 @@ jobs:
           }
           EOF
 
-      - name: 💾 Commit and Push Changes
+      - name: [Commit] Commit and Push Changes
         env:
           VARIANT: ${{ inputs.variant }}
           REASON: ${{ inputs.reason }}
@@ -87,7 +87,7 @@ jobs:
             
             TIMESTAMP=$(date -u +'%Y-%m-%d %H:%M UTC')
             
-            git commit -m "🎯 Promote variant '$VARIANT' to baseline" \
+            git commit -m "[Promote] Promote variant '$VARIANT' to baseline" \
               -m "" \
               -m "Reason: $REASON" \
               -m "Promoted by: $ACTOR" \
@@ -97,16 +97,16 @@ jobs:
             
             git push
             
-            echo "✅ Successfully promoted and committed changes"
+            echo "[OK] Successfully promoted and committed changes"
           else
-            echo "⚠️  No changes detected"
+            echo "[WARN]  No changes detected"
           fi
 
-      - name: 📊 Summary
+      - name: [Summary] Summary
         if: always()
         run: |
           echo "=========================================="
-          echo "🎯 Promotion Summary"
+          echo "[Promote] Promotion Summary"
           echo "=========================================="
           echo "Variant promoted: ${{ inputs.variant }}"
           echo "Reason: ${{ inputs.reason }}"
@@ -114,7 +114,7 @@ jobs:
           echo "Timestamp: $(date -u +'%Y-%m-%d %H:%M UTC')"
           echo "=========================================="
           echo ""
-          echo "📁 Updated baseline files:"
+          echo "[Files] Updated baseline files:"
           echo "  - update_readme_data.py"
           echo ""
           echo "These files now serve as:"

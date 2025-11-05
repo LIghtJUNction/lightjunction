@@ -33,12 +33,12 @@ class SystemOrchestrator:
         """Log a message with timestamp."""
         timestamp = datetime.now().strftime("%H:%M:%S")
         prefix = {
-            "INFO": "ℹ️",
-            "SUCCESS": "✅",
-            "ERROR": "❌",
-            "WARNING": "⚠️",
-            "RUNNING": "🔄"
-        }.get(level, "ℹ️")
+            "INFO": "[INFO]",
+            "SUCCESS": "[OK]",
+            "ERROR": "[ERROR]",
+            "WARNING": "[WARN]",
+            "RUNNING": "[RUN]"
+        }.get(level, "[INFO]")
         print(f"[{timestamp}] {prefix} {message}")
     
     def should_run_self_evolution(self) -> bool:
@@ -136,7 +136,7 @@ class SystemOrchestrator:
     async def run_self_evolution(self) -> bool:
         """Run self-evolution cycle using the active agent version."""
         active_agent = self.get_active_self_evolve_agent()
-        self.log(f"🧬 Starting Self-Evolution (using {active_agent})", "RUNNING")
+        self.log(f"[EVOLVE] Starting Self-Evolution (using {active_agent})", "RUNNING")
         
         try:
             # Import and run self-evolution
@@ -179,7 +179,7 @@ class SystemOrchestrator:
     
     async def run_meta_evolution(self) -> bool:
         """Run meta-evolution cycle."""
-        self.log("🧠 Starting Meta-Evolution", "RUNNING")
+        self.log("[META] Starting Meta-Evolution", "RUNNING")
         
         try:
             result = subprocess.run(
@@ -221,7 +221,7 @@ class SystemOrchestrator:
     
     def run_readme_update(self) -> bool:
         """Run README update with weekly statistics."""
-        self.log("📊 Updating README and Weekly Report", "RUNNING")
+        self.log("[STATS] Updating README and Weekly Report", "RUNNING")
         
         try:
             result = subprocess.run(
@@ -306,7 +306,7 @@ class SystemOrchestrator:
     async def run_all(self):
         """Run all tasks in proper order."""
         self.log("=" * 60)
-        self.log("🚀 System Orchestrator Starting")
+        self.log("[START] System Orchestrator Starting")
         self.log("=" * 60)
         
         # Task 1: Self-Evolution (if scheduled)
@@ -334,19 +334,19 @@ class SystemOrchestrator:
         
         # Summary
         self.log("=" * 60)
-        self.log("📊 Orchestration Summary")
+        self.log("[STATS] Orchestration Summary")
         self.log("=" * 60)
         
         for task, result in self.results['tasks'].items():
             status = result.get('status', 'unknown')
             status_emoji = {
-                'success': '✅',
-                'failed': '❌',
-                'error': '❌',
-                'timeout': '⏱️',
-                'skipped': '⏭️',
-                'partial': '⚠️'
-            }.get(status, '❓')
+                'success': '[SUCCESS]',
+                'failed': '[FAIL]',
+                'error': '[FAIL]',
+                'timeout': '[TIMEOUT]',
+                'skipped': '[SKIP]',
+                'partial': '[WARN]'
+            }.get(status, '[?]')
             
             self.log(f"{task}: {status_emoji} {status}")
         
@@ -355,7 +355,7 @@ class SystemOrchestrator:
             json.dump(self.results, f, indent=2)
         
         self.log("=" * 60)
-        self.log("🏁 Orchestration Complete")
+        self.log("[END] Orchestration Complete")
         self.log("=" * 60)
         
         # Return success if critical tasks succeeded
