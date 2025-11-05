@@ -34,20 +34,6 @@ def test_import_update_readme_data():
     assert update_readme_data is not None
 
 
-def test_import_process_code_showcase():
-    """Test that process_code_showcase module can be imported."""
-    from lightjunction import process_code_showcase
-    # Module should be importable
-    assert process_code_showcase is not None
-
-
-def test_import_process_qa():
-    """Test that process_qa module can be imported."""
-    from lightjunction import process_qa
-    # Module should be importable
-    assert process_qa is not None
-
-
 def test_package_all():
     """Test that __all__ is properly defined."""
     import lightjunction

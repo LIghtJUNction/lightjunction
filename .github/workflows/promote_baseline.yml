@@ -37,8 +37,6 @@ jobs:
           
           # List of files to promote
           FILES=(
-            "process_code_showcase"
-            "process_qa"
             "update_readme_data"
           )
           
@@ -84,7 +82,7 @@ jobs:
           if ! git diff --quiet; then
             echo "Changes detected, committing..."
             
-            git add process_code_showcase.py process_qa.py update_readme_data.py
+            git add update_readme_data.py
             git add .promotion_history/
             
             TIMESTAMP=$(date -u +'%Y-%m-%d %H:%M UTC')
@@ -117,8 +115,6 @@ jobs:
           echo "=========================================="
           echo ""
           echo "📁 Updated baseline files:"
-          echo "  - process_code_showcase.py"
-          echo "  - process_qa.py"
           echo "  - update_readme_data.py"
           echo ""
           echo "These files now serve as:"
