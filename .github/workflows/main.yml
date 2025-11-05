@@ -31,11 +31,6 @@ jobs:
       - name: 📦 Sync dependencies
         run: uv sync
 
-      - name: 🛠️ Install Chinese fonts
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y fonts-noto-cjk
-
       - name: 🚀 Run System Orchestrator
         id: orchestrate
         env:
@@ -55,7 +50,10 @@ jobs:
           
           # Check if README was updated
           if [ -f "orchestrator_output.txt" ]; then
-            echo "TITLE_IMG_PATH=$(grep 'TITLE_IMG_PATH:' orchestrator_output.txt | cut -d':' -f2- | tr -d '\r\n')" >> $GITHUB_OUTPUT
+            # Extract ASCII title section
+            echo "TITLE_ASCII<<EOF" >> $GITHUB_OUTPUT
+            sed -n '/TITLE_ASCII:/,/Fetching latest repositories/{ /TITLE_ASCII:/d; /Fetching latest repositories/d; p; }' orchestrator_output.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
             
             echo "REPO_LIST_MD<<EOF" >> $GITHUB_OUTPUT
             sed -n '/---REPO_LIST_START---/,/---REPO_LIST_END---/{ /---REPO_LIST_START---/d; /---REPO_LIST_END---/d; p; }' orchestrator_output.txt >> $GITHUB_OUTPUT
@@ -71,22 +69,24 @@ jobs:
           fi
 
       - name: 📝 Update README.md
-        if: steps.orchestrate.outputs.TITLE_IMG_PATH != ''
+        if: steps.orchestrate.outputs.TITLE_ASCII != ''
         env:
-          TITLE_IMG_PATH_VALUE: ${{ steps.orchestrate.outputs.TITLE_IMG_PATH }}
+          TITLE_ASCII_VALUE: ${{ steps.orchestrate.outputs.TITLE_ASCII }}
           REPO_LIST_MD_VALUE: ${{ steps.orchestrate.outputs.REPO_LIST_MD }}
           COMMITS_MD_VALUE: ${{ steps.orchestrate.outputs.COMMITS_MD }}
           SUMMARY_MD_VALUE: ${{ steps.orchestrate.outputs.SUMMARY_MD }}
         run: |
           echo "Updating README with new content..."
           
-          echo "![最新项目]($TITLE_IMG_PATH_VALUE)" > title_image_insert.txt
+          echo '```' > title_insert.txt
+          echo "$TITLE_ASCII_VALUE" >> title_insert.txt
+          echo '```' >> title_insert.txt
           echo "$REPO_LIST_MD_VALUE" > repo_list_insert.txt
           echo "$COMMITS_MD_VALUE" > commits_insert.txt
           echo "$SUMMARY_MD_VALUE" > summary_insert.txt
           
-          START_COMMENT_TITLE_IMG="<!-- START_DYNAMIC_TITLE_IMAGE -->"
-          END_COMMENT_TITLE_IMG="<!-- END_DYNAMIC_TITLE_IMAGE -->"
+          START_COMMENT_TITLE="<!-- START_DYNAMIC_TITLE_IMAGE -->"
+          END_COMMENT_TITLE="<!-- END_DYNAMIC_TITLE_IMAGE -->"
           START_COMMENT_REPO_LIST="<!-- START_DYNAMIC_REPO_LIST -->"
           END_COMMENT_REPO_LIST="<!-- END_DYNAMIC_REPO_LIST -->"
           START_COMMENT_COMMITS="<!-- START_DYNAMIC_COMMITS -->"
@@ -96,10 +96,10 @@ jobs:
 
           cp Readme.md Readme.md.tmp
 
-          # Update title image section
-          awk -v start="$START_COMMENT_TITLE_IMG" -v end="$END_COMMENT_TITLE_IMG" '
+          # Update title section
+          awk -v start="$START_COMMENT_TITLE" -v end="$END_COMMENT_TITLE" '
           BEGIN {p=1}
-          $0 == start {print; printf "\n"; system("cat title_image_insert.txt"); printf "\n"; p=0}
+          $0 == start {print; printf "\n"; system("cat title_insert.txt"); printf "\n"; p=0}
           $0 == end {p=1}
           p {print}
           ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
@@ -129,7 +129,7 @@ jobs:
           ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
 
           mv Readme.md.tmp Readme.md
-          rm title_image_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt
+          rm title_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt
 
       - name: 💾 Commit and Push Changes
         run: |
@@ -137,26 +137,26 @@ jobs:
           git config --global user.email 'lightjunction-bot[bot]@users.noreply.github.com'
           
           # Check for changes
-          if ! git diff --quiet Readme.md generated_images/ archives/ agent_config.json meta_agent_config.json src/lightjunction/self_evolve_agent.py orchestrator_output.txt orchestrator_results.json 2>/dev/null; then
+          if ! git diff --quiet Readme.md archives/ agent_config.json meta_agent_config.json src/lightjunction/self_evolve_agent.py orchestrator_output.txt orchestrator_results.json 2>/dev/null; then
             echo "Changes detected, committing..."
             
             # Determine commit message based on what changed
-            COMMIT_MSG="🤖 Automated system update - $(date -u +'%Y-%m-%d %H:%M UTC')"
+            COMMIT_MSG="Automated system update - $(date -u +'%Y-%m-%d %H:%M UTC')"
             
             if git diff --quiet src/lightjunction/self_evolve_agent.py 2>/dev/null; then
               EVOLUTION_TYPE=""
             else
-              EVOLUTION_TYPE="🧠 Meta-evolution applied | "
+              EVOLUTION_TYPE="Meta-evolution applied | "
             fi
             
             if ! git diff --quiet agent_config.json 2>/dev/null; then
-              EVOLUTION_TYPE="${EVOLUTION_TYPE}🧬 Self-evolution | "
+              EVOLUTION_TYPE="${EVOLUTION_TYPE}Self-evolution | "
             fi
             
-            git add Readme.md generated_images/ archives/ agent_config.json meta_agent_config.json src/lightjunction/self_evolve_agent.py src/lightjunction/self_evolve_agent.py.backup.* orchestrator_output.txt orchestrator_results.json orchestrator_log.txt 2>/dev/null || true
+            git add Readme.md archives/ agent_config.json meta_agent_config.json src/lightjunction/self_evolve_agent.py src/lightjunction/self_evolve_agent.py.backup.* orchestrator_output.txt orchestrator_results.json orchestrator_log.txt 2>/dev/null || true
             git commit -m "${COMMIT_MSG}
 
-            ${EVOLUTION_TYPE}📊 Weekly report updated
+            ${EVOLUTION_TYPE}Weekly report updated
             
             Automated by system orchestrator combining:
             - Self-evolution (A/B code improvement)

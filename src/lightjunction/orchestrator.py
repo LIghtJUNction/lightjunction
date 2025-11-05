@@ -235,35 +235,42 @@ class SystemOrchestrator:
             output = result.stdout
             
             # Extract key outputs
-            title_img = None
+            title_ascii = None
             repo_list = None
             commits = None
             summary = None
             
-            for line in output.split('\n'):
-                if line.startswith('TITLE_IMG_PATH:'):
-                    title_img = line.split(':', 1)[1].strip()
-                elif line == '---REPO_LIST_START---':
-                    start_idx = output.find('---REPO_LIST_START---')
-                    end_idx = output.find('---REPO_LIST_END---')
-                    if start_idx != -1 and end_idx != -1:
-                        repo_list = output[start_idx+len('---REPO_LIST_START---'):end_idx].strip()
-                elif line == '---COMMITS_START---':
-                    start_idx = output.find('---COMMITS_START---')
-                    end_idx = output.find('---COMMITS_END---')
-                    if start_idx != -1 and end_idx != -1:
-                        commits = output[start_idx+len('---COMMITS_START---'):end_idx].strip()
-                elif line == '---SUMMARY_START---':
-                    start_idx = output.find('---SUMMARY_START---')
-                    end_idx = output.find('---SUMMARY_END---')
-                    if start_idx != -1 and end_idx != -1:
-                        summary = output[start_idx+len('---SUMMARY_START---'):end_idx].strip()
+            # Extract ASCII title
+            if 'TITLE_ASCII:' in output:
+                ascii_start = output.find('TITLE_ASCII:')
+                ascii_end = output.find('Fetching latest repositories...', ascii_start)
+                if ascii_start != -1 and ascii_end != -1:
+                    title_ascii = output[ascii_start+len('TITLE_ASCII:'):ascii_end].strip()
             
-            if result.returncode == 0 or title_img:  # Success if we got outputs
+            # Extract other sections
+            if '---REPO_LIST_START---' in output:
+                start_idx = output.find('---REPO_LIST_START---')
+                end_idx = output.find('---REPO_LIST_END---')
+                if start_idx != -1 and end_idx != -1:
+                    repo_list = output[start_idx+len('---REPO_LIST_START---'):end_idx].strip()
+            
+            if '---COMMITS_START---' in output:
+                start_idx = output.find('---COMMITS_START---')
+                end_idx = output.find('---COMMITS_END---')
+                if start_idx != -1 and end_idx != -1:
+                    commits = output[start_idx+len('---COMMITS_START---'):end_idx].strip()
+            
+            if '---SUMMARY_START---' in output:
+                start_idx = output.find('---SUMMARY_START---')
+                end_idx = output.find('---SUMMARY_END---')
+                if start_idx != -1 and end_idx != -1:
+                    summary = output[start_idx+len('---SUMMARY_START---'):end_idx].strip()
+            
+            if result.returncode == 0 or title_ascii:  # Success if we got outputs
                 self.log("README update completed", "SUCCESS")
                 self.results['tasks']['readme_update'] = {
                     'status': 'success',
-                    'title_img': title_img,
+                    'title_ascii': title_ascii,
                     'has_repo_list': repo_list is not None,
                     'has_commits': commits is not None,
                     'has_summary': summary is not None
