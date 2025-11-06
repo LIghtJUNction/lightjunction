@@ -139,7 +139,7 @@ jobs:
             echo "Found README update content"
             # This is a placeholder for updating README based on code execution output
             # You can customize this based on your needs
-            cat /tmp/readme_update.txt >> Readme.md
+            cat /tmp/readme_update.txt >> README.md
           fi
 
       - name: Commit Changes

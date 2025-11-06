@@ -32,7 +32,7 @@ This is a simplified GitHub profile automation project with two main workflows:
 │       └── code-executor.yml         # Issue-based code executor
 ├── sponsor/
 │   └── readme.md                     # Sponsor information
-├── Readme.md                         # GitHub profile README
+├── README.md                         # GitHub profile README
 ├── pyproject.toml                    # Minimal project configuration
 └── PROJECT.md                        # This file
 ```

@@ -220,7 +220,7 @@ jobs:
           START_COMMENT_SUMMARY="<!-- START_DYNAMIC_SUMMARY -->"
           END_COMMENT_SUMMARY="<!-- END_DYNAMIC_SUMMARY -->"
 
-          cp Readme.md Readme.md.tmp
+          cp README.md README.md.tmp
 
           # Update title section
           awk -v start="$START_COMMENT_TITLE" -v end="$END_COMMENT_TITLE" '
@@ -228,7 +228,7 @@ jobs:
           $0 == start {print; printf "\n"; system("cat title_insert.txt"); printf "\n"; p=0}
           $0 == end {p=1}
           p {print}
-          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
 
           # Update repo list section
           awk -v start="$START_COMMENT_REPO_LIST" -v end="$END_COMMENT_REPO_LIST" '
@@ -236,7 +236,7 @@ jobs:
           $0 == start {print; printf "\n"; system("cat repo_list_insert.txt"); printf "\n"; p=0}
           $0 == end {p=1}
           p {print}
-          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
 
           # Update commits section
           awk -v start="$START_COMMENT_COMMITS" -v end="$END_COMMENT_COMMITS" '
@@ -244,7 +244,7 @@ jobs:
           $0 == start {print; printf "\n"; system("cat commits_insert.txt"); printf "\n"; p=0}
           $0 == end {p=1}
           p {print}
-          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
 
           # Update summary section
           awk -v start="$START_COMMENT_SUMMARY" -v end="$END_COMMENT_SUMMARY" '
@@ -252,9 +252,9 @@ jobs:
           $0 == start {print; printf "\n"; system("cat summary_insert.txt"); printf "\n"; p=0}
           $0 == end {p=1}
           p {print}
-          ' Readme.md.tmp > Readme.md.new && mv Readme.md.new Readme.md.tmp
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
 
-          mv Readme.md.tmp Readme.md
+          mv README.md.tmp README.md
           rm title_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt
 
       - name: Commit and Push Changes
@@ -262,9 +262,9 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          if ! git diff --quiet Readme.md; then
+          if ! git diff --quiet README.md; then
             echo "Changes detected, committing..."
-            git add Readme.md
+            git add README.md
             git commit -m "Daily README update - $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push
           else
