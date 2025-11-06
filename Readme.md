@@ -31,8 +31,6 @@
 
 <!-- START_DYNAMIC_SUMMARY -->
 
-### Weekly Activity Summary
-
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
