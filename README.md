@@ -51,11 +51,11 @@
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-06`
+  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-07`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-07`
 - **[rustlings](https://github.com/LIghtJUNction/rustlings)** - :crab: Small exercises to get you used to reading and writing Rust code!
   - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-06`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-06`
 - **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - This is an officially supported Astrbot
   - `Stars: 3 | Forks: 0 | Language: Python | Updated: 2025-11-05`
 - **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - peak modding
