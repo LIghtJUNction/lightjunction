@@ -38,12 +38,12 @@
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 32
-- **Daily average**: 4.6 commits
+- **Total commits this week**: 28
+- **Daily average**: 4.0 commits
 - **Most active repositories**:
-  1. **lightjunction**: 18 commits (56.2%)
-  2. **AstrBotCanary**: 13 commits (40.6%)
-  3. **rustlings**: 1 commits (3.1%)
+  1. **lightjunction**: 18 commits (64.3%)
+  2. **AstrBotCanary**: 7 commits (25.0%)
+  3. **MagicNet**: 1 commits (3.6%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -51,15 +51,15 @@
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-07`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-07`
-- **[rustlings](https://github.com/LIghtJUNction/rustlings)** - :crab: Small exercises to get you used to reading and writing Rust code!
-  - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-06`
+  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-08`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - An Rmm project . Magic + Net
+  - `Stars: 2 | Forks: 1 | Language: Shell | Updated: 2025-11-08`
 - **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - This is an officially supported Astrbot
-  - `Stars: 3 | Forks: 0 | Language: Python | Updated: 2025-11-05`
-- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - peak modding
-  - `Stars: 1 | Forks: 1 | Language: C# | Updated: 2025-10-21`
+  - `Stars: 3 | Forks: 0 | Language: Python | Updated: 2025-11-08`
+- **[openai-agents-python](https://github.com/LIghtJUNction/openai-agents-python)** - A lightweight, powerful framework for multi-agent workflows
+  - `Stars: 0 | Forks: 0 | Language: Python | Updated: 2025-11-08`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-08`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -69,6 +69,9 @@
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [91d24bc](https://github.com/LIghtJUNction/MagicNet/commit/91d24bce0ed8627494f0170044a6853ed121af4d) - Update README.md `2025-11-08 20:10`
+- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [e9267b2](https://github.com/LIghtJUNction/AstrBotCanary/commit/e9267b24d6f81572de747c81d80409885f9679f2) - 更新 README.md `2025-11-08 06:28`
+- **[openai-agents-python](https://github.com/LIghtJUNction/openai-agents-python)** - [3dd977f](https://github.com/LIghtJUNction/openai-agents-python/commit/3dd977f1ed8a3209debf9433d3f7cd943bef406f) - Merge branch 'openai:main' into main `2025-11-08 06:17`
 - **[rustlings](https://github.com/LIghtJUNction/rustlings)** - [7d3e951](https://github.com/LIghtJUNction/rustlings/commit/7d3e951a587a5c9e3c1106dd3359da439533a6ae) - 79 `2025-11-06 15:45`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [e353890](https://github.com/LIghtJUNction/lightjunction/commit/e353890e8f5963d61fe917965d4f86350273a4e6) - Merge pull request #25 from LIghtJUNction/copilot/fix-readme-file-issues `2025-11-06 08:28`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [2251fb8](https://github.com/LIghtJUNction/lightjunction/commit/2251fb8fec342366f3d42874520b6f19a7e98420) - Merge pull request #24 from LIghtJUNction/copilot/fix-readme-instructions `2025-11-06 07:10`
@@ -76,9 +79,6 @@
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [310f788](https://github.com/LIghtJUNction/lightjunction/commit/310f788b9ac01f7787f771ed6cefd1c6c85c488c) - Merge pull request #22 from LIghtJUNction/copilot/remove-ai-scripts-and-assets `2025-11-05 16:54`
 - **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [808bd3d](https://github.com/LIghtJUNction/AstrBotCanary/commit/808bd3d84c37192cc7b8056c7a0cb9985c8184cb) - init `2025-11-05 10:33`
 - **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [fc57ed7](https://github.com/LIghtJUNction/AstrBotCanary/commit/fc57ed71752ae0c340e009d101835e80b5ca73c6) - 初始化 `2025-11-04 15:43`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [5d7b862](https://github.com/LIghtJUNction/AstrBotCanary/commit/5d7b86202c044ac87ce4af8cb1129b007f3c2579) - 引入rust拓展加速 `2025-11-04 14:51`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [85cf7ed](https://github.com/LIghtJUNction/AstrBotCanary/commit/85cf7edd649e77499e30eac2a79ccedd455a54d1) - 3.13+ `2025-11-04 13:19`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [8b8b74a](https://github.com/LIghtJUNction/lightjunction/commit/8b8b74a168c264a3ba8e9b55a9ec535534312c6f) - Merge pull request #21 from LIghtJUNction/copilot/run-system-orchestrator-another-one `2025-11-04 09:16`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
