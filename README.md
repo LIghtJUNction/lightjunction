@@ -38,12 +38,12 @@
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 28
-- **Daily average**: 4.0 commits
+- **Total commits this week**: 27
+- **Daily average**: 3.9 commits
 - **Most active repositories**:
-  1. **lightjunction**: 18 commits (64.3%)
-  2. **AstrBotCanary**: 7 commits (25.0%)
-  3. **MagicNet**: 1 commits (3.6%)
+  1. **lightjunction**: 18 commits (66.7%)
+  2. **AstrBotCanary**: 5 commits (18.5%)
+  3. **rustlings**: 2 commits (7.4%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -51,15 +51,15 @@
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-08`
+  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-09`
+- **[rustlings](https://github.com/LIghtJUNction/rustlings)** - :crab: Small exercises to get you used to reading and writing Rust code!
+  - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-09`
+- **[uv](https://github.com/LIghtJUNction/uv)** - An extremely fast Python package and project manager, written in Rust.
+  - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-09`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-09`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - An Rmm project . Magic + Net
   - `Stars: 2 | Forks: 1 | Language: Shell | Updated: 2025-11-08`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - This is an officially supported Astrbot
-  - `Stars: 3 | Forks: 0 | Language: Python | Updated: 2025-11-08`
-- **[openai-agents-python](https://github.com/LIghtJUNction/openai-agents-python)** - A lightweight, powerful framework for multi-agent workflows
-  - `Stars: 0 | Forks: 0 | Language: Python | Updated: 2025-11-08`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-08`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -69,6 +69,7 @@
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[rustlings](https://github.com/LIghtJUNction/rustlings)** - [141b3cb](https://github.com/LIghtJUNction/rustlings/commit/141b3cbde3889be79fb83e46562cb8bdf55f414a) - done `2025-11-09 07:24`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [91d24bc](https://github.com/LIghtJUNction/MagicNet/commit/91d24bce0ed8627494f0170044a6853ed121af4d) - Update README.md `2025-11-08 20:10`
 - **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [e9267b2](https://github.com/LIghtJUNction/AstrBotCanary/commit/e9267b24d6f81572de747c81d80409885f9679f2) - 更新 README.md `2025-11-08 06:28`
 - **[openai-agents-python](https://github.com/LIghtJUNction/openai-agents-python)** - [3dd977f](https://github.com/LIghtJUNction/openai-agents-python/commit/3dd977f1ed8a3209debf9433d3f7cd943bef406f) - Merge branch 'openai:main' into main `2025-11-08 06:17`
@@ -78,7 +79,6 @@
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [87f0fcd](https://github.com/LIghtJUNction/lightjunction/commit/87f0fcd7c6bad35ad4c988fa8e80bda1e5ab9269) - Merge pull request #23 from LIghtJUNction/copilot/remove-unrelated-ai-files `2025-11-05 17:22`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [310f788](https://github.com/LIghtJUNction/lightjunction/commit/310f788b9ac01f7787f771ed6cefd1c6c85c488c) - Merge pull request #22 from LIghtJUNction/copilot/remove-ai-scripts-and-assets `2025-11-05 16:54`
 - **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [808bd3d](https://github.com/LIghtJUNction/AstrBotCanary/commit/808bd3d84c37192cc7b8056c7a0cb9985c8184cb) - init `2025-11-05 10:33`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [fc57ed7](https://github.com/LIghtJUNction/AstrBotCanary/commit/fc57ed71752ae0c340e009d101835e80b5ca73c6) - 初始化 `2025-11-04 15:43`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
