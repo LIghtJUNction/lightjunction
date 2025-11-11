@@ -38,12 +38,12 @@
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 27
-- **Daily average**: 3.9 commits
+- **Total commits this week**: 13
+- **Daily average**: 1.9 commits
 - **Most active repositories**:
-  1. **lightjunction**: 18 commits (66.7%)
-  2. **AstrBotCanary**: 5 commits (18.5%)
-  3. **rustlings**: 2 commits (7.4%)
+  1. **AstrBotCanary**: 5 commits (38.5%)
+  2. **lightjunction**: 4 commits (30.8%)
+  3. **rustlings**: 2 commits (15.4%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -51,13 +51,13 @@
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-09`
+  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-10`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-10`
 - **[rustlings](https://github.com/LIghtJUNction/rustlings)** - :crab: Small exercises to get you used to reading and writing Rust code!
   - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-09`
 - **[uv](https://github.com/LIghtJUNction/uv)** - An extremely fast Python package and project manager, written in Rust.
   - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-09`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-09`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - An Rmm project . Magic + Net
   - `Stars: 2 | Forks: 1 | Language: Shell | Updated: 2025-11-08`
 <!-- END_DYNAMIC_REPO_LIST -->
