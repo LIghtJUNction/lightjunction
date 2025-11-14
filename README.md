@@ -38,12 +38,12 @@
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 5
-- **Daily average**: 0.7 commits
+- **Total commits this week**: 4
+- **Daily average**: 0.6 commits
 - **Most active repositories**:
-  1. **rustlings**: 2 commits (40.0%)
-  2. **MagicNet**: 1 commits (20.0%)
-  3. **AstrBotCanary**: 1 commits (20.0%)
+  1. **rustlings**: 1 commits (25.0%)
+  2. **MagicNet**: 1 commits (25.0%)
+  3. **AstrBotCanary**: 1 commits (25.0%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -51,12 +51,12 @@
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-12`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-12`
-- **[rustlings](https://github.com/LIghtJUNction/rustlings)** - :crab: Small exercises to get you used to reading and writing Rust code!
-  - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-09`
+  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-13`
 - **[uv](https://github.com/LIghtJUNction/uv)** - An extremely fast Python package and project manager, written in Rust.
+  - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-13`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-13`
+- **[rustlings](https://github.com/LIghtJUNction/rustlings)** - :crab: Small exercises to get you used to reading and writing Rust code!
   - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-09`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - An Rmm project . Magic + Net
   - `Stars: 2 | Forks: 1 | Language: Shell | Updated: 2025-11-08`
@@ -73,7 +73,6 @@
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [91d24bc](https://github.com/LIghtJUNction/MagicNet/commit/91d24bce0ed8627494f0170044a6853ed121af4d) - Update README.md `2025-11-08 20:10`
 - **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [e9267b2](https://github.com/LIghtJUNction/AstrBotCanary/commit/e9267b24d6f81572de747c81d80409885f9679f2) - 更新 README.md `2025-11-08 06:28`
 - **[openai-agents-python](https://github.com/LIghtJUNction/openai-agents-python)** - [3dd977f](https://github.com/LIghtJUNction/openai-agents-python/commit/3dd977f1ed8a3209debf9433d3f7cd943bef406f) - Merge branch 'openai:main' into main `2025-11-08 06:17`
-- **[rustlings](https://github.com/LIghtJUNction/rustlings)** - [7d3e951](https://github.com/LIghtJUNction/rustlings/commit/7d3e951a587a5c9e3c1106dd3359da439533a6ae) - 79 `2025-11-06 15:45`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
