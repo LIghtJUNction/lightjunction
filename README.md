@@ -1,4 +1,5 @@
-GPG pubkey: 
+![](https://img.shields.io/badge/nothing-left-002fa7?style=flat&labelColor=white) ![](https://img.shields.io/badge/mem-unsafe-d00a07?style=flat&labelColor=white) ![](https://img.shields.io/badge/paranoia-inside-ffbf00?style=flat&labelColor=white) 
+
 ```EB21B83AB1E982DF66F08387A67178405F7736FD
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
