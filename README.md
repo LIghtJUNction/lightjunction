@@ -1,5 +1,3 @@
-<div align="center">
-
 GPG pubkey: 
 ```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -16,6 +14,7 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 =rISk
 -----END PGP PUBLIC KEY BLOCK-----
 ```
+<div align="center">
 
 -------
 
