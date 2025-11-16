@@ -39,7 +39,7 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
 <p align="center">
-  <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs?username=LIghtJUNction&layout=compact&langs_count=10&show_icons=true&theme=tokyonight" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=LIghtJUNction&layout=compact&langs_count=10&show_icons=true&theme=tokyonight" />
 </p>
 </a>
 
