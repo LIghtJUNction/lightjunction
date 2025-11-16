@@ -32,7 +32,9 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <div align="center">
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
-  <img height=180 src="https://github-readme-stats.vercel.app/api?username=LIghtJUNction&show_icons=true&theme=radical" />
+<p align="center">
+    <img src="https://github-readme-stats-one-bice.vercel.app/api?username=LIghtJUNction&role=OWNER,ORGANIZATION_MEMBER&show_icons=true&theme=transparent&hide_border=true&text_color=fee4d0&title_color=fee4d0&icon_color=fee4d0", width="90%" title="github-readme-stats"/>
+</p>
 </a>
 
 <a href="https://steamcommunity.com/id/LIghtJUNction/">
