@@ -38,12 +38,10 @@
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 12
-- **Daily average**: 1.7 commits
+- **Total commits this week**: 10
+- **Daily average**: 1.4 commits
 - **Most active repositories**:
-  1. **uv**: 10 commits (83.3%)
-  2. **rustlings**: 1 commits (8.3%)
-  3. **MagicNet**: 1 commits (8.3%)
+  1. **uv**: 10 commits (100.0%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -51,11 +49,11 @@
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-14`
+  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-15`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-15`
 - **[uv](https://github.com/LIghtJUNction/uv)** - An extremely fast Python package and project manager, written in Rust.
   - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-14`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-14`
 - **[rustlings](https://github.com/LIghtJUNction/rustlings)** - :crab: Small exercises to get you used to reading and writing Rust code!
   - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-09`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - An Rmm project . Magic + Net
@@ -74,8 +72,6 @@
 - **[uv](https://github.com/LIghtJUNction/uv)** - [cda35c5](https://github.com/LIghtJUNction/uv/commit/cda35c540399aed7a1ec729cc3109630689036c0) - Update lib.rs `2025-11-14 10:22`
 - **[uv](https://github.com/LIghtJUNction/uv)** - [68955bb](https://github.com/LIghtJUNction/uv/commit/68955bba8da7e89a2529c71f544de68aab8b427d) - Exclude Android from jemalloc to fix Termux compilation `2025-11-14 09:13`
 - **[uv](https://github.com/LIghtJUNction/uv)** - [9401a3d](https://github.com/LIghtJUNction/uv/commit/9401a3d486e85834101bd1e2af58cda35cd92abe) - Fix Windows compilation errors and dependency conflicts `2025-11-14 08:43`
-- **[rustlings](https://github.com/LIghtJUNction/rustlings)** - [141b3cb](https://github.com/LIghtJUNction/rustlings/commit/141b3cbde3889be79fb83e46562cb8bdf55f414a) - done `2025-11-09 07:24`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [91d24bc](https://github.com/LIghtJUNction/MagicNet/commit/91d24bce0ed8627494f0170044a6853ed121af4d) - Update README.md `2025-11-08 20:10`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
