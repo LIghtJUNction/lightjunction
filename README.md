@@ -48,9 +48,9 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_TITLE_IMAGE -->
 
 ```
-╔══════════════════════════════════════╗
+╔═════════════════════════════╗
 ║  最新项目 (Latest Projects)  ║
-╚══════════════════════════════════════╝
+╚═════════════════════════════╝
 ```
 <!-- END_DYNAMIC_TITLE_IMAGE -->
 
