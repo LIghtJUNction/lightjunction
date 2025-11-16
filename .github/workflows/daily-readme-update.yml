@@ -194,7 +194,7 @@ jobs:
           weekly_summary = get_weekly_summary(github_username, token=github_token)
           
           # Generate ASCII title
-          ascii_title = "```\n╔══════════════════════════════════════╗\n║  最新项目 (Latest Projects)  ║\n╚══════════════════════════════════════╝\n```"
+          ascii_title = "```\n╔═════════════════════════════╗\n║  最新项目 (Latest Projects)  ║\n╚═════════════════════════════╝\n```"
           
           # Save outputs for later steps
           with open('title_insert.txt', 'w') as f:
