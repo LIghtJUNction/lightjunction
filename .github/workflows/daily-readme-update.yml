@@ -182,6 +182,7 @@ jobs:
           github_token = get_github_token()
           github_username = os.environ.get('GITHUB_REPOSITORY_OWNER', 'LIghtJUNction')
           
+          
           print("Fetching latest repositories...")
           latest_repos = get_latest_repos(github_username, count=5, token=github_token)
           repo_markdown_list = format_repos_to_markdown(latest_repos)
@@ -194,8 +195,7 @@ jobs:
           weekly_summary = get_weekly_summary(github_username, token=github_token)
           
           # Generate ASCII title
-          ascii_title = "```\n╔═════════════════════════════╗\n║  最新项目 (Latest Projects)  ║\n╚═════════════════════════════╝\n```"
-          
+          ascii_title = "```\n╔══════════════╗\n║  最新项目 (Latest Projects)  ║\n╚═════════════╝\n```"
           # Save outputs for later steps
           with open('title_insert.txt', 'w') as f:
               f.write(ascii_title)
