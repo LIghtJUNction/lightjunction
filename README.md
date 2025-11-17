@@ -46,9 +46,9 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_TITLE_IMAGE -->
 
 ```
-╔══════════════╗
+╔═════════════════╗
 ║  最新项目 (Latest Projects)  ║
-╚═════════════╝
+╚═════════════════╝
 ```
 <!-- END_DYNAMIC_TITLE_IMAGE -->
 
@@ -56,12 +56,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 25
-- **Daily average**: 3.6 commits
+- **Total commits this week**: 26
+- **Daily average**: 3.7 commits
 - **Most active repositories**:
-  1. **lightjunction**: 13 commits (52.0%)
-  2. **uv**: 10 commits (40.0%)
-  3. **rurima**: 2 commits (8.0%)
+  1. **lightjunction**: 14 commits (53.8%)
+  2. **uv**: 10 commits (38.5%)
+  3. **rurima**: 2 commits (7.7%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -87,11 +87,11 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [bbe8e0e](https://github.com/LIghtJUNction/lightjunction/commit/bbe8e0e8a7f365a27392b68cebd558729621a37a) - Update ASCII title format in workflow YAML `2025-11-17 16:48`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [a36ce7d](https://github.com/LIghtJUNction/lightjunction/commit/a36ce7df645dc873a8c2a5378394f6f04f0ea0cf) - Update daily-readme-update.yml `2025-11-17 16:46`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [deaa70c](https://github.com/LIghtJUNction/lightjunction/commit/deaa70cf2f3ac9429215c9f05628776113d0e895) - Delete PROJECT.md `2025-11-17 16:43`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [3b34448](https://github.com/LIghtJUNction/lightjunction/commit/3b3444897bb6ec0d8024223d87b4fe0cc4091086) - Remove Steam link and top languages stats `2025-11-16 12:47`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [26ce5e8](https://github.com/LIghtJUNction/lightjunction/commit/26ce5e8390c0baad07d2f332e1a45372f4f081d7) - Update README.md `2025-11-16 12:47`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [b3c105f](https://github.com/LIghtJUNction/lightjunction/commit/b3c105f41de568c5acfd5b50d24db2ed1f063834) - Fix formatting issues in README.md `2025-11-16 12:46`
 - **[rurima](https://github.com/LIghtJUNction/rurima)** - [8671aeb](https://github.com/LIghtJUNction/rurima/commit/8671aebe5dc67bc90b4b0d9fff72fa95e03987a3) - kam check --fix `2025-11-16 06:48`
 - **[rurima](https://github.com/LIghtJUNction/rurima)** - [63cc27d](https://github.com/LIghtJUNction/rurima/commit/63cc27d2763e54c3489c6b790c47e7ca5e722dc1) - 改了一处函数签名 `2025-11-16 06:00`
 - **[uv](https://github.com/LIghtJUNction/uv)** - [0ce1c36](https://github.com/LIghtJUNction/uv/commit/0ce1c36f8fb7e8c3c2cdeff7cee9ba9b22631f47) - Update Cargo.toml `2025-11-14 12:47`
