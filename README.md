@@ -68,16 +68,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- **[EzXHelper](https://github.com/LIghtJUNction/EzXHelper)** - A library to make Xposed modules development easily.
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-19`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - An Rmm project . Magic + Net
+  - `Stars: 3 | Forks: 1 | Language: Shell | Updated: 2025-11-19`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
   - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-17`
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
   - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-16`
 - **[rurima](https://github.com/LIghtJUNction/rurima)** - Run docker & LXC images without docker or LXC program, without kernel features support, even without root privileges!
   - `Stars: 0 | Forks: 0 | Language: C | Updated: 2025-11-16`
-- **[asl](https://github.com/LIghtJUNction/asl)** - Android Subsystem for GNU/Linux (magisk/ksu/Apatch module)
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-16`
-- **[uv](https://github.com/LIghtJUNction/uv)** - An extremely fast Python package and project manager, written in Rust.
-  - `Stars: 0 | Forks: 0 | Language: Rust | Updated: 2025-11-14`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
