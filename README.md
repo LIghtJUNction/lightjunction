@@ -56,22 +56,22 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 21
-- **Daily average**: 3.0 commits
+- **Total commits this week**: 18
+- **Daily average**: 2.6 commits
 - **Most active repositories**:
-  1. **lightjunction**: 14 commits (66.7%)
-  2. **uv**: 3 commits (14.3%)
-  3. **password-store**: 2 commits (9.5%)
+  1. **lightjunction**: 14 commits (77.8%)
+  2. **password-store**: 2 commits (11.1%)
+  3. **rurima**: 2 commits (11.1%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-21`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - power by pass
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-20`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-20`
 - **[EzXHelper](https://github.com/LIghtJUNction/EzXHelper)** - A library to make Xposed modules development easily.
   - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-19`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - An Rmm project . Magic + Net
@@ -96,7 +96,6 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [26ce5e8](https://github.com/LIghtJUNction/lightjunction/commit/26ce5e8390c0baad07d2f332e1a45372f4f081d7) - Update README.md `2025-11-16 12:47`
 - **[rurima](https://github.com/LIghtJUNction/rurima)** - [8671aeb](https://github.com/LIghtJUNction/rurima/commit/8671aebe5dc67bc90b4b0d9fff72fa95e03987a3) - kam check --fix `2025-11-16 06:48`
 - **[rurima](https://github.com/LIghtJUNction/rurima)** - [63cc27d](https://github.com/LIghtJUNction/rurima/commit/63cc27d2763e54c3489c6b790c47e7ca5e722dc1) - 改了一处函数签名 `2025-11-16 06:00`
-- **[uv](https://github.com/LIghtJUNction/uv)** - [0ce1c36](https://github.com/LIghtJUNction/uv/commit/0ce1c36f8fb7e8c3c2cdeff7cee9ba9b22631f47) - Update Cargo.toml `2025-11-14 12:47`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
