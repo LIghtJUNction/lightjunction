@@ -56,27 +56,28 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 16
-- **Daily average**: 2.3 commits
+- **Total commits this week**: 12
+- **Daily average**: 1.7 commits
 - **Most active repositories**:
-  1. **lightjunction**: 14 commits (87.5%)
-  2. **password-store**: 2 commits (12.5%)
+  1. **kernel_manifest**: 7 commits (58.3%)
+  2. **lightjunction**: 3 commits (25.0%)
+  3. **password-store**: 2 commits (16.7%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - 内核主线
+  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
+- **[android_kernel_modules_and_devicetree_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_modules_and_devicetree_oneplus_sm8475)** - sm8475
+  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
+- **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - sm8475
+  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
+- **[android_kernel_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_oneplus_sm8475)** - sm8475
+  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-22`
-- **[password-store](https://github.com/LIghtJUNction/password-store)** - power by pass
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-20`
-- **[EzXHelper](https://github.com/LIghtJUNction/EzXHelper)** - A library to make Xposed modules development easily.
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-19`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - An Rmm project . Magic + Net
-  - `Stars: 3 | Forks: 1 | Language: Shell | Updated: 2025-11-19`
-- **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
-  - `Stars: 36 | Forks: 5 | Language: Shell | Updated: 2025-11-16`
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-23`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -86,13 +87,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [c8dc83d](https://github.com/LIghtJUNction/kernel_manifest/commit/c8dc83d48412e91a50dc94976196f56f9ae9b138) - Update README.md `2025-11-23 09:56`
+- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [974bbb3](https://github.com/LIghtJUNction/kernel_manifest/commit/974bbb347915cc7584b72dd13b079cebed14fb3a) - Rename oneplus_ace2_v.xml to default.xml `2025-11-23 09:53`
+- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [f40d330](https://github.com/LIghtJUNction/kernel_manifest/commit/f40d3305c1610e73eb4a23f13e7a417172fd6cbc) - Delete oneplus_10t_v.xml `2025-11-23 09:53`
+- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [842bc9b](https://github.com/LIghtJUNction/kernel_manifest/commit/842bc9b7e3a751a13769c746ea002b0d2073dcfb) - Delete oneplus_11r_u.xml `2025-11-23 09:53`
+- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [a131f54](https://github.com/LIghtJUNction/kernel_manifest/commit/a131f541e41ce27d93f26f628daa5b4538958769) - Delete oneplus_ace_pro_v.xml `2025-11-23 09:52`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [a6c2c00](https://github.com/LIghtJUNction/password-store/commit/a6c2c00691eb0f8bed47db7aaf63ad7ea321626d) - Changes to be committed: `2025-11-20 09:24`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [260e70a](https://github.com/LIghtJUNction/password-store/commit/260e70a57bf3104de743935ac25d3a6f30ec35ac) - Add current contents of password store. `2025-11-19 15:09`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [bbe8e0e](https://github.com/LIghtJUNction/lightjunction/commit/bbe8e0e8a7f365a27392b68cebd558729621a37a) - Update ASCII title format in workflow YAML `2025-11-17 16:48`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [a36ce7d](https://github.com/LIghtJUNction/lightjunction/commit/a36ce7df645dc873a8c2a5378394f6f04f0ea0cf) - Update daily-readme-update.yml `2025-11-17 16:46`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [deaa70c](https://github.com/LIghtJUNction/lightjunction/commit/deaa70cf2f3ac9429215c9f05628776113d0e895) - Delete PROJECT.md `2025-11-17 16:43`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [3b34448](https://github.com/LIghtJUNction/lightjunction/commit/3b3444897bb6ec0d8024223d87b4fe0cc4091086) - Remove Steam link and top languages stats `2025-11-16 12:47`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [26ce5e8](https://github.com/LIghtJUNction/lightjunction/commit/26ce5e8390c0baad07d2f332e1a45372f4f081d7) - Update README.md `2025-11-16 12:47`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
