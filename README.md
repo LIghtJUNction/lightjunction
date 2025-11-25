@@ -56,28 +56,27 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 12
-- **Daily average**: 1.7 commits
+- **Total commits this week**: 9
+- **Daily average**: 1.3 commits
 - **Most active repositories**:
-  1. **kernel_manifest**: 7 commits (58.3%)
-  2. **lightjunction**: 3 commits (25.0%)
-  3. **password-store**: 2 commits (16.7%)
+  1. **kernel_manifest**: 7 commits (77.8%)
+  2. **password-store**: 2 commits (22.2%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- **[arch-guide](https://github.com/LIghtJUNction/arch-guide)** - ✨ archlinux 简明指南 | 本指南包含从 archlinux 安装、显卡驱动、日常软件配置、多媒体制作、编程等你可能需要的全部内容 | 提供在线文档 ✨
+  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-24`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-24`
 - **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - 内核主线
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
 - **[android_kernel_modules_and_devicetree_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_modules_and_devicetree_oneplus_sm8475)** - sm8475
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
 - **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - sm8475
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
-- **[android_kernel_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_oneplus_sm8475)** - sm8475
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-23`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -94,9 +93,6 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 - **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [a131f54](https://github.com/LIghtJUNction/kernel_manifest/commit/a131f541e41ce27d93f26f628daa5b4538958769) - Delete oneplus_ace_pro_v.xml `2025-11-23 09:52`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [a6c2c00](https://github.com/LIghtJUNction/password-store/commit/a6c2c00691eb0f8bed47db7aaf63ad7ea321626d) - Changes to be committed: `2025-11-20 09:24`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [260e70a](https://github.com/LIghtJUNction/password-store/commit/260e70a57bf3104de743935ac25d3a6f30ec35ac) - Add current contents of password store. `2025-11-19 15:09`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [bbe8e0e](https://github.com/LIghtJUNction/lightjunction/commit/bbe8e0e8a7f365a27392b68cebd558729621a37a) - Update ASCII title format in workflow YAML `2025-11-17 16:48`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [a36ce7d](https://github.com/LIghtJUNction/lightjunction/commit/a36ce7df645dc873a8c2a5378394f6f04f0ea0cf) - Update daily-readme-update.yml `2025-11-17 16:46`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [deaa70c](https://github.com/LIghtJUNction/lightjunction/commit/deaa70cf2f3ac9429215c9f05628776113d0e895) - Delete PROJECT.md `2025-11-17 16:43`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
