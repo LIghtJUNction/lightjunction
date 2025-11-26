@@ -56,26 +56,27 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 9
-- **Daily average**: 1.3 commits
+- **Total commits this week**: 12
+- **Daily average**: 1.7 commits
 - **Most active repositories**:
-  1. **kernel_manifest**: 7 commits (77.8%)
-  2. **password-store**: 2 commits (22.2%)
+  1. **kernel_manifest**: 9 commits (75.0%)
+  2. **password-store**: 2 commits (16.7%)
+  3. **android_kernel_common_oneplus_sm8475**: 1 commits (8.3%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - sm8475
+  - `Stars: 0 | Forks: 0 | Language: C | Updated: 2025-11-25`
+- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - 内核主线
+  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-25`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-25`
 - **[arch-guide](https://github.com/LIghtJUNction/arch-guide)** - ✨ archlinux 简明指南 | 本指南包含从 archlinux 安装、显卡驱动、日常软件配置、多媒体制作、编程等你可能需要的全部内容 | 提供在线文档 ✨
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-24`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-24`
-- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - 内核主线
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
 - **[android_kernel_modules_and_devicetree_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_modules_and_devicetree_oneplus_sm8475)** - sm8475
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
-- **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - sm8475
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
 <!-- END_DYNAMIC_REPO_LIST -->
 
@@ -86,11 +87,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - [0d46e64](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475/commit/0d46e64fa039a544d6cac694ef0d4d2437e76910) - 更新 README.md `2025-11-25 15:15`
+- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [02af411](https://github.com/LIghtJUNction/kernel_manifest/commit/02af4110204ba8e446eb59858b77b71dd5bb97f0) - Update README.md `2025-11-25 12:35`
+- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [ab45b65](https://github.com/LIghtJUNction/kernel_manifest/commit/ab45b65134dce4618927b14a0dd10f7369dd78d0) - Create ksu_susfs_bbg.xml `2025-11-25 12:31`
 - **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [c8dc83d](https://github.com/LIghtJUNction/kernel_manifest/commit/c8dc83d48412e91a50dc94976196f56f9ae9b138) - Update README.md `2025-11-23 09:56`
 - **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [974bbb3](https://github.com/LIghtJUNction/kernel_manifest/commit/974bbb347915cc7584b72dd13b079cebed14fb3a) - Rename oneplus_ace2_v.xml to default.xml `2025-11-23 09:53`
 - **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [f40d330](https://github.com/LIghtJUNction/kernel_manifest/commit/f40d3305c1610e73eb4a23f13e7a417172fd6cbc) - Delete oneplus_10t_v.xml `2025-11-23 09:53`
-- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [842bc9b](https://github.com/LIghtJUNction/kernel_manifest/commit/842bc9b7e3a751a13769c746ea002b0d2073dcfb) - Delete oneplus_11r_u.xml `2025-11-23 09:53`
-- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [a131f54](https://github.com/LIghtJUNction/kernel_manifest/commit/a131f541e41ce27d93f26f628daa5b4538958769) - Delete oneplus_ace_pro_v.xml `2025-11-23 09:52`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [a6c2c00](https://github.com/LIghtJUNction/password-store/commit/a6c2c00691eb0f8bed47db7aaf63ad7ea321626d) - Changes to be committed: `2025-11-20 09:24`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [260e70a](https://github.com/LIghtJUNction/password-store/commit/260e70a57bf3104de743935ac25d3a6f30ec35ac) - Add current contents of password store. `2025-11-19 15:09`
 <!-- END_DYNAMIC_COMMITS -->
