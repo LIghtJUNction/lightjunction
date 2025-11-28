@@ -67,16 +67,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- **[YumeBox](https://github.com/LIghtJUNction/YumeBox)** - an ordinary box, as ordinary as it can possibly be
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-27`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-26`
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-27`
 - **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - sm8475
   - `Stars: 0 | Forks: 0 | Language: C | Updated: 2025-11-25`
 - **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - 内核主线
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-25`
 - **[arch-guide](https://github.com/LIghtJUNction/arch-guide)** - ✨ archlinux 简明指南 | 本指南包含从 archlinux 安装、显卡驱动、日常软件配置、多媒体制作、编程等你可能需要的全部内容 | 提供在线文档 ✨
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-24`
-- **[android_kernel_modules_and_devicetree_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_modules_and_devicetree_oneplus_sm8475)** - sm8475
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-23`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
