@@ -56,11 +56,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 10
-- **Daily average**: 1.4 commits
+- **Total commits this week**: 11
+- **Daily average**: 1.6 commits
 - **Most active repositories**:
-  1. **kernel_manifest**: 9 commits (90.0%)
-  2. **android_kernel_common_oneplus_sm8475**: 1 commits (10.0%)
+  1. **kernel_manifest**: 9 commits (81.8%)
+  2. **YumeBox**: 1 commits (9.1%)
+  3. **android_kernel_common_oneplus_sm8475**: 1 commits (9.1%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -68,9 +69,9 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[YumeBox](https://github.com/LIghtJUNction/YumeBox)** - an ordinary box, as ordinary as it can possibly be
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-27`
+  - `Stars: 1 | Forks: 0 | Language: Kotlin | Updated: 2025-11-28`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-27`
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-28`
 - **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - sm8475
   - `Stars: 0 | Forks: 0 | Language: C | Updated: 2025-11-25`
 - **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - 内核主线
@@ -86,6 +87,7 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[YumeBox](https://github.com/LIghtJUNction/YumeBox)** - [8801d37](https://github.com/LIghtJUNction/YumeBox/commit/8801d3794364a6c1bd1587566245ea1b21f28fd3) - gradle init `2025-11-28 14:09`
 - **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - [0d46e64](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475/commit/0d46e64fa039a544d6cac694ef0d4d2437e76910) - 更新 README.md `2025-11-25 15:15`
 - **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [02af411](https://github.com/LIghtJUNction/kernel_manifest/commit/02af4110204ba8e446eb59858b77b71dd5bb97f0) - Update README.md `2025-11-25 12:35`
 - **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [ab45b65](https://github.com/LIghtJUNction/kernel_manifest/commit/ab45b65134dce4618927b14a0dd10f7369dd78d0) - Create ksu_susfs_bbg.xml `2025-11-25 12:31`
