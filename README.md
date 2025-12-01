@@ -56,12 +56,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 5
-- **Daily average**: 0.7 commits
+- **Total commits this week**: 6
+- **Daily average**: 0.9 commits
 - **Most active repositories**:
-  1. **kernel_manifest**: 2 commits (40.0%)
-  2. **dog**: 1 commits (20.0%)
-  3. **YumeBox**: 1 commits (20.0%)
+  1. **dog**: 2 commits (33.3%)
+  2. **kernel_manifest**: 2 commits (33.3%)
+  3. **YumeBox**: 1 commits (16.7%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -69,9 +69,9 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[dog](https://github.com/LIghtJUNction/dog)** - Kiss Dog finds shit.
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-29`
+  - `Stars: 0 | Forks: 0 | Language: Python | Updated: 2025-11-30`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-29`
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-30`
 - **[YumeBox](https://github.com/LIghtJUNction/YumeBox)** - an ordinary box, as ordinary as it can possibly be
   - `Stars: 1 | Forks: 0 | Language: Kotlin | Updated: 2025-11-28`
 - **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - sm8475
@@ -87,6 +87,7 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[dog](https://github.com/LIghtJUNction/dog)** - [f5883e7](https://github.com/LIghtJUNction/dog/commit/f5883e745012cbf5a53bf8ec86e718bc66ba8587) - init `2025-11-30 06:19`
 - **[dog](https://github.com/LIghtJUNction/dog)** - [37f4c60](https://github.com/LIghtJUNction/dog/commit/37f4c60f08e9f0fc6ef077616b436c3d058d9998) - Initial commit `2025-11-29 20:31`
 - **[YumeBox](https://github.com/LIghtJUNction/YumeBox)** - [8801d37](https://github.com/LIghtJUNction/YumeBox/commit/8801d3794364a6c1bd1587566245ea1b21f28fd3) - gradle init `2025-11-28 14:09`
 - **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - [0d46e64](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475/commit/0d46e64fa039a544d6cac694ef0d4d2437e76910) - 更新 README.md `2025-11-25 15:15`
