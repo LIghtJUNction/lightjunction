@@ -41,6 +41,19 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ---
 
+<!-- START_DYNAMIC_STATS -->
+
+### GitHub Statistics
+
+- **Account Created**: 2025-01-01 (0 years, 0 months ago)
+- **Public Repositories**: 0
+- **Total Commits**: ~0+ (across tracked repositories)
+- **Followers**: 0
+- **Following**: 0
+<!-- END_DYNAMIC_STATS -->
+
+---
+
 ### Latest Projects
 
 <!-- START_DYNAMIC_TITLE_IMAGE -->
