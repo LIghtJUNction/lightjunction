@@ -56,28 +56,28 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 6
-- **Daily average**: 0.9 commits
+- **Total commits this week**: 14
+- **Daily average**: 2.0 commits
 - **Most active repositories**:
-  1. **dog**: 2 commits (33.3%)
-  2. **kernel_manifest**: 2 commits (33.3%)
-  3. **YumeBox**: 1 commits (16.7%)
+  1. **dots-hyprland**: 7 commits (50.0%)
+  2. **dog**: 2 commits (14.3%)
+  3. **kernel_manifest**: 2 commits (14.3%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-- **[dog](https://github.com/LIghtJUNction/dog)** - Kiss Dog finds shit.
-  - `Stars: 0 | Forks: 0 | Language: Python | Updated: 2025-11-30`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-11-30`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - fish -> zsh
+  - `Stars: 0 | Forks: 0 | Language: QML | Updated: 2025-12-01`
+- **[dots-hyprland-wiki](https://github.com/LIghtJUNction/dots-hyprland-wiki)** - Documentation for end-4/dots-hyprland
+  - `Stars: 0 | Forks: 0 | Language: MDX | Updated: 2025-12-01`
 - **[YumeBox](https://github.com/LIghtJUNction/YumeBox)** - an ordinary box, as ordinary as it can possibly be
-  - `Stars: 1 | Forks: 0 | Language: Kotlin | Updated: 2025-11-28`
-- **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - sm8475
-  - `Stars: 0 | Forks: 0 | Language: C | Updated: 2025-11-25`
-- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - 内核主线
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-11-25`
+  - `Stars: 1 | Forks: 0 | Language: Kotlin | Updated: 2025-12-01`
+- **[rmmp](https://github.com/LIghtJUNction/rmmp)** - No description available.
+  - `Stars: 1 | Forks: 0 | Language: Go | Updated: 2025-12-01`
+- **[LsposedModuleModel](https://github.com/LIghtJUNction/LsposedModuleModel)** - lsposed模块模板
+  - `Stars: 2 | Forks: 1 | Language: None | Updated: 2025-12-01`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -87,12 +87,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [4af67d2](https://github.com/LIghtJUNction/dots-hyprland/commit/4af67d24d2dc43d50ffe991d40299098f61dac8a) - docs: add Chinese README and top language switch links `2025-12-01 15:53`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [a9b143f](https://github.com/LIghtJUNction/dots-hyprland/commit/a9b143f6b1ac05f1895ec4dbd9a8382c0263a041) - chore: ignore auto-generated _version.py file `2025-12-01 15:49`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [8a9feba](https://github.com/LIghtJUNction/dots-hyprland/commit/8a9feba331388b7161786a9f2b9fe65a643a1a2e) - docs: add special thanks section for end-4 `2025-12-01 15:48`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [93f678e](https://github.com/LIghtJUNction/dots-hyprland/commit/93f678ed148db41955bfdcff903c34962fa77e94) - hyprllm init `2025-12-01 15:44`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [9c3668e](https://github.com/LIghtJUNction/dots-hyprland/commit/9c3668ee43dbba51aab5f94d813d862b3aa2d22b) - feat: migrate from Fish to Zsh with Zim framework and Powerlevel10k `2025-12-01 15:37`
+- **[dots-hyprland-wiki](https://github.com/LIghtJUNction/dots-hyprland-wiki)** - [a777abe](https://github.com/LIghtJUNction/dots-hyprland-wiki/commit/a777abe21c9cc7fa4f85205b7e7f0d3804b1021a) - 迁移至zsh + zim p10k `2025-12-01 15:20`
 - **[dog](https://github.com/LIghtJUNction/dog)** - [f5883e7](https://github.com/LIghtJUNction/dog/commit/f5883e745012cbf5a53bf8ec86e718bc66ba8587) - init `2025-11-30 06:19`
 - **[dog](https://github.com/LIghtJUNction/dog)** - [37f4c60](https://github.com/LIghtJUNction/dog/commit/37f4c60f08e9f0fc6ef077616b436c3d058d9998) - Initial commit `2025-11-29 20:31`
 - **[YumeBox](https://github.com/LIghtJUNction/YumeBox)** - [8801d37](https://github.com/LIghtJUNction/YumeBox/commit/8801d3794364a6c1bd1587566245ea1b21f28fd3) - gradle init `2025-11-28 14:09`
 - **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - [0d46e64](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475/commit/0d46e64fa039a544d6cac694ef0d4d2437e76910) - 更新 README.md `2025-11-25 15:15`
-- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [02af411](https://github.com/LIghtJUNction/kernel_manifest/commit/02af4110204ba8e446eb59858b77b71dd5bb97f0) - Update README.md `2025-11-25 12:35`
-- **[kernel_manifest](https://github.com/LIghtJUNction/kernel_manifest)** - [ab45b65](https://github.com/LIghtJUNction/kernel_manifest/commit/ab45b65134dce4618927b14a0dd10f7369dd78d0) - Create ksu_susfs_bbg.xml `2025-11-25 12:31`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
