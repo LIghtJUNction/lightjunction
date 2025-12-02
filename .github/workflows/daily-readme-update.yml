@@ -209,23 +209,21 @@ jobs:
               followers = user_data.get('followers', 0)
               following = user_data.get('following', 0)
               
-              # Calculate total commits across all repos
-              print("Calculating total commits across all repositories...")
+              # Calculate total commits across all repos (sample from recent repos)
+              print("Calculating commit count from recent repositories...")
               repos_url = f"https://api.github.com/users/{username}/repos?per_page=100"
               all_repos = make_github_request(repos_url, token)
               
               total_commits = 0
+              repos_checked = 0
               if all_repos:
-                  for repo in all_repos[:50]:  # Limit to first 50 repos to avoid rate limits
+                  for repo in all_repos[:30]:  # Limit to 30 repos to avoid rate limits
                       try:
-                          commits_url = f"https://api.github.com/repos/{username}/{repo['name']}/commits?author={username}&per_page=1"
-                          response = make_github_request(commits_url, token)
-                          if response:
-                              # Use the Link header to get total count, or estimate from what we can fetch
-                              commits_count_url = f"https://api.github.com/repos/{username}/{repo['name']}/commits?author={username}&per_page=100"
-                              commits = make_github_request(commits_count_url, token)
-                              if commits:
-                                  total_commits += len(commits)
+                          commits_url = f"https://api.github.com/repos/{username}/{repo['name']}/commits?author={username}&per_page=100"
+                          commits = make_github_request(commits_url, token)
+                          if commits:
+                              total_commits += len(commits)
+                              repos_checked += 1
                       except:
                           continue
               
@@ -234,7 +232,7 @@ jobs:
               stats.append("### GitHub Statistics\n")
               stats.append(f"- **Account Created**: {created_str} ({years} years, {months} months ago)")
               stats.append(f"- **Public Repositories**: {public_repos}")
-              stats.append(f"- **Total Commits**: ~{total_commits}+ (across tracked repositories)")
+              stats.append(f"- **Estimated Commits**: {total_commits}+ (sampled from {repos_checked} repositories, up to 100 commits each)")
               stats.append(f"- **Followers**: {followers}")
               stats.append(f"- **Following**: {following}")
               
