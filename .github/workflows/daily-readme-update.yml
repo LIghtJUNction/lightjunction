@@ -195,7 +195,7 @@ jobs:
                       years = account_age.days // 365
                       months = (account_age.days % 365) // 30
                       created_str = created_date.strftime("%Y-%m-%d")
-                  except:
+                  except Exception:
                       created_str = created_at[:10]
                       years = 0
                       months = 0
@@ -224,12 +224,12 @@ jobs:
                           if commits:
                               total_commits += len(commits)
                               repos_checked += 1
-                      except:
+                      except Exception:
                           continue
               
               # Build statistics markdown
               stats = []
-              stats.append("### GitHub Statistics\n")
+              stats.append("### GitHub Statistics")
               stats.append(f"- **Account Created**: {created_str} ({years} years, {months} months ago)")
               stats.append(f"- **Public Repositories**: {public_repos}")
               stats.append(f"- **Estimated Commits**: {total_commits}+ (sampled from {repos_checked} repositories, up to 100 commits each)")
