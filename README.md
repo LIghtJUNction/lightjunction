@@ -56,28 +56,28 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 14
-- **Daily average**: 2.0 commits
+- **Total commits this week**: 30
+- **Daily average**: 4.3 commits
 - **Most active repositories**:
-  1. **dots-hyprland**: 7 commits (50.0%)
-  2. **dog**: 2 commits (14.3%)
-  3. **kernel_manifest**: 2 commits (14.3%)
+  1. **dots-hyprland**: 25 commits (83.3%)
+  2. **dog**: 2 commits (6.7%)
+  3. **PeakMods**: 1 commits (3.3%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - fish -> zsh
-  - `Stars: 0 | Forks: 0 | Language: QML | Updated: 2025-12-01`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - peak modding
+  - `Stars: 1 | Forks: 1 | Language: C# | Updated: 2025-12-02`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
+  - `Stars: 0 | Forks: 0 | Language: QML | Updated: 2025-12-02`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-02`
 - **[dots-hyprland-wiki](https://github.com/LIghtJUNction/dots-hyprland-wiki)** - Documentation for end-4/dots-hyprland
   - `Stars: 0 | Forks: 0 | Language: MDX | Updated: 2025-12-01`
 - **[YumeBox](https://github.com/LIghtJUNction/YumeBox)** - an ordinary box, as ordinary as it can possibly be
   - `Stars: 1 | Forks: 0 | Language: Kotlin | Updated: 2025-12-01`
-- **[rmmp](https://github.com/LIghtJUNction/rmmp)** - No description available.
-  - `Stars: 1 | Forks: 0 | Language: Go | Updated: 2025-12-01`
-- **[LsposedModuleModel](https://github.com/LIghtJUNction/LsposedModuleModel)** - lsposed模块模板
-  - `Stars: 2 | Forks: 1 | Language: None | Updated: 2025-12-01`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -87,16 +87,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [4af67d2](https://github.com/LIghtJUNction/dots-hyprland/commit/4af67d24d2dc43d50ffe991d40299098f61dac8a) - docs: add Chinese README and top language switch links `2025-12-01 15:53`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [a9b143f](https://github.com/LIghtJUNction/dots-hyprland/commit/a9b143f6b1ac05f1895ec4dbd9a8382c0263a041) - chore: ignore auto-generated _version.py file `2025-12-01 15:49`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [8a9feba](https://github.com/LIghtJUNction/dots-hyprland/commit/8a9feba331388b7161786a9f2b9fe65a643a1a2e) - docs: add special thanks section for end-4 `2025-12-01 15:48`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [93f678e](https://github.com/LIghtJUNction/dots-hyprland/commit/93f678ed148db41955bfdcff903c34962fa77e94) - hyprllm init `2025-12-01 15:44`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [9c3668e](https://github.com/LIghtJUNction/dots-hyprland/commit/9c3668ee43dbba51aab5f94d813d862b3aa2d22b) - feat: migrate from Fish to Zsh with Zim framework and Powerlevel10k `2025-12-01 15:37`
+- **[PeakMods](https://github.com/LIghtJUNction/PeakMods)** - [8817084](https://github.com/LIghtJUNction/PeakMods/commit/88170841c81a8018603b5638f4082715d7e5ae57) - 更新 README.md `2025-12-02 19:31`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [2173d8f](https://github.com/LIghtJUNction/dots-hyprland/commit/2173d8fdc71345073903ceca2907a9765b420a4a) - Merge pull request #7 from LIghtJUNction/chores/default2custom `2025-12-02 18:03`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [1a2f94c](https://github.com/LIghtJUNction/dots-hyprland/commit/1a2f94cc15d6f23c0e77d2a62af9c265aa62954b) - Add application launch keybindings `2025-12-02 17:52`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [cc1fbb0](https://github.com/LIghtJUNction/dots-hyprland/commit/cc1fbb0db32b47adaf79e27f8b8d68c61181a368) - Update general.conf `2025-12-02 17:51`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [cdd48d2](https://github.com/LIghtJUNction/dots-hyprland/commit/cdd48d2e801a8d749b14aa63525d80e759ed5d49) - 更新 rules.conf `2025-12-02 17:48`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [6cd02aa](https://github.com/LIghtJUNction/dots-hyprland/commit/6cd02aa12b83b40b1e3d25364a8787a8fac954e5) - 更新 rules.conf `2025-12-02 17:47`
 - **[dots-hyprland-wiki](https://github.com/LIghtJUNction/dots-hyprland-wiki)** - [a777abe](https://github.com/LIghtJUNction/dots-hyprland-wiki/commit/a777abe21c9cc7fa4f85205b7e7f0d3804b1021a) - 迁移至zsh + zim p10k `2025-12-01 15:20`
 - **[dog](https://github.com/LIghtJUNction/dog)** - [f5883e7](https://github.com/LIghtJUNction/dog/commit/f5883e745012cbf5a53bf8ec86e718bc66ba8587) - init `2025-11-30 06:19`
 - **[dog](https://github.com/LIghtJUNction/dog)** - [37f4c60](https://github.com/LIghtJUNction/dog/commit/37f4c60f08e9f0fc6ef077616b436c3d058d9998) - Initial commit `2025-11-29 20:31`
 - **[YumeBox](https://github.com/LIghtJUNction/YumeBox)** - [8801d37](https://github.com/LIghtJUNction/YumeBox/commit/8801d3794364a6c1bd1587566245ea1b21f28fd3) - gradle init `2025-11-28 14:09`
-- **[android_kernel_common_oneplus_sm8475](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475)** - [0d46e64](https://github.com/LIghtJUNction/android_kernel_common_oneplus_sm8475/commit/0d46e64fa039a544d6cac694ef0d4d2437e76910) - 更新 README.md `2025-11-25 15:15`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
