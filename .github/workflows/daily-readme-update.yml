@@ -178,6 +178,66 @@ jobs:
               
               return "\n".join(summary)
           
+          def get_github_statistics(username, token=''):
+              """Get comprehensive GitHub account statistics."""
+              user_url = f"https://api.github.com/users/{username}"
+              user_data = make_github_request(user_url, token)
+              
+              if not user_data:
+                  return "Unable to fetch GitHub statistics at this time."
+              
+              # Get account creation date
+              created_at = user_data.get('created_at', '')
+              if created_at:
+                  try:
+                      created_date = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+                      account_age = datetime.now(created_date.tzinfo) - created_date
+                      years = account_age.days // 365
+                      months = (account_age.days % 365) // 30
+                      created_str = created_date.strftime("%Y-%m-%d")
+                  except Exception:
+                      created_str = created_at[:10]
+                      years = 0
+                      months = 0
+              else:
+                  created_str = "Unknown"
+                  years = 0
+                  months = 0
+              
+              # Get repository counts
+              public_repos = user_data.get('public_repos', 0)
+              followers = user_data.get('followers', 0)
+              following = user_data.get('following', 0)
+              
+              # Calculate total commits across all repos (sample from recent repos)
+              print("Calculating commit count from recent repositories...")
+              repos_url = f"https://api.github.com/users/{username}/repos?per_page=100"
+              all_repos = make_github_request(repos_url, token)
+              
+              total_commits = 0
+              repos_checked = 0
+              if all_repos:
+                  for repo in all_repos[:30]:  # Limit to 30 repos to avoid rate limits
+                      try:
+                          commits_url = f"https://api.github.com/repos/{username}/{repo['name']}/commits?author={username}&per_page=100"
+                          commits = make_github_request(commits_url, token)
+                          if commits:
+                              total_commits += len(commits)
+                              repos_checked += 1
+                      except Exception:
+                          continue
+              
+              # Build statistics markdown
+              stats = []
+              stats.append("### GitHub Statistics\n")
+              stats.append(f"- **Account Created**: {created_str} ({years} years, {months} months ago)")
+              stats.append(f"- **Public Repositories**: {public_repos}")
+              stats.append(f"- **Estimated Commits**: {total_commits}+ (sampled from {repos_checked} repositories, up to 100 commits each)")
+              stats.append(f"- **Followers**: {followers}")
+              stats.append(f"- **Following**: {following}")
+              
+              return "\n".join(stats)
+          
           # Main execution
           github_token = get_github_token()
           github_username = os.environ.get('GITHUB_REPOSITORY_OWNER', 'LIghtJUNction')
@@ -194,6 +254,9 @@ jobs:
           print("Generating weekly summary...")
           weekly_summary = get_weekly_summary(github_username, token=github_token)
           
+          print("Fetching GitHub statistics...")
+          github_stats = get_github_statistics(github_username, token=github_token)
+          
           # Generate ASCII title
           ascii_title = "```\n╔═════════════════╗\n║  最新项目 (Latest Projects)  ║\n╚═════════════════╝\n```"
           # Save outputs for later steps
@@ -205,6 +268,8 @@ jobs:
               f.write(commits_markdown)
           with open('summary_insert.txt', 'w') as f:
               f.write(weekly_summary)
+          with open('stats_insert.txt', 'w') as f:
+              f.write(github_stats)
           
           print("Update complete!")
           PYTHON
@@ -219,6 +284,8 @@ jobs:
           END_COMMENT_COMMITS="<!-- END_DYNAMIC_COMMITS -->"
           START_COMMENT_SUMMARY="<!-- START_DYNAMIC_SUMMARY -->"
           END_COMMENT_SUMMARY="<!-- END_DYNAMIC_SUMMARY -->"
+          START_COMMENT_STATS="<!-- START_DYNAMIC_STATS -->"
+          END_COMMENT_STATS="<!-- END_DYNAMIC_STATS -->"
 
           cp README.md README.md.tmp
 
@@ -254,8 +321,16 @@ jobs:
           p {print}
           ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
 
+          # Update statistics section
+          awk -v start="$START_COMMENT_STATS" -v end="$END_COMMENT_STATS" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat stats_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
+
           mv README.md.tmp README.md
-          rm title_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt
+          rm title_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt stats_insert.txt
 
       - name: Commit and Push Changes
         run: |
