@@ -36,7 +36,7 @@ jobs:
           
           import requests
           import os
-          from datetime import datetime, timedelta
+          from datetime import datetime, timedelta, timezone
           
           def get_github_token():
               """Get GitHub token from environment variable."""
@@ -191,11 +191,13 @@ jobs:
               if created_at:
                   try:
                       created_date = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
-                      account_age = datetime.now(created_date.tzinfo) - created_date
+                      current_date = datetime.now(timezone.utc)
+                      account_age = current_date - created_date
                       years = account_age.days // 365
                       months = (account_age.days % 365) // 30
                       created_str = created_date.strftime("%Y-%m-%d")
-                  except Exception:
+                  except Exception as e:
+                      print(f"Error parsing created_at date: {e}")
                       created_str = created_at[:10]
                       years = 0
                       months = 0
