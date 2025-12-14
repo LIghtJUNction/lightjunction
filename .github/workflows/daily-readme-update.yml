@@ -260,7 +260,7 @@ jobs:
           github_stats = get_github_statistics(github_username, token=github_token)
           
           # Generate ASCII title
-          ascii_title = "```\n╔═════════════════╗\n║  最新项目 (Latest Projects)  ║\n╚═════════════════╝\n```"
+          ascii_title = "```\n\n 最新项目 (Latest Projects)  \n\n```"
           # Save outputs for later steps
           with open('title_insert.txt', 'w') as f:
               f.write(ascii_title)
