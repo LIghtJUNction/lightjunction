@@ -1,0 +1,349 @@
+name: Daily README Update
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Update README
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        run: |
+          uv run --no-project - <<'PYTHON'
+          # /// script
+          # requires-python = ">=3.10"
+          # dependencies = [
+          #   "requests>=2.31.0",
+          # ]
+          # ///
+          
+          import requests
+          import os
+          from datetime import datetime, timedelta, timezone
+          
+          def get_github_token():
+              """Get GitHub token from environment variable."""
+              return os.environ.get('GITHUB_TOKEN', '')
+          
+          def make_github_request(url, token=''):
+              """Make a request to GitHub API with authentication."""
+              headers = {}
+              if token:
+                  headers['Authorization'] = f'token {token}'
+              headers['Accept'] = 'application/vnd.github.v3+json'
+              
+              try:
+                  response = requests.get(url, headers=headers, timeout=10)
+                  response.raise_for_status()
+                  return response.json()
+              except requests.exceptions.RequestException as e:
+                  print(f"Error fetching from {url}: {e}")
+                  return None
+          
+          def get_latest_repos(username, count=5, token=''):
+              """Fetches the latest public repositories."""
+              api_url = f"https://api.github.com/users/{username}/repos?sort=updated&direction=desc&per_page={count}"
+              repos = make_github_request(api_url, token)
+              return repos[:count] if repos else []
+          
+          def get_recent_commits(username, token='', days=7, max_commits=10):
+              """Fetches recent commits from the user across all repositories."""
+              repos_url = f"https://api.github.com/users/{username}/repos?sort=updated&direction=desc&per_page=10"
+              repos = make_github_request(repos_url, token)
+              
+              if not repos:
+                  return []
+              
+              all_commits = []
+              since_date = (datetime.now() - timedelta(days=days)).isoformat()
+              
+              for repo in repos:
+                  commits_url = f"https://api.github.com/repos/{username}/{repo['name']}/commits?author={username}&since={since_date}&per_page=5"
+                  commits = make_github_request(commits_url, token)
+                  
+                  if commits:
+                      for commit in commits:
+                          all_commits.append({
+                              'repo': repo['name'],
+                              'repo_url': repo['html_url'],
+                              'message': commit['commit']['message'].split('\n')[0],
+                              'sha': commit['sha'][:7],
+                              'url': commit['html_url'],
+                              'date': commit['commit']['committer']['date']
+                          })
+              
+              all_commits.sort(key=lambda x: x['date'], reverse=True)
+              return all_commits[:max_commits]
+          
+          def format_repos_to_markdown(repos):
+              """Formats the list of repository data into a Markdown string."""
+              markdown_list = []
+              if not repos:
+                  markdown_list.append("- No repositories found or error in fetching.")
+              else:
+                  for repo in repos:
+                      name = repo.get("name")
+                      url = repo.get("html_url")
+                      description = repo.get("description", "No description available.")
+                      description_oneline = description.replace('\n', ' ').replace('\r', '') if description else "No description available."
+                      
+                      stars = repo.get("stargazers_count", 0)
+                      forks = repo.get("forks_count", 0)
+                      language = repo.get("language", "Unknown")
+                      updated = repo.get("updated_at", "")
+                      
+                      if updated:
+                          try:
+                              updated_date = datetime.fromisoformat(updated.replace('Z', '+00:00'))
+                              updated_str = updated_date.strftime("%Y-%m-%d")
+                          except:
+                              updated_str = updated[:10]
+                      else:
+                          updated_str = "Unknown"
+                      
+                      repo_entry = f"- **[{name}]({url})** - {description_oneline}\n"
+                      repo_entry += f"  - `Stars: {stars} | Forks: {forks} | Language: {language} | Updated: {updated_str}`"
+                      
+                      markdown_list.append(repo_entry)
+              return "\n".join(markdown_list)
+          
+          def format_commits_to_markdown(commits):
+              """Formats the list of commits into a Markdown string."""
+              if not commits:
+                  return "No recent commits found."
+              
+              markdown_list = []
+              for commit in commits:
+                  try:
+                      commit_date = datetime.fromisoformat(commit['date'].replace('Z', '+00:00'))
+                      date_str = commit_date.strftime("%Y-%m-%d %H:%M")
+                  except:
+                      date_str = commit['date'][:16].replace('T', ' ')
+                  
+                  markdown_list.append(
+                      f"- **[{commit['repo']}]({commit['repo_url']})** - [{commit['sha']}]({commit['url']}) - {commit['message']} `{date_str}`"
+                  )
+              return "\n".join(markdown_list)
+          
+          def get_weekly_summary(username, token=''):
+              """Generate a comprehensive weekly summary."""
+              repos_url = f"https://api.github.com/users/{username}/repos?sort=updated&direction=desc&per_page=20"
+              repos = make_github_request(repos_url, token)
+              
+              if not repos:
+                  return "Unable to generate weekly summary at this time."
+              
+              since_date = (datetime.now() - timedelta(days=7)).isoformat()
+              total_commits = 0
+              repo_commits = {}
+              
+              for repo in repos[:10]:
+                  commits_url = f"https://api.github.com/repos/{username}/{repo['name']}/commits?author={username}&since={since_date}&per_page=100"
+                  commits = make_github_request(commits_url, token)
+                  if commits and len(commits) > 0:
+                      commit_count = len(commits)
+                      total_commits += commit_count
+                      repo_commits[repo['name']] = commit_count
+              
+              summary = []
+              summary.append("### Weekly Activity Summary\n")
+              summary.append(f"- **Total commits this week**: {total_commits}")
+              
+              if total_commits > 0:
+                  summary.append(f"- **Daily average**: {total_commits / 7:.1f} commits")
+                  
+                  if repo_commits:
+                      sorted_repos = sorted(repo_commits.items(), key=lambda x: x[1], reverse=True)[:3]
+                      summary.append("- **Most active repositories**:")
+                      for idx, (repo_name, commit_count) in enumerate(sorted_repos, 1):
+                          percentage = (commit_count / total_commits * 100) if total_commits > 0 else 0
+                          summary.append(f"  {idx}. **{repo_name}**: {commit_count} commits ({percentage:.1f}%)")
+              
+              return "\n".join(summary)
+          
+          def get_github_statistics(username, token=''):
+              """Get comprehensive GitHub account statistics."""
+              user_url = f"https://api.github.com/users/{username}"
+              user_data = make_github_request(user_url, token)
+              
+              if not user_data:
+                  return "Unable to fetch GitHub statistics at this time."
+              
+              # Get account creation date
+              created_at = user_data.get('created_at', '')
+              if created_at:
+                  try:
+                      created_date = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+                      current_date = datetime.now(timezone.utc)
+                      account_age = current_date - created_date
+                      years = account_age.days // 365
+                      months = (account_age.days % 365) // 30
+                      created_str = created_date.strftime("%Y-%m-%d")
+                  except Exception as e:
+                      print(f"Error parsing created_at date: {e}")
+                      created_str = created_at[:10]
+                      years = 0
+                      months = 0
+              else:
+                  created_str = "Unknown"
+                  years = 0
+                  months = 0
+              
+              # Get repository counts
+              public_repos = user_data.get('public_repos', 0)
+              followers = user_data.get('followers', 0)
+              following = user_data.get('following', 0)
+              
+              # Calculate total commits across all repos (sample from recent repos)
+              print("Calculating commit count from recent repositories...")
+              repos_url = f"https://api.github.com/users/{username}/repos?per_page=100"
+              all_repos = make_github_request(repos_url, token)
+              
+              total_commits = 0
+              repos_checked = 0
+              if all_repos:
+                  for repo in all_repos[:30]:  # Limit to 30 repos to avoid rate limits
+                      try:
+                          commits_url = f"https://api.github.com/repos/{username}/{repo['name']}/commits?author={username}&per_page=100"
+                          commits = make_github_request(commits_url, token)
+                          if commits:
+                              total_commits += len(commits)
+                              repos_checked += 1
+                      except Exception:
+                          continue
+              
+              # Build statistics markdown
+              stats = []
+              stats.append("### GitHub Statistics\n")
+              stats.append(f"- **Account Created**: {created_str} ({years} years, {months} months ago)")
+              stats.append(f"- **Public Repositories**: {public_repos}")
+              stats.append(f"- **Estimated Commits**: {total_commits}+ (sampled from {repos_checked} repositories, up to 100 commits each)")
+              stats.append(f"- **Followers**: {followers}")
+              stats.append(f"- **Following**: {following}")
+              
+              return "\n".join(stats)
+          
+          # Main execution
+          github_token = get_github_token()
+          github_username = os.environ.get('GITHUB_REPOSITORY_OWNER', 'LIghtJUNction')
+          
+          
+          print("Fetching latest repositories...")
+          latest_repos = get_latest_repos(github_username, count=5, token=github_token)
+          repo_markdown_list = format_repos_to_markdown(latest_repos)
+          
+          print("Fetching recent commits...")
+          recent_commits = get_recent_commits(github_username, token=github_token, days=7, max_commits=10)
+          commits_markdown = format_commits_to_markdown(recent_commits)
+          
+          print("Generating weekly summary...")
+          weekly_summary = get_weekly_summary(github_username, token=github_token)
+          
+          print("Fetching GitHub statistics...")
+          github_stats = get_github_statistics(github_username, token=github_token)
+          
+          # Generate ASCII title
+          ascii_title = "```\n╔═════════════════╗\n║  最新项目 (Latest Projects)  ║\n╚═════════════════╝\n```"
+          # Save outputs for later steps
+          with open('title_insert.txt', 'w') as f:
+              f.write(ascii_title)
+          with open('repo_list_insert.txt', 'w') as f:
+              f.write(repo_markdown_list)
+          with open('commits_insert.txt', 'w') as f:
+              f.write(commits_markdown)
+          with open('summary_insert.txt', 'w') as f:
+              f.write(weekly_summary)
+          with open('stats_insert.txt', 'w') as f:
+              f.write(github_stats)
+          
+          print("Update complete!")
+          PYTHON
+
+      - name: Update README.md file
+        run: |
+          START_COMMENT_TITLE="<!-- START_DYNAMIC_TITLE_IMAGE -->"
+          END_COMMENT_TITLE="<!-- END_DYNAMIC_TITLE_IMAGE -->"
+          START_COMMENT_REPO_LIST="<!-- START_DYNAMIC_REPO_LIST -->"
+          END_COMMENT_REPO_LIST="<!-- END_DYNAMIC_REPO_LIST -->"
+          START_COMMENT_COMMITS="<!-- START_DYNAMIC_COMMITS -->"
+          END_COMMENT_COMMITS="<!-- END_DYNAMIC_COMMITS -->"
+          START_COMMENT_SUMMARY="<!-- START_DYNAMIC_SUMMARY -->"
+          END_COMMENT_SUMMARY="<!-- END_DYNAMIC_SUMMARY -->"
+          START_COMMENT_STATS="<!-- START_DYNAMIC_STATS -->"
+          END_COMMENT_STATS="<!-- END_DYNAMIC_STATS -->"
+
+          cp README.md README.md.tmp
+
+          # Update title section
+          awk -v start="$START_COMMENT_TITLE" -v end="$END_COMMENT_TITLE" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat title_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
+
+          # Update repo list section
+          awk -v start="$START_COMMENT_REPO_LIST" -v end="$END_COMMENT_REPO_LIST" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat repo_list_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
+
+          # Update commits section
+          awk -v start="$START_COMMENT_COMMITS" -v end="$END_COMMENT_COMMITS" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat commits_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
+
+          # Update summary section
+          awk -v start="$START_COMMENT_SUMMARY" -v end="$END_COMMENT_SUMMARY" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat summary_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
+
+          # Update statistics section
+          awk -v start="$START_COMMENT_STATS" -v end="$END_COMMENT_STATS" '
+          BEGIN {p=1}
+          $0 == start {print; printf "\n"; system("cat stats_insert.txt"); printf "\n"; p=0}
+          $0 == end {p=1}
+          p {print}
+          ' README.md.tmp > README.md.new && mv README.md.new README.md.tmp
+
+          mv README.md.tmp README.md
+          rm title_insert.txt repo_list_insert.txt commits_insert.txt summary_insert.txt stats_insert.txt
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          if ! git diff --quiet README.md; then
+            echo "Changes detected, committing..."
+            git add README.md
+            git commit -m "Daily README update - $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          else
+            echo "No changes to commit"
+          fi
