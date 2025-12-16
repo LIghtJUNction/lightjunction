@@ -47,7 +47,7 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 - **Account Created**: 2022-06-06 (3 years, 6 months ago)
 - **Public Repositories**: 60
-- **Estimated Commits**: 639+ (sampled from 21 repositories, up to 100 commits each)
+- **Estimated Commits**: 640+ (sampled from 21 repositories, up to 100 commits each)
 - **Followers**: 38
 - **Following**: 74
 <!-- END_DYNAMIC_STATS -->
@@ -69,28 +69,28 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 159
-- **Daily average**: 22.7 commits
+- **Total commits this week**: 103
+- **Daily average**: 14.7 commits
 - **Most active repositories**:
-  1. **Kam**: 100 commits (62.9%)
-  2. **KamModuleXTEST**: 35 commits (22.0%)
-  3. **asl**: 18 commits (11.3%)
+  1. **Kam**: 79 commits (76.7%)
+  2. **KamModuleXTEST**: 17 commits (16.5%)
+  3. **password-store**: 3 commits (2.9%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- **[KamModuleXTEST](https://github.com/LIghtJUNction/KamModuleXTEST)** - Import various templates and generate various modules.
+  - `Stars: 0 | Forks: 0 | Language: Shell | Updated: 2025-12-16`
+- **[asl](https://github.com/LIghtJUNction/asl)** - Android Subsystem for GNU/Linux (magisk/ksu/Apatch module)
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2025-12-15`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-15`
 - **[Kam](https://github.com/LIghtJUNction/Kam)** - Kam: The Kiss Anytemplate Master.
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-12-14`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-14`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - powered by pass
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-12-14`
-- **[KamModuleXTEST](https://github.com/LIghtJUNction/KamModuleXTEST)** - Import various templates and generate various modules.
-  - `Stars: 0 | Forks: 0 | Language: Shell | Updated: 2025-12-14`
-- **[module_release](https://github.com/LIghtJUNction/module_release)** - Release a ksu module
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-12-10`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -100,16 +100,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[KamModuleXTEST](https://github.com/LIghtJUNction/KamModuleXTEST)** - [1e0dc12](https://github.com/LIghtJUNction/KamModuleXTEST/commit/1e0dc120db7af0585e9795f6bc174cb289e4a668) - chore: standardize string literal quoting and adjust input defaults in workflows. `2025-12-15 08:59`
+- **[asl](https://github.com/LIghtJUNction/asl)** - [d72005f](https://github.com/LIghtJUNction/asl/commit/d72005fb69b6ce4cea16cf1bfe0dd660694d76a1) - Update README.md `2025-12-15 08:27`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [1901c5f](https://github.com/LIghtJUNction/lightjunction/commit/1901c5fe278854fbd64e772ad137f273261a6073) - workflow/daily- `2025-12-14 19:33`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [279732b](https://github.com/LIghtJUNction/lightjunction/commit/279732bddc2fb21dbe8e8244f1750767c1d25aa7) - Initial commit `2025-12-14 19:13`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [a55cf05](https://github.com/LIghtJUNction/password-store/commit/a55cf05e3f2e96daea7412fe6659a4276f836a43) - Remove welcome message from README `2025-12-14 16:55`
-- **[KamModuleXTEST](https://github.com/LIghtJUNction/KamModuleXTEST)** - [ac4dc0d](https://github.com/LIghtJUNction/KamModuleXTEST/commit/ac4dc0d338bd6a2923bd10f8f98507247577ed54) - chore: apply config - Template: https://github.com/MemDeco-WG/Kam/releases/latest/download/templates.zip - Command: kam init . -t kam_template `2025-12-14 16:54`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [2f22609](https://github.com/LIghtJUNction/password-store/commit/2f22609c3743c9bdee74ec8a413afca26b5d1e17) - Delete TEST-PASSWD.gpg `2025-12-14 16:54`
 - **[Kam](https://github.com/LIghtJUNction/Kam)** - [99de579](https://github.com/LIghtJUNction/Kam/commit/99de579a090f41a19e4c38977b4a1b83ad58058b) - sync `2025-12-14 16:03`
 - **[Kam](https://github.com/LIghtJUNction/Kam)** - [cf3e7cb](https://github.com/LIghtJUNction/Kam/commit/cf3e7cb847c11076c558a5309e2b686d37656bac) - sync `2025-12-14 15:59`
 - **[Kam](https://github.com/LIghtJUNction/Kam)** - [95bdf59](https://github.com/LIghtJUNction/Kam/commit/95bdf590bcd8cf9e38d46f8db829c1389423c470) - i18n `2025-12-14 15:15`
 - **[Kam](https://github.com/LIghtJUNction/Kam)** - [a7e86f8](https://github.com/LIghtJUNction/Kam/commit/a7e86f8a493279ee2dc49bfd8af64737115dc1d5) - fix `2025-12-14 14:56`
-- **[Kam](https://github.com/LIghtJUNction/Kam)** - [075e66f](https://github.com/LIghtJUNction/Kam/commit/075e66f99bf98fedd86037462fded4402a49c767) - sync `2025-12-14 14:52`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
