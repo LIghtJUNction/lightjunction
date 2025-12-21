@@ -47,7 +47,7 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 - **Account Created**: 2022-06-06 (3 years, 6 months ago)
 - **Public Repositories**: 61
-- **Estimated Commits**: 656+ (sampled from 21 repositories, up to 100 commits each)
+- **Estimated Commits**: 647+ (sampled from 21 repositories, up to 100 commits each)
 - **Followers**: 38
 - **Following**: 74
 <!-- END_DYNAMIC_STATS -->
@@ -69,12 +69,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 94
-- **Daily average**: 13.4 commits
+- **Total commits this week**: 91
+- **Daily average**: 13.0 commits
 - **Most active repositories**:
-  1. **MagicNet**: 41 commits (43.6%)
-  2. **MagicMihomo**: 23 commits (24.5%)
-  3. **Kam**: 22 commits (23.4%)
+  1. **MagicNet**: 41 commits (45.1%)
+  2. **MagicMihomo**: 24 commits (26.4%)
+  3. **dots-hyprland**: 9 commits (9.9%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -82,15 +82,15 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 0 | Forks: 0 | Language: HTML | Updated: 2025-12-19`
+  - `Stars: 0 | Forks: 0 | Language: HTML | Updated: 2025-12-20`
+- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - Oxygen Not Included. Friends? Included.
+  - `Stars: 0 | Forks: 0 | Language: Shell | Updated: 2025-12-20`
+- **[oni_multiplayer_fork](https://github.com/LIghtJUNction/oni_multiplayer_fork)** - Oxygen Not Included multiplayer mod. 
+  - `Stars: 0 | Forks: 0 | Language: C# | Updated: 2025-12-20`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
-  - `Stars: 1 | Forks: 0 | Language: QML | Updated: 2025-12-19`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 4 | Forks: 1 | Language: Shell | Updated: 2025-12-19`
+  - `Stars: 1 | Forks: 0 | Language: QML | Updated: 2025-12-20`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-19`
-- **[CONFIG_RULE_DIY](https://github.com/LIghtJUNction/CONFIG_RULE_DIY)** - 🎃自定义Clash代理规则的方案 
-  - `Stars: 3 | Forks: 0 | Language: None | Updated: 2025-12-18`
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-20`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -100,16 +100,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [7a1d8b0](https://github.com/LIghtJUNction/MagicMihomo/commit/7a1d8b0936680f1bba71e6538bfe57e8ae425a6c) - ruleset: update-ruleset `2025-12-19 22:44`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [c5e1f53](https://github.com/LIghtJUNction/dots-hyprland/commit/c5e1f5397b3505f18243f6c10e0fab1a97c28e7a) - Merge pull request #34 from end-4/main `2025-12-19 20:47`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [899c835](https://github.com/LIghtJUNction/MagicNet/commit/899c835f3983a97ee3a6315dd36d601d9311b577) - fix `2025-12-19 08:05`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [b856e16](https://github.com/LIghtJUNction/MagicMihomo/commit/b856e1630e3a89012f3eb040a4dbf62154d27c67) - ruleset: update-ruleset `2025-12-18 22:45`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [f019d1c](https://github.com/LIghtJUNction/MagicNet/commit/f019d1c4f7cd0bc953a3ed6eaf037d09b7ce4173) - sync `2025-12-18 21:03`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [743f919](https://github.com/LIghtJUNction/MagicNet/commit/743f919e532fac7c37cc70b0bb10b378ebcfa809) - sync `2025-12-18 21:03`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [488fe04](https://github.com/LIghtJUNction/MagicNet/commit/488fe04c963f66578a3196aa1150afc5e285eca8) - init `2025-12-18 14:49`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [6f9307f](https://github.com/LIghtJUNction/MagicNet/commit/6f9307fe34c654a5114452cddd96ea2966161abe) - init `2025-12-18 14:41`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [f6f32f2](https://github.com/LIghtJUNction/MagicMihomo/commit/f6f32f281e854229d397ba5610a3b40963eb5a77) - Merge branch 'main' of https://github.com/LIghtJUNction/MagicMihomo `2025-12-18 08:25`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [f8adba2](https://github.com/LIghtJUNction/MagicMihomo/commit/f8adba28e14414b2aa8e56cfe5af1ff92ce050e9) - sync `2025-12-18 08:25`
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [8f57157](https://github.com/LIghtJUNction/MagicMihomo/commit/8f57157f4148a65ebdb95fd8cfe19369106054dd) - ruleset: update-ruleset `2025-12-20 22:43`
+- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [e8a6423](https://github.com/LIghtJUNction/Friend-Included/commit/e8a6423f6c4d45ba7b34822d926c81999f06b071) - feat: scan Steam libraryfolders.vdf to detect ONI across Steam libraries `2025-12-20 19:52`
+- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [c635246](https://github.com/LIghtJUNction/Friend-Included/commit/c6352466e30a3bd5e0e4afe0ba589c0128c85221) - docs: make README platform-agnostic; add example Directory.Build.props.user `2025-12-20 19:45`
+- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [9e4e610](https://github.com/LIghtJUNction/Friend-Included/commit/9e4e6102394ed0e613ecbcc9ecc776656ae99275) - chore: integrate Directory.Build.* values; make targets cross-platform and guard optional ExposeAssembly `2025-12-20 19:36`
+- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [063ef5e](https://github.com/LIghtJUNction/Friend-Included/commit/063ef5e0846fa0b7a2dbdc68dcf960dbc940c61f) - docs: separate README into Chinese and English sections `2025-12-20 19:19`
+- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [c6f1e45](https://github.com/LIghtJUNction/Friend-Included/commit/c6f1e45719010df25c21048cf2200742dd0e0cf5) - feat: initialize ONI mod project (FriendIncluded); add build script and auto-deploy to game Mods dir `2025-12-20 19:14`
+- **[oni_multiplayer_fork](https://github.com/LIghtJUNction/oni_multiplayer_fork)** - [c3a72d9](https://github.com/LIghtJUNction/oni_multiplayer_fork/commit/c3a72d9dbe8a75d741f6df25c4f4e6cdf97badba) - Merge pull request #1 from SordX/feature/lan-networking `2025-12-20 17:48`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [6df0ab9](https://github.com/LIghtJUNction/dots-hyprland/commit/6df0ab9a3cbe9d86f919369eec4618c15fd001a3) - Merge branch 'EoinKanro-parallax' `2025-12-20 15:58`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [13d4790](https://github.com/LIghtJUNction/dots-hyprland/commit/13d4790efd80be89e092cbd95feaef6ab3b89aa2) - Merge branch 'parallax' of https://github.com/EoinKanro/dots-hyprland into EoinKanro-parallax `2025-12-20 15:57`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [6a842f6](https://github.com/LIghtJUNction/dots-hyprland/commit/6a842f62353608e8f1e1b232327987bf49eec261) - Merge pull request #36 from reakjra/feat/runner-symbols `2025-12-20 15:56`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
