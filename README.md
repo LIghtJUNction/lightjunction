@@ -46,10 +46,10 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 ### GitHub Statistics
 
 - **Account Created**: 2022-06-06 (3 years, 6 months ago)
-- **Public Repositories**: 61
-- **Estimated Commits**: 647+ (sampled from 21 repositories, up to 100 commits each)
+- **Public Repositories**: 62
+- **Estimated Commits**: 646+ (sampled from 21 repositories, up to 100 commits each)
 - **Followers**: 38
-- **Following**: 74
+- **Following**: 75
 <!-- END_DYNAMIC_STATS -->
 
 ---
@@ -69,12 +69,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 91
-- **Daily average**: 13.0 commits
+- **Total commits this week**: 85
+- **Daily average**: 12.1 commits
 - **Most active repositories**:
-  1. **MagicNet**: 41 commits (45.1%)
-  2. **MagicMihomo**: 24 commits (26.4%)
-  3. **dots-hyprland**: 9 commits (9.9%)
+  1. **MagicNet**: 41 commits (48.2%)
+  2. **MagicMihomo**: 25 commits (29.4%)
+  3. **dots-hyprland**: 9 commits (10.6%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -82,15 +82,15 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 0 | Forks: 0 | Language: HTML | Updated: 2025-12-20`
+  - `Stars: 0 | Forks: 0 | Language: HTML | Updated: 2025-12-21`
+- **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security capabilities.
+  - `Stars: 0 | Forks: 0 | Language: Python | Updated: 2025-12-21`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-21`
 - **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - Oxygen Not Included. Friends? Included.
   - `Stars: 0 | Forks: 0 | Language: Shell | Updated: 2025-12-20`
 - **[oni_multiplayer_fork](https://github.com/LIghtJUNction/oni_multiplayer_fork)** - Oxygen Not Included multiplayer mod. 
   - `Stars: 0 | Forks: 0 | Language: C# | Updated: 2025-12-20`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
-  - `Stars: 1 | Forks: 0 | Language: QML | Updated: 2025-12-20`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-20`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -100,16 +100,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [c20bc07](https://github.com/LIghtJUNction/MagicMihomo/commit/c20bc07599c0dd6762eb760c3d3aafd3b1472e2a) - ruleset: update-ruleset `2025-12-21 22:44`
+- **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - [b3cfb75](https://github.com/LIghtJUNction/hexstrike-ai-uv/commit/b3cfb75bee0506e0a74e428b48379eb9b94edb81) - init `2025-12-21 11:23`
+- **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - [b017c9e](https://github.com/LIghtJUNction/hexstrike-ai-uv/commit/b017c9e7115dde53a46cc17e69a857f04e3c5e8e) - init `2025-12-21 11:13`
+- **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - [8b19954](https://github.com/LIghtJUNction/hexstrike-ai-uv/commit/8b1995420bbe9d2d142e659dc0686d55124cbc58) - Merge pull request #1 from Yenn503/master `2025-12-21 10:44`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [8f57157](https://github.com/LIghtJUNction/MagicMihomo/commit/8f57157f4148a65ebdb95fd8cfe19369106054dd) - ruleset: update-ruleset `2025-12-20 22:43`
 - **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [e8a6423](https://github.com/LIghtJUNction/Friend-Included/commit/e8a6423f6c4d45ba7b34822d926c81999f06b071) - feat: scan Steam libraryfolders.vdf to detect ONI across Steam libraries `2025-12-20 19:52`
 - **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [c635246](https://github.com/LIghtJUNction/Friend-Included/commit/c6352466e30a3bd5e0e4afe0ba589c0128c85221) - docs: make README platform-agnostic; add example Directory.Build.props.user `2025-12-20 19:45`
 - **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [9e4e610](https://github.com/LIghtJUNction/Friend-Included/commit/9e4e6102394ed0e613ecbcc9ecc776656ae99275) - chore: integrate Directory.Build.* values; make targets cross-platform and guard optional ExposeAssembly `2025-12-20 19:36`
 - **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [063ef5e](https://github.com/LIghtJUNction/Friend-Included/commit/063ef5e0846fa0b7a2dbdc68dcf960dbc940c61f) - docs: separate README into Chinese and English sections `2025-12-20 19:19`
 - **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [c6f1e45](https://github.com/LIghtJUNction/Friend-Included/commit/c6f1e45719010df25c21048cf2200742dd0e0cf5) - feat: initialize ONI mod project (FriendIncluded); add build script and auto-deploy to game Mods dir `2025-12-20 19:14`
-- **[oni_multiplayer_fork](https://github.com/LIghtJUNction/oni_multiplayer_fork)** - [c3a72d9](https://github.com/LIghtJUNction/oni_multiplayer_fork/commit/c3a72d9dbe8a75d741f6df25c4f4e6cdf97badba) - Merge pull request #1 from SordX/feature/lan-networking `2025-12-20 17:48`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [6df0ab9](https://github.com/LIghtJUNction/dots-hyprland/commit/6df0ab9a3cbe9d86f919369eec4618c15fd001a3) - Merge branch 'EoinKanro-parallax' `2025-12-20 15:58`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [13d4790](https://github.com/LIghtJUNction/dots-hyprland/commit/13d4790efd80be89e092cbd95feaef6ab3b89aa2) - Merge branch 'parallax' of https://github.com/EoinKanro/dots-hyprland into EoinKanro-parallax `2025-12-20 15:57`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [6a842f6](https://github.com/LIghtJUNction/dots-hyprland/commit/6a842f62353608e8f1e1b232327987bf49eec261) - Merge pull request #36 from reakjra/feat/runner-symbols `2025-12-20 15:56`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
