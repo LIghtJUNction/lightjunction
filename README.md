@@ -46,9 +46,9 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 ### GitHub Statistics
 
 - **Account Created**: 2022-06-06 (3 years, 6 months ago)
-- **Public Repositories**: 62
-- **Estimated Commits**: 646+ (sampled from 21 repositories, up to 100 commits each)
-- **Followers**: 38
+- **Public Repositories**: 63
+- **Estimated Commits**: 652+ (sampled from 21 repositories, up to 100 commits each)
+- **Followers**: 39
 - **Following**: 75
 <!-- END_DYNAMIC_STATS -->
 
@@ -69,12 +69,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 85
-- **Daily average**: 12.1 commits
+- **Total commits this week**: 92
+- **Daily average**: 13.1 commits
 - **Most active repositories**:
-  1. **MagicNet**: 41 commits (48.2%)
-  2. **MagicMihomo**: 25 commits (29.4%)
-  3. **dots-hyprland**: 9 commits (10.6%)
+  1. **MagicNet**: 41 commits (44.6%)
+  2. **MagicMihomo**: 26 commits (28.3%)
+  3. **dots-hyprland**: 9 commits (9.8%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -82,15 +82,15 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 0 | Forks: 0 | Language: HTML | Updated: 2025-12-21`
+  - `Stars: 0 | Forks: 0 | Language: HTML | Updated: 2025-12-22`
+- **[dirmap](https://github.com/LIghtJUNction/dirmap)** - An advanced web directory & file scanning tool that will be more powerful than DirBuster, Dirsearch, cansina, and Yu Jian.一个高级web目录、文件扫描工具，功能将会强于DirBuster、Dirsearch、cansina、御剑。
+  - `Stars: 1 | Forks: 0 | Language: Python | Updated: 2025-12-22`
+- **[tuxedo-rs](https://github.com/LIghtJUNction/tuxedo-rs)** - Rust libraries for interacting with hardware from TUXEDO Computers
+  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-12-22`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-22`
 - **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security capabilities.
   - `Stars: 0 | Forks: 0 | Language: Python | Updated: 2025-12-21`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-21`
-- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - Oxygen Not Included. Friends? Included.
-  - `Stars: 0 | Forks: 0 | Language: Shell | Updated: 2025-12-20`
-- **[oni_multiplayer_fork](https://github.com/LIghtJUNction/oni_multiplayer_fork)** - Oxygen Not Included multiplayer mod. 
-  - `Stars: 0 | Forks: 0 | Language: C# | Updated: 2025-12-20`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -100,16 +100,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [bbfb87c](https://github.com/LIghtJUNction/MagicMihomo/commit/bbfb87cee5d6fdaccd8b6785602ec31068fb6d0d) - ruleset: update-ruleset `2025-12-22 22:46`
+- **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [6b44951](https://github.com/LIghtJUNction/dirmap/commit/6b449519a22315c76cc741c98481f7ae19e99a6b) - Update README.md `2025-12-22 17:39`
+- **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [c594d20](https://github.com/LIghtJUNction/dirmap/commit/c594d20e6c20a0a56c4113aa5a2199d24b37c6b2) - 更新 pyproject.toml `2025-12-22 17:37`
+- **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [d373c4b](https://github.com/LIghtJUNction/dirmap/commit/d373c4b2ec361ae2a4473ecb4607721794b824cc) - 更新 README.md `2025-12-22 17:36`
+- **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [92bd095](https://github.com/LIghtJUNction/dirmap/commit/92bd09572d2f646902ab623ecc3d1c4575dc00ae) - 更新 README.md `2025-12-22 17:33`
+- **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [a78f63e](https://github.com/LIghtJUNction/dirmap/commit/a78f63effd315db931534f9b30f7af072d5f435a) - 更新 pyproject.toml `2025-12-22 17:33`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [c20bc07](https://github.com/LIghtJUNction/MagicMihomo/commit/c20bc07599c0dd6762eb760c3d3aafd3b1472e2a) - ruleset: update-ruleset `2025-12-21 22:44`
 - **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - [b3cfb75](https://github.com/LIghtJUNction/hexstrike-ai-uv/commit/b3cfb75bee0506e0a74e428b48379eb9b94edb81) - init `2025-12-21 11:23`
 - **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - [b017c9e](https://github.com/LIghtJUNction/hexstrike-ai-uv/commit/b017c9e7115dde53a46cc17e69a857f04e3c5e8e) - init `2025-12-21 11:13`
 - **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - [8b19954](https://github.com/LIghtJUNction/hexstrike-ai-uv/commit/8b1995420bbe9d2d142e659dc0686d55124cbc58) - Merge pull request #1 from Yenn503/master `2025-12-21 10:44`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [8f57157](https://github.com/LIghtJUNction/MagicMihomo/commit/8f57157f4148a65ebdb95fd8cfe19369106054dd) - ruleset: update-ruleset `2025-12-20 22:43`
-- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [e8a6423](https://github.com/LIghtJUNction/Friend-Included/commit/e8a6423f6c4d45ba7b34822d926c81999f06b071) - feat: scan Steam libraryfolders.vdf to detect ONI across Steam libraries `2025-12-20 19:52`
-- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [c635246](https://github.com/LIghtJUNction/Friend-Included/commit/c6352466e30a3bd5e0e4afe0ba589c0128c85221) - docs: make README platform-agnostic; add example Directory.Build.props.user `2025-12-20 19:45`
-- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [9e4e610](https://github.com/LIghtJUNction/Friend-Included/commit/9e4e6102394ed0e613ecbcc9ecc776656ae99275) - chore: integrate Directory.Build.* values; make targets cross-platform and guard optional ExposeAssembly `2025-12-20 19:36`
-- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [063ef5e](https://github.com/LIghtJUNction/Friend-Included/commit/063ef5e0846fa0b7a2dbdc68dcf960dbc940c61f) - docs: separate README into Chinese and English sections `2025-12-20 19:19`
-- **[Friend-Included](https://github.com/LIghtJUNction/Friend-Included)** - [c6f1e45](https://github.com/LIghtJUNction/Friend-Included/commit/c6f1e45719010df25c21048cf2200742dd0e0cf5) - feat: initialize ONI mod project (FriendIncluded); add build script and auto-deploy to game Mods dir `2025-12-20 19:14`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
