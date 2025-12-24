@@ -69,12 +69,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 92
-- **Daily average**: 13.1 commits
+- **Total commits this week**: 94
+- **Daily average**: 13.4 commits
 - **Most active repositories**:
-  1. **MagicNet**: 41 commits (44.6%)
-  2. **MagicMihomo**: 26 commits (28.3%)
-  3. **dots-hyprland**: 9 commits (9.8%)
+  1. **MagicNet**: 42 commits (44.7%)
+  2. **MagicMihomo**: 27 commits (28.7%)
+  3. **dots-hyprland**: 9 commits (9.6%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -82,15 +82,15 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 0 | Forks: 0 | Language: HTML | Updated: 2025-12-22`
+  - `Stars: 0 | Forks: 0 | Language: HTML | Updated: 2025-12-23`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+  - `Stars: 4 | Forks: 1 | Language: Shell | Updated: 2025-12-23`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-23`
 - **[dirmap](https://github.com/LIghtJUNction/dirmap)** - An advanced web directory & file scanning tool that will be more powerful than DirBuster, Dirsearch, cansina, and Yu Jian.一个高级web目录、文件扫描工具，功能将会强于DirBuster、Dirsearch、cansina、御剑。
   - `Stars: 1 | Forks: 0 | Language: Python | Updated: 2025-12-22`
 - **[tuxedo-rs](https://github.com/LIghtJUNction/tuxedo-rs)** - Rust libraries for interacting with hardware from TUXEDO Computers
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-12-22`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-22`
-- **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security capabilities.
-  - `Stars: 0 | Forks: 0 | Language: Python | Updated: 2025-12-21`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -100,16 +100,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [bffe8f7](https://github.com/LIghtJUNction/MagicMihomo/commit/bffe8f77c6eea66ecd8f96103aaa0a0a462518a8) - ruleset: update-ruleset `2025-12-23 22:44`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [53c29fc](https://github.com/LIghtJUNction/MagicNet/commit/53c29fc884e1d8a850988a011f05097766900e42) - Change TARGET_DIR for yq installation path `2025-12-23 21:52`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [327b33b](https://github.com/LIghtJUNction/MagicNet/commit/327b33bd5ebadceb89a1dada2b9f19f5a6948219) - Update README.md `2025-12-23 21:50`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [9a16111](https://github.com/LIghtJUNction/MagicNet/commit/9a1611148d0f45b67898390641a4cd51b9faa9b5) - Delete src/MagicNet/.local/bin directory `2025-12-23 21:49`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [31bd2cd](https://github.com/LIghtJUNction/MagicNet/commit/31bd2cdd84a64193446e0bcac7d14df4762b1346) - 更新 README.md `2025-12-23 21:48`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [bbfb87c](https://github.com/LIghtJUNction/MagicMihomo/commit/bbfb87cee5d6fdaccd8b6785602ec31068fb6d0d) - ruleset: update-ruleset `2025-12-22 22:46`
 - **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [6b44951](https://github.com/LIghtJUNction/dirmap/commit/6b449519a22315c76cc741c98481f7ae19e99a6b) - Update README.md `2025-12-22 17:39`
 - **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [c594d20](https://github.com/LIghtJUNction/dirmap/commit/c594d20e6c20a0a56c4113aa5a2199d24b37c6b2) - 更新 pyproject.toml `2025-12-22 17:37`
 - **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [d373c4b](https://github.com/LIghtJUNction/dirmap/commit/d373c4b2ec361ae2a4473ecb4607721794b824cc) - 更新 README.md `2025-12-22 17:36`
 - **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [92bd095](https://github.com/LIghtJUNction/dirmap/commit/92bd09572d2f646902ab623ecc3d1c4575dc00ae) - 更新 README.md `2025-12-22 17:33`
-- **[dirmap](https://github.com/LIghtJUNction/dirmap)** - [a78f63e](https://github.com/LIghtJUNction/dirmap/commit/a78f63effd315db931534f9b30f7af072d5f435a) - 更新 pyproject.toml `2025-12-22 17:33`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [c20bc07](https://github.com/LIghtJUNction/MagicMihomo/commit/c20bc07599c0dd6762eb760c3d3aafd3b1472e2a) - ruleset: update-ruleset `2025-12-21 22:44`
-- **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - [b3cfb75](https://github.com/LIghtJUNction/hexstrike-ai-uv/commit/b3cfb75bee0506e0a74e428b48379eb9b94edb81) - init `2025-12-21 11:23`
-- **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - [b017c9e](https://github.com/LIghtJUNction/hexstrike-ai-uv/commit/b017c9e7115dde53a46cc17e69a857f04e3c5e8e) - init `2025-12-21 11:13`
-- **[hexstrike-ai-uv](https://github.com/LIghtJUNction/hexstrike-ai-uv)** - [8b19954](https://github.com/LIghtJUNction/hexstrike-ai-uv/commit/8b1995420bbe9d2d142e659dc0686d55124cbc58) - Merge pull request #1 from Yenn503/master `2025-12-21 10:44`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
