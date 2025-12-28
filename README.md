@@ -48,7 +48,7 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 - **Account Created**: 2022-06-06 (3 years, 6 months ago)
 - **Public Repositories**: 65
 - **Estimated Commits**: 654+ (sampled from 22 repositories, up to 100 commits each)
-- **Followers**: 40
+- **Followers**: 41
 - **Following**: 78
 <!-- END_DYNAMIC_STATS -->
 
@@ -69,12 +69,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 120
-- **Daily average**: 17.1 commits
+- **Total commits this week**: 137
+- **Daily average**: 19.6 commits
 - **Most active repositories**:
-  1. **MagicNet**: 76 commits (63.3%)
-  2. **MagicMihomo**: 31 commits (25.8%)
-  3. **dirmap**: 6 commits (5.0%)
+  1. **MagicNet**: 91 commits (66.4%)
+  2. **MagicMihomo**: 31 commits (22.6%)
+  3. **dirmap**: 6 commits (4.4%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -82,15 +82,15 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 3 | Forks: 0 | Language: None | Updated: 2025-12-26`
+  - `Stars: 4 | Forks: 0 | Language: None | Updated: 2025-12-27`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 10 | Forks: 1 | Language: Shell | Updated: 2025-12-26`
+  - `Stars: 11 | Forks: 1 | Language: Shell | Updated: 2025-12-27`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-27`
 - **[Tick](https://github.com/LIghtJUNction/Tick)** - Give your modules a heart beat.
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-12-26`
+  - `Stars: 0 | Forks: 0 | Language: Shell | Updated: 2025-12-27`
 - **[YumeFuwa](https://github.com/LIghtJUNction/YumeFuwa)** - Cute For Gitbhub Review
   - `Stars: 0 | Forks: 0 | Language: Kotlin | Updated: 2025-12-26`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-26`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -100,16 +100,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [fb03471](https://github.com/LIghtJUNction/MagicMihomo/commit/fb03471058357f3ef76fa92b9a11579be73247a3) - ruleset: update-ruleset `2025-12-27 22:44`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [67ae39f](https://github.com/LIghtJUNction/MagicNet/commit/67ae39fcf2afbba27fc5a9a7d273c955bbef1247) - sync `2025-12-27 21:01`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [d871dc5](https://github.com/LIghtJUNction/MagicNet/commit/d871dc523d6cf2651ed397d951315cae0556d2a9) - sync `2025-12-27 20:59`
+- **[Tick](https://github.com/LIghtJUNction/Tick)** - [0ab8c2d](https://github.com/LIghtJUNction/Tick/commit/0ab8c2d5cdd2a0f9ec8d6e29e142468d77c3c548) - sync `2025-12-27 12:27`
+- **[Tick](https://github.com/LIghtJUNction/Tick)** - [5cc2722](https://github.com/LIghtJUNction/Tick/commit/5cc2722f914625cbcf2e26cd9fc304f134468de8) - init `2025-12-27 11:13`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [7cb9523](https://github.com/LIghtJUNction/MagicNet/commit/7cb952362247382bd4af3635a63bef6fe372ad37) - chore: apply config - Template: No template - Command: kam version patch && kam build -a -s -r `2025-12-27 11:07`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [c51ac6f](https://github.com/LIghtJUNction/MagicNet/commit/c51ac6ff3e82fcdfcc81d0e444e4333b44e882c4) - Merge branch 'main' of https://github.com/LIghtJUNction/MagicNet `2025-12-27 11:05`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [c35a89a](https://github.com/LIghtJUNction/MagicNet/commit/c35a89a4b40cb673b2a0a2a09a7b90229abcc6c4) - fix/uninstall.sh `2025-12-27 11:05`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [74fbb1a](https://github.com/LIghtJUNction/MagicMihomo/commit/74fbb1ab486a5bdf26939a292f168ead3e2f5882) - ruleset: update-ruleset `2025-12-26 22:45`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [582b1c4](https://github.com/LIghtJUNction/MagicNet/commit/582b1c4ad5c504c383c44f41ada8ee263792918c) - 缩紧权限为700，仅root可见 `2025-12-26 20:55`
 - **[Tick](https://github.com/LIghtJUNction/Tick)** - [b99e259](https://github.com/LIghtJUNction/Tick/commit/b99e2593b14c0d4dbb7b81dd23f11c182d272b30) - Initial commit `2025-12-26 20:12`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [08803bd](https://github.com/LIghtJUNction/MagicNet/commit/08803bd2a35ca6524796e1307d5884a5a45d6db5) - Modify project title in README `2025-12-26 18:16`
-- **[YumeFuwa](https://github.com/LIghtJUNction/YumeFuwa)** - [917bc4f](https://github.com/LIghtJUNction/YumeFuwa/commit/917bc4f8094a7e0e7b495099aac47308b937fe31) - first commit `2025-12-26 17:54`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [bc890e4](https://github.com/LIghtJUNction/MagicNet/commit/bc890e4c25378bea675e281d9c3ad0517b48a2ef) - Add GitHub link to MagicNet title in README `2025-12-26 17:37`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [89a142a](https://github.com/LIghtJUNction/MagicNet/commit/89a142a6615bd3dd928a5893c014e46d32fb901c) - Update README.md `2025-12-26 16:25`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [e6d36b9](https://github.com/LIghtJUNction/MagicMihomo/commit/e6d36b91f19998749ae4ffb4b850dfc8b28736dd) - ruleset: update-ruleset `2025-12-26 16:17`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [84f0836](https://github.com/LIghtJUNction/MagicMihomo/commit/84f0836dc64bf8ff9f819d1f51e1736552bfab83) - sync `2025-12-26 16:16`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [48fd205](https://github.com/LIghtJUNction/MagicMihomo/commit/48fd20563644ac7b21cca19a60e18e16e414f3ea) - sync `2025-12-26 16:15`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
