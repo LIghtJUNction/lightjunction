@@ -46,10 +46,10 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 ### GitHub Statistics
 
 - **Account Created**: 2022-06-06 (3 years, 6 months ago)
-- **Public Repositories**: 65
+- **Public Repositories**: 66
 - **Estimated Commits**: 655+ (sampled from 22 repositories, up to 100 commits each)
-- **Followers**: 41
-- **Following**: 79
+- **Followers**: 42
+- **Following**: 80
 <!-- END_DYNAMIC_STATS -->
 
 ---
@@ -69,11 +69,11 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 161
-- **Daily average**: 23.0 commits
+- **Total commits this week**: 160
+- **Daily average**: 22.9 commits
 - **Most active repositories**:
-  1. **MagicNet**: 100 commits (62.1%)
-  2. **MagicMihomo**: 43 commits (26.7%)
+  1. **MagicNet**: 100 commits (62.5%)
+  2. **MagicMihomo**: 47 commits (29.4%)
   3. **Tick**: 8 commits (5.0%)
 <!-- END_DYNAMIC_SUMMARY -->
 
@@ -84,13 +84,13 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
   - `Stars: 4 | Forks: 0 | Language: Shell | Updated: 2025-12-29`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 14 | Forks: 1 | Language: Shell | Updated: 2025-12-29`
+  - `Stars: 17 | Forks: 1 | Language: Shell | Updated: 2025-12-29`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: None | Updated: 2025-12-29`
+- **[MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox)** - MagicNet x sing-box
+  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-12-29`
 - **[asl](https://github.com/LIghtJUNction/asl)** - Android Subsystem for GNU/Linux (magisk/ksu/Apatch module)
   - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2025-12-28`
-- **[Tick](https://github.com/LIghtJUNction/Tick)** - Give your modules a heart beat.
-  - `Stars: 0 | Forks: 0 | Language: Shell | Updated: 2025-12-28`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 1 | Forks: 0 | Language: None | Updated: 2025-12-28`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -100,16 +100,16 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [9ca502d](https://github.com/LIghtJUNction/MagicMihomo/commit/9ca502dfe5f1cd085e2b3246ac722c3679da1f69) - ruleset: update-ruleset `2025-12-29 02:03`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [bd8d2b4](https://github.com/LIghtJUNction/MagicNet/commit/bd8d2b47d607a224f9202f419fb7c06c0e44aecd) - auto/sync `2025-12-29 02:03`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [7137d89](https://github.com/LIghtJUNction/MagicMihomo/commit/7137d89f10f613348a1c1c0b71040595be8a8a05) - auto/sync `2025-12-29 02:03`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [70879f3](https://github.com/LIghtJUNction/MagicNet/commit/70879f38f0850a9d1458a499946a811bdb3b4088) - auto/sync `2025-12-29 01:43`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [115f655](https://github.com/LIghtJUNction/MagicNet/commit/115f655be0dc46e05af554540a15e9a89a1022b2) - chore: apply config - Template: No template - Command: kam version patch && kam build -a -s -r `2025-12-29 00:22`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [93d5cc0](https://github.com/LIghtJUNction/MagicNet/commit/93d5cc0ddd18c4a06f1a3e3241fb4cdfafa79018) - auto/sync `2025-12-29 00:21`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [73c7437](https://github.com/LIghtJUNction/MagicNet/commit/73c7437d4b9f79a98a4b808c1c294b0169594ab6) - auto/sync `2025-12-29 00:12`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [31771fe](https://github.com/LIghtJUNction/MagicMihomo/commit/31771fecb38b9b2ed16f35271ced41da4413a822) - auto/sync `2025-12-29 00:12`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [8e26f7e](https://github.com/LIghtJUNction/MagicMihomo/commit/8e26f7e7c776af6aa578502943b2db29bd598663) - auto/sync `2025-12-28 23:25`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [ce24662](https://github.com/LIghtJUNction/MagicMihomo/commit/ce2466228e3b9026155484af93679256abcbc635) - Delete cache.db `2025-12-28 23:08`
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [403c2e0](https://github.com/LIghtJUNction/MagicMihomo/commit/403c2e0ecd622182bdc6c2dd9c149bc9b762e6a7) - ruleset: update-ruleset `2025-12-29 22:44`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [3b5fef6](https://github.com/LIghtJUNction/MagicNet/commit/3b5fef6114d9d01c0716e5d56f0d52561d60c765) - auto/sync `2025-12-29 14:28`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [429f258](https://github.com/LIghtJUNction/MagicNet/commit/429f2589a4d744e553507e5893f1d5baf86354dd) - auto/sync `2025-12-29 13:44`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [e5fd4af](https://github.com/LIghtJUNction/MagicNet/commit/e5fd4af6fc179850273ba4e8615571caa8aeadbd) - auto/sync `2025-12-29 13:34`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [0734307](https://github.com/LIghtJUNction/MagicNet/commit/0734307a8e8eb0e515ea88beba460c5f4861884d) - auto/sync `2025-12-29 13:33`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [993b174](https://github.com/LIghtJUNction/MagicNet/commit/993b174f08f56aacdd3ceb60160e07215a09725e) - auto/sync `2025-12-29 13:29`
+- **[MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox)** - [552fe1a](https://github.com/LIghtJUNction/MagicSingBox/commit/552fe1a268ed5bb1577678ca376a45b74d567b7f) - Initial commit `2025-12-29 08:16`
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [4435112](https://github.com/LIghtJUNction/MagicMihomo/commit/44351120a1e6a1e9f017f1de1b0ac9e3ac617504) - auto/sync `2025-12-29 08:02`
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [59091c8](https://github.com/LIghtJUNction/MagicMihomo/commit/59091c88b760461f1a1230083497875b42601009) - auto/sync `2025-12-29 02:54`
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [3e914ed](https://github.com/LIghtJUNction/MagicMihomo/commit/3e914ed0e018f1cb99a7b67b5a52d9cdc9858aa2) - auto/sync `2025-12-29 02:51`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
