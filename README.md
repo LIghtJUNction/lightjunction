@@ -45,10 +45,10 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### GitHub Statistics
 
-- **Account Created**: 2022-06-06 (3 years, 6 months ago)
+- **Account Created**: 2022-06-06 (3 years, 7 months ago)
 - **Public Repositories**: 66
 - **Estimated Commits**: 659+ (sampled from 22 repositories, up to 100 commits each)
-- **Followers**: 41
+- **Followers**: 42
 - **Following**: 80
 <!-- END_DYNAMIC_STATS -->
 
@@ -69,12 +69,12 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 151
-- **Daily average**: 21.6 commits
+- **Total commits this week**: 121
+- **Daily average**: 17.3 commits
 - **Most active repositories**:
-  1. **MagicNet**: 100 commits (66.2%)
-  2. **MagicMihomo**: 36 commits (23.8%)
-  3. **Tick**: 8 commits (5.3%)
+  1. **MagicNet**: 81 commits (66.9%)
+  2. **MagicMihomo**: 26 commits (21.5%)
+  3. **Tick**: 8 commits (6.6%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -82,13 +82,13 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2025-12-31`
+  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-01`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 23 | Forks: 1 | Language: Shell | Updated: 2025-12-31`
+  - `Stars: 24 | Forks: 1 | Language: Shell | Updated: 2026-01-01`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: None | Updated: 2026-01-01`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
   - `Stars: 1 | Forks: 0 | Language: QML | Updated: 2025-12-31`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: None | Updated: 2025-12-31`
 - **[MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox)** - MagicNet x sing-box
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2025-12-29`
 <!-- END_DYNAMIC_REPO_LIST -->
@@ -100,6 +100,7 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [f280c6a](https://github.com/LIghtJUNction/MagicMihomo/commit/f280c6a5cf232ba81a9bdc6ab2efbd6d1c0ce30f) - ruleset: update-ruleset `2026-01-01 22:46`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [a8d4fcc](https://github.com/LIghtJUNction/MagicMihomo/commit/a8d4fcc376bee66d3096c5d99b3bfc6aa51d66b7) - ruleset: update-ruleset `2025-12-31 22:45`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [551da2b](https://github.com/LIghtJUNction/dots-hyprland/commit/551da2b0f26cad0ebf63f5763948157a0d58a6ff) - Merge branch 'end-4-main' (upstream/main) `2025-12-31 11:11`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [6182119](https://github.com/LIghtJUNction/dots-hyprland/commit/6182119e0993b7f626054bf8a98f3cd04b5eca80) - merge(upstream/main): integrate end-4/main changes; resolve clock & background config conflicts `2025-12-31 11:11`
@@ -109,7 +110,6 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [b114797](https://github.com/LIghtJUNction/MagicNet/commit/b114797359309badb2a8b2ece5798610f6549a7b) - auto/sync `2025-12-30 21:43`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [403c2e0](https://github.com/LIghtJUNction/MagicMihomo/commit/403c2e0ecd622182bdc6c2dd9c149bc9b762e6a7) - ruleset: update-ruleset `2025-12-29 22:44`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [3b5fef6](https://github.com/LIghtJUNction/MagicNet/commit/3b5fef6114d9d01c0716e5d56f0d52561d60c765) - auto/sync `2025-12-29 14:28`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [429f258](https://github.com/LIghtJUNction/MagicNet/commit/429f2589a4d744e553507e5893f1d5baf86354dd) - auto/sync `2025-12-29 13:44`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
