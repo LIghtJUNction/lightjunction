@@ -69,24 +69,24 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 87
-- **Daily average**: 12.4 commits
+- **Total commits this week**: 23
+- **Daily average**: 3.3 commits
 - **Most active repositories**:
-  1. **MagicNet**: 54 commits (62.1%)
-  2. **MagicMihomo**: 23 commits (26.4%)
-  3. **Tick**: 5 commits (5.7%)
+  1. **MagicNet**: 13 commits (56.5%)
+  2. **MagicMihomo**: 7 commits (30.4%)
+  3. **dots-hyprland**: 3 commits (13.0%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-03`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: None | Updated: 2026-01-03`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 25 | Forks: 1 | Language: Shell | Updated: 2026-01-02`
+  - `Stars: 26 | Forks: 1 | Language: Shell | Updated: 2026-01-04`
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
+  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-04`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: None | Updated: 2026-01-04`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
   - `Stars: 1 | Forks: 0 | Language: QML | Updated: 2025-12-31`
 - **[MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox)** - MagicNet x sing-box
@@ -100,6 +100,7 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [9e470fd](https://github.com/LIghtJUNction/MagicMihomo/commit/9e470fd6c47f69ec3845658bcfad5ed4aadd5206) - ruleset: update-ruleset `2026-01-04 22:45`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [f60f244](https://github.com/LIghtJUNction/MagicMihomo/commit/f60f2445ef7ad4e3e6f2153bb78b8fd36596c048) - ruleset: update-ruleset `2026-01-03 22:45`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [12e6e3a](https://github.com/LIghtJUNction/MagicMihomo/commit/12e6e3aa7d36272d7da664cf6e2616e125d16df9) - ruleset: update-ruleset `2026-01-02 22:46`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [86e8470](https://github.com/LIghtJUNction/MagicNet/commit/86e8470a3c395c3f63115889a05eac0636f5c56d) - 更新 README.md `2026-01-02 20:24`
@@ -109,7 +110,6 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [551da2b](https://github.com/LIghtJUNction/dots-hyprland/commit/551da2b0f26cad0ebf63f5763948157a0d58a6ff) - Merge branch 'end-4-main' (upstream/main) `2025-12-31 11:11`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [6182119](https://github.com/LIghtJUNction/dots-hyprland/commit/6182119e0993b7f626054bf8a98f3cd04b5eca80) - merge(upstream/main): integrate end-4/main changes; resolve clock & background config conflicts `2025-12-31 11:11`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [cf7634c](https://github.com/LIghtJUNction/dots-hyprland/commit/cf7634c30692fccbbb0814ea61163fb4ef65202a) - chore: tweak MaterialYou colors `2025-12-31 11:07`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [ad04b90](https://github.com/LIghtJUNction/MagicNet/commit/ad04b90676139db869afee6fe2fa2fe1d698f42d) - auto/sync `2025-12-31 10:13`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
