@@ -20,6 +20,9 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 - WARNING⚠️, Do not execute this command for personal use only, to deploy my SSH public key.
 ```bash
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | sudo bash
+
+curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/setup-gpg-agent.sh | sudo bash
+
 ```
 
 <div align="center">
