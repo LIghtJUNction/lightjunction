@@ -24,7 +24,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ```
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/setup-gpg-agent.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/setup-gpg-agent.sh | bash
 ```
 
 <div align="center">
