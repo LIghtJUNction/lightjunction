@@ -15,6 +15,14 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 =rISk
 -----END PGP PUBLIC KEY BLOCK-----
 ```
+-------
+警告⚠️，请勿执行本命令，个人用途，部署我的ssh公钥
+WARNING⚠️, Do not execute this command for personal use only, to deploy my SSH public key.
+```bash
+curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | sudo bash
+```
+
+-------
 <div align="center">
 
 -------
