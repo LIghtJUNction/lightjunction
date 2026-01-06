@@ -21,7 +21,6 @@ EOF
     chmod +x "$SYNC_EXEC"
     bash "$SYNC_EXEC"
     echo "✅ Termux 同步完成"
-    cat $AUTH_FILE
 
 else
     echo "💻 检测到标准 Linux 环境"
@@ -72,5 +71,17 @@ EOF
     systemctl daemon-reload
     systemctl enable --now ssh-key-sync.timer
     echo "✅ Linux Systemd Timer 部署成功"
-    cat $AUTH_FILE
+    bash "$SYNC_EXEC"
 fi
+
+echo "------------------------------------------------"
+echo "🔐 正在初始化本地 GPG-SSH 代理验证..."
+
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
+echo "📜 当前可用于登录的公钥列表 (ssh-add -L):"
+ssh-add -L
+
+echo "------------------------------------------------"
+echo "✅ 部署与验证流程全部完成。"
