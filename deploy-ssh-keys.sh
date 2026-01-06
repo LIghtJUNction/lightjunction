@@ -76,7 +76,9 @@ EOF
 
     # 激活服务
     systemctl daemon-reload
-    systemctl enable --now ssh-key-sync.timer
+    if ! systemctl is-enabled --quiet ssh-key-sync.timer; then
+        systemctl enable ssh-key-sync.timer
+    fi
     bash "$SYNC_EXEC"
     
     echo "✅ [Linux] Systemd 自动同步任务部署成功。"
