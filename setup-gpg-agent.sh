@@ -3,7 +3,7 @@
 # GPG SSH Agent 自动化配置脚本
 # =================================================================
 
-# 你的主密钥 ID (从之前的输出中获取)
+# 主密钥 ID
 KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
 GPG_PATH=$(command -v gpg)
 
@@ -18,7 +18,7 @@ echo "🛡️ 正在启动自动化配置..."
 echo -e "trust\n5\ny\n" | $GPG_PATH --command-fd 0 --edit-key "$KEY_ID" >/dev/null 2>&1
 
 # 2. 提取认证子密钥 (Authentication) 的 Keygrip
-# 使用 -K (私钥列表) 确保在 2026 版 GPG 中能精准抓取
+# 使用 -K (私钥列表)
 KEYGRIP=$($GPG_PATH -K --with-keygrip "$KEY_ID" | grep -A 1 "\[A\]" | grep "Keygrip" | awk '{print $3}')
 
 if [ -z "$KEYGRIP" ]; then
