@@ -21,11 +21,16 @@ EOF
     chmod +x "$SYNC_EXEC"
     bash "$SYNC_EXEC"
     echo "✅ Termux 同步完成"
+    cat $AUTH_FILE
 
 else
     echo "💻 检测到标准 Linux 环境"
     [ "$EUID" -ne 0 ] && { echo "❌ 错误: 必须以 root 权限运行" >&2; exit 1; }
-    
+    if ! command -v systemctl &> /dev/null; then
+        echo "❌ 错误: 未检测到 systemctl，本脚本仅支持 systemd 系统。" >&2
+        exit 1
+    fi
+
     SYNC_EXEC="/usr/local/bin/sync-ssh-keys-core.sh"
     AUTH_FILE="$HOME/.ssh/authorized_keys"
     mkdir -p "$(dirname "$AUTH_FILE")"
@@ -64,8 +69,8 @@ Persistent=true
 [Install]
 WantedBy=timers.target
 EOF
-
     systemctl daemon-reload
     systemctl enable --now ssh-key-sync.timer
     echo "✅ Linux Systemd Timer 部署成功"
+    cat $AUTH_FILE
 fi
