@@ -1,73 +1,56 @@
 #!/bin/bash
 KEY_ID="A67178405F7736FD"
 KEYGRIP="04D57EF55CE358ADC4A824E6F7FADDFE10CB6679"
-GPG_PATH=$(command -v gpg)
+HOST_IP="45.59.187.63"
+HOST_ALIAS="ArchDmit"
+SSH_CONFIG="$HOME/.ssh/config"
+AGENT_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-# 1. 自动安装依赖 (Termux 或 桌面 Linux)
-install_pinentry() {
-    if [ -d "/data/data/com.termux" ]; then
-        pkg install pinentry -y >/dev/null 2>&1
-    elif command -v apt-get >/dev/null; then
-        sudo apt-get install pinentry-curses -y >/dev/null 2>&1
-    elif command -v pacman >/dev/null; then
-        sudo pacman -S pinentry --noconfirm >/dev/null 2>&1
-    elif command -v dnf >/dev/null; then
-        sudo dnf install pinentry -y >/dev/null 2>&1
-    fi
-}
+echo "[1/4] 环境预处理..."
+[ -d "/data/data/com.termux" ] && pkg install pinentry -y >/dev/null 2>&1
+mkdir -p ~/.gnupg ~/.ssh && chmod 700 ~/.gnupg ~/.ssh
 
-# 2. 初始化目录与配置
-mkdir -p ~/.gnupg && chmod 700 ~/.gnupg
-install_pinentry
-PINENTRY_PATH=$(command -v pinentry-curses || command -v pinentry)
-
-# 写入 gpg-agent.conf (去重)
-touch ~/.gnupg/gpg-agent.conf
+# GPG 幂等配置
 grep -q "enable-ssh-support" ~/.gnupg/gpg-agent.conf || echo "enable-ssh-support" >> ~/.gnupg/gpg-agent.conf
-if [ -n "$PINENTRY_PATH" ]; then
-    grep -q "pinentry-program" ~/.gnupg/gpg-agent.conf || echo "pinentry-program $PINENTRY_PATH" >> ~/.gnupg/gpg-agent.conf
-fi
-
-# 写入 sshcontrol (去重)
-touch ~/.gnupg/sshcontrol
 grep -q "$KEYGRIP" ~/.gnupg/sshcontrol || echo "$KEYGRIP" >> ~/.gnupg/sshcontrol
+echo -e "trust\n5\ny\n" | gpg --batch --no-tty --command-fd 0 --edit-key "$KEY_ID" >/dev/null 2>&1
 
-# 3. 设置绝对信任
-echo -e "trust\n5\ny\n" | $GPG_PATH --batch --no-tty --command-fd 0 --edit-key "$KEY_ID" >/dev/null 2>&1
+echo "[2/4] 清理并重构 SSH Config..."
+# 使用标记位确保块的唯一性
+TEMP_CONF=$(mktemp)
+# 排除掉之前脚本可能产生的旧配置行（根据关键字清理）
+sed '/Host ArchDmit/,+4d; /Host myserver/,+4d; /Host \*/,+4d' "$SSH_CONFIG" > "$TEMP_CONF"
 
-# 4. 生成统一加载文件 (POSIX)
-RC_FILE="$HOME/.gpg-agent-ssh.rc"
-cat << 'EOF' > "$RC_FILE"
-export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent > /dev/null 2>&1
-gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
+# 重新写入标准化的配置
+cat << EOF >> "$TEMP_CONF"
+
+Host *
+    ForwardAgent yes
+    AddKeysToAgent yes
+    IdentityAgent $AGENT_SOCK
+
+Host $HOST_ALIAS
+    HostName $HOST_IP
+    Port 222
+    User root
 EOF
-chmod 600 "$RC_FILE"
 
-# 5. 注入 Shell 配置文件
-# --- Bash / Zsh ---
-for conf in "$HOME/.zshrc" "$HOME/.bashrc"; do
-    if [ -f "$conf" ]; then
-        grep -q "gpg-agent-ssh.rc" "$conf" || echo -e "\n[ -f \"$RC_FILE\" ] && source \"$RC_FILE\"" >> "$conf"
-    fi
+# 移除多余空行并还原
+cat -s "$TEMP_CONF" > "$SSH_CONFIG"
+rm "$TEMP_CONF"
+
+echo "[3/4] 注入环境变量..."
+ENV_CMD="export GPG_TTY=\$(tty); export SSH_AUTH_SOCK=$AGENT_SOCK; gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1"
+for rc in ~/.bashrc ~/.zshrc; do
+    [ -f "$rc" ] && ! grep -q "GPG_TTY" "$rc" && echo "$ENV_CMD" >> "$rc"
 done
 
-# --- Fish ---
-FISH_CONF="$HOME/.config/fish/config.fish"
-if [ -d "$(dirname "$FISH_CONF")" ]; then
-    [ ! -f "$FISH_CONF" ] && touch "$FISH_CONF"
-    if ! grep -q "gpg-agent-ssh.rc" "$FISH_CONF"; then
-        echo -e "\n# GPG SSH Agent Support\nif test -f $RC_FILE\n    set -gx GPG_TTY (tty)\n    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)\n    gpgconf --launch gpg-agent > /dev/null 2>&1\n    gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1\nend" >> "$FISH_CONF"
-    fi
+echo "[4/4] 激活并验证..."
+eval "$ENV_CMD"
+gpgconf --launch gpg-agent >/dev/null 2>&1
+
+if ssh-add -l >/dev/null 2>&1; then
+    echo "SUCCESS: 配置已重构。可用命令: ssh $HOST_ALIAS"
+else
+    echo "ERROR: 密钥未加载，请确认 GPG 私钥已导入。"
 fi
-
-# 6. 激活当前会话
-export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --kill gpg-agent && gpgconf --launch gpg-agent
-gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
-
-echo "✅ 配置已注入 Bash/Zsh/Fish (兼容 Termux 与 桌面 Linux)"
-echo "🔑 SSH 公钥："
-ssh-add -L | grep "ssh-ed25519"
