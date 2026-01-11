@@ -1,8 +1,28 @@
 #!/bin/bash
 
+_LAST_MSG=""
+_LAST_LVL=""
+_REPEAT_CNT=0
 _msg() {
     local lvl=$1 col=$2 msg=$3
-    printf "${C_DIM}%s${C_RESET} ${col}%-5s${C_RESET} %b\n" "$(date +%H:%M:%S)" "$lvl" "$msg" >&2
+    local now=$(date +%H:%M:%S)
+    if [[ "$msg" == "$_LAST_MSG" && "$lvl" == "$_LAST_LVL" ]]; then
+        ((_REPEAT_CNT++))
+        if [[ "$NON_INTERACTIVE" -eq 0 && -n "$C_UP" ]]; then
+            printf "${C_UP}${C_CLEAR_LINE}${C_DIM}%s${C_RESET} ${col}%-5s${C_RESET} %b ${C_DIM}(x%d)${C_RESET}\n" \
+                "$now" "$lvl" "$msg" "$((_REPEAT_CNT + 1))" >&2
+            return
+        fi
+    else
+        _REPEAT_CNT=0
+    fi
+    local display_lvl=$lvl
+    if [[ "$lvl" == "$_LAST_LVL" && $_REPEAT_CNT -eq 0 ]]; then
+        display_lvl="     " 
+    fi
+    printf "${C_DIM}%s${C_RESET} ${col}%-5s${C_RESET} %b\n" "$now" "$display_lvl" "$msg" >&2
+    _LAST_MSG="$msg"
+    _LAST_LVL="$lvl"
 }
 
 err()   { [[ ${LOG_LEVEL:-3} -ge 1 ]] && _msg "ERR"   "$C_RED"    "$1"; }
