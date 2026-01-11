@@ -16,13 +16,51 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 -------
+-元函数
+```bash
+import(){ . <(curl -fsSL "${5:-https://raw.githubusercontent.com}/${4:-lightjunction}/${3:-lightjunction}/${2:-main}/${1:-utils.sh}"); }
+```
+<details>
+<summary><strong>import 用法说明</strong></summary>
+
+```bash
+# 元定义，直接复制即可
+import(){ . <(curl -fsSL "${5:-https://raw.githubusercontent.com}/${4:-light-junction}/${3:-light-junction}/${2:-main}/${1:-utils.sh}"); }
+
+# 1. 完全不传参数（全部使用默认值）
+import
+# → https://raw.githubusercontent.com/light-junction/light-junction/main/utils.sh
+
+# 2. 只指定工具文件名
+import logger.sh
+# → .../main/logger.sh
+
+# 3. 指定工具文件 + 分支
+import logger.sh dev
+# → .../dev/logger.sh
+
+# 4. 指定仓库
+import utils.sh main other-repo
+# → .../other-repo/main/utils.sh
+
+# 5. 指定用户
+import utils.sh main repo other-user
+
+# 6. 完全自定义（包括仓库地址）
+import utils.sh main repo user https://raw.githubusercontent.com
+```
+
+</details>
+
+<details>
+<summary><strong>以下为ssh公钥（gpg密钥库的一个子密钥，由gpg-agent管理）部署脚本，个人用途，请勿执行</strong></summary>
 - 警告⚠️，请勿执行本命令，个人用途，部署我的ssh公钥
 - WARNING⚠️, Do not execute this command for personal use only, to deploy my SSH public key.
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | sudo bash
 ```
-
+</details>
 <div align="center">
 
 -------
