@@ -77,28 +77,28 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 81
-- **Daily average**: 11.6 commits
+- **Total commits this week**: 95
+- **Daily average**: 13.6 commits
 - **Most active repositories**:
-  1. **Mimic-Node**: 30 commits (37.0%)
-  2. **lightjunction**: 26 commits (32.1%)
-  3. **MagicNet**: 10 commits (12.3%)
+  1. **Mimic-Node**: 44 commits (46.3%)
+  2. **lightjunction**: 26 commits (27.4%)
+  3. **MagicNet**: 10 commits (10.5%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-09`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
-  - `Stars: 2 | Forks: 0 | Language: Rust | Updated: 2026-01-09`
+  - `Stars: 2 | Forks: 0 | Language: Rust | Updated: 2026-01-11`
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
+  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-10`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-01-10`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - powered by pass
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2026-01-09`
 - **[MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox)** - MagicNet x sing-box
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2026-01-09`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 29 | Forks: 1 | Language: Shell | Updated: 2026-01-09`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -108,16 +108,16 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [68239f5](https://github.com/LIghtJUNction/Mimic-Node/commit/68239f5aa9cfa658cb6ccc4dbf3ade16cba1ca2c) - 更新 README.md `2026-01-11 01:48`
+- **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [70d17f0](https://github.com/LIghtJUNction/Mimic-Node/commit/70d17f0281df9e16ce901ff1e5108192a4b288c3) - 创建 example/client/config.json `2026-01-11 01:41`
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [c634f53](https://github.com/LIghtJUNction/MagicMihomo/commit/c634f53889cf28953a097ce01d233969b3388611) - ruleset: update-ruleset `2026-01-10 22:45`
+- **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [c6898cd](https://github.com/LIghtJUNction/Mimic-Node/commit/c6898cd8abcca0c4a70967128eb1590f47e71351) - update `2026-01-10 22:33`
+- **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [e718a4e](https://github.com/LIghtJUNction/Mimic-Node/commit/e718a4e892a59b8155ce88739ca45d53c1891f37) - update `2026-01-10 20:48`
+- **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [9ccf06d](https://github.com/LIghtJUNction/Mimic-Node/commit/9ccf06d580709f9f18f084319fa788bd32ba4d2e) - update `2026-01-10 20:07`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [780a88f](https://github.com/LIghtJUNction/MagicMihomo/commit/780a88f6e5dce732e7140556ee01cbacb916839f) - ruleset: update-ruleset `2026-01-09 22:46`
-- **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [69fd3b8](https://github.com/LIghtJUNction/Mimic-Node/commit/69fd3b895cef06244335ad3db9ef81e3f5263dd1) - update `2026-01-09 22:01`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [98f3934](https://github.com/LIghtJUNction/password-store/commit/98f39342f68144064c309c5f2ebf84b10223e338) - Merge branch 'main' of https://github.com/LIghtJUNction/password-store `2026-01-09 15:56`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - [43adb6d](https://github.com/LIghtJUNction/password-store/commit/43adb6d0da560887a5ffb934877e13a95dae5e79) - Add given password for eu.org to store. `2026-01-09 15:54`
 - **[MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox)** - [5c1b645](https://github.com/LIghtJUNction/MagicSingBox/commit/5c1b64596b741d3d83dc6fb7ca1ae93b1d8fc96d) - chore(sing-box): map mihomo nameserver-policy to dns.rules (best-effort) `2026-01-09 15:09`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [de4d27c](https://github.com/LIghtJUNction/MagicNet/commit/de4d27c71fdabf47c14e64efb9be3510cd31d750) - chore: improve boot script (honor MAGIC_SINGBOX/MAGIC_MIHOMO and fallback) `2026-01-09 14:57`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [1e361f4](https://github.com/LIghtJUNction/MagicNet/commit/1e361f4ac8d8ef54ab6cbf31065a1e5d9bae797e) - chore: update sing-box submodule pointer (sync configs from mihomo) `2026-01-09 14:50`
-- **[MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox)** - [6765ee7](https://github.com/LIghtJUNction/MagicSingBox/commit/6765ee766b3684a566ac5f956b62363c07dd4875) - chore(sing-box): sync DNS/fakeip/rule mappings from mihomo `2026-01-09 14:50`
-- **[MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox)** - [9bc2555](https://github.com/LIghtJUNction/MagicSingBox/commit/9bc255543e783470e4940aff0e578ed5e3041993) - chore(sing-box): sync config from mihomo (dns/fakeip/tun route_exclude_address) `2026-01-09 14:48`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [08fbbe9](https://github.com/LIghtJUNction/MagicNet/commit/08fbbe9acdcc626b4c8c06fd401ba3544e53da18) - chore(sing-box): update submodule pointer (migrate config to new formats) `2026-01-09 14:43`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
