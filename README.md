@@ -25,18 +25,18 @@ import(){ . <(curl -fsSL "${5:-https://raw.githubusercontent.com}/${4:-lightjunc
 
 ```bash
 # 元定义，直接复制即可
-import(){ . <(curl -fsSL "${5:-https://raw.githubusercontent.com}/${4:-light-junction}/${3:-light-junction}/${2:-main}/${1:-utils.sh}"); }
+import(){ . <(curl -fsSL "${5:-https://raw.githubusercontent.com}/${4:-lightjunction}/${3:-lightjunction}/${2:-main}/${1:-env.sh}"); }
 
 # 1. 完全不传参数（全部使用默认值）
 import
 # → https://raw.githubusercontent.com/light-junction/light-junction/main/utils.sh
 
 # 2. 只指定工具文件名
-import logger.sh
+import log.sh
 # → .../main/logger.sh
 
 # 3. 指定工具文件 + 分支
-import logger.sh dev
+import log.sh dev
 # → .../dev/logger.sh
 
 # 4. 指定仓库
