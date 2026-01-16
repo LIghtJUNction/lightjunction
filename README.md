@@ -16,7 +16,6 @@ f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8L
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 -------
--元函数
 ```bash
 import(){ . <(curl -fsSL "${5:-https://raw.githubusercontent.com}/${4:-lightjunction}/${3:-lightjunction}/${2:-main}/${1:-utils.sh}"); }
 ```
@@ -24,7 +23,6 @@ import(){ . <(curl -fsSL "${5:-https://raw.githubusercontent.com}/${4:-lightjunc
 <summary><strong>import 用法说明</strong></summary>
 
 ```bash
-# 元定义，直接复制即可
 import(){ . <(curl -fsSL "${5:-https://raw.githubusercontent.com}/${4:-lightjunction}/${3:-lightjunction}/${2:-main}/${1:-env.sh}"); }
 
 # 1. 完全不传参数（全部使用默认值）
