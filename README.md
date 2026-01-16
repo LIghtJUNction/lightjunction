@@ -95,7 +95,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 - **Public Repositories**: 66
 - **Estimated Commits**: 696+ (sampled from 22 repositories, up to 100 commits each)
 - **Followers**: 41
-- **Following**: 81
+- **Following**: 84
 <!-- END_DYNAMIC_STATS -->
 
 ---
@@ -115,12 +115,12 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 84
-- **Daily average**: 12.0 commits
+- **Total commits this week**: 60
+- **Daily average**: 8.6 commits
 - **Most active repositories**:
-  1. **Mimic-Node**: 46 commits (54.8%)
-  2. **MagicNet**: 12 commits (14.3%)
-  3. **lightjunction**: 11 commits (13.1%)
+  1. **Mimic-Node**: 22 commits (36.7%)
+  2. **MagicNet**: 12 commits (20.0%)
+  3. **lightjunction**: 11 commits (18.3%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -128,13 +128,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-14`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-01-14`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 30 | Forks: 1 | Language: Shell | Updated: 2026-01-12`
+  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-15`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
-  - `Stars: 2 | Forks: 0 | Language: Rust | Updated: 2026-01-12`
+  - `Stars: 3 | Forks: 0 | Language: Rust | Updated: 2026-01-15`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+  - `Stars: 31 | Forks: 1 | Language: Shell | Updated: 2026-01-15`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-01-15`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - powered by pass
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2026-01-09`
 <!-- END_DYNAMIC_REPO_LIST -->
@@ -146,6 +146,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [9e1aea7](https://github.com/LIghtJUNction/MagicMihomo/commit/9e1aea757e3e4f2efc0c98e39f4f82804c92f1ca) - ruleset: update-ruleset `2026-01-15 22:47`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [db7b011](https://github.com/LIghtJUNction/MagicMihomo/commit/db7b011a777c7149bd65ee602e283f4c8cb91658) - ruleset: update-ruleset `2026-01-14 22:49`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [c93506c](https://github.com/LIghtJUNction/MagicMihomo/commit/c93506c3e82725c1f084a21add5e8c20d429530b) - ruleset: update-ruleset `2026-01-13 22:48`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [92484fa](https://github.com/LIghtJUNction/MagicMihomo/commit/92484fa21f588198d55c80336d3f4ab975fc6ddc) - ruleset: update-ruleset `2026-01-12 22:45`
@@ -155,7 +156,6 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [79cc8c2](https://github.com/LIghtJUNction/MagicMihomo/commit/79cc8c2e39e89a2cfa03bc0d4e85d6dee0725ebf) - ruleset: update-ruleset `2026-01-11 22:45`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [76f329b](https://github.com/LIghtJUNction/lightjunction/commit/76f329bcc2c650a4da18ec850d87aa503540154d) - 更新 env.sh `2026-01-11 05:06`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [b30fef2](https://github.com/LIghtJUNction/lightjunction/commit/b30fef2c9e9f2c392e976b40db00eee6f9630583) - 更新 log.sh `2026-01-11 05:03`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [ecf3743](https://github.com/LIghtJUNction/lightjunction/commit/ecf3743f884cfa0be7d18a2d25691058173a9e79) - 创建 log.sh `2026-01-11 04:53`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
