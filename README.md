@@ -51,7 +51,7 @@ import utils.sh main repo user https://raw.githubusercontent.com
 </details>
 
 <details>
-<summary><strong>以下为ssh公钥（gpg密钥库的一个子密钥，由gpg-agent管理）部署脚本，个人用途，请勿执行</strong></summary>
+<summary><strong>设置ssh公钥</strong></summary>
 - 警告⚠️，请勿执行本命令，个人用途，部署我的ssh公钥
 - WARNING⚠️, Do not execute this command for personal use only, to deploy my SSH public key.
 
