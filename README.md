@@ -91,7 +91,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 - **Account Created**: 2022-06-06 (3 years, 7 months ago)
 - **Public Repositories**: 66
-- **Estimated Commits**: 696+ (sampled from 22 repositories, up to 100 commits each)
+- **Estimated Commits**: 698+ (sampled from 22 repositories, up to 100 commits each)
 - **Followers**: 41
 - **Following**: 84
 <!-- END_DYNAMIC_STATS -->
@@ -113,12 +113,12 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 60
-- **Daily average**: 8.6 commits
+- **Total commits this week**: 36
+- **Daily average**: 5.1 commits
 - **Most active repositories**:
-  1. **Mimic-Node**: 22 commits (36.7%)
-  2. **MagicNet**: 12 commits (20.0%)
-  3. **lightjunction**: 11 commits (18.3%)
+  1. **Mimic-Node**: 16 commits (44.4%)
+  2. **lightjunction**: 11 commits (30.6%)
+  3. **MagicMihomo**: 7 commits (19.4%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -126,13 +126,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-15`
+  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-16`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-01-16`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
   - `Stars: 3 | Forks: 0 | Language: Rust | Updated: 2026-01-15`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
   - `Stars: 31 | Forks: 1 | Language: Shell | Updated: 2026-01-15`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-01-15`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - powered by pass
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2026-01-09`
 <!-- END_DYNAMIC_REPO_LIST -->
@@ -144,6 +144,9 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [96105f4](https://github.com/LIghtJUNction/MagicMihomo/commit/96105f404dca627a94019295b993153ccce06914) - ruleset: update-ruleset `2026-01-16 22:47`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [a9a5503](https://github.com/LIghtJUNction/lightjunction/commit/a9a55030300f62453d7f5ce7712539e675f1361a) - 更新 README.md `2026-01-16 06:08`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [d0105e0](https://github.com/LIghtJUNction/lightjunction/commit/d0105e0586ece6a3244380d91d1dbbe11d634a30) - 更新 README.md `2026-01-16 05:55`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [9e1aea7](https://github.com/LIghtJUNction/MagicMihomo/commit/9e1aea757e3e4f2efc0c98e39f4f82804c92f1ca) - ruleset: update-ruleset `2026-01-15 22:47`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [db7b011](https://github.com/LIghtJUNction/MagicMihomo/commit/db7b011a777c7149bd65ee602e283f4c8cb91658) - ruleset: update-ruleset `2026-01-14 22:49`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [c93506c](https://github.com/LIghtJUNction/MagicMihomo/commit/c93506c3e82725c1f084a21add5e8c20d429530b) - ruleset: update-ruleset `2026-01-13 22:48`
@@ -151,9 +154,6 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [36827c9](https://github.com/LIghtJUNction/MagicNet/commit/36827c9a5942c529558ec54a21fdf85999d8c5b1) - 更新 README.md `2026-01-12 19:02`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - [73f24a1](https://github.com/LIghtJUNction/MagicNet/commit/73f24a1e5b7186d0a8ed61364ea3442c1291d1fe) - 更新 README.md `2026-01-12 19:00`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [2bf8db7](https://github.com/LIghtJUNction/Mimic-Node/commit/2bf8db7b1c3a1bd2ae45f7d550761e4a91abe388) - 更新 README.md `2026-01-12 16:53`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [79cc8c2](https://github.com/LIghtJUNction/MagicMihomo/commit/79cc8c2e39e89a2cfa03bc0d4e85d6dee0725ebf) - ruleset: update-ruleset `2026-01-11 22:45`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [76f329b](https://github.com/LIghtJUNction/lightjunction/commit/76f329bcc2c650a4da18ec850d87aa503540154d) - 更新 env.sh `2026-01-11 05:06`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [b30fef2](https://github.com/LIghtJUNction/lightjunction/commit/b30fef2c9e9f2c392e976b40db00eee6f9630583) - 更新 log.sh `2026-01-11 05:03`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
