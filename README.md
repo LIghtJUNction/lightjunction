@@ -92,7 +92,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 - **Account Created**: 2022-06-06 (3 years, 7 months ago)
 - **Public Repositories**: 66
 - **Estimated Commits**: 698+ (sampled from 22 repositories, up to 100 commits each)
-- **Followers**: 42
+- **Followers**: 43
 - **Following**: 84
 <!-- END_DYNAMIC_STATS -->
 
@@ -113,12 +113,11 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 10
-- **Daily average**: 1.4 commits
+- **Total commits this week**: 8
+- **Daily average**: 1.1 commits
 - **Most active repositories**:
-  1. **MagicMihomo**: 7 commits (70.0%)
-  2. **lightjunction**: 2 commits (20.0%)
-  3. **Mimic-Node**: 1 commits (10.0%)
+  1. **MagicMihomo**: 7 commits (87.5%)
+  2. **Mimic-Node**: 1 commits (12.5%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -126,11 +125,11 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-21`
+  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-22`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-01-22`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
   - `Stars: 37 | Forks: 1 | Language: Shell | Updated: 2026-01-21`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-01-21`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
   - `Stars: 3 | Forks: 1 | Language: Rust | Updated: 2026-01-17`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - powered by pass
@@ -144,14 +143,12 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [11f3d52](https://github.com/LIghtJUNction/MagicMihomo/commit/11f3d528744fb9f06b8a13c540b2699c9ad73ef5) - ruleset: update-ruleset `2026-01-22 22:49`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [8331db1](https://github.com/LIghtJUNction/MagicMihomo/commit/8331db167ce4be1462a6aab9015be795c2e94c52) - ruleset: update-ruleset `2026-01-21 22:53`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [7d1d78f](https://github.com/LIghtJUNction/MagicMihomo/commit/7d1d78f3a38f9f568700569c2e96f27d2f90871e) - ruleset: update-ruleset `2026-01-20 22:45`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [0cdb6ae](https://github.com/LIghtJUNction/MagicMihomo/commit/0cdb6aec03e3c3dbac12485f1e8f0118a261a450) - ruleset: update-ruleset `2026-01-19 22:47`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [142408d](https://github.com/LIghtJUNction/MagicMihomo/commit/142408d67b89d2f0f4dca44a6990ebf7440cbdca) - ruleset: update-ruleset `2026-01-18 22:45`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [2459d1d](https://github.com/LIghtJUNction/MagicMihomo/commit/2459d1d940f1dcbe263b7b37aefd8bd67b60290a) - ruleset: update-ruleset `2026-01-17 22:44`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [7b44b78](https://github.com/LIghtJUNction/Mimic-Node/commit/7b44b788572d0eecf09cd5983bde2b0a3cf68786) - 更新 README.md `2026-01-17 20:23`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [a9a5503](https://github.com/LIghtJUNction/lightjunction/commit/a9a55030300f62453d7f5ce7712539e675f1361a) - 更新 README.md `2026-01-16 06:08`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [d0105e0](https://github.com/LIghtJUNction/lightjunction/commit/d0105e0586ece6a3244380d91d1dbbe11d634a30) - 更新 README.md `2026-01-16 05:55`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
