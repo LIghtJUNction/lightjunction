@@ -125,13 +125,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-22`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-01-22`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 37 | Forks: 1 | Language: Shell | Updated: 2026-01-21`
+  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-01-23`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
-  - `Stars: 3 | Forks: 1 | Language: Rust | Updated: 2026-01-17`
+  - `Stars: 4 | Forks: 1 | Language: Rust | Updated: 2026-01-23`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+  - `Stars: 38 | Forks: 1 | Language: Shell | Updated: 2026-01-23`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-01-23`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - powered by pass
   - `Stars: 0 | Forks: 0 | Language: None | Updated: 2026-01-09`
 <!-- END_DYNAMIC_REPO_LIST -->
@@ -143,11 +143,11 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [28dafca](https://github.com/LIghtJUNction/MagicMihomo/commit/28dafcaff8b11bdd3820e11d67afdc11767e32ed) - ruleset: update-ruleset `2026-01-23 22:45`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [11f3d52](https://github.com/LIghtJUNction/MagicMihomo/commit/11f3d528744fb9f06b8a13c540b2699c9ad73ef5) - ruleset: update-ruleset `2026-01-22 22:49`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [8331db1](https://github.com/LIghtJUNction/MagicMihomo/commit/8331db167ce4be1462a6aab9015be795c2e94c52) - ruleset: update-ruleset `2026-01-21 22:53`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [7d1d78f](https://github.com/LIghtJUNction/MagicMihomo/commit/7d1d78f3a38f9f568700569c2e96f27d2f90871e) - ruleset: update-ruleset `2026-01-20 22:45`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [0cdb6ae](https://github.com/LIghtJUNction/MagicMihomo/commit/0cdb6aec03e3c3dbac12485f1e8f0118a261a450) - ruleset: update-ruleset `2026-01-19 22:47`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [142408d](https://github.com/LIghtJUNction/MagicMihomo/commit/142408d67b89d2f0f4dca44a6990ebf7440cbdca) - ruleset: update-ruleset `2026-01-18 22:45`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [7b44b78](https://github.com/LIghtJUNction/Mimic-Node/commit/7b44b788572d0eecf09cd5983bde2b0a3cf68786) - 更新 README.md `2026-01-17 20:23`
 <!-- END_DYNAMIC_COMMITS -->
 
