@@ -113,22 +113,22 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 7
-- **Daily average**: 1.0 commits
+- **Total commits this week**: 6
+- **Daily average**: 0.9 commits
 - **Most active repositories**:
-  1. **MagicMihomo**: 7 commits (100.0%)
+  1. **MagicMihomo**: 6 commits (100.0%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-02`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
   - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-02-01`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
   - `Stars: 41 | Forks: 1 | Language: Shell | Updated: 2026-02-01`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-01`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
   - `Stars: 4 | Forks: 1 | Language: Rust | Updated: 2026-01-23`
 - **[password-store](https://github.com/LIghtJUNction/password-store)** - powered by pass
