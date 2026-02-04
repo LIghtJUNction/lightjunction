@@ -91,8 +91,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 - **Account Created**: 2022-06-06 (3 years, 8 months ago)
 - **Public Repositories**: 66
-- **Estimated Commits**: 698+ (sampled from 22 repositories, up to 100 commits each)
-- **Followers**: 44
+- **Estimated Commits**: 792+ (sampled from 22 repositories, up to 100 commits each)
+- **Followers**: 45
 - **Following**: 84
 <!-- END_DYNAMIC_STATS -->
 
@@ -113,26 +113,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 6
-- **Daily average**: 0.9 commits
+- **Total commits this week**: 13
+- **Daily average**: 1.9 commits
 - **Most active repositories**:
-  1. **MagicMihomo**: 6 commits (100.0%)
+  1. **Oxygen_Not_Included_Multiplayer**: 7 commits (53.8%)
+  2. **MagicMihomo**: 6 commits (46.2%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-02`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-02-01`
+  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-02-03`
+- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - No description available.
+  - `Stars: 0 | Forks: 0 | Language: C# | Updated: 2026-02-03`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-03`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
   - `Stars: 41 | Forks: 1 | Language: Shell | Updated: 2026-02-01`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
   - `Stars: 4 | Forks: 1 | Language: Rust | Updated: 2026-01-23`
-- **[password-store](https://github.com/LIghtJUNction/password-store)** - powered by pass
-  - `Stars: 0 | Forks: 0 | Language: None | Updated: 2026-01-09`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -142,11 +143,16 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [0f0dac4](https://github.com/LIghtJUNction/MagicMihomo/commit/0f0dac4b284fcc3a15acbf143e11354b235a339a) - ruleset: update-ruleset `2026-02-03 22:58`
+- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [652826d](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/652826df8b24532340ff3a36365d94b15b769b67) - Merge remote direct connection changes into PacketSender `2026-02-03 15:36`
+- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [674d5af](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/674d5af97b63560a2ade8f29bac5d75bd717ee65) - sync `2026-02-03 15:33`
+- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [26121cf](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/26121cfce73c84bb8b523344fb12eaf533f2bffb) - sync `2026-02-03 15:24`
+- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [fa8393d](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/fa8393d48fed3a8c9ef8f559f6bd4b31a112abcf) - Merge branch 'dimani128-automatic-install-path-detection' `2026-02-03 15:16`
+- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [6ceae51](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/6ceae51729953627441f5afff510966ded8598c9) - Merge branch 'automatic-install-path-detection' from dimani128 `2026-02-03 15:15`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [9cd98e9](https://github.com/LIghtJUNction/MagicMihomo/commit/9cd98e93bfb4e803159e77cd290c5f67e611a4b6) - ruleset: update-ruleset `2026-02-01 22:53`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [ba03e40](https://github.com/LIghtJUNction/MagicMihomo/commit/ba03e40bbd09d8852198595d9250c56ea54b91c6) - ruleset: update-ruleset `2026-01-31 22:50`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [7d81e9d](https://github.com/LIghtJUNction/MagicMihomo/commit/7d81e9df60e3a5e90ff123b9348455ea794afad1) - ruleset: update-ruleset `2026-01-30 22:55`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [d0d242e](https://github.com/LIghtJUNction/MagicMihomo/commit/d0d242edcd511487b2d3c3f85e7dca2c6d3c01f3) - ruleset: update-ruleset `2026-01-29 22:55`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [8f0a3b7](https://github.com/LIghtJUNction/MagicMihomo/commit/8f0a3b7d9756688df384df471b54af81f2d83564) - ruleset: update-ruleset `2026-01-28 22:55`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
