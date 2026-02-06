@@ -125,11 +125,11 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-02-04`
+  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-02-05`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-05`
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
   - `Stars: 34 | Forks: 5 | Language: Shell | Updated: 2026-02-04`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-04`
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - No description available.
   - `Stars: 0 | Forks: 0 | Language: C# | Updated: 2026-02-03`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
@@ -143,6 +143,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [6f48736](https://github.com/LIghtJUNction/MagicMihomo/commit/6f487360e18492d57bb59aaca1690b9c6d2b8841) - ruleset: update-ruleset `2026-02-05 22:56`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [5a820bf](https://github.com/LIghtJUNction/MagicMihomo/commit/5a820bf3e44ee0918d9c4e15bb6804316d0c63ab) - ruleset: update-ruleset `2026-02-04 22:53`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [0f0dac4](https://github.com/LIghtJUNction/MagicMihomo/commit/0f0dac4b284fcc3a15acbf143e11354b235a339a) - ruleset: update-ruleset `2026-02-03 22:58`
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [652826d](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/652826df8b24532340ff3a36365d94b15b769b67) - Merge remote direct connection changes into PacketSender `2026-02-03 15:36`
@@ -152,7 +153,6 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [6ceae51](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/6ceae51729953627441f5afff510966ded8598c9) - Merge branch 'automatic-install-path-detection' from dimani128 `2026-02-03 15:15`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [9cd98e9](https://github.com/LIghtJUNction/MagicMihomo/commit/9cd98e93bfb4e803159e77cd290c5f67e611a4b6) - ruleset: update-ruleset `2026-02-01 22:53`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [ba03e40](https://github.com/LIghtJUNction/MagicMihomo/commit/ba03e40bbd09d8852198595d9250c56ea54b91c6) - ruleset: update-ruleset `2026-01-31 22:50`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [7d81e9d](https://github.com/LIghtJUNction/MagicMihomo/commit/7d81e9df60e3a5e90ff123b9348455ea794afad1) - ruleset: update-ruleset `2026-01-30 22:55`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
