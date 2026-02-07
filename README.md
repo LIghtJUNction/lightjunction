@@ -91,7 +91,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 - **Account Created**: 2022-06-06 (3 years, 8 months ago)
 - **Public Repositories**: 66
-- **Estimated Commits**: 792+ (sampled from 22 repositories, up to 100 commits each)
+- **Estimated Commits**: 793+ (sampled from 22 repositories, up to 100 commits each)
 - **Followers**: 45
 - **Following**: 84
 <!-- END_DYNAMIC_STATS -->
@@ -113,11 +113,12 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 13
-- **Daily average**: 1.9 commits
+- **Total commits this week**: 14
+- **Daily average**: 2.0 commits
 - **Most active repositories**:
-  1. **Oxygen_Not_Included_Multiplayer**: 7 commits (53.8%)
-  2. **MagicMihomo**: 6 commits (46.2%)
+  1. **Oxygen_Not_Included_Multiplayer**: 7 commits (50.0%)
+  2. **MagicMihomo**: 6 commits (42.9%)
+  3. **dots-hyprland**: 1 commits (7.1%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -125,15 +126,15 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 5 | Forks: 0 | Language: Shell | Updated: 2026-02-05`
+  - `Stars: 6 | Forks: 0 | Language: Shell | Updated: 2026-02-06`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
+  - `Stars: 1 | Forks: 0 | Language: QML | Updated: 2026-02-06`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+  - `Stars: 42 | Forks: 1 | Language: Shell | Updated: 2026-02-06`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-05`
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-06`
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
   - `Stars: 34 | Forks: 5 | Language: Shell | Updated: 2026-02-04`
-- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - No description available.
-  - `Stars: 0 | Forks: 0 | Language: C# | Updated: 2026-02-03`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 41 | Forks: 1 | Language: Shell | Updated: 2026-02-01`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -143,7 +144,9 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [2c1f397](https://github.com/LIghtJUNction/MagicMihomo/commit/2c1f39709ddd7ae2246108a8c052be6ca16024c2) - ruleset: update-ruleset `2026-02-06 22:55`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [6f48736](https://github.com/LIghtJUNction/MagicMihomo/commit/6f487360e18492d57bb59aaca1690b9c6d2b8841) - ruleset: update-ruleset `2026-02-05 22:56`
+- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [c776891](https://github.com/LIghtJUNction/dots-hyprland/commit/c77689133d30bf2cd1525559d03df3e1bc436b1f) - Merge branch 'origin/main' and resolve conflicts `2026-02-05 20:47`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [5a820bf](https://github.com/LIghtJUNction/MagicMihomo/commit/5a820bf3e44ee0918d9c4e15bb6804316d0c63ab) - ruleset: update-ruleset `2026-02-04 22:53`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [0f0dac4](https://github.com/LIghtJUNction/MagicMihomo/commit/0f0dac4b284fcc3a15acbf143e11354b235a339a) - ruleset: update-ruleset `2026-02-03 22:58`
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [652826d](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/652826df8b24532340ff3a36365d94b15b769b67) - Merge remote direct connection changes into PacketSender `2026-02-03 15:36`
@@ -151,8 +154,6 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [26121cf](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/26121cfce73c84bb8b523344fb12eaf533f2bffb) - sync `2026-02-03 15:24`
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [fa8393d](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/fa8393d48fed3a8c9ef8f559f6bd4b31a112abcf) - Merge branch 'dimani128-automatic-install-path-detection' `2026-02-03 15:16`
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [6ceae51](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/6ceae51729953627441f5afff510966ded8598c9) - Merge branch 'automatic-install-path-detection' from dimani128 `2026-02-03 15:15`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [9cd98e9](https://github.com/LIghtJUNction/MagicMihomo/commit/9cd98e93bfb4e803159e77cd290c5f67e611a4b6) - ruleset: update-ruleset `2026-02-01 22:53`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [ba03e40](https://github.com/LIghtJUNction/MagicMihomo/commit/ba03e40bbd09d8852198595d9250c56ea54b91c6) - ruleset: update-ruleset `2026-01-31 22:50`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
