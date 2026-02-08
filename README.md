@@ -126,13 +126,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 6 | Forks: 0 | Language: Shell | Updated: 2026-02-06`
+  - `Stars: 6 | Forks: 0 | Language: Shell | Updated: 2026-02-07`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-07`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
   - `Stars: 1 | Forks: 0 | Language: QML | Updated: 2026-02-06`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
   - `Stars: 42 | Forks: 1 | Language: Shell | Updated: 2026-02-06`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-06`
 - **[BFM_config-](https://github.com/LIghtJUNction/BFM_config-)** - config for clash meta (mihomo ) | clash verge (pc and android) |box for magsik|kernelsu|apatch (need root)(透明proxy)   | DNS 泄露已解决 | 点击下方链接跳转至自定义rule仓库
   - `Stars: 34 | Forks: 5 | Language: Shell | Updated: 2026-02-04`
 <!-- END_DYNAMIC_REPO_LIST -->
@@ -144,6 +144,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [ae8279c](https://github.com/LIghtJUNction/MagicMihomo/commit/ae8279c4a875add835c9d4c419f91ecbae83b70f) - ruleset: update-ruleset `2026-02-07 22:56`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [2c1f397](https://github.com/LIghtJUNction/MagicMihomo/commit/2c1f39709ddd7ae2246108a8c052be6ca16024c2) - ruleset: update-ruleset `2026-02-06 22:55`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [6f48736](https://github.com/LIghtJUNction/MagicMihomo/commit/6f487360e18492d57bb59aaca1690b9c6d2b8841) - ruleset: update-ruleset `2026-02-05 22:56`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [c776891](https://github.com/LIghtJUNction/dots-hyprland/commit/c77689133d30bf2cd1525559d03df3e1bc436b1f) - Merge branch 'origin/main' and resolve conflicts `2026-02-05 20:47`
@@ -153,7 +154,6 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [674d5af](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/674d5af97b63560a2ade8f29bac5d75bd717ee65) - sync `2026-02-03 15:33`
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [26121cf](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/26121cfce73c84bb8b523344fb12eaf533f2bffb) - sync `2026-02-03 15:24`
 - **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [fa8393d](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/fa8393d48fed3a8c9ef8f559f6bd4b31a112abcf) - Merge branch 'dimani128-automatic-install-path-detection' `2026-02-03 15:16`
-- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [6ceae51](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/6ceae51729953627441f5afff510966ded8598c9) - Merge branch 'automatic-install-path-detection' from dimani128 `2026-02-03 15:15`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
