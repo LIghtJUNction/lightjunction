@@ -113,12 +113,11 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 15
-- **Daily average**: 2.1 commits
+- **Total commits this week**: 8
+- **Daily average**: 1.1 commits
 - **Most active repositories**:
-  1. **MagicMihomo**: 7 commits (46.7%)
-  2. **Oxygen_Not_Included_Multiplayer**: 7 commits (46.7%)
-  3. **dots-hyprland**: 1 commits (6.7%)
+  1. **MagicMihomo**: 7 commits (87.5%)
+  2. **dots-hyprland**: 1 commits (12.5%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -126,9 +125,9 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 6 | Forks: 0 | Language: Shell | Updated: 2026-02-09`
+  - `Stars: 6 | Forks: 0 | Language: Shell | Updated: 2026-02-10`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-09`
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-10`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
   - `Stars: 1 | Forks: 0 | Language: QML | Updated: 2026-02-06`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
@@ -144,16 +143,12 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [fa5bbf5](https://github.com/LIghtJUNction/MagicMihomo/commit/fa5bbf55425bc6a9000fad60afc4b7868ef78b8b) - ruleset: update-ruleset `2026-02-10 23:09`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [603e435](https://github.com/LIghtJUNction/MagicMihomo/commit/603e435956fe9bd87e29458c75cdcbc1dca5c84e) - ruleset: update-ruleset `2026-02-09 23:06`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [b236316](https://github.com/LIghtJUNction/MagicMihomo/commit/b236316caa3f444ac06a786bc04d7978ffef6e56) - ruleset: update-ruleset `2026-02-08 22:57`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [ae8279c](https://github.com/LIghtJUNction/MagicMihomo/commit/ae8279c4a875add835c9d4c419f91ecbae83b70f) - ruleset: update-ruleset `2026-02-07 22:56`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [2c1f397](https://github.com/LIghtJUNction/MagicMihomo/commit/2c1f39709ddd7ae2246108a8c052be6ca16024c2) - ruleset: update-ruleset `2026-02-06 22:55`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [6f48736](https://github.com/LIghtJUNction/MagicMihomo/commit/6f487360e18492d57bb59aaca1690b9c6d2b8841) - ruleset: update-ruleset `2026-02-05 22:56`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - [c776891](https://github.com/LIghtJUNction/dots-hyprland/commit/c77689133d30bf2cd1525559d03df3e1bc436b1f) - Merge branch 'origin/main' and resolve conflicts `2026-02-05 20:47`
-- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [652826d](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/652826df8b24532340ff3a36365d94b15b769b67) - Merge remote direct connection changes into PacketSender `2026-02-03 15:36`
-- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [674d5af](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/674d5af97b63560a2ade8f29bac5d75bd717ee65) - sync `2026-02-03 15:33`
-- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [26121cf](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/26121cfce73c84bb8b523344fb12eaf533f2bffb) - sync `2026-02-03 15:24`
-- **[Oxygen_Not_Included_Multiplayer](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer)** - [fa8393d](https://github.com/LIghtJUNction/Oxygen_Not_Included_Multiplayer/commit/fa8393d48fed3a8c9ef8f559f6bd4b31a112abcf) - Merge branch 'dimani128-automatic-install-path-detection' `2026-02-03 15:16`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
