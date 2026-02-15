@@ -124,9 +124,9 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 7 | Forks: 0 | Language: Shell | Updated: 2026-02-13`
+  - `Stars: 8 | Forks: 0 | Language: Shell | Updated: 2026-02-14`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-13`
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-02-14`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
   - `Stars: 44 | Forks: 1 | Language: Shell | Updated: 2026-02-12`
 - **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
@@ -142,11 +142,11 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [f22c829](https://github.com/LIghtJUNction/MagicMihomo/commit/f22c829179747b17111ba8f1fd78bda3f01e8c06) - ruleset: update-ruleset `2026-02-14 22:52`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [46e2342](https://github.com/LIghtJUNction/MagicMihomo/commit/46e234230f339133395ee7cc023a30fec6597d3a) - ruleset: update-ruleset `2026-02-13 23:01`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [1896066](https://github.com/LIghtJUNction/MagicMihomo/commit/1896066a36981d13e8dd7cfaae468ba01edbe6b9) - ruleset: update-ruleset `2026-02-12 22:58`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [7d57cf7](https://github.com/LIghtJUNction/MagicMihomo/commit/7d57cf7fdae256d9bf5c889870afdf21b519f9f5) - ruleset: update-ruleset `2026-02-11 23:00`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [fa5bbf5](https://github.com/LIghtJUNction/MagicMihomo/commit/fa5bbf55425bc6a9000fad60afc4b7868ef78b8b) - ruleset: update-ruleset `2026-02-10 23:09`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [603e435](https://github.com/LIghtJUNction/MagicMihomo/commit/603e435956fe9bd87e29458c75cdcbc1dca5c84e) - ruleset: update-ruleset `2026-02-09 23:06`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
