@@ -92,7 +92,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 - **Account Created**: 2022-06-06 (3 years, 9 months ago)
 - **Public Repositories**: 65
 - **Estimated Commits**: 793+ (sampled from 22 repositories, up to 100 commits each)
-- **Followers**: 55
+- **Followers**: 56
 - **Following**: 84
 <!-- END_DYNAMIC_STATS -->
 
@@ -113,11 +113,10 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 8
-- **Daily average**: 1.1 commits
+- **Total commits this week**: 7
+- **Daily average**: 1.0 commits
 - **Most active repositories**:
-  1. **MagicMihomo**: 7 commits (87.5%)
-  2. **Mimic-Node**: 1 commits (12.5%)
+  1. **MagicMihomo**: 7 commits (100.0%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -125,15 +124,15 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 8 | Forks: 0 | Language: Shell | Updated: 2026-03-07`
+  - `Stars: 8 | Forks: 0 | Language: Shell | Updated: 2026-03-08`
+- **[MagicSub](https://github.com/LIghtJUNction/MagicSub)** - An rmm Project Magisk Module , Use sub store on Android.
+  - `Stars: 3 | Forks: 1 | Language: Shell | Updated: 2026-03-08`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-03-08`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
   - `Stars: 48 | Forks: 1 | Language: Shell | Updated: 2026-03-07`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-03-07`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
   - `Stars: 9 | Forks: 1 | Language: Rust | Updated: 2026-03-02`
-- **[dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland)** - uhh questioning the meaning of dotfiles
-  - `Stars: 1 | Forks: 0 | Language: QML | Updated: 2026-02-06`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -143,12 +142,11 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [49dc319](https://github.com/LIghtJUNction/MagicMihomo/commit/49dc3195abfa6d47b2b313ac975980cc2a613e2d) - ruleset: update-ruleset `2026-03-08 22:50`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [b4eafb4](https://github.com/LIghtJUNction/MagicMihomo/commit/b4eafb4b9294a79dbebdeacee1eecb08392a0e39) - ruleset: update-ruleset `2026-03-07 22:49`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [3a2a6e9](https://github.com/LIghtJUNction/MagicMihomo/commit/3a2a6e9a5b5ffd8e75eedd5a008d266efe61a1d9) - ruleset: update-ruleset `2026-03-06 22:56`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [0711450](https://github.com/LIghtJUNction/MagicMihomo/commit/0711450075b6a8fa0d3c7bcb5312750b84a43830) - ruleset: update-ruleset `2026-03-05 23:36`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [555debb](https://github.com/LIghtJUNction/MagicMihomo/commit/555debb0c0f765b1a5a2b84abb863bb623087e98) - ruleset: update-ruleset `2026-03-04 22:58`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [5f7f819](https://github.com/LIghtJUNction/MagicMihomo/commit/5f7f8190867dc60ea0ad5aa5f91e8a1ac2273d06) - ruleset: update-ruleset `2026-03-03 22:54`
-- **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [83860f2](https://github.com/LIghtJUNction/Mimic-Node/commit/83860f27f6bc2084f440cfd66c4ebfcd9cddde89) - Merge pull request #1 from LIghtJUNction/dependabot/cargo/cargo-f6ecf5c85a `2026-03-02 07:28`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
