@@ -91,8 +91,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 - **Account Created**: 2022-06-06 (3 years, 9 months ago)
 - **Public Repositories**: 65
-- **Estimated Commits**: 793+ (sampled from 22 repositories, up to 100 commits each)
-- **Followers**: 60
+- **Estimated Commits**: 794+ (sampled from 22 repositories, up to 100 commits each)
+- **Followers**: 59
 - **Following**: 91
 <!-- END_DYNAMIC_STATS -->
 
@@ -113,12 +113,12 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 ### Weekly Activity Summary
 
-- **Total commits this week**: 13
-- **Daily average**: 1.9 commits
+- **Total commits this week**: 10
+- **Daily average**: 1.4 commits
 - **Most active repositories**:
-  1. **MagicMihomo**: 7 commits (53.8%)
-  2. **AstrBotCanary**: 4 commits (30.8%)
-  3. **Mimic-Node**: 2 commits (15.4%)
+  1. **MagicMihomo**: 7 commits (70.0%)
+  2. **Mimic-Node**: 2 commits (20.0%)
+  3. **lightjunction**: 1 commits (10.0%)
 <!-- END_DYNAMIC_SUMMARY -->
 
 ---
@@ -126,9 +126,9 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 9 | Forks: 0 | Language: Shell | Updated: 2026-03-19`
+  - `Stars: 9 | Forks: 0 | Language: Shell | Updated: 2026-03-20`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-03-19`
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-03-20`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
   - `Stars: 10 | Forks: 1 | Language: Rust | Updated: 2026-03-18`
 - **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
@@ -144,16 +144,14 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [da2036a](https://github.com/LIghtJUNction/MagicMihomo/commit/da2036a896ef51d3add5aa1004476b5b94e56753) - ruleset: update-ruleset `2026-03-20 22:56`
+- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [4bcc126](https://github.com/LIghtJUNction/lightjunction/commit/4bcc1266bce1939f6b154340f84868d24fd39665) - Update README.md `2026-03-20 11:27`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [75235b8](https://github.com/LIghtJUNction/MagicMihomo/commit/75235b842093a388ffb881e4c279f73d736b7009) - ruleset: update-ruleset `2026-03-19 22:57`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [5e64f93](https://github.com/LIghtJUNction/MagicMihomo/commit/5e64f93360d9640da2def86154d37e81020670e1) - ruleset: update-ruleset `2026-03-18 22:57`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [7905eae](https://github.com/LIghtJUNction/MagicMihomo/commit/7905eae256892fb377abcbb285ccc6ff57248c07) - ruleset: update-ruleset `2026-03-17 23:01`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [6f345b4](https://github.com/LIghtJUNction/MagicMihomo/commit/6f345b4645fc755204d1609fa5bb23afe2016c73) - ruleset: update-ruleset `2026-03-16 22:57`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [cd6ca1a](https://github.com/LIghtJUNction/MagicMihomo/commit/cd6ca1a10ac875162220b5bf8be5f303e87599ef) - ruleset: update-ruleset `2026-03-15 22:56`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [a80e68b](https://github.com/LIghtJUNction/Mimic-Node/commit/a80e68b2dcfe9944378400461bd44ed084d27768) - Merge branch 'main' of https://github.com/LIghtJUNction/Mimic-Node `2026-03-14 14:52`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - [7dedc26](https://github.com/LIghtJUNction/Mimic-Node/commit/7dedc269ca7bf8caaa4558a19f38f80d568dbbc6) - fix/取消自动更新sni `2026-03-14 14:52`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [709bf28](https://github.com/LIghtJUNction/AstrBotCanary/commit/709bf28eddcf48434b5741fcc5c15500cbe98262) - 准备工作/添加依赖 `2026-03-13 17:02`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [cb744d6](https://github.com/LIghtJUNction/AstrBotCanary/commit/cb744d6b5cdd7eeeae6b2819d8d3d362558b10fe) - 首次提交/rust项目初始化 `2026-03-13 16:39`
-- **[AstrBotCanary](https://github.com/LIghtJUNction/AstrBotCanary)** - [1fd7d31](https://github.com/LIghtJUNction/AstrBotCanary/commit/1fd7d31c6324d459ea55d8f48864a124b60b9f54) - Update README.md `2026-03-13 16:33`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
