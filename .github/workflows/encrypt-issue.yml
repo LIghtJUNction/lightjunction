@@ -5,28 +5,51 @@ on:
     types: [opened]
 
 jobs:
-  encrypt-and-comment:
+  encrypt-and-protect:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Import GPG Key
-        run: gpg --import pubkey.asc 2>/dev/null || echo "Key import attempted"
+      - name: Import GPG Public Key
+        run: gpg --import pubkey.asc 2>/dev/null
 
-      - name: Encrypt Issue
+      - name: Encrypt and Protect
         id: encrypt
         run: |
-          CONTENT="Title: ${{ github.event.issue.title }}
+          # Get issue content
+          TITLE="${{ github.event.issue.title }}"
+          BODY="${{ github.event.issue.body }}"
 
-          Body: ${{ github.event.issue.body }}"
+          # Combine for encryption
+          CONTENT="From: ${{ github.event.issue.user.login }}
+Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
 
-          ENCRYPTED=$(echo "$CONTENT" | gpg --batch --yes --encrypt --armor --recipient EB21B83AB1E982DF66F08387A67178405F7736FD 2>/dev/null)
+Message:
+$BODY"
 
+          # Encrypt with GPG
+          ENCRYPTED=$(echo "$CONTENT" | gpg --batch --yes --encrypt --armor \
+            --recipient EB21B83AB1E982DF66F08387A67178405F7736FD 2>/dev/null)
+
+          # Save encrypted content
           echo "$ENCRYPTED" > encrypted.txt
           echo "done=1" >> $GITHUB_OUTPUT
 
-      - name: Post Comment
+      - name: Replace Issue with Placeholder
+        if: steps.encrypt.outputs.done == '1'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.update({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '[Encrypted Message - Owner Only]',
+              body: '🔐 This message has been encrypted. Only the repo owner can decrypt it.\n\nSee the comment below for the encrypted content.'
+            });
+
+      - name: Post Encrypted Comment
         if: steps.encrypt.outputs.done == '1'
         uses: actions/github-script@v7
         with:
@@ -40,7 +63,7 @@ jobs:
               body: `## 🔐 Encrypted Message
 
 This message is encrypted with the owner's GPG public key.
-Only the owner (holding the private key) can decrypt it.
+Only the owner (holding the private key) can decrypt and read it.
 
 \`\`\`
 ${enc}
@@ -48,4 +71,17 @@ ${enc}
 
 ---
 *Auto-encrypted by GitHub Action*`
+            });
+
+      - name: Close Issue
+        if: steps.encrypt.outputs.done == '1'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.update({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'closed',
+              state_reason: 'resolved'
             });
