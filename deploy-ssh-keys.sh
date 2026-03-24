@@ -1,143 +1,104 @@
 #!/bin/bash
-# deploy-ssh-keys.sh - Deploy GPG SSH public key via cloud scripts
+# deploy-ssh-keys.sh - Deploy SSH public key from GPG
 # Usage:
-#   curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | sudo bash
 #   curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | bash
-#
-# This is a CLOUD SCRIPT - all functions are imported from GitHub.
+
+set -e
+
+KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
+GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2)}"
 
 # ==================== BOOTSTRAP ====================
-# Minimal import() implementation for cloud script
 declare -gA __IMPORTED_FILES
-__IMPORTED_FILES=()
 
-_import() {
+import() {
     local file="${1:?}" branch="${2:-main}" repo="${3:-lightjunction}" user="${4:-lightjunction}"
-    local base_url="${5:-https://raw.githubusercontent.com}"
-    local url="$base_url/$user/$repo/$branch/$file"
+    local url="https://raw.githubusercontent.com/$user/$repo/$branch/$file"
     [[ "${__IMPORTED_FILES[$url]:-}" == "1" ]] && return 0
     __IMPORTED_FILES[$url]=1
-    local tmpfile; tmpfile=$(mktemp) || return 1
-    curl -fsSL --connect-timeout 15 "$url" -o "$tmpfile" 2>/dev/null || {
-        rm -f "$tmpfile"
-        echo "[ERROR] Failed to download: $url" >&2
-        return 1
-    }
-    source "$tmpfile"; rm -f "$tmpfile"
+    local tmp; tmp=$(mktemp) || exit 1
+    curl -fsSL --connect-timeout 10 "$url" -o "$tmp" || { rm -f "$tmp"; exit 1; }
+    source "$tmp"; rm -f "$tmp"
 }
 
 # ==================== IMPORTS ====================
-_import env.sh
-_import log.sh
+import env.sh
+import log.sh
 
 # ==================== MAIN ====================
 main() {
-    local key_id="EB21B83AB1E982DF66F08387A67178405F7736FD"
-    local gpg_path
-    gpg_path=$(command -v gpg) || gpg_path=$(command -v gpg2)
-
-    # Check gpg exists
-    if [[ -z "$gpg_path" ]]; then
-        err "GPG not found"
-        exit 1
+    # Check GPG
+    if [[ -z "$GPG_PATH" ]]; then
+        err "GPG not found"; exit 1
     fi
-    ok "Found GPG at: $gpg_path"
+    ok "GPG: $GPG_PATH"
 
     # Detect environment
-    local sync_exec auth_file
     if [[ -d "/data/data/com.termux/files/home" ]]; then
-        info "Detected Termux environment"
-        sync_exec="$HOME/.termux/bin/sync-ssh-keys-core.sh"
-        auth_file="$HOME/.ssh/authorized_keys"
-        _import lib/os.sh
-        os_ensure_dir "$HOME/.termux/bin"
-        os_ensure_dir "$(dirname "$auth_file")"
+        info "Termux detected"
+        import lib/os.sh
+
+        local sync_script="$HOME/.termux/bin/sync-ssh-keys.sh"
+        os_ensure_dir "$(dirname "$sync_script")"
+        os_ensure_dir "$HOME/.ssh"
 
         # Generate sync script
-        cat > "$sync_exec" <<'SYNCEOF'
+        cat > "$sync_script" <<'EOF'
 #!/bin/bash
-GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null)}"
+GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2)}"
 KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
 $GPG_PATH --keyserver hkps://keyserver.ubuntu.com --recv-keys "$KEY_ID" >/dev/null 2>&1
 $GPG_PATH --export-ssh-key "$KEY_ID" > ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
-SYNCEOF
-        chmod +x "$sync_exec"
-        bash "$sync_exec"
-        ok "Termux sync script generated and executed"
+EOF
+        chmod +x "$sync_script"
+        bash "$sync_script"
+        ok "SSH key deployed to ~/.ssh/authorized_keys"
 
-    else
-        info "Detected Linux environment"
-        if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
-            err "Linux deployment requires root (sudo)"
-            exit 1
+    elif [[ -d "/run/systemd/system" ]]; then
+        info "Linux (systemd) detected"
+
+        if [[ ${EUID:-$(id -u)} -ne 0 ]]; then
+            err "Requires root (sudo)"; exit 1
         fi
 
-        # Check systemd
-        if ! command -v systemctl >/dev/null 2>&1; then
-            err "systemd not found, only systemd-based Linux is supported"
-            exit 1
-        fi
+        import lib/os.sh
+        os_ensure_dir "/usr/local/bin"
+        os_ensure_dir "$HOME/.ssh"
 
-        sync_exec="/usr/local/bin/sync-ssh-keys-core.sh"
-        auth_file="$HOME/.ssh/authorized_keys"
-        _import lib/os.sh
-        os_ensure_dir "$(dirname "$auth_file")"
-
-        # Generate sync script
-        cat > "$sync_exec" <<'SYNCEOF'
+        local sync_script="/usr/local/bin/sync-ssh-keys.sh"
+        cat > "$sync_script" <<'EOF'
 #!/bin/bash
-GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null)}"
+GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2)}"
 KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
 $GPG_PATH --keyserver hkps://keyserver.ubuntu.com --recv-keys "$KEY_ID" >/dev/null 2>&1
 $GPG_PATH --export-ssh-key "$KEY_ID" > ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
-SYNCEOF
-        chmod +x "$sync_exec"
+EOF
+        chmod +x "$sync_script"
 
-        # Generate systemd service
-        cat > /etc/systemd/system/ssh-key-sync.service <<'SERVICEEOF'
-[Unit]
-Description=GPG SSH Key Sync Service
-After=network-online.target
+        # Systemd service + timer
+        cat > /etc/systemd/system/ssh-key-sync.service <<'EOF'
+[Unit] Description=GPG SSH Key Sync After=network-online.target
+[Service] Type=oneshot ExecStart=/usr/local/bin/sync-ssh-keys.sh Environment=HOME=/root
+[Install] WantedBy=multi-user.target
+EOF
 
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/sync-ssh-keys-core.sh
-Environment=HOME=/root
-
-[Install]
-WantedBy=multi-user.target
-SERVICEEOF
-
-        # Generate systemd timer
-        cat > /etc/systemd/system/ssh-key-sync.timer <<'TIMEREOF'
-[Unit]
-Description=Timer for GPG SSH Key Sync
-
-[Timer]
-OnBootSec=2min
-OnUnitActiveSec=12h
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-TIMEREOF
+        cat > /etc/systemd/system/ssh-key-sync.timer <<'EOF'
+[Unit] Description=GPG SSH Key Sync Timer
+[Timer] OnBootSec=2min OnUnitActiveSec=12h Persistent=true
+[Install] WantedBy=timers.target
+EOF
 
         systemctl daemon-reload
-        if ! systemctl is-enabled --quiet ssh-key-sync.timer 2>/dev/null; then
-            systemctl enable ssh-key-sync.timer
-        fi
-        bash "$sync_exec"
-        ok "Linux systemd sync service deployed"
+        systemctl enable --now ssh-key-sync.timer
+        ok "Systemd timer enabled (syncs every 12h)"
+    else
+        err "Unsupported environment"; exit 1
     fi
 
-    # Show deployed key
     line
-    info "Current authorized_keys content ($auth_file):"
-    cat "$auth_file" 2>/dev/null || echo "(empty or not accessible)"
-    line
-    ok "Done! Make sure your local machine has the private key imported and IdentityAgent configured."
+    ok "Done!"
 }
 
 main "$@"
