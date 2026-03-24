@@ -37,9 +37,10 @@ def format_stats(data: dict) -> str:
     followers = user.get("followers", 0)
     following = user.get("following", 0)
 
-    return f"""| 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
+    content = f"""| 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
 | {created} ({years}yr {months}mo) | **{repos}** | **{followers}** | **{following}** |"""
+    return content + "\n\n---"
 
 
 def format_weekly(data: dict, ai_content: dict) -> str:
@@ -66,7 +67,7 @@ def format_weekly(data: dict, ai_content: dict) -> str:
                 bar = "▓" * int(pct * 10) + "░" * (10 - int(pct * 10))
                 lines.append(f"| [{name}]({info.get('url', '')}) | {bar} {count} |")
 
-    return "\n".join(lines)
+    return "\n".join(lines) + "\n\n---"
 
 
 def format_repos(data: dict, ai_content: dict) -> str:
@@ -115,7 +116,7 @@ _Updated: {updated}_
         lines.append("<td></td>")
 
     lines.append("</tr></table>")
-    return "\n".join(lines)
+    return "\n".join(lines) + "\n\n---"
 
 
 def format_commits(data: dict) -> str:
@@ -149,7 +150,7 @@ def format_commits(data: dict) -> str:
         lines.append(f"| {time_str} | {repo} | [`{c['sha']}`]({c['url']}) {msg} |")
 
     lines.extend(["", "</details>"])
-    return "\n".join(lines)
+    return "\n".join(lines) + "\n\n---"
 
 
 def replace_section(path: Path, start_marker: str, end_marker: str, new_content: str) -> bool:
@@ -160,7 +161,11 @@ def replace_section(path: Path, start_marker: str, end_marker: str, new_content:
         return False
 
     end_idx += len(end_marker)
-    new_text = text[:start_idx] + start_marker + "\n\n" + new_content + "\n\n" + text[end_idx:]
+    content = new_content.strip() if new_content.strip() else ""
+    if content:
+        new_text = text[:start_idx] + start_marker + "\n\n" + content + "\n\n" + text[end_idx:]
+    else:
+        new_text = text[:start_idx] + start_marker + "\n\n" + text[end_idx:]
 
     if new_text != text:
         path.write_text(new_text)

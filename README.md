@@ -39,31 +39,17 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=LIghtJUNction&theme=dark&hide_border=false)
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=LIghtJUNction&theme=dark&hide_border=false&include_all_commits=true&layout=compact)
 
----
-
 <!-- START_DYNAMIC_STATS -->
-
 <!-- END_DYNAMIC_STATS -->
 
----
-
 <!-- START_DYNAMIC_SUMMARY -->
-
 <!-- END_DYNAMIC_SUMMARY -->
 
----
-
 <!-- START_DYNAMIC_REPO_LIST -->
-
 <!-- END_DYNAMIC_REPO_LIST -->
 
----
-
 <!-- START_DYNAMIC_COMMITS -->
-
 <!-- END_DYNAMIC_COMMITS -->
-
----
 
 ## 🏆 GitHub Trophies
 
