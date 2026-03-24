@@ -87,14 +87,11 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_STATS -->
 
-### GitHub Statistics
+| 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
+|:---------:|:--------:|:------------:|:------------:|
+| 2022-06-06 (3yr 9mo) | **66** | **60** | **95** |
 
-- **Account Created**: 2022-06-06 (3 years, 9 months ago)
-- **Public Repositories**: 66
-- **Estimated Commits**: 699+ (sampled from 22 repositories, up to 100 commits each)
-- **Followers**: 60
-- **Following**: 93
-<!-- END_DYNAMIC_STATS -->
+
 
 ---
 
@@ -111,31 +108,108 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_SUMMARY -->
 
-### Weekly Activity Summary
+### 📈 This Week
 
-- **Total commits this week**: 13
-- **Daily average**: 1.9 commits
-- **Most active repositories**:
-  1. **MagicMihomo**: 7 commits (53.8%)
-  2. **dash.astrbot.men**: 5 commits (38.5%)
-  3. **lightjunction**: 1 commits (7.7%)
-<!-- END_DYNAMIC_SUMMARY -->
+**17** commits across **3** repositories
+
+| Repository | Activity |
+|:-----------|:--------:|
+| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓░░░░░░ 7 |
+| [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓░░░░░░░░ 5 |
+| [dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | ▓▓░░░░░░░░ 5 |
+
+
 
 ---
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-- **[dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men)** - Astrbot Dashboard
-  - `Stars: 0 | Forks: 0 | Language: Vue | Updated: 2026-03-24`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 9 | Forks: 0 | Language: Shell | Updated: 2026-03-23`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 53 | Forks: 1 | Language: Shell | Updated: 2026-03-23`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-03-23`
-- **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
-  - `Stars: 10 | Forks: 1 | Language: Rust | Updated: 2026-03-18`
-<!-- END_DYNAMIC_REPO_LIST -->
+### 🚀 Latest Projects
+
+<table><tr>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-03-24_
+
+</td>
+<td align="center" valign="top">
+
+#### 💚 dash.astrbot.men
+Astrbot Dashboard
+
+⭐ 0 • 🍴 0 • Vue
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-03-24_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 MagicMihomo
+MagicNet-mihomo
+
+⭐ 9 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-03-23_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐚 MagicNet
+A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+
+⭐ 53 • 🍴 1 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-03-23_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🦀 Mimic-Node
+VLESS + Reality + XTLS-Vision/xhttp
+
+⭐ 10 • 🍴 1 • Rust
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-03-18_
+
+</td>
+<td align="center" valign="top">
+
+#### 🦀 AstrBotCanary
+This is an officially supported Astrbot
+
+⭐ 3 • 🍴 0 • Rust
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/AstrBotCanary?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/AstrBotCanary?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-03-17_
+
+</td>
+</tr></table>
+
+
 
 ---
 
@@ -144,17 +218,40 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [72fe8c5](https://github.com/LIghtJUNction/MagicMihomo/commit/72fe8c53b22e2c4fd1fdeb2a21f5eddc341544a0) - ruleset: update-ruleset `2026-03-23 23:00`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [b30d63f](https://github.com/LIghtJUNction/MagicMihomo/commit/b30d63fd31d7bc3064acbc172f821548628e295c) - ruleset: update-ruleset `2026-03-22 22:53`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [a145a3f](https://github.com/LIghtJUNction/MagicMihomo/commit/a145a3f45fd677d0a5c118fe88255f2d8301fa53) - ruleset: update-ruleset `2026-03-21 22:52`
-- **[dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men)** - [f386816](https://github.com/LIghtJUNction/dash.astrbot.men/commit/f386816fbbcb907540befb0363b422c43e5cd4ed) - fix: sync workflow - add change detection logic `2026-03-21 09:18`
-- **[dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men)** - [cac870b](https://github.com/LIghtJUNction/dash.astrbot.men/commit/cac870b20d79b34c4522e098d0feb452a13e2ea4) - Simplify dashboard sync workflow by removing checks `2026-03-21 08:44`
-- **[dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men)** - [dfe5140](https://github.com/LIghtJUNction/dash.astrbot.men/commit/dfe51401f2e77530f4f3047ce7e9843d01cd4a83) - chore: sync dashboard from AstrBot@dev (2026-03-21 15:36:37) `2026-03-21 07:36`
-- **[dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men)** - [f807977](https://github.com/LIghtJUNction/dash.astrbot.men/commit/f807977aa1d5f0f8b20b4485abcd213cc77e71cd) - fix: upgrade actions/checkout to v5 for Node.js 24 compatibility `2026-03-21 07:31`
-- **[dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men)** - [735d577](https://github.com/LIghtJUNction/dash.astrbot.men/commit/735d577154cfb4e8163a88ccd902f5778cf218c9) - feat: add dashboard sync workflow (sync to root directory) `2026-03-21 07:31`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [da2036a](https://github.com/LIghtJUNction/MagicMihomo/commit/da2036a896ef51d3add5aa1004476b5b94e56753) - ruleset: update-ruleset `2026-03-20 22:56`
-- **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [4bcc126](https://github.com/LIghtJUNction/lightjunction/commit/4bcc1266bce1939f6b154340f84868d24fd39665) - Update README.md `2026-03-20 11:27`
-<!-- END_DYNAMIC_COMMITS -->
+### 📝 Recent Commits
+
+<details>
+<summary>📅 Last 7 Days</summary>
+
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+
+**2026-03-24**
+
+| 07:19 | lightjunction | [`cae8c15`](https://github.com/LIghtJUNction/lightjunction/commit/cae8c156fc71942e3c3ecc3a98de4eca1e73a1b3) chore: update GitHub Actions to latest versions |
+| 07:16 | lightjunction | [`f6126f9`](https://github.com/LIghtJUNction/lightjunction/commit/f6126f9f23191d89de23e776e95293cba786c898) fix: uv run scripts directly without python wrapper |
+| 07:10 | lightjunction | [`c68219d`](https://github.com/LIghtJUNction/lightjunction/commit/c68219dfa530efdd0b1ff9efb3823aba05fae204) fix: use UV inline script dependencies instead of pyproject |
+| 07:07 | lightjunction | [`cb57d70`](https://github.com/LIghtJUNction/lightjunction/commit/cb57d70a36b7bbc24a1ab3e894e6992937f5049e) feat: major overhaul - cloud scripts, AI-powered README upda... |
+
+**2026-03-23**
+
+| 23:00 | MagicMihomo | [`72fe8c5`](https://github.com/LIghtJUNction/MagicMihomo/commit/72fe8c53b22e2c4fd1fdeb2a21f5eddc341544a0) ruleset: update-ruleset |
+
+**2026-03-22**
+
+| 22:53 | MagicMihomo | [`b30d63f`](https://github.com/LIghtJUNction/MagicMihomo/commit/b30d63fd31d7bc3064acbc172f821548628e295c) ruleset: update-ruleset |
+
+**2026-03-21**
+
+| 22:52 | MagicMihomo | [`a145a3f`](https://github.com/LIghtJUNction/MagicMihomo/commit/a145a3f45fd677d0a5c118fe88255f2d8301fa53) ruleset: update-ruleset |
+| 09:18 | dash.astrbot.me | [`f386816`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/f386816fbbcb907540befb0363b422c43e5cd4ed) fix: sync workflow - add change detection logic |
+| 08:44 | dash.astrbot.me | [`cac870b`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/cac870b20d79b34c4522e098d0feb452a13e2ea4) Simplify dashboard sync workflow by removing checks |
+| 07:36 | dash.astrbot.me | [`dfe5140`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/dfe51401f2e77530f4f3047ce7e9843d01cd4a83) chore: sync dashboard from AstrBot@dev (2026-03-21 15:36:37) |
+
+</details>
+
+
 
 </details>
 
