@@ -2,7 +2,6 @@ name: Daily README Update with AI
 
 on:
   schedule:
-    # Run daily at 00:00 UTC
     - cron: '0 0 * * *'
   workflow_dispatch:
   push:
@@ -21,28 +20,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
 
       - name: Install UV
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
+          cache-dependency-glob: "scripts/*.py"
 
       - name: Fetch GitHub Data
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-        run: uv run python scripts/fetch-github-data.py
+        run: uv run scripts/fetch-github-data.py
 
       - name: AI Enhancement
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-        run: uv run python scripts/ai-enhance.py
+        run: uv run scripts/ai-enhance.py
 
       - name: Update README
-        run: uv run python scripts/update-readme.py
+        run: uv run scripts/update-readme.py
 
       - name: Commit and Push
         if: github.event_name != 'push'
