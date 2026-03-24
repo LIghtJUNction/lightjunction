@@ -11,29 +11,109 @@
             background: #0a0a0a;
             color: #e0e0e0;
             min-height: 100vh;
-            padding: 40px 20px;
-            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            user-select: none;
         }
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
+        .scene {
+            width: 280px;
+            height: 180px;
+            perspective: 1000px;
+            cursor: pointer;
+            position: relative;
         }
-        h1 {
-            font-size: 14px;
-            font-weight: 400;
-            color: #666;
-            margin-bottom: 40px;
+        .envelope {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
         }
-        .card {
-            margin-bottom: 20px;
+        .envelope.open { transform: rotateX(-160deg); }
+        .envelope.sent {
+            transform: translateY(-200px) rotateX(-30deg);
+            opacity: 0;
+            transition: all 0.8s ease-in;
         }
-        label {
-            display: block;
-            font-size: 11px;
-            color: #555;
+        .envelope-front, .envelope-back, .envelope-flap, .envelope-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+        .envelope-front {
+            background: linear-gradient(145deg, #1a1a1a, #111);
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .envelope-flap {
+            background: linear-gradient(180deg, #222, #1a1a1a);
+            border: 1px solid #2a2a2a;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            transform-origin: top center;
+            transition: transform 0.4s ease-out;
+            z-index: 2;
+        }
+        .envelope.open .envelope-flap { transform: rotateX(180deg); }
+        .envelope-back {
+            background: #111;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            transform: rotateX(180deg);
+        }
+        .envelope-content {
+            background: #0d0d0d;
+            border: 1px solid #222;
+            border-radius: 4px;
+            padding: 16px;
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+        .to-line {
+            font-size: 10px;
+            color: #444;
             margin-bottom: 8px;
-            text-transform: uppercase;
         }
+        .from-line {
+            font-size: 10px;
+            color: #444;
+            margin-top: auto;
+            text-align: right;
+        }
+        .title-on-env {
+            font-size: 11px;
+            color: #666;
+            max-width: 200px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .env-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            filter: grayscale(1);
+            opacity: 0.6;
+        }
+        .hint-text {
+            font-size: 10px;
+            color: #333;
+            margin-top: 4px;
+        }
+        .input-area {
+            width: 280px;
+            margin-top: 20px;
+            display: none;
+        }
+        .input-area.show { display: block; }
         input, textarea {
             width: 100%;
             background: #111;
@@ -43,113 +123,92 @@
             color: #e0e0e0;
             font-family: inherit;
             font-size: 13px;
+            margin-bottom: 12px;
         }
         input:focus, textarea:focus {
             outline: none;
             border-color: #444;
         }
         textarea {
-            min-height: 120px;
-            resize: vertical;
+            min-height: 100px;
+            resize: none;
         }
         .btn-row {
             display: flex;
             gap: 8px;
-            margin-top: 12px;
         }
         button {
+            flex: 1;
             background: #1a1a1a;
             color: #888;
             border: 1px solid #333;
-            padding: 10px 16px;
+            padding: 12px;
             border-radius: 4px;
             cursor: pointer;
             font-family: inherit;
             font-size: 12px;
+            transition: all 0.2s;
         }
-        button:hover {
-            background: #222;
-            color: #aaa;
-        }
-        button.primary {
-            background: #fff;
-            color: #000;
-            border-color: #fff;
-        }
-        button.primary:hover {
-            background: #ddd;
-        }
-        .output {
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 4px;
-            padding: 12px;
-            font-size: 11px;
-            white-space: pre-wrap;
-            word-break: break-all;
-            max-height: 200px;
-            overflow-y: auto;
-            display: none;
-        }
-        .output.show { display: block; }
-        .msg {
-            font-size: 12px;
-            color: #666;
-            margin-top: 8px;
-        }
-        .msg.ok { color: #4a4; }
-        .hint {
+        button:hover { background: #222; color: #aaa; }
+        button.primary { background: #fff; color: #000; border-color: #fff; }
+        button.primary:hover { background: #ddd; }
+        .status {
+            text-align: center;
             font-size: 11px;
             color: #444;
-            margin-top: 8px;
+            margin-top: 12px;
+            min-height: 16px;
+        }
+        .status.ok { color: #4a4; }
+        .status.err { color: #c44; }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 11px;
+            color: #333;
+            cursor: pointer;
+        }
+        .close-btn:hover { color: #666; }
+        .pubkey-small {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 9px;
+            color: #2a2a2a;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>// SECURE MESSAGE</h1>
+    <div class="close-btn" id="resetBtn">reset</div>
 
-        <div class="card">
-            <label>public key</label>
-            <div id="pubkey" style="font-size:10px;color:#444;word-break:break-all;padding:8px;background:#0d0d0d;border-radius:4px;">loading...</div>
-        </div>
-
-        <div class="card">
-            <label>title</label>
-            <input type="text" id="title" placeholder="subject (visible)">
-        </div>
-
-        <div class="card">
-            <label>message</label>
-            <textarea id="message" placeholder="your private message..."></textarea>
-            <div class="btn-row">
-                <button class="primary" id="encryptBtn">encrypt</button>
-                <button id="copyBtn">copy</button>
-                <button id="clearBtn">clear</button>
+    <div class="scene" id="scene">
+        <div class="envelope" id="envelope">
+            <div class="envelope-front">
+                <div class="env-icon">✉</div>
+                <div class="title-on-env" id="envTitle">tap to open</div>
+                <div class="hint-text" id="envHint">slide to flip</div>
             </div>
-        </div>
-
-        <div class="card" id="outputCard" style="display:none;">
-            <label>encrypted</label>
-            <div class="output" id="output"></div>
-            <div class="msg" id="msg"></div>
-            <div class="btn-row">
-                <button id="createIssueBtn">create issue</button>
-            </div>
-            <div class="hint">opens github to create a public issue with the encrypted message</div>
-        </div>
-
-        <div class="card">
-            <label>how it works</label>
-            <div class="hint">
-                1. enter your message<br>
-                2. click encrypt<br>
-                3. copy the encrypted output<br>
-                4. send it to the recipient via any channel<br><br>
-                your message is encrypted locally. only the recipient can decrypt it with their private key.
+            <div class="envelope-flap"></div>
+            <div class="envelope-back"></div>
+            <div class="envelope-content">
+                <div class="to-line">TO: LIghtJUNction</div>
+                <textarea id="secretMsg" placeholder="write your secret..."></textarea>
+                <div class="from-line">FROM: anonymous</div>
             </div>
         </div>
     </div>
+
+    <div class="input-area" id="inputArea">
+        <input type="text" id="titleInput" placeholder="subject (visible on envelope)">
+        <div class="btn-row">
+            <button id="encryptBtn" class="primary">encrypt & seal</button>
+            <button id="cancelBtn">cancel</button>
+        </div>
+        <div class="status" id="status"></div>
+    </div>
+
+    <div class="pubkey-small">EB21B83... encrypted</div>
 
     <script type="module" src="/src/main.ts"></script>
 </body>
