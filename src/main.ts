@@ -19,85 +19,22 @@ l3xQhx6HVK8KzO3u7bdIxVNIwuj+fqmhAg==
 -----END PGP PUBLIC KEY BLOCK-----`
 
 let encrypted = ''
-let isOpen = false
 
-const scene = document.getElementById('scene')!
-const envelope = document.getElementById('envelope')!
-const envTitle = document.getElementById('envTitle')!
-const envHint = document.getElementById('envHint')!
-const inputArea = document.getElementById('inputArea')!
-const titleInput = document.getElementById('titleInput') as HTMLInputElement
-const secretMsg = document.getElementById('secretMsg') as HTMLTextAreaElement
-const encryptBtn = document.getElementById('encryptBtn')!
-const cancelBtn = document.getElementById('cancelBtn')!
-const resetBtn = document.getElementById('resetBtn')!
-const statusEl = document.getElementById('status')!
+const el = (id: string) => document.getElementById(id)!
 
-// Touch handling for swipe
-let touchStartY = 0
-let touchStartX = 0
-let isSwiping = false
-
-scene.addEventListener('click', () => {
-    if (isOpen) return
-    openEnvelope()
-})
-
-secretMsg.addEventListener('focus', () => {
-    if (!isOpen) openEnvelope()
-})
-
-function openEnvelope() {
-    isOpen = true
-    envelope.classList.add('open')
-    envHint.textContent = 'write your secret inside'
-    setTimeout(() => {
-        inputArea.classList.add('show')
-        titleInput.focus()
-    }, 400)
-}
-
-function closeEnvelope() {
-    isOpen = false
-    envelope.classList.remove('open')
-    inputArea.classList.remove('show')
-    envTitle.textContent = 'tap to open'
-    envHint.textContent = 'slide to flip'
-}
-
-// Cancel button
-cancelBtn.addEventListener('click', () => {
-    closeEnvelope()
-    secretMsg.value = ''
-    titleInput.value = ''
-    statusEl.textContent = ''
-    statusEl.className = 'status'
-})
-
-// Reset button
-resetBtn.addEventListener('click', () => {
-    closeEnvelope()
-    secretMsg.value = ''
-    titleInput.value = ''
-    statusEl.textContent = ''
-    statusEl.className = 'status'
-    envelope.classList.remove('sent')
-    encrypted = ''
-})
-
-// Encrypt and seal
-encryptBtn.addEventListener('click', async () => {
-    const msg = secretMsg.value.trim()
-    const title = titleInput.value.trim()
+el('encryptBtn').onclick = async () => {
+    const msg = el('message').value.trim()
+    const title = el('title').value.trim()
 
     if (!msg) {
-        statusEl.textContent = 'write something first'
-        statusEl.className = 'status err'
+        el('msg').textContent = 'write something first'
+        el('msg').className = 'msg err'
         return
     }
 
-    encryptBtn.textContent = '...'
-    encryptBtn.disabled = true
+    const btn = el('encryptBtn')
+    btn.textContent = '...'
+    btn.disabled = true
 
     try {
         const pub = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
@@ -108,108 +45,25 @@ encryptBtn.addEventListener('click', async () => {
             encryptionKeys: pub,
         }) as string
 
-        // Copy to clipboard
+        el('output').textContent = encrypted
+        el('result').classList.add('show')
+        el('msg').textContent = 'copied to clipboard'
+        el('msg').className = 'msg ok'
+
         await navigator.clipboard.writeText(encrypted)
 
-        statusEl.textContent = 'encrypted & copied!'
-        statusEl.className = 'status ok'
-
-        // Update envelope title
-        envTitle.textContent = title || 'encrypted'
-        envHint.textContent = 'swipe up to send'
-
-        // Close envelope after short delay
-        setTimeout(() => {
-            closeEnvelope()
-            secretMsg.value = ''
-            titleInput.value = ''
-
-            // Show swipe hint
-            setTimeout(() => {
-                envHint.textContent = 'swipe up →'
-                statusEl.textContent = 'ready to send'
-            }, 300)
-        }, 800)
-
     } catch (e) {
-        statusEl.textContent = 'error: ' + (e as Error).message
-        statusEl.className = 'status err'
+        el('msg').textContent = 'error: ' + (e as Error).message
+        el('msg').className = 'msg err'
     }
 
-    encryptBtn.textContent = 'encrypt & seal'
-    encryptBtn.disabled = false
-})
+    btn.textContent = 'encrypt'
+    btn.disabled = false
+}
 
-// Swipe up to send
-document.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY
-    touchStartX = e.touches[0].clientX
-    isSwiping = true
-})
-
-document.addEventListener('touchmove', (e) => {
-    if (!isSwiping || !encrypted) return
-    const deltaY = touchStartY - e.touches[0].clientY
-    const deltaX = e.touches[0].clientX - touchStartX
-
-    // Detect upward swipe
-    if (deltaY > 50 && deltaY > Math.abs(deltaX)) {
-        e.preventDefault()
-        isSwiping = false
-        sendMessage()
-    }
-})
-
-// Mouse swipe (for desktop)
-document.addEventListener('mousedown', (e) => {
-    touchStartY = e.clientY
-    isSwiping = true
-})
-
-document.addEventListener('mouseup', async (e) => {
-    if (!isSwiping || !encrypted) return
-    const deltaY = touchStartY - e.clientY
-    if (deltaY > 80) {
-        isSwiping = false
-        await sendMessage()
-    }
-    isSwiping = false
-})
-
-async function sendMessage() {
+el('sendBtn').onclick = () => {
     if (!encrypted) return
-
-    statusEl.textContent = 'sending...'
-
-    // Animate envelope away
-    envelope.classList.add('sent')
-
-    // Get title
-    const title = titleInput.value.trim() || 'encrypted message'
-
-    // Wait for animation
-    await new Promise(r => setTimeout(r, 800))
-
-    // Create issue URL
+    const title = el('title').value.trim() || 'encrypted message'
     const body = encodeURIComponent(`## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`)
-    const issueUrl = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=${encodeURIComponent(title)}&body=${body}`
-
-    // Open in new tab
-    window.open(issueUrl, '_blank')
-
-    // Copy URL to clipboard
-    await navigator.clipboard.writeText(issueUrl)
-
-    statusEl.textContent = 'link copied!'
-    statusEl.className = 'status ok'
-
-    // Reset after a moment
-    setTimeout(() => {
-        envelope.classList.remove('sent')
-        encrypted = ''
-        envTitle.textContent = 'tap to open'
-        envHint.textContent = 'slide to flip'
-        statusEl.textContent = ''
-        statusEl.className = 'status'
-    }, 2000)
+    window.open(`https://github.com/LIghtJUNction/lightjunction/issues/new?title=${encodeURIComponent(title)}&body=${body}`, '_blank')
 }

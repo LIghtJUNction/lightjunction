@@ -11,204 +11,130 @@
             background: #0a0a0a;
             color: #e0e0e0;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            user-select: none;
+            padding: 60px 20px 40px;
         }
-        .scene {
-            width: 280px;
-            height: 180px;
-            perspective: 1000px;
-            cursor: pointer;
-            position: relative;
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
         }
-        .envelope {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-        }
-        .envelope.open { transform: rotateX(-160deg); }
-        .envelope.sent {
-            transform: translateY(-200px) rotateX(-30deg);
-            opacity: 0;
-            transition: all 0.8s ease-in;
-        }
-        .envelope-front, .envelope-back, .envelope-flap, .envelope-content {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-        }
-        .envelope-front {
-            background: linear-gradient(145deg, #1a1a1a, #111);
-            border: 1px solid #2a2a2a;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        .envelope-flap {
-            background: linear-gradient(180deg, #222, #1a1a1a);
-            border: 1px solid #2a2a2a;
-            border-bottom: none;
-            border-radius: 4px 4px 0 0;
-            transform-origin: top center;
-            transition: transform 0.4s ease-out;
-            z-index: 2;
-        }
-        .envelope.open .envelope-flap { transform: rotateX(180deg); }
-        .envelope-back {
-            background: #111;
-            border: 1px solid #2a2a2a;
-            border-radius: 4px;
-            transform: rotateX(180deg);
-        }
-        .envelope-content {
-            background: #0d0d0d;
-            border: 1px solid #222;
-            border-radius: 4px;
-            padding: 16px;
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-        .to-line {
-            font-size: 10px;
+        h1 {
+            font-size: 13px;
+            font-weight: 400;
             color: #444;
-            margin-bottom: 8px;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
         }
-        .from-line {
-            font-size: 10px;
-            color: #444;
-            margin-top: auto;
-            text-align: right;
+        .field {
+            margin-bottom: 20px;
         }
-        .title-on-env {
-            font-size: 11px;
-            color: #666;
-            max-width: 200px;
-            text-align: center;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .env-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
-            filter: grayscale(1);
-            opacity: 0.6;
-        }
-        .hint-text {
+        label {
+            display: block;
             font-size: 10px;
             color: #333;
-            margin-top: 4px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
         }
-        .input-area {
-            width: 280px;
-            margin-top: 20px;
-            display: none;
-        }
-        .input-area.show { display: block; }
         input, textarea {
             width: 100%;
             background: #111;
-            border: 1px solid #222;
-            border-radius: 4px;
-            padding: 12px;
+            border: 1px solid #1a1a1a;
+            border-radius: 2px;
+            padding: 14px;
             color: #e0e0e0;
             font-family: inherit;
-            font-size: 13px;
-            margin-bottom: 12px;
+            font-size: 14px;
         }
         input:focus, textarea:focus {
             outline: none;
-            border-color: #444;
+            border-color: #333;
         }
         textarea {
-            min-height: 100px;
+            min-height: 140px;
             resize: none;
+            line-height: 1.6;
         }
-        .btn-row {
-            display: flex;
-            gap: 8px;
-        }
-        button {
-            flex: 1;
-            background: #1a1a1a;
-            color: #888;
-            border: 1px solid #333;
-            padding: 12px;
-            border-radius: 4px;
+        .btn {
+            width: 100%;
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 2px;
             cursor: pointer;
             font-family: inherit;
             font-size: 12px;
-            transition: all 0.2s;
+            font-weight: 500;
+            margin-top: 8px;
         }
-        button:hover { background: #222; color: #aaa; }
-        button.primary { background: #fff; color: #000; border-color: #fff; }
-        button.primary:hover { background: #ddd; }
-        .status {
-            text-align: center;
+        .btn:hover { background: #e0e0e0; }
+        .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+        .result {
+            display: none;
+            margin-top: 24px;
+            padding: 16px;
+            background: #111;
+            border: 1px solid #1a1a1a;
+            border-radius: 2px;
+        }
+        .result.show { display: block; }
+        .result-label {
+            font-size: 10px;
+            color: #333;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .result-content {
+            font-size: 11px;
+            color: #555;
+            word-break: break-all;
+            max-height: 120px;
+            overflow-y: auto;
+            line-height: 1.4;
+        }
+        .msg {
             font-size: 11px;
             color: #444;
             margin-top: 12px;
-            min-height: 16px;
+            text-align: center;
         }
-        .status.ok { color: #4a4; }
-        .status.err { color: #c44; }
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 11px;
-            color: #333;
-            cursor: pointer;
-        }
-        .close-btn:hover { color: #666; }
-        .pubkey-small {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 9px;
+        .msg.ok { color: #6a6; }
+        .msg.err { color: #a66; }
+        .hint {
+            font-size: 10px;
             color: #2a2a2a;
+            margin-top: 30px;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
-    <div class="close-btn" id="resetBtn">reset</div>
+    <div class="container">
+        <h1>// SECURE MESSAGE</h1>
 
-    <div class="scene" id="scene">
-        <div class="envelope" id="envelope">
-            <div class="envelope-front">
-                <div class="env-icon">✉</div>
-                <div class="title-on-env" id="envTitle">tap to open</div>
-                <div class="hint-text" id="envHint">slide to flip</div>
-            </div>
-            <div class="envelope-flap"></div>
-            <div class="envelope-back"></div>
-            <div class="envelope-content">
-                <div class="to-line">TO: LIghtJUNction</div>
-                <textarea id="secretMsg" placeholder="write your secret..."></textarea>
-                <div class="from-line">FROM: anonymous</div>
-            </div>
+        <div class="field">
+            <label>subject</label>
+            <input type="text" id="title" placeholder="what's this about">
+        </div>
+
+        <div class="field">
+            <label>secret message</label>
+            <textarea id="message" placeholder="write something only the recipient can read..."></textarea>
+        </div>
+
+        <button class="btn" id="encryptBtn">encrypt</button>
+
+        <div class="result" id="result">
+            <div class="result-label">encrypted output</div>
+            <div class="result-content" id="output"></div>
+            <div class="msg" id="msg"></div>
+            <button class="btn" id="sendBtn">create issue on github</button>
+        </div>
+
+        <div class="hint">
+            messages are encrypted in your browser<br>
+            only the recipient with the private key can decrypt
         </div>
     </div>
-
-    <div class="input-area" id="inputArea">
-        <input type="text" id="titleInput" placeholder="subject (visible on envelope)">
-        <div class="btn-row">
-            <button id="encryptBtn" class="primary">encrypt & seal</button>
-            <button id="cancelBtn">cancel</button>
-        </div>
-        <div class="status" id="status"></div>
-    </div>
-
-    <div class="pubkey-small">EB21B83... encrypted</div>
 
     <script type="module" src="/src/main.ts"></script>
 </body>
