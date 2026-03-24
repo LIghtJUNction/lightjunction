@@ -7,134 +7,169 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            background: #0a0a0a;
-            color: #e0e0e0;
+            font-family: Georgia, serif;
+            background: #1a1814;
+            color: #2a2620;
             min-height: 100vh;
-            padding: 60px 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-        }
-        h1 {
-            font-size: 13px;
-            font-weight: 400;
-            color: #444;
-            margin-bottom: 40px;
-            letter-spacing: 2px;
-        }
-        .field {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            font-size: 10px;
-            color: #333;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-        input, textarea {
-            width: 100%;
-            background: #111;
-            border: 1px solid #1a1a1a;
+        /* paper */
+        .paper {
+            width: 320px;
+            min-height: 420px;
+            background: #f4f1eb;
             border-radius: 2px;
-            padding: 14px;
-            color: #e0e0e0;
-            font-family: inherit;
-            font-size: 14px;
+            box-shadow:
+                0 2px 4px rgba(0,0,0,0.1),
+                0 8px 16px rgba(0,0,0,0.1),
+                0 16px 32px rgba(0,0,0,0.15);
+            padding: 40px 32px;
+            position: relative;
+            transform-origin: top center;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
         }
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #333;
+        .paper.open {
+            transform: perspective(1000px) rotateX(-8deg);
+        }
+        .paper.fold {
+            transform: perspective(1000px) rotateX(5deg) scale(0.95);
+        }
+        /* lines on paper */
+        .paper::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 32px;
+            right: 32px;
+            bottom: 60px;
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 27px,
+                #d4cfc7 27px,
+                #d4cfc7 28px
+            );
+            pointer-events: none;
+        }
+        .header {
+            font-size: 11px;
+            color: #8a8279;
+            border-bottom: 1px solid #d4cfc7;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
         }
         textarea {
-            min-height: 140px;
-            resize: none;
-            line-height: 1.6;
-        }
-        .btn {
             width: 100%;
-            background: #fff;
-            color: #000;
+            min-height: 280px;
+            background: transparent;
             border: none;
-            padding: 16px;
-            border-radius: 2px;
+            resize: none;
+            font-family: Georgia, serif;
+            font-size: 14px;
+            line-height: 28px;
+            color: #1a1814;
+            outline: none;
+        }
+        textarea::placeholder {
+            color: #c4bfb7;
+            font-style: italic;
+        }
+        /* wax seal */
+        .seal {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #8b2942, #6b1d32);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #f4f1eb;
             cursor: pointer;
-            font-family: inherit;
+            box-shadow:
+                0 2px 4px rgba(0,0,0,0.2),
+                inset 0 2px 4px rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .seal:hover {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow:
+                0 4px 8px rgba(0,0,0,0.3),
+                inset 0 2px 4px rgba(255,255,255,0.1);
+        }
+        .seal:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+        /* envelope that appears */
+        .envelope {
+            position: absolute;
+            width: 280px;
+            height: 180px;
+            background: linear-gradient(145deg, #d4cfc7, #c4bfb7);
+            border-radius: 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        .envelope.show {
+            opacity: 1;
+        }
+        .envelope.fly {
+            transform: translateY(-400px) rotate(10deg);
+            opacity: 0;
+        }
+        /* status */
+        .status {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 12px;
-            font-weight: 500;
-            margin-top: 8px;
+            color: #6b6259;
+            background: #f4f1eb;
+            padding: 8px 20px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-        .btn:hover { background: #e0e0e0; }
-        .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
-        .result {
-            display: none;
-            margin-top: 24px;
-            padding: 16px;
-            background: #111;
-            border: 1px solid #1a1a1a;
-            border-radius: 2px;
-        }
-        .result.show { display: block; }
-        .result-label {
-            font-size: 10px;
-            color: #333;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-        .result-content {
-            font-size: 11px;
-            color: #555;
-            word-break: break-all;
-            max-height: 120px;
-            overflow-y: auto;
-            line-height: 1.4;
-        }
-        .msg {
-            font-size: 11px;
-            color: #444;
-            margin-top: 12px;
-            text-align: center;
-        }
-        .msg.ok { color: #6a6; }
-        .msg.err { color: #a66; }
+        .status.show { opacity: 1; }
+        .status.ok { color: #4a7c4a; }
+        .status.err { color: #8b2942; }
+        /* hint */
         .hint {
-            font-size: 10px;
-            color: #2a2a2a;
-            margin-top: 30px;
-            line-height: 1.8;
+            position: fixed;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 11px;
+            color: #4a4640;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>// SECURE MESSAGE</h1>
-
-        <div class="field">
-            <label>subject</label>
-            <input type="text" id="title" placeholder="what's this about">
-        </div>
-
-        <div class="field">
-            <label>secret message</label>
-            <textarea id="message" placeholder="write something only the recipient can read..."></textarea>
-        </div>
-
-        <button class="btn" id="encryptBtn">encrypt</button>
-
-        <div class="result" id="result">
-            <div class="result-label">encrypted output</div>
-            <div class="result-content" id="output"></div>
-            <div class="msg" id="msg"></div>
-            <button class="btn" id="sendBtn">create issue on github</button>
-        </div>
-
-        <div class="hint">
-            messages are encrypted in your browser<br>
-            only the recipient with the private key can decrypt
-        </div>
+    <div class="paper" id="paper">
+        <div class="header">SECURE MESSAGE</div>
+        <textarea id="message" placeholder="write your secret..."></textarea>
+        <div class="seal" id="seal" title="click to seal">✉</div>
     </div>
+
+    <div class="envelope" id="envelope">✉</div>
+    <div class="status" id="status"></div>
+    <div class="hint" id="hint">click paper to start writing</div>
 
     <script type="module" src="/src/main.ts"></script>
 </body>

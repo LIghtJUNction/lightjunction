@@ -20,50 +20,90 @@ l3xQhx6HVK8KzO3u7bdIxVNIwuj+fqmhAg==
 
 let encrypted = ''
 
-const el = (id: string) => document.getElementById(id)!
+const paper = document.getElementById('paper')!
+const message = document.getElementById('message') as HTMLTextAreaElement
+const seal = document.getElementById('seal')!
+const envelope = document.getElementById('envelope')!
+const status = document.getElementById('status')!
+const hint = document.getElementById('hint')!
 
-el('encryptBtn').onclick = async () => {
-    const msg = el('message').value.trim()
-    const title = el('title').value.trim()
+message.addEventListener('focus', () => {
+    paper.classList.add('open')
+    hint.textContent = 'write your secret message'
+})
 
+message.addEventListener('blur', () => {
+    if (!encrypted) paper.classList.remove('open')
+})
+
+seal.addEventListener('click', async () => {
+    const msg = message.value.trim()
     if (!msg) {
-        el('msg').textContent = 'write something first'
-        el('msg').className = 'msg err'
+        showStatus('write something first', 'err')
         return
     }
 
-    const btn = el('encryptBtn')
-    btn.textContent = '...'
-    btn.disabled = true
+    paper.classList.add('fold')
+    seal.style.display = 'none'
+    showStatus('encrypting...')
 
     try {
         const pub = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
-        const full = title ? `Title: ${title}\n\n${msg}` : msg
 
         encrypted = await openpgp.encrypt({
-            message: await openpgp.createMessage({ text: full }),
+            message: await openpgp.createMessage({ text: msg }),
             encryptionKeys: pub,
         }) as string
 
-        el('output').textContent = encrypted
-        el('result').classList.add('show')
-        el('msg').textContent = 'copied to clipboard'
-        el('msg').className = 'msg ok'
-
         await navigator.clipboard.writeText(encrypted)
+        showStatus('encrypted & copied!', 'ok')
+        hint.textContent = 'tap envelope to send'
+
+        // Show envelope
+        envelope.classList.add('show')
+
+        // After delay, fly away
+        setTimeout(() => {
+            envelope.classList.add('fly')
+            setTimeout(() => {
+                sendToGithub()
+            }, 600)
+        }, 800)
 
     } catch (e) {
-        el('msg').textContent = 'error: ' + (e as Error).message
-        el('msg').className = 'msg err'
+        showStatus('error: ' + (e as Error).message, 'err')
+        paper.classList.remove('fold')
+        seal.style.display = 'flex'
     }
+})
 
-    btn.textContent = 'encrypt'
-    btn.disabled = false
+envelope.addEventListener('click', () => {
+    if (!encrypted) return
+    sendToGithub()
+})
+
+function sendToGithub() {
+    const body = encodeURIComponent(`## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`)
+    const url = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=secure+message&body=${body}`
+    window.open(url, '_blank')
+    navigator.clipboard.writeText(url)
+    showStatus('github opened & link copied!', 'ok')
+
+    // Reset after a moment
+    setTimeout(resetAll, 2000)
 }
 
-el('sendBtn').onclick = () => {
-    if (!encrypted) return
-    const title = el('title').value.trim() || 'encrypted message'
-    const body = encodeURIComponent(`## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`)
-    window.open(`https://github.com/LIghtJUNction/lightjunction/issues/new?title=${encodeURIComponent(title)}&body=${body}`, '_blank')
+function showStatus(text: string, type: 'ok' | 'err' | '' = '') {
+    status.textContent = text
+    status.className = 'status show ' + type
+}
+
+function resetAll() {
+    paper.classList.remove('open', 'fold')
+    envelope.classList.remove('show', 'fly')
+    message.value = ''
+    encrypted = ''
+    seal.style.display = 'flex'
+    hint.textContent = 'click paper to start writing'
+    showStatus('')
 }
