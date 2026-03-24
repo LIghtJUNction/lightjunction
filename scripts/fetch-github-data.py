@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "requests>=2.32.0",
+# ]
+# ///
 """
 fetch-github-data.py - Fetch GitHub data for README update
 """
@@ -7,7 +13,6 @@ import json
 import os
 import requests
 from datetime import datetime, timedelta, timezone
-from pathlib import Path
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 REPO_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "LIghtJUNction")
@@ -123,8 +128,9 @@ def main():
         "fetched_at": datetime.now(timezone.utc).isoformat(),
     }
 
-    output_path = Path("github_data.json")
-    output_path.write_text(json.dumps(data, indent=2, ensure_ascii=False))
+    output_path = "github_data.json"
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"✅ Data saved to {output_path}")
     print(f"   - Repos: {len(data['repos'])}")
     print(f"   - Commits (7 days): {len(data['commits'])}")

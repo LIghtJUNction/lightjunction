@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "requests>=2.32.0",
+# ]
+# ///
 """
 ai-enhance.py - Use AI to enhance README content
 Uses GitHub Copilot API (models.githubusercontent.com)
