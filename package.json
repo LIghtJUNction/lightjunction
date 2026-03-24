@@ -1,0 +1,16 @@
+{
+  "name": "secure-message",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "openpgp": "^5.11.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
