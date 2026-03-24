@@ -3,190 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔒 Secure Message - LIghtJUNction</title>
+    <title>Secure Message</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            background: #0a0a0a;
+            color: #e0e0e0;
             min-height: 100vh;
-            color: #c9d1d9;
-            padding: 20px;
+            padding: 40px 20px;
+            line-height: 1.5;
         }
         .container {
-            max-width: 700px;
+            max-width: 640px;
             margin: 0 auto;
         }
         h1 {
-            text-align: center;
-            color: #58a6ff;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            text-align: center;
-            color: #8b949e;
-            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #888;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
         }
         .card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         label {
             display: block;
+            font-size: 11px;
+            color: #666;
             margin-bottom: 8px;
-            color: #c9d1d9;
-            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         input, textarea {
             width: 100%;
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 6px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px;
             padding: 12px;
-            color: #c9d1d9;
-            font-size: 14px;
-            margin-bottom: 15px;
+            color: #e0e0e0;
+            font-family: inherit;
+            font-size: 13px;
         }
         input:focus, textarea:focus {
             outline: none;
-            border-color: #58a6ff;
+            border-color: #444;
         }
         textarea {
-            min-height: 150px;
+            min-height: 120px;
             resize: vertical;
-            font-family: monospace;
         }
-        .btn {
-            background: #238636;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        button {
+            background: #1a1a1a;
+            color: #888;
+            border: 1px solid #333;
+            padding: 10px 16px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            margin-right: 10px;
-        }
-        .btn:hover { background: #2ea043; }
-        .btn:disabled { background: #484f58; cursor: not-allowed; }
-        .btn-secondary {
-            background: #21262d;
-            border: 1px solid #30363d;
-        }
-        .btn-secondary:hover { background: #30363d; }
-        .output {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 15px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            word-break: break-all;
-            max-height: 300px;
-            overflow-y: auto;
-            margin-top: 15px;
-        }
-        .copied {
-            color: #3fb950;
+            font-family: inherit;
             font-size: 12px;
-            margin-top: 5px;
         }
-        .info {
-            color: #58a6ff;
-            font-size: 13px;
-            margin-bottom: 15px;
+        button:hover {
+            background: #222;
+            color: #aaa;
         }
-        .badge {
-            display: inline-block;
-            background: #1f6feb;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            margin-left: 8px;
+        button.primary {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
         }
-        .status {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 13px;
+        button.primary:hover {
+            background: #ddd;
         }
-        .status.loading { background: #1f6feb22; color: #58a6ff; }
-        .status.error { background: #da363322; color: #f85149; }
-        .status.success { background: #23863622; color: #3fb950; }
-        .pubkey-section {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
-        .pubkey-section pre {
-            font-family: monospace;
+        .output {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px;
+            padding: 12px;
             font-size: 11px;
             white-space: pre-wrap;
             word-break: break-all;
-            color: #8b949e;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+        .output.show {
+            display: block;
+        }
+        .msg {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+        .msg.error { color: #c44; }
+        .msg.success { color: #4a4; }
+        .hint {
+            font-size: 11px;
+            color: #555;
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔒 Secure Message <span class="badge">End-to-End Encrypted</span></h1>
-        <p class="subtitle">Send encrypted messages to LIghtJUNction using GPG public key cryptography</p>
+        <h1>// SECURE MESSAGE</h1>
 
-        <div class="pubkey-section">
-            <label>🔑 Public Key (used for encryption)</label>
-            <pre id="pubkey">Loading...</pre>
+        <div class="card">
+            <label>public key</label>
+            <div style="font-size:10px;color:#555;word-break:break-all;padding:8px;background:#0d0d0d;border-radius:4px;" id="pubkey">loading...</div>
         </div>
 
         <div class="card">
-            <label>📝 Title (optional, will be visible)</label>
-            <input type="text" id="title" placeholder="Brief subject (public)">
+            <label>title (optional)</label>
+            <input type="text" id="title" placeholder="subject">
+        </div>
 
-            <label>💬 Your Message</label>
-            <textarea id="message" placeholder="Type your private message here... It will be encrypted locally in your browser before sending."></textarea>
-
-            <button class="btn" id="encryptBtn">🔐 Encrypt Message</button>
-            <button class="btn btn-secondary" id="copyBtn">📋 Copy Encrypted</button>
-            <button class="btn btn-secondary" id="clearBtn">🗑️ Clear</button>
+        <div class="card">
+            <label>message</label>
+            <textarea id="message" placeholder="your private message..."></textarea>
+            <div class="btn-row">
+                <button class="primary" id="encryptBtn">encrypt</button>
+                <button id="copyBtn">copy</button>
+                <button id="clearBtn">clear</button>
+            </div>
         </div>
 
         <div class="card" id="outputCard" style="display:none;">
-            <label>🔐 Encrypted Output</label>
+            <label>encrypted</label>
             <div class="output" id="output"></div>
-            <p class="copied" id="copiedMsg"></p>
-
-            <div style="margin-top: 15px;">
-                <button class="btn" id="postBtn">🚀 Post to GitHub Issue</button>
-                <span class="info">Requires GitHub Token</span>
+            <div class="msg" id="msg"></div>
+            <div class="btn-row">
+                <button id="postBtn">post to github</button>
             </div>
-
-            <div id="statusMsg"></div>
+            <div class="hint">post creates a public issue with the encrypted message</div>
         </div>
 
         <div class="card">
-            <label>🔧 Advanced: GitHub Token (optional)</label>
-            <input type="password" id="ghToken" placeholder="ghp_xxxxx or gho_xxxxx (for posting to GitHub)">
-            <p class="info">
-                💡 Your token is only used to create the GitHub Issue.<br>
-                The message itself is encrypted in your browser and never decrypted on any server.
-            </p>
-        </div>
-
-        <div class="card">
-            <label>📖 How it works</label>
-            <p style="font-size: 13px; color: #8b949e; line-height: 1.6;">
-                1. This page loads the recipient's <strong>public GPG key</strong><br>
-                2. You enter your message and click "Encrypt"<br>
-                3. Your browser encrypts the message <strong>locally</strong> using the public key<br>
-                4. Only the <strong>encrypted ciphertext</strong> is sent (via GitHub Issue or manual copy)<br>
-                5. The recipient can decrypt it with their <strong>private key</strong><br><br>
-                <strong>Your message is never sent to any server in plaintext!</strong>
-            </p>
+            <label>github token (optional)</label>
+            <input type="password" id="ghToken" placeholder="ghp_xxx">
+            <div class="hint">only needed for posting to github. your token is never stored.</div>
         </div>
     </div>
 

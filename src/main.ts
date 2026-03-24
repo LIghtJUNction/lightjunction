@@ -1,6 +1,5 @@
 import * as openpgp from 'openpgp'
 
-// Public key embedded for encryption
 const PUBLIC_KEY = `-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mDMEZ/6uihYJKwYBBAHaRw8BAQdAGM5JPSEZCHEAma0d8JoMDtfy+JJwmPlf4Lo9
@@ -19,138 +18,105 @@ l3xQhx6HVK8KzO3u7bdIxVNIwuj+fqmhAg==
 =vCDQ
 -----END PGP PUBLIC KEY BLOCK-----`
 
-let encryptedData = ''
+let encrypted = ''
 
-// Display public key
-document.getElementById('pubkey')!.textContent = PUBLIC_KEY
+const el = (id: string) => document.getElementById(id)!
 
-const titleInput = document.getElementById('title') as HTMLInputElement
-const messageInput = document.getElementById('message') as HTMLTextAreaElement
-const encryptBtn = document.getElementById('encryptBtn')!
-const copyBtn = document.getElementById('copyBtn')!
-const clearBtn = document.getElementById('clearBtn')!
-const outputCard = document.getElementById('outputCard')!
-const outputEl = document.getElementById('output')!
-const copiedMsg = document.getElementById('copiedMsg')!
-const postBtn = document.getElementById('postBtn')!
-const ghTokenInput = document.getElementById('ghToken') as HTMLInputElement
-const statusMsg = document.getElementById('statusMsg')!
+el('pubkey').textContent = PUBLIC_KEY
 
-async function encryptMessage(): Promise<void> {
-    const title = titleInput.value.trim()
-    const message = messageInput.value.trim()
+const $ = (sel: string) => document.querySelector(sel) as HTMLElement
 
-    if (!message) {
-        alert('Please enter a message to encrypt')
-        return
-    }
+el('encryptBtn').onclick = async () => {
+    const msg = el('message').value.trim()
+    if (!msg) return alert('message required')
 
-    encryptBtn.textContent = '🔐 Encrypting...'
-    encryptBtn.setAttribute('disabled', '')
+    const btn = el('encryptBtn')
+    btn.textContent = '...'
+    btn.disabled = true
 
     try {
-        const pubKey = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
-        const fullMessage = title ? `Title: ${title}\n\n${message}` : message
+        const pub = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
+        const title = el('title').value.trim()
+        const full = title ? `Title: ${title}\n\n${msg}` : msg
 
-        const encrypted = await openpgp.encrypt({
-            message: await openpgp.createMessage({ text: fullMessage }),
-            encryptionKeys: pubKey,
-        })
+        encrypted = await openpgp.encrypt({
+            message: await openpgp.createMessage({ text: full }),
+            encryptionKeys: pub,
+        }) as string
 
-        encryptedData = encrypted as string
-        outputEl.textContent = encryptedData
-        outputCard.style.display = 'block'
-        copiedMsg.textContent = ''
-        statusMsg.innerHTML = ''
-
-        encryptBtn.textContent = '✅ Encrypted!'
-        setTimeout(() => {
-            encryptBtn.textContent = '🔐 Encrypt Message'
-            encryptBtn.removeAttribute('disabled')
-        }, 2000)
-    } catch (err) {
-        alert('Encryption failed: ' + (err as Error).message)
-        encryptBtn.textContent = '🔐 Encrypt Message'
-        encryptBtn.removeAttribute('disabled')
+        el('output').textContent = encrypted
+        el('outputCard').style.display = 'block'
+        el('msg').textContent = ''
+        el('msg').className = 'msg'
+    } catch (e) {
+        el('msg').textContent = 'error: ' + (e as Error).message
+        el('msg').className = 'msg error'
     }
+
+    btn.textContent = 'encrypt'
+    btn.disabled = false
 }
 
-function copyOutput(): void {
-    if (!encryptedData) {
-        alert('No encrypted message to copy. Please encrypt a message first.')
-        return
-    }
-
-    navigator.clipboard.writeText(encryptedData).then(() => {
-        copiedMsg.textContent = '✅ Copied to clipboard!'
-        setTimeout(() => { copiedMsg.textContent = '' }, 2000)
-    })
+el('copyBtn').onclick = () => {
+    if (!encrypted) return
+    navigator.clipboard.writeText(encrypted)
+    el('msg').textContent = 'copied'
+    el('msg').className = 'msg success'
 }
 
-async function postToGitHub(): Promise<void> {
-    const token = ghTokenInput.value.trim()
-    const title = titleInput.value.trim() || 'Encrypted Message'
+el('clearBtn').onclick = () => {
+    el('title').value = ''
+    el('message').value = ''
+    el('output').textContent = ''
+    el('outputCard').style.display = 'none'
+    el('msg').textContent = ''
+    encrypted = ''
+}
 
-    if (!token) {
-        alert('Please enter your GitHub Token')
-        return
-    }
+el('postBtn').onclick = async () => {
+    const token = (el('ghToken') as HTMLInputElement).value.trim()
+    if (!token) return alert('token required')
+    if (!encrypted) return
 
-    if (!encryptedData) {
-        alert('No encrypted message to post. Please encrypt a message first.')
-        return
-    }
+    const btn = el('postBtn')
+    btn.textContent = '...'
+    btn.disabled = true
 
-    postBtn.textContent = '🚀 Posting...'
-    postBtn.setAttribute('disabled', '')
-    statusMsg.innerHTML = '<div class="status loading">Posting encrypted message to GitHub...</div>'
+    const title = el('title').value.trim() || 'encrypted message'
 
     try {
-        const response = await fetch('https://api.github.com/repos/LIghtJUNction/lightjunction/issues', {
+        const res = await fetch('https://api.github.com/repos/LIghtJUNction/lightjunction/issues', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/vnd.github.v3+json',
-                'User-Agent': 'Secure-Message-Page',
             },
             body: JSON.stringify({
                 title: `[Encrypted] ${title}`,
-                body: `## 🔐 Encrypted Message\n\nThis message was encrypted by the sender using the recipient's public GPG key.\nOnly the recipient (holding the private key) can decrypt it.\n\n\`\`\`\n${encryptedData}\n\`\`\`\n\n---\n*Sent via Secure Message Page*`,
+                body: `## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`,
             }),
         })
 
-        if (response.status === 201) {
-            const data = await response.json()
-            statusMsg.innerHTML = `<div class="status success">✅ Posted successfully! <a href="${data.html_url}" target="_blank">View Issue</a></div>`
-        } else if (response.status === 401) {
-            statusMsg.innerHTML = `<div class="status error">❌ Invalid token. Please check your GitHub Token.</div>`
-        } else if (response.status === 403) {
-            statusMsg.innerHTML = `<div class="status error">❌ Token lacks 'repo' scope or rate limited.</div>`
+        if (res.status === 201) {
+            const data = await res.json()
+            el('msg').innerHTML = `posted! <a href="${data.html_url}" style="color:#6a6;">view</a>`
+            el('msg').className = 'msg success'
+        } else if (res.status === 401) {
+            el('msg').textContent = 'invalid token'
+            el('msg').className = 'msg error'
+        } else if (res.status === 403) {
+            el('msg').textContent = 'token lacks permission'
+            el('msg').className = 'msg error'
         } else {
-            const data = await response.json()
-            statusMsg.innerHTML = `<div class="status error">❌ Error ${response.status}: ${data.message || 'Unknown error'}</div>`
+            el('msg').textContent = `error ${res.status}`
+            el('msg').className = 'msg error'
         }
-    } catch (err) {
-        statusMsg.innerHTML = `<div class="status error">❌ Network error: ${(err as Error).message}</div>`
+    } catch (e) {
+        el('msg').textContent = 'network error'
+        el('msg').className = 'msg error'
     }
 
-    postBtn.textContent = '🚀 Post to GitHub Issue'
-    postBtn.removeAttribute('disabled')
+    btn.textContent = 'post to github'
+    btn.disabled = false
 }
-
-function clearAll(): void {
-    titleInput.value = ''
-    messageInput.value = ''
-    outputEl.textContent = ''
-    outputCard.style.display = 'none'
-    copiedMsg.textContent = ''
-    statusMsg.innerHTML = ''
-    encryptedData = ''
-}
-
-// Event listeners
-encryptBtn.addEventListener('click', encryptMessage)
-copyBtn.addEventListener('click', copyOutput)
-clearBtn.addEventListener('click', clearAll)
-postBtn.addEventListener('click', postToGitHub)
