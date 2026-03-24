@@ -24,11 +24,9 @@ const el = (id: string) => document.getElementById(id)!
 
 el('pubkey').textContent = PUBLIC_KEY
 
-const $ = (sel: string) => document.querySelector(sel) as HTMLElement
-
 el('encryptBtn').onclick = async () => {
     const msg = el('message').value.trim()
-    if (!msg) return alert('message required')
+    if (!msg) return
 
     const btn = el('encryptBtn')
     btn.textContent = '...'
@@ -50,7 +48,6 @@ el('encryptBtn').onclick = async () => {
         el('msg').className = 'msg'
     } catch (e) {
         el('msg').textContent = 'error: ' + (e as Error).message
-        el('msg').className = 'msg error'
     }
 
     btn.textContent = 'encrypt'
@@ -61,7 +58,7 @@ el('copyBtn').onclick = () => {
     if (!encrypted) return
     navigator.clipboard.writeText(encrypted)
     el('msg').textContent = 'copied'
-    el('msg').className = 'msg success'
+    el('msg').className = 'msg ok'
 }
 
 el('clearBtn').onclick = () => {
@@ -71,52 +68,4 @@ el('clearBtn').onclick = () => {
     el('outputCard').style.display = 'none'
     el('msg').textContent = ''
     encrypted = ''
-}
-
-el('postBtn').onclick = async () => {
-    const token = (el('ghToken') as HTMLInputElement).value.trim()
-    if (!token) return alert('token required')
-    if (!encrypted) return
-
-    const btn = el('postBtn')
-    btn.textContent = '...'
-    btn.disabled = true
-
-    const title = el('title').value.trim() || 'encrypted message'
-
-    try {
-        const res = await fetch('https://api.github.com/repos/LIghtJUNction/lightjunction/issues', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/vnd.github.v3+json',
-            },
-            body: JSON.stringify({
-                title: `[Encrypted] ${title}`,
-                body: `## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`,
-            }),
-        })
-
-        if (res.status === 201) {
-            const data = await res.json()
-            el('msg').innerHTML = `posted! <a href="${data.html_url}" style="color:#6a6;">view</a>`
-            el('msg').className = 'msg success'
-        } else if (res.status === 401) {
-            el('msg').textContent = 'invalid token'
-            el('msg').className = 'msg error'
-        } else if (res.status === 403) {
-            el('msg').textContent = 'token lacks permission'
-            el('msg').className = 'msg error'
-        } else {
-            el('msg').textContent = `error ${res.status}`
-            el('msg').className = 'msg error'
-        }
-    } catch (e) {
-        el('msg').textContent = 'network error'
-        el('msg').className = 'msg error'
-    }
-
-    btn.textContent = 'post to github'
-    btn.disabled = false
 }
