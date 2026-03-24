@@ -124,8 +124,10 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bas
 <details>
 <summary>Click to Expand</summary>
 
-- Casual gamer who enjoys survival, building, and simulation games like Oxygen Not Included
-- Programming philosophy: Code for fun
+- 🚀 **AstrBot Team** - 协助完善 [AstrBot](https://github.com/SlashNephy/AstrBot) 软件
+- 🎮 Casual gamer - Oxygen Not Included、Survival games、Simulation games
+- 💻 Programming philosophy: Code for fun
+- 📧 Contact: lightjunction.me@gmail.com
 
 </details>
 
