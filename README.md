@@ -126,15 +126,15 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <!-- START_DYNAMIC_REPO_LIST -->
 
 - **[dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men)** - Astrbot Dashboard
-  - `Stars: 0 | Forks: 0 | Language: Vue | Updated: 2026-03-23`
+  - `Stars: 0 | Forks: 0 | Language: Vue | Updated: 2026-03-24`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - MagicNet-mihomo
-  - `Stars: 9 | Forks: 0 | Language: Shell | Updated: 2026-03-22`
+  - `Stars: 9 | Forks: 0 | Language: Shell | Updated: 2026-03-23`
+- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+  - `Stars: 53 | Forks: 1 | Language: Shell | Updated: 2026-03-23`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - I'M LIghtJUNction
-  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-03-22`
+  - `Stars: 2 | Forks: 0 | Language: Shell | Updated: 2026-03-23`
 - **[Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node)** - VLESS + Reality + XTLS-Vision/xhttp
   - `Stars: 10 | Forks: 1 | Language: Rust | Updated: 2026-03-18`
-- **[MagicNet](https://github.com/LIghtJUNction/MagicNet)** - A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-  - `Stars: 52 | Forks: 1 | Language: Shell | Updated: 2026-03-18`
 <!-- END_DYNAMIC_REPO_LIST -->
 
 ---
@@ -144,6 +144,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_COMMITS -->
 
+- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [72fe8c5](https://github.com/LIghtJUNction/MagicMihomo/commit/72fe8c53b22e2c4fd1fdeb2a21f5eddc341544a0) - ruleset: update-ruleset `2026-03-23 23:00`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [b30d63f](https://github.com/LIghtJUNction/MagicMihomo/commit/b30d63fd31d7bc3064acbc172f821548628e295c) - ruleset: update-ruleset `2026-03-22 22:53`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [a145a3f](https://github.com/LIghtJUNction/MagicMihomo/commit/a145a3f45fd677d0a5c118fe88255f2d8301fa53) - ruleset: update-ruleset `2026-03-21 22:52`
 - **[dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men)** - [f386816](https://github.com/LIghtJUNction/dash.astrbot.men/commit/f386816fbbcb907540befb0363b422c43e5cd4ed) - fix: sync workflow - add change detection logic `2026-03-21 09:18`
@@ -153,7 +154,6 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 - **[dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men)** - [735d577](https://github.com/LIghtJUNction/dash.astrbot.men/commit/735d577154cfb4e8163a88ccd902f5778cf218c9) - feat: add dashboard sync workflow (sync to root directory) `2026-03-21 07:31`
 - **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [da2036a](https://github.com/LIghtJUNction/MagicMihomo/commit/da2036a896ef51d3add5aa1004476b5b94e56753) - ruleset: update-ruleset `2026-03-20 22:56`
 - **[lightjunction](https://github.com/LIghtJUNction/lightjunction)** - [4bcc126](https://github.com/LIghtJUNction/lightjunction/commit/4bcc1266bce1939f6b154340f84868d24fd39665) - Update README.md `2026-03-20 11:27`
-- **[MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo)** - [75235b8](https://github.com/LIghtJUNction/MagicMihomo/commit/75235b842093a388ffb881e4c279f73d736b7009) - ruleset: update-ruleset `2026-03-19 22:57`
 <!-- END_DYNAMIC_COMMITS -->
 
 </details>
