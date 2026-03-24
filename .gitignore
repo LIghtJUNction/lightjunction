@@ -59,3 +59,8 @@ logs/
 htmlcov/
 coverage.xml
 .tox/
+
+# Node.js / Frontend
+node_modules/
+dist/
+*.local
