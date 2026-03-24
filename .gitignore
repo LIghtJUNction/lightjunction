@@ -10,8 +10,8 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
+# Python build artifacts
+build/
 parts/
 sdist/
 var/
@@ -43,6 +43,12 @@ Thumbs.db
 .tmp/
 script_output.txt
 *_insert.txt
+github_data.json
+ai_enhanced.json
+
+# UV
+uv.lock
+.venv/
 
 # Agent iteration logs
 logs/

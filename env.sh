@@ -1,4 +1,11 @@
 #!/bin/bash
+# env.sh - Terminal environment and color setup
+# Usage: import env.sh
+
+# Deduplication guard (must be first)
+[[ -n "${__ENV_SH_LOADED:-}" ]] && return 0
+__ENV_SH_LOADED=1
+
 : "${SCRIPT_PATH:=${BASH_SOURCE[0]}}"
 : "${SCRIPT_DIR:=$(cd "$(dirname "$SCRIPT_PATH")" && pwd)}"
 [[ -n "${CI:-}" || ! -t 0 ]] && : "${NON_INTERACTIVE:=1}" || : "${NON_INTERACTIVE:=0}"

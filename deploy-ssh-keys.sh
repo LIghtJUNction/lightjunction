@@ -1,67 +1,117 @@
 #!/bin/bash
-# --- 配置项 ---
-KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
-GPG_PATH=$(command -v gpg)
+# deploy-ssh-keys.sh - Deploy GPG SSH public key via cloud scripts
+# Usage:
+#   curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | sudo bash
+#   curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | bash
+#
+# This is a CLOUD SCRIPT - all functions are imported from GitHub.
 
-# 1. 环境检查
-[ -z "$GPG_PATH" ] && { echo "❌ 错误: 未找到 gpg" >&2; exit 1; }
+# ==================== BOOTSTRAP ====================
+# Minimal import() implementation for cloud script
+declare -gA __IMPORTED_FILES
+__IMPORTED_FILES=()
 
-if [ -d "/data/data/com.termux/files/home" ]; then
-    echo "📱 检测到 Termux 环境"
-    SYNC_EXEC="$HOME/.termux/bin/sync-ssh-keys-core.sh"
-    AUTH_FILE="$HOME/.ssh/authorized_keys"
-    
-    mkdir -p "$HOME/.termux/bin" "$(dirname "$AUTH_FILE")"
-    
-    cat << EOF > "$SYNC_EXEC"
-#!/bin/bash
-$GPG_PATH --keyserver hkps://keyserver.ubuntu.com --recv-keys $KEY_ID > /dev/null 2>&1
-$GPG_PATH --export-ssh-key $KEY_ID > "$AUTH_FILE"
-chmod 600 "$AUTH_FILE"
-EOF
-    chmod +x "$SYNC_EXEC"
-    bash "$SYNC_EXEC"
-    echo "✅ [Termux] 核心同步脚本已生成并执行。"
+_import() {
+    local file="${1:?}" branch="${2:-main}" repo="${3:-lightjunction}" user="${4:-lightjunction}"
+    local base_url="${5:-https://raw.githubusercontent.com}"
+    local url="$base_url/$user/$repo/$branch/$file"
+    [[ "${__IMPORTED_FILES[$url]:-}" == "1" ]] && return 0
+    __IMPORTED_FILES[$url]=1
+    local tmpfile; tmpfile=$(mktemp) || return 1
+    curl -fsSL --connect-timeout 15 "$url" -o "$tmpfile" 2>/dev/null || {
+        rm -f "$tmpfile"
+        echo "[ERROR] Failed to download: $url" >&2
+        return 1
+    }
+    source "$tmpfile"; rm -f "$tmpfile"
+}
 
-else
-    echo "💻 检测到标准 Linux 环境"
-    [ "$EUID" -ne 0 ] && { echo "❌ 错误: 必须以 root 权限运行" >&2; exit 1; }
-    
-    if ! command -v systemctl &> /dev/null; then
-        echo "❌ 错误: 未检测到 systemctl，仅支持 systemd 系统。" >&2
+# ==================== IMPORTS ====================
+_import env.sh
+_import log.sh
+
+# ==================== MAIN ====================
+main() {
+    local key_id="EB21B83AB1E982DF66F08387A67178405F7736FD"
+    local gpg_path
+    gpg_path=$(command -v gpg) || gpg_path=$(command -v gpg2)
+
+    # Check gpg exists
+    if [[ -z "$gpg_path" ]]; then
+        err "GPG not found"
         exit 1
     fi
-    
-    SYNC_EXEC="/usr/local/bin/sync-ssh-keys-core.sh"
-    AUTH_FILE="$HOME/.ssh/authorized_keys"
-    mkdir -p "$(dirname "$AUTH_FILE")"
-    
-    # 生成核心同步脚本
-    cat << EOF > "$SYNC_EXEC"
-#!/bin/bash
-$GPG_PATH --keyserver hkps://keyserver.ubuntu.com --recv-keys $KEY_ID > /dev/null 2>&1
-$GPG_PATH --export-ssh-key $KEY_ID > "$AUTH_FILE"
-chmod 600 "$AUTH_FILE"
-EOF
-    chmod +x "$SYNC_EXEC"
+    ok "Found GPG at: $gpg_path"
 
-    # 生成 Systemd 服务
-    cat << EOF > /etc/systemd/system/ssh-key-sync.service
+    # Detect environment
+    local sync_exec auth_file
+    if [[ -d "/data/data/com.termux/files/home" ]]; then
+        info "Detected Termux environment"
+        sync_exec="$HOME/.termux/bin/sync-ssh-keys-core.sh"
+        auth_file="$HOME/.ssh/authorized_keys"
+        _import lib/os.sh
+        os_ensure_dir "$HOME/.termux/bin"
+        os_ensure_dir "$(dirname "$auth_file")"
+
+        # Generate sync script
+        cat > "$sync_exec" <<'SYNCEOF'
+#!/bin/bash
+GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null)}"
+KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
+$GPG_PATH --keyserver hkps://keyserver.ubuntu.com --recv-keys "$KEY_ID" >/dev/null 2>&1
+$GPG_PATH --export-ssh-key "$KEY_ID" > ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+SYNCEOF
+        chmod +x "$sync_exec"
+        bash "$sync_exec"
+        ok "Termux sync script generated and executed"
+
+    else
+        info "Detected Linux environment"
+        if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
+            err "Linux deployment requires root (sudo)"
+            exit 1
+        fi
+
+        # Check systemd
+        if ! command -v systemctl >/dev/null 2>&1; then
+            err "systemd not found, only systemd-based Linux is supported"
+            exit 1
+        fi
+
+        sync_exec="/usr/local/bin/sync-ssh-keys-core.sh"
+        auth_file="$HOME/.ssh/authorized_keys"
+        _import lib/os.sh
+        os_ensure_dir "$(dirname "$auth_file")"
+
+        # Generate sync script
+        cat > "$sync_exec" <<'SYNCEOF'
+#!/bin/bash
+GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null)}"
+KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
+$GPG_PATH --keyserver hkps://keyserver.ubuntu.com --recv-keys "$KEY_ID" >/dev/null 2>&1
+$GPG_PATH --export-ssh-key "$KEY_ID" > ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+SYNCEOF
+        chmod +x "$sync_exec"
+
+        # Generate systemd service
+        cat > /etc/systemd/system/ssh-key-sync.service <<'SERVICEEOF'
 [Unit]
 Description=GPG SSH Key Sync Service
 After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=$SYNC_EXEC
-Environment=HOME=$HOME
+ExecStart=/usr/local/bin/sync-ssh-keys-core.sh
+Environment=HOME=/root
 
 [Install]
 WantedBy=multi-user.target
-EOF
+SERVICEEOF
 
-    # 生成 Systemd 定时器
-    cat << EOF > /etc/systemd/system/ssh-key-sync.timer
+        # Generate systemd timer
+        cat > /etc/systemd/system/ssh-key-sync.timer <<'TIMEREOF'
 [Unit]
 Description=Timer for GPG SSH Key Sync
 
@@ -72,20 +122,22 @@ Persistent=true
 
 [Install]
 WantedBy=timers.target
-EOF
+TIMEREOF
 
-    # 激活服务
-    systemctl daemon-reload
-    if ! systemctl is-enabled --quiet ssh-key-sync.timer; then
-        systemctl enable ssh-key-sync.timer
+        systemctl daemon-reload
+        if ! systemctl is-enabled --quiet ssh-key-sync.timer 2>/dev/null; then
+            systemctl enable ssh-key-sync.timer
+        fi
+        bash "$sync_exec"
+        ok "Linux systemd sync service deployed"
     fi
-    bash "$SYNC_EXEC"
-    
-    echo "✅ [Linux] Systemd 自动同步任务部署成功。"
-fi
 
-echo "------------------------------------------------"
-echo "📜 服务器端当前授权公钥内容 ($AUTH_FILE):"
-cat "$AUTH_FILE"
-echo "------------------------------------------------"
-echo "🚀 提示：请确保你本地已导入私钥并配置 IdentityAgent 即可登录。"
+    # Show deployed key
+    line
+    info "Current authorized_keys content ($auth_file):"
+    cat "$auth_file" 2>/dev/null || echo "(empty or not accessible)"
+    line
+    ok "Done! Make sure your local machine has the private key imported and IdentityAgent configured."
+}
+
+main "$@"

@@ -1,0 +1,16 @@
+[project]
+name = "lightjunction"
+version = "0.1.0"
+description = "LIghtJUNction personal homepage and GitHub automation"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32.0",
+]
+
+[dependency-groups]
+dev = []
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_ignores = true

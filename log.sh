@@ -1,4 +1,10 @@
 #!/bin/bash
+# log.sh - Logging utilities (err, warn, ok, info, debug, line)
+# Usage: import log.sh
+
+# Deduplication guard (must be first)
+[[ -n "${__LOG_SH_LOADED:-}" ]] && return 0
+__LOG_SH_LOADED=1
 
 _LAST_MSG=""
 _LAST_LVL=""
