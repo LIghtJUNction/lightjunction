@@ -17,19 +17,20 @@ jobs:
       - name: Encrypt and Protect
         id: encrypt
         run: |
-          # Get issue content
-          TITLE="${{ github.event.issue.title }}"
-          BODY="${{ github.event.issue.body }}"
+          # Get issue content from JSON
+          TITLE=$(echo '${{ toJson(github.event.issue) }}' | jq -r '.title')
+          BODY=$(echo '${{ toJson(github.event.issue) }}' | jq -r '.body')
+          USER="${{ github.event.issue.user.login }}"
 
           # Combine for encryption
-          CONTENT="From: ${{ github.event.issue.user.login }}
+          CONTENT="From: $USER
 Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
 
 Message:
 $BODY"
 
           # Encrypt with GPG
-          ENCRYPTED=$(echo "$CONTENT" | gpg --batch --yes --encrypt --armor \
+          ENCRYPTED=$(printf '%s' "$CONTENT" | gpg --batch --yes --encrypt --armor \
             --recipient EB21B83AB1E982DF66F08387A67178405F7736FD 2>/dev/null)
 
           # Save encrypted content
@@ -60,17 +61,7 @@ $BODY"
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## 🔐 Encrypted Message
-
-This message is encrypted with the owner's GPG public key.
-Only the owner (holding the private key) can decrypt and read it.
-
-\`\`\`
-${enc}
-\`\`\`
-
----
-*Auto-encrypted by GitHub Action*`
+              body: '## 🔐 Encrypted Message\n\nThis message is encrypted with the owner\'s GPG public key.\nOnly the owner (holding the private key) can decrypt and read it.\n\n```\n' + enc + '\n```\n\n---\n*Auto-encrypted by GitHub Action*'
             });
 
       - name: Close Issue
