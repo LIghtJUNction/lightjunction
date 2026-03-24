@@ -58,16 +58,17 @@ EOF
     elif [[ -d "/run/systemd/system" ]]; then
         info "Linux (systemd) detected"
 
-        if [[ ${EUID:-$(id -u)} -ne 0 ]]; then
-            err "Requires root (sudo)"; exit 1
+        # Check sudo
+        if ! sudo -n true 2>/dev/null; then
+            err "Requires sudo"; exit 1
         fi
 
         import lib/os.sh
-        os_ensure_dir "/usr/local/bin"
-        os_ensure_dir "$HOME/.ssh"
+        sudo os_ensure_dir "/usr/local/bin"
+        sudo os_ensure_dir "$HOME/.ssh"
 
         local sync_script="/usr/local/bin/sync-ssh-keys.sh"
-        cat > "$sync_script" <<'EOF'
+        sudo tee "$sync_script" >/dev/null <<'EOF'
 #!/bin/bash
 GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2)}"
 KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
@@ -75,23 +76,39 @@ $GPG_PATH --keyserver hkps://keyserver.ubuntu.com --recv-keys "$KEY_ID" >/dev/nu
 $GPG_PATH --export-ssh-key "$KEY_ID" > ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 EOF
-        chmod +x "$sync_script"
+        sudo chmod +x "$sync_script"
+        bash "$sync_script"
 
-        # Systemd service + timer
-        cat > /etc/systemd/system/ssh-key-sync.service <<'EOF'
-[Unit] Description=GPG SSH Key Sync After=network-online.target
-[Service] Type=oneshot ExecStart=/usr/local/bin/sync-ssh-keys.sh Environment=HOME=/root
-[Install] WantedBy=multi-user.target
+        # Systemd service + timer (multi-line format)
+        sudo tee /etc/systemd/system/ssh-key-sync.service >/dev/null <<'EOF'
+[Unit]
+Description=GPG SSH Key Sync
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/sync-ssh-keys.sh
+Environment=HOME=/root
+
+[Install]
+WantedBy=multi-user.target
 EOF
 
-        cat > /etc/systemd/system/ssh-key-sync.timer <<'EOF'
-[Unit] Description=GPG SSH Key Sync Timer
-[Timer] OnBootSec=2min OnUnitActiveSec=12h Persistent=true
-[Install] WantedBy=timers.target
+        sudo tee /etc/systemd/system/ssh-key-sync.timer >/dev/null <<'EOF'
+[Unit]
+Description=GPG SSH Key Sync Timer
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=12h
+Persistent=true
+
+[Install]
+WantedBy=timers.target
 EOF
 
-        systemctl daemon-reload
-        systemctl enable --now ssh-key-sync.timer
+        sudo systemctl daemon-reload
+        sudo systemctl enable --now ssh-key-sync.timer
         ok "Systemd timer enabled (syncs every 12h)"
     else
         err "Unsupported environment"; exit 1
