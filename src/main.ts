@@ -69,3 +69,10 @@ el('clearBtn').onclick = () => {
     el('msg').textContent = ''
     encrypted = ''
 }
+
+el('createIssueBtn').onclick = () => {
+    if (!encrypted) return
+    const title = el('title').value.trim() || 'encrypted message'
+    const body = encodeURIComponent(`## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`)
+    window.open(`https://github.com/LIghtJUNction/lightjunction/issues/new?title=${encodeURIComponent(title)}&body=${body}`, '_blank')
+}
