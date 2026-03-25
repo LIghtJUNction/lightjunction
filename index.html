@@ -2,174 +2,181 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Secure Message</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Georgia, serif;
-            background: #1a1814;
-            color: #2a2620;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            background: #0a0a0a;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
+            touch-action: none;
         }
-        /* paper */
-        .paper {
-            width: 320px;
-            min-height: 420px;
-            background: #f4f1eb;
-            border-radius: 2px;
-            box-shadow:
-                0 2px 4px rgba(0,0,0,0.1),
-                0 8px 16px rgba(0,0,0,0.1),
-                0 16px 32px rgba(0,0,0,0.15);
-            padding: 40px 32px;
-            position: relative;
-            transform-origin: top center;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-style: preserve-3d;
+        /* bg */
+        .bg {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(0,255,136,0.03) 0%, transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(255,0,136,0.02) 0%, transparent 40%),
+                #0a0a0a;
         }
-        .paper.open {
-            transform: perspective(1000px) rotateX(-8deg);
-        }
-        .paper.fold {
-            transform: perspective(1000px) rotateX(5deg) scale(0.95);
-        }
-        /* lines on paper */
-        .paper::before {
+        .bg::before {
             content: '';
             position: absolute;
-            top: 60px;
-            left: 32px;
-            right: 32px;
-            bottom: 60px;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,255,136,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,136,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        /* card */
+        .card {
+            position: absolute;
+            width: 280px;
+            background: linear-gradient(145deg, #111, #0d0d0d);
+            border: 1px solid rgba(0,255,136,0.12);
+            border-radius: 8px;
+            padding: 20px 18px 20px;
+            cursor: grab;
+            box-shadow:
+                0 0 50px rgba(0,255,136,0.06),
+                0 20px 60px rgba(0,0,0,0.4);
+            transform-origin: center center;
+        }
+        .card:active { cursor: grabbing; }
+        /* lines */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 44px; left: 18px; right: 18px; bottom: 44px;
             background-image: repeating-linear-gradient(
                 transparent,
-                transparent 27px,
-                #d4cfc7 27px,
-                #d4cfc7 28px
+                transparent 20px,
+                rgba(0,255,136,0.05) 20px,
+                rgba(0,255,136,0.05) 21px
             );
             pointer-events: none;
         }
-        .header {
-            font-size: 11px;
-            color: #8a8279;
-            border-bottom: 1px solid #d4cfc7;
+        .title {
+            font-size: 8px;
+            color: rgba(0,255,136,0.5);
+            letter-spacing: 3px;
             padding-bottom: 8px;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(0,255,136,0.1);
+            margin-bottom: 14px;
         }
         textarea {
             width: 100%;
-            min-height: 280px;
+            height: 160px;
             background: transparent;
             border: none;
             resize: none;
-            font-family: Georgia, serif;
-            font-size: 14px;
-            line-height: 28px;
-            color: #1a1814;
+            font-family: inherit;
+            font-size: 12px;
+            line-height: 21px;
+            color: #d0d0d0;
             outline: none;
         }
-        textarea::placeholder {
-            color: #c4bfb7;
-            font-style: italic;
-        }
-        /* wax seal */
-        .seal {
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #8b2942, #6b1d32);
-            border-radius: 50%;
-            display: flex;
+        textarea::placeholder { color: rgba(255,255,255,0.12); }
+        /* button */
+        /* result */
+        .result {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 100;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            color: #f4f1eb;
-            cursor: pointer;
-            box-shadow:
-                0 2px 4px rgba(0,0,0,0.2),
-                inset 0 2px 4px rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            z-index: 10;
         }
-        .seal:hover {
-            transform: translateX(-50%) scale(1.1);
-            box-shadow:
-                0 4px 8px rgba(0,0,0,0.3),
-                inset 0 2px 4px rgba(255,255,255,0.1);
+        .result.show { display: flex; }
+        .result-box {
+            background: #0f0f0f;
+            border: 1px solid rgba(0,255,136,0.15);
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%;
+            max-width: 360px;
         }
-        .seal:active {
-            transform: translateX(-50%) scale(0.95);
+        .result-label {
+            font-size: 8px;
+            color: #00ff88;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
-        /* envelope that appears */
-        .envelope {
-            position: absolute;
-            width: 280px;
-            height: 180px;
-            background: linear-gradient(145deg, #d4cfc7, #c4bfb7);
+        .result-text {
+            background: #080808;
             border-radius: 4px;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            padding: 12px;
+            font-size: 9px;
+            color: rgba(255,255,255,0.4);
+            word-break: break-all;
+            max-height: 160px;
+            overflow-y: auto;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .result-btns {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            gap: 8px;
         }
-        .envelope.show {
-            opacity: 1;
+        .result-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 9px;
+            cursor: pointer;
+            border: 1px solid rgba(0,255,136,0.2);
+            background: rgba(0,255,136,0.08);
+            color: #00ff88;
         }
-        .envelope.fly {
-            transform: translateY(-400px) rotate(10deg);
-            opacity: 0;
+        .result-btn:hover { background: rgba(0,255,136,0.15); }
+        .result-btn.dark {
+            border-color: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.3);
+            background: transparent;
         }
         /* status */
         .status {
             position: fixed;
-            bottom: 30px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 12px;
-            color: #6b6259;
-            background: #f4f1eb;
-            padding: 8px 20px;
-            border-radius: 20px;
+            font-size: 9px;
+            color: #00ff88;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.2s;
+            z-index: 50;
+            pointer-events: none;
         }
         .status.show { opacity: 1; }
-        .status.ok { color: #4a7c4a; }
-        .status.err { color: #8b2942; }
-        /* hint */
-        .hint {
-            position: fixed;
-            bottom: 30px;
-            width: 100%;
-            text-align: center;
-            font-size: 11px;
-            color: #4a4640;
-            opacity: 0.5;
-        }
     </style>
 </head>
 <body>
-    <div class="paper" id="paper">
-        <div class="header">SECURE MESSAGE</div>
-        <textarea id="message" placeholder="write your secret..."></textarea>
-        <div class="seal" id="seal" title="click to seal">✉</div>
+    <div class="bg"></div>
+
+    <div class="card" id="card">
+        <div class="title">SECURE MESSAGE</div>
+        <textarea id="msg" placeholder="secret..."></textarea>
     </div>
 
-    <div class="envelope" id="envelope">✉</div>
-    <div class="status" id="status"></div>
-    <div class="hint" id="hint">click paper to start writing</div>
+    <div class="result" id="result">
+        <div class="result-box">
+            <div class="result-label">ENCRYPTED</div>
+            <div class="result-text" id="out"></div>
+            <div class="result-btns">
+                <button class="result-btn" id="cp">COPY</button>
+                <button class="result-btn" id="gh">GITHUB</button>
+                <button class="result-btn dark" id="cl">×</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="status" id="st"></div>
 
     <script type="module" src="/src/main.ts"></script>
 </body>

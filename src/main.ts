@@ -20,90 +20,200 @@ l3xQhx6HVK8KzO3u7bdIxVNIwuj+fqmhAg==
 
 let encrypted = ''
 
-const paper = document.getElementById('paper')!
-const message = document.getElementById('message') as HTMLTextAreaElement
-const seal = document.getElementById('seal')!
-const envelope = document.getElementById('envelope')!
-const status = document.getElementById('status')!
-const hint = document.getElementById('hint')!
+const card = document.getElementById('card')!
+const msg = document.getElementById('msg') as HTMLTextAreaElement
+const result = document.getElementById('result')!
+const out = document.getElementById('out')!
+const cp = document.getElementById('cp')!
+const gh = document.getElementById('gh')!
+const cl = document.getElementById('cl')!
+const st = document.getElementById('st')!
 
-message.addEventListener('focus', () => {
-    paper.classList.add('open')
-    hint.textContent = 'write your secret message'
+// physics
+let posX = 0, posY = 0
+let velX = 0, velY = 0
+let dragging = false
+let startX = 0, startY = 0
+let offsetX = 0, offsetY = 0
+let lastX = 0, lastY = 0
+let lastT = 0
+let sent = false
+
+const GRAV = 0.4
+const FRIC = 0.99
+
+function init() {
+    posX = (window.innerWidth - card.offsetWidth) / 2
+    posY = (window.innerHeight - card.offsetHeight) / 2
+    update()
+}
+init()
+
+function update() {
+    card.style.transform = `translate(${posX}px, ${posY}px)`
+}
+
+function frame() {
+    if (!dragging && !sent) {
+        velY += GRAV
+        velX *= FRIC
+        velY *= FRIC
+        posX += velX
+        posY += velY
+
+        const maxX = window.innerWidth - card.offsetWidth
+        const maxY = window.innerHeight - card.offsetHeight
+
+        if (posX < 0) { posX = 0; velX = -velX * 0.6 }
+        if (posX > maxX) { posX = maxX; velX = -velX * 0.6 }
+        if (posY > maxY) { posY = maxY; velY = -velY * 0.6 }
+
+        // thrown above screen = send
+        if (posY < -card.offsetHeight - 50) {
+            doSend()
+        }
+
+        update()
+    }
+    requestAnimationFrame(frame)
+}
+frame()
+
+// drag - mouse
+card.addEventListener('mousedown', (e) => {
+    if ((e.target as HTMLElement).tagName === 'TEXTAREA') return
+    dragging = true
+    startX = e.clientX
+    startY = e.clientY
+    offsetX = posX
+    offsetY = posY
+    lastX = e.clientX
+    lastY = e.clientY
+    lastT = Date.now()
+    velX = velY = 0
 })
 
-message.addEventListener('blur', () => {
-    if (!encrypted) paper.classList.remove('open')
+window.addEventListener('mousemove', (e) => {
+    if (!dragging) return
+    const now = Date.now()
+    const dt = now - lastT
+    if (dt > 0) {
+        velX = (e.clientX - lastX) / dt * 16
+        velY = (e.clientY - lastY) / dt * 16
+    }
+    posX = offsetX + (e.clientX - startX)
+    posY = offsetY + (e.clientY - startY)
+    lastX = e.clientX
+    lastY = e.clientY
+    lastT = now
+    update()
 })
 
-seal.addEventListener('click', async () => {
-    const msg = message.value.trim()
-    if (!msg) {
-        showStatus('write something first', 'err')
+window.addEventListener('mouseup', (e) => {
+    if (!dragging) return
+    dragging = false
+    velX = (e.clientX - startX) * 0.05
+    velY = (e.clientY - startY) * 0.05
+})
+
+// drag - touch
+card.addEventListener('touchstart', (e) => {
+    if ((e.target as HTMLElement).tagName === 'TEXTAREA') return
+    const t = e.touches[0]
+    dragging = true
+    startX = t.clientX
+    startY = t.clientY
+    offsetX = posX
+    offsetY = posY
+    lastX = t.clientX
+    lastY = t.clientY
+    lastT = Date.now()
+    velX = velY = 0
+}, { passive: true })
+
+card.addEventListener('touchmove', (e) => {
+    if (!dragging) return
+    const t = e.touches[0]
+    const now = Date.now()
+    const dt = now - lastT
+    if (dt > 0) {
+        velX = (t.clientX - lastX) / dt * 16
+        velY = (t.clientY - lastY) / dt * 16
+    }
+    posX = offsetX + (t.clientX - startX)
+    posY = offsetY + (t.clientY - startY)
+    lastX = t.clientX
+    lastY = t.clientY
+    lastT = now
+    update()
+}, { passive: true })
+
+card.addEventListener('touchend', () => { dragging = false })
+
+// status
+function status(t: string) {
+    st.textContent = t
+    st.className = t ? 'status show' : 'status'
+    if (t) setTimeout(() => st.className = 'status', 2000)
+}
+
+// send
+async function doSend() {
+    sent = true
+    const text = msg.value.trim()
+    if (!text) {
+        sent = false
+        posY = 0
+        velY = 0
+        status('write something')
         return
     }
 
-    paper.classList.add('fold')
-    seal.style.display = 'none'
-    showStatus('encrypting...')
+    status('encrypting...')
 
     try {
         const pub = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
-
         encrypted = await openpgp.encrypt({
-            message: await openpgp.createMessage({ text: msg }),
+            message: await openpgp.createMessage({ text }),
             encryptionKeys: pub,
         }) as string
 
         await navigator.clipboard.writeText(encrypted)
-        showStatus('encrypted & copied!', 'ok')
-        hint.textContent = 'tap envelope to send'
+        out.textContent = encrypted
+        result.classList.add('show')
+        status('encrypted & copied!')
+    } catch {
+        status('error')
+        sent = false
+        posY = 0
+        velY = 0
+    }
+}
 
-        // Show envelope
-        envelope.classList.add('show')
+// result buttons
+cp.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(encrypted)
+    status('copied')
+})
 
-        // After delay, fly away
-        setTimeout(() => {
-            envelope.classList.add('fly')
-            setTimeout(() => {
-                sendToGithub()
-            }, 600)
-        }, 800)
+gh.addEventListener('click', () => {
+    const url = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=encrypted+message&body=${encodeURIComponent(`## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`)}`
+    navigator.clipboard.writeText(url)
+    status('issue url copied')
+})
 
-    } catch (e) {
-        showStatus('error: ' + (e as Error).message, 'err')
-        paper.classList.remove('fold')
-        seal.style.display = 'flex'
+cl.addEventListener('click', () => {
+    result.classList.remove('show')
+    msg.value = ''
+    encrypted = ''
+    sent = false
+    init()
+})
+
+window.addEventListener('resize', () => {
+    if (!dragging) {
+        posX = Math.max(0, Math.min(posX, window.innerWidth - card.offsetWidth))
+        posY = Math.max(0, Math.min(posY, window.innerHeight - card.offsetHeight))
+        update()
     }
 })
-
-envelope.addEventListener('click', () => {
-    if (!encrypted) return
-    sendToGithub()
-})
-
-function sendToGithub() {
-    const body = encodeURIComponent(`## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`)
-    const url = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=secure+message&body=${body}`
-    window.open(url, '_blank')
-    navigator.clipboard.writeText(url)
-    showStatus('github opened & link copied!', 'ok')
-
-    // Reset after a moment
-    setTimeout(resetAll, 2000)
-}
-
-function showStatus(text: string, type: 'ok' | 'err' | '' = '') {
-    status.textContent = text
-    status.className = 'status show ' + type
-}
-
-function resetAll() {
-    paper.classList.remove('open', 'fold')
-    envelope.classList.remove('show', 'fly')
-    message.value = ''
-    encrypted = ''
-    seal.style.display = 'flex'
-    hint.textContent = 'click paper to start writing'
-    showStatus('')
-}
