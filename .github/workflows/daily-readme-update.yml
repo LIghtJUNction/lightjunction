@@ -23,11 +23,13 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Install gh extension
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh extension install github/gh-skyline
 
       - name: Generate Skyline
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh skyline -u LIghtJUNction -f --art-only > skyline.txt
 
       - name: Install UV
