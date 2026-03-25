@@ -18,8 +18,8 @@ from pathlib import Path
 REPO_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "LIghtJUNction")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
-BASE_URL = "https://models.githubusercontent.com/v1/chat/completions"
-MODEL = "gpt-4o-mini"
+BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://models.githubusercontent.com/v1/chat/completions")
+MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 
 
 def chat(messages: list, system: str = "") -> str:

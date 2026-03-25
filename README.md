@@ -1,6 +1,14 @@
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=6499E9&height=100&section=header&text=LIghtJUNction&fontSize=60&fontColor=FFFFFF&animation=blink&fontAlignY=40"/>
 
 <div align="center">
+
+## 🌐 Website
+
+**🔗 https://lightjunction.github.io/lightjunction/**
+
+</div>
+
+<div align="center">
 <a href="https://gravatar.com/totallytriumph1a8c29e246" target="_blank">
 <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=128&d=identicon" alt="LIghtJUNction" width="128" height="128" style="border-radius:50%;">
 </a>
@@ -37,7 +45,6 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ## 📊 GitHub Stats
 
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=LIghtJUNction&theme=dark&hide_border=false)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=LIghtJUNction&theme=dark&hide_border=false&include_all_commits=true&layout=compact)
 
 <!-- START_DYNAMIC_STATS -->
 
