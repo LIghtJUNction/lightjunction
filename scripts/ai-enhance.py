@@ -7,7 +7,7 @@
 # ///
 """
 ai-enhance.py - Use AI to enhance README content
-Uses GitHub Copilot API (models.githubusercontent.com)
+Uses GitHub Copilot API via OpenAI-compatible endpoint
 """
 
 import json
@@ -22,22 +22,19 @@ BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://models.githubusercontent.c
 MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 
 
-def chat(messages: list, system: str = "") -> str:
-    """Call AI chat API with GitHub token authentication."""
+def chat(prompt: str) -> str:
+    """Call GitHub Copilot API (OpenAI-compatible)."""
     headers = {
         "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Content-Type": "application/json",
         "Accept": "application/json",
     }
 
-    full_messages = []
-    if system:
-        full_messages.append({"role": "system", "content": system})
-    full_messages.extend(messages)
+    messages = [{"role": "user", "content": prompt}]
 
     payload = {
         "model": MODEL,
-        "messages": full_messages,
+        "messages": messages,
         "temperature": 0.7,
         "max_tokens": 2000,
     }
@@ -62,9 +59,7 @@ def generate_weekly_summary(data: dict) -> str:
 
     commits_text = "\n".join([f"- {c['repo']}: {c['message']}" for c in commits])
 
-    prompt = [{
-        "role": "user",
-        "content": f"""Write a brief weekly summary for a developer's GitHub profile.
+    prompt = f"""Write a brief weekly summary for a developer's GitHub profile.
 Write in English, be casual and concise, 2-3 sentences max.
 
 Activity this week ({total} commits total):
@@ -77,7 +72,6 @@ Start directly with the content. Examples:
 - "This week focused on updating rulesets for MagicMihomo and improving the AstrBot dashboard..."
 - "Worked on network tools and Android modules, with several proxy-related commits..."
 """
-    }]
 
     result = chat(prompt)
     if result:
@@ -95,9 +89,7 @@ def generate_project_insights(repos: list) -> str:
         for r in repos[:5]
     ])
 
-    prompt = [{
-        "role": "user",
-        "content": f"""Analyze these repositories and write ONE short sentence (under 100 chars) describing the developer's main focus/strengths.
+    prompt = f"""Analyze these repositories and write ONE short sentence (under 100 chars) describing the developer's main focus/strengths.
 
 Repositories:
 {repos_text}
@@ -108,7 +100,6 @@ Examples:
 - "Builds AI chatbot interfaces and proxy utilities"
 - "Develops gaming tools and DevOps automation"
 """
-    }]
 
     result = chat(prompt)
     if result:
@@ -123,16 +114,13 @@ def generate_commit_insights(commits: list) -> str:
 
     commits_text = "\n".join([f"- {c['message']} ({c['repo']})" for c in commits[:8]])
 
-    prompt = [{
-        "role": "user",
-        "content": f"""Analyze these commits and write a brief (1 sentence) summary of what the developer has been working on.
+    prompt = f"""Analyze these commits and write a brief (1 sentence) summary of what the developer has been working on.
 
 Commits:
 {commits_text}
 
 Write in past tense, casual tone. Start directly.
 """
-    }]
 
     result = chat(prompt)
     return result.strip() if result else None
