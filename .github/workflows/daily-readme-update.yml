@@ -10,6 +10,7 @@ on:
 env:
   OPENAI_BASE_URL: https://models.githubusercontent.com/v1
   OPENAI_MODEL: gpt-4o-mini
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   update-readme:
