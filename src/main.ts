@@ -198,8 +198,7 @@ cp.addEventListener('click', async () => {
 
 gh.addEventListener('click', () => {
     const url = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=encrypted+message&body=${encodeURIComponent(`## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`)}`
-    navigator.clipboard.writeText(url)
-    status('issue url copied')
+    window.open(url, '_blank')
 })
 
 cl.addEventListener('click', () => {
