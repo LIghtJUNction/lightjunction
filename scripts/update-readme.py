@@ -173,6 +173,16 @@ def replace_section(path: Path, start_marker: str, end_marker: str, new_content:
     return False
 
 
+def format_skyline() -> str:
+    skyline_path = Path("skyline.txt")
+    if not skyline_path.exists():
+        return ""
+    content = skyline_path.read_text().strip()
+    if not content:
+        return ""
+    return "### 🏔️ Skyline\n\n```\n" + content + "\n```"
+
+
 def main():
     data_path = Path("github_data.json")
     ai_path = Path("ai_enhanced.json")
@@ -191,11 +201,12 @@ def main():
 
     changed |= replace_section(readme, "<!-- START_DYNAMIC_STATS -->", "<!-- END_DYNAMIC_STATS -->", format_stats(data))
     changed |= replace_section(readme, "<!-- START_DYNAMIC_SUMMARY -->", "<!-- END_DYNAMIC_SUMMARY -->", format_weekly(data, ai_content))
+    changed |= replace_section(readme, "<!-- START_DYNAMIC_SKYLINE -->", "<!-- END_DYNAMIC_SKYLINE -->", format_skyline())
     changed |= replace_section(readme, "<!-- START_DYNAMIC_REPO_LIST -->", "<!-- END_DYNAMIC_REPO_LIST -->", format_repos(data, ai_content))
     changed |= replace_section(readme, "<!-- START_DYNAMIC_COMMITS -->", "<!-- END_DYNAMIC_COMMITS -->", format_commits(data))
 
     # Cleanup
-    for f in [data_path, ai_path]:
+    for f in [data_path, ai_path, Path("skyline.txt")]:
         f.unlink(missing_ok=True)
 
     if changed:

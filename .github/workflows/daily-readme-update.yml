@@ -21,6 +21,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Install gh extension
+        run: gh extension install github/gh-skyline
+
+      - name: Generate Skyline
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh skyline -u LIghtJUNction -y 2022-2026 --art-only > skyline.txt
+
       - name: Install UV
         uses: astral-sh/setup-uv@v7
         with:
