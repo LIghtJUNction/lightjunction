@@ -2,9 +2,9 @@
 
 <div align="center">
 
-## 🌐 Website
+## Website
 
-**🔗 https://lightjunction.github.io/lightjunction/**
+**Link: https://lightjunction.github.io/lightjunction/**
 
 </div>
 
@@ -13,14 +13,14 @@
 <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=128&d=identicon" alt="LIghtJUNction" width="128" height="128" style="border-radius:50%;">
 </a>
 
-## 🔐 GPG Public Key
+## GPG Public Key
 
 ```
 EB21B83AB1E982DF66F08387A67178405F7736FD
 ```
 
 <details>
-<summary><strong>导入 GPG 公钥</strong></summary>
+<summary><strong>Import GPG Public Key</strong></summary>
 
 ```bash
 gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys EB21B83AB1E982DF66F08387A67178405F7736FD
@@ -30,47 +30,43 @@ gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys EB21B83AB1E982DF66F08387
 
 ---
 
-## 🚀 Quick Deploy
+## Quick Deploy
 
-**一键部署 SSH 公钥**
+**One-click SSH public key deployment**
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | bash
 ```
 
-> 支持：Termux / systemd Linux
+> Supports: Termux / systemd Linux
 
 ---
 
-## 📊 GitHub Stats
+## GitHub Stats
 
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=LIghtJUNction&theme=dark&hide_border=false)
 
 <!-- START_DYNAMIC_STATS -->
 
-| 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
-|:---------:|:--------:|:------------:|:------------:|
+| Joined | Repos | Followers | Following |
+|:------:|:-----:|:---------:|:---------:|
 | 2022-06-06 (3yr 9mo) | **66** | **61** | **97** |
 
 ---
 
-
-
 <!-- START_DYNAMIC_SUMMARY -->
 
-### 📈 This Week
+### This Week
 
 **43** commits across **3** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓▓▓▓▓▓░░░ 31 |
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
-| [LIghtJUNction/dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | ▓░░░░░░░░░ 5 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | 31 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | 7 |
+| [LIghtJUNction/dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | 5 |
 
 ---
-
-
 
 <!-- START_DYNAMIC_SKYLINE -->
 
@@ -114,15 +110,15 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-### 🚀 Latest Projects
+### Latest Projects
 
 <table><tr>
 <td align="center" valign="top">
 
-#### 💚 dash.astrbot.men
+#### dash.astrbot.men
 Astrbot Dashboard
 
-⭐ 0 • 🍴 0 • Vue
+Stars: 0 | Forks: 0 | Vue
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
@@ -132,10 +128,10 @@ _Updated: 2026-03-25_
 </td>
 <td align="center" valign="top">
 
-#### 🐚 MagicMihomo
+#### MagicMihomo
 MagicNet-mihomo
 
-⭐ 9 • 🍴 0 • Shell
+Stars: 9 | Forks: 0 | Shell
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
@@ -146,10 +142,10 @@ _Updated: 2026-03-24_
 </tr><tr>
 <td align="center" valign="top">
 
-#### 🐚 lightjunction
+#### lightjunction
 I'M LIghtJUNction
 
-⭐ 2 • 🍴 0 • Shell
+Stars: 2 | Forks: 0 | Shell
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
@@ -159,10 +155,10 @@ _Updated: 2026-03-24_
 </td>
 <td align="center" valign="top">
 
-#### 🐚 MagicNet
+#### MagicNet
 A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
 
-⭐ 53 • 🍴 1 • Shell
+Stars: 53 | Forks: 1 | Shell
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
@@ -173,10 +169,10 @@ _Updated: 2026-03-23_
 </tr><tr>
 <td align="center" valign="top">
 
-#### 🦀 Mimic-Node
+#### Mimic-Node
 VLESS + Reality + XTLS-Vision/xhttp
 
-⭐ 10 • 🍴 1 • Rust
+Stars: 10 | Forks: 1 | Rust
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
@@ -186,10 +182,10 @@ _Updated: 2026-03-18_
 </td>
 <td align="center" valign="top">
 
-#### 🦀 AstrBotCanary
+#### AstrBotCanary
 This is an officially supported Astrbot
 
-⭐ 3 • 🍴 0 • Rust
+Stars: 3 | Forks: 0 | Rust
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/AstrBotCanary?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/AstrBotCanary?style=flat-square&labelColor=0d1117&color=4ecdc4)
@@ -201,18 +197,15 @@ _Updated: 2026-03-17_
 
 ---
 
-
-
 <!-- START_DYNAMIC_COMMITS -->
 
-### 📝 Recent Commits
+### Recent Commits
 
 <details>
-<summary>📅 Last 7 Days</summary>
-
+<summary>Last 7 Days</summary>
 
 | Time | Repo | Commit |
-|:-----|:-----|:-------|
+|:-----|:-----|:------|
 
 **2026-03-24**
 
@@ -231,40 +224,38 @@ _Updated: 2026-03-17_
 
 ---
 
-
-
-## 🏆 GitHub Trophies
+## GitHub Trophies
 
 <img src="https://github-trophies.vercel.app/?username=LIghtJUNction&theme=radical&no-frame=false&no-bg=false&margin-w=4&title=false">
 
 ---
 
-## 💼 Open to Work
+## Open to Work
 
 | | |
 |:---:|:---|
 | ![Status](https://img.shields.io/badge/Status-Looking%20for%20opportunities-238636?style=for-the-badge) | ![Remote](https://img.shields.io/badge/Open_to-Remote%2fHybrid-ff6b6b?style=for-the-badge) |
 
-**Skills:** Python • Shell/Bash • Linux • Network Tools • Cloud Infrastructure
+**Skills:** Python / Shell/Bash / Linux / Network Tools / Cloud Infrastructure
 
 **Contact:** lightjunction.me@gmail.com
 
 ---
 
-## 🌐 Cloud Scripts
+## Cloud Scripts
 
-**在线执行，无需下载**
+**Run online, no download required**
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/basic.sh | bash
 ```
 
 <details>
-<summary><strong>📦 加载 Shell 模块</strong></summary>
+<summary><strong>Load Shell Modules</strong></summary>
 
-| 模块 | 功能 |
-|------|------|
-| `env.sh` | 颜色变量、终端检测、UTF-8/ASCII 兼容 |
+| Module | Description |
+|--------|-------------|
+| `env.sh` | Color variables, terminal detection, UTF-8/ASCII compat |
 | `log.sh` | `err` `warn` `ok` `info` `debug` `line` |
 | `lib/str.sh` | trim, split, contains, replace, upper, lower, hash, uuid, rand |
 | `lib/arr.sh` | join, contains, map, filter, sort, unique, sum, max, min |
@@ -277,31 +268,31 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bas
 
 ---
 
-## 🛠️ Useful Tools
+## Useful Tools
 
 | Category | Tools |
 |----------|-------|
-| **Dev Tools** | [HTTPie](https://httpie.io/) • [jq](https://stedolan.github.io/jq/) • [fzf](https://github.com/junegunn/fzf) • [ripgrep](https://github.com/BurntSushi/ripgrep) |
-| **Utilities** | [tldr](https://tldr.sh/) • [Tokei](https://github.com/XAMPPRocky/tokei) • [bat](https://github.com/sharkdp/bat) • [Rich](https://github.com/Textualize/rich) |
-| **Network** | [Clash Verge](https://github.com/clash-verge-rev/clash-verge-rev) • [v2rayA](https://github.com/v2rayA/v2rayA) |
+| **Dev Tools** | [HTTPie](https://httpie.io/) / [jq](https://stedolan.github.io/jq/) / [fzf](https://github.com/junegunn/fzf) / [ripgrep](https://github.com/BurntSushi/ripgrep) |
+| **Utilities** | [tldr](https://tldr.sh/) / [Tokei](https://github.com/XAMPPRocky/tokei) / [bat](https://github.com/sharkdp/bat) / [Rich](https://github.com/Textualize/rich) |
+| **Network** | [Clash Verge](https://github.com/clash-verge-rev/clash-verge-rev) / [v2rayA](https://github.com/v2rayA/v2rayA) |
 
 ---
 
-## 📖 About Me
+## About Me
 
 <details>
 <summary>Click to Expand</summary>
 
-- 🚀 **AstrBot Team** - 协助完善 [AstrBot](https://github.com/SlashNephy/AstrBot) 软件
-- 🎮 Casual gamer - Oxygen Not Included、Survival games、Simulation games
-- 💻 Programming philosophy: Code for fun
-- 📧 Contact: lightjunction.me@gmail.com
+- AstrBot Team - Contributing to [AstrBot](https://github.com/SlashNephy/AstrBot)
+- Casual gamer - Oxygen Not Included / Survival games / Simulation games
+- Programming philosophy: Code for fun
+- Contact: lightjunction.me@gmail.com
 
 </details>
 
 ---
 
-## 💝 Support
+## Support
 
 If you like my projects, welcome to [sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor)
 
