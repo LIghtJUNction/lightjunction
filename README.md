@@ -283,7 +283,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bas
 <details>
 <summary>Click to Expand</summary>
 
-- AstrBot Team - Contributing to [AstrBot](https://github.com/SlashNephy/AstrBot)
+- AstrBot Team - Contributing to [AstrBot](https://github.com/AstrBotDevs/AstrBot)
 - Casual gamer - Oxygen Not Included / Survival games / Simulation games
 - Programming philosophy: Code for fun
 - Contact: lightjunction.me@gmail.com
