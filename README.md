@@ -39,6 +39,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ```
 
 > Supports: Termux / systemd Linux
+>
+> **Security:** Script content is shown via `less` for review before execution. Press `q` to quit without running. To skip review: add `--confirm` flag.
 
 ---
 

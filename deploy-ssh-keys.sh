@@ -6,7 +6,6 @@
 set -e
 
 KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
-GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2)}"
 
 # ==================== BOOTSTRAP ====================
 declare -gA __IMPORTED_FILES
@@ -24,6 +23,15 @@ import() {
 # ==================== IMPORTS ====================
 import env.sh
 import log.sh
+
+# ==================== PRE-REVIEW ====================
+# If stdin is a TTY and --confirm not given, show script for review.
+if [[ -t 0 && "${1:-}" != "--confirm" ]]; then
+    local scratch; scratch=$(mktemp) || exit 1
+    cat > "$scratch"
+    chmod +x "$scratch"
+    review_then_run "$scratch" "$@"; exit $?
+fi
 
 # ==================== MAIN ====================
 main() {

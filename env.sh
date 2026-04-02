@@ -33,3 +33,36 @@ else
 fi
 
 [[ "${STRICT_MODE:-1}" -eq 1 ]] && set -euo pipefail
+
+# ==================== SCRIPT REVIEW ====================
+# Show a saved script via less and prompt for TTY confirmation.
+# Expects the script path as $1.
+# Returns 0 if confirmed to run, 1 otherwise.
+# Usage: review_then_run <script_path> [--confirm]
+review_then_run() {
+    local scratch="${1:?}"; shift
+
+    if [[ -t 0 && "${1:-}" != "--confirm" ]]; then
+        printf '\n\033[1;33m=== Script Review Required ===\033[0m\n'
+        printf 'Review the script below. Press \033[1;32mq\033[0m to quit without running,\n'
+        printf 'or \033[1;32mG\033[0m then \033[1;32mq\033[0m to jump to end and quit.\n'
+        printf 'To skip review: Ctrl+C and re-run with \033[1;36m--confirm\033[0m flag.\n'
+        printf '\033[1;31m=== END OF REVIEW ===\033[0m\n\n'
+
+        less -+X -P "Press q to quit (script will NOT run)" -- "$scratch"
+        local less_tty; less_tty=$(tty 2>/dev/null)
+        if [[ -z "$less_tty" || ! -t 1 ]]; then
+            printf '\033[1;31mError: Not a terminal. Cannot read confirmation.\033[0m\n'
+            printf 'Re-run with: \033[1;36m--confirm\033[0m to skip review.\n'
+            return 1
+        fi
+        printf '\n\033[1;32mProceed with execution? [y/N]\033[0m: '
+        read -r reply < "$less_tty"
+        case "$reply" in
+            [yY][eE][sS]|[yY]) ;;
+            *) printf 'Aborted.\n'; return 1 ;;
+        esac
+        printf '\033[1;32mRunning...\033[0m\n'
+    fi
+    bash "$scratch"; return $?
+}
