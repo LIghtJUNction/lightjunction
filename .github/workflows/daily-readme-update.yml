@@ -10,8 +10,7 @@ on:
     branches: [main]
 
 env:
-  OPENAI_BASE_URL: https://models.githubusercontent.com/v1/chat/completions
-  OPENAI_MODEL: gpt-4o-mini
+  MINIMAX_MODEL: M2.7
 
 jobs:
   update-readme:

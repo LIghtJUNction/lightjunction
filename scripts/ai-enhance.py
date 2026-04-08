@@ -7,7 +7,8 @@
 # ///
 """
 ai-enhance.py - Use AI to enhance README content
-Uses GitHub Copilot API via OpenAI-compatible endpoint
+Uses MiniMax API (M2.7) with MINIMAX_TOKEN, or falls back to
+OPENAI_BASE_URL + OPENAI_MODEL for other OpenAI-compatible providers.
 """
 
 import json
@@ -18,29 +19,44 @@ from pathlib import Path
 REPO_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "LIghtJUNction")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
-BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://models.githubusercontent.com/v1/chat/completions")
-MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+MINIMAX_TOKEN = os.environ.get("MINIMAX_TOKEN", "")
+MINIMAX_BASE_URL = os.environ.get("MINIMAX_BASE_URL", "https://api.minimax.chat/v1")
+MINIMAX_MODEL = os.environ.get("MINIMAX_MODEL", "M2.7")
+
+OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://models.githubusercontent.com/v1/chat/completions")
+OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 
 
 def chat(prompt: str) -> str:
-    """Call GitHub Copilot API (OpenAI-compatible)."""
+    """Call MiniMax API (preferred) or OpenAI-compatible API."""
     headers = {
-        "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Content-Type": "application/json",
         "Accept": "application/json",
     }
-
     messages = [{"role": "user", "content": prompt}]
 
-    payload = {
-        "model": MODEL,
-        "messages": messages,
-        "temperature": 0.7,
-        "max_tokens": 2000,
-    }
+    # Prefer MiniMax if token is set
+    if MINIMAX_TOKEN:
+        headers["Authorization"] = f"Bearer {MINIMAX_TOKEN}"
+        payload = {
+            "model": MINIMAX_MODEL,
+            "messages": messages,
+            "temperature": 0.7,
+            "max_tokens": 2000,
+        }
+        url = f"{MINIMAX_BASE_URL}/text/chatcompletion_pro"
+    else:
+        headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
+        payload = {
+            "model": OPENAI_MODEL,
+            "messages": messages,
+            "temperature": 0.7,
+            "max_tokens": 2000,
+        }
+        url = f"{OPENAI_BASE_URL}/chat/completions"
 
     try:
-        resp = requests.post(BASE_URL, headers=headers, json=payload, timeout=60)
+        resp = requests.post(url, headers=headers, json=payload, timeout=60)
         resp.raise_for_status()
         data = resp.json()
         return data["choices"][0]["message"]["content"]
@@ -135,7 +151,8 @@ def main():
     data = json.loads(data_path.read_text())
     enhanced = {}
 
-    print("🤖 Generating AI summaries...")
+    ai_name = "MiniMax M2.7" if MINIMAX_TOKEN else f"OpenAI-compatible ({OPENAI_MODEL})"
+    print(f"🤖 Generating AI summaries with {ai_name}...")
 
     weekly = generate_weekly_summary(data)
     if weekly:
