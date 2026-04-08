@@ -97,16 +97,15 @@ str_sha256() {
 }
 
 str_uuid() {
-    local i
-    for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32; do
-        case $i in
-            9|13|18|23) printf '-' ;;
-            14) printf '4' ;;
-            17) printf '%x' $((RANDOM % 8 + 8)) ;;
-            *) printf '%x' $((RANDOM % 16)) ;;
-        esac
-    done
-    echo
+    # Use /dev/urandom via openssl for cryptographic randomness
+    local hex
+    hex=$(openssl rand -hex 16)
+    printf '%s-%s-%s-%s-%s\n' \
+        "${hex:0:8}" \
+        "${hex:8:4}" \
+        "4${hex:13:3}" \
+        "$((0x${hex:16:2} & 0x0f | 0x08))x${hex:18:2}" \
+        "${hex:20:12}"
 }
 
 str_rand() {

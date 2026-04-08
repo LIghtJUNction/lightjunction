@@ -64,7 +64,7 @@ rsa_sign() {
     local msg="${1:?Usage: rsa_sign <message> [privkey_path]}"
     local privkey="${2:-$DEFAULT_PRIVKEY}"
     [[ -f "$privkey" ]] || { echo "Error: privkey not found: $privkey" >&2; return 1; }
-    echo -n "$msg" | openssl dgst -sha256 -sign "$privkey" | openssl base64 -A
+    echo -n "$msg" | openssl dgst -sha512 -sign "$privkey" | openssl base64 -A
 }
 
 rsa_verify() {
@@ -74,14 +74,14 @@ rsa_verify() {
     [[ -f "$pubkey" ]] || { echo "Error: pubkey not found: $pubkey" >&2; return 1; }
     local tmp; tmp=$(mktemp)
     echo -n "$sig_b64" | openssl base64 -d -A > "$tmp"
-    echo -n "$msg" | openssl dgst -sha256 -verify "$pubkey" -signature "$tmp"
+    echo -n "$msg" | openssl dgst -sha512 -verify "$pubkey" -signature "$tmp"
     rm -f "$tmp"
 }
 
 rsa_gen_keys() {
     local priv="${1:-$HOME/.ssh/id_rsa}"
     local pub="${2:-$priv.pub}"
-    local bits="${3:-2048}"
+    local bits="${3:-4096}"
     openssl genrsa -out "$priv" "$bits" 2>/dev/null && \
     openssl rsa -in "$priv" -pubout -out "$pub" 2>/dev/null && \
     echo "Private: $priv" && echo "Public: $pub"
@@ -90,15 +90,18 @@ rsa_gen_keys() {
 # ==================== AES Password-based ====================
 
 aes_encrypt() {
-    local text="${1:?Usage: aes_encrypt <text> [password]}"
-    local pass="${2:-password}"
-    echo -n "$text" | openssl enc -aes-256-cbc -pbkdf2 -salt -pass pass:"$pass" | openssl base64 -A
+    # AES-256-GCM: authenticated encryption (AEAD) — confirms integrity + authenticity
+    local text="${1:?Usage: aes_encrypt <text> <password>}"
+    local pass="${2:?Usage: aes_encrypt <text> <password> — password is required}"
+    # enc -aes-256-gcm uses PBKDF2 internally with default 100,000 iterations
+    echo -n "$text" | openssl enc -aes-256-gcm -pbkdf2 -iter 100000 -pass pass:"$pass" | openssl base64 -A
 }
 
 aes_decrypt() {
-    local text="${1:?Usage: aes_decrypt <text> [password]}"
-    local pass="${2:-password}"
-    echo -n "$text" | openssl base64 -d -A | openssl enc -aes-256-cbc -pbkdf2 -d -pass pass:"$pass"
+    # AES-256-GCM: authenticated decryption — rejects tampered ciphertext
+    local text="${1:?Usage: aes_decrypt <text> <password>}"
+    local pass="${2:?Usage: aes_decrypt <text> <password> — password is required}"
+    echo -n "$text" | openssl base64 -d -A | openssl enc -aes-256-gcm -pbkdf2 -iter 100000 -d -pass pass:"$pass"
 }
 
 # ==================== Utils ====================

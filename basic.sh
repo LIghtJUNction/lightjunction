@@ -20,11 +20,26 @@
 declare -gA __IMPORTED_FILES
 __IMPORTED_FILES=()
 
+# Verify downloaded file content against expected SHA256
+# Usage: verify_sha256 <file_path> <expected_sha256>
+verify_sha256() {
+    local file="${1:?}" expected="${2:?}"
+    local actual
+    actual=$(openssl dgst -sha256 "$file" | awk '{print $2}')
+    if [[ "$actual" != "$expected" ]]; then
+        echo "import: SHA256 mismatch for $file" >&2
+        echo "  expected: $expected" >&2
+        echo "  actual:   $actual" >&2
+        rm -f "$file"
+        return 1
+    fi
+}
+
 # -- Core import function --
 import() {
     local file="${1:?}" branch="${2:-main}" repo="${3:-lightjunction}" user="${4:-lightjunction}"
     local base_url="${5:-https://raw.githubusercontent.com}"
-    local url="$base_url/$user/$repo/$branch/$file"
+    local sha256="${6:-}" url="$base_url/$user/$repo/$branch/$file"
 
     # Skip if already imported (by URL)
     [[ "${__IMPORTED_FILES[$url]:-}" == "1" ]] && return 0
@@ -38,6 +53,12 @@ import() {
         echo "import: failed to download $url" >&2
         return 1
     }
+
+    # Verify SHA256 if provided
+    if [[ -n "$sha256" ]]; then
+        verify_sha256 "$tmpfile" "$sha256" || return 1
+    fi
+
     source "$tmpfile"
     rm -f "$tmpfile"
 }

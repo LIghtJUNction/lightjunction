@@ -12,11 +12,19 @@ declare -gA __IMPORTED_FILES
 
 import() {
     local file="${1:?}" branch="${2:-main}" repo="${3:-lightjunction}" user="${4:-lightjunction}"
-    local url="https://raw.githubusercontent.com/$user/$repo/$branch/$file"
+    local sha256="${5:-}" url="https://raw.githubusercontent.com/$user/$repo/$branch/$file"
     [[ "${__IMPORTED_FILES[$url]:-}" == "1" ]] && return 0
     __IMPORTED_FILES[$url]=1
     local tmp; tmp=$(mktemp) || exit 1
     curl -fsSL --connect-timeout 10 "$url" -o "$tmp" || { rm -f "$tmp"; exit 1; }
+    if [[ -n "$sha256" ]]; then
+        local actual
+        actual=$(openssl dgst -sha256 "$tmp" | awk '{print $2}')
+        if [[ "$actual" != "$sha256" ]]; then
+            echo "import: SHA256 mismatch for $file" >&2
+            rm -f "$tmp"; exit 1
+        fi
+    fi
     source "$tmp"; rm -f "$tmp"
 }
 

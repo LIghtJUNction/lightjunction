@@ -48,6 +48,9 @@ net_http_get() {
 
 net_http_post() {
     local url="${1:?}" data="${2:-}"
+    if [[ "$url" =~ ^http:// ]]; then
+        echo "net_http_post: WARNING — URL uses unencrypted HTTP: $url" >&2
+    fi
     curl -fsSL -X POST -d "$data" "$url"
 }
 

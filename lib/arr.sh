@@ -39,6 +39,15 @@ arr_contains() {
 
 arr_map() {
     local func="${1:?}" && shift
+    # Validate func is a safe bash identifier to prevent indirect code injection
+    if [[ ! "$func" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+        echo "arr_map: func name must be a valid bash identifier, got: $func" >&2
+        return 1
+    fi
+    if ! declare -f "$func" >/dev/null 2>&1; then
+        echo "arr_map: function not found: $func" >&2
+        return 1
+    fi
     local e
     for e in "$@"; do
         # shellcheck disable=SC2086
@@ -48,6 +57,15 @@ arr_map() {
 
 arr_filter() {
     local func="${1:?}" && shift
+    # Validate func is a safe bash identifier to prevent indirect code injection
+    if [[ ! "$func" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+        echo "arr_filter: func name must be a valid bash identifier, got: $func" >&2
+        return 1
+    fi
+    if ! declare -f "$func" >/dev/null 2>&1; then
+        echo "arr_filter: function not found: $func" >&2
+        return 1
+    fi
     local e
     for e in "$@"; do
         if $func "$e"; then
