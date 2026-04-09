@@ -125,9 +125,8 @@ def format_commits(data: dict) -> str:
         return "### 📝 Recent Commits\n\nNo recent commits."
 
     lines = ["### 📝 Recent Commits", "", "<details>", "<summary>📅 Last 7 Days</summary>", ""]
-    lines.append("")
-    lines.append("| Time | Repo | Commit |")
-    lines.append("|:-----|:-----|:-------|")
+    lines.append("| Date | Time | Repo | Commit |")
+    lines.append("|:-----|:-----|:-----|:-------|")
 
     prev_date = None
     for c in commits[:10]:
@@ -139,15 +138,12 @@ def format_commits(data: dict) -> str:
             date_str = c["date"][:10]
             time_str = c["date"][11:16]
 
-        if date_str != prev_date:
-            lines.append("")
-            lines.append(f"**{date_str}**")
-            lines.append("")
-            prev_date = date_str
-
         msg = c["message"][:60] + ("..." if len(c["message"]) > 60 else "")
         repo = c["repo"][:15]
-        lines.append(f"| {time_str} | {repo} | [`{c['sha']}`]({c['url']}) {msg} |")
+        date_cell = date_str if date_str != prev_date else ""
+        if date_str != prev_date:
+            prev_date = date_str
+        lines.append(f"| {date_cell} | {time_str} | {repo} | [`{c['sha']}`]({c['url']}) {msg} |")
 
     lines.extend(["", "</details>"])
     return "\n".join(lines) + "\n\n---"
