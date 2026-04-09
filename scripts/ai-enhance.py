@@ -20,10 +20,10 @@ REPO_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "LIghtJUNction")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
 MINIMAX_TOKEN = os.environ.get("MINIMAX_TOKEN", "")
-MINIMAX_BASE_URL = os.environ.get("MINIMAX_BASE_URL", "https://api.minimax.chat/v1")
+MINIMAX_BASE_URL = os.environ.get("MINIMAX_BASE_URL", "https://api.minimaxi.com/v1")
 MINIMAX_MODEL = os.environ.get("MINIMAX_MODEL", "M2.7")
 
-OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://models.githubusercontent.com/v1/chat/completions")
+OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://models.githubusercontent.com/v1")
 OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 
 
