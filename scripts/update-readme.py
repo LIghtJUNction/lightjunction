@@ -125,10 +125,9 @@ def format_commits(data: dict) -> str:
         return "### 📝 Recent Commits\n\nNo recent commits."
 
     lines = ["### 📝 Recent Commits", "", "<details>", "<summary>📅 Last 7 Days</summary>", ""]
-    lines.append("| Date | Time | Repo | Commit |")
-    lines.append("|:-----|:-----|:-----|:-------|")
 
-    prev_date = None
+    # Group commits by date
+    by_date = {}
     for c in commits[:10]:
         try:
             dt = datetime.fromisoformat(c["date"].replace("Z", "+00:00"))
@@ -137,15 +136,25 @@ def format_commits(data: dict) -> str:
         except Exception:
             date_str = c["date"][:10]
             time_str = c["date"][11:16]
+        if date_str not in by_date:
+            by_date[date_str] = []
+        by_date[date_str].append((time_str, c["repo"], c["sha"], c["url"], c["message"]))
 
-        msg = c["message"][:60] + ("..." if len(c["message"]) > 60 else "")
-        repo = c["repo"][:15]
-        date_cell = date_str if date_str != prev_date else ""
-        if date_str != prev_date:
-            prev_date = date_str
-        lines.append(f"| {date_cell} | {time_str} | {repo} | [`{c['sha']}`]({c['url']}) {msg} |")
+    # Render grouped: bold date header + 3-col table (Time | Repo | Commit)
+    for date_str in sorted(by_date.keys(), reverse=True):
+        rows = by_date[date_str]
+        lines.append(f"**{date_str}**")
+        lines.append("")
+        lines.append("| Time | Repo | Commit |")
+        lines.append("|:-----|:-----|:-------|")
+        for time_str, repo, sha, url, msg in rows:
+            short_repo = repo[len(REPO_OWNER)+1:] if repo.startswith(REPO_OWNER) else repo[:15]
+            short_repo = short_repo[:15]
+            msg = msg[:60] + ("..." if len(msg) > 60 else "")
+            lines.append(f"| {time_str} | {short_repo} | [`{sha}`]({url}) {msg} |")
+        lines.append("")
 
-    lines.extend(["", "</details>"])
+    lines.append("</details>")
     return "\n".join(lines) + "\n\n---"
 
 
@@ -159,7 +168,7 @@ def replace_section(path: Path, start_marker: str, end_marker: str, new_content:
     end_idx += len(end_marker)
     content = new_content.strip() if new_content.strip() else ""
     if content:
-        new_text = text[:start_idx] + start_marker + "\n\n" + content + "\n\n" + text[end_idx:]
+        new_text = text[:start_idx] + start_marker + "\n\n" + content + "\n\n" + end_marker + "\n\n" + text[end_idx:]
     else:
         new_text = text[:start_idx] + start_marker + "\n\n" + text[end_idx:]
 
@@ -176,7 +185,7 @@ def format_skyline() -> str:
     content = skyline_path.read_text().strip()
     if not content:
         return ""
-    return "### 🏔️ Skyline\n\n```\n" + content + "\n```"
+    return "### 🏔️ Skyline\n\n```\n" + content + "\n```\n\n---"
 
 
 def main():

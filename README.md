@@ -50,179 +50,52 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 <!-- START_DYNAMIC_STATS -->
 
-| Joined | Repos | Followers | Following |
-|:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (3yr 9mo) | **66** | **61** | **97** |
+| 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
+|:---------:|:--------:|:------------:|:------------:|
+| Unknown (0yr 0mo) | **0** | **0** | **0** |
 
 ---
+
+<!-- END_DYNAMIC_STATS -->
+
+
 
 <!-- START_DYNAMIC_SUMMARY -->
 
-### This Week
+### 📈 This Week
 
-**43** commits across **3** repositories
-
-| Repository | Activity |
-|:-----------|:--------:|
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | 31 |
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | 7 |
-| [LIghtJUNction/dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | 5 |
+No commits this week. Rest time is important too! 🎉
 
 ---
 
+<!-- END_DYNAMIC_SUMMARY -->
+
+
+
 <!-- START_DYNAMIC_SKYLINE -->
-
-### 🏔️ Skyline
-
-```
-▓                             
-
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-
-                                       ╻             
-                                       ░   ╻         
-                                       ▓┃  ░      ╻  
-                      ╻ ╻        ╻     ░░  ░      ░╻ 
-                    ░ ░░░░░  ░  ░▒ ░  ▒░░░ ▒     ░░░░
-
-                                        ╻╻╻╻╻╻   ╻╻╽ 
-                                        ░░░░░░ ╻╻▒░▒ 
-                ╻     ╻╻╻             ╻╻░░░░░░╻░░░▓▓ 
-                ░    ╻░░░             ░░░░░░░░░░░░░▒╻
-       ╻ ╻      ░╻   ░░░░             ░░░░░░░░░░░▒░░░
-   ╻   ░ ░ ╻   ╻░░╻  ░░░░╻  ╻         ░░░░░░░░░░░▓░░▓
- ░░░  ░░░░░░░ ░░░░░  ░░░░░  ░        ░░░░░░░░░░░░░░░▓
-
- ╻╻╻╻ ╻ ╻╻╻┃........................................ 
- ▒░░░╻░╻░░░░........................................ 
- ░░░░░░░░░░░╻........................................
- ░░░░░░░░░░▓▒........................................
-╻░░░░░░░░░░▒░........................................
-░░░░░░░░░░░░░........................................
-░░░░░░░░░░░░▒........................................
-```
 
 
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-### Latest Projects
+### 🚀 Latest Projects
 
-<table><tr>
-<td align="center" valign="top">
+No repositories found.
 
-#### dash.astrbot.men
-Astrbot Dashboard
+<!-- END_DYNAMIC_REPO_LIST -->
 
-Stars: 0 | Forks: 0 | Vue
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-03-25_
-
-</td>
-<td align="center" valign="top">
-
-#### MagicMihomo
-MagicNet-mihomo
-
-Stars: 9 | Forks: 0 | Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-03-24_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### lightjunction
-I'M LIghtJUNction
-
-Stars: 2 | Forks: 0 | Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-03-24_
-
-</td>
-<td align="center" valign="top">
-
-#### MagicNet
-A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-
-Stars: 53 | Forks: 1 | Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-03-23_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### Mimic-Node
-VLESS + Reality + XTLS-Vision/xhttp
-
-Stars: 10 | Forks: 1 | Rust
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-03-18_
-
-</td>
-<td align="center" valign="top">
-
-#### AstrBotCanary
-This is an officially supported Astrbot
-
-Stars: 3 | Forks: 0 | Rust
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/AstrBotCanary?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/AstrBotCanary?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-03-17_
-
-</td>
-</tr></table>
-
----
 
 <!-- START_DYNAMIC_COMMITS -->
 
-### Recent Commits
+### 📝 Recent Commits
 
-<details>
-<summary>Last 7 Days</summary>
+No recent commits.
 
-| Time | Repo | Commit |
-|:-----|:-----|:------|
+<!-- END_DYNAMIC_COMMITS -->
 
-**2026-03-24**
 
-| 22:59 | LIghtJUNction/M | [`0d08a2b`](https://github.com/LIghtJUNction/MagicMihomo/commit/0d08a2b8986d1e720671e480aaab88a91eee85c5) ruleset: update-ruleset |
-| 18:51 | LIghtJUNction/l | [`c9fce54`](https://github.com/LIghtJUNction/lightjunction/commit/c9fce548c63e3bd6387ca283aa36045f4cc9aeb0) paper and wax seal UI with physics feel |
-| 18:49 | LIghtJUNction/l | [`82f4b8c`](https://github.com/LIghtJUNction/lightjunction/commit/82f4b8cfe3d6ea9acb9861ecadd89ca99d760fc6) simplify to clean minimal design |
-| 18:47 | LIghtJUNction/l | [`1d12953`](https://github.com/LIghtJUNction/lightjunction/commit/1d1295366c467e7567ffa2d5852467c9785d1f3a) 3D envelope UI with animations |
-| 18:41 | LIghtJUNction/l | [`4ccaa60`](https://github.com/LIghtJUNction/lightjunction/commit/4ccaa60dbdec2ad5ca1aeaf0813bbe3762156ee5) add create issue button, opens github directly |
-| 18:40 | LIghtJUNction/l | [`9fc0b15`](https://github.com/LIghtJUNction/lightjunction/commit/9fc0b15d86e229a1dee3f271922f1c12ee474464) remove token, keep it simple |
-| 18:38 | LIghtJUNction/l | [`69eb8e2`](https://github.com/LIghtJUNction/lightjunction/commit/69eb8e20c7dd4124181abb13cb5cb982eda3b5d2) simplify UI, monospace terminal style |
-| 18:37 | LIghtJUNction/l | [`8354b50`](https://github.com/LIghtJUNction/lightjunction/commit/8354b50d610b57cee89d715853d40b0211206bf5) upgrade: openpgp v6 and add node_modules/dist to gitignore |
-| 18:32 | LIghtJUNction/l | [`6029ee7`](https://github.com/LIghtJUNction/lightjunction/commit/6029ee75c03f379e025763d986aab29401875b2d) refactor: convert to standard Vite project |
-| 18:24 | LIghtJUNction/l | [`ca0f0b4`](https://github.com/LIghtJUNction/lightjunction/commit/ca0f0b4c34b40c6674b9b62befb84e4926f046f4) fix: deploy from docs/ folder instead of root |
 
-</details>
 
 ---
 
