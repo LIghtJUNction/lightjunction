@@ -13,6 +13,12 @@
 <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=128&d=identicon" alt="LIghtJUNction" width="128" height="128" style="border-radius:50%;">
 </a>
 
+## About Me
+
+Non-CS background, amateur programming enthusiast. Into AI, Android rooting & custom ROMs.
+
+Once an idealist, now a pragmatist — learning by doing.
+
 ## GPG Public Key
 
 ```
@@ -259,9 +265,7 @@ _Updated: 2026-04-11_
 
 ---
 
-## Cloud Scripts
-
-**Run online, no download required**
+## Shell Scripts
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/basic.sh | bash
