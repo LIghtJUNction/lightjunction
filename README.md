@@ -70,23 +70,26 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**32** commits across **5** repositories
+**57** commits across **4** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓▓░░░░░ 18 |
+| [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓▓▓▓░░░░ 35 |
+| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓░░░░░░░░ 13 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 6 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 5 |
-| [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ░░░░░░░░░░ 2 |
-| [LIghtJUNction/dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | ░░░░░░░░░░ 1 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 3 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -105,6 +108,19 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
+#### 💚 dash.astrbot.men
+Astrbot Dashboard
+
+⭐ 1 • 🍴 0 • Vue
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-16_
+
+</td>
+<td align="center" valign="top">
+
 #### 🐚 MagicMihomo
 MagicNet-mihomo
 
@@ -113,20 +129,7 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-14_
-
-</td>
-<td align="center" valign="top">
-
-#### 📄 dots-hyprland
-uhh questioning the meaning of dotfiles
-
-⭐ 1 • 🍴 0 • QML
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dots-hyprland?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dots-hyprland?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-14_
+_Updated: 2026-04-15_
 
 </td>
 </tr><tr>
@@ -140,9 +143,23 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-14_
+_Updated: 2026-04-15_
 
 </td>
+<td align="center" valign="top">
+
+#### 📄 dots-hyprland
+uhh questioning the meaning of dotfiles
+
+⭐ 1 • 🍴 0 • QML
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dots-hyprland?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dots-hyprland?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-15_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 🤖 YumeBox
@@ -156,7 +173,6 @@ an ordinary box, as ordinary as it can possibly be
 _Updated: 2026-04-12_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🦀 Mimic-Node
@@ -166,19 +182,6 @@ VLESS + Reality + XTLS-Vision/xhttp
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-11_
-
-</td>
-<td align="center" valign="top">
-
-#### 💚 dash.astrbot.men
-Astrbot Dashboard
-
-⭐ 1 • 🍴 0 • Vue
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-04-11_
 
@@ -195,6 +198,8 @@ _Updated: 2026-04-11_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
@@ -202,41 +207,28 @@ _Updated: 2026-04-11_
 <details>
 <summary>📅 Last 7 Days</summary>
 
-**2026-04-14**
+**2026-04-15**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 23:24 | MagicMihomo | [`c49c62d`](https://github.com/LIghtJUNction/MagicMihomo/commit/c49c62d62d1dd0ad1df7002437c9250387a3cdad) ruleset: update-ruleset |
-| 06:48 | dots-hyprland | [`88c2c01`](https://github.com/LIghtJUNction/dots-hyprland/commit/88c2c01a0ccc7f0511a67df53dffa4321a7fd529) Merge branch 'end-4:main' into main |
-
-**2026-04-12**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:03 | MagicMihomo | [`28dc779`](https://github.com/LIghtJUNction/MagicMihomo/commit/28dc779a1e18f60514834a2705c44a0c4722596f) ruleset: update-ruleset |
-
-**2026-04-11**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:01 | MagicMihomo | [`88d83d8`](https://github.com/LIghtJUNction/MagicMihomo/commit/88d83d80fd5fe10495ec908d1e1e331d15a5e17b) ruleset: update-ruleset |
-| 13:01 | Mimic-Node | [`02205a3`](https://github.com/LIghtJUNction/Mimic-Node/commit/02205a36d3608102e0c1cb20e5feede067e72934) fix: also use prefer_ipv4 in default_domain_resolver |
-| 13:00 | Mimic-Node | [`f466fae`](https://github.com/LIghtJUNction/Mimic-Node/commit/f466fae4ef4d3540e4b3383964c8521cd0ab4b94) fix(dns): prefer ipv4 over ipv6 for better routing quality |
-| 12:00 | Mimic-Node | [`cbcf5cf`](https://github.com/LIghtJUNction/Mimic-Node/commit/cbcf5cf44555c06ebb551040d5f0fbe658040034) fix(route): add sniff to block rule for precise domain match... |
-
-**2026-04-10**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:04 | MagicMihomo | [`61da502`](https://github.com/LIghtJUNction/MagicMihomo/commit/61da5026c74d08e2d00a1515b02c7777709613f2) ruleset: update-ruleset |
-| 14:07 | Mimic-Node | [`b3e1b8a`](https://github.com/LIghtJUNction/Mimic-Node/commit/b3e1b8a1fd5555b72ae30dec5c07beed6ef71e98) feat(sni): expand domain pool 10x with semantic filtering pi... |
-| 11:53 | Mimic-Node | [`a36085b`](https://github.com/LIghtJUNction/Mimic-Node/commit/a36085ba372097313e3644ce081b4b5597f4dc58) Delete .gitmodules |
+| 23:11 | MagicMihomo | [`f397fb1`](https://github.com/LIghtJUNction/MagicMihomo/commit/f397fb12fda54520bc2624bd78692ca6a22ceb18) ruleset: update-ruleset |
+| 08:41 | lightjunction | [`acf84b1`](https://github.com/LIghtJUNction/lightjunction/commit/acf84b187e2b95cb5b5fa140025aaf1cb9339287) fix: update vite to latest version to patch security vulnera... |
+| 08:37 | lightjunction | [`0756fb8`](https://github.com/LIghtJUNction/lightjunction/commit/0756fb8cd42393d1be1fb9325c9b261c1f160dae) docs: update About Me and simplify Shell Scripts section |
+| 07:45 | dots-hyprland | [`9c83bf2`](https://github.com/LIghtJUNction/dots-hyprland/commit/9c83bf2ffe248fbb5434dc711032ddabf17d9915) Merge branch 'main' of https://github.com/LIghtJUNction/dots... |
+| 07:44 | dots-hyprland | [`657c182`](https://github.com/LIghtJUNction/dots-hyprland/commit/657c182c8b0174a2219d4dda48a46f29537f3738) docs: add AUR installation instruction for dots-hyprlands-fo... |
+| 07:44 | dots-hyprland | [`b7fedda`](https://github.com/LIghtJUNction/dots-hyprland/commit/b7fedda984123ca3591aa12ff726b39be65846f6) fix: handle symlink to source in cp_file function |
+| 07:44 | dots-hyprland | [`7a360a8`](https://github.com/LIghtJUNction/dots-hyprland/commit/7a360a895003532238ddedafd71842c3be63cdd2) chore: tweak MaterialYou colors |
+| 07:44 | dots-hyprland | [`42e352e`](https://github.com/LIghtJUNction/dots-hyprland/commit/42e352efdf93cfd270a71c697e5bbc3bc5d8ce5a) Color |
+| 07:44 | dots-hyprland | [`cb8b1cf`](https://github.com/LIghtJUNction/dots-hyprland/commit/cb8b1cf5b89fc529e23143d7bda0a45db67ec107) 添加 MaterialYou 和 MaterialYouAlt 颜色方案文件，创建 TempMyou 配置文件 |
+| 07:44 | dots-hyprland | [`52b90f1`](https://github.com/LIghtJUNction/dots-hyprland/commit/52b90f1103c90ed3a45f9104970d328f515e8b9a) Update 3.files-legacy.sh |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
