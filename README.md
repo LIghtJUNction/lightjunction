@@ -72,22 +72,26 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**57** commits across **4** repositories
+**51** commits across **4** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓▓▓▓░░░░ 35 |
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓░░░░░░░░ 13 |
+| [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓▓▓▓░░░░ 34 |
+| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓░░░░░░░░░ 9 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 6 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 3 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 2 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -108,19 +112,6 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
-#### 💚 dash.astrbot.men
-Astrbot Dashboard
-
-⭐ 1 • 🍴 0 • Vue
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-16_
-
-</td>
-<td align="center" valign="top">
-
 #### 🐚 MagicMihomo
 MagicNet-mihomo
 
@@ -129,10 +120,9 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-15_
+_Updated: 2026-04-16_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 lightjunction
@@ -143,7 +133,21 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-15_
+_Updated: 2026-04-16_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 💚 dash.astrbot.men
+Astrbot Dashboard
+
+⭐ 1 • 🍴 0 • Vue
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-16_
 
 </td>
 <td align="center" valign="top">
@@ -200,12 +204,20 @@ _Updated: 2026-04-11_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-04-16**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:10 | MagicMihomo | [`6f80148`](https://github.com/LIghtJUNction/MagicMihomo/commit/6f80148512676a0c54a894bf3e32c6f979820696) ruleset: update-ruleset |
 
 **2026-04-15**
 
@@ -220,13 +232,14 @@ _Updated: 2026-04-11_
 | 07:44 | dots-hyprland | [`7a360a8`](https://github.com/LIghtJUNction/dots-hyprland/commit/7a360a895003532238ddedafd71842c3be63cdd2) chore: tweak MaterialYou colors |
 | 07:44 | dots-hyprland | [`42e352e`](https://github.com/LIghtJUNction/dots-hyprland/commit/42e352efdf93cfd270a71c697e5bbc3bc5d8ce5a) Color |
 | 07:44 | dots-hyprland | [`cb8b1cf`](https://github.com/LIghtJUNction/dots-hyprland/commit/cb8b1cf5b89fc529e23143d7bda0a45db67ec107) 添加 MaterialYou 和 MaterialYouAlt 颜色方案文件，创建 TempMyou 配置文件 |
-| 07:44 | dots-hyprland | [`52b90f1`](https://github.com/LIghtJUNction/dots-hyprland/commit/52b90f1103c90ed3a45f9104970d328f515e8b9a) Update 3.files-legacy.sh |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
