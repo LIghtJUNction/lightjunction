@@ -74,22 +74,26 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**51** commits across **4** repositories
+**45** commits across **4** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓▓▓▓░░░░ 34 |
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓░░░░░░░░░ 9 |
+| [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓▓▓▓▓░░░ 34 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 6 |
+| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ░░░░░░░░░░ 3 |
 | [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 2 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -120,9 +124,23 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-16_
+_Updated: 2026-04-17_
 
 </td>
+<td align="center" valign="top">
+
+#### 🐚 MagicNet
+A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+
+⭐ 56 • 🍴 2 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-17_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 lightjunction
@@ -133,10 +151,9 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-16_
+_Updated: 2026-04-17_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 💚 dash.astrbot.men
@@ -150,6 +167,7 @@ Astrbot Dashboard
 _Updated: 2026-04-16_
 
 </td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 📄 dots-hyprland
@@ -163,7 +181,6 @@ uhh questioning the meaning of dotfiles
 _Updated: 2026-04-15_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🤖 YumeBox
@@ -175,19 +192,6 @@ an ordinary box, as ordinary as it can possibly be
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-04-12_
-
-</td>
-<td align="center" valign="top">
-
-#### 🦀 Mimic-Node
-VLESS + Reality + XTLS-Vision/xhttp
-
-⭐ 10 • 🍴 1 • Rust
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-11_
 
 </td>
 </tr></table>
@@ -206,12 +210,20 @@ _Updated: 2026-04-11_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-04-17**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:08 | MagicMihomo | [`7f432b2`](https://github.com/LIghtJUNction/MagicMihomo/commit/7f432b2a710369581856346c049175c719840188) ruleset: update-ruleset |
 
 **2026-04-16**
 
@@ -231,13 +243,14 @@ _Updated: 2026-04-11_
 | 07:44 | dots-hyprland | [`b7fedda`](https://github.com/LIghtJUNction/dots-hyprland/commit/b7fedda984123ca3591aa12ff726b39be65846f6) fix: handle symlink to source in cp_file function |
 | 07:44 | dots-hyprland | [`7a360a8`](https://github.com/LIghtJUNction/dots-hyprland/commit/7a360a895003532238ddedafd71842c3be63cdd2) chore: tweak MaterialYou colors |
 | 07:44 | dots-hyprland | [`42e352e`](https://github.com/LIghtJUNction/dots-hyprland/commit/42e352efdf93cfd270a71c697e5bbc3bc5d8ce5a) Color |
-| 07:44 | dots-hyprland | [`cb8b1cf`](https://github.com/LIghtJUNction/dots-hyprland/commit/cb8b1cf5b89fc529e23143d7bda0a45db67ec107) 添加 MaterialYou 和 MaterialYouAlt 颜色方案文件，创建 TempMyou 配置文件 |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
