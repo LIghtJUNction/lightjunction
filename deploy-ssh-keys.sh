@@ -43,6 +43,9 @@ fi
 
 # ==================== MAIN ====================
 main() {
+    # Set GPG_PATH default if not set
+    : "${GPG_PATH:=$(command -v gpg 2>/dev/null || command -v gpg2)}"
+
     # Check GPG
     if [[ -z "$GPG_PATH" ]]; then
         err "GPG not found"; exit 1
