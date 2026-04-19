@@ -34,12 +34,15 @@ import log.sh
 
 # ==================== PRE-REVIEW ====================
 # Show script via less for review unless --confirm is given.
-if [[ "${1:-}" != "--confirm" ]]; then
-    local scratch; scratch=$(mktemp) || exit 1
-    cat > "$scratch"
-    chmod +x "$scratch"
-    review_then_run "$scratch" "$@"; exit $?
-fi
+pre_review() {
+    if [[ "${1:-}" != "--confirm" ]]; then
+        local scratch; scratch=$(mktemp) || exit 1
+        cat > "$scratch"
+        chmod +x "$scratch"
+        review_then_run "$scratch" "$@"; exit $?
+    fi
+}
+pre_review "$@"
 
 # ==================== MAIN ====================
 main() {
