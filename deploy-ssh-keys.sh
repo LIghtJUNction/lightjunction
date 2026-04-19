@@ -33,8 +33,8 @@ import env.sh
 import log.sh
 
 # ==================== PRE-REVIEW ====================
-# If stdin is a TTY and --confirm not given, show script for review.
-if [[ -t 0 && "${1:-}" != "--confirm" ]]; then
+# Show script via less for review unless --confirm is given.
+if [[ "${1:-}" != "--confirm" ]]; then
     local scratch; scratch=$(mktemp) || exit 1
     cat > "$scratch"
     chmod +x "$scratch"
