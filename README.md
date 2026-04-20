@@ -76,22 +76,26 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**79** commits across **4** repositories
+**84** commits across **4** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓░░░░░░ 37 |
+| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓░░░░░░ 38 |
 | [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓▓░░░░░░ 34 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 6 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 2 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 6 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -116,6 +120,33 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ### 🚀 Latest Projects
 
 <table><tr>
+<td align="center" valign="top">
+
+#### 🐚 MagicMihomo
+MagicNet-mihomo
+
+⭐ 10 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-19_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-19_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 🦀 Mimic-Node
@@ -145,19 +176,6 @@ _Updated: 2026-04-19_
 </tr><tr>
 <td align="center" valign="top">
 
-#### 🐚 MagicMihomo
-MagicNet-mihomo
-
-⭐ 10 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-18_
-
-</td>
-<td align="center" valign="top">
-
 #### 🐚 MagicNet
 A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
 
@@ -165,20 +183,6 @@ A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-18_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-04-18_
 
@@ -216,6 +220,8 @@ _Updated: 2026-04-15_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
@@ -227,27 +233,24 @@ _Updated: 2026-04-15_
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
+| 23:05 | MagicMihomo | [`4e3d5fa`](https://github.com/LIghtJUNction/MagicMihomo/commit/4e3d5fa21042f25e84f4f677df8a6e9633c8c974) ruleset: update-ruleset |
+| 22:41 | lightjunction | [`a711ffa`](https://github.com/LIghtJUNction/lightjunction/commit/a711ffad69b1b382ae1884d3e102f2a593b45c29) remove pre-review feature and related README claim |
+| 22:39 | lightjunction | [`5b989fa`](https://github.com/LIghtJUNction/lightjunction/commit/5b989faa2d52825afa46dfc33f85f1657abd2be1) fix: wrap pre-review in function to use local variable |
+| 22:37 | lightjunction | [`21f3f2a`](https://github.com/LIghtJUNction/lightjunction/commit/21f3f2a0ad4c8b43f261abcdb1e5112657ca4e3e) fix: always show script via less for review before execution |
+| 22:32 | lightjunction | [`ca3a8e9`](https://github.com/LIghtJUNction/lightjunction/commit/ca3a8e97b6ca46a632b71dd361a6d0d5de2916f3) fix: set GPG_PATH default in deploy-ssh-keys.sh |
+| 21:58 | Mimic-Node | [`cb4378d`](https://github.com/LIghtJUNction/Mimic-Node/commit/cb4378d226ad62a7e793ddb284f0457e88696bb8) fix(config): remove sing-box 1.14.0 incompatible fields |
 | 02:34 | Mimic-Node | [`97c2340`](https://github.com/LIghtJUNction/Mimic-Node/commit/97c2340ad43ec94ce85308696c93333207cd2f67) Update setup.rs |
 | 02:34 | Mimic-Node | [`0f5e50a`](https://github.com/LIghtJUNction/Mimic-Node/commit/0f5e50a912c6be00ee169bd174646a2f87875beb) Update setup.rs |
 | 01:10 | Mimic-Node | [`96f9bd8`](https://github.com/LIghtJUNction/Mimic-Node/commit/96f9bd8ce8b93f531b690b5dc2db00196cd6b3c4) feat(diagnose): DMS-style output with Hysteria2 check |
 | 01:08 | Mimic-Node | [`63cf5fd`](https://github.com/LIghtJUNction/Mimic-Node/commit/63cf5fdf0a8073ccdb09743b5eefd5a30c71dc2b) feat(diagnose): add Hysteria2 check and DMS-style output |
-| 01:03 | Mimic-Node | [`05eef9d`](https://github.com/LIghtJUNction/Mimic-Node/commit/05eef9df26774dc19bcdb559038b552f2acb6309) feat(hysteria2): auto-detect domain from TLS cert for link g... |
-| 01:00 | Mimic-Node | [`69f73ba`](https://github.com/LIghtJUNction/Mimic-Node/commit/69f73ba401cf4190dd1ac88286808a903ae4008b) docs: add Hysteria2 domain and TLS error documentation |
-| 00:38 | Mimic-Node | [`abe0e6c`](https://github.com/LIghtJUNction/Mimic-Node/commit/abe0e6c2d653d9d1bad02cefedd6db5d4944ff22) feat(hysteria2): add obfs-password option and enable obfs by... |
-| 00:21 | Mimic-Node | [`4f25ffd`](https://github.com/LIghtJUNction/Mimic-Node/commit/4f25ffd76851811f0dbb7fb736e32bf214ee5165) feat(security): add immutable attribute protection for confi... |
-
-**2026-04-18**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:52 | Mimic-Node | [`d9fc650`](https://github.com/LIghtJUNction/Mimic-Node/commit/d9fc6507d089f53fb9381efdaa6fb70eff5ec3eb) fix(perf): enable tcp_multi_path and remove bandwidth limits... |
-| 23:44 | Mimic-Node | [`1fbe075`](https://github.com/LIghtJUNction/Mimic-Node/commit/1fbe0751eb55ce64cfad49e796cc0adf68a72148) fix: remove kernel_tx from vless-ws-in and hy2-in TLS config... |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
