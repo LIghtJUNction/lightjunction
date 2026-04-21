@@ -4,7 +4,7 @@
 
 ## Website
 
-**Link: https://lightjunction.github.io/lightjunction/**
+**Write Something: https://lightjunction.github.io/lightjunction/**
 
 </div>
 
