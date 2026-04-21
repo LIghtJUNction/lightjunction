@@ -78,22 +78,26 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**84** commits across **4** repositories
+**87** commits across **4** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓░░░░░░ 38 |
-| [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓▓░░░░░░ 34 |
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 6 |
+| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓░░░░░░ 41 |
+| [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓░░░░░░░ 33 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 7 |
 | [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 6 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -130,23 +134,9 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-19_
+_Updated: 2026-04-20_
 
 </td>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-19_
-
-</td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🦀 Mimic-Node
@@ -157,7 +147,21 @@ VLESS + Reality + Hysteria2 + XTLS-Vision/xhttp
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-19_
+_Updated: 2026-04-20_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-20_
 
 </td>
 <td align="center" valign="top">
@@ -222,12 +226,23 @@ _Updated: 2026-04-15_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-04-20**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:10 | MagicMihomo | [`34c553e`](https://github.com/LIghtJUNction/MagicMihomo/commit/34c553e5f1add10b24155d30cdfe1f27444e5dea) ruleset: update-ruleset |
+| 12:07 | Mimic-Node | [`81710dd`](https://github.com/LIghtJUNction/Mimic-Node/commit/81710ddc1dcbc73fff71bed2b51f9e5b0711c722) fix: address clippy warnings |
+| 12:04 | Mimic-Node | [`04080df`](https://github.com/LIghtJUNction/Mimic-Node/commit/04080df6ee1a144327af47a27798112b809115a5) fix: update default config for sing-box 1.14.0 compatibility |
+| 11:42 | Mimic-Node | [`ccc9607`](https://github.com/LIghtJUNction/Mimic-Node/commit/ccc960796c9e644da57db43f4880cb1cb259716b) sync |
 
 **2026-04-19**
 
@@ -239,16 +254,14 @@ _Updated: 2026-04-15_
 | 22:37 | lightjunction | [`21f3f2a`](https://github.com/LIghtJUNction/lightjunction/commit/21f3f2a0ad4c8b43f261abcdb1e5112657ca4e3e) fix: always show script via less for review before execution |
 | 22:32 | lightjunction | [`ca3a8e9`](https://github.com/LIghtJUNction/lightjunction/commit/ca3a8e97b6ca46a632b71dd361a6d0d5de2916f3) fix: set GPG_PATH default in deploy-ssh-keys.sh |
 | 21:58 | Mimic-Node | [`cb4378d`](https://github.com/LIghtJUNction/Mimic-Node/commit/cb4378d226ad62a7e793ddb284f0457e88696bb8) fix(config): remove sing-box 1.14.0 incompatible fields |
-| 02:34 | Mimic-Node | [`97c2340`](https://github.com/LIghtJUNction/Mimic-Node/commit/97c2340ad43ec94ce85308696c93333207cd2f67) Update setup.rs |
-| 02:34 | Mimic-Node | [`0f5e50a`](https://github.com/LIghtJUNction/Mimic-Node/commit/0f5e50a912c6be00ee169bd174646a2f87875beb) Update setup.rs |
-| 01:10 | Mimic-Node | [`96f9bd8`](https://github.com/LIghtJUNction/Mimic-Node/commit/96f9bd8ce8b93f531b690b5dc2db00196cd6b3c4) feat(diagnose): DMS-style output with Hysteria2 check |
-| 01:08 | Mimic-Node | [`63cf5fd`](https://github.com/LIghtJUNction/Mimic-Node/commit/63cf5fdf0a8073ccdb09743b5eefd5a30c71dc2b) feat(diagnose): add Hysteria2 check and DMS-style output |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
