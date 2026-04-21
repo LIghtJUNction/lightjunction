@@ -4,8 +4,6 @@
 
 ## Website
 
-**ssh my pc: https://ssh.lightjunction.net.eu.org**
-
 **Write Something: https://lightjunction.github.io/lightjunction/**
 
 </div>
