@@ -2,182 +2,644 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Secure Message</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5/themes/dracula.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5/css/xterm.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            background: #0a0a0a;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            touch-action: none;
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #0d0d0d;
+            --neon-green: #00ff88;
+            --neon-cyan: #00f0ff;
+            --text-primary: #f8f8f2;
+            --text-secondary: #6272a4;
         }
-        /* bg */
-        .bg {
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(circle at 30% 30%, rgba(0,255,136,0.03) 0%, transparent 40%),
-                radial-gradient(circle at 70% 70%, rgba(255,0,136,0.02) 0%, transparent 40%),
-                #0a0a0a;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; background: radial-gradient(ellipse at 50% 0%, rgba(0,255,136,0.03) 0%, transparent 60%), var(--bg-primary); overflow: hidden; }
+        body { font-family: 'JetBrains Mono', monospace; color: var(--text-primary); }
+
+        .container {
+            height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
         }
-        .bg::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(0,255,136,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,255,136,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
-        /* card */
-        .card {
-            position: absolute;
-            width: 280px;
-            background: linear-gradient(145deg, #111, #0d0d0d);
-            border: 1px solid rgba(0,255,136,0.12);
-            border-radius: 8px;
-            padding: 20px 18px 20px;
-            cursor: grab;
-            box-shadow:
-                0 0 50px rgba(0,255,136,0.06),
-                0 20px 60px rgba(0,0,0,0.4);
-            transform-origin: center center;
-        }
-        .card:active { cursor: grabbing; }
-        /* lines */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 44px; left: 18px; right: 18px; bottom: 44px;
-            background-image: repeating-linear-gradient(
-                transparent,
-                transparent 20px,
-                rgba(0,255,136,0.05) 20px,
-                rgba(0,255,136,0.05) 21px
-            );
-            pointer-events: none;
-        }
-        .title {
-            font-size: 8px;
-            color: rgba(0,255,136,0.5);
-            letter-spacing: 3px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(0,255,136,0.1);
-            margin-bottom: 14px;
-        }
-        textarea {
-            width: 100%;
-            height: 160px;
-            background: transparent;
-            border: none;
-            resize: none;
-            font-family: inherit;
-            font-size: 12px;
-            line-height: 21px;
-            color: #d0d0d0;
-            outline: none;
-        }
-        textarea::placeholder { color: rgba(255,255,255,0.12); }
-        /* button */
-        /* result */
-        .result {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.9);
+        .header {
+            padding: 0 24px;
+            height: 56px;
+            border-bottom: 1px solid rgba(0,255,136,0.12);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(13,13,13,0.95) 0%, rgba(10,10,10,0.8) 100%);
+            backdrop-filter: blur(12px);
+            position: relative;
             z-index: 100;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,255,136,0.4), transparent);
+        }
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--neon-green);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 0 20px rgba(0,255,136,0.5);
+            letter-spacing: 2px;
+        }
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
+            border-radius: 8px;
+            display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 0 20px rgba(0,255,136,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
         }
-        .result.show { display: flex; }
-        .result-box {
-            background: #0f0f0f;
-            border: 1px solid rgba(0,255,136,0.15);
-            border-radius: 8px;
-            padding: 20px;
-            width: 90%;
-            max-width: 360px;
-        }
-        .result-label {
-            font-size: 8px;
-            color: #00ff88;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-        .result-text {
-            background: #080808;
-            border-radius: 4px;
-            padding: 12px;
-            font-size: 9px;
-            color: rgba(255,255,255,0.4);
-            word-break: break-all;
-            max-height: 160px;
-            overflow-y: auto;
-            margin-bottom: 14px;
-            line-height: 1.5;
-        }
-        .result-btns {
-            display: flex;
-            gap: 8px;
-        }
-        .result-btn {
-            flex: 1;
-            padding: 10px;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 9px;
+        .logo span { color: var(--neon-cyan); text-shadow: 0 0 20px rgba(0,240,255,0.5); }
+        .logo-sub { font-size: 9px; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-left: 8px; padding-left: 12px; border-left: 1px solid rgba(0,255,136,0.2); }
+        .btns { display: flex; gap: 6px; }
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(0,255,136,0.25);
+            background: linear-gradient(180deg, rgba(0,255,136,0.08) 0%, rgba(0,255,136,0.02) 100%);
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 600;
             cursor: pointer;
-            border: 1px solid rgba(0,255,136,0.2);
-            background: rgba(0,255,136,0.08);
-            color: #00ff88;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .result-btn:hover { background: rgba(0,255,136,0.15); }
-        .result-btn.dark {
-            border-color: rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.3);
-            background: transparent;
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,136,0.2), transparent);
+            transition: left 0.4s ease;
         }
-        /* status */
+        .btn:hover::before { left: 100%; }
+        .btn:hover {
+            background: linear-gradient(180deg, rgba(0,255,136,0.15) 0%, rgba(0,255,136,0.05) 100%);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0,255,136,0.2), 0 2px 10px rgba(0,0,0,0.3);
+            transform: translateY(-1px);
+        }
+        .btn:active { transform: translateY(0); }
+        .btn-icon { margin-right: 6px; }
+        .terminal-wrap { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, rgba(0,255,136,0.02) 0%, transparent 70%); }
+        .terminal-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .terminal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0,255,136,0.5);
+        }
+        .cmd-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        .cmd-prompt { color: var(--neon-cyan); margin-right: 8px; }
+        .cmd-path { color: var(--neon-green); }
+        .cmd-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--neon-green);
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        .terminal-hint {
+            position: absolute;
+            bottom: 20px;
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
         .status {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 9px;
-            color: #00ff88;
-            opacity: 0;
-            transition: opacity 0.2s;
-            z-index: 50;
-            pointer-events: none;
+            padding: 0 24px;
+            height: 36px;
+            background: linear-gradient(180deg, rgba(10,10,10,0.8) 0%, rgba(13,13,13,0.95) 100%);
+            border-top: 1px solid rgba(0,255,136,0.08);
+            font-size: 10px;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.5px;
         }
-        .status.show { opacity: 1; }
+        .status-left, .status-right { display: flex; align-items: center; gap: 16px; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon-green); display: inline-block; margin-right: 8px; box-shadow: 0 0 8px var(--neon-green); animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .status-item { display: flex; align-items: center; gap: 6px; }
+        .status-sep { color: rgba(0,255,136,0.2); }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--neon-green); display: inline-block; margin-right: 5px; }
+
+        #scard { position: fixed; width: 280px; background: linear-gradient(145deg, #111, #0d0d0d); border: 1px solid rgba(0,255,136,0.4); border-radius: 10px; padding: 18px; cursor: grab; box-shadow: 0 0 40px rgba(0,255,136,0.2), 0 20px 50px rgba(0,0,0,0.5); z-index: 500; display: none; }
+        .scard-title { font-size: 10px; color: var(--neon-green); letter-spacing: 2px; margin-bottom: 12px; }
+        #smsg { width: 100%; height: 100px; background: transparent; border: none; resize: none; font-family: inherit; font-size: 11px; color: var(--text-primary); outline: none; }
+        .scard-hint { font-size: 8px; color: var(--text-secondary); text-align: center; margin-top: 8px; text-transform: uppercase; }
+
+        #result { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 600; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+        #result.show { display: flex; }
+        .result-box { background: var(--bg-secondary); border: 1px solid rgba(0,255,136,0.2); border-radius: 10px; padding: 22px; width: 90%; max-width: 420px; }
+        .result-head { font-size: 11px; color: var(--neon-green); letter-spacing: 2px; margin-bottom: 12px; }
+        #rcontent { background: #080808; border-radius: 6px; padding: 10px; font-size: 9px; color: rgba(255,255,255,0.4); word-break: break-all; max-height: 130px; overflow-y: auto; margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; }
+        .result-btns { display: flex; gap: 8px; }
+        .rbtn { flex: 1; padding: 8px; border-radius: 4px; font-family: inherit; font-size: 9px; cursor: pointer; border: 1px solid; text-transform: uppercase; }
+        .rbtn.pri { border-color: var(--neon-green); background: rgba(0,255,136,0.1); color: var(--neon-green); }
+        .rbtn.pri:hover { background: var(--neon-green); color: var(--bg-primary); }
+        .rbtn.sec { border-color: rgba(255,255,255,0.1); background: transparent; color: var(--text-secondary); }
+
+        #toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%) translateY(15px); background: var(--bg-secondary); border: 1px solid var(--neon-green); padding: 8px 16px; border-radius: 4px; font-size: 10px; color: var(--neon-green); z-index: 700; opacity: 0; transition: all 0.3s; }
+        #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        .grid { position: fixed; inset: 0; background-image: linear-gradient(rgba(0,255,136,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,136,0.02) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+        .container { position: relative; z-index: 1; }
     </style>
 </head>
 <body>
-    <div class="bg"></div>
+    <div class="grid"></div>
 
-    <div class="card" id="card">
-        <div class="title">SECURE MESSAGE</div>
-        <textarea id="msg" placeholder="secret..."></textarea>
-    </div>
-
-    <div class="result" id="result">
-        <div class="result-box">
-            <div class="result-label">ENCRYPTED</div>
-            <div class="result-text" id="out"></div>
-            <div class="result-btns">
-                <button class="result-btn" id="cp">COPY</button>
-                <button class="result-btn" id="gh">GITHUB</button>
-                <button class="result-btn dark" id="cl">×</button>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">▶</div>
+                <div>
+                    <span>Terminal</span>
+                    <div class="logo-sub">SECURE TERMINAL</div>
+                </div>
+            </div>
+            <div class="btns">
+                <button class="btn" id="breboot"><span class="btn-icon">↻</span>Reboot</button>
+                <button class="btn" id="bfull"><span class="btn-icon">⛶</span>Fullscreen</button>
+                <button class="btn" id="bmsg"><span class="btn-icon">🔐</span>Encrypt</button>
+            </div>
+        </header>
+        <div class="terminal-wrap">
+            <div class="terminal-inner">
+                <div class="terminal-title">▶ Terminal</div>
+                <div class="terminal-output" id="terminal-output"></div>
+                <div class="cmd-line">
+                    <span class="cmd-prompt">guest@lj</span><span class="cmd-path">:~</span>$&nbsp;<span class="cmd-cursor"></span>
+                </div>
+            </div>
+            <div class="terminal-hint">Type <span style="color:var(--neon-green)">help</span> for commands · <span style="color:var(--neon-cyan)">msg</span> to encrypt</div>
+        </div>
+        <div class="status">
+            <div class="status-left">
+                <div class="status-item"><span class="dot"></span><span>Terminal</span></div>
+                <span class="status-sep">|</span>
+                <div class="status-item">Web Terminal</div>
+                <span class="status-sep">|</span>
+                <div class="status-item">PGP Encrypted</div>
+            </div>
+            <div class="status-right">
+                <div class="status-item">OpenPGP v6</div>
+                <span class="status-sep">|</span>
+                <div class="status-item">Clipboard API</div>
             </div>
         </div>
     </div>
 
-    <div class="status" id="st"></div>
+    <div id="scard">
+        <div class="scard-title">🔐 SECURE MESSAGE</div>
+        <textarea id="smsg" placeholder="Secret message..."></textarea>
+        <div class="scard-hint">↑ Drag up to encrypt</div>
+    </div>
 
-    <script type="module" src="/src/main.ts"></script>
+    <div id="result">
+        <div class="result-box">
+            <div class="result-head">✓ ENCRYPTED</div>
+            <div id="rcontent"></div>
+            <div class="result-btns">
+                <button class="rbtn pri" id="rcopy">Copy</button>
+                <button class="rbtn sec" id="rgh">GitHub</button>
+                <button class="rbtn sec" id="rcl">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/openpgp@6/dist/openpgp.min.js"></script>
+    <script type="module">
+        const $ = id => document.getElementById(id);
+        const toast = $('toast');
+        const output = $('terminal-output');
+
+        function showToast(m) {
+            toast.textContent = m;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // Terminal state
+        let history = [];
+        let historyIndex = -1;
+        let currentInput = '';
+        const inputLine = document.querySelector('.cmd-line');
+
+        // Terminal output
+        function addLine(content, type = '') {
+            const line = document.createElement('div');
+            line.className = 'term-line' + (type ? ' ' + type : '');
+            line.innerHTML = content;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function addInput(cmd) {
+            const line = document.createElement('div');
+            line.className = 'term-line term-input';
+            line.innerHTML = `<span class="cmd-prompt">guest@lj</span><span class="cmd-path">:~</span>$&nbsp;${escapeHtml(cmd)}`;
+            output.appendChild(line);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Commands
+        const commands = {
+            help: () => {
+                addLine(`<pre class="ascii-art" style="color: var(--neon-green)">
+╔══════════════════════════════════════════════════════════════╗
+║                    LIghtJUNction Terminal                     ║
+╚══════════════════════════════════════════════════════════════╝</pre>`);
+                addLine('', '', '<div class="help-table">' +
+                    '<div><span class="help-cmd">help</span></div><div class="help-desc">Show this help message</div>' +
+                    '<div><span class="help-cmd">about</span></div><div class="help-desc">About me</div>' +
+                    '<div><span class="help-cmd">skills</span></div><div class="help-desc">My technical skills</div>' +
+                    '<div><span class="help-cmd">projects</span></div><div class="help-desc">List my GitHub projects</div>' +
+                    '<div><span class="help-cmd">stats</span></div><div class="help-desc">GitHub statistics</div>' +
+                    '<div><span class="help-cmd">contact</span></div><div class="help-desc">Get in touch</div>' +
+                    '<div><span class="help-cmd">msg</span></div><div class="help-desc">Open encrypted message card</div>' +
+                    '<div><span class="help-cmd">clear</span></div><div class="help-desc">Clear the terminal</div>' +
+                    '<div><span class="help-cmd">whoami</span></div><div class="help-desc">Display current user</div>' +
+                    '<div><span class="help-cmd">neofetch</span></div><div class="help-desc">System information</div>' +
+                    '</div>');
+            },
+            about: () => {
+                addLine(`<pre style="color: var(--neon-green); font-size: 11px;">
+ █████╗ ██╗  ██╗██╗ ██████╗ ██╗  ██╗████████╗
+██╔══██╗██║  ██║██║██╔════╝ ██║  ██║╚══██╔══╝
+███████║███████║██║██║  ███╗███████║   ██║
+██╔══██║██╔══██║██║██║   ██║██╔══██║   ██║
+██║  ██║██║  ██║██║╚██████╔╝██║  ██║   ██║
+╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝</pre>`);
+                addLine(`<div style="color: var(--text-secondary); margin-top: 10px; line-height: 1.6;">
+<p><span style="color: var(--neon-cyan)">> Identity:</span> Full-Stack Developer & Security Enthusiast</p>
+<p><span style="color: var(--neon-cyan)">> Focus:</span> Building secure, efficient, open source solutions</p>
+<p><span style="color: var(--neon-cyan)">> Currently:</span> Exploring cryptographic protocols & distributed systems</p>
+</div>`);
+            },
+            skills: () => {
+                addLine('<span style="color: var(--neon-green)">[Skills] Loading...</span>');
+                setTimeout(() => {
+                    const last = output.lastElementChild;
+                    if (last) last.remove();
+                    addLine(`<div class="skills-grid">
+<div class="skill-item"><div class="skill-name">Frontend</div><div class="skill-tags"><span class="skill-tag">TypeScript</span><span class="skill-tag">React</span><span class="skill-tag">Vue</span></div></div>
+<div class="skill-item"><div class="skill-name">Backend</div><div class="skill-tags"><span class="skill-tag">Node.js</span><span class="skill-tag">Python</span><span class="skill-tag">Go</span></div></div>
+<div class="skill-item"><div class="skill-name">Security</div><div class="skill-tags"><span class="skill-tag">PGP</span><span class="skill-tag">OAuth</span><span class="skill-tag">JWT</span></div></div>
+<div class="skill-item"><div class="skill-name">DevOps</div><div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Linux</span><span class="skill-tag">Shell</span></div></div>
+</div>`);
+                }, 500);
+            },
+            projects: async () => {
+                addLine('<span class="loading">Fetching projects...</span>');
+                try {
+                    const res = await fetch('https://api.github.com/users/LIghtJUNction/repos?sort=updated&per_page=6');
+                    const repos = await res.json();
+                    const last = output.lastElementChild;
+                    if (last) last.remove();
+                    addLine(`<div class="projects-list">${repos.map(r => `
+<div class="project-item">
+<div class="project-name"><a href="${r.html_url}" target="_blank" style="color:var(--neon-cyan)">${r.name}</a> ${r.language ? `<span style="color:var(--neon-green);font-size:9px">[${r.language}]</span>` : ''}</div>
+<div class="project-desc" style="color:var(--text-secondary);font-size:10px">${r.description || 'No description'}</div>
+<div class="project-meta" style="color:var(--text-dim);font-size:9px">★ ${r.stargazers_count} ·⑂ ${r.forks_count}</div>
+</div>`).join('')}</div>`);
+                } catch { addLine('<span style="color:var(--neon-pink)">Failed to fetch projects</span>'); }
+            },
+            stats: async () => {
+                addLine('<span class="loading">Fetching stats...</span>');
+                try {
+                    const res = await fetch('https://api.github.com/users/LIghtJUNction');
+                    const data = await res.json();
+                    const last = output.lastElementChild;
+                    if (last) last.remove();
+                    addLine(`<div class="stats-display">
+<div class="stat-item"><div class="stat-value">${data.public_repos}</div><div class="stat-label">Repos</div></div>
+<div class="stat-item"><div class="stat-value">${data.followers}</div><div class="stat-label">Followers</div></div>
+<div class="stat-item"><div class="stat-value">${data.following}</div><div class="stat-label">Following</div></div>
+</div>`);
+                } catch { addLine('<span style="color:var(--neon-pink)">Failed to fetch stats</span>'); }
+            },
+            contact: () => {
+                addLine(`<div class="contact-list">
+<div style="color:var(--text-secondary);margin-bottom:8px">🐙 <a href="https://github.com/LIghtJUNction" target="_blank" style="color:var(--neon-cyan)">github.com/LIghtJUNction</a></div>
+<div style="color:var(--text-secondary);margin-bottom:8px">📧 <a href="mailto:lightjunction.me@gmail.com" style="color:var(--neon-cyan)">lightjunction.me@gmail.com</a></div>
+<div style="color:var(--text-dim);font-size:9px">🔐 PGP: EB21B83AB1E982DF66F08387A67178405F7736FD</div>
+</div>`);
+                addLine(`<span style="color:var(--neon-green)">Use <span style="color:var(--neon-cyan)">msg</span> to send encrypted messages!</span>`, 'info');
+            },
+            msg: () => {
+                $('scard').style.display = 'block';
+                initSC();
+                showToast('🔐 Secure card activated - drag up to send!');
+                addLine('<span style="color:var(--neon-green)">✓</span> Secure message card opened', 'success');
+            },
+            clear: () => { output.innerHTML = ''; },
+            whoami: () => addLine('guest\nLIghtJUNction\nFull-Stack Developer'),
+            pwd: () => addLine('/home/guest'),
+            ls: () => addLine(`<span style="color:var(--text-secondary)">
+about.txt  skills.log  projects/  contact.sh
+<span style="color:var(--text-dim)">Tip: try <span style="color:var(--neon-green)">ls -la</span> for hidden files</span></span>`),
+            uname: () => addLine('LIghtJUNction-os 2026.1 x86_64 GNU/Linux'),
+            neofetch: () => {
+                addLine(`<pre style="color:var(--neon-green);font-size:10px">
+        ██╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗
+        ████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝
+        ██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗
+        ██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║
+        ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║
+        ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝</pre>`);
+                addLine(`<div style="color:var(--text-secondary);font-size:10px;text-align:left;display:inline-block;line-height:1.8">
+<div><span style="color:var(--neon-cyan)">user:</span> LIghtJUNction</div>
+<div><span style="color:var(--neon-cyan)">host:</span> lj.dev</div>
+<div><span style="color:var(--neon-cyan)">distro:</span> Arch Linux</div>
+<div><span style="color:var(--neon-cyan)">shell:</span> zsh + starship</div>
+</div>`);
+            }
+        };
+
+        function execute(cmd) {
+            const parts = cmd.trim().split(/\s+/);
+            const command = parts[0].toLowerCase();
+            const args = parts.slice(1);
+
+            if (!command) return;
+
+            addInput(cmd);
+
+            if (commands[command]) {
+                commands[command](args);
+            } else {
+                addLine(`<span style="color:var(--neon-pink)">Command not found: ${command}</span>`);
+                addLine(`Type <span style="color:var(--neon-green)">help</span> for available commands`, 'dim');
+            }
+        }
+
+        // Input handling
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'Enter') {
+                const cmd = currentInput;
+                if (cmd.trim()) {
+                    history.push(cmd);
+                    historyIndex = history.length;
+                }
+                execute(cmd);
+                currentInput = '';
+                updateInputDisplay();
+            } else if (e.key === 'Backspace') {
+                currentInput = currentInput.slice(0, -1);
+                updateInputDisplay();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    currentInput = history[historyIndex];
+                    updateInputDisplay();
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < history.length - 1) {
+                    historyIndex++;
+                    currentInput = history[historyIndex];
+                } else {
+                    historyIndex = history.length;
+                    currentInput = '';
+                }
+                updateInputDisplay();
+            } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+                currentInput += e.key;
+                updateInputDisplay();
+            }
+        });
+
+        function updateInputDisplay() {
+            const cursor = inputLine.querySelector('.cmd-cursor');
+            const spans = inputLine.querySelectorAll('.cmd-prompt, .cmd-path');
+            // Rebuild input display
+            inputLine.innerHTML = `<span class="cmd-prompt">guest@lj</span><span class="cmd-path">:~</span>$&nbsp;${escapeHtml(currentInput)}<span class="cmd-cursor"></span>`;
+        }
+
+        // Button handlers
+        $('breboot').onclick = () => {
+            output.innerHTML = '';
+            addLine('<span style="color:var(--neon-green)">Terminal reset</span>');
+            showToast('🔄 Ready');
+        };
+
+        $('bfull').onclick = () => {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            }
+        };
+
+        $('bmsg').onclick = () => {
+            $('scard').style.display = 'block';
+            initSC();
+            showToast('🔐 Secure card activated');
+        };
+
+        // Secure card
+        const scard = $('scard');
+        let px = 0, py = 0, vx = 0, vy = 0;
+        let drag = false, sx = 0, sy = 0;
+        let sent = false;
+        const G = 0.3, F = 0.99;
+
+        function initSC() {
+            px = (window.innerWidth - scard.offsetWidth) / 2;
+            py = window.innerHeight - scard.offsetHeight - 80;
+            scard.style.left = px + 'px';
+            scard.style.top = py + 'px';
+        }
+
+        function upSC() {
+            scard.style.left = px + 'px';
+            scard.style.top = py + 'px';
+        }
+
+        function frame() {
+            if (!drag && !sent && scard.style.display !== 'none') {
+                vy += G; vx *= F; vy *= F;
+                px += vx; py += vy;
+                const mx = window.innerWidth - scard.offsetWidth;
+                const my = window.innerHeight - scard.offsetHeight;
+                if (px < 0) { px = 0; vx = -vx * 0.6; }
+                if (px > mx) { px = mx; vx = -vx * 0.6; }
+                if (py > my) { py = my; vy = -vy * 0.6; }
+                if (py < -scard.offsetHeight - 50) sendMsg();
+                upSC();
+            }
+            requestAnimationFrame(frame);
+        }
+
+        scard.addEventListener('mousedown', (e) => {
+            if (e.target.tagName === 'TEXTAREA') return;
+            drag = true; sx = e.clientX; sy = e.clientY; vx = vy = 0;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!drag) return;
+            px += e.clientX - sx; py += e.clientY - sy;
+            sx = e.clientX; sy = e.clientY;
+            upSC();
+        });
+
+        window.addEventListener('mouseup', () => { drag = false; });
+
+        async function sendMsg() {
+            const msg = $('smsg').value.trim();
+            if (!msg) {
+                sent = false;
+                py = window.innerHeight - scard.offsetHeight - 80;
+                vy = 0;
+                showToast('Write something!');
+                return;
+            }
+            showToast('Encrypting...');
+            try {
+                const pub = await openpgp.readKey({ armoredKey: `-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mDMEZ/6uihYJKwYBBAHaRw8BAQdAGM5JPSEZCHEAma0d8JoMDtfy+JJwmPlf4Lo9
+5RJVMDq0KkxJZ2h0SlVOY3Rpb24gPExJZ2h0SlVOY3Rpb24ubWVAZ21haWwuY29t
+PoiTBBMWCgA7AhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAFiEE6yG4OrHp
+gt9m8IOHpnF4QF93Nv0FAmf+smUACgkQpnF4QF93Nv17uAD/QcyMTrc98nfAf88i
+mCZOAgwTfqT4ZE/I9pFj3xxxJwQA/Rlq0SC5/vWuPhr6J7S22u/PUOFJP2fj+nKp
+EX6EQ18IuDgEZ/6uihIKKwYBBAGXVQEFAQEHQDh4OfNBdiuIoLUjLJ7581/lK3Zg
+giLnI6ZYyCwj3ygFAwEIB4h4BBgWCgAgAhsMFiEE6yG4OrHpgt9m8IOHpnF4QF93
+Nv0FAmf+sncACgkQpnF4QF93Nv0ihQD/dIGnVBFC8eNcA3W20sQ7UV5n2sj39Lzp
+f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8LuDMEaVzv
+9RYJKwYBBAHaRw8BAQdAgh+f07ofBteLgJYBennZmEiGj/uleeJji/e9+b2ixj2I
+eAQYFgoAIBYhBOshuDqx6YLfZvCDh6ZxeEBfdzb9BQJpXO/1AhsgAAoJEKZxeEBf
+dzb9EccA+wQJ4rgGHEutSEH7IBVbcg2Ua/bO5kGJL1dsXpHbrN9OAP9lXD8yURjh
+l3xQhx6HVK8KzO3u7bdIxVNIwuj+fqmhAg==
+=vCDQ
+-----END PGP PUBLIC KEY BLOCK-----` });
+                const enc = await openpgp.encrypt({ message: await openpgp.createMessage({ text: msg }), encryptionKeys: pub });
+                await navigator.clipboard.writeText(enc);
+                $('rcontent').textContent = enc;
+                $('result').classList.add('show');
+                scard.style.display = 'none';
+                showToast('✓ Encrypted & copied!');
+                addLine('<span style="color:var(--neon-green)">✓</span> Message encrypted with PGP!', 'success');
+            } catch {
+                showToast('Encryption error');
+                sent = false;
+                py = window.innerHeight - scard.offsetHeight - 80;
+                vy = 0;
+            }
+        }
+
+        $('rcopy').onclick = async () => {
+            await navigator.clipboard.writeText($('rcontent').textContent);
+            showToast('Copied!');
+        };
+
+        $('rgh').onclick = () => {
+            window.open('https://github.com/LIghtJUNction/lightjunction/issues/new?title=encrypted+message&body=' + encodeURIComponent('## Encrypted\n\n```\n' + $('rcontent').textContent + '\n```'), '_blank');
+        };
+
+        $('rcl').onclick = () => {
+            $('result').classList.remove('show');
+            $('smsg').value = '';
+            sent = false;
+            scard.style.display = 'block';
+            initSC();
+        };
+
+        // Add terminal styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .terminal-output { flex: 1; overflow-y: auto; padding: 10px 0; }
+            .term-line { margin-bottom: 4px; line-height: 1.5; font-size: 12px; }
+            .term-input { color: var(--text-secondary); }
+            .term-line pre { margin: 8px 0; }
+            .help-table { display: grid; grid-template-columns: auto 1fr; gap: 2px 16px; margin: 8px 0; }
+            .help-cmd { color: var(--neon-green); }
+            .help-desc { color: var(--text-secondary); }
+            .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 8px 0; }
+            .skill-item { background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.1); border-radius: 6px; padding: 8px; }
+            .skill-name { color: var(--neon-cyan); font-size: 10px; margin-bottom: 4px; }
+            .skill-tag { display: inline-block; background: rgba(0,255,136,0.1); color: var(--neon-green); font-size: 9px; padding: 2px 6px; border-radius: 3px; margin: 2px; }
+            .projects-list { margin: 8px 0; }
+            .project-item { padding: 6px 0; border-bottom: 1px solid rgba(0,255,136,0.05); }
+            .stats-display { display: flex; gap: 20px; margin: 12px 0; }
+            .stat-item { text-align: center; }
+            .stat-value { font-size: 24px; color: var(--neon-green); font-weight: bold; }
+            .stat-label { font-size: 9px; color: var(--text-secondary); text-transform: uppercase; }
+            .loading::after { content: '...'; animation: load 1s infinite; }
+            @keyframes load { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+            .ascii-art { font-size: 10px; line-height: 1.2; }
+        `;
+        document.head.appendChild(style);
+
+        initSC();
+        frame();
+
+        // Welcome
+        addLine(`<pre class="ascii-art" style="color:var(--neon-green);font-size:9px">
+ ███╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗
+ ████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝
+ ██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗
+ ██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║
+ ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║
+ ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝</pre>`);
+        addLine(`<div style="color:var(--text-secondary);font-size:10px;margin-top:8px">Full-Stack Developer // Security Enthusiast // Open Source Advocate</div>`);
+        addLine(`<span style="color:var(--text-dim);font-size:10px">Type <span style="color:var(--neon-green)">help</span> to see commands · <span style="color:var(--neon-cyan)">msg</span> to encrypt</span>`, 'dim');
+    </script>
 </body>
 </html>

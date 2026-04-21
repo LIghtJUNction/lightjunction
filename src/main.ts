@@ -19,15 +19,16 @@ l3xQhx6HVK8KzO3u7bdIxVNIwuj+fqmhAg==
 -----END PGP PUBLIC KEY BLOCK-----`
 
 let encrypted = ''
+let sent = false
 
-const card = document.getElementById('card')!
-const msg = document.getElementById('msg') as HTMLTextAreaElement
-const result = document.getElementById('result')!
-const out = document.getElementById('out')!
-const cp = document.getElementById('cp')!
-const gh = document.getElementById('gh')!
-const cl = document.getElementById('cl')!
-const st = document.getElementById('st')!
+const card = document.getElementById('secure-card')!
+const msg = document.getElementById('secure-msg') as HTMLTextAreaElement
+const resultBox = document.getElementById('result-box')!
+const resultText = document.getElementById('result-text')!
+const btnCopy = document.getElementById('btn-copy')!
+const btnGithub = document.getElementById('btn-github')!
+const btnClose = document.getElementById('btn-close')!
+const toast = document.getElementById('toast')!
 
 // physics
 let posX = 0, posY = 0
@@ -37,7 +38,6 @@ let startX = 0, startY = 0
 let offsetX = 0, offsetY = 0
 let lastX = 0, lastY = 0
 let lastT = 0
-let sent = false
 
 const GRAV = 0.4
 const FRIC = 0.99
@@ -45,16 +45,20 @@ const FRIC = 0.99
 function init() {
     posX = (window.innerWidth - card.offsetWidth) / 2
     posY = (window.innerHeight - card.offsetHeight) / 2
+    card.style.right = 'auto'
+    card.style.bottom = 'auto'
     update()
 }
 init()
 
 function update() {
-    card.style.transform = `translate(${posX}px, ${posY}px)`
+    card.style.left = posX + 'px'
+    card.style.top = posY + 'px'
+    card.style.transform = 'none'
 }
 
 function frame() {
-    if (!dragging && !sent) {
+    if (!dragging && !sent && card.style.display !== 'none') {
         velY += GRAV
         velX *= FRIC
         velY *= FRIC
@@ -82,6 +86,7 @@ frame()
 // drag - mouse
 card.addEventListener('mousedown', (e) => {
     if ((e.target as HTMLElement).tagName === 'TEXTAREA') return
+    card.classList.add('dragging')
     dragging = true
     startX = e.clientX
     startY = e.clientY
@@ -109,17 +114,19 @@ window.addEventListener('mousemove', (e) => {
     update()
 })
 
-window.addEventListener('mouseup', (e) => {
+window.addEventListener('mouseup', () => {
     if (!dragging) return
     dragging = false
-    velX = (e.clientX - startX) * 0.05
-    velY = (e.clientY - startY) * 0.05
+    card.classList.remove('dragging')
+    velX = (window.innerWidth / 2 - posX) * 0.001
+    velY = (window.innerHeight / 2 - posY) * 0.001
 })
 
 // drag - touch
 card.addEventListener('touchstart', (e) => {
     if ((e.target as HTMLElement).tagName === 'TEXTAREA') return
     const t = e.touches[0]
+    card.classList.add('dragging')
     dragging = true
     startX = t.clientX
     startY = t.clientY
@@ -148,13 +155,16 @@ card.addEventListener('touchmove', (e) => {
     update()
 }, { passive: true })
 
-card.addEventListener('touchend', () => { dragging = false })
+card.addEventListener('touchend', () => {
+    dragging = false
+    card.classList.remove('dragging')
+})
 
-// status
-function status(t: string) {
-    st.textContent = t
-    st.className = t ? 'status show' : 'status'
-    if (t) setTimeout(() => st.className = 'status', 2000)
+// toast
+function showToast(t: string) {
+    toast.textContent = t
+    toast.classList.add('show')
+    setTimeout(() => toast.classList.remove('show'), 2500)
 }
 
 // send
@@ -163,13 +173,13 @@ async function doSend() {
     const text = msg.value.trim()
     if (!text) {
         sent = false
-        posY = 0
+        posY = window.innerHeight - card.offsetHeight - 50
         velY = 0
-        status('write something')
+        showToast('Write something first!')
         return
     }
 
-    status('encrypting...')
+    showToast('Encrypting...')
 
     try {
         const pub = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
@@ -179,33 +189,35 @@ async function doSend() {
         }) as string
 
         await navigator.clipboard.writeText(encrypted)
-        out.textContent = encrypted
-        result.classList.add('show')
-        status('encrypted & copied!')
+        resultText.textContent = encrypted
+        resultBox.classList.add('show')
+        card.style.display = 'none'
+        showToast('Encrypted & copied!')
     } catch {
-        status('error')
+        showToast('Encryption error')
         sent = false
-        posY = 0
+        posY = window.innerHeight - card.offsetHeight - 50
         velY = 0
     }
 }
 
 // result buttons
-cp.addEventListener('click', async () => {
+btnCopy.addEventListener('click', async () => {
     await navigator.clipboard.writeText(encrypted)
-    status('copied')
+    showToast('Copied!')
 })
 
-gh.addEventListener('click', () => {
+btnGithub.addEventListener('click', () => {
     const url = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=encrypted+message&body=${encodeURIComponent(`## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`)}`
     window.open(url, '_blank')
 })
 
-cl.addEventListener('click', () => {
-    result.classList.remove('show')
+btnClose.addEventListener('click', () => {
+    resultBox.classList.remove('show')
     msg.value = ''
     encrypted = ''
     sent = false
+    card.style.display = 'block'
     init()
 })
 
