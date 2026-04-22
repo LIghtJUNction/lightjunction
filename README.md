@@ -56,7 +56,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 10mo) | **69** | **67** | **99** |
+| 2022-06-06 (3yr 10mo) | **69** | **67** | **101** |
 
 ---
 
@@ -80,22 +80,26 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**87** commits across **4** repositories
+**92** commits across **4** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓░░░░░░ 41 |
+| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓░░░░░░ 42 |
 | [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓░░░░░░░ 33 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 10 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 7 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 6 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -134,23 +138,9 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-20_
+_Updated: 2026-04-21_
 
 </td>
-<td align="center" valign="top">
-
-#### 🦀 Mimic-Node
-VLESS + Reality + Hysteria2 + XTLS-Vision/xhttp
-
-⭐ 11 • 🍴 1 • Rust
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-20_
-
-</td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 lightjunction
@@ -161,7 +151,21 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-20_
+_Updated: 2026-04-21_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🦀 Mimic-Node
+VLESS + Reality + Hysteria2 + XTLS-Vision/xhttp
+
+⭐ 11 • 🍴 1 • Rust
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-21_
 
 </td>
 <td align="center" valign="top">
@@ -228,12 +232,25 @@ _Updated: 2026-04-15_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-04-21**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:08 | MagicMihomo | [`739a5ef`](https://github.com/LIghtJUNction/MagicMihomo/commit/739a5ef2c2b01d71a4ea5eb9689de3bd949fe7fd) ruleset: update-ruleset |
+| 19:26 | lightjunction | [`0666d9f`](https://github.com/LIghtJUNction/lightjunction/commit/0666d9f4bcce163c1d627fc7089bf9a868baf725) 更新 README.md |
+| 19:24 | lightjunction | [`337287c`](https://github.com/LIghtJUNction/lightjunction/commit/337287cfb14183ea3b355be114c15bc8402e75e4) 更新 README.md |
+| 19:20 | lightjunction | [`3904a38`](https://github.com/LIghtJUNction/lightjunction/commit/3904a385f43e1741a6a8ff9e90406336bdf700e6) 更新 README.md |
+| 19:10 | Mimic-Node | [`5503921`](https://github.com/LIghtJUNction/Mimic-Node/commit/55039219197c2e905b2a333d086f1a13bb775d0e) 删除 SKILL.md |
+| 12:09 | lightjunction | [`1a2e5e6`](https://github.com/LIghtJUNction/lightjunction/commit/1a2e5e66d4984bdb0cf787236db19cd176c9663f) feat: replace v86 emulator with custom terminal UI |
 
 **2026-04-20**
 
@@ -244,22 +261,13 @@ _Updated: 2026-04-15_
 | 12:04 | Mimic-Node | [`04080df`](https://github.com/LIghtJUNction/Mimic-Node/commit/04080df6ee1a144327af47a27798112b809115a5) fix: update default config for sing-box 1.14.0 compatibility |
 | 11:42 | Mimic-Node | [`ccc9607`](https://github.com/LIghtJUNction/Mimic-Node/commit/ccc960796c9e644da57db43f4880cb1cb259716b) sync |
 
-**2026-04-19**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:05 | MagicMihomo | [`4e3d5fa`](https://github.com/LIghtJUNction/MagicMihomo/commit/4e3d5fa21042f25e84f4f677df8a6e9633c8c974) ruleset: update-ruleset |
-| 22:41 | lightjunction | [`a711ffa`](https://github.com/LIghtJUNction/lightjunction/commit/a711ffad69b1b382ae1884d3e102f2a593b45c29) remove pre-review feature and related README claim |
-| 22:39 | lightjunction | [`5b989fa`](https://github.com/LIghtJUNction/lightjunction/commit/5b989faa2d52825afa46dfc33f85f1657abd2be1) fix: wrap pre-review in function to use local variable |
-| 22:37 | lightjunction | [`21f3f2a`](https://github.com/LIghtJUNction/lightjunction/commit/21f3f2a0ad4c8b43f261abcdb1e5112657ca4e3e) fix: always show script via less for review before execution |
-| 22:32 | lightjunction | [`ca3a8e9`](https://github.com/LIghtJUNction/lightjunction/commit/ca3a8e97b6ca46a632b71dd361a6d0d5de2916f3) fix: set GPG_PATH default in deploy-ssh-keys.sh |
-| 21:58 | Mimic-Node | [`cb4378d`](https://github.com/LIghtJUNction/Mimic-Node/commit/cb4378d226ad62a7e793ddb284f0457e88696bb8) fix(config): remove sing-box 1.14.0 incompatible fields |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
