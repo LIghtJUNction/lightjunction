@@ -56,7 +56,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 10mo) | **69** | **67** | **101** |
+| 2022-06-06 (3yr 10mo) | **62** | **67** | **102** |
 
 ---
 
@@ -82,22 +82,26 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**92** commits across **4** repositories
+**61** commits across **4** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓░░░░░░ 42 |
-| [LIghtJUNction/dots-hyprland](https://github.com/LIghtJUNction/dots-hyprland) | ▓▓▓░░░░░░░ 33 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 10 |
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 7 |
+| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓▓▓░░░░ 42 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 8 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
+| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ░░░░░░░░░░ 4 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -130,42 +134,15 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
-#### 🐚 MagicMihomo
-MagicNet-mihomo
+#### 🐍 hello_dkms
+linux kernel module (dkms) 
 
-⭐ 10 • 🍴 0 • Shell
+⭐ 0 • 🍴 0 • Python
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/hello_dkms?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/hello_dkms?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-21_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-21_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### 🦀 Mimic-Node
-VLESS + Reality + Hysteria2 + XTLS-Vision/xhttp
-
-⭐ 11 • 🍴 1 • Rust
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-21_
+_Updated: 2026-04-23_
 
 </td>
 <td align="center" valign="top">
@@ -178,10 +155,50 @@ Astrbot Dashboard
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-19_
+_Updated: 2026-04-23_
 
 </td>
 </tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 MagicMihomo
+MagicNet-mihomo
+
+⭐ 10 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-22_
+
+</td>
+<td align="center" valign="top">
+
+#### 🦀 Mimic-Node
+VLESS + Reality + Hysteria2 + XTLS-Vision/xhttp
+
+⭐ 12 • 🍴 1 • Rust
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-22_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-22_
+
+</td>
 <td align="center" valign="top">
 
 #### 🐚 MagicNet
@@ -193,19 +210,6 @@ A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-04-18_
-
-</td>
-<td align="center" valign="top">
-
-#### 📄 dots-hyprland
-uhh questioning the meaning of dotfiles
-
-⭐ 1 • 🍴 0 • QML
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dots-hyprland?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dots-hyprland?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-15_
 
 </td>
 </tr></table>
@@ -234,12 +238,29 @@ _Updated: 2026-04-15_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-04-23**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 02:46 | hello_dkms | [`2d2d534`](https://github.com/LIghtJUNction/hello_dkms/commit/2d2d534799ff2fab8192d54109eb472605596697) Update README.md |
+| 02:40 | hello_dkms | [`2df81a3`](https://github.com/LIghtJUNction/hello_dkms/commit/2df81a3da36110e1490c306feb41920e4df2343a) Rename REAMDE.md to README.md |
+| 02:32 | hello_dkms | [`ba32c8e`](https://github.com/LIghtJUNction/hello_dkms/commit/ba32c8e9a218be4fe7a7562973067816213cc97c) initial commit |
+| 02:28 | hello_dkms | [`b6deb27`](https://github.com/LIghtJUNction/hello_dkms/commit/b6deb2750f93cc18077faba9cdca0f1261cb83b3) initial commit |
+
+**2026-04-22**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:26 | MagicMihomo | [`0b8362c`](https://github.com/LIghtJUNction/MagicMihomo/commit/0b8362cd0c661df5dd5306ab13515fbb79ebbfb9) ruleset: update-ruleset |
 
 **2026-04-21**
 
@@ -250,22 +271,14 @@ _Updated: 2026-04-15_
 | 19:24 | lightjunction | [`337287c`](https://github.com/LIghtJUNction/lightjunction/commit/337287cfb14183ea3b355be114c15bc8402e75e4) 更新 README.md |
 | 19:20 | lightjunction | [`3904a38`](https://github.com/LIghtJUNction/lightjunction/commit/3904a385f43e1741a6a8ff9e90406336bdf700e6) 更新 README.md |
 | 19:10 | Mimic-Node | [`5503921`](https://github.com/LIghtJUNction/Mimic-Node/commit/55039219197c2e905b2a333d086f1a13bb775d0e) 删除 SKILL.md |
-| 12:09 | lightjunction | [`1a2e5e6`](https://github.com/LIghtJUNction/lightjunction/commit/1a2e5e66d4984bdb0cf787236db19cd176c9663f) feat: replace v86 emulator with custom terminal UI |
-
-**2026-04-20**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:10 | MagicMihomo | [`34c553e`](https://github.com/LIghtJUNction/MagicMihomo/commit/34c553e5f1add10b24155d30cdfe1f27444e5dea) ruleset: update-ruleset |
-| 12:07 | Mimic-Node | [`81710dd`](https://github.com/LIghtJUNction/Mimic-Node/commit/81710ddc1dcbc73fff71bed2b51f9e5b0711c722) fix: address clippy warnings |
-| 12:04 | Mimic-Node | [`04080df`](https://github.com/LIghtJUNction/Mimic-Node/commit/04080df6ee1a144327af47a27798112b809115a5) fix: update default config for sing-box 1.14.0 compatibility |
-| 11:42 | Mimic-Node | [`ccc9607`](https://github.com/LIghtJUNction/Mimic-Node/commit/ccc960796c9e644da57db43f4880cb1cb259716b) sync |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
