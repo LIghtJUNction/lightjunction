@@ -2,6 +2,8 @@
 
 <div align="center">
 
+![Stone Badge](https://stone.professorlee.work/api/stone/LIghtJUNction/lightjunction)
+
 ## Website
 
 **Write Something: https://lightjunction.github.io/lightjunction/**
