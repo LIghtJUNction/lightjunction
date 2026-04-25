@@ -86,16 +86,18 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**104** commits across **5** repositories
+**106** commits across **5** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓▓▓▓░░░░░░ 46 |
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓▓░░░░░░ 42 |
+| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓▓▓▓░░░░░░ 48 |
+| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓░░░░░░░ 42 |
 | [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 8 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 7 |
 | [LIghtJUNction/MagicNet](https://github.com/LIghtJUNction/MagicNet) | ░░░░░░░░░░ 1 |
@@ -103,6 +105,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -147,9 +151,23 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-23_
+_Updated: 2026-04-24_
 
 </td>
+<td align="center" valign="top">
+
+#### 🤖 YumeBox
+an ordinary box, as ordinary as it can possibly be
+
+⭐ 1 • 🍴 0 • Kotlin
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-24_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 🐍 hello_dkms
@@ -160,7 +178,20 @@ linux kernel module (dkms)
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/hello_dkms?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/hello_dkms?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-23_
+_Updated: 2026-04-24_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-24_
 
 </td>
 </tr><tr>
@@ -179,20 +210,6 @@ _Updated: 2026-04-23_
 </td>
 <td align="center" valign="top">
 
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-23_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
 #### 💚 dash.astrbot.men
 Astrbot Dashboard
 
@@ -202,19 +219,6 @@ Astrbot Dashboard
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-04-23_
-
-</td>
-<td align="center" valign="top">
-
-#### 🦀 Mimic-Node
-VLESS + Reality + Hysteria2 + XTLS-Vision/xhttp
-
-⭐ 12 • 🍴 1 • Rust
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/Mimic-Node?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-22_
 
 </td>
 </tr></table>
@@ -247,12 +251,22 @@ _Updated: 2026-04-22_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-04-24**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:08 | MagicMihomo | [`cb4f6bd`](https://github.com/LIghtJUNction/MagicMihomo/commit/cb4f6bda58ba02fa168b95d294deb275f6e5c0f3) ruleset: update-ruleset |
+| 11:33 | hello_dkms | [`1379e75`](https://github.com/LIghtJUNction/hello_dkms/commit/1379e75f553cfe0d78d0fc628933a75a32cc3adf) ......... |
+| 11:13 | hello_dkms | [`0e771e3`](https://github.com/LIghtJUNction/hello_dkms/commit/0e771e31bc329948b41fd3ab9464166966906cb2) ... |
 
 **2026-04-23**
 
@@ -265,15 +279,14 @@ _Updated: 2026-04-22_
 | 19:43 | hello_dkms | [`cc5aa9c`](https://github.com/LIghtJUNction/hello_dkms/commit/cc5aa9cc413e0928282cf6023ce95031ca3fe164) style |
 | 19:26 | hello_dkms | [`2fdd179`](https://github.com/LIghtJUNction/hello_dkms/commit/2fdd17942fa8e22f12b3ce172f98bea93b8c2b3e) Update hello.c |
 | 19:20 | hello_dkms | [`a02a00e`](https://github.com/LIghtJUNction/hello_dkms/commit/a02a00ee0e180be5569a3f905608efd905539b3f) Update README.md |
-| 19:18 | hello_dkms | [`4b585f8`](https://github.com/LIghtJUNction/hello_dkms/commit/4b585f8079019c9569c552d7b9dfa1ff9853abf2) sync |
-| 19:17 | hello_dkms | [`4c92832`](https://github.com/LIghtJUNction/hello_dkms/commit/4c9283201f9eaa8ff2d50b9e545f7542973ecd4e) sync |
-| 18:37 | hello_dkms | [`fc6ec63`](https://github.com/LIghtJUNction/hello_dkms/commit/fc6ec631383134002312b3230a90cbd4a75db605) Update dkms-helper.bash |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
