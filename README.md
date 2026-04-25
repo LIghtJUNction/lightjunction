@@ -152,6 +152,7 @@ MagicNet-mihomo
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/MagicMihomo)
 
 _Updated: 2026-04-24_
 
@@ -165,6 +166,7 @@ an ordinary box, as ordinary as it can possibly be
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/YumeBox)
 
 _Updated: 2026-04-24_
 
@@ -179,6 +181,7 @@ linux kernel module (dkms)
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/hello_dkms?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/hello_dkms?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/hello_dkms)
 
 _Updated: 2026-04-24_
 
@@ -192,6 +195,7 @@ I'M LIghtJUNction
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/lightjunction)
 
 _Updated: 2026-04-24_
 
@@ -206,6 +210,7 @@ A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/MagicNet)
 
 _Updated: 2026-04-23_
 
@@ -219,6 +224,7 @@ Astrbot Dashboard
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/dash.astrbot.men)
 
 _Updated: 2026-04-23_
 
