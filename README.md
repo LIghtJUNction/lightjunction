@@ -58,7 +58,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 10mo) | **62** | **67** | **103** |
+| 2022-06-06 (3yr 10mo) | **62** | **67** | **104** |
 
 ---
 
@@ -90,23 +90,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**106** commits across **5** repositories
+**73** commits across **5** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓▓▓▓░░░░░░ 48 |
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ▓▓▓░░░░░░░ 42 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 8 |
+| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓▓▓▓▓▓░░░░ 50 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 10 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 7 |
+| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ░░░░░░░░░░ 5 |
 | [LIghtJUNction/MagicNet](https://github.com/LIghtJUNction/MagicNet) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -152,26 +156,10 @@ MagicNet-mihomo
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
-![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/MagicMihomo)
 
-_Updated: 2026-04-24_
-
-</td>
-<td align="center" valign="top">
-
-#### 🤖 YumeBox
-an ordinary box, as ordinary as it can possibly be
-
-⭐ 1 • 🍴 0 • Kotlin
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
-![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/YumeBox)
-
-_Updated: 2026-04-24_
+_Updated: 2026-04-25_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🐍 hello_dkms
@@ -181,9 +169,22 @@ linux kernel module (dkms)
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/hello_dkms?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/hello_dkms?style=flat-square&labelColor=0d1117&color=4ecdc4)
-![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/hello_dkms)
 
-_Updated: 2026-04-24_
+_Updated: 2026-04-25_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 MagicNet
+A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+
+⭐ 58 • 🍴 2 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-25_
 
 </td>
 <td align="center" valign="top">
@@ -195,24 +196,22 @@ I'M LIghtJUNction
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/lightjunction)
 
-_Updated: 2026-04-24_
+_Updated: 2026-04-25_
 
 </td>
 </tr><tr>
 <td align="center" valign="top">
 
-#### 🐚 MagicNet
-A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+#### 🤖 YumeBox
+an ordinary box, as ordinary as it can possibly be
 
-⭐ 57 • 🍴 2 • Shell
+⭐ 1 • 🍴 0 • Kotlin
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
-![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/MagicNet)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-23_
+_Updated: 2026-04-24_
 
 </td>
 <td align="center" valign="top">
@@ -224,7 +223,6 @@ Astrbot Dashboard
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
-![Stone](https://stone.professorlee.work/api/stone/LIghtJUNction/dash.astrbot.men)
 
 _Updated: 2026-04-23_
 
@@ -261,12 +259,24 @@ _Updated: 2026-04-23_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-04-25**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:06 | MagicMihomo | [`79cd2d2`](https://github.com/LIghtJUNction/MagicMihomo/commit/79cd2d26353e7c29238cd97b8f5191265f29aa74) ruleset: update-ruleset |
+| 12:39 | hello_dkms | [`9ca0346`](https://github.com/LIghtJUNction/hello_dkms/commit/9ca03469667e6439815f039da332673d3cef4ca8) ... |
+| 09:05 | lightjunction | [`a92e7db`](https://github.com/LIghtJUNction/lightjunction/commit/a92e7db6e9671d7f2bc07664ae09ed39843379a6) add stone badge for each project in Latest Projects table |
+| 08:36 | hello_dkms | [`be7ab6a`](https://github.com/LIghtJUNction/hello_dkms/commit/be7ab6aa3320ece1d26a3909eb342bf9163cf1fe) Update README with build and install commands |
+| 08:29 | lightjunction | [`4e58a1c`](https://github.com/LIghtJUNction/lightjunction/commit/4e58a1c1261521581bcd3b61e18948c2e8e6de5a) 更新 README.md |
 
 **2026-04-24**
 
@@ -282,17 +292,14 @@ _Updated: 2026-04-23_
 |:-----|:-----|:-------|
 | 23:24 | MagicMihomo | [`242850b`](https://github.com/LIghtJUNction/MagicMihomo/commit/242850b4065082948eb9479f983f8b8a18900a00) ruleset: update-ruleset |
 | 19:56 | hello_dkms | [`084cd0b`](https://github.com/LIghtJUNction/hello_dkms/commit/084cd0ba6e85ba0fa1ad04a1318c032c48a27ca1) Update hello.c |
-| 19:51 | hello_dkms | [`9533afb`](https://github.com/LIghtJUNction/hello_dkms/commit/9533afbbb11e8cbd41f03d7e674bc478b1d19747) chore |
-| 19:45 | hello_dkms | [`ee653d3`](https://github.com/LIghtJUNction/hello_dkms/commit/ee653d31d1b869ae1392211a47253986e1319588) Update README.md |
-| 19:43 | hello_dkms | [`cc5aa9c`](https://github.com/LIghtJUNction/hello_dkms/commit/cc5aa9cc413e0928282cf6023ce95031ca3fe164) style |
-| 19:26 | hello_dkms | [`2fdd179`](https://github.com/LIghtJUNction/hello_dkms/commit/2fdd17942fa8e22f12b3ce172f98bea93b8c2b3e) Update hello.c |
-| 19:20 | hello_dkms | [`a02a00e`](https://github.com/LIghtJUNction/hello_dkms/commit/a02a00ee0e180be5569a3f905608efd905539b3f) Update README.md |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
