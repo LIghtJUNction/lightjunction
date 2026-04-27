@@ -1,10 +1,8 @@
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=6499E9&height=100&section=header&text=LIghtJUNction&fontSize=60&fontColor=FFFFFF&animation=blink&fontAlignY=40"/>
-
 <div align="center">
 
 ![Stone Badge](https://stone.professorlee.work/api/stone/LIghtJUNction/lightjunction)
 
-## Website
+> This is the most interesting part
 
 **Write Something: https://lightjunction.github.io/lightjunction/**
 
