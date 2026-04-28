@@ -56,7 +56,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 10mo) | **62** | **68** | **104** |
+| 2022-06-06 (3yr 10mo) | **63** | **68** | **104** |
 
 ---
 
@@ -92,23 +92,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**68** commits across **5** repositories
+**83** commits across **6** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓▓▓▓▓▓▓░░░ 50 |
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 6 |
-| [LIghtJUNction/Mimic-Node](https://github.com/LIghtJUNction/Mimic-Node) | ░░░░░░░░░░ 4 |
+| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓▓▓▓▓▓░░░░ 50 |
+| [LIghtJUNction/lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓▓░░░░░░░░ 17 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 7 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 7 |
 | [LIghtJUNction/MagicNet](https://github.com/LIghtJUNction/MagicNet) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -159,7 +163,7 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-26_
+_Updated: 2026-04-27_
 
 </td>
 <td align="center" valign="top">
@@ -172,10 +176,23 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-26_
+_Updated: 2026-04-27_
 
 </td>
 </tr><tr>
+<td align="center" valign="top">
+
+#### 🔷 lmm.best
+LMM.best: Simply the best Large Multimodal Models, ranked and reviewed.
+
+⭐ 0 • 🍴 0 • TypeScript
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lmm.best?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lmm.best?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-27_
+
+</td>
 <td align="center" valign="top">
 
 #### 🐍 hello_dkms
@@ -189,6 +206,7 @@ linux kernel module (dkms)
 _Updated: 2026-04-25_
 
 </td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 MagicNet
@@ -202,7 +220,6 @@ A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built
 _Updated: 2026-04-25_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🤖 YumeBox
@@ -214,19 +231,6 @@ an ordinary box, as ordinary as it can possibly be
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-04-24_
-
-</td>
-<td align="center" valign="top">
-
-#### 💚 dash.astrbot.men
-Astrbot Dashboard
-
-⭐ 1 • 🍴 0 • Vue
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-23_
 
 </td>
 </tr></table>
@@ -265,6 +269,8 @@ _Updated: 2026-04-23_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
@@ -272,41 +278,28 @@ _Updated: 2026-04-23_
 <details>
 <summary>📅 Last 7 Days</summary>
 
-**2026-04-26**
+**2026-04-27**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 23:08 | MagicMihomo | [`f8710ed`](https://github.com/LIghtJUNction/MagicMihomo/commit/f8710ed5b2229d1d25e7af2fcf774db736a08e16) ruleset: update-ruleset |
-
-**2026-04-25**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:06 | MagicMihomo | [`79cd2d2`](https://github.com/LIghtJUNction/MagicMihomo/commit/79cd2d26353e7c29238cd97b8f5191265f29aa74) ruleset: update-ruleset |
-| 12:39 | hello_dkms | [`9ca0346`](https://github.com/LIghtJUNction/hello_dkms/commit/9ca03469667e6439815f039da332673d3cef4ca8) ... |
-| 09:05 | lightjunction | [`a92e7db`](https://github.com/LIghtJUNction/lightjunction/commit/a92e7db6e9671d7f2bc07664ae09ed39843379a6) add stone badge for each project in Latest Projects table |
-| 08:36 | hello_dkms | [`be7ab6a`](https://github.com/LIghtJUNction/hello_dkms/commit/be7ab6aa3320ece1d26a3909eb342bf9163cf1fe) Update README with build and install commands |
-| 08:29 | lightjunction | [`4e58a1c`](https://github.com/LIghtJUNction/lightjunction/commit/4e58a1c1261521581bcd3b61e18948c2e8e6de5a) 更新 README.md |
-
-**2026-04-24**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:08 | MagicMihomo | [`cb4f6bd`](https://github.com/LIghtJUNction/MagicMihomo/commit/cb4f6bda58ba02fa168b95d294deb275f6e5c0f3) ruleset: update-ruleset |
-| 11:33 | hello_dkms | [`1379e75`](https://github.com/LIghtJUNction/hello_dkms/commit/1379e75f553cfe0d78d0fc628933a75a32cc3adf) ......... |
-| 11:13 | hello_dkms | [`0e771e3`](https://github.com/LIghtJUNction/hello_dkms/commit/0e771e31bc329948b41fd3ab9464166966906cb2) ... |
-
-**2026-04-23**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:24 | MagicMihomo | [`242850b`](https://github.com/LIghtJUNction/MagicMihomo/commit/242850b4065082948eb9479f983f8b8a18900a00) ruleset: update-ruleset |
+| 23:28 | MagicMihomo | [`41ac297`](https://github.com/LIghtJUNction/MagicMihomo/commit/41ac297c399b512673edb8c796190b126cdc974b) ruleset: update-ruleset |
+| 17:08 | lightjunction | [`2fc1706`](https://github.com/LIghtJUNction/lightjunction/commit/2fc1706d54d6b3cae99e895d30e1d75b857a6517) Update README.md |
+| 15:42 | lmm.best | [`2bfdd34`](https://github.com/LIghtJUNction/lmm.best/commit/2bfdd3489846cd6f34203dfa9908567e03d9eb73) feat: add scheduled GitHub Action for data scraping |
+| 15:37 | lmm.best | [`83197eb`](https://github.com/LIghtJUNction/lmm.best/commit/83197ebaa547794bbc2f9af63e0bc0dce552c347) feat: integrate HuggingFace API for real data |
+| 15:28 | lmm.best | [`4b65b66`](https://github.com/LIghtJUNction/lmm.best/commit/4b65b661ffeb12a5f1c2ae500c2147d40267bd67) fix: update hero stats to reflect actual data |
+| 15:14 | lmm.best | [`cba68b7`](https://github.com/LIghtJUNction/lmm.best/commit/cba68b795fbc6f5aad12cd84cedc09b62609538b) feat: add data service for multi-source API integration |
+| 15:10 | lmm.best | [`fe0a9da`](https://github.com/LIghtJUNction/lmm.best/commit/fe0a9da32f8909f211f033aa38a846be2fc1079b) refactor: remove reviews section, publish scoring algorithm |
+| 15:04 | lmm.best | [`bc8c8ac`](https://github.com/LIghtJUNction/lmm.best/commit/bc8c8ac8ccd61922fe0f9eded386f72777069ab7) data: update with real data from llmrank.cn |
+| 14:43 | lmm.best | [`ea77326`](https://github.com/LIghtJUNction/lmm.best/commit/ea77326b87f2b65dc4a50ad4dd6c39a0aeaf18b8) fix: revert base to / for custom domain |
+| 14:42 | lmm.best | [`71a2816`](https://github.com/LIghtJUNction/lmm.best/commit/71a28160fed523e458853a844f664cd63727deb8) fix: set vite base to /lmm.best/ for GitHub Pages |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
