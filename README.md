@@ -56,7 +56,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 10mo) | **64** | **68** | **104** |
+| 2022-06-06 (3yr 10mo) | **64** | **67** | **104** |
 
 ---
 
@@ -96,23 +96,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**83** commits across **5** repositories
+**82** commits across **7** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓▓▓▓▓▓░░░░ 50 |
+| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓▓▓▓▓░░░░░ 46 |
 | [LIghtJUNction/lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓▓░░░░░░░░ 22 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 7 |
 | [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 3 |
-| [LIghtJUNction/MagicNet](https://github.com/LIghtJUNction/MagicNet) | ░░░░░░░░░░ 1 |
+| [LIghtJUNction/rust-lkm-template](https://github.com/LIghtJUNction/rust-lkm-template) | ░░░░░░░░░░ 2 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -159,6 +163,33 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
+#### 🐚 MagicMihomo
+MagicNet-mihomo
+
+⭐ 10 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-29_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐚 rust-lkm-template
+Rust Loadable Kernel Module Template 🦀
+
+⭐ 0 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/rust-lkm-template?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/rust-lkm-template?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-29_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
 #### 💚 dash.astrbot.men
 Astrbot Dashboard
 
@@ -172,15 +203,15 @@ _Updated: 2026-04-29_
 </td>
 <td align="center" valign="top">
 
-#### 🐚 MagicMihomo
-MagicNet-mihomo
+#### 🐚 lightjunction
+I'M LIghtJUNction
 
-⭐ 10 • 🍴 0 • Shell
+⭐ 2 • 🍴 0 • Shell
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-28_
+_Updated: 2026-04-29_
 
 </td>
 </tr><tr>
@@ -199,20 +230,6 @@ _Updated: 2026-04-28_
 </td>
 <td align="center" valign="top">
 
-#### 📄 rust-lkm-template
-Rust Loadable Kernel Module Template 🦀
-
-⭐ 0 • 🍴 0 • Unknown
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/rust-lkm-template?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/rust-lkm-template?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-28_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
 #### 🤖 YumeBox
 an ordinary box, as ordinary as it can possibly be
 
@@ -220,19 +237,6 @@ an ordinary box, as ordinary as it can possibly be
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-28_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-04-28_
 
@@ -277,12 +281,23 @@ _Updated: 2026-04-28_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-04-29**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:28 | MagicMihomo | [`5b9d85d`](https://github.com/LIghtJUNction/MagicMihomo/commit/5b9d85d77c99c69dcee75284525f7518657e25e7) ruleset: update-ruleset |
+| 13:11 | rust-lkm-templa | [`4f6c806`](https://github.com/LIghtJUNction/rust-lkm-template/commit/4f6c8062121d9a5211a3daf1ac96d6d725574f3e) modernize: rewrite setup script and update README |
+| 13:08 | rust-lkm-templa | [`ea42460`](https://github.com/LIghtJUNction/rust-lkm-template/commit/ea4246017ee86fb7ac3d4d0245a125434a7966f2) modernize: update to 2026 standards |
+| 09:53 | dash.astrbot.me | [`2f05883`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/2f05883bf673e99f971817b65f28436a39108938) fix: sync dashboard - fix change detection logic |
 
 **2026-04-28**
 
@@ -295,20 +310,13 @@ _Updated: 2026-04-28_
 | 11:45 | lmm.best | [`70055e3`](https://github.com/LIghtJUNction/lmm.best/commit/70055e3c925255ccea02805d36e78d22114e47fe) feat: add LLM vs LMM comparison with interactive animation |
 | 11:42 | lmm.best | [`1a3ab0f`](https://github.com/LIghtJUNction/lmm.best/commit/1a3ab0f2f5333d156a6bf960d7285020300fde80) refactor: convert to informational page about LMM domain |
 
-**2026-04-27**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:28 | MagicMihomo | [`41ac297`](https://github.com/LIghtJUNction/MagicMihomo/commit/41ac297c399b512673edb8c796190b126cdc974b) ruleset: update-ruleset |
-| 17:08 | lightjunction | [`2fc1706`](https://github.com/LIghtJUNction/lightjunction/commit/2fc1706d54d6b3cae99e895d30e1d75b857a6517) Update README.md |
-| 15:42 | lmm.best | [`2bfdd34`](https://github.com/LIghtJUNction/lmm.best/commit/2bfdd3489846cd6f34203dfa9908567e03d9eb73) feat: add scheduled GitHub Action for data scraping |
-| 15:37 | lmm.best | [`83197eb`](https://github.com/LIghtJUNction/lmm.best/commit/83197ebaa547794bbc2f9af63e0bc0dce552c347) feat: integrate HuggingFace API for real data |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
