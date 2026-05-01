@@ -56,7 +56,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 10mo) | **64** | **67** | **104** |
+| 2022-06-06 (3yr 10mo) | **65** | **67** | **104** |
 
 ---
 
@@ -98,23 +98,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**82** commits across **7** repositories
+**33** commits across **6** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓▓▓▓▓░░░░░ 46 |
-| [LIghtJUNction/lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓▓░░░░░░░░ 22 |
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ░░░░░░░░░░ 7 |
+| [LIghtJUNction/lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓▓▓▓▓▓░░░░ 22 |
+| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ▓░░░░░░░░░ 4 |
 | [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 3 |
 | [LIghtJUNction/rust-lkm-template](https://github.com/LIghtJUNction/rust-lkm-template) | ░░░░░░░░░░ 2 |
+| [LIghtJUNction/Python-Type-Challenges](https://github.com/LIghtJUNction/Python-Type-Challenges) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -163,6 +167,19 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
+#### 🐍 Python-Type-Challenges
+Master Python typing (type hints) with interactive online exercises! 
+
+⭐ 0 • 🍴 0 • Python
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/Python-Type-Challenges?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/Python-Type-Challenges?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-01_
+
+</td>
+<td align="center" valign="top">
+
 #### 🐚 MagicMihomo
 MagicNet-mihomo
 
@@ -171,7 +188,21 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-04-29_
+_Updated: 2026-04-30_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-04-30_
 
 </td>
 <td align="center" valign="top">
@@ -203,20 +234,6 @@ _Updated: 2026-04-29_
 </td>
 <td align="center" valign="top">
 
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-29_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
 #### 🔷 lmm.best
 LMM.best: Simply the best Large Multimodal Models, ranked and reviewed.
 
@@ -224,19 +241,6 @@ LMM.best: Simply the best Large Multimodal Models, ranked and reviewed.
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lmm.best?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lmm.best?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-28_
-
-</td>
-<td align="center" valign="top">
-
-#### 🤖 YumeBox
-an ordinary box, as ordinary as it can possibly be
-
-⭐ 2 • 🍴 1 • Kotlin
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/YumeBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-04-28_
 
@@ -283,12 +287,26 @@ _Updated: 2026-04-28_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-01**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 00:55 | Python-Type-Cha | [`f617bda`](https://github.com/LIghtJUNction/Python-Type-Challenges/commit/f617bda9def79d92c50b0bd1fdf6e3dec03deb9f) ruff check --fix && format |
+
+**2026-04-30**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:27 | MagicMihomo | [`b99dccb`](https://github.com/LIghtJUNction/MagicMihomo/commit/b99dccbf75e5e5f0b2c610cd42b42c1f5a5f7918) ruleset: update-ruleset |
 
 **2026-04-29**
 
@@ -307,14 +325,14 @@ _Updated: 2026-04-28_
 | 14:41 | lmm.best | [`fda4c10`](https://github.com/LIghtJUNction/lmm.best/commit/fda4c1001166fd47652317902cb1a5f99af83e47) redesign: editorial minimalism — remove SaaS patterns, add r... |
 | 12:00 | lmm.best | [`1749c31`](https://github.com/LIghtJUNction/lmm.best/commit/1749c31ef7398eaef2cd83a79b2636cc53e98e7f) redesign: complete visual overhaul with modern tech aestheti... |
 | 11:48 | lmm.best | [`fc8cf12`](https://github.com/LIghtJUNction/lmm.best/commit/fc8cf12e89a41823579775c6ff65717397797f75) feat: add Any2Any concept and evolution path |
-| 11:45 | lmm.best | [`70055e3`](https://github.com/LIghtJUNction/lmm.best/commit/70055e3c925255ccea02805d36e78d22114e47fe) feat: add LLM vs LMM comparison with interactive animation |
-| 11:42 | lmm.best | [`1a3ab0f`](https://github.com/LIghtJUNction/lmm.best/commit/1a3ab0f2f5333d156a6bf960d7285020300fde80) refactor: convert to informational page about LMM domain |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
