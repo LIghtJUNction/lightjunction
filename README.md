@@ -102,23 +102,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**38** commits across **7** repositories
+**34** commits across **6** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓▓▓▓▓░░░░░ 22 |
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 3 |
+| [LIghtJUNction/lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓▓▓▓▓▓░░░░ 22 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 7 |
 | [LIghtJUNction/rust-lkm-template](https://github.com/LIghtJUNction/rust-lkm-template) | ░░░░░░░░░░ 2 |
-| [LIghtJUNction/hello_dkms](https://github.com/LIghtJUNction/hello_dkms) | ░░░░░░░░░░ 2 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 1 |
+| [LIghtJUNction/Python-Type-Challenges](https://github.com/LIghtJUNction/Python-Type-Challenges) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -179,23 +183,9 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-01_
+_Updated: 2026-05-02_
 
 </td>
-<td align="center" valign="top">
-
-#### 🐚 MagicNet
-A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-
-⭐ 59 • 🍴 2 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-01_
-
-</td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 lightjunction
@@ -205,6 +195,20 @@ I'M LIghtJUNction
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-02_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 MagicNet
+A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+
+⭐ 59 • 🍴 2 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-01_
 
@@ -295,12 +299,20 @@ _Updated: 2026-04-29_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-02**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:10 | MagicMihomo | [`436b57c`](https://github.com/LIghtJUNction/MagicMihomo/commit/436b57c04507402266d17d8dfd92534ed8b5d54c) ruleset: update-ruleset |
 
 **2026-05-01**
 
@@ -330,13 +342,14 @@ _Updated: 2026-04-29_
 |:-----|:-----|:-------|
 | 23:29 | MagicMihomo | [`608d5f7`](https://github.com/LIghtJUNction/MagicMihomo/commit/608d5f764cac2a9f374f316390ca48baa331e325) ruleset: update-ruleset |
 | 14:41 | lmm.best | [`fda4c10`](https://github.com/LIghtJUNction/lmm.best/commit/fda4c1001166fd47652317902cb1a5f99af83e47) redesign: editorial minimalism — remove SaaS patterns, add r... |
-| 12:00 | lmm.best | [`1749c31`](https://github.com/LIghtJUNction/lmm.best/commit/1749c31ef7398eaef2cd83a79b2636cc53e98e7f) redesign: complete visual overhaul with modern tech aestheti... |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
