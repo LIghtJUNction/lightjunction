@@ -106,23 +106,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**34** commits across **6** repositories
+**16** commits across **5** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓▓▓▓▓▓░░░░ 22 |
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 7 |
-| [LIghtJUNction/rust-lkm-template](https://github.com/LIghtJUNction/rust-lkm-template) | ░░░░░░░░░░ 2 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 1 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓░░░░░░ 7 |
+| [LIghtJUNction/lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓▓▓░░░░░░░ 5 |
+| [LIghtJUNction/rust-lkm-template](https://github.com/LIghtJUNction/rust-lkm-template) | ▓░░░░░░░░░ 2 |
 | [LIghtJUNction/Python-Type-Challenges](https://github.com/LIghtJUNction/Python-Type-Challenges) | ░░░░░░░░░░ 1 |
+| [LIghtJUNction/dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -187,7 +191,7 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-03_
+_Updated: 2026-05-04_
 
 </td>
 <td align="center" valign="top">
@@ -200,7 +204,7 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-03_
+_Updated: 2026-05-04_
 
 </td>
 </tr><tr>
@@ -307,12 +311,20 @@ _Updated: 2026-04-29_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-04**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:27 | MagicMihomo | [`a4f3ac3`](https://github.com/LIghtJUNction/MagicMihomo/commit/a4f3ac3d71600af97a189acd3080cb21d4ebdfce) ruleset: update-ruleset |
 
 **2026-05-03**
 
@@ -348,17 +360,13 @@ _Updated: 2026-04-29_
 | 13:08 | rust-lkm-templa | [`ea42460`](https://github.com/LIghtJUNction/rust-lkm-template/commit/ea4246017ee86fb7ac3d4d0245a125434a7966f2) modernize: update to 2026 standards |
 | 09:53 | dash.astrbot.me | [`2f05883`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/2f05883bf673e99f971817b65f28436a39108938) fix: sync dashboard - fix change detection logic |
 
-**2026-04-28**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:29 | MagicMihomo | [`608d5f7`](https://github.com/LIghtJUNction/MagicMihomo/commit/608d5f764cac2a9f374f316390ca48baa331e325) ruleset: update-ruleset |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
