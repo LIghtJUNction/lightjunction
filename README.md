@@ -56,7 +56,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **65** | **67** | **104** |
+| 2022-06-06 (3yr 11mo) | **66** | **67** | **105** |
 
 ---
 
@@ -110,22 +110,24 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**11** commits across **4** repositories
+**8** commits across **2** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓▓▓░░░░ 7 |
-| [LIghtJUNction/rust-lkm-template](https://github.com/LIghtJUNction/rust-lkm-template) | ▓░░░░░░░░░ 2 |
-| [LIghtJUNction/Python-Type-Challenges](https://github.com/LIghtJUNction/Python-Type-Challenges) | ░░░░░░░░░░ 1 |
-| [LIghtJUNction/dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | ░░░░░░░░░░ 1 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓▓▓▓▓░░ 7 |
+| [LIghtJUNction/Python-Type-Challenges](https://github.com/LIghtJUNction/Python-Type-Challenges) | ▓░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -186,6 +188,19 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
+#### 📄 minimind-o
+🎙️ 「大模型」从0训练0.1B能听能说能看的全模态Omni模型！A 0.1B Omni model trained from scratch, capable of listening, speaking, and seeing!
+
+⭐ 0 • 🍴 0 • Unknown
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/minimind-o?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/minimind-o?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-07_
+
+</td>
+<td align="center" valign="top">
+
 #### 🐚 MagicMihomo
 MagicNet-mihomo
 
@@ -194,7 +209,21 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-05_
+_Updated: 2026-05-06_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-06_
 
 </td>
 <td align="center" valign="top">
@@ -213,19 +242,6 @@ _Updated: 2026-05-05_
 </tr><tr>
 <td align="center" valign="top">
 
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-05_
-
-</td>
-<td align="center" valign="top">
-
 #### 🐍 Python-Type-Challenges
 Master Python typing (type hints) with interactive online exercises! 
 
@@ -237,7 +253,6 @@ Master Python typing (type hints) with interactive online exercises!
 _Updated: 2026-05-01_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 rust-lkm-template
@@ -247,19 +262,6 @@ Rust Loadable Kernel Module Template 🦀
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/rust-lkm-template?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/rust-lkm-template?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-29_
-
-</td>
-<td align="center" valign="top">
-
-#### 💚 dash.astrbot.men
-Astrbot Dashboard
-
-⭐ 1 • 🍴 0 • Vue
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-04-29_
 
@@ -318,12 +320,20 @@ _Updated: 2026-04-29_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-06**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:27 | MagicMihomo | [`7fcabf9`](https://github.com/LIghtJUNction/MagicMihomo/commit/7fcabf9c493349925550e13e52721079cee271aa) ruleset: update-ruleset |
 
 **2026-05-05**
 
@@ -362,19 +372,13 @@ _Updated: 2026-04-29_
 |:-----|:-----|:-------|
 | 23:27 | MagicMihomo | [`b99dccb`](https://github.com/LIghtJUNction/MagicMihomo/commit/b99dccbf75e5e5f0b2c610cd42b42c1f5a5f7918) ruleset: update-ruleset |
 
-**2026-04-29**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:28 | MagicMihomo | [`5b9d85d`](https://github.com/LIghtJUNction/MagicMihomo/commit/5b9d85d77c99c69dcee75284525f7518657e25e7) ruleset: update-ruleset |
-| 13:11 | rust-lkm-templa | [`4f6c806`](https://github.com/LIghtJUNction/rust-lkm-template/commit/4f6c8062121d9a5211a3daf1ac96d6d725574f3e) modernize: rewrite setup script and update README |
-| 13:08 | rust-lkm-templa | [`ea42460`](https://github.com/LIghtJUNction/rust-lkm-template/commit/ea4246017ee86fb7ac3d4d0245a125434a7966f2) modernize: update to 2026 standards |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
