@@ -56,11 +56,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **66** | **67** | **105** |
+| 2022-06-06 (3yr 11mo) | **67** | **67** | **105** |
 
 ---
 
 <!-- END_DYNAMIC_STATS -->
+
+
 
 
 
@@ -121,11 +123,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 | Repository | Activity |
 |:-----------|:--------:|
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓▓▓▓▓░░ 7 |
-| [LIghtJUNction/Python-Type-Challenges](https://github.com/LIghtJUNction/Python-Type-Challenges) | ▓░░░░░░░░░ 1 |
+| [LIghtJUNction/kimi-cli](https://github.com/LIghtJUNction/kimi-cli) | ▓░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -188,19 +192,6 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
-#### 📄 minimind-o
-🎙️ 「大模型」从0训练0.1B能听能说能看的全模态Omni模型！A 0.1B Omni model trained from scratch, capable of listening, speaking, and seeing!
-
-⭐ 0 • 🍴 0 • Unknown
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/minimind-o?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/minimind-o?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-07_
-
-</td>
-<td align="center" valign="top">
-
 #### 🐚 MagicMihomo
 MagicNet-mihomo
 
@@ -209,7 +200,20 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-06_
+_Updated: 2026-05-07_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐍 kimi-cli
+Kimi Code CLI is your next CLI agent.
+
+⭐ 0 • 🍴 0 • Python
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-07_
 
 </td>
 </tr><tr>
@@ -223,9 +227,23 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-06_
+_Updated: 2026-05-07_
 
 </td>
+<td align="center" valign="top">
+
+#### 📄 minimind-o
+🎙️ 「大模型」从0训练0.1B能听能说能看的全模态Omni模型！A 0.1B Omni model trained from scratch, capable of listening, speaking, and seeing!
+
+⭐ 0 • 🍴 0 • Unknown
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/minimind-o?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/minimind-o?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-07_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 MagicNet
@@ -239,7 +257,6 @@ A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built
 _Updated: 2026-05-05_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🐍 Python-Type-Challenges
@@ -251,19 +268,6 @@ Master Python typing (type hints) with interactive online exercises!
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/Python-Type-Challenges?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-01_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 rust-lkm-template
-Rust Loadable Kernel Module Template 🦀
-
-⭐ 0 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/rust-lkm-template?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/rust-lkm-template?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-04-29_
 
 </td>
 </tr></table>
@@ -322,12 +326,21 @@ _Updated: 2026-04-29_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-07**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:27 | MagicMihomo | [`1fbcd7b`](https://github.com/LIghtJUNction/MagicMihomo/commit/1fbcd7b7efd9b1fb6655efa89dc6f20f5d2c0ebf) ruleset: update-ruleset |
+| 23:18 | kimi-cli | [`6cdec8e`](https://github.com/LIghtJUNction/kimi-cli/commit/6cdec8ebffbbd066c536b43a5d7f38b90005fdea) ruff |
 
 **2026-05-06**
 
@@ -364,19 +377,14 @@ _Updated: 2026-04-29_
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
 | 23:27 | MagicMihomo | [`d694a9b`](https://github.com/LIghtJUNction/MagicMihomo/commit/d694a9b3680ba594500ce75667f472db09645a62) ruleset: update-ruleset |
-| 00:55 | Python-Type-Cha | [`f617bda`](https://github.com/LIghtJUNction/Python-Type-Challenges/commit/f617bda9def79d92c50b0bd1fdf6e3dec03deb9f) ruff check --fix && format |
-
-**2026-04-30**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:27 | MagicMihomo | [`b99dccb`](https://github.com/LIghtJUNction/MagicMihomo/commit/b99dccbf75e5e5f0b2c610cd42b42c1f5a5f7918) ruleset: update-ruleset |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
