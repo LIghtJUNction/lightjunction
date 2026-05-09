@@ -56,11 +56,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **67** | **67** | **105** |
+| 2022-06-06 (3yr 11mo) | **68** | **68** | **106** |
 
 ---
 
 <!-- END_DYNAMIC_STATS -->
+
+
 
 
 
@@ -181,6 +183,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SKYLINE -->
 
 
@@ -192,6 +196,19 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
+#### 💚 dash.astrbot.men
+Astrbot Dashboard
+
+⭐ 1 • 🍴 0 • Vue
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-09_
+
+</td>
+<td align="center" valign="top">
+
 #### 🐚 MagicMihomo
 MagicNet-mihomo
 
@@ -200,23 +217,23 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-07_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐍 kimi-cli
-Kimi Code CLI is your next CLI agent.
-
-⭐ 0 • 🍴 0 • Python
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-07_
+_Updated: 2026-05-08_
 
 </td>
 </tr><tr>
+<td align="center" valign="top">
+
+#### 📄 dirtyfrag
+_No description_
+
+⭐ 0 • 🍴 0 • Unknown
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dirtyfrag?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dirtyfrag?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-08_
+
+</td>
 <td align="center" valign="top">
 
 #### 🐚 lightjunction
@@ -226,6 +243,20 @@ I'M LIghtJUNction
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-08_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐍 kimi-cli
+Kimi Code CLI is your next CLI agent.
+
+⭐ 0 • 🍴 0 • Python
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-07_
 
@@ -241,33 +272,6 @@ _Updated: 2026-05-07_
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/minimind-o?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-07_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### 🐚 MagicNet
-A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-
-⭐ 60 • 🍴 2 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-05_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐍 Python-Type-Challenges
-Master Python typing (type hints) with interactive online exercises! 
-
-⭐ 0 • 🍴 0 • Python
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/Python-Type-Challenges?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/Python-Type-Challenges?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-01_
 
 </td>
 </tr></table>
@@ -328,12 +332,20 @@ _Updated: 2026-05-01_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-08**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:29 | MagicMihomo | [`4fd1fc9`](https://github.com/LIghtJUNction/MagicMihomo/commit/4fd1fc94b887524e2f96c7540d542db8055796e2) ruleset: update-ruleset |
 
 **2026-05-07**
 
@@ -372,17 +384,13 @@ _Updated: 2026-05-01_
 |:-----|:-----|:-------|
 | 23:10 | MagicMihomo | [`436b57c`](https://github.com/LIghtJUNction/MagicMihomo/commit/436b57c04507402266d17d8dfd92534ed8b5d54c) ruleset: update-ruleset |
 
-**2026-05-01**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:27 | MagicMihomo | [`d694a9b`](https://github.com/LIghtJUNction/MagicMihomo/commit/d694a9b3680ba594500ce75667f472db09645a62) ruleset: update-ruleset |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
