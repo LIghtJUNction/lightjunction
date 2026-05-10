@@ -116,6 +116,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
@@ -185,6 +187,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SKYLINE -->
 
 
@@ -194,6 +198,33 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ### 🚀 Latest Projects
 
 <table><tr>
+<td align="center" valign="top">
+
+#### 🐚 MagicMihomo
+MagicNet-mihomo
+
+⭐ 10 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-09_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-09_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 💚 dash.astrbot.men
@@ -209,20 +240,6 @@ _Updated: 2026-05-09_
 </td>
 <td align="center" valign="top">
 
-#### 🐚 MagicMihomo
-MagicNet-mihomo
-
-⭐ 10 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-08_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
 #### 📄 dirtyfrag
 _No description_
 
@@ -230,19 +247,6 @@ _No description_
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/dirtyfrag?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/dirtyfrag?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-08_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-08_
 
@@ -334,12 +338,20 @@ _Updated: 2026-05-07_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-09**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:25 | MagicMihomo | [`db4f19e`](https://github.com/LIghtJUNction/MagicMihomo/commit/db4f19e3e33fe6321f0836e986bc14de415ed3f8) ruleset: update-ruleset |
 
 **2026-05-08**
 
@@ -378,17 +390,13 @@ _Updated: 2026-05-07_
 |:-----|:-----|:-------|
 | 23:11 | MagicMihomo | [`7e8762b`](https://github.com/LIghtJUNction/MagicMihomo/commit/7e8762b90e208a83be116729b8539060c7efdeb6) ruleset: update-ruleset |
 
-**2026-05-02**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:10 | MagicMihomo | [`436b57c`](https://github.com/LIghtJUNction/MagicMihomo/commit/436b57c04507402266d17d8dfd92534ed8b5d54c) ruleset: update-ruleset |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
