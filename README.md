@@ -56,11 +56,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **68** | **68** | **106** |
+| 2022-06-06 (3yr 11mo) | **68** | **70** | **106** |
 
 ---
 
 <!-- END_DYNAMIC_STATS -->
+
+
 
 
 
@@ -189,6 +191,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SKYLINE -->
 
 
@@ -208,7 +212,7 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-09_
+_Updated: 2026-05-10_
 
 </td>
 <td align="center" valign="top">
@@ -221,7 +225,7 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-09_
+_Updated: 2026-05-10_
 
 </td>
 </tr><tr>
@@ -340,12 +344,20 @@ _Updated: 2026-05-07_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-10**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:28 | MagicMihomo | [`b0b092a`](https://github.com/LIghtJUNction/MagicMihomo/commit/b0b092a4f9940971463525b8685d329b2fd62124) ruleset: update-ruleset |
 
 **2026-05-09**
 
@@ -384,17 +396,13 @@ _Updated: 2026-05-07_
 |:-----|:-----|:-------|
 | 23:27 | MagicMihomo | [`a4f3ac3`](https://github.com/LIghtJUNction/MagicMihomo/commit/a4f3ac3d71600af97a189acd3080cb21d4ebdfce) ruleset: update-ruleset |
 
-**2026-05-03**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:11 | MagicMihomo | [`7e8762b`](https://github.com/LIghtJUNction/MagicMihomo/commit/7e8762b90e208a83be116729b8539060c7efdeb6) ruleset: update-ruleset |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
