@@ -56,7 +56,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **68** | **70** | **106** |
+| 2022-06-06 (3yr 11mo) | **69** | **70** | **106** |
 
 ---
 
@@ -120,20 +120,25 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**8** commits across **2** repositories
+**9** commits across **3** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓▓▓▓▓░░ 7 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓▓▓▓░░░ 7 |
+| [LIghtJUNction/shieldw](https://github.com/LIghtJUNction/shieldw) | ▓░░░░░░░░░ 1 |
 | [LIghtJUNction/kimi-cli](https://github.com/LIghtJUNction/kimi-cli) | ▓░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -212,7 +217,34 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-10_
+_Updated: 2026-05-11_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐚 MagicNet
+A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+
+⭐ 61 • 🍴 2 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-11_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 📄 shieldw
+wasm sandbox for agents
+
+⭐ 0 • 🍴 0 • Unknown
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/shieldw?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/shieldw?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-11_
 
 </td>
 <td align="center" valign="top">
@@ -225,7 +257,7 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-10_
+_Updated: 2026-05-11_
 
 </td>
 </tr><tr>
@@ -253,33 +285,6 @@ _No description_
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/dirtyfrag?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-08_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### 🐍 kimi-cli
-Kimi Code CLI is your next CLI agent.
-
-⭐ 0 • 🍴 0 • Python
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-07_
-
-</td>
-<td align="center" valign="top">
-
-#### 📄 minimind-o
-🎙️ 「大模型」从0训练0.1B能听能说能看的全模态Omni模型！A 0.1B Omni model trained from scratch, capable of listening, speaking, and seeing!
-
-⭐ 0 • 🍴 0 • Unknown
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/minimind-o?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/minimind-o?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-07_
 
 </td>
 </tr></table>
@@ -346,12 +351,21 @@ _Updated: 2026-05-07_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-11**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:30 | MagicMihomo | [`7ea1e4c`](https://github.com/LIghtJUNction/MagicMihomo/commit/7ea1e4cc4ca912ab25aa88ea3f71ed1bbbe08ca7) ruleset: update-ruleset |
+| 09:23 | shieldw | [`0a97eb7`](https://github.com/LIghtJUNction/shieldw/commit/0a97eb74a839e0c56a171580b3b7629ac002d916) Initial commit |
 
 **2026-05-10**
 
@@ -390,17 +404,13 @@ _Updated: 2026-05-07_
 |:-----|:-----|:-------|
 | 23:26 | MagicMihomo | [`3d01fe6`](https://github.com/LIghtJUNction/MagicMihomo/commit/3d01fe6690c64efee8bc34735242d611dfcb7d6b) ruleset: update-ruleset |
 
-**2026-05-04**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:27 | MagicMihomo | [`a4f3ac3`](https://github.com/LIghtJUNction/MagicMihomo/commit/a4f3ac3d71600af97a189acd3080cb21d4ebdfce) ruleset: update-ruleset |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
