@@ -56,11 +56,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **69** | **70** | **106** |
+| 2022-06-06 (3yr 11mo) | **69** | **70** | **107** |
 
 ---
 
 <!-- END_DYNAMIC_STATS -->
+
+
 
 
 
@@ -198,6 +200,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SKYLINE -->
 
 
@@ -217,9 +221,23 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-11_
+_Updated: 2026-05-12_
 
 </td>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-12_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 MagicNet
@@ -233,7 +251,6 @@ A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built
 _Updated: 2026-05-11_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 📄 shieldw
@@ -243,19 +260,6 @@ wasm sandbox for agents
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/shieldw?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/shieldw?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-11_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-11_
 
@@ -353,12 +357,20 @@ _Updated: 2026-05-08_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-12**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:37 | MagicMihomo | [`9011eab`](https://github.com/LIghtJUNction/MagicMihomo/commit/9011eab1bf9f89bf06225db5918413f9253d9fc5) ruleset: update-ruleset |
 
 **2026-05-11**
 
@@ -398,17 +410,13 @@ _Updated: 2026-05-08_
 |:-----|:-----|:-------|
 | 23:27 | MagicMihomo | [`7fcabf9`](https://github.com/LIghtJUNction/MagicMihomo/commit/7fcabf9c493349925550e13e52721079cee271aa) ruleset: update-ruleset |
 
-**2026-05-05**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:26 | MagicMihomo | [`3d01fe6`](https://github.com/LIghtJUNction/MagicMihomo/commit/3d01fe6690c64efee8bc34735242d611dfcb7d6b) ruleset: update-ruleset |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
