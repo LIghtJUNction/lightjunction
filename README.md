@@ -124,6 +124,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
@@ -139,6 +141,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -221,7 +225,7 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-12_
+_Updated: 2026-05-13_
 
 </td>
 <td align="center" valign="top">
@@ -234,7 +238,7 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-12_
+_Updated: 2026-05-13_
 
 </td>
 </tr><tr>
@@ -359,12 +363,20 @@ _Updated: 2026-05-08_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-13**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:37 | MagicMihomo | [`daeaef4`](https://github.com/LIghtJUNction/MagicMihomo/commit/daeaef44a7060ff31cb8534b0c3e58a8af9a3f14) ruleset: update-ruleset |
 
 **2026-05-12**
 
@@ -404,17 +416,13 @@ _Updated: 2026-05-08_
 | 23:27 | MagicMihomo | [`1fbcd7b`](https://github.com/LIghtJUNction/MagicMihomo/commit/1fbcd7b7efd9b1fb6655efa89dc6f20f5d2c0ebf) ruleset: update-ruleset |
 | 23:18 | kimi-cli | [`6cdec8e`](https://github.com/LIghtJUNction/kimi-cli/commit/6cdec8ebffbbd066c536b43a5d7f38b90005fdea) ruff |
 
-**2026-05-06**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:27 | MagicMihomo | [`7fcabf9`](https://github.com/LIghtJUNction/MagicMihomo/commit/7fcabf9c493349925550e13e52721079cee271aa) ruleset: update-ruleset |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
