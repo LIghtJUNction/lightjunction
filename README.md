@@ -126,21 +126,24 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**9** commits across **3** repositories
+**8** commits across **2** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓▓▓▓░░░ 7 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓▓▓▓▓░░ 7 |
 | [LIghtJUNction/shieldw](https://github.com/LIghtJUNction/shieldw) | ▓░░░░░░░░░ 1 |
-| [LIghtJUNction/kimi-cli](https://github.com/LIghtJUNction/kimi-cli) | ▓░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -225,7 +228,7 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-13_
+_Updated: 2026-05-14_
 
 </td>
 <td align="center" valign="top">
@@ -238,7 +241,7 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-13_
+_Updated: 2026-05-14_
 
 </td>
 </tr><tr>
@@ -365,12 +368,20 @@ _Updated: 2026-05-08_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-14**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:30 | MagicMihomo | [`0d804de`](https://github.com/LIghtJUNction/MagicMihomo/commit/0d804def8305a6936fd16216d4f8d76583959839) ruleset: update-ruleset |
 
 **2026-05-13**
 
@@ -409,18 +420,13 @@ _Updated: 2026-05-08_
 |:-----|:-----|:-------|
 | 23:29 | MagicMihomo | [`4fd1fc9`](https://github.com/LIghtJUNction/MagicMihomo/commit/4fd1fc94b887524e2f96c7540d542db8055796e2) ruleset: update-ruleset |
 
-**2026-05-07**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:27 | MagicMihomo | [`1fbcd7b`](https://github.com/LIghtJUNction/MagicMihomo/commit/1fbcd7b7efd9b1fb6655efa89dc6f20f5d2c0ebf) ruleset: update-ruleset |
-| 23:18 | kimi-cli | [`6cdec8e`](https://github.com/LIghtJUNction/kimi-cli/commit/6cdec8ebffbbd066c536b43a5d7f38b90005fdea) ruff |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
