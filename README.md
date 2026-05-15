@@ -1,9 +1,5 @@
 <div align="center">
 
-![Stone Badge](https://stone.professorlee.work/api/stone/LIghtJUNction/lightjunction)
-
-> This is the most interesting part
-
 **Write Something: https://lightjunction.github.io/lightjunction/**
 
 </div>
