@@ -47,7 +47,12 @@ jobs:
         run: uv run scripts/update-readme.py
 
       - name: Update dotenv
-        run: curl -fsSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/scripts/get_api_key.sh | bash | tee .env
+        shell: bash
+        run: |
+          set -euo pipefail
+          api_key="$(bash scripts/get_api_key.sh)"
+          echo "::add-mask::$api_key"
+          printf 'API_KEY=%s\n' "$api_key" > .env
 
       - name: Commit and Push
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
@@ -61,4 +66,3 @@ jobs:
           git add README.md
           git commit -m "docs: daily update $(date -u +'%Y-%m-%d')"
           git push
-
