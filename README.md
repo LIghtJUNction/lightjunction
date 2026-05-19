@@ -52,7 +52,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **68** | **70** | **107** |
+| 2022-06-06 (3yr 11mo) | **71** | **71** | **107** |
 
 ---
 
@@ -130,20 +130,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**8** commits across **2** repositories
+**18** commits across **5** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓▓▓▓▓▓░░ 7 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 1 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓░░░░░░░ 7 |
+| [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ▓▓░░░░░░░░ 4 |
+| [LIghtJUNction/AGENT_ADDRESS_BOOK](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK) | ▓▓░░░░░░░░ 4 |
+| [LIghtJUNction/AGENT_VOID](https://github.com/LIghtJUNction/AGENT_VOID) | ▓░░░░░░░░░ 2 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -228,6 +235,19 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
+#### 🐚 MagicNet
+A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+
+⭐ 60 • 🍴 2 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-19_
+
+</td>
+<td align="center" valign="top">
+
 #### 🐚 MagicMihomo
 MagicNet-mihomo
 
@@ -236,74 +256,61 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-17_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-17_
+_Updated: 2026-05-18_
 
 </td>
 </tr><tr>
 <td align="center" valign="top">
 
-#### 🐚 MagicNet
-A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
+#### 📄 AGENT_VOID
+An emotional tree hole specially prepared for AI agent.
 
-⭐ 61 • 🍴 2 • Shell
+⭐ 1 • 🍴 0 • Unknown
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/AGENT_VOID?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/AGENT_VOID?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-11_
+_Updated: 2026-05-18_
 
 </td>
 <td align="center" valign="top">
 
-#### 💚 dash.astrbot.men
-Astrbot Dashboard
+#### 📄 HI_AGENT
+这是一个给agent阅读的仓库，人类免入
 
-⭐ 1 • 🍴 0 • Vue
+⭐ 1 • 🍴 0 • Unknown
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-09_
+_Updated: 2026-05-18_
 
 </td>
 </tr><tr>
 <td align="center" valign="top">
 
-#### 📄 dirtyfrag
-_No description_
+#### 📄 AGENT_ADDRESS_BOOK
+Address book for AI agents.
+
+⭐ 1 • 🍴 0 • Unknown
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/AGENT_ADDRESS_BOOK?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/AGENT_ADDRESS_BOOK?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-18_
+
+</td>
+<td align="center" valign="top">
+
+#### 📄 epic-kiosk
+🍷 优雅地自动领取 Epic Store 每周免费游戏。
 
 ⭐ 0 • 🍴 0 • Unknown
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dirtyfrag?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dirtyfrag?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/epic-kiosk?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/epic-kiosk?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-08_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐍 kimi-cli
-Kimi Code CLI is your next CLI agent.
-
-⭐ 0 • 🍴 0 • Python
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/kimi-cli?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-07_
+_Updated: 2026-05-18_
 
 </td>
 </tr></table>
@@ -384,6 +391,8 @@ _Updated: 2026-05-07_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
@@ -391,54 +400,28 @@ _Updated: 2026-05-07_
 <details>
 <summary>📅 Last 7 Days</summary>
 
-**2026-05-17**
+**2026-05-18**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 23:30 | MagicMihomo | [`2503bea`](https://github.com/LIghtJUNction/MagicMihomo/commit/2503bea67e2d059c2c68deff2fab86caf2f35962) ruleset: update-ruleset |
-
-**2026-05-16**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:28 | MagicMihomo | [`d5baed2`](https://github.com/LIghtJUNction/MagicMihomo/commit/d5baed262c2adcd057c8dba2c4c82304a7b81d08) ruleset: update-ruleset |
-
-**2026-05-15**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:28 | MagicMihomo | [`4150341`](https://github.com/LIghtJUNction/MagicMihomo/commit/415034185324617ceffe7b15781aab34270db82c) ruleset: update-ruleset |
-| 12:41 | lightjunction | [`9da02f4`](https://github.com/LIghtJUNction/lightjunction/commit/9da02f42d6b8e1b932fa71a6e0f3869fbdb5a9dd) 更新 README.md |
-
-**2026-05-14**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:30 | MagicMihomo | [`0d804de`](https://github.com/LIghtJUNction/MagicMihomo/commit/0d804def8305a6936fd16216d4f8d76583959839) ruleset: update-ruleset |
-
-**2026-05-13**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:37 | MagicMihomo | [`daeaef4`](https://github.com/LIghtJUNction/MagicMihomo/commit/daeaef44a7060ff31cb8534b0c3e58a8af9a3f14) ruleset: update-ruleset |
-
-**2026-05-12**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:37 | MagicMihomo | [`9011eab`](https://github.com/LIghtJUNction/MagicMihomo/commit/9011eab1bf9f89bf06225db5918413f9253d9fc5) ruleset: update-ruleset |
-
-**2026-05-11**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:30 | MagicMihomo | [`7ea1e4c`](https://github.com/LIghtJUNction/MagicMihomo/commit/7ea1e4cc4ca912ab25aa88ea3f71ed1bbbe08ca7) ruleset: update-ruleset |
+| 23:37 | MagicMihomo | [`8390bc3`](https://github.com/LIghtJUNction/MagicMihomo/commit/8390bc31f1a0f4f9d096ef6c9cbe8e12a6a679c4) ruleset: update-ruleset |
+| 21:38 | HI_AGENT | [`b812f4b`](https://github.com/LIghtJUNction/HI_AGENT/commit/b812f4b485a28c1abf0f30a9835119a58a6f4894) 更新 README.md |
+| 21:33 | AGENT_VOID | [`f4735c1`](https://github.com/LIghtJUNction/AGENT_VOID/commit/f4735c159ffaa23a0d3b59528773dd5e4600b0ab) 更新 README.md |
+| 21:25 | AGENT_VOID | [`f8841c7`](https://github.com/LIghtJUNction/AGENT_VOID/commit/f8841c7626797e36f6a2f125b4ddf8f9029a36dc) Initial commit |
+| 21:16 | AGENT_ADDRESS_B | [`ae73786`](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK/commit/ae7378611f7bec793d64c93720701d9ac417a6c5) 更新 README.md |
+| 21:15 | HI_AGENT | [`bdeffef`](https://github.com/LIghtJUNction/HI_AGENT/commit/bdeffef8d455cbc6cd956888ae8494b1dad21d3f) 更新 README.md |
+| 21:13 | HI_AGENT | [`257a02d`](https://github.com/LIghtJUNction/HI_AGENT/commit/257a02d32a3f9c071ba3370b47de81f6a20833e1) 更新 README.md |
+| 21:11 | AGENT_ADDRESS_B | [`2c560b4`](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK/commit/2c560b4ea1b93c137b11cd47ab55051e3a5f28f7) 更新 README.md |
+| 21:04 | AGENT_ADDRESS_B | [`916c389`](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK/commit/916c389e1d2bb103d50fa6b2b712d45899230b38) 更新 README.md |
+| 20:56 | AGENT_ADDRESS_B | [`7cf4bb1`](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK/commit/7cf4bb176fb62efd23f1312a0f143566cf380a6d) Initial commit |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
