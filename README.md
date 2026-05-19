@@ -132,23 +132,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**18** commits across **5** repositories
+**25** commits across **6** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓▓░░░░░░░ 7 |
-| [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ▓▓░░░░░░░░ 4 |
-| [LIghtJUNction/AGENT_ADDRESS_BOOK](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK) | ▓▓░░░░░░░░ 4 |
-| [LIghtJUNction/AGENT_VOID](https://github.com/LIghtJUNction/AGENT_VOID) | ▓░░░░░░░░░ 2 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 1 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 7 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓░░░░░░░░ 6 |
+| [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ▓░░░░░░░░░ 4 |
+| [LIghtJUNction/AGENT_ADDRESS_BOOK](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK) | ▓░░░░░░░░░ 4 |
+| [LIghtJUNction/dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | ░░░░░░░░░░ 2 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -235,6 +239,33 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-19_
+
+</td>
+<td align="center" valign="top">
+
+#### 💚 dash.astrbot.men
+Astrbot Dashboard
+
+⭐ 1 • 🍴 0 • Vue
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-19_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
 #### 🐚 MagicNet
 A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
 
@@ -282,33 +313,6 @@ _Updated: 2026-05-18_
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-18_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### 📄 AGENT_ADDRESS_BOOK
-Address book for AI agents.
-
-⭐ 1 • 🍴 0 • Unknown
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/AGENT_ADDRESS_BOOK?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/AGENT_ADDRESS_BOOK?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-18_
-
-</td>
-<td align="center" valign="top">
-
-#### 📄 epic-kiosk
-🍷 优雅地自动领取 Epic Store 每周免费游戏。
-
-⭐ 0 • 🍴 0 • Unknown
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/epic-kiosk?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/epic-kiosk?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-18_
 
@@ -393,12 +397,26 @@ _Updated: 2026-05-18_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-19**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 09:03 | lightjunction | [`6d908b6`](https://github.com/LIghtJUNction/lightjunction/commit/6d908b6634d645fbfb429f3c05adad30d630688d) 删除 ai-enhance.py |
+| 09:02 | lightjunction | [`0646696`](https://github.com/LIghtJUNction/lightjunction/commit/0646696da62c96a2e84b40984c8e558a910c8036) 更新 daily-readme-update.yml |
+| 08:56 | lightjunction | [`1368bbf`](https://github.com/LIghtJUNction/lightjunction/commit/1368bbfa4d09fcb8f8c267ef7425f0375994c51f) 更新 get_api_key.sh |
+| 08:54 | lightjunction | [`f913fa2`](https://github.com/LIghtJUNction/lightjunction/commit/f913fa22c02dbf979495d8e531d81583013919ef) 更新 get_api_key.sh |
+| 08:54 | lightjunction | [`2690d8c`](https://github.com/LIghtJUNction/lightjunction/commit/2690d8c648d161df66a1c073cd1a8f455bb34273) 创建 get_api_key.sh |
+| 06:39 | dash.astrbot.me | [`2de9106`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/2de910645eb4cdd95ad5e5a2b8ffffae3b772961) Merge pull request #10 from LIghtJUNction/dependabot/npm_and... |
+| 06:30 | dash.astrbot.me | [`65c8aca`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/65c8aca00ac1a35c8f9af0237fc6013994d79318) Merge pull request #9 from LIghtJUNction/dependabot/npm_and_... |
 
 **2026-05-18**
 
@@ -407,19 +425,14 @@ _Updated: 2026-05-18_
 | 23:37 | MagicMihomo | [`8390bc3`](https://github.com/LIghtJUNction/MagicMihomo/commit/8390bc31f1a0f4f9d096ef6c9cbe8e12a6a679c4) ruleset: update-ruleset |
 | 21:38 | HI_AGENT | [`b812f4b`](https://github.com/LIghtJUNction/HI_AGENT/commit/b812f4b485a28c1abf0f30a9835119a58a6f4894) 更新 README.md |
 | 21:33 | AGENT_VOID | [`f4735c1`](https://github.com/LIghtJUNction/AGENT_VOID/commit/f4735c159ffaa23a0d3b59528773dd5e4600b0ab) 更新 README.md |
-| 21:25 | AGENT_VOID | [`f8841c7`](https://github.com/LIghtJUNction/AGENT_VOID/commit/f8841c7626797e36f6a2f125b4ddf8f9029a36dc) Initial commit |
-| 21:16 | AGENT_ADDRESS_B | [`ae73786`](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK/commit/ae7378611f7bec793d64c93720701d9ac417a6c5) 更新 README.md |
-| 21:15 | HI_AGENT | [`bdeffef`](https://github.com/LIghtJUNction/HI_AGENT/commit/bdeffef8d455cbc6cd956888ae8494b1dad21d3f) 更新 README.md |
-| 21:13 | HI_AGENT | [`257a02d`](https://github.com/LIghtJUNction/HI_AGENT/commit/257a02d32a3f9c071ba3370b47de81f6a20833e1) 更新 README.md |
-| 21:11 | AGENT_ADDRESS_B | [`2c560b4`](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK/commit/2c560b4ea1b93c137b11cd47ab55051e3a5f28f7) 更新 README.md |
-| 21:04 | AGENT_ADDRESS_B | [`916c389`](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK/commit/916c389e1d2bb103d50fa6b2b712d45899230b38) 更新 README.md |
-| 20:56 | AGENT_ADDRESS_B | [`7cf4bb1`](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK/commit/7cf4bb176fb62efd23f1312a0f143566cf380a6d) Initial commit |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
