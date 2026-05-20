@@ -52,7 +52,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **71** | **71** | **107** |
+| 2022-06-06 (3yr 11mo) | **71** | **70** | **107** |
 
 ---
 
@@ -134,16 +134,18 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**25** commits across **6** repositories
+**26** commits across **6** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 7 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓░░░░░░░░ 6 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓░░░░░░░░ 7 |
 | [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ▓░░░░░░░░░ 4 |
 | [LIghtJUNction/AGENT_ADDRESS_BOOK](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK) | ▓░░░░░░░░░ 4 |
 | [LIghtJUNction/dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | ░░░░░░░░░░ 2 |
@@ -151,6 +153,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -239,6 +243,33 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
+#### 💚 dash.astrbot.men
+Astrbot Dashboard
+
+⭐ 1 • 🍴 0 • Vue
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-20_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐚 MagicMihomo
+MagicNet-mihomo
+
+⭐ 10 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-19_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
 #### 🐚 lightjunction
 I'M LIghtJUNction
 
@@ -252,20 +283,6 @@ _Updated: 2026-05-19_
 </td>
 <td align="center" valign="top">
 
-#### 💚 dash.astrbot.men
-Astrbot Dashboard
-
-⭐ 1 • 🍴 0 • Vue
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-19_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
 #### 🐚 MagicNet
 A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
 
@@ -275,19 +292,6 @@ A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-19_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 MagicMihomo
-MagicNet-mihomo
-
-⭐ 10 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-18_
 
 </td>
 </tr><tr>
@@ -399,6 +403,8 @@ _Updated: 2026-05-18_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
@@ -410,6 +416,8 @@ _Updated: 2026-05-18_
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
+| 23:41 | MagicMihomo | [`391101d`](https://github.com/LIghtJUNction/MagicMihomo/commit/391101d795b7f758c9388c2a834f737216b9ace9) ruleset: update-ruleset |
+| 16:42 | lightjunction | [`a8660b6`](https://github.com/LIghtJUNction/lightjunction/commit/a8660b61ea4ba374e709edc4bf53eaaa581e94d7) Merge pull request #32 from LIghtJUNction/copilot/update-dai... |
 | 09:03 | lightjunction | [`6d908b6`](https://github.com/LIghtJUNction/lightjunction/commit/6d908b6634d645fbfb429f3c05adad30d630688d) 删除 ai-enhance.py |
 | 09:02 | lightjunction | [`0646696`](https://github.com/LIghtJUNction/lightjunction/commit/0646696da62c96a2e84b40984c8e558a910c8036) 更新 daily-readme-update.yml |
 | 08:56 | lightjunction | [`1368bbf`](https://github.com/LIghtJUNction/lightjunction/commit/1368bbfa4d09fcb8f8c267ef7425f0375994c51f) 更新 get_api_key.sh |
@@ -423,14 +431,14 @@ _Updated: 2026-05-18_
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
 | 23:37 | MagicMihomo | [`8390bc3`](https://github.com/LIghtJUNction/MagicMihomo/commit/8390bc31f1a0f4f9d096ef6c9cbe8e12a6a679c4) ruleset: update-ruleset |
-| 21:38 | HI_AGENT | [`b812f4b`](https://github.com/LIghtJUNction/HI_AGENT/commit/b812f4b485a28c1abf0f30a9835119a58a6f4894) 更新 README.md |
-| 21:33 | AGENT_VOID | [`f4735c1`](https://github.com/LIghtJUNction/AGENT_VOID/commit/f4735c159ffaa23a0d3b59528773dd5e4600b0ab) 更新 README.md |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
