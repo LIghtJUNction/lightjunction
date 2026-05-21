@@ -136,6 +136,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
@@ -232,6 +234,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SKYLINE -->
 
 
@@ -241,6 +245,60 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 ### 🚀 Latest Projects
 
 <table><tr>
+<td align="center" valign="top">
+
+#### 🐚 MagicMihomo
+MagicNet-mihomo
+
+⭐ 10 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-20_
+
+</td>
+<td align="center" valign="top">
+
+#### 📄 PeakMods
+peak modding
+
+⭐ 1 • 🍴 1 • C#
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/PeakMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/PeakMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-20_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 📄 Oxygen_Not_Included_Multiplayer
+_No description_
+
+⭐ 0 • 🍴 0 • C#
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/Oxygen_Not_Included_Multiplayer?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/Oxygen_Not_Included_Multiplayer?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-20_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-20_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 💚 dash.astrbot.men
@@ -256,33 +314,6 @@ _Updated: 2026-05-20_
 </td>
 <td align="center" valign="top">
 
-#### 🐚 MagicMihomo
-MagicNet-mihomo
-
-⭐ 10 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-19_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-19_
-
-</td>
-<td align="center" valign="top">
-
 #### 🐚 MagicNet
 A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
 
@@ -292,33 +323,6 @@ A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-19_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### 📄 AGENT_VOID
-An emotional tree hole specially prepared for AI agent.
-
-⭐ 1 • 🍴 0 • Unknown
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/AGENT_VOID?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/AGENT_VOID?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-18_
-
-</td>
-<td align="center" valign="top">
-
-#### 📄 HI_AGENT
-这是一个给agent阅读的仓库，人类免入
-
-⭐ 1 • 🍴 0 • Unknown
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-18_
 
 </td>
 </tr></table>
@@ -405,12 +409,20 @@ _Updated: 2026-05-18_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-20**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:49 | MagicMihomo | [`5e28289`](https://github.com/LIghtJUNction/MagicMihomo/commit/5e282897eacbaf0da44c00d0b17d2044724038bf) ruleset: update-ruleset |
 
 **2026-05-19**
 
@@ -426,17 +438,13 @@ _Updated: 2026-05-18_
 | 06:39 | dash.astrbot.me | [`2de9106`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/2de910645eb4cdd95ad5e5a2b8ffffae3b772961) Merge pull request #10 from LIghtJUNction/dependabot/npm_and... |
 | 06:30 | dash.astrbot.me | [`65c8aca`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/65c8aca00ac1a35c8f9af0237fc6013994d79318) Merge pull request #9 from LIghtJUNction/dependabot/npm_and_... |
 
-**2026-05-18**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:37 | MagicMihomo | [`8390bc3`](https://github.com/LIghtJUNction/MagicMihomo/commit/8390bc31f1a0f4f9d096ef6c9cbe8e12a6a679c4) ruleset: update-ruleset |
-
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
