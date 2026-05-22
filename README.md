@@ -138,6 +138,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
@@ -236,6 +238,8 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SKYLINE -->
 
 
@@ -247,6 +251,19 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 <table><tr>
 <td align="center" valign="top">
 
+#### 💚 dash.astrbot.men
+Astrbot Dashboard
+
+⭐ 1 • 🍴 0 • Vue
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-22_
+
+</td>
+<td align="center" valign="top">
+
 #### 🐚 MagicMihomo
 MagicNet-mihomo
 
@@ -255,7 +272,21 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-20_
+_Updated: 2026-05-21_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-21_
 
 </td>
 <td align="center" valign="top">
@@ -281,33 +312,6 @@ _No description_
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/Oxygen_Not_Included_Multiplayer?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/Oxygen_Not_Included_Multiplayer?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-20_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-20_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### 💚 dash.astrbot.men
-Astrbot Dashboard
-
-⭐ 1 • 🍴 0 • Vue
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-20_
 
@@ -411,12 +415,20 @@ _Updated: 2026-05-19_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-21**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:34 | MagicMihomo | [`37de14e`](https://github.com/LIghtJUNction/MagicMihomo/commit/37de14ea7ec89776aaaef9e7f43b41d1804f575a) ruleset: update-ruleset |
 
 **2026-05-20**
 
@@ -436,13 +448,14 @@ _Updated: 2026-05-19_
 | 08:54 | lightjunction | [`f913fa2`](https://github.com/LIghtJUNction/lightjunction/commit/f913fa22c02dbf979495d8e531d81583013919ef) 更新 get_api_key.sh |
 | 08:54 | lightjunction | [`2690d8c`](https://github.com/LIghtJUNction/lightjunction/commit/2690d8c648d161df66a1c073cd1a8f455bb34273) 创建 get_api_key.sh |
 | 06:39 | dash.astrbot.me | [`2de9106`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/2de910645eb4cdd95ad5e5a2b8ffffae3b772961) Merge pull request #10 from LIghtJUNction/dependabot/npm_and... |
-| 06:30 | dash.astrbot.me | [`65c8aca`](https://github.com/LIghtJUNction/dash.astrbot.men/commit/65c8aca00ac1a35c8f9af0237fc6013994d79318) Merge pull request #9 from LIghtJUNction/dependabot/npm_and_... |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
