@@ -52,7 +52,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **71** | **69** | **107** |
+| 2022-06-06 (3yr 11mo) | **72** | **69** | **107** |
 
 ---
 
@@ -142,23 +142,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**25** commits across **6** repositories
+**49** commits across **7** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 7 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓░░░░░░░░ 6 |
-| [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ▓░░░░░░░░░ 4 |
-| [LIghtJUNction/AGENT_ADDRESS_BOOK](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK) | ▓░░░░░░░░░ 4 |
-| [LIghtJUNction/dash.astrbot.men](https://github.com/LIghtJUNction/dash.astrbot.men) | ░░░░░░░░░░ 2 |
+| [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓░░░░░░ 24 |
+| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 6 |
+| [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ░░░░░░░░░░ 4 |
+| [LIghtJUNction/AGENT_ADDRESS_BOOK](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK) | ░░░░░░░░░░ 4 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -263,9 +267,23 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-22_
+_Updated: 2026-05-23_
 
 </td>
+<td align="center" valign="top">
+
+#### 🦀 OniMods
+_No description_
+
+⭐ 1 • 🍴 0 • Rust
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-23_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 lightjunction
@@ -276,10 +294,9 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-22_
+_Updated: 2026-05-23_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 💚 dash.astrbot.men
@@ -293,6 +310,7 @@ Astrbot Dashboard
 _Updated: 2026-05-22_
 
 </td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 📄 PeakMods
@@ -306,7 +324,6 @@ peak modding
 _Updated: 2026-05-20_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 📄 Oxygen_Not_Included_Multiplayer
@@ -318,19 +335,6 @@ _No description_
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/Oxygen_Not_Included_Multiplayer?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-20_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 MagicNet
-A Magisk module that lets you use the mihomo kernel's TUN mode on Android. Built with KAM.
-
-⭐ 60 • 🍴 2 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-19_
 
 </td>
 </tr></table>
@@ -423,6 +427,8 @@ _Updated: 2026-05-19_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
@@ -430,41 +436,28 @@ _Updated: 2026-05-19_
 <details>
 <summary>📅 Last 7 Days</summary>
 
-**2026-05-22**
+**2026-05-23**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 23:39 | MagicMihomo | [`9fb818d`](https://github.com/LIghtJUNction/MagicMihomo/commit/9fb818d2730dd944b5fb2a303c145517ae065284) ruleset: update-ruleset |
-
-**2026-05-21**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:34 | MagicMihomo | [`37de14e`](https://github.com/LIghtJUNction/MagicMihomo/commit/37de14ea7ec89776aaaef9e7f43b41d1804f575a) ruleset: update-ruleset |
-
-**2026-05-20**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:49 | MagicMihomo | [`5e28289`](https://github.com/LIghtJUNction/MagicMihomo/commit/5e282897eacbaf0da44c00d0b17d2044724038bf) ruleset: update-ruleset |
-
-**2026-05-19**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:41 | MagicMihomo | [`391101d`](https://github.com/LIghtJUNction/MagicMihomo/commit/391101d795b7f758c9388c2a834f737216b9ace9) ruleset: update-ruleset |
-| 16:42 | lightjunction | [`a8660b6`](https://github.com/LIghtJUNction/lightjunction/commit/a8660b61ea4ba374e709edc4bf53eaaa581e94d7) Merge pull request #32 from LIghtJUNction/copilot/update-dai... |
-| 09:03 | lightjunction | [`6d908b6`](https://github.com/LIghtJUNction/lightjunction/commit/6d908b6634d645fbfb429f3c05adad30d630688d) 删除 ai-enhance.py |
-| 09:02 | lightjunction | [`0646696`](https://github.com/LIghtJUNction/lightjunction/commit/0646696da62c96a2e84b40984c8e558a910c8036) 更新 daily-readme-update.yml |
-| 08:56 | lightjunction | [`1368bbf`](https://github.com/LIghtJUNction/lightjunction/commit/1368bbfa4d09fcb8f8c267ef7425f0375994c51f) 更新 get_api_key.sh |
-| 08:54 | lightjunction | [`f913fa2`](https://github.com/LIghtJUNction/lightjunction/commit/f913fa22c02dbf979495d8e531d81583013919ef) 更新 get_api_key.sh |
-| 08:54 | lightjunction | [`2690d8c`](https://github.com/LIghtJUNction/lightjunction/commit/2690d8c648d161df66a1c073cd1a8f455bb34273) 创建 get_api_key.sh |
+| 23:30 | MagicMihomo | [`07cfa1e`](https://github.com/LIghtJUNction/MagicMihomo/commit/07cfa1e68a31e9cf9f496e36b0951ff03fd28db0) ruleset: update-ruleset |
+| 07:12 | OniMods | [`64b568a`](https://github.com/LIghtJUNction/OniMods/commit/64b568a9d9de96ae645e72c91263b6ac6edb211a) feat: Mod 模板添加 README.md，构建时自动打包进 dist |
+| 07:09 | OniMods | [`837b5a1`](https://github.com/LIghtJUNction/OniMods/commit/837b5a1122c4eb7fa60d3d0dde51b16ce6709220) feat: publish 上传成功后打印 Steam 创意工坊链接 |
+| 07:08 | OniMods | [`cc6528c`](https://github.com/LIghtJUNction/OniMods/commit/cc6528c0a0ce1bc36eee6e296e440e2b72f1b10f) feat: publish 添加 --gui flag 强制使用 OniUploader，SteamCMD 上传后提示补... |
+| 07:04 | OniMods | [`ef23b72`](https://github.com/LIghtJUNction/OniMods/commit/ef23b7230bba1c11fd09b8288c2a49cf5f29cf9e) fix: mod_info.yaml 去除已弃用的 supportedContent，改用新规范 |
+| 06:58 | OniMods | [`bbf5470`](https://github.com/LIghtJUNction/OniMods/commit/bbf5470e30f8570fce9687540e2a9d6fe7aca118) fix: SteamCMD 使用真实账号登录而非 anonymous |
+| 06:58 | OniMods | [`3f279c9`](https://github.com/LIghtJUNction/OniMods/commit/3f279c9686e848f1bd236121c678b4dc30379a75) feat: publish 支持 SteamCMD 全自动上传（有则自动，无则回退 GUI） |
+| 06:51 | OniMods | [`9532869`](https://github.com/LIghtJUNction/OniMods/commit/95328694b2b81e243932160948da28c668d0ba32) chore: 添加 OniModTemplate 默认预览图 preview.png |
+| 06:48 | OniMods | [`5ad3055`](https://github.com/LIghtJUNction/OniMods/commit/5ad3055c2dde75b8517cd8afeb94134a213f6783) feat: 构建同时生成 mod_info.yaml + 预览图自动复制 + publish 检查 |
+| 06:39 | OniMods | [`d866442`](https://github.com/LIghtJUNction/OniMods/commit/d866442ddd38243ee798d32202c61fe0f1ea85fa) refactor: 游戏路径统一放在 Directory.Build.props，onim 直接读取 |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
