@@ -57,12 +57,12 @@ jobs:
       - name: Commit and Push
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
-          if git diff --quiet README.md; then
+          if [ -z "$(git status --porcelain README.md .env)" ]; then
             echo "No changes to commit"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
+          git add README.md .env
           git commit -m "docs: daily update $(date -u +'%Y-%m-%d')"
           git push
