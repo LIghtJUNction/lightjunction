@@ -146,23 +146,26 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**44** commits across **7** repositories
+**41** commits across **4** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓░░░░░░ 19 |
+| [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓▓▓░░░░ 25 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 8 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 6 |
-| [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ░░░░░░░░░░ 4 |
-| [LIghtJUNction/AGENT_ADDRESS_BOOK](https://github.com/LIghtJUNction/AGENT_ADDRESS_BOOK) | ░░░░░░░░░░ 4 |
+| [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -271,9 +274,23 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-24_
+_Updated: 2026-05-25_
 
 </td>
+<td align="center" valign="top">
+
+#### 📄 HI_AGENT
+这是一个给agent阅读的仓库，人类免入
+
+⭐ 1 • 🍴 0 • Unknown
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-25_
+
+</td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 📄 OniMods
@@ -284,10 +301,9 @@ oxygen not included
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-24_
+_Updated: 2026-05-25_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 lightjunction
@@ -298,9 +314,10 @@ I'M LIghtJUNction
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-24_
+_Updated: 2026-05-25_
 
 </td>
+</tr><tr>
 <td align="center" valign="top">
 
 #### 💚 dash.astrbot.men
@@ -314,7 +331,6 @@ Astrbot Dashboard
 _Updated: 2026-05-22_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 📄 PeakMods
@@ -324,19 +340,6 @@ peak modding
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/PeakMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/PeakMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-20_
-
-</td>
-<td align="center" valign="top">
-
-#### 📄 Oxygen_Not_Included_Multiplayer
-_No description_
-
-⭐ 0 • 🍴 0 • C#
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/Oxygen_Not_Included_Multiplayer?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/Oxygen_Not_Included_Multiplayer?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-20_
 
@@ -435,6 +438,8 @@ _Updated: 2026-05-20_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
@@ -442,26 +447,28 @@ _Updated: 2026-05-20_
 <details>
 <summary>📅 Last 7 Days</summary>
 
-**2026-05-24**
+**2026-05-25**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 23:34 | MagicMihomo | [`01ea5d9`](https://github.com/LIghtJUNction/MagicMihomo/commit/01ea5d9758afd8095ec8b738bd7e9dbbe277e350) ruleset: update-ruleset |
-| 19:31 | OniMods | [`3adb983`](https://github.com/LIghtJUNction/OniMods/commit/3adb983d9b1a0ed00082fd36d20fc528aecbe82d) 更新 README.md |
-| 16:32 | OniMods | [`eed5a25`](https://github.com/LIghtJUNction/OniMods/commit/eed5a25fcd6b242a4953a0c1e7f577426bed6814) 更新 README.md |
-| 16:32 | OniMods | [`0367f61`](https://github.com/LIghtJUNction/OniMods/commit/0367f61216df2a01cd9a5ffd775545734f980d10) 更新 README.md |
-| 16:17 | OniMods | [`75dcb30`](https://github.com/LIghtJUNction/OniMods/commit/75dcb30856c2d7043afb7a258b0a5df4e6f13a97) 更新 README.md |
-| 15:56 | OniMods | [`f752700`](https://github.com/LIghtJUNction/OniMods/commit/f752700a4c15cc10cdde84dfda0f0d3eb423bc74) 更新 README_EN.md |
-| 15:56 | OniMods | [`bd669f1`](https://github.com/LIghtJUNction/OniMods/commit/bd669f132f5cd27dddf5f9b2e6aa4732d1219a05) 更新 README.md |
-| 15:32 | OniMods | [`87c12ed`](https://github.com/LIghtJUNction/OniMods/commit/87c12edbf30954eedc046c8ba1fa5ecd44718b1e) v0.1.3 |
-| 11:25 | OniMods | [`57c3df2`](https://github.com/LIghtJUNction/OniMods/commit/57c3df2475baa9809270ef25b5935e82e0c889ca) skills |
-| 10:10 | OniMods | [`0b8afa7`](https://github.com/LIghtJUNction/OniMods/commit/0b8afa72f2bfc7b2c621c2aef40d90fe0f79e043) Create LICENSE |
+| 23:40 | MagicMihomo | [`07170ee`](https://github.com/LIghtJUNction/MagicMihomo/commit/07170ee9145640845407b5290e25025d7d6c6a9b) ruleset: update-ruleset |
+| 19:01 | HI_AGENT | [`98e7e42`](https://github.com/LIghtJUNction/HI_AGENT/commit/98e7e42008e0d9f8c0835cedf05eed6d6225659c) 更新 README.md |
+| 13:05 | OniMods | [`eaba19f`](https://github.com/LIghtJUNction/OniMods/commit/eaba19f61d5b72f2d93392e77edec459d748dfc4) 修正skill |
+| 12:49 | OniMods | [`cf358f7`](https://github.com/LIghtJUNction/OniMods/commit/cf358f70baef88fcec8435d37f6c26afa1741f97) Reduce ONI MCP tool catalog token overhead |
+| 11:34 | OniMods | [`5fc2ba6`](https://github.com/LIghtJUNction/OniMods/commit/5fc2ba63d8da3dcf776547e55b0781c4c2929435) v0.1.5 |
+| 09:57 | OniMods | [`f5f41f5`](https://github.com/LIghtJUNction/OniMods/commit/f5f41f5e0efae35a213bc010a7b2f394208d8faa) v0.1.4 |
+| 07:51 | lightjunction | [`3014837`](https://github.com/LIghtJUNction/lightjunction/commit/301483767ddf2eb62d087eeef1a95fa38abb802d) Add API key to .env file |
+| 07:48 | lightjunction | [`5d9eabe`](https://github.com/LIghtJUNction/lightjunction/commit/5d9eabee6ec635ed3c34150b356cda9a4086684c) Merge pull request #33 from LIghtJUNction/copilot/check-env-... |
+| 06:23 | OniMods | [`0705731`](https://github.com/LIghtJUNction/OniMods/commit/070573151f30a0acb1581f293143023235882e32) bump version to 0.1.4 |
+| 06:22 | OniMods | [`e2cf55f`](https://github.com/LIghtJUNction/OniMods/commit/e2cf55ff09a064c6811c26ecf7b9980f642fe8ba) v0.1.4 |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
