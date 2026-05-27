@@ -52,7 +52,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **72** | **70** | **108** |
+| 2022-06-06 (3yr 11mo) | **72** | **71** | **108** |
 
 ---
 
@@ -148,22 +148,26 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**41** commits across **4** repositories
+**37** commits across **4** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓▓▓░░░░ 25 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓░░░░░░░░░ 8 |
+| [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓▓▓▓░░░ 27 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
+| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 2 |
 | [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -274,7 +278,34 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-25_
+_Updated: 2026-05-26_
+
+</td>
+<td align="center" valign="top">
+
+#### 📄 OniMods
+oxygen not included
+
+⭐ 4 • 🍴 0 • C#
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-26_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-26_
 
 </td>
 <td align="center" valign="top">
@@ -286,33 +317,6 @@ _Updated: 2026-05-25_
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-25_
-
-</td>
-</tr><tr>
-<td align="center" valign="top">
-
-#### 📄 OniMods
-oxygen not included
-
-⭐ 2 • 🍴 0 • C#
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-25_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-25_
 
@@ -440,12 +444,22 @@ _Updated: 2026-05-20_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-26**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:41 | MagicMihomo | [`9878fe2`](https://github.com/LIghtJUNction/MagicMihomo/commit/9878fe2ed24a04adeb2ab6d73b1c75f2b67a613a) ruleset: update-ruleset |
+| 13:45 | OniMods | [`ad0789f`](https://github.com/LIghtJUNction/OniMods/commit/ad0789f357c7a38b8f305c487210d2e63a115ab5) sync |
+| 10:27 | OniMods | [`ea1df0f`](https://github.com/LIghtJUNction/OniMods/commit/ea1df0fff1c8bdf2dd2e1b962624205852b94304) sync |
 
 **2026-05-25**
 
@@ -458,15 +472,14 @@ _Updated: 2026-05-20_
 | 11:34 | OniMods | [`5fc2ba6`](https://github.com/LIghtJUNction/OniMods/commit/5fc2ba63d8da3dcf776547e55b0781c4c2929435) v0.1.5 |
 | 09:57 | OniMods | [`f5f41f5`](https://github.com/LIghtJUNction/OniMods/commit/f5f41f5e0efae35a213bc010a7b2f394208d8faa) v0.1.4 |
 | 07:51 | lightjunction | [`3014837`](https://github.com/LIghtJUNction/lightjunction/commit/301483767ddf2eb62d087eeef1a95fa38abb802d) Add API key to .env file |
-| 07:48 | lightjunction | [`5d9eabe`](https://github.com/LIghtJUNction/lightjunction/commit/5d9eabee6ec635ed3c34150b356cda9a4086684c) Merge pull request #33 from LIghtJUNction/copilot/check-env-... |
-| 06:23 | OniMods | [`0705731`](https://github.com/LIghtJUNction/OniMods/commit/070573151f30a0acb1581f293143023235882e32) bump version to 0.1.4 |
-| 06:22 | OniMods | [`e2cf55f`](https://github.com/LIghtJUNction/OniMods/commit/e2cf55ff09a064c6811c26ecf7b9980f642fe8ba) v0.1.4 |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
