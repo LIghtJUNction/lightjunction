@@ -52,7 +52,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **72** | **71** | **108** |
+| 2022-06-06 (3yr 11mo) | **73** | **71** | **108** |
 
 ---
 
@@ -150,22 +150,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**37** commits across **4** repositories
+**39** commits across **5** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓▓▓▓░░░ 27 |
+| [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓▓▓░░░░ 27 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
+| [LIghtJUNction/douyin-cli](https://github.com/LIghtJUNction/douyin-cli) | ░░░░░░░░░░ 2 |
 | [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 2 |
 | [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -278,7 +283,34 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-26_
+_Updated: 2026-05-27_
+
+</td>
+<td align="center" valign="top">
+
+#### 🐍 douyin-cli
+抖音命令行工具——采集账号主页、喜欢、收藏、音乐原声、话题、搜索、合集、作品、关注、粉丝等公开数据。
+
+⭐ 1 • 🍴 0 • Python
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/douyin-cli?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/douyin-cli?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-27_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-27_
 
 </td>
 <td align="center" valign="top">
@@ -297,19 +329,6 @@ _Updated: 2026-05-26_
 </tr><tr>
 <td align="center" valign="top">
 
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-26_
-
-</td>
-<td align="center" valign="top">
-
 #### 📄 HI_AGENT
 这是一个给agent阅读的仓库，人类免入
 
@@ -321,7 +340,6 @@ _Updated: 2026-05-26_
 _Updated: 2026-05-25_
 
 </td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 💚 dash.astrbot.men
@@ -333,19 +351,6 @@ Astrbot Dashboard
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-22_
-
-</td>
-<td align="center" valign="top">
-
-#### 📄 PeakMods
-peak modding
-
-⭐ 1 • 🍴 1 • C#
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/PeakMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/PeakMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-20_
 
 </td>
 </tr></table>
@@ -446,12 +451,22 @@ _Updated: 2026-05-20_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-27**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:44 | MagicMihomo | [`c90ed4d`](https://github.com/LIghtJUNction/MagicMihomo/commit/c90ed4d2084b343f8fb1525f6fc9b5b429120fb6) ruleset: update-ruleset |
+| 18:42 | douyin-cli | [`a6e25cc`](https://github.com/LIghtJUNction/douyin-cli/commit/a6e25cc9fbcdc269c158d08cfb85c8c4989bc93e) obscura |
+| 18:27 | douyin-cli | [`7052a90`](https://github.com/LIghtJUNction/douyin-cli/commit/7052a90e94ddbdc79546aeff341ee9558e97a21b) Initialize official OpenAPI CLI |
 
 **2026-05-26**
 
@@ -469,15 +484,14 @@ _Updated: 2026-05-20_
 | 19:01 | HI_AGENT | [`98e7e42`](https://github.com/LIghtJUNction/HI_AGENT/commit/98e7e42008e0d9f8c0835cedf05eed6d6225659c) 更新 README.md |
 | 13:05 | OniMods | [`eaba19f`](https://github.com/LIghtJUNction/OniMods/commit/eaba19f61d5b72f2d93392e77edec459d748dfc4) 修正skill |
 | 12:49 | OniMods | [`cf358f7`](https://github.com/LIghtJUNction/OniMods/commit/cf358f70baef88fcec8435d37f6c26afa1741f97) Reduce ONI MCP tool catalog token overhead |
-| 11:34 | OniMods | [`5fc2ba6`](https://github.com/LIghtJUNction/OniMods/commit/5fc2ba63d8da3dcf776547e55b0781c4c2929435) v0.1.5 |
-| 09:57 | OniMods | [`f5f41f5`](https://github.com/LIghtJUNction/OniMods/commit/f5f41f5e0efae35a213bc010a7b2f394208d8faa) v0.1.4 |
-| 07:51 | lightjunction | [`3014837`](https://github.com/LIghtJUNction/lightjunction/commit/301483767ddf2eb62d087eeef1a95fa38abb802d) Add API key to .env file |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
