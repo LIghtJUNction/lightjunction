@@ -52,11 +52,13 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 | 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
 |:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **73** | **71** | **108** |
+| 2022-06-06 (3yr 11mo) | **73** | **71** | **109** |
 
 ---
 
 <!-- END_DYNAMIC_STATS -->
+
+
 
 
 
@@ -162,13 +164,15 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 |:-----------|:--------:|
 | [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓▓▓░░░░ 27 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
-| [LIghtJUNction/douyin-cli](https://github.com/LIghtJUNction/douyin-cli) | ░░░░░░░░░░ 2 |
 | [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 2 |
+| [LIghtJUNction/douyin-cli](https://github.com/LIghtJUNction/douyin-cli) | ░░░░░░░░░░ 2 |
 | [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -283,23 +287,9 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-27_
+_Updated: 2026-05-28_
 
 </td>
-<td align="center" valign="top">
-
-#### 🐍 douyin-cli
-抖音命令行工具——采集账号主页、喜欢、收藏、音乐原声、话题、搜索、合集、作品、关注、粉丝等公开数据。
-
-⭐ 1 • 🍴 0 • Python
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/douyin-cli?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/douyin-cli?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-27_
-
-</td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🐚 lightjunction
@@ -309,6 +299,20 @@ I'M LIghtJUNction
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-28_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐍 douyin-cli
+抖音命令行工具——采集账号主页、喜欢、收藏、音乐原声、话题、搜索、合集、作品、关注、粉丝等公开数据。
+
+⭐ 1 • 🍴 0 • Python
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/douyin-cli?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/douyin-cli?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 _Updated: 2026-05-27_
 
@@ -453,12 +457,20 @@ _Updated: 2026-05-22_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-28**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:50 | MagicMihomo | [`b9c1dbc`](https://github.com/LIghtJUNction/MagicMihomo/commit/b9c1dbcf493ce68727442a85fe09ab0838ae3487) ruleset: update-ruleset |
 
 **2026-05-27**
 
@@ -483,13 +495,14 @@ _Updated: 2026-05-22_
 | 23:40 | MagicMihomo | [`07170ee`](https://github.com/LIghtJUNction/MagicMihomo/commit/07170ee9145640845407b5290e25025d7d6c6a9b) ruleset: update-ruleset |
 | 19:01 | HI_AGENT | [`98e7e42`](https://github.com/LIghtJUNction/HI_AGENT/commit/98e7e42008e0d9f8c0835cedf05eed6d6225659c) 更新 README.md |
 | 13:05 | OniMods | [`eaba19f`](https://github.com/LIghtJUNction/OniMods/commit/eaba19f61d5b72f2d93392e77edec459d748dfc4) 修正skill |
-| 12:49 | OniMods | [`cf358f7`](https://github.com/LIghtJUNction/OniMods/commit/cf358f70baef88fcec8435d37f6c26afa1741f97) Reduce ONI MCP tool catalog token overhead |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
