@@ -42,6 +42,14 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 > Supports: Termux / systemd Linux
 
+**One-click MacBook bootstrap**
+
+```bash
+curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-macbook.sh | bash
+```
+
+> Supports: macOS
+
 ---
 
 ## GitHub Stats
