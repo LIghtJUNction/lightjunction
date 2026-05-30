@@ -154,23 +154,27 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 
 
+
+
 <!-- START_DYNAMIC_SUMMARY -->
 
 ### 📈 This Week
 
-**39** commits across **5** repositories
+**42** commits across **5** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
 | [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓▓▓░░░░ 27 |
 | [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
+| [LIghtJUNction/douyin-cli](https://github.com/LIghtJUNction/douyin-cli) | ▓░░░░░░░░░ 5 |
 | [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 2 |
-| [LIghtJUNction/douyin-cli](https://github.com/LIghtJUNction/douyin-cli) | ░░░░░░░░░░ 2 |
 | [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ░░░░░░░░░░ 1 |
 
 ---
 
 <!-- END_DYNAMIC_SUMMARY -->
+
+
 
 
 
@@ -287,23 +291,9 @@ MagicNet-mihomo
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-28_
+_Updated: 2026-05-29_
 
 </td>
-<td align="center" valign="top">
-
-#### 🐚 lightjunction
-I'M LIghtJUNction
-
-⭐ 2 • 🍴 0 • Shell
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-28_
-
-</td>
-</tr><tr>
 <td align="center" valign="top">
 
 #### 🐍 douyin-cli
@@ -314,7 +304,21 @@ _Updated: 2026-05-28_
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/douyin-cli?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/douyin-cli?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-27_
+_Updated: 2026-05-29_
+
+</td>
+</tr><tr>
+<td align="center" valign="top">
+
+#### 🐚 lightjunction
+I'M LIghtJUNction
+
+⭐ 2 • 🍴 0 • Shell
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+_Updated: 2026-05-29_
 
 </td>
 <td align="center" valign="top">
@@ -459,12 +463,23 @@ _Updated: 2026-05-22_
 
 
 
+
+
 <!-- START_DYNAMIC_COMMITS -->
 
 ### 📝 Recent Commits
 
 <details>
 <summary>📅 Last 7 Days</summary>
+
+**2026-05-29**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:50 | MagicMihomo | [`0bc135f`](https://github.com/LIghtJUNction/MagicMihomo/commit/0bc135ff837213c097284fda576cb477bf55488d) ruleset: update-ruleset |
+| 17:04 | douyin-cli | [`33521ae`](https://github.com/LIghtJUNction/douyin-cli/commit/33521ae496d3247b734cd2f23c01b9b2e1ec9eb4) Fix douyin-cli skill frontmatter |
+| 13:01 | douyin-cli | [`a781b7d`](https://github.com/LIghtJUNction/douyin-cli/commit/a781b7da54089dcca0104ca25def0df89c72dd1f) Document cookie auth workflow |
+| 12:50 | douyin-cli | [`9167501`](https://github.com/LIghtJUNction/douyin-cli/commit/9167501aa1d09a2934c7e907714aec6b3f44c3d5) Fix cookie status web validation |
 
 **2026-05-28**
 
@@ -486,21 +501,14 @@ _Updated: 2026-05-22_
 |:-----|:-----|:-------|
 | 23:41 | MagicMihomo | [`9878fe2`](https://github.com/LIghtJUNction/MagicMihomo/commit/9878fe2ed24a04adeb2ab6d73b1c75f2b67a613a) ruleset: update-ruleset |
 | 13:45 | OniMods | [`ad0789f`](https://github.com/LIghtJUNction/OniMods/commit/ad0789f357c7a38b8f305c487210d2e63a115ab5) sync |
-| 10:27 | OniMods | [`ea1df0f`](https://github.com/LIghtJUNction/OniMods/commit/ea1df0fff1c8bdf2dd2e1b962624205852b94304) sync |
-
-**2026-05-25**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:40 | MagicMihomo | [`07170ee`](https://github.com/LIghtJUNction/MagicMihomo/commit/07170ee9145640845407b5290e25025d7d6c6a9b) ruleset: update-ruleset |
-| 19:01 | HI_AGENT | [`98e7e42`](https://github.com/LIghtJUNction/HI_AGENT/commit/98e7e42008e0d9f8c0835cedf05eed6d6225659c) 更新 README.md |
-| 13:05 | OniMods | [`eaba19f`](https://github.com/LIghtJUNction/OniMods/commit/eaba19f61d5b72f2d93392e77edec459d748dfc4) 修正skill |
 
 </details>
 
 ---
 
 <!-- END_DYNAMIC_COMMITS -->
+
+
 
 
 
