@@ -21,6 +21,8 @@ I build small, sharp tools for messy real-world systems: agents, bootstraps, dat
 
 Non-CS background, but I learn by shipping. My projects usually start from a personal pain point: setting up fresh machines behind difficult networks, making agents easier to operate, automating data collection, or turning a rough script into something another person can run.
 
+Education: Zhengzhou University, bachelor's degree.
+
 I am looking for work where this style is useful: strong ownership, fast iteration, comfort with Linux, and willingness to debug the real path instead of only the happy path.
 
 My rule of thumb: if a tool only works on my machine, it is not finished yet. Good automation should explain the machine it sees, make conservative choices, and fail loudly before it damages anything.
@@ -32,6 +34,7 @@ My rule of thumb: if a tool only works on my machine, it is not finished yet. Go
 | Network tools | daed/mihomo/Hiddify related setup, transparent proxy workflows, domestic-network fallbacks |
 | Data and platform tooling | Python CLIs, API wrappers, collection pipelines, repeatable scripts |
 | Security-minded utilities | OpenPGP contact flow, SSH key deployment, explicit permission boundaries |
+| Simulation games | Oxygen Not Included, especially systems that reward automation and debugging |
 
 ## Working Style
 

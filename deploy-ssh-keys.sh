@@ -1,18 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # deploy-ssh-keys.sh - Deploy SSH public key from GPG
 # Usage:
 #   curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | bash
 
-set -e
+set -euo pipefail
 
 KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
+REMOTE_BASE_URL="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
 
 # ==================== BOOTSTRAP ====================
 declare -gA __IMPORTED_FILES
 
 import() {
-    local file="${1:?}" branch="${2:-main}" repo="${3:-lightjunction}" user="${4:-lightjunction}"
-    local sha256="${5:-}" url="https://raw.githubusercontent.com/$user/$repo/$branch/$file"
+    local file="${1:?}" sha256="${2:-}" url
+    url="$REMOTE_BASE_URL/$file"
     [[ "${__IMPORTED_FILES[$url]:-}" == "1" ]] && return 0
     __IMPORTED_FILES[$url]=1
     local tmp; tmp=$(mktemp) || exit 1
@@ -21,90 +22,81 @@ import() {
         local actual
         actual=$(openssl dgst -sha256 "$tmp" | awk '{print $2}')
         if [[ "$actual" != "$sha256" ]]; then
-            echo "import: SHA256 mismatch for $file" >&2
+            printf 'import: SHA256 mismatch for %s\n' "$file" >&2
             rm -f "$tmp"; exit 1
         fi
     fi
+    # shellcheck source=/dev/null
     source "$tmp"; rm -f "$tmp"
 }
 
-# ==================== IMPORTS ====================
-import env.sh
-import log.sh
+import lib/common.sh
+import lib/bootstrap.sh
+import lib/os.sh
 
-# ==================== MAIN ====================
-main() {
-    # Set GPG_PATH default if not set
-    : "${GPG_PATH:=$(command -v gpg 2>/dev/null || command -v gpg2)}"
+find_gpg() {
+    command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null || true
+}
 
-    # Check GPG
-    if [[ -z "$GPG_PATH" ]]; then
-        err "GPG not found"; exit 1
-    fi
-    ok "GPG: $GPG_PATH"
+write_sync_script() {
+    local path="${1:?}"
+    cat >"$path" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
 
-    # Detect environment
-    if [[ -d "/data/data/com.termux/files/home" ]]; then
-        info "Termux detected"
-        import lib/os.sh
-
-        local sync_script="$HOME/.termux/bin/sync-ssh-keys.sh"
-        os_ensure_dir "$(dirname "$sync_script")"
-        os_ensure_dir "$HOME/.ssh"
-
-        # Generate sync script
-        cat > "$sync_script" <<'EOF'
-#!/bin/bash
-GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2)}"
-KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
-$GPG_PATH --keyserver hkps://keyserver.ubuntu.com --recv-keys "$KEY_ID" >/dev/null 2>&1
-$GPG_PATH --export-ssh-key "$KEY_ID" > ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
+KEY_ID="$KEY_ID"
+GPG_PATH="\${GPG_PATH:-\$(command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null || true)}"
+[[ -n "\$GPG_PATH" ]] || { printf 'GPG not found\n' >&2; exit 1; }
+mkdir -p "\$HOME/.ssh"
+"\$GPG_PATH" --keyserver hkps://keyserver.ubuntu.com --recv-keys "\$KEY_ID" >/dev/null 2>&1
+"\$GPG_PATH" --export-ssh-key "\$KEY_ID" > "\$HOME/.ssh/authorized_keys"
+chmod 700 "\$HOME/.ssh"
+chmod 600 "\$HOME/.ssh/authorized_keys"
 EOF
-        chmod +x "$sync_script"
-        bash "$sync_script"
-        ok "SSH key deployed to ~/.ssh/authorized_keys"
+}
 
-    elif [[ -d "/run/systemd/system" ]]; then
-        info "Linux (systemd) detected"
+install_termux() {
+    info "Termux detected"
 
-        # Check sudo
-        if ! sudo -n true 2>/dev/null; then
-            err "Requires sudo"; exit 1
-        fi
+    local sync_script="$HOME/.termux/bin/sync-ssh-keys.sh"
+    os_ensure_dir "$(dirname "$sync_script")"
+    os_ensure_dir "$HOME/.ssh"
 
-        import lib/os.sh
-        sudo os_ensure_dir "/usr/local/bin"
-        sudo os_ensure_dir "$HOME/.ssh"
+    write_sync_script "$sync_script"
+    chmod +x "$sync_script"
+    bash "$sync_script"
+    ok "SSH key deployed to ~/.ssh/authorized_keys"
+}
 
-        local sync_script="/usr/local/bin/sync-ssh-keys.sh"
-        sudo tee "$sync_script" >/dev/null <<'EOF'
-#!/bin/bash
-GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2)}"
-KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
-$GPG_PATH --keyserver hkps://keyserver.ubuntu.com --recv-keys "$KEY_ID" >/dev/null 2>&1
-$GPG_PATH --export-ssh-key "$KEY_ID" > ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
-EOF
-        sudo chmod +x "$sync_script"
-        bash "$sync_script"
+install_systemd() {
+    info "Linux (systemd) detected"
+    require_sudo
 
-        # Systemd service + timer (multi-line format)
-        sudo tee /etc/systemd/system/ssh-key-sync.service >/dev/null <<'EOF'
+    os_ensure_dir "$HOME/.ssh"
+
+    local tmp sync_script="/usr/local/bin/sync-ssh-keys.sh"
+    tmp="$(mktemp)"
+    write_sync_script "$tmp"
+    sudo install -m 0755 "$tmp" "$sync_script"
+    rm -f "$tmp"
+    bash "$sync_script"
+
+    sudo tee /etc/systemd/system/ssh-key-sync.service >/dev/null <<EOF
 [Unit]
 Description=GPG SSH Key Sync
 After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/sync-ssh-keys.sh
-Environment=HOME=/root
+ExecStart=$sync_script
+Environment=HOME=$HOME
+User=$USER
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
-        sudo tee /etc/systemd/system/ssh-key-sync.timer >/dev/null <<'EOF'
+    sudo tee /etc/systemd/system/ssh-key-sync.timer >/dev/null <<'EOF'
 [Unit]
 Description=GPG SSH Key Sync Timer
 
@@ -117,14 +109,27 @@ Persistent=true
 WantedBy=timers.target
 EOF
 
-        sudo systemctl daemon-reload
-        sudo systemctl enable --now ssh-key-sync.timer
-        ok "Systemd timer enabled (syncs every 12h)"
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now ssh-key-sync.timer
+    ok "Systemd timer enabled (syncs every 12h)"
+}
+
+# ==================== MAIN ====================
+main() {
+    GPG_PATH="${GPG_PATH:-$(find_gpg)}"
+    if [[ -z "$GPG_PATH" ]]; then
+        die "GPG not found"
+    fi
+    ok "GPG: $GPG_PATH"
+
+    if [[ -d "/data/data/com.termux/files/home" ]]; then
+        install_termux
+    elif [[ -d "/run/systemd/system" ]]; then
+        install_systemd
     else
-        err "Unsupported environment"; exit 1
+        die "Unsupported environment"
     fi
 
-    line
     ok "Done!"
 }
 

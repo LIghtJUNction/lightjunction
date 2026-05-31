@@ -3,10 +3,26 @@
 
 set -euo pipefail
 
-log() { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
-ok() { printf '\033[1;32mOK\033[0m %s\n' "$*"; }
-warn() { printf '\033[1;33mWARN\033[0m %s\n' "$*" >&2; }
-die() { printf '\033[1;31mERR\033[0m %s\n' "$*" >&2; exit 1; }
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REMOTE_BASE_URL="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
+
+load_lib() {
+    local file="${1:?}" local_path tmp
+    local_path="$SCRIPT_DIR/$file"
+    if [[ -f "$local_path" ]]; then
+        # shellcheck source=/dev/null
+        source "$local_path"
+        return
+    fi
+    tmp="$(mktemp)"
+    curl -fsSL --connect-timeout 10 "$REMOTE_BASE_URL/$file" -o "$tmp"
+    # shellcheck source=/dev/null
+    source "$tmp"
+    rm -f "$tmp"
+}
+
+load_lib lib/common.sh
+load_lib lib/bootstrap.sh
 
 BREW_FORMULAE=(
     bun
@@ -69,17 +85,6 @@ print_system_report() {
     printf 'Disk: %s\n' "$(df -h / | awk 'NR == 2 { print $4 " free of " $2 }')"
     printf 'Default route: %s\n' "$(route -n get default 2>/dev/null | awk '/interface:|gateway:/ { printf "%s%s", sep $2, sep=" via " } END { print "" }' || printf unknown)"
     printf 'DNS: %s\n' "$(scutil --dns 2>/dev/null | awk '/nameserver\\[[0-9]+\\]/ { print $3 }' | sort -u | tr '\n' ' ' || true)"
-}
-
-probe_url() {
-    local label="${1:?}" url="${2:?}" elapsed
-    elapsed="$(curl -L --fail --silent --show-error --connect-timeout 5 --max-time 10 -o /dev/null -w '%{time_total}' "$url" 2>/dev/null || true)"
-    if [[ -n "$elapsed" ]]; then
-        ok "$label reachable in ${elapsed}s"
-        return 0
-    fi
-    warn "$label unreachable: $url"
-    return 1
 }
 
 check_internet_access() {
@@ -193,35 +198,6 @@ install_brew_bundle() {
     done
 }
 
-append_managed_block() {
-    local file="${1:?}" begin="${2:?}" end="${3:?}" body="${4:?}"
-    local tmp
-    mkdir -p "$(dirname "$file")"
-    touch "$file"
-
-    tmp="$(mktemp)"
-    awk -v begin="$begin" -v end="$end" '
-        $0 == begin { skip = 1; next }
-        $0 == end { skip = 0; next }
-        !skip { print }
-    ' "$file" >"$tmp"
-
-    {
-        printf '\n%s\n' "$begin"
-        printf '%s\n' "$body"
-        printf '%s\n' "$end"
-    } >>"$tmp"
-
-    if cmp -s "$tmp" "$file"; then
-        rm -f "$tmp"
-        ok "Managed block already up to date in $file"
-        return
-    fi
-
-    mv "$tmp" "$file"
-    ok "Updated $file"
-}
-
 ensure_shell_env_blocks() {
     local brew_prefix zsh_profile bash_profile fish_conf
     brew_prefix="$(brew --prefix)"
@@ -326,36 +302,6 @@ ensure_desktop_apps() {
     fi
 }
 
-select_fastest_hiddify_url() {
-    local original="${HIDDIFY_DMG_URL:?}"
-    local candidates=(
-        "$original"
-        "https://gh.llkk.cc/$original"
-        "https://gh-proxy.com/$original"
-        "https://ghproxy.net/$original"
-        "https://github.moeyy.xyz/$original"
-    )
-    local url elapsed best_url="" best_time=""
-
-    log "Testing Hiddify download mirrors" >&2
-    for url in "${candidates[@]}"; do
-        elapsed="$(curl -L --fail --silent --show-error --range 0-0 --connect-timeout 8 --max-time 20 -o /dev/null -w '%{time_total}' "$url" 2>/dev/null || true)"
-        if [[ -z "$elapsed" ]]; then
-            warn "Mirror unavailable: $url"
-            continue
-        fi
-
-        ok "Mirror ${elapsed}s: $url" >&2
-        if [[ -z "$best_time" ]] || awk "BEGIN { exit !($elapsed < $best_time) }"; then
-            best_time="$elapsed"
-            best_url="$url"
-        fi
-    done
-
-    [[ -n "$best_url" ]] || die "No usable Hiddify download mirror found."
-    printf '%s\n' "$best_url"
-}
-
 ensure_hiddify() {
     local app_path="/Applications/Hiddify.app"
     local tmp_dir dmg_path mount_dir url mounted_app
@@ -366,12 +312,12 @@ ensure_hiddify() {
         return
     fi
 
-    tmp_dir="$(mktemp -d)"
+    tmp_dir="$(make_tmp_dir)"
     dmg_path="$tmp_dir/Hiddify-MacOS.dmg"
     mount_dir="$tmp_dir/mount"
     mkdir -p "$mount_dir"
 
-    url="$(select_fastest_hiddify_url)"
+    url="$(select_fastest_url "$HIDDIFY_DMG_URL")"
     log "Downloading Hiddify from $url"
     curl -fL --retry 3 --connect-timeout 15 -o "$dmg_path" "$url"
 

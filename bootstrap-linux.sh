@@ -3,51 +3,38 @@
 
 set -euo pipefail
 
-log() { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
-ok() { printf '\033[1;32mOK\033[0m %s\n' "$*"; }
-warn() { printf '\033[1;33mWARN\033[0m %s\n' "$*" >&2; }
-die() { printf '\033[1;31mERR\033[0m %s\n' "$*" >&2; exit 1; }
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REMOTE_BASE_URL="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
+
+load_lib() {
+    local file="${1:?}" local_path tmp
+    local_path="$SCRIPT_DIR/$file"
+    if [[ -f "$local_path" ]]; then
+        # shellcheck source=/dev/null
+        source "$local_path"
+        return
+    fi
+    tmp="$(mktemp)"
+    curl -fsSL --connect-timeout 10 "$REMOTE_BASE_URL/$file" -o "$tmp"
+    # shellcheck source=/dev/null
+    source "$tmp"
+    rm -f "$tmp"
+}
+
+load_lib lib/common.sh
+load_lib lib/bootstrap.sh
 
 DAED_RELEASE_TAGS=("${DAED_VERSION:-v1.23.0}" v1.21.1 v1.15.0)
 CACHYOS_REPO_URL="https://mirror.cachyos.org/cachyos-repo.tar.xz"
-TMP_DIRS=()
 FEATURES=()
 DOMESTIC_OK=1
 INTERNATIONAL_OK=1
 GITHUB_OK=1
 
-SUDO=()
-if [[ "$(id -u)" -ne 0 ]]; then
-    SUDO=(sudo)
-fi
-
-command_exists() { command -v "$1" >/dev/null 2>&1; }
-
-make_tmp_dir() {
-    local dir
-    dir="$(mktemp -d)"
-    TMP_DIRS+=("$dir")
-    printf '%s\n' "$dir"
-}
-
-cleanup() {
-    local dir
-    for dir in "${TMP_DIRS[@]}"; do
-        [[ -n "$dir" && -d "$dir" ]] && rm -rf "$dir"
-    done
-}
-trap cleanup EXIT
+trap cleanup_tmp_dirs EXIT
 
 require_linux() {
     [[ "$(uname -s)" == "Linux" ]] || die "This script only supports Linux."
-}
-
-require_sudo() {
-    if [[ "$(id -u)" -eq 0 ]]; then
-        return
-    fi
-    command_exists sudo || die "sudo is required when not running as root."
-    sudo -v
 }
 
 os_id() {
@@ -60,29 +47,6 @@ os_like() {
     # shellcheck source=/dev/null
     . /etc/os-release 2>/dev/null || true
     printf '%s %s\n' "${ID:-unknown}" "${ID_LIKE:-}"
-}
-
-is_interactive() {
-    [[ -t 0 && -t 1 ]]
-}
-
-ask_yes_no() {
-    local prompt="${1:?}" default="${2:-n}" answer suffix
-    if [[ "$default" == "y" ]]; then
-        suffix="[Y/n]"
-    else
-        suffix="[y/N]"
-    fi
-
-    if ! is_interactive; then
-        [[ "$default" == "y" ]]
-        return
-    fi
-
-    printf '%s %s ' "$prompt" "$suffix"
-    read -r answer || answer=""
-    answer="${answer:-$default}"
-    [[ "$answer" =~ ^[Yy]$ ]]
 }
 
 print_system_report() {
@@ -119,17 +83,6 @@ print_system_report() {
     printf 'IPv4 addresses:\n'
     ip -br addr show 2>/dev/null || true
     printf 'DNS: %s\n' "$(awk '/^nameserver/ { print $2 }' /etc/resolv.conf 2>/dev/null | tr '\n' ' ')"
-}
-
-probe_url() {
-    local label="${1:?}" url="${2:?}" elapsed
-    elapsed="$(curl -L --fail --silent --show-error --connect-timeout 5 --max-time 10 -o /dev/null -w '%{time_total}' "$url" 2>/dev/null || true)"
-    if [[ -n "$elapsed" ]]; then
-        ok "$label reachable in ${elapsed}s"
-        return 0
-    fi
-    warn "$label unreachable: $url"
-    return 1
 }
 
 check_internet_access() {
@@ -184,36 +137,6 @@ install_packages() {
         nix) nix-env -iA "${packages[@]}" ;;
         *) die "No supported package manager found for installing: ${packages[*]}" ;;
     esac
-}
-
-select_fastest_url() {
-    local original="${1:?}"
-    local candidates=(
-        "$original"
-        "https://gh.llkk.cc/$original"
-        "https://gh-proxy.com/$original"
-        "https://ghproxy.net/$original"
-        "https://github.moeyy.xyz/$original"
-    )
-    local url elapsed best_url="" best_time=""
-
-    log "Testing GitHub download mirrors" >&2
-    for url in "${candidates[@]}"; do
-        elapsed="$(curl -L --fail --silent --show-error --range 0-0 --connect-timeout 8 --max-time 20 -o /dev/null -w '%{time_total}' "$url" 2>/dev/null || true)"
-        if [[ -z "$elapsed" ]]; then
-            warn "Mirror unavailable: $url"
-            continue
-        fi
-
-        ok "Mirror ${elapsed}s: $url" >&2
-        if [[ -z "$best_time" ]] || awk "BEGIN { exit !($elapsed < $best_time) }"; then
-            best_time="$elapsed"
-            best_url="$url"
-        fi
-    done
-
-    [[ -n "$best_url" ]] || die "No usable GitHub mirror found."
-    printf '%s\n' "$best_url"
 }
 
 download_daed_asset() {
@@ -390,6 +313,7 @@ parse_features() {
     ask_yes_no "Install bees btrfs dedup tooling if btrfs is detected?" n && FEATURES+=("fs-bees")
     ask_yes_no "Install shell/dev comfort tools? fish, starship, fastfetch, git, vim" n && FEATURES+=("shell")
     ask_yes_no "Install Chinese desktop basics? fcitx5, CJK fonts, best-effort QQ/WeChat" n && FEATURES+=("cn-desktop")
+    return 0
 }
 
 run_features() {
@@ -414,9 +338,11 @@ main() {
     require_linux
     print_system_report
     check_internet_access
-    require_sudo
     ensure_base_tools
     parse_features
+    if [[ "${#FEATURES[@]}" -gt 0 ]]; then
+        require_sudo
+    fi
     run_features
     ok "Linux bootstrap finished"
 }
