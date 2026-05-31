@@ -8,25 +8,40 @@ ok() { printf '\033[1;32mOK\033[0m %s\n' "$*"; }
 warn() { printf '\033[1;33mWARN\033[0m %s\n' "$*" >&2; }
 die() { printf '\033[1;31mERR\033[0m %s\n' "$*" >&2; exit 1; }
 
+BREW_FORMULAE=(
+    bun
+    uv
+    rustup-init
+    fish
+)
+
+BREW_CASKS=(
+    codex
+    codex-app
+    cc-switch
+    ghostty
+    clash-verge-rev
+    font-jetbrains-mono-nerd-font
+)
+
 PROFILE_MARKER_BEGIN="# >>> lightjunction macbook bootstrap >>>"
 PROFILE_MARKER_END="# <<< lightjunction macbook bootstrap <<<"
 SHELL_MARKER_BEGIN="# >>> lightjunction macbook shell init >>>"
 SHELL_MARKER_END="# <<< lightjunction macbook shell init <<<"
+GHOSTTY_MARKER_BEGIN="# >>> lightjunction ghostty theme >>>"
+GHOSTTY_MARKER_END="# <<< lightjunction ghostty theme <<<"
 
 require_macos() {
     [[ "$(uname -s)" == "Darwin" ]] || die "This script only supports macOS."
 }
 
-ensure_xcode_cli_tools() {
+note_xcode_cli_tools() {
     if xcode-select -p >/dev/null 2>&1; then
         ok "Xcode Command Line Tools already installed"
-        return
+    else
+        warn "Xcode Command Line Tools not detected; continuing without installing them."
+        warn "Homebrew may install or request them only if a package needs Apple developer tools."
     fi
-
-    log "Installing Xcode Command Line Tools"
-    xcode-select --install || true
-    warn "Finish the Xcode Command Line Tools installer, then rerun this script."
-    exit 1
 }
 
 detect_brew_prefix() {
@@ -78,21 +93,43 @@ brew_install_cask() {
     fi
 }
 
+install_brew_bundle() {
+    local formula cask
+    for formula in "${BREW_FORMULAE[@]}"; do
+        brew_install_formula "$formula"
+    done
+
+    for cask in "${BREW_CASKS[@]}"; do
+        brew_install_cask "$cask"
+    done
+}
+
 append_managed_block() {
     local file="${1:?}" begin="${2:?}" end="${3:?}" body="${4:?}"
+    local tmp
     mkdir -p "$(dirname "$file")"
     touch "$file"
 
-    if grep -Fqx "$begin" "$file"; then
-        ok "Managed block already present in $file"
-        return
-    fi
+    tmp="$(mktemp)"
+    awk -v begin="$begin" -v end="$end" '
+        $0 == begin { skip = 1; next }
+        $0 == end { skip = 0; next }
+        !skip { print }
+    ' "$file" >"$tmp"
 
     {
         printf '\n%s\n' "$begin"
         printf '%s\n' "$body"
         printf '%s\n' "$end"
-    } >>"$file"
+    } >>"$tmp"
+
+    if cmp -s "$tmp" "$file"; then
+        rm -f "$tmp"
+        ok "Managed block already up to date in $file"
+        return
+    fi
+
+    mv "$tmp" "$file"
     ok "Updated $file"
 }
 
@@ -137,7 +174,6 @@ EOF
 }
 
 ensure_bun() {
-    brew_install_formula bun
     if ! command -v bun >/dev/null 2>&1; then
         export BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
@@ -146,7 +182,6 @@ ensure_bun() {
 }
 
 ensure_uv() {
-    brew_install_formula uv
     command -v uv >/dev/null 2>&1 && ok "uv: $(uv --version)" || warn "uv installed but not visible until a new shell starts"
 }
 
@@ -156,7 +191,6 @@ ensure_rust() {
         return
     fi
 
-    brew_install_formula rustup-init
     log "Installing Rust toolchain with rustup"
     rustup-init -y --no-modify-path
     export PATH="$HOME/.cargo/bin:$PATH"
@@ -164,25 +198,118 @@ ensure_rust() {
 }
 
 ensure_codex() {
-    brew_install_cask codex
     if command -v codex >/dev/null 2>&1; then
         ok "Codex CLI: $(codex --version 2>/dev/null || printf 'installed')"
     else
         warn "Codex cask installed but codex is not visible until a new shell starts"
     fi
 
-    brew_install_cask codex-app
     [[ -d "/Applications/Codex.app" ]] && ok "Codex App installed" || warn "codex-app cask installed but /Applications/Codex.app was not found"
 }
 
 ensure_cc_switch() {
-    brew_install_cask cc-switch
     ok "CC Switch cask installed"
 }
 
-ensure_fish() {
-    brew_install_formula fish
+ensure_desktop_apps() {
+    [[ -d "/Applications/Ghostty.app" ]] && ok "Ghostty installed" || warn "ghostty cask installed but /Applications/Ghostty.app was not found"
+    [[ -d "/Applications/Clash Verge.app" ]] && ok "Clash Verge Rev installed" || warn "clash-verge-rev cask installed but /Applications/Clash Verge.app was not found"
+}
 
+configure_ghostty() {
+    local ghostty_config ghostty_block
+    ghostty_config="$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+
+    ghostty_block="$(cat <<'EOF'
+# Typography
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
+font-thicken = true
+adjust-font-baseline = 1
+adjust-underline-thickness = 1
+adjust-cursor-thickness = 1
+
+# Colors
+background = #101419
+foreground = #d9e2ec
+selection-background = #334155
+selection-foreground = #f8fafc
+cursor-color = #7dd3fc
+cursor-text = #101419
+cursor-style = block
+cursor-style-blink = false
+split-divider-color = #263241
+unfocused-split-opacity = 0.84
+unfocused-split-fill = #0b0f14
+search-background = #facc15
+search-foreground = #111827
+search-selected-background = #38bdf8
+search-selected-foreground = #020617
+
+palette = 0=#1f2937
+palette = 1=#f87171
+palette = 2=#34d399
+palette = 3=#fbbf24
+palette = 4=#60a5fa
+palette = 5=#c084fc
+palette = 6=#22d3ee
+palette = 7=#e5e7eb
+palette = 8=#475569
+palette = 9=#fb7185
+palette = 10=#4ade80
+palette = 11=#fde68a
+palette = 12=#93c5fd
+palette = 13=#d8b4fe
+palette = 14=#67e8f9
+palette = 15=#ffffff
+
+# Window
+background-opacity = 0.94
+background-blur = 24
+window-width = 112
+window-height = 32
+window-padding-x = 14
+window-padding-y = 12
+window-padding-balance = true
+window-decoration = true
+window-save-state = always
+window-theme = dark
+window-colorspace = display-p3
+macos-titlebar-style = tabs
+macos-window-shadow = true
+macos-window-buttons = visible
+macos-icon = custom-style
+macos-icon-frame = plastic
+macos-icon-ghost-color = #e0f2fe
+macos-icon-screen-color = #101419
+
+# Behavior
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = precision:0.7,discrete:3
+copy-on-select = clipboard
+confirm-close-surface = false
+shell-integration-features = cursor,sudo,title
+
+# Keybindings
+keybind = global:cmd+grave=toggle_quick_terminal
+keybind = cmd+t=new_tab
+keybind = cmd+d=new_split:right
+keybind = cmd+shift+d=new_split:down
+keybind = cmd+w=close_surface
+keybind = cmd+shift+w=close_window
+keybind = cmd+shift+enter=toggle_fullscreen
+keybind = cmd+plus=increase_font_size:1
+keybind = cmd+minus=decrease_font_size:1
+keybind = cmd+0=reset_font_size
+keybind = cmd+shift+left=previous_tab
+keybind = cmd+shift+right=next_tab
+EOF
+)"
+
+    append_managed_block "$ghostty_config" "$GHOSTTY_MARKER_BEGIN" "$GHOSTTY_MARKER_END" "$ghostty_block"
+}
+
+ensure_fish() {
     local fish_path shells_file
     fish_path="$(brew --prefix)/bin/fish"
     shells_file="/etc/shells"
@@ -238,14 +365,17 @@ check_environment() {
 
 main() {
     require_macos
-    ensure_xcode_cli_tools
+    note_xcode_cli_tools
     ensure_homebrew
+    install_brew_bundle
     ensure_shell_env_blocks
     ensure_bun
     ensure_uv
     ensure_rust
     ensure_codex
     ensure_cc_switch
+    ensure_desktop_apps
+    configure_ghostty
     ensure_fish
     check_environment
 }
