@@ -9,7 +9,7 @@
 
 I build small, sharp tools for messy real-world systems: agents, bootstraps, data pipelines, game tooling, and terminal-first workflows.
 
-[Website Terminal](https://lightjunction.github.io/lightjunction/) · [Encrypted Message](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Email](mailto:lightjunction.me@gmail.com)
+[Website Terminal](https://lightjunction.github.io/lightjunction/) · [Encrypted Message](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Hugging Face](https://huggingface.co/LIghtJUNction) · [Kaggle](https://www.kaggle.com/lightjunction) · [Email](mailto:lightjunction.me@gmail.com)
 
 ![Open to Work](https://img.shields.io/badge/Open_to-Remote%20%2F%20Hybrid-238636?style=for-the-badge)
 ![Focus](https://img.shields.io/badge/Focus-AI%20%2B%20Linux%20Automation-0d1117?style=for-the-badge)
