@@ -28,6 +28,7 @@ Non-CS background, but I learn by shipping. My projects usually start from a per
 | Education | Zhengzhou University, bachelor's degree |
 | Looking for | Remote or hybrid engineering opportunities |
 | Strongest signal | Debugging real systems, not just demos |
+| Open-source focus | AstrBot ecosystem, agent tooling, Linux automation |
 | Favorite game | Oxygen Not Included |
 
 I am looking for work where this style is useful: strong ownership, fast iteration, comfort with Linux, and willingness to debug the real path instead of only the happy path.
@@ -36,7 +37,7 @@ My rule of thumb: if a tool only works on my machine, it is not finished yet. Go
 
 | What I like building | Evidence |
 |:--|:--|
-| AI and agent tooling | MCP tools, automation surfaces, terminal workflows, evaluation helpers |
+| AI and agent tooling | AstrBot ecosystem work, MCP tools, automation surfaces, terminal workflows |
 | Linux and bootstrap automation | macOS/Linux setup scripts, package-manager detection, proxy-aware installs |
 | Network tools | daed/mihomo/Hiddify related setup, transparent proxy workflows, domestic-network fallbacks |
 | Data and platform tooling | Python CLIs, API wrappers, collection pipelines, repeatable scripts |
@@ -56,6 +57,7 @@ My rule of thumb: if a tool only works on my machine, it is not finished yet. Go
 
 | Project | Why it matters |
 |:--|:--|
+| [AstrBot](https://github.com/AstrBotDevs/AstrBot) ecosystem | Bot framework contribution and packaging/plugin work around real runtime behavior. |
 | [lightjunction](https://github.com/LIghtJUNction/lightjunction) | Personal terminal site, bootstrap scripts, encrypted contact flow, and reusable shell helpers. |
 | [OniMods](https://github.com/LIghtJUNction/OniMods) | Oxygen Not Included tooling and MCP-style automation experiments for a complex simulation game. |
 | [douyin](https://github.com/LIghtJUNction/douyin) | Python package and CLI work around Douyin APIs, auth flows, and automation-heavy workflows. |
