@@ -61,39 +61,7 @@ install_xcode_cli_tools() {
         return
     fi
 
-    local marker product
-    marker="/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress"
-
     warn "macOS /usr/bin/git is only a stub until Command Line Tools are installed."
-    log "Searching for Command Line Tools in Software Update"
-    touch "$marker"
-    product="$(softwareupdate --list 2>/dev/null | awk -F': ' '
-        /Label: Command Line Tools/ { print $2 }
-        /^\* Command Line Tools/ {
-            sub(/^ *\* /, "")
-            print
-        }
-    ' | tail -n 1)"
-
-    if [[ -n "$product" ]]; then
-        log "Installing $product"
-        sudo softwareupdate --install "$product" --verbose
-        rm -f "$marker"
-
-        if xcode-select -p >/dev/null 2>&1; then
-            ok "Xcode Command Line Tools installed"
-            return
-        fi
-
-        if [[ -d "/Library/Developer/CommandLineTools" ]]; then
-            sudo xcode-select --switch /Library/Developer/CommandLineTools
-            ok "Xcode Command Line Tools installed"
-            return
-        fi
-    fi
-
-    rm -f "$marker"
-    warn "Could not install Command Line Tools through softwareupdate."
     log "Opening the Command Line Tools GUI installer"
     xcode-select --install || true
     warn "If a Command Line Tools dialog opened, click Install, wait for it to finish, then rerun this script."
