@@ -31,6 +31,7 @@ SHELL_MARKER_BEGIN="# >>> lightjunction macbook shell init >>>"
 SHELL_MARKER_END="# <<< lightjunction macbook shell init <<<"
 GHOSTTY_MARKER_BEGIN="# >>> lightjunction ghostty theme >>>"
 GHOSTTY_MARKER_END="# <<< lightjunction ghostty theme <<<"
+HIDDIFY_DMG_URL="https://github.com/hiddify/hiddify-app/releases/download/v4.1.1/Hiddify-MacOS.dmg"
 
 require_macos() {
     [[ "$(uname -s)" == "Darwin" ]] || die "This script only supports macOS."
@@ -243,6 +244,79 @@ ensure_desktop_apps() {
     [[ -d "/Applications/Clash Verge.app" ]] && ok "Clash Verge Rev installed" || warn "clash-verge-rev cask installed but /Applications/Clash Verge.app was not found"
 }
 
+select_fastest_hiddify_url() {
+    local original="${HIDDIFY_DMG_URL:?}"
+    local candidates=(
+        "$original"
+        "https://gh.llkk.cc/$original"
+        "https://gh-proxy.com/$original"
+        "https://ghproxy.net/$original"
+        "https://github.moeyy.xyz/$original"
+    )
+    local url elapsed best_url="" best_time=""
+
+    log "Testing Hiddify download mirrors" >&2
+    for url in "${candidates[@]}"; do
+        elapsed="$(curl -L --fail --silent --show-error --range 0-0 --connect-timeout 8 --max-time 20 -o /dev/null -w '%{time_total}' "$url" 2>/dev/null || true)"
+        if [[ -z "$elapsed" ]]; then
+            warn "Mirror unavailable: $url"
+            continue
+        fi
+
+        ok "Mirror ${elapsed}s: $url" >&2
+        if [[ -z "$best_time" ]] || awk "BEGIN { exit !($elapsed < $best_time) }"; then
+            best_time="$elapsed"
+            best_url="$url"
+        fi
+    done
+
+    [[ -n "$best_url" ]] || die "No usable Hiddify download mirror found."
+    printf '%s\n' "$best_url"
+}
+
+ensure_hiddify() {
+    local app_path="/Applications/Hiddify.app"
+    local tmp_dir dmg_path mount_dir url mounted_app
+
+    if [[ -d "$app_path" ]]; then
+        ok "Hiddify already installed"
+        sudo xattr -dr com.apple.quarantine "$app_path" 2>/dev/null || true
+        return
+    fi
+
+    tmp_dir="$(mktemp -d)"
+    dmg_path="$tmp_dir/Hiddify-MacOS.dmg"
+    mount_dir="$tmp_dir/mount"
+    mkdir -p "$mount_dir"
+
+    url="$(select_fastest_hiddify_url)"
+    log "Downloading Hiddify from $url"
+    curl -fL --retry 3 --connect-timeout 15 -o "$dmg_path" "$url"
+
+    log "Mounting Hiddify DMG"
+    hdiutil attach "$dmg_path" -nobrowse -quiet -mountpoint "$mount_dir"
+
+    mounted_app="$(find "$mount_dir" -maxdepth 2 -type d -name 'Hiddify*.app' -print -quit)"
+    if [[ -z "$mounted_app" ]]; then
+        hdiutil detach "$mount_dir" -quiet || true
+        rm -rf "$tmp_dir"
+        die "Hiddify app bundle was not found in the mounted DMG."
+    fi
+
+    log "Installing Hiddify to /Applications"
+    sudo rm -rf "$app_path"
+    sudo ditto "$mounted_app" "$app_path"
+    sudo xattr -dr com.apple.quarantine "$app_path" 2>/dev/null || true
+    sudo chmod -R u+rwX,go+rX "$app_path"
+
+    hdiutil detach "$mount_dir" -quiet || true
+    rm -rf "$tmp_dir"
+
+    ok "Hiddify installed"
+    open -a Hiddify || warn "Open Hiddify manually from /Applications to approve macOS VPN/Network Extension permissions."
+    warn "macOS VPN/Network Extension permissions cannot be fully granted by a shell script; approve Hiddify in the system prompt if macOS asks."
+}
+
 configure_ghostty() {
     local ghostty_config ghostty_block
     ghostty_config="$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
@@ -403,6 +477,7 @@ main() {
     ensure_codex
     ensure_cc_switch
     ensure_desktop_apps
+    ensure_hiddify
     configure_ghostty
     ensure_fish
     check_environment

@@ -48,7 +48,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-macbook.sh | bash
 ```
 
-> Supports: macOS. Run as a normal Administrator user, not with `sudo`; Homebrew refuses root and the script asks for `sudo` only where macOS requires it. On a fresh Mac, the script installs Xcode Command Line Tools first because Homebrew's installer needs Apple's `git`. If Software Update and the installer dialog both fail, install "Command Line Tools for Xcode" manually from <https://developer.apple.com/download/all/>, then rerun the command.
+> Supports: macOS. Run as a normal Administrator user, not with `sudo`; Homebrew refuses root and the script asks for `sudo` only where macOS requires it. On a fresh Mac, the script opens the Xcode Command Line Tools installer first because Homebrew's installer needs Apple's `git`. It also installs Hiddify from the fastest available GitHub release mirror and removes quarantine; approve macOS VPN/Network Extension prompts manually when Hiddify opens. If the CLT dialog fails, install "Command Line Tools for Xcode" manually from <https://developer.apple.com/download/all/>, then rerun the command.
 
 ---
 
