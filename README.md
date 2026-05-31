@@ -27,7 +27,7 @@ Install my personal agent skills globally:
 npx skills add LIghtJUNction/lightjunction -g
 ```
 
-The skills live under `.agent/sklls/` and are meant to capture my reusable workflows, preferences, and project-specific operating knowledge.
+The skills live under `.agents/skills/` and are meant to capture my reusable workflows, preferences, and project-specific operating knowledge.
 
 ## Profile
 
