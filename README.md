@@ -48,7 +48,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-macbook.sh | bash
 ```
 
-> Supports: macOS
+> Supports: macOS. Run as a normal Administrator user, not with `sudo`; Homebrew refuses root and the script asks for `sudo` only where macOS requires it.
 
 ---
 

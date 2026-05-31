@@ -35,6 +35,16 @@ require_macos() {
     [[ "$(uname -s)" == "Darwin" ]] || die "This script only supports macOS."
 }
 
+require_normal_admin_user() {
+    if [[ "$(id -u)" -eq 0 ]]; then
+        die "Do not run this script with sudo/root. Homebrew refuses root. Run it as an Administrator user: curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-macbook.sh | bash"
+    fi
+
+    if ! id -Gn "${USER:?}" | tr ' ' '\n' | grep -qx admin; then
+        die "Current user '$USER' is not a macOS Administrator. Log in as an Administrator user, then run this script without sudo."
+    fi
+}
+
 note_xcode_cli_tools() {
     if xcode-select -p >/dev/null 2>&1; then
         ok "Xcode Command Line Tools already installed"
@@ -365,6 +375,7 @@ check_environment() {
 
 main() {
     require_macos
+    require_normal_admin_user
     note_xcode_cli_tools
     ensure_homebrew
     install_brew_bundle
