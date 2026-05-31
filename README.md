@@ -19,6 +19,16 @@ Currently building around agent tooling, proxy-aware bootstrap scripts, and prac
 
 </div>
 
+## Agent Skills
+
+Install my personal agent skills globally:
+
+```bash
+npx skills add LIghtJUNction/lightjunction -g
+```
+
+The skills live under `.agent/sklls/` and are meant to capture my reusable workflows, preferences, and project-specific operating knowledge.
+
 ## Profile
 
 Non-CS background, but I learn by shipping. My projects usually start from a personal pain point: setting up fresh machines behind difficult networks, making agents easier to operate, automating data collection, or turning a rough script into something another person can run.
