@@ -247,11 +247,19 @@ ensure_bun() {
         export BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
     fi
-    command -v bun >/dev/null 2>&1 && ok "Bun: $(bun --version)" || warn "Bun installed but not visible until a new shell starts"
+    if command -v bun >/dev/null 2>&1; then
+        ok "Bun: $(bun --version)"
+    else
+        warn "Bun installed but not visible until a new shell starts"
+    fi
 }
 
 ensure_uv() {
-    command -v uv >/dev/null 2>&1 && ok "uv: $(uv --version)" || warn "uv installed but not visible until a new shell starts"
+    if command -v uv >/dev/null 2>&1; then
+        ok "uv: $(uv --version)"
+    else
+        warn "uv installed but not visible until a new shell starts"
+    fi
 }
 
 ensure_rust() {
@@ -273,7 +281,11 @@ ensure_codex() {
         warn "Codex cask installed but codex is not visible until a new shell starts"
     fi
 
-    [[ -d "/Applications/Codex.app" ]] && ok "Codex App installed" || warn "codex-app cask installed but /Applications/Codex.app was not found"
+    if [[ -d "/Applications/Codex.app" ]]; then
+        ok "Codex App installed"
+    else
+        warn "codex-app cask installed but /Applications/Codex.app was not found"
+    fi
 }
 
 ensure_cc_switch() {
@@ -281,8 +293,17 @@ ensure_cc_switch() {
 }
 
 ensure_desktop_apps() {
-    [[ -d "/Applications/Ghostty.app" ]] && ok "Ghostty installed" || warn "ghostty cask installed but /Applications/Ghostty.app was not found"
-    [[ -d "/Applications/Clash Verge.app" ]] && ok "Clash Verge Rev installed" || warn "clash-verge-rev cask installed but /Applications/Clash Verge.app was not found"
+    if [[ -d "/Applications/Ghostty.app" ]]; then
+        ok "Ghostty installed"
+    else
+        warn "ghostty cask installed but /Applications/Ghostty.app was not found"
+    fi
+
+    if [[ -d "/Applications/Clash Verge.app" ]]; then
+        ok "Clash Verge Rev installed"
+    else
+        warn "clash-verge-rev cask installed but /Applications/Clash Verge.app was not found"
+    fi
 }
 
 select_fastest_hiddify_url() {

@@ -42,13 +42,21 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 
 > Supports: Termux / systemd Linux
 
+**One-click Linux bootstrap**
+
+```bash
+curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-linux.sh | bash
+```
+
+> Prints system/network diagnostics first, then lets you opt into modules. Non-interactive usage: `BOOTSTRAP_FEATURES=network-daed,fs-bees,shell,cn-desktop bash -c "$(curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-linux.sh)"`. Arch-based systems configure the CachyOS repository for `network-daed`; Debian/Ubuntu use `.deb`, Fedora/RHEL/openSUSE use `.rpm`. Unsupported families fail with explicit manual guidance instead of pretending to be configured.
+
 **One-click daed bootstrap for Linux**
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-linux-daed.sh | bash
 ```
 
-> Supports: systemd Linux. The script prints system/network diagnostics first, checks domestic and international connectivity, chooses the fastest reachable GitHub release mirror, installs daed by distro family, then enables `daed.service`. Arch-based systems configure the CachyOS repository first; Debian/Ubuntu use `.deb`, Fedora/RHEL/openSUSE use `.rpm`, and unsupported families fail with explicit manual guidance.
+> Compatibility shortcut for `BOOTSTRAP_FEATURES=network-daed bootstrap-linux.sh`.
 
 **One-click MacBook bootstrap**
 
