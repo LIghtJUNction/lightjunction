@@ -9,6 +9,8 @@
 
 I build small, sharp tools for messy real-world systems: agents, bootstraps, data pipelines, game tooling, and terminal-first workflows.
 
+Currently building around agent tooling, proxy-aware bootstrap scripts, and practical Linux/macOS automation.
+
 [Website Terminal](https://lightjunction.github.io/lightjunction/) · [Encrypted Message](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Hugging Face](https://huggingface.co/LIghtJUNction) · [Kaggle](https://www.kaggle.com/lightjunction) · [Email](mailto:lightjunction.me@gmail.com)
 
 ![Open to Work](https://img.shields.io/badge/Open_to-Remote%20%2F%20Hybrid-238636?style=for-the-badge)
@@ -21,7 +23,12 @@ I build small, sharp tools for messy real-world systems: agents, bootstraps, dat
 
 Non-CS background, but I learn by shipping. My projects usually start from a personal pain point: setting up fresh machines behind difficult networks, making agents easier to operate, automating data collection, or turning a rough script into something another person can run.
 
-Education: Zhengzhou University, bachelor's degree.
+| Snapshot | |
+|:--|:--|
+| Education | Zhengzhou University, bachelor's degree |
+| Looking for | Remote or hybrid engineering opportunities |
+| Strongest signal | Debugging real systems, not just demos |
+| Favorite game | Oxygen Not Included |
 
 I am looking for work where this style is useful: strong ownership, fast iteration, comfort with Linux, and willingness to debug the real path instead of only the happy path.
 
@@ -57,6 +64,13 @@ My rule of thumb: if a tool only works on my machine, it is not finished yet. Go
 ## Toolbox
 
 `Python` · `TypeScript` · `Shell/Bash` · `Linux` · `macOS` · `GitHub Actions` · `OpenPGP` · `MCP` · `Network Debugging` · `CLI Design`
+
+## Profile References
+
+I keep this README closer to a compact portfolio than a sticker wall. The structure borrows from GitHub's profile README guidance and the community examples collected in `awesome-github-profile-readme`: clear identity first, selected proof second, dynamic activity only after the human-readable story.
+
+- GitHub Docs: [Managing your profile README](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)
+- Examples: [abhisheknaiidu/awesome-github-profile-readme](https://github.com/abhisheknaiidu/awesome-github-profile-readme)
 
 ## Current Signal
 
