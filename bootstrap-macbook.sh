@@ -37,6 +37,47 @@ require_macos() {
     [[ "$(uname -s)" == "Darwin" ]] || die "This script only supports macOS."
 }
 
+print_system_report() {
+    log "System report"
+    printf 'User: %s\n' "${USER:-unknown}"
+    printf 'Host: %s\n' "$(hostname 2>/dev/null || printf unknown)"
+    printf 'macOS: %s\n' "$(sw_vers -productVersion 2>/dev/null || printf unknown)"
+    printf 'Build: %s\n' "$(sw_vers -buildVersion 2>/dev/null || printf unknown)"
+    printf 'Kernel: %s\n' "$(uname -a)"
+    printf 'Arch: %s\n' "$(uname -m)"
+    printf 'Shell: %s\n' "${SHELL:-unknown}"
+    printf 'PATH: %s\n' "$PATH"
+    printf 'Disk: %s\n' "$(df -h / | awk 'NR == 2 { print $4 " free of " $2 }')"
+    printf 'Default route: %s\n' "$(route -n get default 2>/dev/null | awk '/interface:|gateway:/ { printf "%s%s", sep $2, sep=" via " } END { print "" }' || printf unknown)"
+    printf 'DNS: %s\n' "$(scutil --dns 2>/dev/null | awk '/nameserver\\[[0-9]+\\]/ { print $3 }' | sort -u | tr '\n' ' ' || true)"
+}
+
+probe_url() {
+    local label="${1:?}" url="${2:?}" elapsed
+    elapsed="$(curl -L --fail --silent --show-error --connect-timeout 5 --max-time 10 -o /dev/null -w '%{time_total}' "$url" 2>/dev/null || true)"
+    if [[ -n "$elapsed" ]]; then
+        ok "$label reachable in ${elapsed}s"
+        return 0
+    fi
+    warn "$label unreachable: $url"
+    return 1
+}
+
+check_internet_access() {
+    log "Checking internet access"
+    local domestic_ok=1 international_ok=1 github_ok=1
+    probe_url "Baidu" "https://www.baidu.com/" && domestic_ok=0
+    probe_url "Apple" "https://www.apple.com/" && international_ok=0
+    probe_url "GitHub" "https://github.com/" && github_ok=0
+
+    if [[ "$domestic_ok" -ne 0 ]]; then
+        warn "Domestic connectivity check failed; package downloads may fail."
+    fi
+    if [[ "$international_ok" -ne 0 || "$github_ok" -ne 0 ]]; then
+        warn "International internet or GitHub is not directly reachable; mirror-aware downloads will be used where supported."
+    fi
+}
+
 require_normal_admin_user() {
     if [[ "$(id -u)" -eq 0 ]]; then
         die "Do not run this script with sudo/root. Homebrew refuses root. Run it as an Administrator user: curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-macbook.sh | bash"
@@ -466,6 +507,8 @@ check_environment() {
 
 main() {
     require_macos
+    print_system_report
+    check_internet_access
     require_normal_admin_user
     note_xcode_cli_tools
     ensure_homebrew
