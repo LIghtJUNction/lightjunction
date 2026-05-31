@@ -22,6 +22,9 @@
 [[ -n "${__arr_sh_loaded:-}" ]] && return 0
 __arr_sh_loaded=1
 
+# shellcheck source=lib/common.sh
+source "${BASH_SOURCE[0]%/*}/common.sh"
+
 arr_join() {
     local delim="${1:?}" && shift
     local IFS="$delim"
@@ -39,36 +42,19 @@ arr_contains() {
 
 arr_map() {
     local func="${1:?}" && shift
-    # Validate func is a safe bash identifier to prevent indirect code injection
-    if [[ ! "$func" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
-        echo "arr_map: func name must be a valid bash identifier, got: $func" >&2
-        return 1
-    fi
-    if ! declare -f "$func" >/dev/null 2>&1; then
-        echo "arr_map: function not found: $func" >&2
-        return 1
-    fi
+    lj_require_function "$func" || return 1
     local e
     for e in "$@"; do
-        # shellcheck disable=SC2086
-        $func "$e"
+        "$func" "$e"
     done
 }
 
 arr_filter() {
     local func="${1:?}" && shift
-    # Validate func is a safe bash identifier to prevent indirect code injection
-    if [[ ! "$func" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
-        echo "arr_filter: func name must be a valid bash identifier, got: $func" >&2
-        return 1
-    fi
-    if ! declare -f "$func" >/dev/null 2>&1; then
-        echo "arr_filter: function not found: $func" >&2
-        return 1
-    fi
+    lj_require_function "$func" || return 1
     local e
     for e in "$@"; do
-        if $func "$e"; then
+        if "$func" "$e"; then
             printf '%s\n' "$e"
         fi
     done
@@ -83,16 +69,16 @@ arr_unique() {
 }
 
 arr_slice() {
-    local start="${2:?}" && shift 2
-    local len="${1:-}" count=0
+    local start="${1:?}" len="${2:-}" count=0
+    shift 2 || true
     if [[ -z "$len" ]]; then
-        len=$(($# - start + 1))
+        len=$(($# - start))
     fi
     for e in "$@"; do
-        ((count++))
         if ((count >= start && count < start + len)); then
             printf '%s\n' "$e"
         fi
+        ((count++))
     done
 }
 
@@ -123,6 +109,7 @@ arr_avg() {
 }
 
 arr_max() {
+    (($# > 0)) || return 1
     local max="$1" e
     for e in "$@"; do
         [[ "$e" -gt "$max" ]] && max="$e"
@@ -131,6 +118,7 @@ arr_max() {
 }
 
 arr_min() {
+    (($# > 0)) || return 1
     local min="$1" e
     for e in "$@"; do
         [[ "$e" -lt "$min" ]] && min="$e"
