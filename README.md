@@ -48,7 +48,7 @@ curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/dep
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-macbook.sh | bash
 ```
 
-> Supports: macOS. Run as a normal Administrator user, not with `sudo`; Homebrew refuses root and the script asks for `sudo` only where macOS requires it.
+> Supports: macOS. Run as a normal Administrator user, not with `sudo`; Homebrew refuses root and the script asks for `sudo` only where macOS requires it. On a fresh Mac, install Xcode Command Line Tools when prompted because Homebrew's installer needs Apple's `git`. If the dialog fails, install "Command Line Tools for Xcode" manually from <https://developer.apple.com/download/all/>, then rerun the command.
 
 ---
 

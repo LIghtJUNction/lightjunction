@@ -49,9 +49,21 @@ note_xcode_cli_tools() {
     if xcode-select -p >/dev/null 2>&1; then
         ok "Xcode Command Line Tools already installed"
     else
-        warn "Xcode Command Line Tools not detected; continuing without installing them."
-        warn "Homebrew may install or request them only if a package needs Apple developer tools."
+        warn "Xcode Command Line Tools not detected."
+        warn "Existing Homebrew installs may still work, but a fresh Homebrew install requires Apple's git from Command Line Tools."
     fi
+}
+
+require_homebrew_bootstrap_tools() {
+    if xcode-select -p >/dev/null 2>&1; then
+        return
+    fi
+
+    warn "A fresh Homebrew install cannot continue without Xcode Command Line Tools."
+    warn "macOS /usr/bin/git is only a stub until Command Line Tools are installed, and Homebrew's installer needs git."
+    log "Opening the Command Line Tools installer"
+    xcode-select --install || true
+    die "Finish the Command Line Tools installer, then rerun this script. If the dialog fails, download 'Command Line Tools for Xcode' from https://developer.apple.com/download/all/ and install the .dmg manually."
 }
 
 detect_brew_prefix() {
@@ -73,7 +85,10 @@ load_homebrew_env() {
 }
 
 ensure_homebrew() {
+    load_homebrew_env
+
     if ! command -v brew >/dev/null 2>&1; then
+        require_homebrew_bootstrap_tools
         log "Installing Homebrew"
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
