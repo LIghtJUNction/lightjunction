@@ -18,490 +18,491 @@ l3xQhx6HVK8KzO3u7bdIxVNIwuj+fqmhAg==
 =vCDQ
 -----END PGP PUBLIC KEY BLOCK-----`
 
-// State
-let encrypted = ''
-let sent = false
-let history: string[] = []
-let historyIndex = -1
+type CommandHandler = (args: string[]) => void | Promise<void>
+
+type Repo = {
+    name: string
+    html_url: string
+    description: string | null
+    language: string | null
+    stargazers_count: number
+    forks_count: number
+}
+
+type GitHubUser = {
+    public_repos: number
+    followers: number
+    following: number
+    created_at: string
+}
+
+const COMMAND_NAMES = [
+    'help',
+    'about',
+    'skills',
+    'projects',
+    'stats',
+    'contact',
+    'msg',
+    'clear',
+    'whoami',
+    'pwd',
+    'ls',
+    'uname',
+    'fastfetch',
+    'reboot',
+]
+
+const $ = <T extends HTMLElement>(id: string): T => {
+    const element = document.getElementById(id)
+    if (!element) {
+        throw new Error(`Missing required DOM element: #${id}`)
+    }
+    return element as T
+}
+
+const output = $('terminal-output')
+const inputText = $('input-text')
+const secureCard = $('secure-card')
+const secureMessage = $('secure-message') as HTMLTextAreaElement
+const resultOverlay = $('result-overlay')
+const resultContent = $('result-content')
+const toast = $('toast')
+
 let currentInput = ''
+let history: string[] = []
+let historyIndex = 0
+let encryptedMessage = ''
+let sending = false
 
-// DOM Elements
-const output = document.getElementById('output')!
-const cmdInput = document.getElementById('cmd-input')!
-const secureCard = document.getElementById('secure-card')!
-const secureMsg = document.getElementById('secure-msg') as HTMLTextAreaElement
-const resultOverlay = document.getElementById('result-overlay')!
-const resultContent = document.getElementById('result-content')!
-const btnCopy = document.getElementById('btn-copy')!
-const btnGithub = document.getElementById('btn-github')!
-const btnClose = document.getElementById('btn-close')!
-const toast = document.getElementById('toast')!
-
-// GitHub Data
-let githubData = {
-    repos: 0,
-    stars: 0,
-    followers: 0,
-    reposList: [] as any[]
+const drag = {
+    active: false,
+    x: 0,
+    y: 0,
+    vx: 0,
+    vy: 0,
+    startX: 0,
+    startY: 0,
+    cardX: 0,
+    cardY: 0,
+    lastX: 0,
+    lastY: 0,
+    lastT: 0,
 }
 
-// Terminal Physics for Secure Card
-let posX = 0, posY = 0
-let velX = 0, velY = 0
-let dragging = false
-let startX = 0, startY = 0
-let offsetX = 0, offsetY = 0
-let lastX = 0, lastY = 0
-let lastT = 0
-
-const GRAV = 0.35
-const FRIC = 0.99
-
-function initSecureCard() {
-    posX = (window.innerWidth - secureCard.offsetWidth) / 2
-    posY = window.innerHeight - secureCard.offsetHeight - 100
-    updateSecureCard()
-}
-
-function updateSecureCard() {
-    secureCard.style.left = posX + 'px'
-    secureCard.style.top = posY + 'px'
-    secureCard.style.transform = 'none'
-}
-
-function frame() {
-    if (!dragging && !sent && secureCard.style.display !== 'none') {
-        velY += GRAV
-        velX *= FRIC
-        velY *= FRIC
-        posX += velX
-        posY += velY
-
-        const maxX = window.innerWidth - secureCard.offsetWidth
-        const maxY = window.innerHeight - secureCard.offsetHeight
-
-        if (posX < 0) { posX = 0; velX = -velX * 0.6 }
-        if (posX > maxX) { posX = maxX; velX = -velX * 0.6 }
-        if (posY > maxY) { posY = maxY; velY = -velY * 0.6 }
-
-        if (posY < -secureCard.offsetHeight - 50) {
-            doSendSecure()
-        }
-
-        updateSecureCard()
-    }
-    requestAnimationFrame(frame)
-}
-
-// Drag handlers for secure card
-secureCard.addEventListener('mousedown', (e) => {
-    if ((e.target as HTMLElement).tagName === 'TEXTAREA') return
-    secureCard.classList.add('dragging')
-    dragging = true
-    startX = e.clientX
-    startY = e.clientY
-    offsetX = posX
-    offsetY = posY
-    lastX = e.clientX
-    lastY = e.clientY
-    lastT = Date.now()
-    velX = velY = 0
-})
-
-window.addEventListener('mousemove', (e) => {
-    if (!dragging) return
-    const now = Date.now()
-    const dt = now - lastT
-    if (dt > 0) {
-        velX = (e.clientX - lastX) / dt * 16
-        velY = (e.clientY - lastY) / dt * 16
-    }
-    posX = offsetX + (e.clientX - startX)
-    posY = offsetY + (e.clientY - startY)
-    lastX = e.clientX
-    lastY = e.clientY
-    lastT = now
-    updateSecureCard()
-})
-
-window.addEventListener('mouseup', () => {
-    if (!dragging) return
-    dragging = false
-    secureCard.classList.remove('dragging')
-})
-
-// Touch handlers
-secureCard.addEventListener('touchstart', (e) => {
-    if ((e.target as HTMLElement).tagName === 'TEXTAREA') return
-    const t = e.touches[0]
-    secureCard.classList.add('dragging')
-    dragging = true
-    startX = t.clientX
-    startY = t.clientY
-    offsetX = posX
-    offsetY = posY
-    lastX = t.clientX
-    lastY = t.clientY
-    lastT = Date.now()
-    velX = velY = 0
-}, { passive: true })
-
-secureCard.addEventListener('touchmove', (e) => {
-    if (!dragging) return
-    const t = e.touches[0]
-    const now = Date.now()
-    const dt = now - lastT
-    if (dt > 0) {
-        velX = (t.clientX - lastX) / dt * 16
-        velY = (t.clientY - lastY) / dt * 16
-    }
-    posX = offsetX + (t.clientX - startX)
-    posY = offsetY + (t.clientY - startY)
-    lastX = t.clientX
-    lastY = t.clientY
-    lastT = now
-    updateSecureCard()
-}, { passive: true })
-
-secureCard.addEventListener('touchend', () => {
-    dragging = false
-    secureCard.classList.remove('dragging')
-})
-
-async function doSendSecure() {
-    sent = true
-    const text = secureMsg.value.trim()
-    if (!text) {
-        sent = false
-        posY = window.innerHeight - secureCard.offsetHeight - 100
-        velY = 0
-        showToast('Write something first!')
-        return
-    }
-
-    showToast('Encrypting...')
-
-    try {
-        const pub = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
-        encrypted = await openpgp.encrypt({
-            message: await openpgp.createMessage({ text }),
-            encryptionKeys: pub,
-        }) as string
-
-        await navigator.clipboard.writeText(encrypted)
-        resultContent.textContent = encrypted
-        resultOverlay.classList.add('show')
-        secureCard.style.display = 'none'
-        showToast('Encrypted & copied!')
-        addOutput('pgp', 'success', 'Message encrypted with PGP and copied to clipboard!')
-    } catch (err) {
-        showToast('Encryption error')
-        sent = false
-        posY = window.innerHeight - secureCard.offsetHeight - 100
-        velY = 0
-    }
-}
-
-// Toast
-function showToast(msg: string) {
-    toast.textContent = msg
-    toast.classList.add('show')
-    setTimeout(() => toast.classList.remove('show'), 2500)
-}
-
-// Output functions
-function addOutput(content: string, type: string = '', extra: string = '') {
-    const line = document.createElement('div')
-    line.className = 'line' + (type ? ` output-text ${type}` : '')
-    line.innerHTML = content + (extra ? extra : '')
-    output.appendChild(line)
-    output.scrollTop = output.scrollHeight
-}
-
-function addInputLine(cmd: string) {
-    const line = document.createElement('div')
-    line.className = 'line input-line'
-    line.innerHTML = `<span class="prompt"><span class="prompt-user">guest</span>@<span class="prompt-path">lj</span>:<span class="prompt-char">~</span>$&nbsp;</span><span class="cmd">${escapeHtml(cmd)}</span>`
-    output.appendChild(line)
-    output.scrollTop = output.scrollHeight
-}
-
-function escapeHtml(text: string): string {
+function escapeHtml(value: string): string {
     const div = document.createElement('div')
-    div.textContent = text
+    div.textContent = value
     return div.innerHTML
 }
 
-// Commands
-const commands: Record<string, (args: string[]) => void> = {
-    help: () => {
-        addOutput(`<pre class="ascii-art" style="color: var(--neon-green)">
-╔══════════════════════════════════════════════════════════════╗
-║                    LIghtJUNction Terminal                     ║
-╚══════════════════════════════════════════════════════════════╝</pre>`)
-        addOutput('', '', '<div class="help-table">' +
-            '<div><span class="help-cmd">help</span></div><div class="help-desc">Show this help message</div>' +
-            '<div><span class="help-cmd">about</span></div><div class="help-desc">About me</div>' +
-            '<div><span class="help-cmd">skills</span></div><div class="help-desc">My technical skills</div>' +
-            '<div><span class="help-cmd">projects</span></div><div class="help-desc">List my GitHub projects</div>' +
-            '<div><span class="help-cmd">stats</span></div><div class="help-desc">GitHub statistics</div>' +
-            '<div><span class="help-cmd">contact</span></div><div class="help-desc">Get in touch</div>' +
-            '<div><span class="help-cmd">msg</span></div><div class="help-desc">Open encrypted message card</div>' +
-            '<div><span class="help-cmd">clear</span></div><div class="help-desc">Clear the terminal</div>' +
-            '<div><span class="help-cmd">sudo</span></div><div class="help-desc">Try sudo access</div>' +
-            '<div><span class="help-cmd">matrix</span></div><div class="help-desc">Enter the matrix</div>' +
-            '</div>')
-    },
-
-    about: () => {
-        addOutput('', '', `<pre class="ascii-art">
- █████╗ ██╗  ██╗██╗ ██████╗ ██╗  ██╗████████╗
-██╔══██╗██║  ██║██║██╔════╝ ██║  ██║╚══██╔══╝
-███████║███████║██║██║  ███╗███████║   ██║
-██╔══██║██╔══██║██║██║   ██║██╔══██║   ██║
-██║  ██║██║  ██║██║╚██████╔╝██║  ██║   ██║
-╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝</pre>`)
-        addOutput('', '', '<div style="color: var(--text-secondary); margin-top: 10px;">' +
-            '<p><span style="color: var(--neon-cyan)">> Identity:</span> Full-Stack Developer & Security Enthusiast</p>' +
-            '<p><span style="color: var(--neon-cyan)">> Focus:</span> Building secure, efficient, open source solutions</p>' +
-            '<p><span style="color: var(--neon-cyan)">> Currently:</span> Exploring cryptographic protocols & distributed systems</p>' +
-            '<p><span style="color: var(--neon-cyan)">> Philosophy:</span> "Code is poetry, security is paramount"</p>' +
-            '</div>')
-    },
-
-    skills: () => {
-        addOutput('<span style="color: var(--neon-green)">[Skills] Loading...</span>', '', '<span class="loading"></span>')
-        setTimeout(() => {
-            const skillItems = document.querySelectorAll('.line:last-child')[0]
-            if (skillItems) skillItems.remove()
-            addOutput('', '', '<div class="skills-grid">' +
-                '<div class="skill-item"><div class="skill-name">Frontend</div><div class="skill-tags"><span class="skill-tag">TypeScript</span><span class="skill-tag">React</span><span class="skill-tag">Vue</span><span class="skill-tag">Vite</span></div></div>' +
-                '<div class="skill-item"><div class="skill-name">Backend</div><div class="skill-tags"><span class="skill-tag">Node.js</span><span class="skill-tag">Python</span><span class="skill-tag">Go</span><span class="skill-tag">PostgreSQL</span></div></div>' +
-                '<div class="skill-item"><div class="skill-name">Security</div><div class="skill-tags"><span class="skill-tag">PGP</span><span class="skill-tag">OAuth</span><span class="skill-tag">JWT</span><span class="skill-tag">WebAuthn</span></div></div>' +
-                '<div class="skill-item"><div class="skill-name">DevOps</div><div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Linux</span><span class="skill-tag">CI/CD</span><span class="skill-tag">Shell</span></div></div>' +
-                '</div>')
-        }, 500)
-    },
-
-    projects: async () => {
-        addOutput('<span class="loading">Fetching projects</span>')
-        try {
-            if (githubData.reposList.length === 0) {
-                const res = await fetch('https://api.github.com/users/LIghtJUNction/repos?sort=updated&per_page=10')
-                githubData.reposList = await res.json()
-            }
-            addOutput('', '', '<div class="projects-list">' +
-                githubData.reposList.slice(0, 6).map(repo => `
-                    <div class="project-item">
-                        <div class="project-name"><a href="${repo.html_url}" target="_blank">${repo.name}</a> ${repo.language ? `<span style="color: var(--neon-cyan); font-size: 10px;">[${repo.language}]</span>` : ''}</div>
-                        <div class="project-desc">${repo.description || 'No description'}</div>
-                        <div class="project-meta">
-                            <span>★ ${repo.stargazers_count}</span>
-                            <span>⑂ ${repo.forks_count}</span>
-                        </div>
-                    </div>
-                `).join('') +
-                '</div>')
-        } catch {
-            addOutput('Failed to fetch projects', 'error')
-        }
-    },
-
-    stats: async () => {
-        addOutput('<span class="loading">Fetching GitHub stats</span>')
-        try {
-            if (githubData.repos === 0) {
-                const res = await fetch('https://api.github.com/users/LIghtJUNction')
-                const data = await res.json()
-                githubData.repos = data.public_repos
-                githubData.followers = data.followers
-
-                const reposRes = await fetch(`https://api.github.com/users/LIghtJUNction/repos?per_page=100`)
-                const repos = await reposRes.json()
-                githubData.stars = repos.reduce((sum: number, r: any) => sum + r.stargazers_count, 0)
-            }
-            addOutput('', '', '<div class="stats-display">' +
-                `<div class="stat-item"><div class="stat-value">${githubData.repos}</div><div class="stat-label">Repos</div></div>` +
-                `<div class="stat-item"><div class="stat-value">${githubData.stars}</div><div class="stat-label">Stars</div></div>` +
-                `<div class="stat-item"><div class="stat-value">${githubData.followers}</div><div class="stat-label">Followers</div></div>` +
-                `<div class="stat-item"><div class="stat-value">67</div><div class="stat-label">Following</div></div>` +
-                '</div>')
-        } catch {
-            addOutput('Failed to fetch stats', 'error')
-        }
-    },
-
-    contact: () => {
-        addOutput('', '', '<div class="contact-list">' +
-            '<div class="contact-item"><span class="contact-icon">🐙</span><span class="contact-label">GitHub</span><span class="contact-value"><a href="https://github.com/LIghtJUNction" target="_blank">github.com/LIghtJUNction</a></span></div>' +
-            '<div class="contact-item"><span class="contact-icon">📧</span><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:lightjunction.me@gmail.com">lightjunction.me@gmail.com</a></span></div>' +
-            '<div class="contact-item"><span class="contact-icon">🔐</span><span class="contact-label">PGP Key</span><span class="contact-value" style="font-size: 10px; color: var(--text-secondary);">EB21B83AB1E982DF66F08387A67178405F7736FD</span></div>' +
-            '</div>')
-        addOutput('Use <span style="color: var(--neon-green)">msg</span> command to send encrypted messages!', 'info')
-    },
-
-    msg: () => {
-        secureMsg.value = ''
-        sent = false
-        secureCard.style.display = 'block'
-        initSecureCard()
-        showToast('Secure card activated - drag up to send!')
-        addOutput('Secure message card opened', 'success')
-    },
-
-    clear: () => {
-        output.innerHTML = ''
-    },
-
-    sudo: () => {
-        addOutput('<span style="color: var(--neon-pink)">[sudo] password for guest: </span>', '', '<span class="cursor"></span>')
-        cmdInput.focus()
-    },
-
-    matrix: () => {
-        addOutput('Entering the matrix...', 'success')
-        document.body.style.animation = 'none'
-        setTimeout(() => {
-            document.body.style.filter = 'hue-rotate(180deg) saturate(2)'
-            setTimeout(() => {
-                document.body.style.filter = 'none'
-                addOutput('You took the red pill.', 'success')
-            }, 3000)
-        }, 1000)
-    },
-
-    whoami: () => {
-        addOutput('guest<br>LIghtJUNction<br>Full-Stack Developer')
-    },
-
-    pwd: () => {
-        addOutput('/home/guest')
-    },
-
-    ls: () => {
-        addOutput('', '', '<div style="color: var(--text-secondary);">' +
-            'about.txt&nbsp;&nbsp; skills.log&nbsp;&nbsp; projects/&nbsp;&nbsp; contact.sh<br>' +
-            '<span style="color: var(--text-dim)">Or use <span style="color: var(--neon-green)">ls -la</span> for hidden files</span></div>')
-    },
-
-    uname: () => {
-        addOutput('LIghtJUNction-os 2026.1 x86_64 GNU/Linux')
-    },
-
-    neofetch: () => {
-        addOutput('', '', `<pre style="color: var(--neon-green)">
-        ██╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗
-        ████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝
-        ██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗
-        ██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║
-        ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║
-        ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝</pre>`)
-        addOutput('', '', '<div style="color: var(--text-secondary); text-align: left; display: inline-block;">' +
-            '<div><span style="color: var(--neon-cyan)">user:</span> LIghtJUNction</div>' +
-            '<div><span style="color: var(--neon-cyan)">host:</span> lj.dev</div>' +
-            '<div><span style="color: var(--neon-cyan)">distro:</span> Arch Linux</div>' +
-            '<div><span style="color: var(--neon-cyan)">kernel:</span> Linux 6.x</div>' +
-            '<div><span style="color: var(--neon-cyan)">shell:</span> zsh + starship</div>' +
-            '<div><span style="color: var(--neon-cyan)">term:</span> Alacritty</div>' +
-            '<div><span style="color: var(--neon-cyan)">uptime:</span> just started</div>' +
-            '</div>')
-    }
+function writeLine(html: string, className = ''): void {
+    const line = document.createElement('div')
+    line.className = className ? `term-line ${className}` : 'term-line'
+    line.innerHTML = html
+    output.appendChild(line)
+    output.scrollTop = output.scrollHeight
 }
 
-// Parse and execute command
-function execute(cmd: string) {
-    const parts = cmd.trim().split(/\s+/)
-    const command = parts[0].toLowerCase()
-    const args = parts.slice(1)
+function writeCommand(command: string): void {
+    writeLine(
+        `<span class="prompt">guest@lj</span><span class="path">:~</span>$ ${escapeHtml(command)}`,
+        'term-input',
+    )
+}
 
-    if (command === '') {
+function showToast(message: string): void {
+    toast.textContent = message
+    toast.classList.add('show')
+    window.setTimeout(() => toast.classList.remove('show'), 2400)
+}
+
+function setInput(value: string): void {
+    currentInput = value
+    inputText.textContent = value
+}
+
+function resetTerminal(): void {
+    output.innerHTML = ''
+    boot()
+}
+
+function openSecureCard(): void {
+    secureMessage.value = ''
+    sending = false
+    secureCard.hidden = false
+    placeSecureCard()
+    showToast('Secure card armed')
+}
+
+function placeSecureCard(): void {
+    drag.x = Math.max(18, (window.innerWidth - secureCard.offsetWidth) / 2)
+    drag.y = Math.max(80, window.innerHeight - secureCard.offsetHeight - 96)
+    paintSecureCard()
+}
+
+function paintSecureCard(): void {
+    secureCard.style.transform = `translate3d(${Math.round(drag.x)}px, ${Math.round(drag.y)}px, 0)`
+}
+
+function tick(): void {
+    if (!secureCard.hidden && !drag.active && !sending) {
+        drag.vy += 0.28
+        drag.vx *= 0.985
+        drag.vy *= 0.985
+        drag.x += drag.vx
+        drag.y += drag.vy
+
+        const maxX = window.innerWidth - secureCard.offsetWidth - 12
+        const maxY = window.innerHeight - secureCard.offsetHeight - 12
+
+        if (drag.x < 12) {
+            drag.x = 12
+            drag.vx *= -0.55
+        }
+        if (drag.x > maxX) {
+            drag.x = maxX
+            drag.vx *= -0.55
+        }
+        if (drag.y > maxY) {
+            drag.y = maxY
+            drag.vy *= -0.55
+        }
+        if (drag.y < -secureCard.offsetHeight - 48) {
+            void encryptAndReveal()
+        }
+        paintSecureCard()
+    }
+
+    requestAnimationFrame(tick)
+}
+
+async function encryptAndReveal(): Promise<void> {
+    if (sending) return
+    sending = true
+
+    const text = secureMessage.value.trim()
+    if (!text) {
+        sending = false
+        drag.y = window.innerHeight - secureCard.offsetHeight - 96
+        drag.vy = 0
+        paintSecureCard()
+        showToast('Write something first')
         return
     }
 
-    addInputLine(cmd)
+    showToast('Encrypting')
+    try {
+        const publicKey = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
+        encryptedMessage = await openpgp.encrypt({
+            message: await openpgp.createMessage({ text }),
+            encryptionKeys: publicKey,
+        }) as string
 
-    if (commands[command]) {
-        commands[command](args)
-    } else {
-        addOutput(`<span style="color: var(--neon-pink)">Command not found: ${command}</span>`)
-        addOutput(`Type <span style="color: var(--neon-green)">help</span> to see available commands`, 'dim')
+        await navigator.clipboard.writeText(encryptedMessage)
+        resultContent.textContent = encryptedMessage
+        resultOverlay.classList.add('show')
+        secureCard.hidden = true
+        writeLine('Message encrypted with OpenPGP and copied to clipboard.', 'success')
+        showToast('Encrypted and copied')
+    } catch (error) {
+        sending = false
+        writeLine(`Encryption failed: ${escapeHtml(error instanceof Error ? error.message : String(error))}`, 'error')
+        showToast('Encryption failed')
     }
 }
 
-// Event handlers
-cmdInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        const cmd = cmdInput.value
-        if (cmd.trim()) {
-            history.push(cmd)
+async function copyEncrypted(): Promise<void> {
+    if (!encryptedMessage) return
+    await navigator.clipboard.writeText(encryptedMessage)
+    showToast('Copied')
+}
+
+function openGitHubIssue(): void {
+    const body = `## Encrypted Message\n\n\`\`\`\n${encryptedMessage}\n\`\`\`\n\n---\nvia lightjunction terminal`
+    const url = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=encrypted+message&body=${encodeURIComponent(body)}`
+    window.open(url, '_blank', 'noopener,noreferrer')
+}
+
+function closeResult(): void {
+    resultOverlay.classList.remove('show')
+    encryptedMessage = ''
+    openSecureCard()
+}
+
+async function fetchJson<T>(url: string): Promise<T> {
+    const response = await fetch(url)
+    if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`)
+    }
+    return response.json() as Promise<T>
+}
+
+const commands: Record<string, CommandHandler> = {
+    help: () => {
+        writeLine(`
+            <div class="command-grid">
+                ${COMMAND_NAMES.map((name) => `<span>${name}</span><em>${commandDescription(name)}</em>`).join('')}
+            </div>
+        `)
+    },
+    about: () => {
+        writeLine(`
+            <div class="panel-copy">
+                <strong>LIghtJUNction</strong>
+                <p>Non-CS background, amateur programming enthusiast. Into AI, Android rooting, custom ROMs, Linux, and sharp little tools.</p>
+                <p>Pragmatic by scar tissue. Learning by doing.</p>
+            </div>
+        `)
+    },
+    skills: () => {
+        const groups = [
+            ['Systems', 'Arch Linux', 'Shell', 'Packaging', 'Self-hosting'],
+            ['Code', 'TypeScript', 'Python', 'Go', 'Rust'],
+            ['AI', 'Agents', 'Datasets', 'Training loops', 'Automation'],
+            ['Security', 'OpenPGP', 'SSH', 'OAuth', 'Operational hygiene'],
+        ]
+        writeLine(`
+            <div class="skill-grid">
+                ${groups.map(([title, ...items]) => `
+                    <section>
+                        <strong>${title}</strong>
+                        <p>${items.map((item) => `<span>${item}</span>`).join('')}</p>
+                    </section>
+                `).join('')}
+            </div>
+        `)
+    },
+    projects: async () => {
+        const loading = appendLoading('Fetching GitHub projects')
+        try {
+            const repos = await fetchJson<Repo[]>('https://api.github.com/users/LIghtJUNction/repos?sort=updated&per_page=8')
+            loading.remove()
+            writeLine(`
+                <div class="project-list">
+                    ${repos.map((repo) => `
+                        <article>
+                            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.name)}</a>
+                            <p>${escapeHtml(repo.description ?? 'No description')}</p>
+                            <small>${escapeHtml(repo.language ?? 'Unknown')} / ${repo.stargazers_count} stars / ${repo.forks_count} forks</small>
+                        </article>
+                    `).join('')}
+                </div>
+            `)
+        } catch (error) {
+            loading.remove()
+            writeLine(`Failed to fetch projects: ${escapeHtml(error instanceof Error ? error.message : String(error))}`, 'error')
+        }
+    },
+    stats: async () => {
+        const loading = appendLoading('Fetching GitHub stats')
+        try {
+            const user = await fetchJson<GitHubUser>('https://api.github.com/users/LIghtJUNction')
+            const repos = await fetchJson<Repo[]>('https://api.github.com/users/LIghtJUNction/repos?per_page=100')
+            const stars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0)
+            const joined = new Date(user.created_at).toISOString().slice(0, 10)
+            loading.remove()
+            writeLine(`
+                <div class="stats-grid">
+                    <section><b>${user.public_repos}</b><span>Repos</span></section>
+                    <section><b>${stars}</b><span>Stars</span></section>
+                    <section><b>${user.followers}</b><span>Followers</span></section>
+                    <section><b>${joined}</b><span>Joined</span></section>
+                </div>
+            `)
+        } catch (error) {
+            loading.remove()
+            writeLine(`Failed to fetch stats: ${escapeHtml(error instanceof Error ? error.message : String(error))}`, 'error')
+        }
+    },
+    contact: () => {
+        writeLine(`
+            <div class="contact-list">
+                <a href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer">github.com/LIghtJUNction</a>
+                <a href="mailto:lightjunction.me@gmail.com">lightjunction.me@gmail.com</a>
+                <code>PGP EB21B83AB1E982DF66F08387A67178405F7736FD</code>
+            </div>
+        `)
+    },
+    msg: openSecureCard,
+    clear: () => { output.innerHTML = '' },
+    whoami: () => writeLine('guest<br>LIghtJUNction<br>builder of questionable but useful things'),
+    pwd: () => writeLine('/home/guest'),
+    ls: () => writeLine('about.txt&nbsp;&nbsp;projects/&nbsp;&nbsp;contact.sh&nbsp;&nbsp;.pgp-key&nbsp;&nbsp;.bootstrap/'),
+    uname: () => writeLine('lightjunction 2026.06 x86_64 GNU/Linux'),
+    fastfetch: () => {
+        writeLine(`
+            <pre class="fetch">       /\\
+      /  \\       user  LIghtJUNction
+     / /\\ \\      host  lightjunction.github.io
+    / ____ \\     shell zsh + fish + chaos
+   /_/    \\_\\    focus AI / Linux / weird tools</pre>
+        `)
+    },
+    reboot: resetTerminal,
+}
+
+function commandDescription(name: string): string {
+    return {
+        help: 'show commands',
+        about: 'who this is',
+        skills: 'working areas',
+        projects: 'recent repositories',
+        stats: 'GitHub numbers',
+        contact: 'links and key',
+        msg: 'encrypted message card',
+        clear: 'clear scrollback',
+        whoami: 'print identity',
+        pwd: 'current path',
+        ls: 'list files',
+        uname: 'kernel cosplay',
+        fastfetch: 'system card',
+        reboot: 'reset terminal',
+    }[name] ?? ''
+}
+
+function appendLoading(label: string): HTMLElement {
+    const line = document.createElement('div')
+    line.className = 'term-line muted'
+    line.textContent = `${label}...`
+    output.appendChild(line)
+    output.scrollTop = output.scrollHeight
+    return line
+}
+
+async function execute(commandLine: string): Promise<void> {
+    const [command = '', ...args] = commandLine.trim().split(/\s+/)
+    if (!command) return
+
+    writeCommand(commandLine)
+    const handler = commands[command.toLowerCase()]
+    if (!handler) {
+        writeLine(`Command not found: ${escapeHtml(command)}. Try <kbd>help</kbd>.`, 'error')
+        return
+    }
+    await handler(args)
+}
+
+function handleKeydown(event: KeyboardEvent): void {
+    if (event.target instanceof HTMLTextAreaElement || event.metaKey || event.ctrlKey || event.altKey) {
+        return
+    }
+
+    if (event.key === 'Enter') {
+        event.preventDefault()
+        const submitted = currentInput
+        if (submitted.trim()) {
+            history.push(submitted)
             historyIndex = history.length
         }
-        execute(cmd)
-        cmdInput.value = ''
-    } else if (e.key === 'ArrowUp') {
-        e.preventDefault()
+        setInput('')
+        void execute(submitted)
+        return
+    }
+
+    if (event.key === 'Backspace') {
+        event.preventDefault()
+        setInput(currentInput.slice(0, -1))
+        return
+    }
+
+    if (event.key === 'ArrowUp') {
+        event.preventDefault()
         if (historyIndex > 0) {
-            historyIndex--
-            cmdInput.value = history[historyIndex]
+            historyIndex -= 1
+            setInput(history[historyIndex] ?? '')
         }
-    } else if (e.key === 'ArrowDown') {
-        e.preventDefault()
+        return
+    }
+
+    if (event.key === 'ArrowDown') {
+        event.preventDefault()
         if (historyIndex < history.length - 1) {
-            historyIndex++
-            cmdInput.value = history[historyIndex]
+            historyIndex += 1
+            setInput(history[historyIndex] ?? '')
         } else {
             historyIndex = history.length
-            cmdInput.value = ''
+            setInput('')
         }
-    } else if (e.key === 'Tab') {
-        e.preventDefault()
-        const commands = ['help', 'about', 'skills', 'projects', 'stats', 'contact', 'msg', 'clear', 'sudo', 'matrix', 'whoami', 'pwd', 'ls', 'uname', 'neofetch']
-        const input = cmdInput.value.toLowerCase()
-        const matches = commands.filter(c => c.startsWith(input))
-        if (matches.length === 1) {
-            cmdInput.value = matches[0]
-        }
+        return
     }
-})
 
-// Result overlay handlers
-btnCopy.addEventListener('click', async () => {
-    await navigator.clipboard.writeText(encrypted)
-    showToast('Copied!')
-})
+    if (event.key === 'Tab') {
+        event.preventDefault()
+        const match = COMMAND_NAMES.find((name) => name.startsWith(currentInput.toLowerCase()))
+        if (match) setInput(match)
+        return
+    }
 
-btnGithub.addEventListener('click', () => {
-    const url = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=encrypted+message&body=${encodeURIComponent(`## Encrypted Message\n\n\`\`\`\n${encrypted}\n\`\`\`\n\n---\n*via secure-message*`)}`
-    window.open(url, '_blank')
-})
-
-btnClose.addEventListener('click', () => {
-    resultOverlay.classList.remove('show')
-    secureMsg.value = ''
-    encrypted = ''
-    sent = false
-    secureCard.style.display = 'block'
-    initSecureCard()
-})
-
-// Welcome message
-function init() {
-    const welcome = document.createElement('div')
-    welcome.className = 'welcome'
-    welcome.innerHTML = `<pre class="ascii-art">
- ███╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗
- ████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝
- ██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗
- ██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║
- ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║
- ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝</pre>
-<div class="welcome-sub"><span>Full-Stack Developer</span> // <span>Security Enthusiast</span> // <span>Open Source Advocate</span></div>
-<div style="color: var(--text-dim); margin-top: 20px; font-size: 12px;">Type <span style="color: var(--neon-green)">help</span> to see available commands</div>`
-    output.appendChild(welcome)
-
-    addOutput('')
-    initSecureCard()
-    frame()
+    if (event.key.length === 1) {
+        setInput(currentInput + event.key)
+    }
 }
 
-init()
+function bindSecureCard(): void {
+    secureCard.addEventListener('pointerdown', (event) => {
+        if (event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLButtonElement) return
+        secureCard.setPointerCapture(event.pointerId)
+        drag.active = true
+        drag.startX = event.clientX
+        drag.startY = event.clientY
+        drag.cardX = drag.x
+        drag.cardY = drag.y
+        drag.lastX = event.clientX
+        drag.lastY = event.clientY
+        drag.lastT = performance.now()
+        drag.vx = 0
+        drag.vy = 0
+        secureCard.classList.add('dragging')
+    })
+
+    secureCard.addEventListener('pointermove', (event) => {
+        if (!drag.active) return
+        const now = performance.now()
+        const dt = Math.max(1, now - drag.lastT)
+        drag.vx = ((event.clientX - drag.lastX) / dt) * 16
+        drag.vy = ((event.clientY - drag.lastY) / dt) * 16
+        drag.x = drag.cardX + event.clientX - drag.startX
+        drag.y = drag.cardY + event.clientY - drag.startY
+        drag.lastX = event.clientX
+        drag.lastY = event.clientY
+        drag.lastT = now
+        paintSecureCard()
+    })
+
+    secureCard.addEventListener('pointerup', () => {
+        drag.active = false
+        secureCard.classList.remove('dragging')
+    })
+
+    $('encrypt-now').addEventListener('click', () => void encryptAndReveal())
+}
+
+function bindChrome(): void {
+    $('btn-reset').addEventListener('click', resetTerminal)
+    $('btn-fullscreen').addEventListener('click', () => void document.documentElement.requestFullscreen?.())
+    $('btn-message').addEventListener('click', openSecureCard)
+    $('result-copy').addEventListener('click', () => void copyEncrypted())
+    $('result-github').addEventListener('click', openGitHubIssue)
+    $('result-close').addEventListener('click', closeResult)
+    window.addEventListener('resize', () => {
+        if (!secureCard.hidden) {
+            drag.x = Math.min(drag.x, window.innerWidth - secureCard.offsetWidth - 12)
+            drag.y = Math.min(drag.y, window.innerHeight - secureCard.offsetHeight - 12)
+            paintSecureCard()
+        }
+    })
+    document.addEventListener('keydown', handleKeydown)
+}
+
+function boot(): void {
+    writeLine('<pre class="hero-type">LIghtJUNction</pre>')
+    writeLine('Personal terminal. PGP messages. Linux bootstrap notes. Type <kbd>help</kbd>.', 'muted')
+}
+
+bindChrome()
+bindSecureCard()
+boot()
+placeSecureCard()
+secureCard.hidden = true
+requestAnimationFrame(tick)

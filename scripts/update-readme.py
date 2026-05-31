@@ -1,21 +1,66 @@
 #!/usr/bin/env python3
-"""
-update-readme.py - Update README.md with GitHub stats and AI content
-"""
+"""Render README dynamic sections from github_data.json."""
 
+from __future__ import annotations
+
+import html
 import json
+import os
 import sys
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
-REPO_OWNER = "LIghtJUNction"
+REPO_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "LIghtJUNction")
 
 LANG_EMOJI = {
-    "Python": "🐍", "Shell": "🐚", "Rust": "🦀", "Go": "🐹",
-    "JavaScript": "📜", "TypeScript": "🔷", "Vue": "💚", "HTML": "🌐",
-    "CSS": "🎨", "Java": "☕", "C": "🔧", "C++": "⚡", "Ruby": "💎",
-    "PHP": "🐘", "Swift": "🍎", "Kotlin": "🤖", "Dart": "🌟",
+    "Python": "PY",
+    "Shell": "SH",
+    "Rust": "RS",
+    "Go": "GO",
+    "JavaScript": "JS",
+    "TypeScript": "TS",
+    "Vue": "VU",
+    "HTML": "HTML",
+    "CSS": "CSS",
+    "Java": "JVM",
+    "C": "C",
+    "C++": "CPP",
+    "Ruby": "RB",
+    "PHP": "PHP",
+    "Swift": "SW",
+    "Kotlin": "KT",
+    "Dart": "DART",
 }
+
+
+@dataclass(frozen=True)
+class Paths:
+    readme: Path = Path("README.md")
+    data: Path = Path("github_data.json")
+    ai: Path = Path("ai_enhanced.json")
+    skyline: Path = Path("skyline.txt")
+
+
+SECTIONS = {
+    "stats": ("<!-- START_DYNAMIC_STATS -->", "<!-- END_DYNAMIC_STATS -->"),
+    "summary": ("<!-- START_DYNAMIC_SUMMARY -->", "<!-- END_DYNAMIC_SUMMARY -->"),
+    "skyline": ("<!-- START_DYNAMIC_SKYLINE -->", "<!-- END_DYNAMIC_SKYLINE -->"),
+    "repos": ("<!-- START_DYNAMIC_REPO_LIST -->", "<!-- END_DYNAMIC_REPO_LIST -->"),
+    "commits": ("<!-- START_DYNAMIC_COMMITS -->", "<!-- END_DYNAMIC_COMMITS -->"),
+}
+
+
+def md_escape(value: Any) -> str:
+    return str(value or "").replace("|", "\\|").replace("\n", " ").strip()
+
+
+def short_repo_name(repo: str) -> str:
+    prefix = f"{REPO_OWNER}/"
+    if repo.startswith(prefix):
+        return repo[len(prefix):]
+    return repo
 
 
 def get_account_age(created_at: str) -> tuple[str, int, int]:
@@ -25,202 +70,198 @@ def get_account_age(created_at: str) -> tuple[str, int, int]:
         created = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
         now = datetime.now(timezone.utc)
         age = now - created
-        return created.strftime("%Y-%m-%d"), age.days // 365, age.days % 365 // 30
-    except Exception:
+        return created.strftime("%Y-%m-%d"), age.days // 365, (age.days % 365) // 30
+    except ValueError:
         return created_at[:10], 0, 0
 
 
-def format_stats(data: dict) -> str:
+def progress_bar(count: int, total: int, width: int = 10) -> str:
+    if total <= 0:
+        return "░" * width
+    filled = max(1, round(width * count / total))
+    return "▓" * filled + "░" * max(0, width - filled)
+
+
+def format_stats(data: dict[str, Any]) -> str:
     user = data.get("user_stats", {})
     created, years, months = get_account_age(user.get("created_at", ""))
-    repos = user.get("public_repos", 0)
-    followers = user.get("followers", 0)
-    following = user.get("following", 0)
+    return "\n".join([
+        "| Joined | Repos | Followers | Following |",
+        "|:------:|:-----:|:---------:|:---------:|",
+        f"| {created} ({years}yr {months}mo) | **{user.get('public_repos', 0)}** | **{user.get('followers', 0)}** | **{user.get('following', 0)}** |",
+        "",
+        "---",
+    ])
 
-    content = f"""| 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
-|:---------:|:--------:|:------------:|:------------:|
-| {created} ({years}yr {months}mo) | **{repos}** | **{followers}** | **{following}** |"""
-    return content + "\n\n---"
 
+def format_weekly(data: dict[str, Any], ai_content: dict[str, Any]) -> str:
+    total, repo_commits = data.get("weekly", (0, []))
+    lines = ["### This Week", ""]
 
-def format_weekly(data: dict, ai_content: dict) -> str:
-    total, repo_commits = data["weekly"]
-    commit_insights = ai_content.get("commit_insights", "")
-
-    lines = ["### 📈 This Week", ""]
+    insight = ai_content.get("commit_insights")
+    if insight:
+        lines.extend([f"_{md_escape(insight)}_", ""])
 
     if total == 0:
-        lines.append("No commits this week. Rest time is important too! 🎉")
+        lines.append("No commits this week.")
     else:
-        if commit_insights:
-            lines.append(f"_{commit_insights}_")
-            lines.append("")
         lines.append(f"**{total}** commits across **{len(repo_commits)}** repositories")
+        lines.extend(["", "| Repository | Activity |", "|:-----------|:--------:|"])
+        for name, info in repo_commits[:6]:
+            count = int(info.get("count", 0))
+            url = info.get("url", "")
+            label = md_escape(short_repo_name(name))
+            lines.append(f"| [{label}]({url}) | {progress_bar(count, total)} {count} |")
 
-        if repo_commits:
-            lines.append("")
-            lines.append("| Repository | Activity |")
-            lines.append("|:-----------|:--------:|")
-            for name, info in repo_commits[:5]:
-                count = info["count"]
-                pct = count / total
-                bar = "▓" * int(pct * 10) + "░" * (10 - int(pct * 10))
-                lines.append(f"| [{name}]({info.get('url', '')}) | {bar} {count} |")
-
-    return "\n".join(lines) + "\n\n---"
+    lines.extend(["", "---"])
+    return "\n".join(lines)
 
 
-def format_repos(data: dict, ai_content: dict) -> str:
+def format_repos(data: dict[str, Any], ai_content: dict[str, Any]) -> str:
     repos = data.get("repos", [])
     if not repos:
-        return "### 🚀 Latest Projects\n\nNo repositories found."
+        return "### Latest Projects\n\nNo repositories found."
 
-    insights = ai_content.get("project_insights", "")
+    lines = ["### Latest Projects", ""]
+    insight = ai_content.get("project_insights")
+    if insight:
+        lines.extend([f"_{md_escape(insight)}_", ""])
 
-    lines = ["### 🚀 Latest Projects", ""]
+    lines.append("<table>")
+    for row_start in range(0, len(repos), 2):
+        lines.append("<tr>")
+        for repo in repos[row_start:row_start + 2]:
+            name = md_escape(repo.get("name", "unknown"))
+            owner = html.escape(REPO_OWNER)
+            desc = html.escape(repo.get("description") or "No description")
+            url = html.escape(repo.get("html_url") or "")
+            lang = md_escape(repo.get("language") or "Unknown")
+            badge = LANG_EMOJI.get(lang, "CODE")
+            stars = repo.get("stargazers_count", 0)
+            forks = repo.get("forks_count", 0)
+            updated = str(repo.get("updated_at", ""))[:10]
+            lines.append(f"""<td align="left" valign="top" width="50%">
 
-    if insights:
-        lines.append(f"_{insights}_")
-        lines.append("")
+#### <a href="{url}">{html.escape(name)}</a> <sub>{badge}</sub>
 
-    lines.append("<table><tr>")
+{desc}
 
-    for i, repo in enumerate(repos):
-        if i > 0 and i % 2 == 0:
-            lines.append("</tr><tr>")
+<sub>{lang} / {stars} stars / {forks} forks / updated {html.escape(updated)}</sub>
 
-        name = repo["name"]
-        url = repo["html_url"]
-        desc = (repo.get("description") or "").replace("|", "\\|")
-        stars = repo.get("stargazers_count", 0)
-        forks = repo.get("forks_count", 0)
-        lang = repo.get("language") or "Unknown"
-        updated = repo["updated_at"][:10]
-        emoji = LANG_EMOJI.get(lang, "📄")
+<br>
 
-        lines.append(f"""<td align="center" valign="top">
-
-#### {emoji} {name}
-{desc if desc else '_No description_'}
-
-⭐ {stars} • 🍴 {forks} • {lang}
-
-![Stars](https://img.shields.io/github/stars/{REPO_OWNER}/{name}?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/{REPO_OWNER}/{name}?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: {updated}_
+![Stars](https://img.shields.io/github/stars/{owner}/{html.escape(name)}?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/{owner}/{html.escape(name)}?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>""")
+        if len(repos[row_start:row_start + 2]) == 1:
+            lines.append("<td></td>")
+        lines.append("</tr>")
+    lines.append("</table>")
+    lines.extend(["", "---"])
+    return "\n".join(lines)
 
-    if len(repos) % 2 == 1:
-        lines.append("<td></td>")
 
-    lines.append("</tr></table>")
-    return "\n".join(lines) + "\n\n---"
+def parse_commit_time(value: str) -> tuple[str, str]:
+    try:
+        dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return dt.strftime("%Y-%m-%d"), dt.strftime("%H:%M")
+    except ValueError:
+        return value[:10], value[11:16]
 
 
-def format_commits(data: dict) -> str:
+def format_commits(data: dict[str, Any]) -> str:
     commits = data.get("commits", [])
     if not commits:
-        return "### 📝 Recent Commits\n\nNo recent commits."
+        return "### Recent Commits\n\nNo recent commits."
 
-    lines = ["### 📝 Recent Commits", "", "<details>", "<summary>📅 Last 7 Days</summary>", ""]
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for commit in commits[:12]:
+        date, time = parse_commit_time(commit.get("date", ""))
+        grouped.setdefault(date, []).append({**commit, "time": time})
 
-    # Group commits by date
-    by_date = {}
-    for c in commits[:10]:
-        try:
-            dt = datetime.fromisoformat(c["date"].replace("Z", "+00:00"))
-            date_str = dt.strftime("%Y-%m-%d")
-            time_str = dt.strftime("%H:%M")
-        except Exception:
-            date_str = c["date"][:10]
-            time_str = c["date"][11:16]
-        if date_str not in by_date:
-            by_date[date_str] = []
-        by_date[date_str].append((time_str, c["repo"], c["sha"], c["url"], c["message"]))
-
-    # Render grouped: bold date header + 3-col table (Time | Repo | Commit)
-    for date_str in sorted(by_date.keys(), reverse=True):
-        rows = by_date[date_str]
-        lines.append(f"**{date_str}**")
+    lines = ["### Recent Commits", "", "<details open>", "<summary>Last 7 days</summary>", ""]
+    for date in sorted(grouped, reverse=True):
+        lines.extend([f"**{date}**", "", "| Time | Repo | Commit |", "|:-----|:-----|:-------|"])
+        for commit in grouped[date]:
+            repo = md_escape(short_repo_name(commit.get("repo", "")))[:24]
+            sha = md_escape(commit.get("sha", ""))
+            url = commit.get("url", "")
+            message = md_escape(commit.get("message", ""))[:76]
+            lines.append(f"| {commit['time']} | {repo} | [`{sha}`]({url}) {message} |")
         lines.append("")
-        lines.append("| Time | Repo | Commit |")
-        lines.append("|:-----|:-----|:-------|")
-        for time_str, repo, sha, url, msg in rows:
-            short_repo = repo[len(REPO_OWNER)+1:] if repo.startswith(REPO_OWNER) else repo[:15]
-            short_repo = short_repo[:15]
-            msg = msg[:60] + ("..." if len(msg) > 60 else "")
-            lines.append(f"| {time_str} | {short_repo} | [`{sha}`]({url}) {msg} |")
-        lines.append("")
-
-    lines.append("</details>")
-    return "\n".join(lines) + "\n\n---"
+    lines.extend(["</details>", "", "---"])
+    return "\n".join(lines)
 
 
 def replace_section(path: Path, start_marker: str, end_marker: str, new_content: str) -> bool:
-    text = path.read_text()
-    start_idx = text.find(start_marker)
-    end_idx = text.find(end_marker)
-    if start_idx == -1 or end_idx == -1:
+    text = path.read_text(encoding="utf-8")
+    start = text.find(start_marker)
+    end = text.find(end_marker)
+    if start == -1 or end == -1 or end < start:
         return False
 
-    end_idx += len(end_marker)
-    content = new_content.strip() if new_content.strip() else ""
-    if content:
-        new_text = text[:start_idx] + start_marker + "\n\n" + content + "\n\n" + end_marker + "\n\n" + text[end_idx:]
-    else:
-        new_text = text[:start_idx] + start_marker + "\n\n" + text[end_idx:]
-
-    if new_text != text:
-        path.write_text(new_text)
-        return True
-    return False
+    end += len(end_marker)
+    body = new_content.strip()
+    replacement = f"{start_marker}\n\n{body}\n\n{end_marker}"
+    new_text = f"{text[:start]}{replacement}{text[end:]}"
+    if new_text == text:
+        return False
+    path.write_text(new_text, encoding="utf-8")
+    return True
 
 
-def format_skyline() -> str:
-    skyline_path = Path("skyline.txt")
+def format_skyline(path: Path | None = None) -> str:
+    skyline_path = path or Path("skyline.txt")
     if not skyline_path.exists():
         return ""
-    content = skyline_path.read_text().strip()
+    content = skyline_path.read_text(encoding="utf-8").strip()
     if not content:
         return ""
-    return "### 🏔️ Skyline\n\n```\n" + content + "\n```\n\n---"
+    return f"### Skyline\n\n```\n{content}\n```\n\n---"
 
 
-def main():
-    data_path = Path("github_data.json")
-    ai_path = Path("ai_enhanced.json")
+def load_json(path: Path, default: Any) -> Any:
+    if not path.exists():
+        return default
+    return json.loads(path.read_text(encoding="utf-8"))
 
-    if not data_path.exists():
+
+def render_sections(data: dict[str, Any], ai_content: dict[str, Any], paths: Paths) -> dict[str, str]:
+    return {
+        "stats": format_stats(data),
+        "summary": format_weekly(data, ai_content),
+        "skyline": format_skyline(paths.skyline),
+        "repos": format_repos(data, ai_content),
+        "commits": format_commits(data),
+    }
+
+
+def main() -> int:
+    paths = Paths()
+    if not paths.data.exists():
         print("[ERROR] No github_data.json found. Run fetch-github-data.py first.")
         return 1
 
-    data = json.loads(data_path.read_text())
-    ai_content = json.loads(ai_path.read_text()) if ai_path.exists() else {}
+    data = load_json(paths.data, {})
+    ai_content = load_json(paths.ai, {})
+    print("Updating README dynamic sections")
 
-    print("📝 Updating README...")
-
-    readme = Path("README.md")
     changed = False
+    for name, content in render_sections(data, ai_content, paths).items():
+        start, end = SECTIONS[name]
+        if not content and name == "skyline":
+            continue
+        if replace_section(paths.readme, start, end, content):
+            print(f"updated: {name}")
+            changed = True
 
-    changed |= replace_section(readme, "<!-- START_DYNAMIC_STATS -->", "<!-- END_DYNAMIC_STATS -->", format_stats(data))
-    changed |= replace_section(readme, "<!-- START_DYNAMIC_SUMMARY -->", "<!-- END_DYNAMIC_SUMMARY -->", format_weekly(data, ai_content))
-    changed |= replace_section(readme, "<!-- START_DYNAMIC_SKYLINE -->", "<!-- END_DYNAMIC_SKYLINE -->", format_skyline())
-    changed |= replace_section(readme, "<!-- START_DYNAMIC_REPO_LIST -->", "<!-- END_DYNAMIC_REPO_LIST -->", format_repos(data, ai_content))
-    changed |= replace_section(readme, "<!-- START_DYNAMIC_COMMITS -->", "<!-- END_DYNAMIC_COMMITS -->", format_commits(data))
+    for path in (paths.data, paths.ai, paths.skyline):
+        path.unlink(missing_ok=True)
 
-    # Cleanup
-    for f in [data_path, ai_path, Path("skyline.txt")]:
-        f.unlink(missing_ok=True)
-
-    if changed:
-        print("✅ README updated successfully.")
-    else:
-        print("ℹ️  No changes needed.")
-
+    print("README updated." if changed else "No README changes needed.")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
