@@ -37,6 +37,25 @@ require_macos() {
     [[ "$(uname -s)" == "Darwin" ]] || die "This script only supports macOS."
 }
 
+check_architecture() {
+    local arch brew_prefix
+    arch="$(uname -m)"
+    case "$arch" in
+        arm64)
+            brew_prefix="/opt/homebrew"
+            ok "Architecture: Apple Silicon arm64"
+            ;;
+        x86_64)
+            brew_prefix="/usr/local"
+            warn "Architecture: Intel x86_64; Apple Silicon-only tooling will be skipped."
+            ;;
+        *)
+            die "Unsupported macOS architecture: $arch"
+            ;;
+    esac
+    ok "Expected Homebrew prefix: $brew_prefix"
+}
+
 print_system_report() {
     log "System report"
     printf 'User: %s\n' "${USER:-unknown}"
@@ -104,6 +123,7 @@ install_xcode_cli_tools() {
     fi
 
     warn "macOS /usr/bin/git is only a stub until Command Line Tools are installed."
+    warn "If installing manually, the correct command is: xcode-select --install"
     log "Opening the Command Line Tools GUI installer"
     xcode-select --install || true
     warn "If a Command Line Tools dialog opened, click Install, wait for it to finish, then rerun this script."
@@ -528,10 +548,11 @@ check_environment() {
 
 main() {
     require_macos
-    print_system_report
-    check_internet_access
     require_normal_admin_user
-    note_xcode_cli_tools
+    check_architecture
+    print_system_report
+    install_xcode_cli_tools
+    check_internet_access
     ensure_homebrew
     install_brew_bundle
     ensure_shell_env_blocks
