@@ -1,3 +1,7 @@
+> **Support / ad slot:** Want to support my work or leave a public message? Open the project website, choose **Encrypted Message**, and send any donation details: payment method, password red packet, Bitcoin wallet private key, your contact information, or any other sponsorship note. Your message is encrypted in the browser with my GPG public key, so only I can decrypt it.
+
+**Languages:** English (full, dynamically updated) · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
+
 <div align="center">
   <a href="https://gravatar.com/totallytriumph1a8c29e246" target="_blank">
     <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=160&d=identicon" alt="LIghtJUNction" width="128" height="128">
