@@ -88,9 +88,9 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 <!-- START_DYNAMIC_STATS -->
 
-| 📅 Joined | 📦 Repos | 👥 Followers | 👤 Following |
-|:---------:|:--------:|:------------:|:------------:|
-| 2022-06-06 (3yr 11mo) | **73** | **72** | **113** |
+| Joined | Repos | Followers | Following |
+|:------:|:-----:|:---------:|:---------:|
+| 2022-06-06 (3yr 12mo) | **74** | **72** | **115** |
 
 ---
 
@@ -98,17 +98,18 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 <!-- START_DYNAMIC_SUMMARY -->
 
-### 📈 This Week
+### This Week
 
-**51** commits across **5** repositories
+**52** commits across **8** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) | ▓▓▓▓▓░░░░░ 27 |
-| [LIghtJUNction/douyin](https://github.com/LIghtJUNction/douyin) | ▓▓░░░░░░░░ 12 |
-| [LIghtJUNction/MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 7 |
-| [LIghtJUNction/lightjunction](https://github.com/LIghtJUNction/lightjunction) | ░░░░░░░░░░ 4 |
-| [LIghtJUNction/HI_AGENT](https://github.com/LIghtJUNction/HI_AGENT) | ░░░░░░░░░░ 1 |
+| [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓▓▓▓░░░░░ 24 |
+| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 9 |
+| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 7 |
+| [OniMods](https://github.com/LIghtJUNction/OniMods) | ▓░░░░░░░░░ 6 |
+| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓░░░░░░░░░ 2 |
+| [douyin](https://github.com/LIghtJUNction/douyin) | ▓░░░░░░░░░ 2 |
 
 ---
 
@@ -116,94 +117,144 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 <!-- START_DYNAMIC_SKYLINE -->
 
+### Skyline
+
+```
+▓                             
+
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+
+                                                     
+                                                     
+                                       ╻             
+                                       ░   ╻         
+                                       ▓┃  ░      ╻  
+                      ╻ ╻        ╻     ░░  ░      ░╻ 
+                    ░ ░░░░░  ░  ░▒ ░  ▒░░░ ▒     ░░░░
+
+                                        ╻╻╻╻╻╻   ╻╻╽ 
+                                        ░░░░░░ ╻╻░░▒ 
+                ╻     ╻╻╻             ╻╻░░░░░░╻░░░▓▓ 
+                ░    ╻░░░             ░░░░░░░░░░░░░▒╻
+       ╻ ╻      ░╻   ░░░░             ░░░░░░░░░░░░░░░
+   ╻   ░ ░ ╻   ╻░░╻  ░░░░╻  ╻         ░░░░░░░░░░░▒░░▓
+ ░░░  ░░░░░░░ ░░░░░  ░░░░░  ░        ░░░░░░░░░░░░░░░▒
+
+ ╻╻╻╻ ╻╻╻╻╻┃╻╻╻ ╻╻╻╻╻╻.............................. 
+ ▓░░░╻░░░░░░░░░╻░░░░░░.............................. 
+ ░░░░▒░░░░░░░░░░▒░░░░░...............................
+ ░░░░░░░░░░▓▒░░░░░░░░░...............................
+╻░░░░░░░░░░▒░░░░░░░░░░...............................
+░░░░░░░░░░░▒▒░░░░░░░░░┃..............................
+░░░░░░░░░░░░▒░░░▒░░░░░░..............................
+```
+
+---
+
 <!-- END_DYNAMIC_SKYLINE -->
 
 <!-- START_DYNAMIC_REPO_LIST -->
 
-### 🚀 Latest Projects
+### Latest Projects
 
-<table><tr>
-<td align="center" valign="top">
+<table>
+<tr>
+<td align="left" valign="top" width="50%">
 
-#### 💚 dash.astrbot.men
-Astrbot Dashboard
+#### <a href="https://github.com/LIghtJUNction/MagicMihomo">MagicMihomo</a> <sub>SH</sub>
 
-⭐ 1 • 🍴 0 • Vue
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-31_
-
-</td>
-<td align="center" valign="top">
-
-#### 🐚 MagicMihomo
 MagicNet-mihomo
 
-⭐ 10 • 🍴 0 • Shell
+<sub>Shell / 10 stars / 0 forks / updated 2026-05-31</sub>
+
+<br>
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-30_
+</td>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/MagicNet">MagicNet</a> <sub>SH</sub>
+
+A Magisk module that lets you use the mihomo kernel&#x27;s TUN mode on Android. Built with KAM.
+
+<sub>Shell / 60 stars / 2 forks / updated 2026-05-31</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
-</tr><tr>
-<td align="center" valign="top">
+</tr>
+<tr>
+<td align="left" valign="top" width="50%">
 
-#### 🐍 douyin
-抖音非官方sdk/命令行工具
+#### <a href="https://github.com/LIghtJUNction/ResearchSkills">ResearchSkills</a> <sub>JS</sub>
 
-⭐ 1 • 🍴 0 • Python
+Unite the knowledge of the world&#x27;s top experts across every domain — to accelerate AI-driven scientific discovery.
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/douyin?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/douyin?style=flat-square&labelColor=0d1117&color=4ecdc4)
+<sub>JavaScript / 0 stars / 0 forks / updated 2026-05-31</sub>
 
-_Updated: 2026-05-30_
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/ResearchSkills?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/ResearchSkills?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
-<td align="center" valign="top">
+<td align="left" valign="top" width="50%">
 
-#### 🐚 lightjunction
-I'M LIghtJUNction
+#### <a href="https://github.com/LIghtJUNction/lightjunction">lightjunction</a> <sub>SH</sub>
 
-⭐ 2 • 🍴 0 • Shell
+I&#x27;M LIghtJUNction
+
+<sub>Shell / 2 stars / 0 forks / updated 2026-05-31</sub>
+
+<br>
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
-_Updated: 2026-05-30_
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/MagicSingBox">MagicSingBox</a> <sub>CODE</sub>
+
+MagicNet x sing-box
+
+<sub>Unknown / 0 stars / 0 forks / updated 2026-05-31</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicSingBox?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicSingBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
-</tr><tr>
-<td align="center" valign="top">
+<td align="left" valign="top" width="50%">
 
-#### 📄 OniMods
-oxygen not included
+#### <a href="https://github.com/LIghtJUNction/douyin">douyin</a> <sub>PY</sub>
 
-⭐ 4 • 🍴 0 • C#
+抖音非官方sdk/命令行工具
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
+<sub>Python / 2 stars / 0 forks / updated 2026-05-31</sub>
 
-_Updated: 2026-05-26_
+<br>
 
-</td>
-<td align="center" valign="top">
-
-#### 📄 HI_AGENT
-这是一个给agent阅读的仓库，人类免入
-
-⭐ 1 • 🍴 0 • Unknown
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/HI_AGENT?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-_Updated: 2026-05-25_
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/douyin?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/douyin?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
-</tr></table>
+</tr>
+</table>
 
 ---
 
@@ -211,25 +262,27 @@ _Updated: 2026-05-25_
 
 <!-- START_DYNAMIC_COMMITS -->
 
-### 📝 Recent Commits
+### Recent Commits
 
-<details>
-<summary>📅 Last 7 Days</summary>
+<details open>
+<summary>Last 7 days</summary>
 
-**2026-05-30**
+**2026-05-31**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 23:33 | MagicMihomo | [`2275e1a`](https://github.com/LIghtJUNction/MagicMihomo/commit/2275e1a6f9828dba28e0dede4cc85a3e025fe1c9) ruleset: update-ruleset |
-| 15:06 | douyin | [`2e0d5d7`](https://github.com/LIghtJUNction/douyin/commit/2e0d5d7fa437116317b652c8c6647bfce9946fa5) Add enterprise IM message sending |
-| 14:09 | douyin | [`52facae`](https://github.com/LIghtJUNction/douyin/commit/52facae009f9821cc6c22b94a3f6f6646b623934) Restore douyin-cli package name |
-| 13:49 | douyin | [`8a75ae0`](https://github.com/LIghtJUNction/douyin/commit/8a75ae043f06719f712b977fe6af330a665cb94d) Rename package to douyin |
-| 12:54 | lightjunction | [`c8ac5c5`](https://github.com/LIghtJUNction/lightjunction/commit/c8ac5c5a22da1f66d8ebd13239d0f55fe28fa60f) Fix npm audit vulnerabilities |
-| 12:41 | lightjunction | [`560a9b9`](https://github.com/LIghtJUNction/lightjunction/commit/560a9b9cb90311ad369f5cb6d5e2a70d2c8d5bb7) Add MacBook bootstrap script |
-| 10:11 | douyin | [`b74665b`](https://github.com/LIghtJUNction/douyin/commit/b74665b5969cabe42aef3b4313e2870b87ee0ef6) Bump version for Apple Silicon subtitle release |
-| 10:10 | douyin | [`7d2398b`](https://github.com/LIghtJUNction/douyin/commit/7d2398bc5988e8ac945b0dac2a9f1931808267e5) Add Apple Silicon subtitle backend |
-| 09:26 | douyin | [`9a44b5f`](https://github.com/LIghtJUNction/douyin/commit/9a44b5fb1b5c0be2ad495bd8aeb535e0e6655cd2) Clarify QR login OpenAPI requirements |
-| 09:24 | douyin | [`e4d6577`](https://github.com/LIghtJUNction/douyin/commit/e4d6577c694c6f2f914f5968a4c1087e9a47ae8b) Add hidden commands skill |
+| 23:38 | MagicMihomo | [`0565284`](https://github.com/LIghtJUNction/MagicMihomo/commit/0565284e795ae627fcec827c2cd096308e8ea141) ruleset: update-ruleset |
+| 20:29 | MagicNet | [`8fd9db0`](https://github.com/LIghtJUNction/MagicNet/commit/8fd9db0f70bec68551d38bb29b73aaaaea4ef489) fix: refresh action status after toggle |
+| 20:26 | ResearchSkills | [`5c3a726`](https://github.com/LIghtJUNction/ResearchSkills/commit/5c3a726041a44ab20c6177721cffb974ea576d77) chore: migrate skills to agents layout |
+| 19:51 | lightjunction | [`808efd0`](https://github.com/LIghtJUNction/lightjunction/commit/808efd048b67e3df03b736ac0984db333fbbb55a) Fix agent skills directory |
+| 19:46 | lightjunction | [`28ec9ef`](https://github.com/LIghtJUNction/lightjunction/commit/28ec9ef9ef1bdb398d26f501f28dee4cd8206516) Add agent skills install note |
+| 19:45 | MagicNet | [`994f6e2`](https://github.com/LIghtJUNction/MagicNet/commit/994f6e2b4497fb59155a0fd669d86dd49ecbeff9) refactor: share release hook helpers |
+| 19:21 | lightjunction | [`f03f527`](https://github.com/LIghtJUNction/lightjunction/commit/f03f527bc06a1c12dae86969f996249008517d55) Add AstrBot profile highlight |
+| 19:05 | lightjunction | [`882a08e`](https://github.com/LIghtJUNction/lightjunction/commit/882a08e31b28a3e7a15e98a8572953a854ff7d64) Refine profile README structure |
+| 18:36 | lightjunction | [`68d26d0`](https://github.com/LIghtJUNction/lightjunction/commit/68d26d07b9e446821e48d6c9c85005ba24351309) Add profile platform links |
+| 18:34 | lightjunction | [`9394ffa`](https://github.com/LIghtJUNction/lightjunction/commit/9394ffa82e7bfee969d9063952e3f01a9ea2118e) Fix Pages attestation permission |
+| 18:27 | lightjunction | [`02fea97`](https://github.com/LIghtJUNction/lightjunction/commit/02fea97c26cb8bbeacb2a2033cd600bbd87cb5c6) Update GitHub Actions workflows |
+| 18:26 | MagicNet | [`751efd3`](https://github.com/LIghtJUNction/MagicNet/commit/751efd377a93d7cbd66b71f576e0acfa6e06a8de) refactor: route runtime through kamfw |
 
 </details>
 
