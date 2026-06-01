@@ -75,6 +75,243 @@ let historyIndex = 0
 let encryptedMessage = ''
 let sending = false
 
+type VisualProfile = {
+    name: string
+    bg: [string, string, string]
+    text: string
+    muted: string
+    dim: string
+    accent: string
+    cyan: string
+    pink: string
+    amber: string
+    glowA: string
+    glowB: string
+    grid: string
+    border: string
+}
+
+const VISUAL_PROFILES: VisualProfile[] = [
+    {
+        name: 'phosphor',
+        bg: ['#050706', '#0a0f0d', '#07100d'],
+        text: '#d7efe5',
+        muted: '#779287',
+        dim: '#53655f',
+        accent: '#8df7bd',
+        cyan: '#6ee7f2',
+        pink: '#ff7894',
+        amber: '#ffc857',
+        glowA: 'rgba(110, 231, 242, 0.13)',
+        glowB: 'rgba(141, 247, 189, 0.12)',
+        grid: 'rgba(141, 247, 189, 0.04)',
+        border: 'rgba(141, 247, 189, 0.18)',
+    },
+    {
+        name: 'amberline',
+        bg: ['#100b06', '#19110a', '#071112'],
+        text: '#f2e6cd',
+        muted: '#a99776',
+        dim: '#746851',
+        accent: '#ffc857',
+        cyan: '#6bd6d6',
+        pink: '#ff6d7a',
+        amber: '#ffb547',
+        glowA: 'rgba(255, 200, 87, 0.16)',
+        glowB: 'rgba(107, 214, 214, 0.12)',
+        grid: 'rgba(255, 200, 87, 0.04)',
+        border: 'rgba(255, 200, 87, 0.2)',
+    },
+    {
+        name: 'coldboot',
+        bg: ['#050812', '#0a1420', '#071018'],
+        text: '#dbe8ff',
+        muted: '#8192aa',
+        dim: '#5c697c',
+        accent: '#9cc8ff',
+        cyan: '#76ffe3',
+        pink: '#ff7eb6',
+        amber: '#f5d06f',
+        glowA: 'rgba(118, 255, 227, 0.12)',
+        glowB: 'rgba(156, 200, 255, 0.14)',
+        grid: 'rgba(156, 200, 255, 0.04)',
+        border: 'rgba(156, 200, 255, 0.2)',
+    },
+    {
+        name: 'papercrt',
+        bg: ['#11100c', '#171914', '#0b1110'],
+        text: '#ece7d2',
+        muted: '#9f9a83',
+        dim: '#6c6a5b',
+        accent: '#c8f27a',
+        cyan: '#7bd5c7',
+        pink: '#f07a8a',
+        amber: '#e4b85b',
+        glowA: 'rgba(200, 242, 122, 0.12)',
+        glowB: 'rgba(123, 213, 199, 0.12)',
+        grid: 'rgba(236, 231, 210, 0.035)',
+        border: 'rgba(200, 242, 122, 0.18)',
+    },
+    {
+        name: 'oxblood',
+        bg: ['#120607', '#1c0b10', '#0a0d12'],
+        text: '#f1dce0',
+        muted: '#a7828a',
+        dim: '#715860',
+        accent: '#ff8aa1',
+        cyan: '#7ee0c3',
+        pink: '#ff5f7f',
+        amber: '#ffd166',
+        glowA: 'rgba(255, 138, 161, 0.14)',
+        glowB: 'rgba(126, 224, 195, 0.11)',
+        grid: 'rgba(255, 138, 161, 0.04)',
+        border: 'rgba(255, 138, 161, 0.2)',
+    },
+    {
+        name: 'mono',
+        bg: ['#050505', '#111111', '#070707'],
+        text: '#ededed',
+        muted: '#969696',
+        dim: '#666666',
+        accent: '#ffffff',
+        cyan: '#bdbdbd',
+        pink: '#d0d0d0',
+        amber: '#c8c8c8',
+        glowA: 'rgba(255, 255, 255, 0.09)',
+        glowB: 'rgba(180, 180, 180, 0.08)',
+        grid: 'rgba(255, 255, 255, 0.035)',
+        border: 'rgba(255, 255, 255, 0.18)',
+    },
+    {
+        name: 'violet-solder',
+        bg: ['#0c0711', '#161020', '#080d14'],
+        text: '#eadfff',
+        muted: '#9786b0',
+        dim: '#665a78',
+        accent: '#d8b4ff',
+        cyan: '#78f0ff',
+        pink: '#ff7ac8',
+        amber: '#f8d66d',
+        glowA: 'rgba(216, 180, 255, 0.13)',
+        glowB: 'rgba(120, 240, 255, 0.1)',
+        grid: 'rgba(216, 180, 255, 0.035)',
+        border: 'rgba(216, 180, 255, 0.2)',
+    },
+]
+
+const LAYOUTS = [
+    'split',
+    'reverse',
+    'stacked',
+    'stack-reverse',
+    'focus',
+    'offset',
+    'rail',
+    'wide-id',
+    'console-first',
+] as const
+
+const FRAMES = ['plain', 'double', 'cut', 'thin'] as const
+
+type VisualRng = {
+    seedHex: string
+    unit: () => number
+}
+
+function createVisualRng(): VisualRng {
+    const seed = new BigUint64Array(2)
+    crypto.getRandomValues(seed)
+    let state = (seed[0] << 64n) | seed[1]
+    if (state === 0n) state = 1n
+
+    return {
+        seedHex: state.toString(16).padStart(32, '0'),
+        unit: () => {
+            state = (state + 0x9e3779b97f4a7c15n) & 0xffffffffffffffffffffffffffffffffn
+            let z = state
+            z = (z ^ (z >> 30n)) * 0xbf58476d1ce4e5b9n
+            z = (z ^ (z >> 27n)) * 0x94d049bb133111ebn
+            z = z ^ (z >> 31n)
+            return Number(z & 0x1fffffffffffffn) / 0x20000000000000
+        },
+    }
+}
+
+function randomBetween(rng: VisualRng, min: number, max: number): number {
+    return min + (max - min) * rng.unit()
+}
+
+function randomItem<T>(rng: VisualRng, items: readonly T[]): T {
+    return items[Math.floor(rng.unit() * items.length)] ?? items[0]
+}
+
+function applyRandomVisuals(): void {
+    const rng = createVisualRng()
+    const profile = randomItem(rng, VISUAL_PROFILES)
+    const layout = randomItem(rng, LAYOUTS)
+    const frame = randomItem(rng, FRAMES)
+    const root = document.documentElement
+    const body = document.body
+    const compact = rng.unit() > 0.55
+    const roomy = !compact && rng.unit() > 0.5
+    const variables: Record<string, string> = {
+        '--bg-a': profile.bg[0],
+        '--bg-b': profile.bg[1],
+        '--bg-c': profile.bg[2],
+        '--bg-angle': `${Math.round(randomBetween(rng, 105, 165))}deg`,
+        '--text': profile.text,
+        '--muted': profile.muted,
+        '--dim': profile.dim,
+        '--accent': profile.accent,
+        '--cyan': profile.cyan,
+        '--pink': profile.pink,
+        '--amber': profile.amber,
+        '--glow-a': profile.glowA,
+        '--glow-b': profile.glowB,
+        '--glow-a-x': `${Math.round(randomBetween(rng, 66, 92))}%`,
+        '--glow-a-y': `${Math.round(randomBetween(rng, 8, 32))}%`,
+        '--glow-b-x': `${Math.round(randomBetween(rng, 6, 28))}%`,
+        '--glow-b-y': `${Math.round(randomBetween(rng, 62, 90))}%`,
+        '--grid-color': profile.grid,
+        '--grid-size': `${Math.round(randomBetween(rng, 28, 64))}px`,
+        '--grid-tilt': `${randomBetween(rng, -8, 8).toFixed(2)}deg`,
+        '--scan-angle': `${Math.round(randomBetween(rng, -4, 4))}deg`,
+        '--texture-alpha': randomBetween(rng, 0.08, 0.24).toFixed(2),
+        '--panel-alpha': randomBetween(rng, 0.74, 0.9).toFixed(2),
+        '--panel-radius': randomItem(rng, ['0px', '2px', '6px', '10px', '18px']),
+        '--panel-border': profile.border,
+        '--panel-shadow': randomItem(rng, [
+            '0 24px 70px rgba(0, 0, 0, 0.42)',
+            '0 12px 36px rgba(0, 0, 0, 0.58), inset 0 0 34px rgba(255, 255, 255, 0.025)',
+            '14px 14px 0 rgba(0, 0, 0, 0.34)',
+            '0 34px 90px rgba(0, 0, 0, 0.5), 0 0 36px color-mix(in srgb, var(--accent) 12%, transparent)',
+        ]),
+        '--app-gap': `${Math.round(randomBetween(rng, compact ? 8 : 16, roomy ? 34 : 24))}px`,
+        '--app-padding': `${Math.round(randomBetween(rng, compact ? 8 : 14, roomy ? 34 : 22))}px`,
+        '--identity-padding': `${Math.round(randomBetween(rng, compact ? 14 : 18, roomy ? 34 : 26))}px`,
+        '--identity-width': `minmax(${Math.round(randomBetween(rng, 230, 340))}px, ${Math.round(randomBetween(rng, 300, 430))}px)`,
+        '--terminal-width': `minmax(0, ${randomBetween(rng, 1.1, 2.2).toFixed(2)}fr)`,
+        '--terminal-rows': `${Math.round(randomBetween(rng, 42, 68))}px minmax(0, 1fr) ${Math.round(randomBetween(rng, 42, 64))}px`,
+        '--avatar-size': `${Math.round(randomBetween(rng, 58, 124))}px`,
+        '--avatar-radius': randomItem(rng, ['0px', '8px', '18px', '999px']),
+        '--brand-size': `clamp(${Math.round(randomBetween(rng, 24, 44))}px, ${randomBetween(rng, 3.8, 8.8).toFixed(1)}vw, ${Math.round(randomBetween(rng, 46, 92))}px)`,
+        '--brand-case': randomItem(rng, ['none', 'uppercase']),
+        '--terminal-skew': rng.unit() > 0.78 ? `${randomBetween(rng, -0.9, 0.9).toFixed(2)}deg` : '0deg',
+        '--identity-skew': rng.unit() > 0.78 ? `${randomBetween(rng, -0.9, 0.9).toFixed(2)}deg` : '0deg',
+        '--identity-offset': `${Math.round(randomBetween(rng, 10, 36))}px`,
+        '--terminal-offset': `${Math.round(randomBetween(rng, -24, -4))}px`,
+    }
+
+    for (const [name, value] of Object.entries(variables)) {
+        root.style.setProperty(name, value)
+    }
+
+    body.dataset.theme = profile.name
+    body.dataset.layout = layout
+    body.dataset.frame = frame
+    body.dataset.seed = rng.seedHex
+}
+
 const drag = {
     active: false,
     x: 0,
@@ -500,6 +737,7 @@ function boot(): void {
     writeLine('Personal terminal. PGP messages. Linux bootstrap notes. Type <kbd>help</kbd>.', 'muted')
 }
 
+applyRandomVisuals()
 bindChrome()
 bindSecureCard()
 boot()
