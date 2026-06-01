@@ -37,9 +37,18 @@ The skills live under `.agents/skills/` and are meant to capture my reusable wor
 
 Non-CS background, but I learn by shipping. My projects usually start from a personal pain point: setting up fresh machines behind difficult networks, making agents easier to operate, automating data collection, or turning a rough script into something another person can run.
 
+<details>
+<summary>Early technical interests</summary>
+
+I have always been drawn to operating systems, especially Linux. Earlier on, I was obsessed with flashing and replacing systems on both phones and computers; I even managed to install an ARM build of Windows on an old Android phone.
+
+For most of high school, I did not have access to today's level of AI tooling. Around my final year, I tried ChatGPT 3.5 for the first time and immediately felt that artificial intelligence would reshape society at a fundamental level.
+
+</details>
+
 | Snapshot | |
 |:--|:--|
-| Education | Zhengzhou University, bachelor's degree |
+| Education | Zhengzhou University |
 | Looking for | Remote or hybrid engineering opportunities |
 | Strongest signal | Debugging real systems, not just demos |
 | Open-source focus | AstrBot ecosystem, agent tooling, Linux automation |

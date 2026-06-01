@@ -33,9 +33,18 @@ Skills は `.agents/skills/` にあり、再利用可能な workflows、preferen
 
 私は CS 専攻ではありませんが、実際に出荷しながら学びます。私のプロジェクトは多くの場合、個人的な課題から始まります。難しいネットワーク環境で新しいマシンをセットアップすること、agents を運用しやすくすること、データ収集を自動化すること、粗いスクリプトを他人も実行できるツールにすることです。
 
+<details>
+<summary>初期の技術的関心</summary>
+
+私は昔からオペレーティングシステムが好きで、特に Linux に強く惹かれていました。以前はスマートフォンや PC に別のシステムを入れることに夢中で、古い Android スマートフォンに ARM 版 Windows を入れたこともあります。
+
+高校時代のほとんどは、今ほど強力な人工知能ツールがありませんでした。高校三年生のころに初めて ChatGPT 3.5 を体験し、その時点で人工知能は将来、社会を根本から変えると感じました。
+
+</details>
+
 | Snapshot | |
 |:--|:--|
-| Education | Zhengzhou University, bachelor's degree |
+| Education | Zhengzhou University |
 | Looking for | Remote or hybrid engineering opportunities |
 | Strongest signal | Debugging real systems, not just demos |
 | Open-source focus | AstrBot ecosystem, agent tooling, Linux automation |

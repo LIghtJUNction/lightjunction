@@ -33,9 +33,18 @@ Skills는 `.agents/skills/` 아래에 있으며, 재사용 가능한 workflows, 
 
 저는 CS 전공자는 아니지만, 실제로 배포하면서 배웁니다. 제 프로젝트는 대개 개인적인 문제에서 시작합니다. 어려운 네트워크 환경에서 새 머신을 세팅하거나, agents를 더 쉽게 운영하거나, 데이터 수집을 자동화하거나, 거친 스크립트를 다른 사람도 실행할 수 있는 도구로 만드는 일입니다.
 
+<details>
+<summary>초기 기술 관심사</summary>
+
+저는 운영체제를 늘 좋아했고, 특히 Linux에 끌렸습니다. 예전에는 휴대폰과 컴퓨터에 여러 시스템을 설치하고 바꾸는 일에 깊이 빠져 있었습니다. 오래된 Android 휴대폰에 ARM 빌드의 Windows를 설치해 본 적도 있습니다.
+
+제 고등학교 시절 대부분에는 지금처럼 강력한 인공지능 도구가 없었습니다. 고3 무렵 ChatGPT 3.5를 처음 써 보고, 인공지능이 앞으로 사회를 근본적으로 바꿀 것이라고 바로 판단했습니다.
+
+</details>
+
 | Snapshot | |
 |:--|:--|
-| Education | Zhengzhou University, bachelor's degree |
+| Education | Zhengzhou University |
 | Looking for | Remote or hybrid engineering opportunities |
 | Strongest signal | Debugging real systems, not just demos |
 | Open-source focus | AstrBot ecosystem, agent tooling, Linux automation |
