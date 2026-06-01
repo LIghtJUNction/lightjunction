@@ -314,7 +314,7 @@ It can install daed for transparent proxy workflows, configure CachyOS repositor
 curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-macbook.sh | bash
 ```
 
-Run as a normal Administrator user, not through `sudo`. Homebrew refuses root. On a fresh Mac, the script opens the Xcode Command Line Tools installer first because Homebrew needs Apple's `git`.
+Run as a normal Administrator user, not through `sudo`. Homebrew refuses root. On a fresh Mac, the script opens the Xcode Command Line Tools installer first because Homebrew needs Apple's `git`. If a previous Command Line Tools install left `/Library/Developer/CommandLineTools` behind without registering it, the script clears that stale directory and resets `xcode-select` before retrying.
 
 ### SSH public key deployment
 

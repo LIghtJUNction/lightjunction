@@ -129,11 +129,30 @@ note_xcode_cli_tools() {
     fi
 }
 
+clean_failed_xcode_cli_tools_install() {
+    local clt_dir="/Library/Developer/CommandLineTools"
+
+    if xcode-select -p >/dev/null 2>&1; then
+        return
+    fi
+    if [[ ! -e "$clt_dir" ]]; then
+        return
+    fi
+
+    warn "Command Line Tools is not registered, but $clt_dir already exists."
+    warn "Removing the likely failed installer residue before retrying."
+    sudo rm -rf "$clt_dir"
+    sudo xcode-select --reset || true
+    ok "Cleared stale Command Line Tools path"
+}
+
 install_xcode_cli_tools() {
     if xcode-select -p >/dev/null 2>&1; then
         ok "Xcode Command Line Tools already installed"
         return
     fi
+
+    clean_failed_xcode_cli_tools_install
 
     warn "macOS /usr/bin/git is only a stub until Command Line Tools are installed."
     warn "If installing manually, the correct command is: xcode-select --install"
