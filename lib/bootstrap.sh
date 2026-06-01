@@ -5,12 +5,19 @@
 __lj_bootstrap_sh_loaded=1
 
 if ! declare -f lj_err >/dev/null 2>&1; then
-    # shellcheck source=lib/common.sh
-    source "${BASH_SOURCE[0]%/*}/common.sh"
+    if [[ -n "${BASH_SOURCE[0]:-}" && "${BASH_SOURCE[0]}" != "bash" && "${BASH_SOURCE[0]}" != "-" && -f "${BASH_SOURCE[0]%/*}/common.sh" ]]; then
+        # shellcheck source=lib/common.sh
+        source "${BASH_SOURCE[0]%/*}/common.sh"
+    elif [[ -f "lib/common.sh" ]]; then
+        # shellcheck source=lib/common.sh
+        source "lib/common.sh"
+    else
+        lj_err() { printf '%s\n' "$*" >&2; }
+    fi
 fi
 
 LJ_TMP_ROOT="${TMPDIR:-/tmp}/lightjunction-bootstrap.$$"
-declare -ga SUDO=()
+SUDO=()
 # shellcheck disable=SC2034 # Exported by convention for scripts sourcing this helper.
 [[ "$(id -u)" -ne 0 ]] && SUDO=(sudo)
 

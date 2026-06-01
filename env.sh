@@ -6,8 +6,14 @@
 [[ -n "${__ENV_SH_LOADED:-}" ]] && return 0
 __ENV_SH_LOADED=1
 
-: "${SCRIPT_PATH:=${BASH_SOURCE[0]}}"
-: "${SCRIPT_DIR:=$(cd "$(dirname "$SCRIPT_PATH")" && pwd)}"
+if [[ -z "${SCRIPT_PATH:-}" && -n "${BASH_SOURCE[0]:-}" && "${BASH_SOURCE[0]}" != "bash" && "${BASH_SOURCE[0]}" != "-" ]]; then
+    SCRIPT_PATH="${BASH_SOURCE[0]}"
+fi
+if [[ -z "${SCRIPT_DIR:-}" && -n "${SCRIPT_PATH:-}" && -f "$SCRIPT_PATH" ]]; then
+    SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
+fi
+: "${SCRIPT_PATH:=}"
+: "${SCRIPT_DIR:=$PWD}"
 [[ -n "${CI:-}" || ! -t 0 ]] && : "${NON_INTERACTIVE:=1}" || : "${NON_INTERACTIVE:=0}"
 export LC_ALL=C
 if [[ "${NO_COLOR:-0}" -ne 0 || "${TERM:-}" == "dumb" || ! -t 1 ]]; then

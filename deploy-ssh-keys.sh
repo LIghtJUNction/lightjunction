@@ -9,13 +9,16 @@ KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
 REMOTE_BASE_URL="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
 
 # ==================== BOOTSTRAP ====================
-declare -gA __IMPORTED_FILES
+__IMPORTED_FILES=()
 
 import() {
     local file="${1:?}" sha256="${2:-}" url
     url="$REMOTE_BASE_URL/$file"
-    [[ "${__IMPORTED_FILES[$url]:-}" == "1" ]] && return 0
-    __IMPORTED_FILES[$url]=1
+    local imported
+    for imported in "${__IMPORTED_FILES[@]}"; do
+        [[ "$imported" == "$url" ]] && return 0
+    done
+    __IMPORTED_FILES+=("$url")
     local tmp; tmp=$(mktemp) || exit 1
     curl -fsSL --connect-timeout 10 "$url" -o "$tmp" || { rm -f "$tmp"; exit 1; }
     if [[ -n "$sha256" ]]; then

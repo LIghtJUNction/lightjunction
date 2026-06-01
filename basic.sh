@@ -16,8 +16,7 @@
 #   self "$@"
 #   EOF
 
-# Track imported files (url -> 1)
-declare -gA __IMPORTED_FILES
+# Track imported files (indexed URL list for Bash 3.2 compatibility)
 __IMPORTED_FILES=()
 
 # Verify downloaded file content against expected SHA256
@@ -42,8 +41,11 @@ import() {
     local sha256="${6:-}" url="$base_url/$user/$repo/$branch/$file"
 
     # Skip if already imported (by URL)
-    [[ "${__IMPORTED_FILES[$url]:-}" == "1" ]] && return 0
-    __IMPORTED_FILES[$url]=1
+    local imported
+    for imported in "${__IMPORTED_FILES[@]}"; do
+        [[ "$imported" == "$url" ]] && return 0
+    done
+    __IMPORTED_FILES+=("$url")
 
     # Download to temp file and source
     local tmpfile

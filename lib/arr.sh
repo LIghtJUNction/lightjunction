@@ -22,8 +22,13 @@
 [[ -n "${__arr_sh_loaded:-}" ]] && return 0
 __arr_sh_loaded=1
 
-# shellcheck source=lib/common.sh
-source "${BASH_SOURCE[0]%/*}/common.sh"
+if [[ -n "${BASH_SOURCE[0]:-}" && "${BASH_SOURCE[0]}" != "bash" && "${BASH_SOURCE[0]}" != "-" && -f "${BASH_SOURCE[0]%/*}/common.sh" ]]; then
+    # shellcheck source=lib/common.sh
+    source "${BASH_SOURCE[0]%/*}/common.sh"
+elif [[ -f "lib/common.sh" ]]; then
+    # shellcheck source=lib/common.sh
+    source "lib/common.sh"
+fi
 
 arr_join() {
     local delim="${1:?}" && shift

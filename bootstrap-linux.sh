@@ -3,15 +3,23 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR=""
+if [[ -n "${BASH_SOURCE[0]:-}" && "${BASH_SOURCE[0]}" != "bash" && "${BASH_SOURCE[0]}" != "-" && -f "${BASH_SOURCE[0]}" ]]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+fi
 REMOTE_BASE_URL="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
 
 load_lib() {
     local file="${1:?}" local_path tmp
-    local_path="$SCRIPT_DIR/$file"
-    if [[ -f "$local_path" ]]; then
+    local_path="${SCRIPT_DIR:+$SCRIPT_DIR/}$file"
+    if [[ -n "$SCRIPT_DIR" && -f "$local_path" ]]; then
         # shellcheck source=/dev/null
         source "$local_path"
+        return
+    fi
+    if [[ -f "$file" ]]; then
+        # shellcheck source=/dev/null
+        source "$file"
         return
     fi
     tmp="$(mktemp)"
