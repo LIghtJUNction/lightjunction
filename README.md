@@ -118,7 +118,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 | Joined | Repos | Followers | Following |
 |:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (3yr 12mo) | **74** | **72** | **115** |
+| 2022-06-06 (3yr 12mo) | **74** | **73** | **115** |
 
 ---
 
@@ -128,16 +128,16 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 ### This Week
 
-**52** commits across **8** repositories
+**106** commits across **9** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓▓▓▓░░░░░ 24 |
-| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 9 |
-| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 7 |
-| [OniMods](https://github.com/LIghtJUNction/OniMods) | ▓░░░░░░░░░ 6 |
-| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓░░░░░░░░░ 2 |
-| [douyin](https://github.com/LIghtJUNction/douyin) | ▓░░░░░░░░░ 2 |
+| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓▓▓▓░░░░░░ 42 |
+| [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓▓░░░░░░░ 27 |
+| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓░░░░░░░░░ 13 |
+| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 12 |
+| [lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓░░░░░░░░░ 5 |
+| [douyin](https://github.com/LIghtJUNction/douyin) | ▓░░░░░░░░░ 3 |
 
 ---
 
@@ -178,8 +178,8 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
  ▓░░░╻░░░░░░░░░╻░░░░░░.............................. 
  ░░░░▒░░░░░░░░░░▒░░░░░...............................
  ░░░░░░░░░░▓▒░░░░░░░░░...............................
-╻░░░░░░░░░░▒░░░░░░░░░░...............................
-░░░░░░░░░░░▒▒░░░░░░░░░┃..............................
+╻░░░░░░░░░░▒░░░░░░░░░░┃..............................
+░░░░░░░░░░░▒▒░░░░░░░░░▓..............................
 ░░░░░░░░░░░░▒░░░▒░░░░░░..............................
 ```
 
@@ -195,25 +195,11 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/MagicMihomo">MagicMihomo</a> <sub>SH</sub>
-
-MagicNet-mihomo
-
-<sub>Shell / 10 stars / 0 forks / updated 2026-05-31</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
 #### <a href="https://github.com/LIghtJUNction/MagicNet">MagicNet</a> <sub>SH</sub>
 
 A Magisk module that lets you use the mihomo kernel&#x27;s TUN mode on Android. Built with KAM.
 
-<sub>Shell / 60 stars / 2 forks / updated 2026-05-31</sub>
+<sub>Shell / 61 stars / 2 forks / updated 2026-06-02</sub>
 
 <br>
 
@@ -221,20 +207,34 @@ A Magisk module that lets you use the mihomo kernel&#x27;s TUN mode on Android. 
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/MagicMihomo">MagicMihomo</a> <sub>SH</sub>
+
+MagicNet-mihomo
+
+<sub>Shell / 10 stars / 0 forks / updated 2026-06-01</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
 </tr>
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/ResearchSkills">ResearchSkills</a> <sub>JS</sub>
+#### <a href="https://github.com/LIghtJUNction/MagicSingBox">MagicSingBox</a> <sub>CODE</sub>
 
-Unite the knowledge of the world&#x27;s top experts across every domain — to accelerate AI-driven scientific discovery.
+MagicNet x sing-box
 
-<sub>JavaScript / 0 stars / 0 forks / updated 2026-05-31</sub>
+<sub>Unknown / 0 stars / 0 forks / updated 2026-06-01</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/ResearchSkills?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/ResearchSkills?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicSingBox?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicSingBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 <td align="left" valign="top" width="50%">
@@ -243,7 +243,7 @@ Unite the knowledge of the world&#x27;s top experts across every domain — to a
 
 I&#x27;M LIghtJUNction
 
-<sub>Shell / 2 stars / 0 forks / updated 2026-05-31</sub>
+<sub>Shell / 2 stars / 0 forks / updated 2026-06-01</sub>
 
 <br>
 
@@ -255,30 +255,30 @@ I&#x27;M LIghtJUNction
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/MagicSingBox">MagicSingBox</a> <sub>CODE</sub>
+#### <a href="https://github.com/LIghtJUNction/lmm.best">lmm.best</a> <sub>TS</sub>
 
-MagicNet x sing-box
+LMM.best: Simply the best Large Multimodal Models, ranked and reviewed.
 
-<sub>Unknown / 0 stars / 0 forks / updated 2026-05-31</sub>
+<sub>TypeScript / 1 stars / 0 forks / updated 2026-06-01</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicSingBox?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicSingBox?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lmm.best?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lmm.best?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/douyin">douyin</a> <sub>PY</sub>
+#### <a href="https://github.com/LIghtJUNction/OniMods">OniMods</a> <sub>CODE</sub>
 
-抖音非官方sdk/命令行工具
+oxygen not included
 
-<sub>Python / 2 stars / 0 forks / updated 2026-05-31</sub>
+<sub>C# / 5 stars / 0 forks / updated 2026-06-01</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/douyin?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/douyin?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
@@ -295,22 +295,27 @@ MagicNet x sing-box
 <details open>
 <summary>Last 7 days</summary>
 
-**2026-05-31**
+**2026-06-02**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 23:38 | MagicMihomo | [`0565284`](https://github.com/LIghtJUNction/MagicMihomo/commit/0565284e795ae627fcec827c2cd096308e8ea141) ruleset: update-ruleset |
-| 20:29 | MagicNet | [`8fd9db0`](https://github.com/LIghtJUNction/MagicNet/commit/8fd9db0f70bec68551d38bb29b73aaaaea4ef489) fix: refresh action status after toggle |
-| 20:26 | ResearchSkills | [`5c3a726`](https://github.com/LIghtJUNction/ResearchSkills/commit/5c3a726041a44ab20c6177721cffb974ea576d77) chore: migrate skills to agents layout |
-| 19:51 | lightjunction | [`808efd0`](https://github.com/LIghtJUNction/lightjunction/commit/808efd048b67e3df03b736ac0984db333fbbb55a) Fix agent skills directory |
-| 19:46 | lightjunction | [`28ec9ef`](https://github.com/LIghtJUNction/lightjunction/commit/28ec9ef9ef1bdb398d26f501f28dee4cd8206516) Add agent skills install note |
-| 19:45 | MagicNet | [`994f6e2`](https://github.com/LIghtJUNction/MagicNet/commit/994f6e2b4497fb59155a0fd669d86dd49ecbeff9) refactor: share release hook helpers |
-| 19:21 | lightjunction | [`f03f527`](https://github.com/LIghtJUNction/lightjunction/commit/f03f527bc06a1c12dae86969f996249008517d55) Add AstrBot profile highlight |
-| 19:05 | lightjunction | [`882a08e`](https://github.com/LIghtJUNction/lightjunction/commit/882a08e31b28a3e7a15e98a8572953a854ff7d64) Refine profile README structure |
-| 18:36 | lightjunction | [`68d26d0`](https://github.com/LIghtJUNction/lightjunction/commit/68d26d07b9e446821e48d6c9c85005ba24351309) Add profile platform links |
-| 18:34 | lightjunction | [`9394ffa`](https://github.com/LIghtJUNction/lightjunction/commit/9394ffa82e7bfee969d9063952e3f01a9ea2118e) Fix Pages attestation permission |
-| 18:27 | lightjunction | [`02fea97`](https://github.com/LIghtJUNction/lightjunction/commit/02fea97c26cb8bbeacb2a2033cd600bbd87cb5c6) Update GitHub Actions workflows |
-| 18:26 | MagicNet | [`751efd3`](https://github.com/LIghtJUNction/MagicNet/commit/751efd377a93d7cbd66b71f576e0acfa6e06a8de) refactor: route runtime through kamfw |
+| 01:13 | MagicNet | [`03ee054`](https://github.com/LIghtJUNction/MagicNet/commit/03ee054112d806f59aaf6b9f782a7589b111d2c7) auto/sync |
+
+**2026-06-01**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 23:52 | MagicMihomo | [`658b69d`](https://github.com/LIghtJUNction/MagicMihomo/commit/658b69dbb4a4eb11dbce1573a5c6f4812800100f) ruleset: update-ruleset |
+| 22:44 | MagicNet | [`2e9e4e6`](https://github.com/LIghtJUNction/MagicNet/commit/2e9e4e69052e7cd1446bd576d2244ed2f8e8e880) feat: wire kamfw watchdog notify and fswatch |
+| 22:12 | MagicNet | [`3e5d371`](https://github.com/LIghtJUNction/MagicNet/commit/3e5d371e1937de81576bc86939c69dff359ca529) auto/sync |
+| 20:42 | MagicNet | [`ce45b7e`](https://github.com/LIghtJUNction/MagicNet/commit/ce45b7ef5c81ebd4cf5e0195a70a1ca0461c1024) feat: add tun-first management panel and cli |
+| 19:46 | MagicNet | [`0fd7133`](https://github.com/LIghtJUNction/MagicNet/commit/0fd7133a6a97babf4f94af81d3414e39f4135785) fix: pass signing flags into build hook |
+| 19:40 | MagicNet | [`f5b1b9e`](https://github.com/LIghtJUNction/MagicNet/commit/f5b1b9e7c11790e70220b263d9c6c5b0cb30c22a) chore: release MagicNet v1.0.39 |
+| 19:37 | MagicNet | [`3363168`](https://github.com/LIghtJUNction/MagicNet/commit/33631689533466eee4c5f79d87108594fb5f58f7) fix: sync readme and release signing gate |
+| 19:29 | MagicNet | [`24967ee`](https://github.com/LIghtJUNction/MagicNet/commit/24967eeafd61d416333b3c79871d065d6a64a948) style: improve installer prompts |
+| 19:15 | MagicNet | [`80ab397`](https://github.com/LIghtJUNction/MagicNet/commit/80ab397e4a39d4a092bd49a9e3ba4373822cab1c) fix: detect Android hotspot local-network interfaces |
+| 19:04 | MagicNet | [`a151f38`](https://github.com/LIghtJUNction/MagicNet/commit/a151f38376e58f1f36e53beae19b75a0af407f6b) fix: release MagicNet v1.0.37 |
+| 19:04 | MagicSingBox | [`9b4738b`](https://github.com/LIghtJUNction/MagicSingBox/commit/9b4738b350ffa3aa18ddde631a42c1561bb81de8) fix: improve VPN coexistence routing |
 
 </details>
 
