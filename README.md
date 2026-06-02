@@ -2,21 +2,6 @@
 
 **Languages:** English (full, dynamically updated) · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
 
-<details>
-<summary>Open the live terminal website</summary>
-
-<p>
-  <a href="https://lightjunction.github.io/lightjunction/" target="_blank" rel="noopener noreferrer">
-    https://lightjunction.github.io/lightjunction/
-  </a>
-</p>
-
-<iframe src="https://lightjunction.github.io/lightjunction/" width="100%" height="620" title="LIghtJUNction terminal website"></iframe>
-
-<p><sub>If your Markdown renderer blocks embedded iframes, use the link above.</sub></p>
-
-</details>
-
 <div align="center">
   <a href="https://gravatar.com/totallytriumph1a8c29e246" target="_blank">
     <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=160&d=identicon" alt="LIghtJUNction" width="128" height="128">
