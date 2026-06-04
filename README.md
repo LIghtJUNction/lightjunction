@@ -103,7 +103,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 | Joined | Repos | Followers | Following |
 |:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (3yr 12mo) | **75** | **73** | **115** |
+| 2022-06-06 (3yr 12mo) | **75** | **72** | **115** |
 
 ---
 
@@ -113,15 +113,15 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 ### This Week
 
-**157** commits across **9** repositories
+**85** commits across **9** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓▓▓▓▓▓░░░░ 87 |
-| [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓░░░░░░░░ 28 |
-| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓░░░░░░░░░ 14 |
-| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 12 |
-| [used-car-video-copywriting-skill](https://github.com/LIghtJUNction/used-car-video-copywriting-skill) | ▓░░░░░░░░░ 6 |
+| [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓▓░░░░░░░ 28 |
+| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 18 |
+| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓▓░░░░░░░░ 17 |
+| [used-car-video-copywriting-skill](https://github.com/LIghtJUNction/used-car-video-copywriting-skill) | ▓░░░░░░░░░ 7 |
+| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 5 |
 | [lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓░░░░░░░░░ 5 |
 
 ---
@@ -160,12 +160,12 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
  ░░░  ░░░░░░░ ░░░░░  ░░░░░  ░        ░░░░░░░░░░░░░░░▒
 
  ╻╻╻╻ ╻╻╻╻╻┃╻╻╻ ╻╻╻╻╻╻.............................. 
- ▓░░░╻░░░░░░░░░╻░░░░░░.............................. 
- ░░░░▒░░░░░░░░░░▒░░░░░...............................
- ░░░░░░░░░░▓▒░░░░░░░░░┃..............................
+ ▒░░░╻░░░░░░░░░╻░░░░░░.............................. 
+ ░░░░░░░░░░░░░░░░░░░░░╻..............................
+ ░░░░░░░░░░▓▒░░░░░░░░░▓..............................
 ╻░░░░░░░░░░▒░░░░░░░░░░▓..............................
-░░░░░░░░░░░▒▒░░░░░░░░░▓..............................
-░░░░░░░░░░░░▒░░░▒░░░░░░..............................
+░░░░░░░░░░░░░░░░░░░░░░▓..............................
+░░░░░░░░░░░░░░░░░░░░░░░..............................
 ```
 
 ---
@@ -182,9 +182,9 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 #### <a href="https://github.com/LIghtJUNction/MagicNet">MagicNet</a> <sub>SH</sub>
 
-A Magisk module that lets you use the mihomo kernel&#x27;s TUN mode on Android. Built with KAM.
+A module for treating internet addiction.
 
-<sub>Shell / 64 stars / 2 forks / updated 2026-06-03</sub>
+<sub>Shell / 67 stars / 2 forks / updated 2026-06-04</sub>
 
 <br>
 
@@ -198,7 +198,7 @@ A Magisk module that lets you use the mihomo kernel&#x27;s TUN mode on Android. 
 
 MagicNet-mihomo
 
-<sub>Shell / 10 stars / 0 forks / updated 2026-06-03</sub>
+<sub>Shell / 10 stars / 0 forks / updated 2026-06-04</sub>
 
 <br>
 
@@ -210,11 +210,11 @@ MagicNet-mihomo
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/MagicSingBox">MagicSingBox</a> <sub>HTML</sub>
+#### <a href="https://github.com/LIghtJUNction/MagicSingBox">MagicSingBox</a> <sub>CODE</sub>
 
 MagicNet x sing-box
 
-<sub>HTML / 0 stars / 0 forks / updated 2026-06-02</sub>
+<sub>Unknown / 0 stars / 0 forks / updated 2026-06-03</sub>
 
 <br>
 
@@ -228,7 +228,7 @@ MagicNet x sing-box
 
 Agent skill for structured used-car short-video copywriting
 
-<sub>Unknown / 0 stars / 0 forks / updated 2026-06-02</sub>
+<sub>Unknown / 0 stars / 0 forks / updated 2026-06-03</sub>
 
 <br>
 
@@ -244,7 +244,7 @@ Agent skill for structured used-car short-video copywriting
 
 I&#x27;M LIghtJUNction
 
-<sub>Shell / 2 stars / 0 forks / updated 2026-06-02</sub>
+<sub>Shell / 2 stars / 0 forks / updated 2026-06-03</sub>
 
 <br>
 
@@ -280,27 +280,27 @@ LMM.best: Simply the best Large Multimodal Models, ranked and reviewed.
 <details open>
 <summary>Last 7 days</summary>
 
+**2026-06-04**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 00:13 | MagicMihomo | [`c56b55e`](https://github.com/LIghtJUNction/MagicMihomo/commit/c56b55e666a41e8bd32d048de7fd9f2fd04ba07e) ruleset: update-ruleset |
+
 **2026-06-03**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 00:11 | MagicMihomo | [`f81fba5`](https://github.com/LIghtJUNction/MagicMihomo/commit/f81fba5cd4978bf9643319439fe42b71d3d2e0a3) ruleset: update-ruleset |
-
-**2026-06-02**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:30 | MagicNet | [`df54970`](https://github.com/LIghtJUNction/MagicNet/commit/df5497009659a914759511683ad872d67e763d84) Improve WebUI responsiveness and provider parsing |
-| 23:09 | MagicNet | [`4e18f7c`](https://github.com/LIghtJUNction/MagicNet/commit/4e18f7c799fed036912573047465d7f5f5dac598) Add MCP config and free provider filter |
-| 22:22 | MagicNet | [`b767e6a`](https://github.com/LIghtJUNction/MagicNet/commit/b767e6ab4915856e776c305efbe122f6bc0e950f) Add validated config editor |
-| 21:59 | MagicNet | [`7ae7656`](https://github.com/LIghtJUNction/MagicNet/commit/7ae76565fe6208e8e80b909bee44d871762502ee) Rewrite module control tools in Rust |
-| 21:32 | MagicNet | [`64f4af7`](https://github.com/LIghtJUNction/MagicNet/commit/64f4af746fdfbe77ef7d3de6d5160292c2b69c09) Make custom local WebUI installable |
-| 21:24 | MagicNet | [`2b949e7`](https://github.com/LIghtJUNction/MagicNet/commit/2b949e7c456fae57dd00192e2d656be34cd21457) Add route table workbench |
-| 21:14 | MagicNet | [`d54ccd2`](https://github.com/LIghtJUNction/MagicNet/commit/d54ccd2fb5e6b1e09ce997911ba1cf854ec5af22) Add system route topology editor |
-| 21:07 | MagicNet | [`286facc`](https://github.com/LIghtJUNction/MagicNet/commit/286faccdb3b78f967311ad51115fef64151b593c) Add WebUI catalog and topology tools |
-| 20:50 | MagicNet | [`c603f20`](https://github.com/LIghtJUNction/MagicNet/commit/c603f20031e6b6ed6102f84689cce602fded1ad3) Improve core WebUI launch experience |
-| 20:33 | MagicNet | [`663cfd0`](https://github.com/LIghtJUNction/MagicNet/commit/663cfd0a7868c4fa249e72e0923877a26e145ad3) Improve blocklist subscriptions and MCP controls |
-| 19:30 | MagicNet | [`3cc9736`](https://github.com/LIghtJUNction/MagicNet/commit/3cc9736fdb07249a6de6683c56b5555de244624e) Improve webui instant action feedback |
+| 19:43 | MagicNet | [`ef6718d`](https://github.com/LIghtJUNction/MagicNet/commit/ef6718de534cda7a38fc8fc1b73a537bde87cf18) Harden node startup and release v1.1.1 |
+| 19:37 | MagicMihomo | [`46b90c6`](https://github.com/LIghtJUNction/MagicMihomo/commit/46b90c6b6aaa4b72135ab70c5eabe52a0e270d9c) Make default providers empty-safe |
+| 18:19 | MagicNet | [`8ece9cb`](https://github.com/LIghtJUNction/MagicNet/commit/8ece9cb3c257f3b1e7fab1f7e78099d50d1ab1ce) Refresh MagicNet detox UX |
+| 18:16 | MagicMihomo | [`ce6ae42`](https://github.com/LIghtJUNction/MagicMihomo/commit/ce6ae420cadb9066a0cfcdedc33118b701b24274) Remove bundled mihomo web UI |
+| 17:28 | MagicNet | [`aa7c61b`](https://github.com/LIghtJUNction/MagicNet/commit/aa7c61b2eaa18fc78fb03846f637324dfcc2c757) Position MagicNet as network security analysis module |
+| 17:26 | MagicMihomo | [`317abb6`](https://github.com/LIghtJUNction/MagicMihomo/commit/317abb6cb70bf6bc3003fef98a59146bbe454722) Remove bundled provider sources |
+| 17:26 | MagicSingBox | [`9cca377`](https://github.com/LIghtJUNction/MagicSingBox/commit/9cca377a446defe720e9b4fe4b6d31c03a86f39d) Use encrypted DNS defaults |
+| 16:06 | MagicNet | [`5747efd`](https://github.com/LIghtJUNction/MagicNet/commit/5747efdd0bb67c1902bee06586ad9f40963215b1) fix: avoid rustup android target cache conflicts |
+| 15:58 | MagicNet | [`a4af99c`](https://github.com/LIghtJUNction/MagicNet/commit/a4af99c5bc9674edaa54b7b5ba909d39baf28a10) reset repository history |
+| 15:56 | MagicMihomo | [`94397e8`](https://github.com/LIghtJUNction/MagicMihomo/commit/94397e8fad29e366f4472ac2437eb9dd8ea592b2) fix: route dns through encrypted resolvers |
+| 15:09 | used-car-video-copywriti | [`b6579d7`](https://github.com/LIghtJUNction/used-car-video-copywriting-skill/commit/b6579d7e712af491353f240f522ce95325911c6c) Improve bus inquiry copywriting rules |
 
 </details>
 
