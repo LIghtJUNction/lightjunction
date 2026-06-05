@@ -103,7 +103,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 | Joined | Repos | Followers | Following |
 |:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (3yr 12mo) | **75** | **72** | **115** |
+| 2022-06-06 (3yr 12mo) | **76** | **73** | **115** |
 
 ---
 
@@ -113,15 +113,15 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 ### This Week
 
-**85** commits across **9** repositories
+**97** commits across **9** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
 | [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓▓░░░░░░░ 28 |
-| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 18 |
+| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 19 |
 | [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓▓░░░░░░░░ 17 |
+| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓▓░░░░░░░░ 16 |
 | [used-car-video-copywriting-skill](https://github.com/LIghtJUNction/used-car-video-copywriting-skill) | ▓░░░░░░░░░ 7 |
-| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 5 |
 | [lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓░░░░░░░░░ 5 |
 
 ---
@@ -160,8 +160,8 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
  ░░░  ░░░░░░░ ░░░░░  ░░░░░  ░        ░░░░░░░░░░░░░░░▒
 
  ╻╻╻╻ ╻╻╻╻╻┃╻╻╻ ╻╻╻╻╻╻.............................. 
- ▒░░░╻░░░░░░░░░╻░░░░░░.............................. 
- ░░░░░░░░░░░░░░░░░░░░░╻..............................
+ ▒░░░╻░░░░░░░░░╻░░░░░░╻............................. 
+ ░░░░░░░░░░░░░░░░░░░░░░..............................
  ░░░░░░░░░░▓▒░░░░░░░░░▓..............................
 ╻░░░░░░░░░░▒░░░░░░░░░░▓..............................
 ░░░░░░░░░░░░░░░░░░░░░░▓..............................
@@ -184,7 +184,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 A module for treating internet addiction.
 
-<sub>Shell / 67 stars / 2 forks / updated 2026-06-04</sub>
+<sub>Shell / 67 stars / 2 forks / updated 2026-06-05</sub>
 
 <br>
 
@@ -204,6 +204,36 @@ MagicNet-mihomo
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/cortexfs">cortexfs</a> <sub>CODE</sub>
+
+&quot;Everything is a file&quot; for AGI era. Mount LLM context and reasoning as a POSIX file system.
+
+<sub>Unknown / 0 stars / 0 forks / updated 2026-06-04</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/lightjunction">lightjunction</a> <sub>SH</sub>
+
+I&#x27;M LIghtJUNction
+
+<sub>Shell / 2 stars / 0 forks / updated 2026-06-04</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
@@ -237,36 +267,6 @@ Agent skill for structured used-car short-video copywriting
 
 </td>
 </tr>
-<tr>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/lightjunction">lightjunction</a> <sub>SH</sub>
-
-I&#x27;M LIghtJUNction
-
-<sub>Shell / 2 stars / 0 forks / updated 2026-06-03</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/lmm.best">lmm.best</a> <sub>TS</sub>
-
-LMM.best: Simply the best Large Multimodal Models, ranked and reviewed.
-
-<sub>TypeScript / 1 stars / 0 forks / updated 2026-06-01</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lmm.best?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lmm.best?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-</tr>
 </table>
 
 ---
@@ -280,27 +280,27 @@ LMM.best: Simply the best Large Multimodal Models, ranked and reviewed.
 <details open>
 <summary>Last 7 days</summary>
 
+**2026-06-05**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 02:32 | MagicNet | [`525e3e7`](https://github.com/LIghtJUNction/MagicNet/commit/525e3e7f1de998c2c102ff74dc9bb121526eead4) fix: avoid duplicate shellcheck validation |
+| 02:27 | MagicNet | [`1a8a6a9`](https://github.com/LIghtJUNction/MagicNet/commit/1a8a6a96cc0823a6045428dccf5dfc76a1a422bb) fix: install cargo ndk in build workflow |
+| 02:23 | MagicNet | [`2c8ee44`](https://github.com/LIghtJUNction/MagicNet/commit/2c8ee448dfde5ef09cfe0156cfbe9dda3082df95) fix: stop caching rustup in build workflow |
+| 02:21 | MagicNet | [`d9a5964`](https://github.com/LIghtJUNction/MagicNet/commit/d9a596417d59249cdb340f2e9cb143ffca047c58) fix: clear cached android rust targets |
+| 02:11 | MagicNet | [`ddf9e5d`](https://github.com/LIghtJUNction/MagicNet/commit/ddf9e5d4fd1b40c8d7dde210b763060dbd4a4d7b) fix: stop workflow self-mutating defaults |
+| 01:07 | MagicNet | [`c67a03b`](https://github.com/LIghtJUNction/MagicNet/commit/c67a03b4604e8e5590eb29abb41ff25fb443a00f) chore: migrate to kam base overlays |
+
 **2026-06-04**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 00:13 | MagicMihomo | [`c56b55e`](https://github.com/LIghtJUNction/MagicMihomo/commit/c56b55e666a41e8bd32d048de7fd9f2fd04ba07e) ruleset: update-ruleset |
-
-**2026-06-03**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 19:43 | MagicNet | [`ef6718d`](https://github.com/LIghtJUNction/MagicNet/commit/ef6718de534cda7a38fc8fc1b73a537bde87cf18) Harden node startup and release v1.1.1 |
-| 19:37 | MagicMihomo | [`46b90c6`](https://github.com/LIghtJUNction/MagicMihomo/commit/46b90c6b6aaa4b72135ab70c5eabe52a0e270d9c) Make default providers empty-safe |
-| 18:19 | MagicNet | [`8ece9cb`](https://github.com/LIghtJUNction/MagicNet/commit/8ece9cb3c257f3b1e7fab1f7e78099d50d1ab1ce) Refresh MagicNet detox UX |
-| 18:16 | MagicMihomo | [`ce6ae42`](https://github.com/LIghtJUNction/MagicMihomo/commit/ce6ae420cadb9066a0cfcdedc33118b701b24274) Remove bundled mihomo web UI |
-| 17:28 | MagicNet | [`aa7c61b`](https://github.com/LIghtJUNction/MagicNet/commit/aa7c61b2eaa18fc78fb03846f637324dfcc2c757) Position MagicNet as network security analysis module |
-| 17:26 | MagicMihomo | [`317abb6`](https://github.com/LIghtJUNction/MagicMihomo/commit/317abb6cb70bf6bc3003fef98a59146bbe454722) Remove bundled provider sources |
-| 17:26 | MagicSingBox | [`9cca377`](https://github.com/LIghtJUNction/MagicSingBox/commit/9cca377a446defe720e9b4fe4b6d31c03a86f39d) Use encrypted DNS defaults |
-| 16:06 | MagicNet | [`5747efd`](https://github.com/LIghtJUNction/MagicNet/commit/5747efdd0bb67c1902bee06586ad9f40963215b1) fix: avoid rustup android target cache conflicts |
-| 15:58 | MagicNet | [`a4af99c`](https://github.com/LIghtJUNction/MagicNet/commit/a4af99c5bc9674edaa54b7b5ba909d39baf28a10) reset repository history |
-| 15:56 | MagicMihomo | [`94397e8`](https://github.com/LIghtJUNction/MagicMihomo/commit/94397e8fad29e366f4472ac2437eb9dd8ea592b2) fix: route dns through encrypted resolvers |
-| 15:09 | used-car-video-copywriti | [`b6579d7`](https://github.com/LIghtJUNction/used-car-video-copywriting-skill/commit/b6579d7e712af491353f240f522ce95325911c6c) Improve bus inquiry copywriting rules |
+| 23:45 | MagicMihomo | [`db07cc3`](https://github.com/LIghtJUNction/MagicMihomo/commit/db07cc31ca0f89a34bb94ed0a7d5fbbdb980089f) ruleset: update-ruleset |
+| 16:30 | MagicNet | [`6ea89de`](https://github.com/LIghtJUNction/MagicNet/commit/6ea89de90782d545602c0b603ccf20022a9d9bc5) chore: update mihomo config pointer |
+| 16:30 | MagicMihomo | [`9290799`](https://github.com/LIghtJUNction/MagicMihomo/commit/929079967eaf6623defbd687b6d2e8a13e524404) fix: harden android mihomo defaults |
+| 16:29 | MagicNet | [`4240926`](https://github.com/LIghtJUNction/MagicNet/commit/4240926a3a5103aa0fdf2f988e623a6cda1048ee) fix: simplify core selection and harden proxy startup |
+| 12:36 | MagicNet | [`2e85550`](https://github.com/LIghtJUNction/MagicNet/commit/2e85550eb0f5212355c5a6b0c304b8db5402d95d) fix: stop watchdog when subscription is missing |
+| 11:51 | MagicNet | [`a8440ae`](https://github.com/LIghtJUNction/MagicNet/commit/a8440ae048d72c54ff7be8cbb1c6256bb2970378) fix: make release upload idempotent |
 
 </details>
 
