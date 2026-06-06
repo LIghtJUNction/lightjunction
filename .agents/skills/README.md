@@ -8,7 +8,17 @@ Install globally:
 npx skills add LIghtJUNction/lightjunction -g
 ```
 
-This directory is intentionally lightweight. Each skill should live in its own subdirectory and include a `README.md` or `SKILL.md` that explains:
+This directory is intentionally lightweight. Each skill lives in its own
+subdirectory and includes a `SKILL.md` file plus optional references.
+
+## Included Skills
+
+- `python-code-standards` - Python organization, typing, imports, docstrings,
+  error handling, testing, tooling, and prohibited-pattern rules.
+- `git-workflow-standards` - Trunk-based branching, Conventional Commits, PR
+  rules, semantic versioning, tags, and prohibited-pattern rules.
+
+Each skill should explain:
 
 - when to use it
 - what context it assumes
