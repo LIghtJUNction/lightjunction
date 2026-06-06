@@ -1,5 +1,7 @@
 > **Support / ad slot:** Want to support my work or leave a public message? Open the project website, choose **Encrypted Message**, and send any donation details: payment method, password red packet, Bitcoin wallet private key, your contact information, or any other sponsorship note. Your message is encrypted in the browser with my GPG public key, so only I can decrypt it.
 
+> **OpenReview verification:** Hello OpenReview reviewers, I confirm that I have registered an OpenReview account under the name **LIghtJUNction**.
+
 **Languages:** English (full, dynamically updated) · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
 
 <div align="center">
