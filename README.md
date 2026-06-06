@@ -11,11 +11,11 @@
 
 # LIghtJUNction
 
-**AI tooling / Linux automation / network infrastructure / practical security**
+**AI tooling / independent AI research hat / Linux automation / practical security**
 
 I build small, sharp tools for messy real-world systems: agents, bootstraps, data pipelines, game tooling, and terminal-first workflows.
 
-Currently building around agent tooling, proxy-aware bootstrap scripts, and practical Linux/macOS automation.
+Currently wearing the independent AI researcher hat, which is apparently very official now, while building agent tooling, proxy-aware bootstrap scripts, and practical Linux/macOS automation.
 
 [Website Terminal](https://lightjunction.github.io/lightjunction/) · [Encrypted Message](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Hugging Face](https://huggingface.co/LIghtJUNction) · [Kaggle](https://www.kaggle.com/lightjunction) · [Email](mailto:lightjunction.me@gmail.com)
 
