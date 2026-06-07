@@ -105,7 +105,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 | Joined | Repos | Followers | Following |
 |:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (4yr 0mo) | **77** | **73** | **117** |
+| 2022-06-06 (4yr 0mo) | **79** | **75** | **120** |
 
 ---
 
@@ -115,16 +115,16 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 ### This Week
 
-**101** commits across **11** repositories
+**154** commits across **14** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓▓░░░░░░░ 28 |
-| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓▓░░░░░░░░ 19 |
-| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓▓░░░░░░░░ 17 |
-| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓▓░░░░░░░░ 16 |
+| [cortexfs](https://github.com/LIghtJUNction/cortexfs) | ▓▓▓░░░░░░░ 42 |
+| [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓░░░░░░░░ 29 |
+| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 19 |
+| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓░░░░░░░░░ 17 |
+| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 16 |
 | [used-car-video-copywriting-skill](https://github.com/LIghtJUNction/used-car-video-copywriting-skill) | ▓░░░░░░░░░ 7 |
-| [lmm.best](https://github.com/LIghtJUNction/lmm.best) | ▓░░░░░░░░░ 5 |
 
 ---
 
@@ -167,7 +167,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
  ░░░░░░░░░░▓▒░░░░░░░░░▓..............................
 ╻░░░░░░░░░░▒░░░░░░░░░░▓..............................
 ░░░░░░░░░░░░░░░░░░░░░░▓..............................
-░░░░░░░░░░░░░░░░░░░░░░░..............................
+░░░░░░░░░░░░░░░░░░░░░░░▒.............................
 ```
 
 ---
@@ -182,11 +182,41 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 <tr>
 <td align="left" valign="top" width="50%">
 
+#### <a href="https://github.com/LIghtJUNction/cortexfs">cortexfs</a> <sub>RS</sub>
+
+&quot;Everything is a file&quot; for AGI era. Mount LLM context and reasoning as a POSIX file system.
+
+<sub>Rust / 2 stars / 0 forks / updated 2026-06-07</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/agent.sh">agent.sh</a> <sub>SH</sub>
+
+Tiny dependency-free CortexFS MCP terminal agent
+
+<sub>Shell / 1 stars / 0 forks / updated 2026-06-07</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/agent.sh?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/agent.sh?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="50%">
+
 #### <a href="https://github.com/LIghtJUNction/MagicMihomo">MagicMihomo</a> <sub>SH</sub>
 
 MagicNet-mihomo
 
-<sub>Shell / 10 stars / 0 forks / updated 2026-06-05</sub>
+<sub>Shell / 10 stars / 0 forks / updated 2026-06-06</sub>
 
 <br>
 
@@ -196,46 +226,16 @@ MagicNet-mihomo
 </td>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/OniMods">OniMods</a> <sub>CODE</sub>
-
-oxygen not included
-
-<sub>C# / 5 stars / 0 forks / updated 2026-06-05</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/OniMods?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-</tr>
-<tr>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/androiduse-zygisk-loader">androiduse-zygisk-loader</a> <sub>RS</sub>
+#### <a href="https://github.com/LIghtJUNction/LightFlow">LightFlow</a> <sub>RS</sub>
 
 No description
 
-<sub>Rust / 0 stars / 0 forks / updated 2026-06-05</sub>
+<sub>Rust / 0 stars / 0 forks / updated 2026-06-06</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/androiduse-zygisk-loader?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/androiduse-zygisk-loader?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/MagicNet">MagicNet</a> <sub>SH</sub>
-
-A module for treating internet addiction.
-
-<sub>Shell / 69 stars / 2 forks / updated 2026-06-05</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/LightFlow?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/LightFlow?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
@@ -246,7 +246,7 @@ A module for treating internet addiction.
 
 I&#x27;M LIghtJUNction
 
-<sub>Shell / 2 stars / 0 forks / updated 2026-06-05</sub>
+<sub>Shell / 2 stars / 0 forks / updated 2026-06-06</sub>
 
 <br>
 
@@ -256,16 +256,16 @@ I&#x27;M LIghtJUNction
 </td>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/cortexfs">cortexfs</a> <sub>CODE</sub>
+#### <a href="https://github.com/LIghtJUNction/androiduse-zygisk-loader">androiduse-zygisk-loader</a> <sub>RS</sub>
 
-&quot;Everything is a file&quot; for AGI era. Mount LLM context and reasoning as a POSIX file system.
+AndroidUse module loader
 
-<sub>Unknown / 0 stars / 0 forks / updated 2026-06-04</sub>
+<sub>Rust / 1 stars / 0 forks / updated 2026-06-06</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/androiduse-zygisk-loader?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/androiduse-zygisk-loader?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
@@ -282,27 +282,27 @@ I&#x27;M LIghtJUNction
 <details open>
 <summary>Last 7 days</summary>
 
-**2026-06-05**
+**2026-06-07**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 23:46 | MagicMihomo | [`9fefd45`](https://github.com/LIghtJUNction/MagicMihomo/commit/9fefd451a3b0f7fa60d37761446acffff02782f5) ruleset: update-ruleset |
-| 20:44 | OniMods | [`e1b5b08`](https://github.com/LIghtJUNction/OniMods/commit/e1b5b08ea6cd79c2803c7031064362d64dd4123e) feat: add coordinate screenshots and utility search |
-| 19:55 | OniMods | [`406a8a9`](https://github.com/LIghtJUNction/OniMods/commit/406a8a9d9ce93b963f37e50740c9054aeb2713f4) fix: improve stress readings and screenshot access |
-| 19:17 | androiduse-zygisk-loader | [`9bc3166`](https://github.com/LIghtJUNction/androiduse-zygisk-loader/commit/9bc316642c5df4833c4922f9b9f4224346b6b7fd) fix: chmod injected payload before dlopen |
-| 18:38 | androiduse-zygisk-loader | [`6876c91`](https://github.com/LIghtJUNction/androiduse-zygisk-loader/commit/6876c91850ff70545ee81e2de28951c65453a41a) feat: initialize AndroidUse Zygisk loader |
-| 02:32 | MagicNet | [`525e3e7`](https://github.com/LIghtJUNction/MagicNet/commit/525e3e7f1de998c2c102ff74dc9bb121526eead4) fix: avoid duplicate shellcheck validation |
-| 02:27 | MagicNet | [`1a8a6a9`](https://github.com/LIghtJUNction/MagicNet/commit/1a8a6a96cc0823a6045428dccf5dfc76a1a422bb) fix: install cargo ndk in build workflow |
-| 02:23 | MagicNet | [`2c8ee44`](https://github.com/LIghtJUNction/MagicNet/commit/2c8ee448dfde5ef09cfe0156cfbe9dda3082df95) fix: stop caching rustup in build workflow |
-| 02:21 | MagicNet | [`d9a5964`](https://github.com/LIghtJUNction/MagicNet/commit/d9a596417d59249cdb340f2e9cb143ffca047c58) fix: clear cached android rust targets |
-| 02:11 | MagicNet | [`ddf9e5d`](https://github.com/LIghtJUNction/MagicNet/commit/ddf9e5d4fd1b40c8d7dde210b763060dbd4a4d7b) fix: stop workflow self-mutating defaults |
-| 01:07 | MagicNet | [`c67a03b`](https://github.com/LIghtJUNction/MagicNet/commit/c67a03b4604e8e5590eb29abb41ff25fb443a00f) chore: migrate to kam base overlays |
+| 04:09 | cortexfs | [`d65db8b`](https://github.com/LIghtJUNction/cortexfs/commit/d65db8be050851e61a3ccab04f4d41691317c5bc) feat: tighten cortexfs runtime abi |
+| 02:14 | agent.sh | [`9f292f1`](https://github.com/LIghtJUNction/agent.sh/commit/9f292f1b4f053c2433dae2bc1840ef9b0589bf84) docs: center skill on cortexfs |
+| 01:45 | agent.sh | [`bd3dc07`](https://github.com/LIghtJUNction/agent.sh/commit/bd3dc075e8cfbd0a5bbf842be18260de7781d2f5) docs: keep agent identity centered on cortexfs |
+| 01:18 | agent.sh | [`54565a7`](https://github.com/LIghtJUNction/agent.sh/commit/54565a71df09465247594a6ec7be9e54af199e0a) docs: center agent skill on cortexfs |
+| 01:13 | agent.sh | [`f118b71`](https://github.com/LIghtJUNction/agent.sh/commit/f118b717f3c7a74b9ecd0c4f8dcb98e91d3a1112) feat: add cortexfs cluster support |
+| 00:56 | agent.sh | [`cee4b9a`](https://github.com/LIghtJUNction/agent.sh/commit/cee4b9a59dbb86f611b23ddd0bae56b1a281476d) feat: add cortexfs terminal agent |
 
-**2026-06-04**
+**2026-06-06**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 23:45 | MagicMihomo | [`db07cc3`](https://github.com/LIghtJUNction/MagicMihomo/commit/db07cc31ca0f89a34bb94ed0a7d5fbbdb980089f) ruleset: update-ruleset |
+| 23:36 | MagicMihomo | [`bcae45d`](https://github.com/LIghtJUNction/MagicMihomo/commit/bcae45d249df65bcac23360e3063ea3c2db8aecd) ruleset: update-ruleset |
+| 21:15 | LightFlow | [`f154664`](https://github.com/LIghtJUNction/LightFlow/commit/f154664dbfb2097d15d4aa48683ab6bbe18ed087) Clarify LightFlow product thesis |
+| 20:29 | LightFlow | [`4d35a0a`](https://github.com/LIghtJUNction/LightFlow/commit/4d35a0ac3a713aa20d8cd958b44a998b12a65c2d) Initialize LightFlow backend scaffold |
+| 20:04 | cortexfs | [`b014ff1`](https://github.com/LIghtJUNction/cortexfs/commit/b014ff101d73b906fbf4c6d8483df1b322f1ccac) Apply export filters to tool traces |
+| 19:52 | cortexfs | [`2e53694`](https://github.com/LIghtJUNction/cortexfs/commit/2e536941d2725e60612572910ed81a73fb76adab) Expose API format request schemas |
+| 19:46 | cortexfs | [`1e9129d`](https://github.com/LIghtJUNction/cortexfs/commit/1e9129d074382cfb245077c9cc5eda5a3b5865f0) Tighten singular ABI naming |
 
 </details>
 
