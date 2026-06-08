@@ -91,7 +91,7 @@ body::after {
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    opacity: 0.46;
+    opacity: 0.34;
     mix-blend-mode: screen;
 }
 

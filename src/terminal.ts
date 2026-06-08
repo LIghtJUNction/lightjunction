@@ -168,14 +168,15 @@ function initAsciiBackground(): void {
     type AsciiGlyph = {
         homeX: number
         homeY: number
-        x: number
-        y: number
-        vx: number
-        vy: number
         phase: number
-        spin: number
         seed: number
         char: string
+        layer: number
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        asciiBg.hidden = true
+        return
     }
 
     const pointer = {
@@ -185,13 +186,16 @@ function initAsciiBackground(): void {
         ty: window.innerHeight * 0.5,
         active: false,
     }
-    const chars = '01<>[]{}()/\\|*+=-_:;.#$%@'
-    const hotChars = '@#$%&*+=<>'
-    const cell = 20
+    const chars = '01<>[]{}\\/|*+=-_.'
+    const hotChars = '@#%&*+=<>'
+    const cell = 34
+    const maxGlyphs = 760
+    const frameIntervalMs = 1000 / 24
     const glyphs: AsciiGlyph[] = []
     let width = 0
     let height = 0
     let frame = 0
+    let lastDraw = 0
 
     function pickChar(seed: number, hot = 0): string {
         const alphabet = hot > 0.62 ? hotChars : chars
@@ -199,7 +203,7 @@ function initAsciiBackground(): void {
     }
 
     function resize(): void {
-        const ratio = window.devicePixelRatio || 1
+        const ratio = Math.min(window.devicePixelRatio || 1, 1.25)
         width = window.innerWidth
         height = window.innerHeight
         asciiBg.width = Math.floor(width * ratio)
@@ -207,17 +211,21 @@ function initAsciiBackground(): void {
         asciiBg.style.width = `${width}px`
         asciiBg.style.height = `${height}px`
         drawContext.setTransform(ratio, 0, 0, ratio, 0, 0)
-        drawContext.font = '13px "JetBrains Mono", monospace'
+        drawContext.font = '12px "JetBrains Mono", monospace'
         drawContext.textBaseline = 'middle'
         drawContext.textAlign = 'center'
 
         glyphs.length = 0
         const columns = Math.ceil(width / cell) + 2
         const rows = Math.ceil(height / cell) + 2
+        const density = Math.min(1, maxGlyphs / Math.max(1, columns * rows))
 
         for (let row = 0; row < rows; row += 1) {
             for (let col = 0; col < columns; col += 1) {
                 const seed = Math.sin((row + 1) * 91.17 + (col + 1) * 47.31) * 10_000
+                const unit = seed - Math.floor(seed)
+                if (unit > density) continue
+
                 const jitterX = (seed - Math.floor(seed) - 0.5) * 8
                 const jitterY = (Math.sin(seed * 2.17) - Math.floor(Math.sin(seed * 2.17)) - 0.5) * 8
                 const homeX = col * cell - cell + jitterX
@@ -226,70 +234,53 @@ function initAsciiBackground(): void {
                 glyphs.push({
                     homeX,
                     homeY,
-                    x: homeX,
-                    y: homeY,
-                    vx: 0,
-                    vy: 0,
                     phase: seed,
-                    spin: Math.sin(seed) * 0.035,
                     seed,
                     char: pickChar(seed),
+                    layer: 0.68 + unit * 0.52,
                 })
             }
         }
     }
 
-    function draw(): void {
+    function draw(now = 0): void {
+        if (now - lastDraw < frameIntervalMs) {
+            requestAnimationFrame(draw)
+            return
+        }
+        lastDraw = now
         frame += 1
-        pointer.x += (pointer.tx - pointer.x) * 0.12
-        pointer.y += (pointer.ty - pointer.y) * 0.12
+        pointer.x += (pointer.tx - pointer.x) * 0.16
+        pointer.y += (pointer.ty - pointer.y) * 0.16
 
         drawContext.clearRect(0, 0, width, height)
 
         for (const glyph of glyphs) {
-            const dx = glyph.x - pointer.x
-            const dy = glyph.y - pointer.y
+            const homeWave = Math.sin(frame * 0.035 + glyph.phase)
+            const baseX = glyph.homeX + Math.cos(frame * 0.012 + glyph.phase) * glyph.layer * 4
+            const baseY = glyph.homeY + homeWave * glyph.layer * 5
+            const dx = baseX - pointer.x
+            const dy = baseY - pointer.y
             const distance = Math.sqrt(dx * dx + dy * dy) || 1
-            const hot = pointer.active ? Math.max(0, 1 - distance / 260) : 0
-            const orbit = hot * hot * 0.72
-            const pull = hot * 0.34
-            const homePull = 0.018 + hot * 0.01
-            const breath = Math.sin(frame * 0.018 + glyph.phase) * 0.28
+            const hot = pointer.active ? Math.max(0, 1 - distance / 330) : 0
+            const swirl = hot * hot * 30 * glyph.layer
+            const drift = hot * 18 * glyph.layer
+            const x = baseX + (-dy / distance) * swirl + (-dx / distance) * drift
+            const y = baseY + (dx / distance) * swirl + (-dy / distance) * drift
+            const pulse = Math.max(0, Math.sin(frame * 0.07 + glyph.phase))
+            const alpha = 0.045 + hot * 0.34 + pulse * 0.028
 
-            glyph.vx += (glyph.homeX - glyph.x) * homePull
-            glyph.vy += (glyph.homeY - glyph.y) * homePull
-            glyph.vx += (-dy / distance) * orbit
-            glyph.vy += (dx / distance) * orbit
-            glyph.vx += (-dx / distance) * pull
-            glyph.vy += (-dy / distance) * pull
-            glyph.vx += Math.cos(frame * 0.011 + glyph.phase) * 0.006
-            glyph.vy += Math.sin(frame * 0.013 + glyph.phase) * 0.006
-            glyph.vx *= 0.86
-            glyph.vy *= 0.86
-            glyph.x += glyph.vx
-            glyph.y += glyph.vy + breath
-
-            const pulse = Math.max(0, Math.sin(frame * 0.09 + glyph.phase))
-            const alpha = 0.028 + hot * 0.46 + pulse * 0.055
-            if (alpha < 0.07 && Math.abs(glyph.vx) + Math.abs(glyph.vy) < 0.12 && frame % 5 !== 0) continue
-
-            if (hot > 0.28 && frame % 4 === 0) {
-                glyph.char = pickChar(glyph.seed + frame * 0.017 + hot * 9, hot)
+            if (hot > 0.35 && (frame + Math.floor(glyph.seed)) % 5 === 0) {
+                glyph.char = pickChar(glyph.seed + frame * 0.023 + hot * 8, hot)
+            } else if (frame % 48 === 0 && pulse > 0.92) {
+                glyph.char = pickChar(glyph.seed + frame * 0.004)
             }
 
-            const hue = 136 + hot * 86 + Math.sin(glyph.phase + frame * 0.01) * 18
-            const light = 46 + hot * 32 + pulse * 8
-            const size = 11 + hot * 8 + pulse * 1.8
-
-            drawContext.save()
-            drawContext.translate(glyph.x, glyph.y)
-            drawContext.rotate(glyph.spin * frame * hot)
-            drawContext.font = `${size}px "JetBrains Mono", monospace`
-            drawContext.fillStyle = `hsla(${hue}, 96%, ${light}%, ${Math.min(alpha, 0.72)})`
-            drawContext.shadowBlur = hot * 22
-            drawContext.shadowColor = `hsla(${hue}, 96%, 62%, ${hot * 0.46})`
-            drawContext.fillText(glyph.char, 0, 0)
-            drawContext.restore()
+            const hue = 142 + hot * 58 + Math.sin(glyph.phase + frame * 0.01) * 10
+            const light = 48 + hot * 24 + pulse * 5
+            drawContext.font = `${11 + hot * 4}px "JetBrains Mono", monospace`
+            drawContext.fillStyle = `hsla(${hue}, 88%, ${light}%, ${Math.min(alpha, 0.48)})`
+            drawContext.fillText(glyph.char, x, y)
         }
 
         requestAnimationFrame(draw)
