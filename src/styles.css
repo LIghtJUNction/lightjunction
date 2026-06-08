@@ -95,6 +95,10 @@ body::after {
     mix-blend-mode: lighten;
 }
 
+body[data-active-app="terminal"] #ascii-bg {
+    opacity: 0.96;
+}
+
 button,
 textarea {
     font: inherit;
@@ -162,6 +166,14 @@ a:hover {
     border-radius: var(--panel-radius);
     box-shadow: var(--panel-shadow);
     backdrop-filter: blur(6px);
+}
+
+body[data-active-app="terminal"] .workspace {
+    background:
+        linear-gradient(135deg, rgba(4, 7, 6, 0.18), rgba(4, 7, 6, 0.34)),
+        rgba(4, 7, 6, 0.12);
+    border-color: color-mix(in srgb, var(--accent) 34%, transparent);
+    backdrop-filter: blur(2px);
 }
 
 body[data-frame="double"] .identity,
@@ -572,6 +584,12 @@ body[data-layout="console-first"] .identity {
     height: 100%;
 }
 
+body[data-active-app="terminal"] .terminal {
+    background:
+        radial-gradient(circle at 18% 24%, rgba(141, 247, 189, 0.08), transparent 32%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.18));
+}
+
 .titlebar,
 .statusbar {
     display: flex;
@@ -590,6 +608,13 @@ body[data-layout="console-first"] .identity {
 
 .statusbar {
     border-top: 1px solid rgba(141, 247, 189, 0.12);
+}
+
+body[data-active-app="terminal"] .titlebar,
+body[data-active-app="terminal"] .statusbar,
+body[data-active-app="terminal"] .input-row {
+    background: rgba(0, 0, 0, 0.18);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.88);
 }
 
 .window-dots {
@@ -660,10 +685,23 @@ body[data-layout="console-first"] .identity {
     scrollbar-color: var(--line) transparent;
 }
 
+body[data-active-app="terminal"] #terminal-output {
+    background: rgba(0, 0, 0, 0.06);
+}
+
 .term-line {
     margin: 0 0 10px;
     line-height: 1.55;
     font-size: 13px;
+}
+
+body[data-active-app="terminal"] .term-line,
+body[data-active-app="terminal"] .prompt,
+body[data-active-app="terminal"] .path,
+body[data-active-app="terminal"] #input-text {
+    text-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.9),
+        0 0 12px rgba(0, 0, 0, 0.85);
 }
 
 .term-input {

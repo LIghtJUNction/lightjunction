@@ -462,6 +462,7 @@ async function loadProjectCards(force = false): Promise<void> {
 
 function switchApp(appId: AppId): void {
     activeApp = appId
+    document.body.dataset.activeApp = appId
 
     document.querySelectorAll<HTMLElement>('[data-app-panel]').forEach((panel) => {
         const visible = panel.dataset.appPanel === appId
