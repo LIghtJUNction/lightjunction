@@ -1,17 +1,22 @@
-# Python
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Python caches
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+
+# Python build artifacts
 build/
 develop-eggs/
 dist/
 downloads/
 eggs/
 .eggs/
-# Python build artifacts
-build/
 parts/
 sdist/
 var/
@@ -28,7 +33,7 @@ env/
 ENV/
 .venv
 
-# IDE
+# Editors
 .vscode/
 .idea/
 *.swp
@@ -46,15 +51,13 @@ script_output.txt
 github_data.json
 ai_enhanced.json
 
-# UV
-uv.lock
-.venv/
-
 # Agent iteration logs
 logs/
 
 # Testing
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 .coverage
 htmlcov/
 coverage.xml
@@ -62,5 +65,4 @@ coverage.xml
 
 # Node.js / Frontend
 node_modules/
-dist/
 *.local

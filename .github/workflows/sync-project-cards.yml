@@ -1,0 +1,50 @@
+name: Sync Project Cards
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: sync-project-cards
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+            scripts/*.py
+
+      - name: Generate project cards
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          TEAM_ORGS: SlashNephy
+          GITHUB_DATA_PATH: /tmp/lightjunction-github-data.json
+          GITHUB_PROJECTS_PATH: public/github-projects.json
+        run: uv run scripts/fetch-github-data.py
+
+      - name: Commit project cards
+        run: |
+          if [ -z "$(git status --porcelain public/github-projects.json)" ]; then
+            echo "No project card changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/github-projects.json
+          git commit -m "chore: sync project cards"
+          git push

@@ -1,316 +1,128 @@
 import * as openpgp from 'openpgp'
-
-const PUBLIC_KEY = `-----BEGIN PGP PUBLIC KEY BLOCK-----
-
-mDMEZ/6uihYJKwYBBAHaRw8BAQdAGM5JPSEZCHEAma0d8JoMDtfy+JJwmPlf4Lo9
-5RJVMDq0KkxJZ2h0SlVOY3Rpb24gPExJZ2h0SlVOY3Rpb24ubWVAZ21haWwuY29t
-PoiTBBMWCgA7AhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAFiEE6yG4OrHp
-gt9m8IOHpnF4QF93Nv0FAmf+smUACgkQpnF4QF93Nv17uAD/QcyMTrc98nfAf88i
-mCZOAgwTfqT4ZE/I9pFj3xxxJwQA/Rlq0SC5/vWuPhr6J7S22u/PUOFJP2fj+nKp
-EX6EQ18IuDgEZ/6uihIKKwYBBAGXVQEFAQEHQDh4OfNBdiuIoLUjLJ7581/lK3Zg
-giLnI6ZYyCwj3ygFAwEIB4h4BBgWCgAgAhsMFiEE6yG4OrHpgt9m8IOHpnF4QF93
-Nv0FAmf+sncACgkQpnF4QF93Nv0ihQD/dIGnVBFC8eNcA3W20sQ7UV5n2sj39Lzp
-f6NsZS7R5RsA/RcNOObtRzBmYoar1H5xTcV16i4gYpo3OcnND9g5Ee8LuDMEaVzv
-9RYJKwYBBAHaRw8BAQdAgh+f07ofBteLgJYBennZmEiGj/uleeJji/e9+b2ixj2I
-eAQYFgoAIBYhBOshuDqx6YLfZvCDh6ZxeEBfdzb9BQJpXO/1AhsgAAoJEKZxeEBf
-dzb9EccA+wQJ4rgGHEutSEH7IBVbcg2Ua/bO5kGJL1dsXpHbrN9OAP9lXD8yURjh
-l3xQhx6HVK8KzO3u7bdIxVNIwuj+fqmhAg==
-=vCDQ
------END PGP PUBLIC KEY BLOCK-----`
+import { COMMAND_NAMES, commandDescription } from './commands'
+import { $, escapeHtml } from './dom'
+import { fetchJson, fetchStaticProjectCards, type GitHubUser, type Repo, type RepoCard } from './github'
+import { PUBLIC_KEY } from './public-key'
+import { applyRandomVisuals } from './visuals'
+import './styles.css'
 
 type CommandHandler = (args: string[]) => void | Promise<void>
 
-type Repo = {
-    name: string
-    html_url: string
-    description: string | null
-    language: string | null
-    stargazers_count: number
-    forks_count: number
-}
-
-type GitHubUser = {
-    public_repos: number
-    followers: number
-    following: number
-    created_at: string
-}
-
-const COMMAND_NAMES = [
-    'help',
-    'about',
-    'skills',
-    'projects',
-    'stats',
-    'contact',
-    'msg',
-    'clear',
-    'whoami',
-    'pwd',
-    'ls',
-    'uname',
-    'fastfetch',
-    'reboot',
-]
-
-const $ = <T extends HTMLElement>(id: string): T => {
-    const element = document.getElementById(id)
-    if (!element) {
-        throw new Error(`Missing required DOM element: #${id}`)
-    }
-    return element as T
-}
-
-const output = $('terminal-output')
-const inputText = $('input-text')
-const secureCard = $('secure-card')
-const secureMessage = $('secure-message') as HTMLTextAreaElement
-const resultOverlay = $('result-overlay')
-const resultContent = $('result-content')
-const toast = $('toast')
+const output = $<HTMLElement>('terminal-output')
+const inputText = $<HTMLElement>('input-text')
+const secureCard = $<HTMLElement>('secure-card')
+const secureMessage = $<HTMLTextAreaElement>('secure-message')
+const resultOverlay = $<HTMLElement>('result-overlay')
+const resultContent = $<HTMLElement>('result-content')
+const toast = $<HTMLElement>('toast')
+const asciiBg = $<HTMLCanvasElement>('ascii-bg')
+const workspaceTitle = $<HTMLElement>('workspace-title')
+const workspaceKicker = $<HTMLElement>('workspace-kicker')
+const projectGrid = $<HTMLElement>('project-grid')
+const projectStatus = $<HTMLElement>('project-status')
+const projectCount = $<HTMLElement>('project-count')
+const projectSort = $<HTMLElement>('project-sort')
+const projectGroups = $<HTMLElement>('project-groups')
 
 let currentInput = ''
 let history: string[] = []
 let historyIndex = 0
 let encryptedMessage = ''
 let sending = false
+let activeApp: AppId = 'projects'
+let projectsLoaded = false
+let projectCards: RepoCard[] = []
+let activeProjectGroup: ProjectGroupId = 'ai'
 
-type VisualProfile = {
-    name: string
-    bg: [string, string, string]
-    text: string
-    muted: string
-    dim: string
-    accent: string
-    cyan: string
-    pink: string
-    amber: string
-    glowA: string
-    glowB: string
-    grid: string
-    border: string
+type AppId = 'projects' | 'terminal'
+type ProjectGroupId = 'ai' | 'systems' | 'security' | 'web' | 'data' | 'tools' | 'all'
+
+type CachedProjects = {
+    cachedAt: number
+    cards: RepoCard[]
 }
 
-const VISUAL_PROFILES: VisualProfile[] = [
+type ProjectGroup = {
+    id: ProjectGroupId
+    label: string
+    keywords: string[]
+}
+
+const PROJECT_GROUPS: ProjectGroup[] = [
     {
-        name: 'phosphor',
-        bg: ['#050706', '#0a0f0d', '#07100d'],
-        text: '#d7efe5',
-        muted: '#779287',
-        dim: '#53655f',
-        accent: '#8df7bd',
-        cyan: '#6ee7f2',
-        pink: '#ff7894',
-        amber: '#ffc857',
-        glowA: 'rgba(110, 231, 242, 0.13)',
-        glowB: 'rgba(141, 247, 189, 0.12)',
-        grid: 'rgba(141, 247, 189, 0.04)',
-        border: 'rgba(141, 247, 189, 0.18)',
+        id: 'ai',
+        label: 'AI',
+        keywords: [
+            'agent',
+            'ai',
+            'astrbot',
+            'chatgpt',
+            'claude',
+            'codex',
+            'dataset',
+            'gpt',
+            'inference',
+            'llm',
+            'mcp',
+            'model',
+            'ollama',
+            'openai',
+            'prompt',
+            'rag',
+            'token',
+            'train',
+        ],
     },
     {
-        name: 'amberline',
-        bg: ['#100b06', '#19110a', '#071112'],
-        text: '#f2e6cd',
-        muted: '#a99776',
-        dim: '#746851',
-        accent: '#ffc857',
-        cyan: '#6bd6d6',
-        pink: '#ff6d7a',
-        amber: '#ffb547',
-        glowA: 'rgba(255, 200, 87, 0.16)',
-        glowB: 'rgba(107, 214, 214, 0.12)',
-        grid: 'rgba(255, 200, 87, 0.04)',
-        border: 'rgba(255, 200, 87, 0.2)',
+        id: 'systems',
+        label: 'Systems',
+        keywords: [
+            'adb',
+            'android',
+            'arch',
+            'bootstrap',
+            'daed',
+            'docker',
+            'kernel',
+            'linux',
+            'network',
+            'package',
+            'root',
+            'shell',
+            'sing-box',
+            'tun',
+            'vpn',
+        ],
     },
     {
-        name: 'coldboot',
-        bg: ['#050812', '#0a1420', '#071018'],
-        text: '#dbe8ff',
-        muted: '#8192aa',
-        dim: '#5c697c',
-        accent: '#9cc8ff',
-        cyan: '#76ffe3',
-        pink: '#ff7eb6',
-        amber: '#f5d06f',
-        glowA: 'rgba(118, 255, 227, 0.12)',
-        glowB: 'rgba(156, 200, 255, 0.14)',
-        grid: 'rgba(156, 200, 255, 0.04)',
-        border: 'rgba(156, 200, 255, 0.2)',
+        id: 'security',
+        label: 'Security',
+        keywords: ['auth', 'crypto', 'encrypt', 'gpg', 'key', 'oauth', 'openpgp', 'pgp', 'security', 'ssh'],
     },
     {
-        name: 'papercrt',
-        bg: ['#11100c', '#171914', '#0b1110'],
-        text: '#ece7d2',
-        muted: '#9f9a83',
-        dim: '#6c6a5b',
-        accent: '#c8f27a',
-        cyan: '#7bd5c7',
-        pink: '#f07a8a',
-        amber: '#e4b85b',
-        glowA: 'rgba(200, 242, 122, 0.12)',
-        glowB: 'rgba(123, 213, 199, 0.12)',
-        grid: 'rgba(236, 231, 210, 0.035)',
-        border: 'rgba(200, 242, 122, 0.18)',
+        id: 'web',
+        label: 'Web',
+        keywords: ['css', 'frontend', 'html', 'javascript', 'react', 'site', 'typescript', 'vite', 'web'],
     },
     {
-        name: 'oxblood',
-        bg: ['#120607', '#1c0b10', '#0a0d12'],
-        text: '#f1dce0',
-        muted: '#a7828a',
-        dim: '#715860',
-        accent: '#ff8aa1',
-        cyan: '#7ee0c3',
-        pink: '#ff5f7f',
-        amber: '#ffd166',
-        glowA: 'rgba(255, 138, 161, 0.14)',
-        glowB: 'rgba(126, 224, 195, 0.11)',
-        grid: 'rgba(255, 138, 161, 0.04)',
-        border: 'rgba(255, 138, 161, 0.2)',
+        id: 'data',
+        label: 'Data',
+        keywords: ['api', 'crawl', 'data', 'dataset', 'etl', 'fetch', 'pipeline', 'scrape'],
     },
     {
-        name: 'mono',
-        bg: ['#050505', '#111111', '#070707'],
-        text: '#ededed',
-        muted: '#969696',
-        dim: '#666666',
-        accent: '#ffffff',
-        cyan: '#bdbdbd',
-        pink: '#d0d0d0',
-        amber: '#c8c8c8',
-        glowA: 'rgba(255, 255, 255, 0.09)',
-        glowB: 'rgba(180, 180, 180, 0.08)',
-        grid: 'rgba(255, 255, 255, 0.035)',
-        border: 'rgba(255, 255, 255, 0.18)',
+        id: 'tools',
+        label: 'Tools',
+        keywords: ['automation', 'cli', 'script', 'tool', 'utility', 'workflow'],
     },
     {
-        name: 'violet-solder',
-        bg: ['#0c0711', '#161020', '#080d14'],
-        text: '#eadfff',
-        muted: '#9786b0',
-        dim: '#665a78',
-        accent: '#d8b4ff',
-        cyan: '#78f0ff',
-        pink: '#ff7ac8',
-        amber: '#f8d66d',
-        glowA: 'rgba(216, 180, 255, 0.13)',
-        glowB: 'rgba(120, 240, 255, 0.1)',
-        grid: 'rgba(216, 180, 255, 0.035)',
-        border: 'rgba(216, 180, 255, 0.2)',
+        id: 'all',
+        label: 'All',
+        keywords: [],
     },
 ]
 
-const LAYOUTS = [
-    'split',
-    'reverse',
-    'stacked',
-    'stack-reverse',
-    'focus',
-    'offset',
-    'rail',
-    'wide-id',
-    'console-first',
-] as const
-
-const FRAMES = ['plain', 'double', 'cut', 'thin'] as const
-
-type VisualRng = {
-    seedHex: string
-    unit: () => number
-}
-
-function createVisualRng(): VisualRng {
-    const seed = new BigUint64Array(2)
-    crypto.getRandomValues(seed)
-    let state = (seed[0] << 64n) | seed[1]
-    if (state === 0n) state = 1n
-
-    return {
-        seedHex: state.toString(16).padStart(32, '0'),
-        unit: () => {
-            state = (state + 0x9e3779b97f4a7c15n) & 0xffffffffffffffffffffffffffffffffn
-            let z = state
-            z = (z ^ (z >> 30n)) * 0xbf58476d1ce4e5b9n
-            z = (z ^ (z >> 27n)) * 0x94d049bb133111ebn
-            z = z ^ (z >> 31n)
-            return Number(z & 0x1fffffffffffffn) / 0x20000000000000
-        },
-    }
-}
-
-function randomBetween(rng: VisualRng, min: number, max: number): number {
-    return min + (max - min) * rng.unit()
-}
-
-function randomItem<T>(rng: VisualRng, items: readonly T[]): T {
-    return items[Math.floor(rng.unit() * items.length)] ?? items[0]
-}
-
-function applyRandomVisuals(): void {
-    const rng = createVisualRng()
-    const profile = randomItem(rng, VISUAL_PROFILES)
-    const layout = randomItem(rng, LAYOUTS)
-    const frame = randomItem(rng, FRAMES)
-    const root = document.documentElement
-    const body = document.body
-    const compact = rng.unit() > 0.55
-    const roomy = !compact && rng.unit() > 0.5
-    const variables: Record<string, string> = {
-        '--bg-a': profile.bg[0],
-        '--bg-b': profile.bg[1],
-        '--bg-c': profile.bg[2],
-        '--bg-angle': `${Math.round(randomBetween(rng, 105, 165))}deg`,
-        '--text': profile.text,
-        '--muted': profile.muted,
-        '--dim': profile.dim,
-        '--accent': profile.accent,
-        '--cyan': profile.cyan,
-        '--pink': profile.pink,
-        '--amber': profile.amber,
-        '--glow-a': profile.glowA,
-        '--glow-b': profile.glowB,
-        '--glow-a-x': `${Math.round(randomBetween(rng, 66, 92))}%`,
-        '--glow-a-y': `${Math.round(randomBetween(rng, 8, 32))}%`,
-        '--glow-b-x': `${Math.round(randomBetween(rng, 6, 28))}%`,
-        '--glow-b-y': `${Math.round(randomBetween(rng, 62, 90))}%`,
-        '--grid-color': profile.grid,
-        '--grid-size': `${Math.round(randomBetween(rng, 28, 64))}px`,
-        '--grid-tilt': `${randomBetween(rng, -8, 8).toFixed(2)}deg`,
-        '--scan-angle': `${Math.round(randomBetween(rng, -4, 4))}deg`,
-        '--texture-alpha': randomBetween(rng, 0.08, 0.24).toFixed(2),
-        '--panel-alpha': randomBetween(rng, 0.74, 0.9).toFixed(2),
-        '--panel-radius': randomItem(rng, ['0px', '2px', '6px', '10px', '18px']),
-        '--panel-border': profile.border,
-        '--panel-shadow': randomItem(rng, [
-            '0 24px 70px rgba(0, 0, 0, 0.42)',
-            '0 12px 36px rgba(0, 0, 0, 0.58), inset 0 0 34px rgba(255, 255, 255, 0.025)',
-            '14px 14px 0 rgba(0, 0, 0, 0.34)',
-            '0 34px 90px rgba(0, 0, 0, 0.5), 0 0 36px color-mix(in srgb, var(--accent) 12%, transparent)',
-        ]),
-        '--app-gap': `${Math.round(randomBetween(rng, compact ? 8 : 16, roomy ? 34 : 24))}px`,
-        '--app-padding': `${Math.round(randomBetween(rng, compact ? 8 : 14, roomy ? 34 : 22))}px`,
-        '--identity-padding': `${Math.round(randomBetween(rng, compact ? 14 : 18, roomy ? 34 : 26))}px`,
-        '--identity-width': `minmax(${Math.round(randomBetween(rng, 230, 340))}px, ${Math.round(randomBetween(rng, 300, 430))}px)`,
-        '--terminal-width': `minmax(0, ${randomBetween(rng, 1.1, 2.2).toFixed(2)}fr)`,
-        '--terminal-rows': `${Math.round(randomBetween(rng, 42, 68))}px minmax(0, 1fr) ${Math.round(randomBetween(rng, 42, 64))}px`,
-        '--avatar-size': `${Math.round(randomBetween(rng, 58, 124))}px`,
-        '--avatar-radius': randomItem(rng, ['0px', '8px', '18px', '999px']),
-        '--brand-size': `clamp(${Math.round(randomBetween(rng, 24, 44))}px, ${randomBetween(rng, 3.8, 8.8).toFixed(1)}vw, ${Math.round(randomBetween(rng, 46, 92))}px)`,
-        '--brand-case': randomItem(rng, ['none', 'uppercase']),
-        '--terminal-skew': rng.unit() > 0.78 ? `${randomBetween(rng, -0.9, 0.9).toFixed(2)}deg` : '0deg',
-        '--identity-skew': rng.unit() > 0.78 ? `${randomBetween(rng, -0.9, 0.9).toFixed(2)}deg` : '0deg',
-        '--identity-offset': `${Math.round(randomBetween(rng, 10, 36))}px`,
-        '--terminal-offset': `${Math.round(randomBetween(rng, -24, -4))}px`,
-    }
-
-    for (const [name, value] of Object.entries(variables)) {
-        root.style.setProperty(name, value)
-    }
-
-    body.dataset.theme = profile.name
-    body.dataset.layout = layout
-    body.dataset.frame = frame
-    body.dataset.seed = rng.seedHex
-}
+const PROJECT_CACHE_KEY = 'lightjunction.projectCards.v5'
+const PROJECT_CACHE_TTL_MS = 15 * 60 * 1000
 
 const drag = {
     active: false,
@@ -325,12 +137,6 @@ const drag = {
     lastX: 0,
     lastY: 0,
     lastT: 0,
-}
-
-function escapeHtml(value: string): string {
-    const div = document.createElement('div')
-    div.textContent = value
-    return div.innerHTML
 }
 
 function writeLine(html: string, className = ''): void {
@@ -352,6 +158,338 @@ function showToast(message: string): void {
     toast.textContent = message
     toast.classList.add('show')
     window.setTimeout(() => toast.classList.remove('show'), 2400)
+}
+
+function initAsciiBackground(): void {
+    const context = asciiBg.getContext('2d')
+    if (!context) return
+    const drawContext = context
+
+    type AsciiGlyph = {
+        homeX: number
+        homeY: number
+        x: number
+        y: number
+        vx: number
+        vy: number
+        phase: number
+        spin: number
+        seed: number
+        char: string
+    }
+
+    const pointer = {
+        x: window.innerWidth * 0.5,
+        y: window.innerHeight * 0.5,
+        tx: window.innerWidth * 0.5,
+        ty: window.innerHeight * 0.5,
+        active: false,
+    }
+    const chars = '01<>[]{}()/\\|*+=-_:;.#$%@'
+    const hotChars = '@#$%&*+=<>'
+    const cell = 20
+    const glyphs: AsciiGlyph[] = []
+    let width = 0
+    let height = 0
+    let frame = 0
+
+    function pickChar(seed: number, hot = 0): string {
+        const alphabet = hot > 0.62 ? hotChars : chars
+        return alphabet[Math.abs(Math.floor(seed * alphabet.length)) % alphabet.length] ?? '.'
+    }
+
+    function resize(): void {
+        const ratio = window.devicePixelRatio || 1
+        width = window.innerWidth
+        height = window.innerHeight
+        asciiBg.width = Math.floor(width * ratio)
+        asciiBg.height = Math.floor(height * ratio)
+        asciiBg.style.width = `${width}px`
+        asciiBg.style.height = `${height}px`
+        drawContext.setTransform(ratio, 0, 0, ratio, 0, 0)
+        drawContext.font = '13px "JetBrains Mono", monospace'
+        drawContext.textBaseline = 'middle'
+        drawContext.textAlign = 'center'
+
+        glyphs.length = 0
+        const columns = Math.ceil(width / cell) + 2
+        const rows = Math.ceil(height / cell) + 2
+
+        for (let row = 0; row < rows; row += 1) {
+            for (let col = 0; col < columns; col += 1) {
+                const seed = Math.sin((row + 1) * 91.17 + (col + 1) * 47.31) * 10_000
+                const jitterX = (seed - Math.floor(seed) - 0.5) * 8
+                const jitterY = (Math.sin(seed * 2.17) - Math.floor(Math.sin(seed * 2.17)) - 0.5) * 8
+                const homeX = col * cell - cell + jitterX
+                const homeY = row * cell - cell + jitterY
+
+                glyphs.push({
+                    homeX,
+                    homeY,
+                    x: homeX,
+                    y: homeY,
+                    vx: 0,
+                    vy: 0,
+                    phase: seed,
+                    spin: Math.sin(seed) * 0.035,
+                    seed,
+                    char: pickChar(seed),
+                })
+            }
+        }
+    }
+
+    function draw(): void {
+        frame += 1
+        pointer.x += (pointer.tx - pointer.x) * 0.12
+        pointer.y += (pointer.ty - pointer.y) * 0.12
+
+        drawContext.clearRect(0, 0, width, height)
+
+        for (const glyph of glyphs) {
+            const dx = glyph.x - pointer.x
+            const dy = glyph.y - pointer.y
+            const distance = Math.sqrt(dx * dx + dy * dy) || 1
+            const hot = pointer.active ? Math.max(0, 1 - distance / 260) : 0
+            const orbit = hot * hot * 0.72
+            const pull = hot * 0.34
+            const homePull = 0.018 + hot * 0.01
+            const breath = Math.sin(frame * 0.018 + glyph.phase) * 0.28
+
+            glyph.vx += (glyph.homeX - glyph.x) * homePull
+            glyph.vy += (glyph.homeY - glyph.y) * homePull
+            glyph.vx += (-dy / distance) * orbit
+            glyph.vy += (dx / distance) * orbit
+            glyph.vx += (-dx / distance) * pull
+            glyph.vy += (-dy / distance) * pull
+            glyph.vx += Math.cos(frame * 0.011 + glyph.phase) * 0.006
+            glyph.vy += Math.sin(frame * 0.013 + glyph.phase) * 0.006
+            glyph.vx *= 0.86
+            glyph.vy *= 0.86
+            glyph.x += glyph.vx
+            glyph.y += glyph.vy + breath
+
+            const pulse = Math.max(0, Math.sin(frame * 0.09 + glyph.phase))
+            const alpha = 0.028 + hot * 0.46 + pulse * 0.055
+            if (alpha < 0.07 && Math.abs(glyph.vx) + Math.abs(glyph.vy) < 0.12 && frame % 5 !== 0) continue
+
+            if (hot > 0.28 && frame % 4 === 0) {
+                glyph.char = pickChar(glyph.seed + frame * 0.017 + hot * 9, hot)
+            }
+
+            const hue = 136 + hot * 86 + Math.sin(glyph.phase + frame * 0.01) * 18
+            const light = 46 + hot * 32 + pulse * 8
+            const size = 11 + hot * 8 + pulse * 1.8
+
+            drawContext.save()
+            drawContext.translate(glyph.x, glyph.y)
+            drawContext.rotate(glyph.spin * frame * hot)
+            drawContext.font = `${size}px "JetBrains Mono", monospace`
+            drawContext.fillStyle = `hsla(${hue}, 96%, ${light}%, ${Math.min(alpha, 0.72)})`
+            drawContext.shadowBlur = hot * 22
+            drawContext.shadowColor = `hsla(${hue}, 96%, 62%, ${hot * 0.46})`
+            drawContext.fillText(glyph.char, 0, 0)
+            drawContext.restore()
+        }
+
+        requestAnimationFrame(draw)
+    }
+
+    window.addEventListener('resize', resize)
+    window.addEventListener('pointermove', (event) => {
+        pointer.tx = event.clientX
+        pointer.ty = event.clientY
+        pointer.active = true
+    })
+    window.addEventListener('pointerleave', () => {
+        pointer.active = false
+    })
+
+    resize()
+    requestAnimationFrame(draw)
+}
+
+function formatNumber(value: number | null): string {
+    if (value === null) return 'unknown'
+    return new Intl.NumberFormat('en-US').format(value)
+}
+
+function formatDate(value: string | null): string {
+    if (!value) return 'not pushed'
+    return new Date(value).toISOString().slice(0, 10)
+}
+
+function readProjectCache(): CachedProjects | null {
+    try {
+        const raw = window.localStorage.getItem(PROJECT_CACHE_KEY)
+        if (!raw) return null
+
+        const parsed = JSON.parse(raw) as Partial<CachedProjects>
+        if (typeof parsed.cachedAt !== 'number' || !Array.isArray(parsed.cards)) return null
+        if (Date.now() - parsed.cachedAt > PROJECT_CACHE_TTL_MS) return null
+
+        return {
+            cachedAt: parsed.cachedAt,
+            cards: parsed.cards as RepoCard[],
+        }
+    } catch {
+        return null
+    }
+}
+
+function writeProjectCache(cards: RepoCard[]): void {
+    try {
+        const cached: CachedProjects = {
+            cachedAt: Date.now(),
+            cards,
+        }
+        window.localStorage.setItem(PROJECT_CACHE_KEY, JSON.stringify(cached))
+    } catch {
+        // Cache failure should not affect the project app.
+    }
+}
+
+function repoSearchText(repo: RepoCard): string {
+    return [
+        repo.full_name,
+        repo.description ?? '',
+        repo.language ?? '',
+        ...(repo.topics ?? []),
+    ].join(' ').toLowerCase()
+}
+
+function isProjectGroupId(value: string | undefined): value is ProjectGroupId {
+    return PROJECT_GROUPS.some((group) => group.id === value)
+}
+
+function repoMatchesGroup(repo: RepoCard, groupId: ProjectGroupId): boolean {
+    if (groupId === 'all') return true
+
+    const group = PROJECT_GROUPS.find((item) => item.id === groupId)
+    if (!group) return false
+
+    const searchText = repoSearchText(repo)
+    return group.keywords.some((keyword) => searchText.includes(keyword))
+}
+
+function projectGroupCount(groupId: ProjectGroupId): number {
+    return projectCards.filter((repo) => repoMatchesGroup(repo, groupId)).length
+}
+
+function renderProjectGroups(): void {
+    projectGroups.innerHTML = PROJECT_GROUPS.map((group) => {
+        const selected = group.id === activeProjectGroup
+        return `
+            <button class="project-group${selected ? ' active' : ''}" type="button" role="tab" aria-selected="${selected}" data-project-group="${group.id}">
+                ${escapeHtml(group.label)} ${projectGroupCount(group.id)}
+            </button>
+        `
+    }).join('')
+}
+
+function renderProjectCards(cards: RepoCard[], source: 'cache' | 'network'): void {
+    projectCards = cards
+    renderProjectGroups()
+
+    const filteredCards = cards.filter((repo) => repoMatchesGroup(repo, activeProjectGroup))
+    const totalStars = filteredCards.reduce((sum, repo) => sum + repo.stargazers_count, 0)
+    const knownCommitTotal = filteredCards.reduce((sum, repo) => sum + (repo.commit_count ?? 0), 0)
+    const unknownCommits = filteredCards.filter((repo) => repo.commit_count === null).length
+    const activeGroupLabel = PROJECT_GROUPS.find((group) => group.id === activeProjectGroup)?.label ?? 'Projects'
+
+    projectCount.textContent = `${filteredCards.length} ${activeGroupLabel} projects / ${cards.length} total / ${formatNumber(totalStars)} stars`
+    projectSort.textContent = `Rank: recent activity first, then newness, stars, and commits`
+    projectStatus.textContent = source === 'cache'
+        ? 'Showing cached GitHub data while refresh is available.'
+        : `${formatNumber(knownCommitTotal)} commits counted${unknownCommits ? ` / ${unknownCommits} unknown` : ''}.`
+
+    if (filteredCards.length === 0) {
+        projectGrid.innerHTML = '<div class="empty-state">No repositories matched this group.</div>'
+        return
+    }
+
+    projectGrid.innerHTML = filteredCards.map((repo, index) => {
+        const owner = repo.full_name.split('/')[0] ?? 'Unknown'
+        const tags = [
+            owner,
+            repo.language ?? 'Unknown',
+            repo.fork ? 'Fork' : 'Source',
+            repo.archived ? 'Archived' : 'Active',
+        ]
+        const description = repo.description ?? 'No description yet.'
+        return `
+            <article class="project-card">
+                <header>
+                    <h3><a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.full_name)}</a></h3>
+                    <span class="project-rank">#${index + 1}</span>
+                </header>
+                <div class="project-metrics" aria-label="Repository metrics">
+                    <span>${formatNumber(repo.stargazers_count)} stars</span>
+                    <span>${formatNumber(repo.commit_count)} commits</span>
+                    <span>${formatNumber(repo.forks_count)} forks</span>
+                    <span>${formatNumber(repo.open_issues_count)} issues</span>
+                </div>
+                <p>${escapeHtml(description)}</p>
+                <div class="project-tags">
+                    ${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}
+                </div>
+                <footer>
+                    <span>pushed ${formatDate(repo.pushed_at)}</span>
+                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">Open</a>
+                </footer>
+            </article>
+        `
+    }).join('')
+}
+
+async function loadProjectCards(force = false): Promise<void> {
+    const cache = readProjectCache()
+    if (!force && cache) {
+        renderProjectCards(cache.cards, 'cache')
+        projectsLoaded = true
+        return
+    }
+
+    projectStatus.textContent = 'Loading synced project cards from the repository...'
+    projectGrid.innerHTML = ''
+
+    try {
+        const cards = await fetchStaticProjectCards()
+        writeProjectCache(cards)
+        renderProjectCards(cards, 'network')
+        projectsLoaded = true
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error)
+        projectStatus.textContent = `Failed to fetch GitHub projects: ${message}`
+        projectCount.textContent = 'GitHub projects unavailable'
+        if (cache) {
+            renderProjectCards(cache.cards, 'cache')
+            showToast('Using cached projects')
+        }
+    }
+}
+
+function switchApp(appId: AppId): void {
+    activeApp = appId
+
+    document.querySelectorAll<HTMLElement>('[data-app-panel]').forEach((panel) => {
+        const visible = panel.dataset.appPanel === appId
+        panel.hidden = !visible
+        panel.classList.toggle('active', visible)
+    })
+
+    document.querySelectorAll<HTMLButtonElement>('[data-app-target]').forEach((button) => {
+        const selected = button.dataset.appTarget === appId
+        button.classList.toggle('active', selected)
+        button.setAttribute('aria-pressed', String(selected))
+    })
+
+    workspaceTitle.textContent = appId === 'projects' ? 'Proj Cards' : 'Terminal'
+    workspaceKicker.textContent = appId === 'projects' ? 'App / GitHub' : 'App / tty1'
+
+    if (appId === 'projects' && !projectsLoaded) {
+        void loadProjectCards()
+    }
 }
 
 function setInput(value: string): void {
@@ -467,14 +605,6 @@ function closeResult(): void {
     openSecureCard()
 }
 
-async function fetchJson<T>(url: string): Promise<T> {
-    const response = await fetch(url)
-    if (!response.ok) {
-        throw new Error(`${response.status} ${response.statusText}`)
-    }
-    return response.json() as Promise<T>
-}
-
 const commands: Record<string, CommandHandler> = {
     help: () => {
         writeLine(`
@@ -487,8 +617,8 @@ const commands: Record<string, CommandHandler> = {
         writeLine(`
             <div class="panel-copy">
                 <strong>LIghtJUNction</strong>
-                <p>Non-CS background, amateur programming enthusiast. Into AI, Android rooting, custom ROMs, Linux, and sharp little tools.</p>
-                <p>Pragmatic by scar tissue. Learning by doing.</p>
+                <p>Independent builder focused on AI tooling, Linux automation, network workflows, and practical security.</p>
+                <p>Learning in public by turning rough personal systems into reusable tools.</p>
             </div>
         `)
     },
@@ -511,9 +641,9 @@ const commands: Record<string, CommandHandler> = {
         `)
     },
     projects: async () => {
-        const loading = appendLoading('Fetching GitHub projects')
+        const loading = appendLoading('Loading synced project cards')
         try {
-            const repos = await fetchJson<Repo[]>('https://api.github.com/users/LIghtJUNction/repos?sort=updated&per_page=8')
+            const repos = (readProjectCache()?.cards ?? await fetchStaticProjectCards()).slice(0, 8)
             loading.remove()
             writeLine(`
                 <div class="project-list">
@@ -521,7 +651,7 @@ const commands: Record<string, CommandHandler> = {
                         <article>
                             <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.name)}</a>
                             <p>${escapeHtml(repo.description ?? 'No description')}</p>
-                            <small>${escapeHtml(repo.language ?? 'Unknown')} / ${repo.stargazers_count} stars / ${repo.forks_count} forks</small>
+                            <small>${escapeHtml(repo.language ?? 'Unknown')} / ${repo.stargazers_count} stars / ${formatNumber(repo.commit_count)} commits</small>
                         </article>
                     `).join('')}
                 </div>
@@ -561,9 +691,19 @@ const commands: Record<string, CommandHandler> = {
             </div>
         `)
     },
+    sponsor: () => {
+        writeLine(`
+            <div class="panel-copy">
+                <strong>开源协作招募</strong>
+                <p>寻找活跃的开源贡献者，学生优先。我可以赞助 GPT-5.5 token：你可以用于自己的开源项目，也请用 GPT-5.5 帮我测试、调试、改进我的公开仓库。</p>
+                <p>仅限非商业用途。需要项目经历、又缺少 token，欢迎联系互加微信。</p>
+                <p class="muted">Type <kbd>msg</kbd> to send an encrypted contact note.</p>
+            </div>
+        `)
+    },
     msg: openSecureCard,
     clear: () => { output.innerHTML = '' },
-    whoami: () => writeLine('guest<br>LIghtJUNction<br>builder of questionable but useful things'),
+    whoami: () => writeLine('guest<br>LIghtJUNction<br>builder of compact tools for real systems'),
     pwd: () => writeLine('/home/guest'),
     ls: () => writeLine('about.txt&nbsp;&nbsp;projects/&nbsp;&nbsp;contact.sh&nbsp;&nbsp;.pgp-key&nbsp;&nbsp;.bootstrap/'),
     uname: () => writeLine('lightjunction 2026.06 x86_64 GNU/Linux'),
@@ -572,30 +712,11 @@ const commands: Record<string, CommandHandler> = {
             <pre class="fetch">       /\\
       /  \\       user  LIghtJUNction
      / /\\ \\      host  lightjunction.github.io
-    / ____ \\     shell zsh + fish + chaos
-   /_/    \\_\\    focus AI / Linux / weird tools</pre>
+    / ____ \\     shell zsh + fish
+   /_/    \\_\\    focus AI / Linux / security</pre>
         `)
     },
     reboot: resetTerminal,
-}
-
-function commandDescription(name: string): string {
-    return {
-        help: 'show commands',
-        about: 'who this is',
-        skills: 'working areas',
-        projects: 'recent repositories',
-        stats: 'GitHub numbers',
-        contact: 'links and key',
-        msg: 'encrypted message card',
-        clear: 'clear scrollback',
-        whoami: 'print identity',
-        pwd: 'current path',
-        ls: 'list files',
-        uname: 'kernel cosplay',
-        fastfetch: 'system card',
-        reboot: 'reset terminal',
-    }[name] ?? ''
 }
 
 function appendLoading(label: string): HTMLElement {
@@ -621,6 +742,10 @@ async function execute(commandLine: string): Promise<void> {
 }
 
 function handleKeydown(event: KeyboardEvent): void {
+    if (activeApp !== 'terminal') {
+        return
+    }
+
     if (event.target instanceof HTMLTextAreaElement || event.metaKey || event.ctrlKey || event.altKey) {
         return
     }
@@ -719,9 +844,31 @@ function bindChrome(): void {
     $('btn-reset').addEventListener('click', resetTerminal)
     $('btn-fullscreen').addEventListener('click', () => void document.documentElement.requestFullscreen?.())
     $('btn-message').addEventListener('click', openSecureCard)
+    $('btn-refresh-projects').addEventListener('click', () => {
+        void loadProjectCards(true)
+        showToast('Refreshing projects')
+    })
+    projectGroups.addEventListener('click', (event) => {
+        const target = event.target
+        if (!(target instanceof HTMLButtonElement)) return
+
+        const group = target.dataset.projectGroup
+        if (!isProjectGroupId(group)) return
+
+        activeProjectGroup = group
+        renderProjectCards(projectCards, 'cache')
+    })
     $('result-copy').addEventListener('click', () => void copyEncrypted())
     $('result-github').addEventListener('click', openGitHubIssue)
     $('result-close').addEventListener('click', closeResult)
+    document.querySelectorAll<HTMLButtonElement>('[data-app-target]').forEach((button) => {
+        button.addEventListener('click', () => {
+            const target = button.dataset.appTarget
+            if (target === 'projects' || target === 'terminal') {
+                switchApp(target)
+            }
+        })
+    })
     window.addEventListener('resize', () => {
         if (!secureCard.hidden) {
             drag.x = Math.min(drag.x, window.innerWidth - secureCard.offsetWidth - 12)
@@ -734,13 +881,15 @@ function bindChrome(): void {
 
 function boot(): void {
     writeLine('<pre class="hero-type">LIghtJUNction</pre>')
-    writeLine('Personal terminal. PGP messages. Linux bootstrap notes. Type <kbd>help</kbd>.', 'muted')
+    writeLine('Terminal app. PGP messages. Open-source token sponsorship. Type <kbd>sponsor</kbd> or <kbd>help</kbd>.', 'muted')
 }
 
 applyRandomVisuals()
+initAsciiBackground()
 bindChrome()
 bindSecureCard()
 boot()
+switchApp('projects')
 placeSecureCard()
 secureCard.hidden = true
 requestAnimationFrame(tick)

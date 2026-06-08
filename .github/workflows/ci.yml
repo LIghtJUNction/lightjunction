@@ -24,19 +24,10 @@ jobs:
       - name: Install shellcheck
         run: sudo apt-get update && sudo apt-get install -y shellcheck
 
-      - name: Shell syntax
-        run: bash -n deploy-ssh-keys.sh bootstrap-linux.sh bootstrap-linux-daed.sh bootstrap-macbook.sh lib/*.sh basic.sh env.sh log.sh scripts/get_api_key.sh
-
-      - name: Shellcheck changed entrypoints
-        run: shellcheck deploy-ssh-keys.sh bootstrap-linux.sh bootstrap-macbook.sh lib/bootstrap.sh lib/common.sh lib/arr.sh
-
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-
-      - name: Python tests
-        run: uv run pytest
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -47,5 +38,5 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
-      - name: Build frontend
-        run: npm run build
+      - name: Quality gate
+        run: scripts/check.sh

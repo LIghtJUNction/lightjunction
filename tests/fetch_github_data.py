@@ -12,7 +12,6 @@ SCRIPTS = Path(__file__).parent.parent / "scripts"
 _ALIASES = {
     "fetch_github_data": "fetch-github-data.py",
     "update_readme": "update-readme.py",
-    "ai_enhance": "ai-enhance.py",
 }
 
 # Load and re-export each aliased script
@@ -21,8 +20,7 @@ for underscore_name, filename in _ALIASES.items():
     if not script_path.exists():
         continue
     spec = importlib.util.spec_from_loader(
-        underscore_name,
-        importlib.machinery.SourceFileLoader(underscore_name, str(script_path))
+        underscore_name, importlib.machinery.SourceFileLoader(underscore_name, str(script_path))
     )
     if spec and spec.loader:
         mod = importlib.util.module_from_spec(spec)

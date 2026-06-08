@@ -6,9 +6,8 @@ from __future__ import annotations
 import html
 import json
 import os
-import sys
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -59,7 +58,7 @@ def md_escape(value: Any) -> str:
 def short_repo_name(repo: str) -> str:
     prefix = f"{REPO_OWNER}/"
     if repo.startswith(prefix):
-        return repo[len(prefix):]
+        return repo[len(prefix) :]
     return repo
 
 
@@ -68,7 +67,7 @@ def get_account_age(created_at: str) -> tuple[str, int, int]:
         return "Unknown", 0, 0
     try:
         created = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         age = now - created
         return created.strftime("%Y-%m-%d"), age.days // 365, (age.days % 365) // 30
     except ValueError:
@@ -82,16 +81,53 @@ def progress_bar(count: int, total: int, width: int = 10) -> str:
     return "▓" * filled + "░" * max(0, width - filled)
 
 
+def format_repo_card(repo: dict[str, Any]) -> str:
+    name = md_escape(repo.get("name", "unknown"))
+    owner = html.escape(REPO_OWNER)
+    desc = html.escape(repo.get("description") or "No description")
+    url = html.escape(repo.get("html_url") or "")
+    lang = md_escape(repo.get("language") or "Unknown")
+    badge = LANG_EMOJI.get(lang, "CODE")
+    stars = repo.get("stargazers_count", 0)
+    forks = repo.get("forks_count", 0)
+    updated = str(repo.get("updated_at", ""))[:10]
+    escaped_name = html.escape(name)
+    escaped_updated = html.escape(updated)
+
+    return f"""<td align="left" valign="top" width="50%">
+
+#### <a href="{url}">{escaped_name}</a> <sub>{badge}</sub>
+
+{desc}
+
+<sub>{lang} / {stars} stars / {forks} forks / updated {escaped_updated}</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/{owner}/{escaped_name}?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/{owner}/{escaped_name}?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>"""
+
+
 def format_stats(data: dict[str, Any]) -> str:
     user = data.get("user_stats", {})
     created, years, months = get_account_age(user.get("created_at", ""))
-    return "\n".join([
-        "| Joined | Repos | Followers | Following |",
-        "|:------:|:-----:|:---------:|:---------:|",
-        f"| {created} ({years}yr {months}mo) | **{user.get('public_repos', 0)}** | **{user.get('followers', 0)}** | **{user.get('following', 0)}** |",
-        "",
-        "---",
-    ])
+    public_repos = user.get("public_repos", 0)
+    followers = user.get("followers", 0)
+    following = user.get("following", 0)
+    return "\n".join(
+        [
+            "| Joined | Repos | Followers | Following |",
+            "|:------:|:-----:|:---------:|:---------:|",
+            (
+                f"| {created} ({years}yr {months}mo) | **{public_repos}** | "
+                f"**{followers}** | **{following}** |"
+            ),
+            "",
+            "---",
+        ]
+    )
 
 
 def format_weekly(data: dict[str, Any], ai_content: dict[str, Any]) -> str:
@@ -122,7 +158,13 @@ def format_repos(data: dict[str, Any], ai_content: dict[str, Any]) -> str:
     if not repos:
         return "### Latest Projects\n\nNo repositories found."
 
-    lines = ["### Latest Projects", ""]
+    lines = [
+        "### Latest Projects",
+        "",
+        "<details>",
+        f"<summary>{len(repos)} recently updated repositories</summary>",
+        "",
+    ]
     insight = ai_content.get("project_insights")
     if insight:
         lines.extend([f"_{md_escape(insight)}_", ""])
@@ -130,34 +172,12 @@ def format_repos(data: dict[str, Any], ai_content: dict[str, Any]) -> str:
     lines.append("<table>")
     for row_start in range(0, len(repos), 2):
         lines.append("<tr>")
-        for repo in repos[row_start:row_start + 2]:
-            name = md_escape(repo.get("name", "unknown"))
-            owner = html.escape(REPO_OWNER)
-            desc = html.escape(repo.get("description") or "No description")
-            url = html.escape(repo.get("html_url") or "")
-            lang = md_escape(repo.get("language") or "Unknown")
-            badge = LANG_EMOJI.get(lang, "CODE")
-            stars = repo.get("stargazers_count", 0)
-            forks = repo.get("forks_count", 0)
-            updated = str(repo.get("updated_at", ""))[:10]
-            lines.append(f"""<td align="left" valign="top" width="50%">
-
-#### <a href="{url}">{html.escape(name)}</a> <sub>{badge}</sub>
-
-{desc}
-
-<sub>{lang} / {stars} stars / {forks} forks / updated {html.escape(updated)}</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/{owner}/{html.escape(name)}?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/{owner}/{html.escape(name)}?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>""")
-        if len(repos[row_start:row_start + 2]) == 1:
+        for repo in repos[row_start : row_start + 2]:
+            lines.append(format_repo_card(repo))
+        if len(repos[row_start : row_start + 2]) == 1:
             lines.append("<td></td>")
         lines.append("</tr>")
-    lines.append("</table>")
+    lines.extend(["</table>", "", "</details>"])
     lines.extend(["", "---"])
     return "\n".join(lines)
 
@@ -180,7 +200,7 @@ def format_commits(data: dict[str, Any]) -> str:
         date, time = parse_commit_time(commit.get("date", ""))
         grouped.setdefault(date, []).append({**commit, "time": time})
 
-    lines = ["### Recent Commits", "", "<details open>", "<summary>Last 7 days</summary>", ""]
+    lines = ["### Recent Commits", "", "<details>", "<summary>Last 7 days</summary>", ""]
     for date in sorted(grouped, reverse=True):
         lines.extend([f"**{date}**", "", "| Time | Repo | Commit |", "|:-----|:-----|:-------|"])
         for commit in grouped[date]:
@@ -211,6 +231,13 @@ def replace_section(path: Path, start_marker: str, end_marker: str, new_content:
     return True
 
 
+def has_section(path: Path, start_marker: str, end_marker: str) -> bool:
+    text = path.read_text(encoding="utf-8")
+    start = text.find(start_marker)
+    end = text.find(end_marker)
+    return start != -1 and end != -1 and start < end
+
+
 def format_skyline(path: Path | None = None) -> str:
     skyline_path = path or Path("skyline.txt")
     if not skyline_path.exists():
@@ -218,7 +245,22 @@ def format_skyline(path: Path | None = None) -> str:
     content = skyline_path.read_text(encoding="utf-8").strip()
     if not content:
         return ""
-    return f"### Skyline\n\n```\n{content}\n```\n\n---"
+    return "\n".join(
+        [
+            "### Skyline",
+            "",
+            "<details>",
+            "<summary>Contribution skyline</summary>",
+            "",
+            "```",
+            content,
+            "```",
+            "",
+            "</details>",
+            "",
+            "---",
+        ]
+    )
 
 
 def load_json(path: Path, default: Any) -> Any:
@@ -227,7 +269,9 @@ def load_json(path: Path, default: Any) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def render_sections(data: dict[str, Any], ai_content: dict[str, Any], paths: Paths) -> dict[str, str]:
+def render_sections(
+    data: dict[str, Any], ai_content: dict[str, Any], paths: Paths
+) -> dict[str, str]:
     return {
         "stats": format_stats(data),
         "summary": format_weekly(data, ai_content),
@@ -248,13 +292,21 @@ def main() -> int:
     print("Updating README dynamic sections")
 
     changed = False
+    missing_sections: list[str] = []
     for name, content in render_sections(data, ai_content, paths).items():
         start, end = SECTIONS[name]
         if not content and name == "skyline":
             continue
+        if not has_section(paths.readme, start, end):
+            missing_sections.append(name)
+            continue
         if replace_section(paths.readme, start, end, content):
             print(f"updated: {name}")
             changed = True
+
+    if missing_sections:
+        print(f"[ERROR] Missing README dynamic section markers: {', '.join(missing_sections)}")
+        return 1
 
     for path in (paths.data, paths.ai, paths.skyline):
         path.unlink(missing_ok=True)

@@ -1,6 +1,6 @@
 """Tests for fetch-github-data.py"""
 
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 import fetch_github_data as mod
 
@@ -94,7 +94,13 @@ def test_get_weekly_commits():
         }
     ]
     mock_commits = [
-        {"sha": "abc123", "commit": {"message": "fix bug", "committer": {"date": "2026-04-01T00:00:00Z"}}, "author": {"login": "user"}, "committer": {"login": "user"}, "html_url": "url"}
+        {
+            "sha": "abc123",
+            "commit": {"message": "fix bug", "committer": {"date": "2026-04-01T00:00:00Z"}},
+            "author": {"login": "user"},
+            "committer": {"login": "user"},
+            "html_url": "url",
+        }
     ]
 
     def api_get_side(url):
@@ -105,3 +111,84 @@ def test_get_weekly_commits():
     with patch.object(mod, "api_get", side_effect=api_get_side):
         total, commits = mod.get_weekly_commits("testuser")
         assert total >= 0
+
+
+def test_last_page_from_link_header():
+    header = (
+        '<https://api.github.com/repositories/1/commits?per_page=1&page=2>; rel="next", '
+        '<https://api.github.com/repositories/1/commits?per_page=1&page=42>; rel="last"'
+    )
+
+    assert mod.last_page_from_link_header(header) == 42
+
+
+def test_format_project_card_uses_commit_count_and_rank_score():
+    repo = {
+        "id": 1,
+        "name": "agent-tool",
+        "full_name": "user/agent-tool",
+        "html_url": "https://github.com/user/agent-tool",
+        "description": "AI agent tool",
+        "language": "TypeScript",
+        "topics": ["ai", "agent"],
+        "stargazers_count": 3,
+        "forks_count": 1,
+        "open_issues_count": 0,
+        "default_branch": "main",
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-02T00:00:00Z",
+        "pushed_at": "2026-01-03T00:00:00Z",
+        "archived": False,
+        "fork": False,
+    }
+
+    with patch.object(mod, "fetch_repo_commit_count", return_value=12):
+        card = mod.format_project_card(repo)
+
+    assert card["full_name"] == "user/agent-tool"
+    assert card["topics"] == ["ai", "agent"]
+    assert card["commit_count"] == 12
+    assert card["rank_score"] > 0
+
+
+def test_build_project_cards_payload_includes_org_repos():
+    user_repo = {
+        "id": 1,
+        "name": "personal-ai",
+        "full_name": "user/personal-ai",
+        "html_url": "https://github.com/user/personal-ai",
+        "description": "AI",
+        "language": "Python",
+        "topics": [],
+        "stargazers_count": 1,
+        "forks_count": 0,
+        "open_issues_count": 0,
+        "default_branch": "main",
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z",
+        "pushed_at": "2026-01-01T00:00:00Z",
+        "archived": False,
+        "fork": False,
+    }
+    org_repo = {**user_repo, "id": 2, "full_name": "org/org-ai", "name": "org-ai"}
+
+    def pages_side_effect(path, **kwargs):
+        if path == "/users/user/orgs":
+            return [{"login": "org"}]
+        if path == "/users/user/repos":
+            return [user_repo]
+        if path == "/orgs/org/repos":
+            return [org_repo]
+        return []
+
+    settings = mod.Settings(owner="user", token="", orgs=(), output=mod.Path("/tmp/out.json"))
+
+    with (
+        patch.object(mod.CLIENT, "pages", side_effect=pages_side_effect),
+        patch.object(mod, "fetch_repo_commit_count", return_value=4),
+    ):
+        payload = mod.build_project_cards_payload(settings)
+
+    names = {repo["full_name"] for repo in payload["project_cards"]}
+    assert names == {"user/personal-ai", "org/org-ai"}
+    assert payload["included_orgs"] == ["org"]

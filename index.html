@@ -3,721 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIghtJUNction Terminal</title>
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#080b0a">
+    <meta name="description" content="LIghtJUNction's app launcher for project cards, terminal workflows, GitHub activity, and encrypted OpenPGP contact.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LIghtJUNction App Launcher">
+    <meta property="og:description" content="Project cards, terminal workflows, GitHub activity, and encrypted contact in a compact personal app launcher.">
+    <meta property="og:url" content="https://lightjunction.github.io/lightjunction/">
+    <meta property="og:image" content="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=512&d=identicon">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://lightjunction.github.io/lightjunction/">
+    <title>LIghtJUNction App Launcher</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23080b0a'/%3E%3Cpath d='M16 19l15 13-15 13V19zm18 28h16v-6H34v6z' fill='%238df7bd'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            color-scheme: dark;
-            --bg: #080b0a;
-            --bg-raised: #0d1311;
-            --bg-panel: #111a16;
-            --line: #214036;
-            --line-hot: #48f2a5;
-            --text: #d7efe5;
-            --muted: #779287;
-            --dim: #53655f;
-            --accent: #8df7bd;
-            --cyan: #6ee7f2;
-            --pink: #ff7894;
-            --amber: #ffc857;
-            --bg-a: #050706;
-            --bg-b: #0a0f0d;
-            --bg-c: #07100d;
-            --glow-a: rgba(110, 231, 242, 0.13);
-            --glow-b: rgba(141, 247, 189, 0.12);
-            --grid-color: rgba(141, 247, 189, 0.04);
-            --grid-size: 44px;
-            --grid-tilt: 0deg;
-            --panel-alpha: 0.82;
-            --panel-radius: 0px;
-            --panel-border: rgba(141, 247, 189, 0.18);
-            --panel-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
-            --terminal-rows: 54px minmax(0, 1fr) 50px;
-            --identity-width: minmax(260px, 330px);
-            --terminal-width: minmax(0, 1fr);
-            --app-gap: 18px;
-            --app-padding: 18px;
-            --identity-padding: 22px;
-            --avatar-size: 92px;
-            --avatar-radius: 18px;
-            --brand-size: clamp(30px, 5vw, 54px);
-            --brand-case: none;
-            --terminal-skew: 0deg;
-            --identity-skew: 0deg;
-        }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-            background:
-                radial-gradient(circle at var(--glow-a-x, 82%) var(--glow-a-y, 14%), var(--glow-a), transparent 30%),
-                radial-gradient(circle at var(--glow-b-x, 12%) var(--glow-b-y, 82%), var(--glow-b), transparent 34%),
-                linear-gradient(var(--bg-angle, 135deg), var(--bg-a), var(--bg-b) 42%, var(--bg-c));
-            color: var(--text);
-            font-family: "JetBrains Mono", monospace;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            background-image:
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: var(--grid-size) var(--grid-size);
-            mask-image: radial-gradient(circle at center, black, transparent 78%);
-            transform: rotate(var(--grid-tilt)) scale(1.18);
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            opacity: var(--texture-alpha, 0.18);
-            background:
-                repeating-linear-gradient(
-                    var(--scan-angle, 0deg),
-                    transparent 0,
-                    transparent 7px,
-                    rgba(255, 255, 255, 0.035) 8px
-                );
-            mix-blend-mode: overlay;
-        }
-
-        button,
-        textarea {
-            font: inherit;
-        }
-
-        button {
-            color: var(--text);
-        }
-
-        a {
-            color: var(--cyan);
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: var(--accent);
-        }
-
-        .app {
-            position: relative;
-            z-index: 1;
-            height: 100vh;
-            display: grid;
-            grid-template-columns: var(--identity-width) var(--terminal-width);
-            gap: var(--app-gap);
-            padding: var(--app-padding);
-        }
-
-        .identity,
-        .terminal {
-            border: 1px solid var(--panel-border);
-            background: rgba(8, 13, 11, var(--panel-alpha));
-            border-radius: var(--panel-radius);
-            box-shadow: var(--panel-shadow);
-            backdrop-filter: blur(18px);
-        }
-
-        body[data-frame="double"] .identity,
-        body[data-frame="double"] .terminal {
-            outline: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-            outline-offset: 5px;
-        }
-
-        body[data-frame="cut"] .identity,
-        body[data-frame="cut"] .terminal,
-        body[data-frame="cut"] .secure-card,
-        body[data-frame="cut"] .modal-box {
-            clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
-        }
-
-        body[data-frame="thin"] .identity,
-        body[data-frame="thin"] .terminal {
-            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
-        }
-
-        .identity {
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-            min-height: 0;
-            padding: var(--identity-padding);
-            transform: skewY(var(--identity-skew));
-        }
-
-        body[data-layout="reverse"] .identity {
-            order: 2;
-        }
-
-        body[data-layout="reverse"] .terminal {
-            order: 1;
-        }
-
-        body[data-layout="stacked"] .app {
-            grid-template-columns: 1fr;
-            grid-template-rows: minmax(180px, 240px) minmax(0, 1fr);
-        }
-
-        body[data-layout="stacked"] .identity {
-            grid-template-columns: minmax(220px, 1fr) minmax(260px, 420px);
-            grid-template-rows: 1fr;
-            gap: 22px;
-            align-items: end;
-        }
-
-        body[data-layout="stacked"] .brand {
-            font-size: clamp(28px, 4vw, 48px);
-        }
-
-        body[data-layout="stack-reverse"] .app {
-            grid-template-columns: 1fr;
-            grid-template-rows: minmax(0, 1fr) minmax(170px, 230px);
-        }
-
-        body[data-layout="stack-reverse"] .identity {
-            order: 2;
-            grid-template-columns: minmax(220px, 1fr) minmax(260px, 420px);
-            grid-template-rows: 1fr;
-            gap: 22px;
-            align-items: end;
-        }
-
-        body[data-layout="focus"] .terminal {
-            order: 1;
-        }
-
-        body[data-layout="focus"] .identity {
-            order: 2;
-        }
-
-        body[data-layout="focus"] .app {
-            grid-template-columns: minmax(0, 1fr) minmax(230px, 290px);
-        }
-
-        body[data-layout="offset"] .identity {
-            transform: translateY(var(--identity-offset, 18px));
-        }
-
-        body[data-layout="offset"] .terminal {
-            transform: translateY(var(--terminal-offset, -8px));
-        }
-
-        body[data-layout="rail"] .app {
-            grid-template-columns: minmax(86px, 112px) minmax(0, 1fr);
-        }
-
-        body[data-layout="rail"] .identity {
-            padding: 14px 10px;
-            justify-items: center;
-            text-align: center;
-        }
-
-        body[data-layout="rail"] .summary {
-            writing-mode: vertical-rl;
-            max-height: 48vh;
-            margin: 18px auto;
-        }
-
-        body[data-layout="rail"] .brand {
-            font-size: clamp(18px, 2vw, 26px);
-            line-height: 1;
-            word-break: break-all;
-        }
-
-        body[data-layout="rail"] .key-block {
-            display: none;
-        }
-
-        body[data-layout="wide-id"] .app {
-            grid-template-columns: minmax(360px, 46vw) minmax(0, 1fr);
-        }
-
-        body[data-layout="wide-id"] .identity {
-            align-content: center;
-        }
-
-        body[data-layout="wide-id"] .brand {
-            font-size: clamp(44px, 8vw, 96px);
-        }
-
-        body[data-layout="console-first"] .app {
-            grid-template-columns: minmax(0, 1.9fr) minmax(260px, 0.8fr);
-        }
-
-        body[data-layout="console-first"] .terminal {
-            order: 1;
-        }
-
-        body[data-layout="console-first"] .identity {
-            order: 2;
-        }
-
-        .avatar {
-            width: var(--avatar-size);
-            height: var(--avatar-size);
-            border-radius: var(--avatar-radius);
-            border: 1px solid rgba(141, 247, 189, 0.25);
-            box-shadow: 0 0 30px rgba(141, 247, 189, 0.16);
-        }
-
-        .brand {
-            margin: 20px 0 10px;
-            font-family: "Share Tech Mono", monospace;
-            font-size: var(--brand-size);
-            line-height: 0.9;
-            letter-spacing: 0;
-            color: var(--accent);
-            text-transform: var(--brand-case);
-        }
-
-        .summary {
-            color: var(--muted);
-            line-height: 1.65;
-            font-size: 13px;
-        }
-
-        .key-block {
-            align-self: end;
-            display: grid;
-            gap: 8px;
-            color: var(--dim);
-            font-size: 11px;
-            word-break: break-all;
-        }
-
-        .key-block strong {
-            color: var(--amber);
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-        .terminal {
-            min-width: 0;
-            min-height: 0;
-            display: grid;
-            grid-template-rows: var(--terminal-rows);
-            transform: skewY(var(--terminal-skew));
-        }
-
-        .titlebar,
-        .statusbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 0 18px;
-            border-color: rgba(141, 247, 189, 0.12);
-            color: var(--muted);
-            font-size: 12px;
-        }
-
-        .titlebar {
-            border-bottom: 1px solid rgba(141, 247, 189, 0.12);
-        }
-
-        .statusbar {
-            border-top: 1px solid rgba(141, 247, 189, 0.12);
-        }
-
-        .window-dots {
-            display: flex;
-            gap: 8px;
-        }
-
-        .window-dots span {
-            width: 10px;
-            height: 10px;
-            border-radius: 999px;
-            background: var(--line);
-        }
-
-        .window-dots span:nth-child(1) { background: var(--pink); }
-        .window-dots span:nth-child(2) { background: var(--amber); }
-        .window-dots span:nth-child(3) { background: var(--accent); }
-
-        .actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .icon-btn,
-        .text-btn {
-            height: 34px;
-            border: 1px solid rgba(141, 247, 189, 0.22);
-            background: rgba(141, 247, 189, 0.06);
-            color: var(--accent);
-            cursor: pointer;
-        }
-
-        .icon-btn {
-            width: 36px;
-            border-radius: 6px;
-        }
-
-        .text-btn {
-            padding: 0 12px;
-            border-radius: 6px;
-            color: var(--text);
-        }
-
-        .icon-btn:hover,
-        .text-btn:hover {
-            border-color: var(--line-hot);
-            background: rgba(141, 247, 189, 0.13);
-        }
-
-        #terminal-output {
-            min-height: 0;
-            overflow-y: auto;
-            padding: 20px;
-            scrollbar-color: var(--line) transparent;
-        }
-
-        .term-line {
-            margin: 0 0 10px;
-            line-height: 1.55;
-            font-size: 13px;
-        }
-
-        .term-input {
-            color: var(--muted);
-        }
-
-        .prompt {
-            color: var(--cyan);
-        }
-
-        .path {
-            color: var(--accent);
-        }
-
-        .muted {
-            color: var(--muted);
-        }
-
-        .success {
-            color: var(--accent);
-        }
-
-        .error {
-            color: var(--pink);
-        }
-
-        kbd {
-            border: 1px solid rgba(141, 247, 189, 0.25);
-            border-bottom-color: rgba(141, 247, 189, 0.45);
-            border-radius: 4px;
-            padding: 1px 5px;
-            color: var(--accent);
-            background: rgba(141, 247, 189, 0.08);
-            font-size: 0.92em;
-        }
-
-        .hero-type,
-        .fetch {
-            margin: 0;
-            color: var(--accent);
-            font-family: "Share Tech Mono", monospace;
-            font-size: clamp(28px, 8vw, 84px);
-            line-height: 0.9;
-            white-space: pre-wrap;
-        }
-
-        .fetch {
-            font-size: 13px;
-            line-height: 1.35;
-        }
-
-        .command-grid,
-        .skill-grid,
-        .stats-grid {
-            display: grid;
-            gap: 10px;
-        }
-
-        .command-grid {
-            grid-template-columns: max-content minmax(0, 1fr);
-            max-width: 620px;
-        }
-
-        .command-grid span {
-            color: var(--accent);
-        }
-
-        .command-grid em {
-            color: var(--muted);
-            font-style: normal;
-        }
-
-        .skill-grid,
-        .stats-grid {
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        }
-
-        .skill-grid section,
-        .stats-grid section,
-        .project-list article {
-            border: 1px solid rgba(141, 247, 189, 0.13);
-            background: rgba(141, 247, 189, 0.045);
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .skill-grid strong {
-            color: var(--cyan);
-        }
-
-        .skill-grid p {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin: 8px 0 0;
-        }
-
-        .skill-grid span {
-            border-radius: 999px;
-            background: rgba(110, 231, 242, 0.1);
-            color: var(--text);
-            padding: 3px 8px;
-            font-size: 11px;
-        }
-
-        .project-list {
-            display: grid;
-            gap: 10px;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        }
-
-        .project-list p {
-            min-height: 38px;
-            margin: 8px 0;
-            color: var(--muted);
-            font-size: 12px;
-        }
-
-        .project-list small {
-            color: var(--dim);
-        }
-
-        .stats-grid b {
-            display: block;
-            color: var(--accent);
-            font-size: 26px;
-        }
-
-        .stats-grid span {
-            color: var(--muted);
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-
-        .contact-list {
-            display: grid;
-            gap: 8px;
-        }
-
-        .input-row {
-            display: flex;
-            align-items: center;
-            padding: 0 18px;
-            gap: 8px;
-            color: var(--text);
-        }
-
-        #input-text {
-            min-width: 1ch;
-        }
-
-        .cursor {
-            width: 9px;
-            height: 18px;
-            background: var(--accent);
-            display: inline-block;
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        .secure-card {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 20;
-            width: min(340px, calc(100vw - 24px));
-            border: 1px solid rgba(141, 247, 189, 0.38);
-            background: rgba(9, 15, 13, 0.94);
-            box-shadow: 0 34px 90px rgba(0, 0, 0, 0.55), 0 0 34px rgba(141, 247, 189, 0.12);
-            border-radius: 8px;
-            padding: 16px;
-            cursor: grab;
-            touch-action: none;
-            user-select: none;
-        }
-
-        .secure-card[hidden] {
-            display: none;
-        }
-
-        .secure-card.dragging {
-            cursor: grabbing;
-        }
-
-        .secure-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            color: var(--accent);
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-        #secure-message {
-            width: 100%;
-            min-height: 118px;
-            resize: vertical;
-            border: 1px solid rgba(141, 247, 189, 0.16);
-            background: rgba(0, 0, 0, 0.22);
-            color: var(--text);
-            outline: none;
-            border-radius: 6px;
-            padding: 10px;
-        }
-
-        .secure-foot {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 10px;
-            color: var(--muted);
-            font-size: 11px;
-        }
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            z-index: 30;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.74);
-            backdrop-filter: blur(16px);
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-box {
-            width: min(720px, 100%);
-            border: 1px solid rgba(141, 247, 189, 0.24);
-            background: #0a0f0d;
-            border-radius: 8px;
-            padding: 18px;
-        }
-
-        .modal-box h2 {
-            margin: 0 0 12px;
-            color: var(--accent);
-            font-size: 15px;
-        }
-
-        #result-content {
-            max-height: 310px;
-            overflow: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-            border: 1px solid rgba(141, 247, 189, 0.14);
-            background: rgba(0, 0, 0, 0.32);
-            border-radius: 6px;
-            padding: 12px;
-            color: var(--muted);
-            font-size: 11px;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-            margin-top: 14px;
-        }
-
-        #toast {
-            position: fixed;
-            left: 50%;
-            bottom: 22px;
-            z-index: 40;
-            transform: translate(-50%, 18px);
-            opacity: 0;
-            transition: 180ms ease;
-            border: 1px solid rgba(141, 247, 189, 0.28);
-            background: rgba(9, 15, 13, 0.96);
-            color: var(--accent);
-            border-radius: 8px;
-            padding: 10px 14px;
-            font-size: 12px;
-        }
-
-        #toast.show {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
-
-        @media (max-width: 840px) {
-            body {
-                overflow: auto;
-            }
-
-            .app {
-                min-height: 100vh;
-                height: auto;
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto;
-            }
-
-            .identity {
-                min-height: 320px;
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr auto;
-                transform: none;
-            }
-
-            .terminal {
-                min-height: 620px;
-                transform: none;
-            }
-
-            .statusbar {
-                display: none;
-            }
-        }
-    </style>
 </head>
 <body>
-    <main class="app">
+    <canvas id="ascii-bg" aria-hidden="true"></canvas>
+    <a class="skip-link" href="#workspace-title">Skip to apps</a>
+    <main class="app" id="app">
         <aside class="identity" aria-label="Profile">
             <div>
                 <img class="avatar" src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=184&d=identicon" alt="LIghtJUNction avatar">
                 <h1 class="brand">LIght<br>JUNction</h1>
-                <p class="summary">Personal terminal for notes, projects, bootstrap scripts, and encrypted messages. Rough edges allowed; useful edges preferred.</p>
+                <p class="summary">Personal app launcher for project cards, bootstrap systems, agent workflows, and encrypted contact.</p>
+                <nav class="launcher" aria-label="Apps">
+                    <button class="launcher-item active" type="button" data-app-target="projects" aria-pressed="true">
+                        <span class="launcher-icon" aria-hidden="true">▦</span>
+                        <span><strong>Proj Cards</strong><small>ranked repositories</small></span>
+                    </button>
+                    <button class="launcher-item" type="button" data-app-target="terminal" aria-pressed="false">
+                        <span class="launcher-icon" aria-hidden="true">›_</span>
+                        <span><strong>Terminal</strong><small>commands and contact</small></span>
+                    </button>
+                </nav>
+                <section class="collab-callout" aria-labelledby="collab-title">
+                    <strong id="collab-title">开源协作招募</strong>
+                    <p>寻找活跃的开源贡献者，学生优先。我可以赞助 GPT-5.5 token：你可以用于自己的开源项目，也请用 GPT-5.5 帮我测试、调试、改进我的公开仓库。</p>
+                    <p>仅限非商业用途。需要项目经历、又缺少 token，欢迎联系互加微信。</p>
+                </section>
             </div>
             <div class="key-block">
                 <strong>GPG fingerprint</strong>
@@ -725,46 +51,72 @@
             </div>
         </aside>
 
-        <section class="terminal" aria-label="Interactive terminal">
-            <header class="titlebar">
-                <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-                <span>secure-message tty1</span>
-                <nav class="actions" aria-label="Terminal actions">
-                    <button class="icon-btn" id="btn-reset" title="Reset terminal" aria-label="Reset terminal">R</button>
-                    <button class="icon-btn" id="btn-fullscreen" title="Fullscreen" aria-label="Fullscreen">F</button>
+        <section class="workspace" aria-label="App workspace">
+            <header class="workspace-titlebar">
+                <div>
+                    <span id="workspace-kicker">App</span>
+                    <h2 id="workspace-title" tabindex="-1">Proj Cards</h2>
+                </div>
+                <nav class="actions" aria-label="Workspace actions">
+                    <button class="icon-btn" id="btn-refresh-projects" title="Refresh projects" aria-label="Refresh projects">↻</button>
+                    <button class="icon-btn" id="btn-fullscreen" title="Fullscreen" aria-label="Fullscreen">⛶</button>
                     <button class="text-btn" id="btn-message">Encrypt</button>
                 </nav>
             </header>
 
-            <div id="terminal-output" aria-live="polite"></div>
+            <section class="project-app app-panel active" id="projects-app" data-app-panel="projects" aria-label="Project cards">
+                <div class="project-toolbar">
+                    <div>
+                        <strong id="project-count">Loading repositories</strong>
+                        <span id="project-sort">Rank: recent activity first, then newness, stars, and commits</span>
+                    </div>
+                    <a class="text-btn link-btn" href="https://github.com/LIghtJUNction?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+                <div class="project-groups" id="project-groups" role="tablist" aria-label="Project groups"></div>
+                <div class="project-status" id="project-status" role="status">Fetching projects from GitHub...</div>
+                <div class="project-grid" id="project-grid" aria-live="polite"></div>
+            </section>
 
-            <footer class="input-row">
-                <span class="prompt">guest@lj</span><span class="path">:~</span><span>$</span>
-                <span id="input-text"></span><span class="cursor" aria-hidden="true"></span>
-            </footer>
+            <section class="terminal app-panel" id="terminal-app" data-app-panel="terminal" aria-label="Interactive terminal" hidden>
+                <header class="titlebar">
+                    <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <span>secure-message tty1</span>
+                    <nav class="actions" aria-label="Terminal actions">
+                        <button class="icon-btn" id="btn-reset" title="Reset terminal" aria-label="Reset terminal">↻</button>
+                    </nav>
+                </header>
 
-            <div class="statusbar">
-                <span>OpenPGP / GitHub API / Vite</span>
-                <span>Type help, msg, projects, stats</span>
-            </div>
+                <div id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
+
+                <footer class="input-row">
+                    <span class="prompt">guest@lj</span><span class="path">:~</span><span>$</span>
+                    <span id="input-text"></span><span class="cursor" aria-hidden="true"></span>
+                </footer>
+
+                <div class="statusbar">
+                    <span>OpenPGP / GitHub API / Vite</span>
+                    <span>Type help, msg, projects, stats</span>
+                </div>
+            </section>
         </section>
     </main>
 
     <section class="secure-card" id="secure-card" hidden aria-label="Secure message card">
         <div class="secure-title">
             <strong>OpenPGP message</strong>
-            <span>drag upward to send</span>
+            <span>drag upward or press encrypt</span>
         </div>
-        <textarea id="secure-message" placeholder="Secret message..."></textarea>
+        <label class="sr-only" for="secure-message">Message to encrypt</label>
+        <textarea id="secure-message" placeholder="Sponsorship note, public message, or contact details..."></textarea>
         <div class="secure-foot">
             <span>Encrypted locally before GitHub handoff.</span>
             <button class="text-btn" id="encrypt-now">Encrypt</button>
         </div>
     </section>
 
-    <section class="modal" id="result-overlay" aria-label="Encrypted result">
+    <section class="modal" id="result-overlay" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-label="Encrypted result">
         <div class="modal-box">
-            <h2>Encrypted message</h2>
+            <h2 id="result-title">Encrypted message</h2>
             <pre id="result-content"></pre>
             <div class="modal-actions">
                 <button class="text-btn" id="result-copy">Copy</button>
