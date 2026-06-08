@@ -268,7 +268,7 @@ function initAsciiBackground(): void {
             const x = baseX + (-dy / distance) * swirl + (-dx / distance) * drift
             const y = baseY + (dx / distance) * swirl + (-dy / distance) * drift
             const pulse = Math.max(0, Math.sin(frame * 0.07 + glyph.phase))
-            const alpha = 0.045 + hot * 0.34 + pulse * 0.028
+            const alpha = 0.14 + hot * 0.44 + pulse * 0.045
 
             if (hot > 0.35 && (frame + Math.floor(glyph.seed)) % 5 === 0) {
                 glyph.char = pickChar(glyph.seed + frame * 0.023 + hot * 8, hot)
@@ -277,9 +277,9 @@ function initAsciiBackground(): void {
             }
 
             const hue = 142 + hot * 58 + Math.sin(glyph.phase + frame * 0.01) * 10
-            const light = 48 + hot * 24 + pulse * 5
+            const light = 58 + hot * 26 + pulse * 6
             drawContext.font = `${11 + hot * 4}px "JetBrains Mono", monospace`
-            drawContext.fillStyle = `hsla(${hue}, 88%, ${light}%, ${Math.min(alpha, 0.48)})`
+            drawContext.fillStyle = `hsla(${hue}, 90%, ${light}%, ${Math.min(alpha, 0.76)})`
             drawContext.fillText(glyph.char, x, y)
         }
 

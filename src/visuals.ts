@@ -135,8 +135,8 @@ export function applyRandomVisuals(): void {
         '--grid-size': `${Math.round(randomBetween(rng, 36, 58))}px`,
         '--grid-tilt': `${randomBetween(rng, -3, 3).toFixed(2)}deg`,
         '--scan-angle': `${Math.round(randomBetween(rng, -2, 2))}deg`,
-        '--texture-alpha': randomBetween(rng, 0.08, 0.18).toFixed(2),
-        '--panel-alpha': randomBetween(rng, 0.78, 0.9).toFixed(2),
+        '--texture-alpha': randomBetween(rng, 0.06, 0.12).toFixed(2),
+        '--panel-alpha': randomBetween(rng, 0.42, 0.58).toFixed(2),
         '--panel-radius': randomItem(rng, ['0px', '2px', '6px', '8px']),
         '--panel-border': profile.border,
         '--panel-shadow': randomItem(rng, [

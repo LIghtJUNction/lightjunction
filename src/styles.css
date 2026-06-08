@@ -20,7 +20,7 @@
     --grid-color: rgba(141, 247, 189, 0.04);
     --grid-size: 44px;
     --grid-tilt: 0deg;
-    --panel-alpha: 0.82;
+    --panel-alpha: 0.54;
     --panel-radius: 0px;
     --panel-border: rgba(141, 247, 189, 0.18);
     --panel-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
@@ -91,8 +91,8 @@ body::after {
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    opacity: 0.34;
-    mix-blend-mode: screen;
+    opacity: 0.78;
+    mix-blend-mode: lighten;
 }
 
 button,
@@ -156,10 +156,12 @@ a:hover {
 .identity,
 .workspace {
     border: 1px solid var(--panel-border);
-    background: rgba(8, 13, 11, var(--panel-alpha));
+    background:
+        linear-gradient(135deg, rgba(8, 13, 11, 0.46), rgba(8, 13, 11, var(--panel-alpha))),
+        rgba(8, 13, 11, 0.28);
     border-radius: var(--panel-radius);
     box-shadow: var(--panel-shadow);
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(6px);
 }
 
 body[data-frame="double"] .identity,
