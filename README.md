@@ -105,7 +105,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 | Joined | Repos | Followers | Following |
 |:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (4yr 0mo) | **79** | **75** | **120** |
+| 2022-06-06 (4yr 0mo) | **81** | **75** | **120** |
 
 ---
 
@@ -115,16 +115,16 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 ### This Week
 
-**154** commits across **14** repositories
+**160** commits across **15** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
 | [cortexfs](https://github.com/LIghtJUNction/cortexfs) | ▓▓▓░░░░░░░ 42 |
-| [lightjunction](https://github.com/LIghtJUNction/lightjunction) | ▓▓░░░░░░░░ 29 |
-| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 19 |
-| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓░░░░░░░░░ 17 |
+| [AndroidUse](https://github.com/LIghtJUNction/AndroidUse) | ▓░░░░░░░░░ 18 |
+| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 17 |
 | [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 16 |
-| [used-car-video-copywriting-skill](https://github.com/LIghtJUNction/used-car-video-copywriting-skill) | ▓░░░░░░░░░ 7 |
+| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓░░░░░░░░░ 15 |
+| [AI-Worker-Proxy](https://github.com/LIghtJUNction/AI-Worker-Proxy) | ▓░░░░░░░░░ 14 |
 
 ---
 
@@ -166,7 +166,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
  ░░░░░░░░░░░░░░░░░░░░░░..............................
  ░░░░░░░░░░▓▒░░░░░░░░░▓..............................
 ╻░░░░░░░░░░▒░░░░░░░░░░▓..............................
-░░░░░░░░░░░░░░░░░░░░░░▓..............................
+░░░░░░░░░░░░░░░░░░░░░░▓╻.............................
 ░░░░░░░░░░░░░░░░░░░░░░░▒.............................
 ```
 
@@ -182,55 +182,11 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/cortexfs">cortexfs</a> <sub>RS</sub>
-
-&quot;Everything is a file&quot; for AGI era. Mount LLM context and reasoning as a POSIX file system.
-
-<sub>Rust / 2 stars / 0 forks / updated 2026-06-07</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/agent.sh">agent.sh</a> <sub>SH</sub>
-
-Tiny dependency-free CortexFS MCP terminal agent
-
-<sub>Shell / 1 stars / 0 forks / updated 2026-06-07</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/agent.sh?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/agent.sh?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-</tr>
-<tr>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/MagicMihomo">MagicMihomo</a> <sub>SH</sub>
-
-MagicNet-mihomo
-
-<sub>Shell / 10 stars / 0 forks / updated 2026-06-06</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
 #### <a href="https://github.com/LIghtJUNction/LightFlow">LightFlow</a> <sub>RS</sub>
 
 No description
 
-<sub>Rust / 0 stars / 0 forks / updated 2026-06-06</sub>
+<sub>Rust / 0 stars / 0 forks / updated 2026-06-08</sub>
 
 <br>
 
@@ -238,34 +194,78 @@ No description
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/LightFlow?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/dash.astrbot.men">dash.astrbot.men</a> <sub>VU</sub>
+
+Astrbot Dashboard
+
+<sub>Vue / 1 stars / 0 forks / updated 2026-06-08</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
 </tr>
 <tr>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/AI-Worker-Proxy">AI-Worker-Proxy</a> <sub>TS</sub>
+
+OpenAI-compatible AI proxy: Anthropic Claude, Google Gemini, GPT-5, Cloudflare AI. Free hosting, automatic failover, token rotation. Deploy in 1 minute.
+
+<sub>TypeScript / 0 stars / 0 forks / updated 2026-06-07</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/AI-Worker-Proxy?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/AI-Worker-Proxy?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/MagicMihomo">MagicMihomo</a> <sub>SH</sub>
+
+MagicNet-mihomo
+
+<sub>Shell / 10 stars / 0 forks / updated 2026-06-07</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/AndroidUse">AndroidUse</a> <sub>RS</sub>
+
+No description
+
+<sub>Rust / 1 stars / 0 forks / updated 2026-06-07</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/AndroidUse?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/AndroidUse?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
 <td align="left" valign="top" width="50%">
 
 #### <a href="https://github.com/LIghtJUNction/lightjunction">lightjunction</a> <sub>SH</sub>
 
 I&#x27;M LIghtJUNction
 
-<sub>Shell / 2 stars / 0 forks / updated 2026-06-06</sub>
+<sub>Shell / 2 stars / 0 forks / updated 2026-06-07</sub>
 
 <br>
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/androiduse-zygisk-loader">androiduse-zygisk-loader</a> <sub>RS</sub>
-
-AndroidUse module loader
-
-<sub>Rust / 1 stars / 0 forks / updated 2026-06-06</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/androiduse-zygisk-loader?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/androiduse-zygisk-loader?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
@@ -282,27 +282,27 @@ AndroidUse module loader
 <details open>
 <summary>Last 7 days</summary>
 
+**2026-06-08**
+
+| Time | Repo | Commit |
+|:-----|:-----|:-------|
+| 03:56 | LightFlow | [`26d08d5`](https://github.com/LIghtJUNction/LightFlow/commit/26d08d5132102c6cd53f40b585963b8af14a9892) sync |
+
 **2026-06-07**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 04:09 | cortexfs | [`d65db8b`](https://github.com/LIghtJUNction/cortexfs/commit/d65db8be050851e61a3ccab04f4d41691317c5bc) feat: tighten cortexfs runtime abi |
-| 02:14 | agent.sh | [`9f292f1`](https://github.com/LIghtJUNction/agent.sh/commit/9f292f1b4f053c2433dae2bc1840ef9b0589bf84) docs: center skill on cortexfs |
-| 01:45 | agent.sh | [`bd3dc07`](https://github.com/LIghtJUNction/agent.sh/commit/bd3dc075e8cfbd0a5bbf842be18260de7781d2f5) docs: keep agent identity centered on cortexfs |
-| 01:18 | agent.sh | [`54565a7`](https://github.com/LIghtJUNction/agent.sh/commit/54565a71df09465247594a6ec7be9e54af199e0a) docs: center agent skill on cortexfs |
-| 01:13 | agent.sh | [`f118b71`](https://github.com/LIghtJUNction/agent.sh/commit/f118b717f3c7a74b9ecd0c4f8dcb98e91d3a1112) feat: add cortexfs cluster support |
-| 00:56 | agent.sh | [`cee4b9a`](https://github.com/LIghtJUNction/agent.sh/commit/cee4b9a59dbb86f611b23ddd0bae56b1a281476d) feat: add cortexfs terminal agent |
-
-**2026-06-06**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:36 | MagicMihomo | [`bcae45d`](https://github.com/LIghtJUNction/MagicMihomo/commit/bcae45d249df65bcac23360e3063ea3c2db8aecd) ruleset: update-ruleset |
-| 21:15 | LightFlow | [`f154664`](https://github.com/LIghtJUNction/LightFlow/commit/f154664dbfb2097d15d4aa48683ab6bbe18ed087) Clarify LightFlow product thesis |
-| 20:29 | LightFlow | [`4d35a0a`](https://github.com/LIghtJUNction/LightFlow/commit/4d35a0ac3a713aa20d8cd958b44a998b12a65c2d) Initialize LightFlow backend scaffold |
-| 20:04 | cortexfs | [`b014ff1`](https://github.com/LIghtJUNction/cortexfs/commit/b014ff101d73b906fbf4c6d8483df1b322f1ccac) Apply export filters to tool traces |
-| 19:52 | cortexfs | [`2e53694`](https://github.com/LIghtJUNction/cortexfs/commit/2e536941d2725e60612572910ed81a73fb76adab) Expose API format request schemas |
-| 19:46 | cortexfs | [`1e9129d`](https://github.com/LIghtJUNction/cortexfs/commit/1e9129d074382cfb245077c9cc5eda5a3b5865f0) Tighten singular ABI naming |
+| 23:44 | AI-Worker-Proxy | [`0b6efa9`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/0b6efa980c775d436fd81fcca9b99623249ebce3) chore: remove failed pool154 upstream |
+| 23:37 | MagicMihomo | [`4b0e0ad`](https://github.com/LIghtJUNction/MagicMihomo/commit/4b0e0ad0a0e7f54f90dcc5943e8824fd892564ac) ruleset: update-ruleset |
+| 23:19 | AI-Worker-Proxy | [`36e7cd3`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/36e7cd300e9da3bd15af551c0c13f9ec960cfcb6) chore: sync ohmyapi worker secret |
+| 23:13 | AI-Worker-Proxy | [`f064e35`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/f064e3595576e3b6169e073157808b0cdfd3ba3f) chore: sync additional worker upstream secrets |
+| 23:01 | AI-Worker-Proxy | [`e8e2eaf`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/e8e2eaf55faf5930b5797445c803dd60d6e2d49a) fix: parse response-field SSE chunks |
+| 22:53 | AI-Worker-Proxy | [`9bbef5a`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/9bbef5ace0dea2202eb99af7e271ac6f738bcd70) fix: request SSE from compatible upstreams |
+| 22:51 | AI-Worker-Proxy | [`0db535b`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/0db535b5545a51510da4e1195c810a200f054f36) fix: detect SSE-compatible text responses |
+| 22:46 | AI-Worker-Proxy | [`c48f3d1`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/c48f3d13eacb3ae63069798657f4aead91491aac) fix: normalize SSE responses from compatible providers |
+| 22:42 | AI-Worker-Proxy | [`ffde66c`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/ffde66ce626b0827563b6651688503d45d767a5a) ci: sync 4router worker secret |
+| 22:35 | AI-Worker-Proxy | [`378da7d`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/378da7d2b079ac04f8f06b83db4a8121dc2993a1) chore: add upstream models diagnostic endpoint |
+| 22:30 | AI-Worker-Proxy | [`21ac887`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/21ac8879debdcea5d734de20216576b3a6ef7bfb) chore: expose worker chat errors |
 
 </details>
 
