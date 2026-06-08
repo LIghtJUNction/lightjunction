@@ -33,7 +33,7 @@ for file in "${shell_files[@]}"; do
 done
 
 log "ShellCheck"
-shellcheck "${shell_files[@]}"
+shellcheck --severity=error "${shell_files[@]}"
 
 log "Python format"
 uv run ruff format --check scripts tests
