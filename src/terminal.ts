@@ -686,9 +686,9 @@ const commands: Record<string, CommandHandler> = {
     sponsor: () => {
         writeLine(`
             <div class="panel-copy">
-                <strong>开源协作招募</strong>
-                <p>寻找活跃的开源贡献者，学生优先。我可以赞助 GPT-5.5 token：你可以用于自己的开源项目，也请用 GPT-5.5 帮我测试、调试、改进我的公开仓库。</p>
-                <p>仅限非商业用途。需要项目经历、又缺少 token，欢迎联系互加微信。</p>
+                <strong>开源支持</strong>
+                <p>如果你觉得这些项目有帮助，欢迎通过加密消息留下赞助或支持信息。</p>
+                <p>不再提供 GPT-5.5 token 赞助。</p>
                 <p class="muted">Type <kbd>msg</kbd> to send an encrypted contact note.</p>
             </div>
         `)
@@ -873,7 +873,7 @@ function bindChrome(): void {
 
 function boot(): void {
     writeLine('<pre class="hero-type">LIghtJUNction</pre>')
-    writeLine('Terminal app. PGP messages. Open-source token sponsorship. Type <kbd>sponsor</kbd> or <kbd>help</kbd>.', 'muted')
+    writeLine('Terminal app. PGP messages. Open-source support. Type <kbd>sponsor</kbd> or <kbd>help</kbd>.', 'muted')
 }
 
 applyRandomVisuals()

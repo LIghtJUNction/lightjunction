@@ -23,7 +23,7 @@ export function commandDescription(name: string): string {
         skills: 'working areas',
         projects: 'recent repositories',
         stats: 'GitHub numbers',
-        sponsor: 'open-source token sponsorship',
+        sponsor: 'open-source support',
         contact: 'links and key',
         msg: 'encrypted message card',
         clear: 'clear scrollback',
