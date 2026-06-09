@@ -105,7 +105,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 | Joined | Repos | Followers | Following |
 |:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (4yr 0mo) | **81** | **75** | **120** |
+| 2022-06-06 (4yr 0mo) | **86** | **73** | **120** |
 
 ---
 
@@ -115,16 +115,16 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 ### This Week
 
-**160** commits across **15** repositories
+**221** commits across **17** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [cortexfs](https://github.com/LIghtJUNction/cortexfs) | ▓▓▓░░░░░░░ 42 |
+| [cortexfs](https://github.com/LIghtJUNction/cortexfs) | ▓▓▓░░░░░░░ 70 |
+| [new-api-privacy-filter](https://github.com/LIghtJUNction/new-api-privacy-filter) | ▓░░░░░░░░░ 21 |
 | [AndroidUse](https://github.com/LIghtJUNction/AndroidUse) | ▓░░░░░░░░░ 18 |
-| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 17 |
-| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 16 |
-| [MagicSingBox](https://github.com/LIghtJUNction/MagicSingBox) | ▓░░░░░░░░░ 15 |
-| [AI-Worker-Proxy](https://github.com/LIghtJUNction/AI-Worker-Proxy) | ▓░░░░░░░░░ 14 |
+| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 17 |
+| [humen-mcp](https://github.com/LIghtJUNction/humen-mcp) | ▓░░░░░░░░░ 14 |
+| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 14 |
 
 ---
 
@@ -133,6 +133,9 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 <!-- START_DYNAMIC_SKYLINE -->
 
 ### Skyline
+
+<details>
+<summary>Contribution skyline</summary>
 
 ```
 ▓                             
@@ -165,10 +168,12 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
  ▒░░░╻░░░░░░░░░╻░░░░░░░............................. 
  ░░░░░░░░░░░░░░░░░░░░░░..............................
  ░░░░░░░░░░▓▒░░░░░░░░░▓..............................
-╻░░░░░░░░░░▒░░░░░░░░░░▓..............................
-░░░░░░░░░░░░░░░░░░░░░░▓╻.............................
+╻░░░░░░░░░░▒░░░░░░░░░░▓┃.............................
+░░░░░░░░░░░░░░░░░░░░░░▓░.............................
 ░░░░░░░░░░░░░░░░░░░░░░░▒.............................
 ```
+
+</details>
 
 ---
 
@@ -178,50 +183,83 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 ### Latest Projects
 
+<details>
+<summary>6 recently updated repositories</summary>
+
 <table>
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/LightFlow">LightFlow</a> <sub>RS</sub>
+#### <a href="https://github.com/LIghtJUNction/new-api-privacy-filter">new-api-privacy-filter</a> <sub>RS</sub>
 
-No description
+Rust privacy redaction proxy for OpenAI-compatible New API deployments
 
-<sub>Rust / 0 stars / 0 forks / updated 2026-06-08</sub>
+<sub>Rust / 1 stars / 0 forks / updated 2026-06-09</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/LightFlow?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/LightFlow?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/new-api-privacy-filter?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/new-api-privacy-filter?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/dash.astrbot.men">dash.astrbot.men</a> <sub>VU</sub>
+#### <a href="https://github.com/LIghtJUNction/humen-mcp">humen-mcp</a> <sub>RS</sub>
 
-Astrbot Dashboard
+Human Interaction MCP Tool
 
-<sub>Vue / 1 stars / 0 forks / updated 2026-06-08</sub>
+<sub>Rust / 1 stars / 0 forks / updated 2026-06-09</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/dash.astrbot.men?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/humen-mcp?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/humen-mcp?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/AI-Worker-Proxy">AI-Worker-Proxy</a> <sub>TS</sub>
+#### <a href="https://github.com/LIghtJUNction/cortexfs">cortexfs</a> <sub>RS</sub>
 
-OpenAI-compatible AI proxy: Anthropic Claude, Google Gemini, GPT-5, Cloudflare AI. Free hosting, automatic failover, token rotation. Deploy in 1 minute.
+&quot;Everything is a file&quot; for AGI era. Mount LLM context and reasoning as a POSIX file system.
 
-<sub>TypeScript / 0 stars / 0 forks / updated 2026-06-07</sub>
+<sub>Rust / 2 stars / 0 forks / updated 2026-06-09</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/AI-Worker-Proxy?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/AI-Worker-Proxy?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/humen-mcp-webui">humen-mcp-webui</a> <sub>TS</sub>
+
+Web UI for humen-mcp
+
+<sub>TypeScript / 1 stars / 0 forks / updated 2026-06-09</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/humen-mcp-webui?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/humen-mcp-webui?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/agent.sh">agent.sh</a> <sub>SH</sub>
+
+Tiny dependency-free CortexFS MCP terminal agent
+
+<sub>Shell / 1 stars / 0 forks / updated 2026-06-09</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/agent.sh?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/agent.sh?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 <td align="left" valign="top" width="50%">
@@ -230,7 +268,7 @@ OpenAI-compatible AI proxy: Anthropic Claude, Google Gemini, GPT-5, Cloudflare A
 
 MagicNet-mihomo
 
-<sub>Shell / 10 stars / 0 forks / updated 2026-06-07</sub>
+<sub>Shell / 10 stars / 0 forks / updated 2026-06-08</sub>
 
 <br>
 
@@ -239,37 +277,9 @@ MagicNet-mihomo
 
 </td>
 </tr>
-<tr>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/AndroidUse">AndroidUse</a> <sub>RS</sub>
-
-No description
-
-<sub>Rust / 1 stars / 0 forks / updated 2026-06-07</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/AndroidUse?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/AndroidUse?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/lightjunction">lightjunction</a> <sub>SH</sub>
-
-I&#x27;M LIghtJUNction
-
-<sub>Shell / 2 stars / 0 forks / updated 2026-06-07</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-</tr>
 </table>
+
+</details>
 
 ---
 
@@ -279,30 +289,25 @@ I&#x27;M LIghtJUNction
 
 ### Recent Commits
 
-<details open>
+<details>
 <summary>Last 7 days</summary>
 
-**2026-06-08**
+**2026-06-09**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 03:56 | LightFlow | [`26d08d5`](https://github.com/LIghtJUNction/LightFlow/commit/26d08d5132102c6cd53f40b585963b8af14a9892) sync |
-
-**2026-06-07**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:44 | AI-Worker-Proxy | [`0b6efa9`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/0b6efa980c775d436fd81fcca9b99623249ebce3) chore: remove failed pool154 upstream |
-| 23:37 | MagicMihomo | [`4b0e0ad`](https://github.com/LIghtJUNction/MagicMihomo/commit/4b0e0ad0a0e7f54f90dcc5943e8824fd892564ac) ruleset: update-ruleset |
-| 23:19 | AI-Worker-Proxy | [`36e7cd3`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/36e7cd300e9da3bd15af551c0c13f9ec960cfcb6) chore: sync ohmyapi worker secret |
-| 23:13 | AI-Worker-Proxy | [`f064e35`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/f064e3595576e3b6169e073157808b0cdfd3ba3f) chore: sync additional worker upstream secrets |
-| 23:01 | AI-Worker-Proxy | [`e8e2eaf`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/e8e2eaf55faf5930b5797445c803dd60d6e2d49a) fix: parse response-field SSE chunks |
-| 22:53 | AI-Worker-Proxy | [`9bbef5a`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/9bbef5ace0dea2202eb99af7e271ac6f738bcd70) fix: request SSE from compatible upstreams |
-| 22:51 | AI-Worker-Proxy | [`0db535b`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/0db535b5545a51510da4e1195c810a200f054f36) fix: detect SSE-compatible text responses |
-| 22:46 | AI-Worker-Proxy | [`c48f3d1`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/c48f3d13eacb3ae63069798657f4aead91491aac) fix: normalize SSE responses from compatible providers |
-| 22:42 | AI-Worker-Proxy | [`ffde66c`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/ffde66ce626b0827563b6651688503d45d767a5a) ci: sync 4router worker secret |
-| 22:35 | AI-Worker-Proxy | [`378da7d`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/378da7d2b079ac04f8f06b83db4a8121dc2993a1) chore: add upstream models diagnostic endpoint |
-| 22:30 | AI-Worker-Proxy | [`21ac887`](https://github.com/LIghtJUNction/AI-Worker-Proxy/commit/21ac8879debdcea5d734de20216576b3a6ef7bfb) chore: expose worker chat errors |
+| 03:53 | new-api-privacy-filter | [`7a86c6a`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/7a86c6ad705c3797a854576da6d29995d1a1f3e0) Update AUR package metadata |
+| 03:42 | new-api-privacy-filter | [`a8853f5`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/a8853f53ecfa979322b40485edea4e42452fe82f) Redact obfuscated secrets without hiding context |
+| 01:53 | humen-mcp | [`f0ad046`](https://github.com/LIghtJUNction/humen-mcp/commit/f0ad0463977d98524c3f149fff5e7e27624b5410) Release 0.1.3 with persistent requests and agent setup |
+| 01:49 | cortexfs | [`2ecbbcf`](https://github.com/LIghtJUNction/cortexfs/commit/2ecbbcfc48e27421ba1807973a8c7588d24c73f2) Update cortexfs-git AUR submodule |
+| 01:48 | humen-mcp-webui | [`82fb043`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/82fb043dfe9890422d78e5f46a3fcf667f65f440) Add settings personalization and agent setup UI |
+| 01:43 | cortexfs | [`b0d93aa`](https://github.com/LIghtJUNction/cortexfs/commit/b0d93aa3aff0ef76e75dd95cc40adf1db149098b) Update agent.sh submodule |
+| 01:41 | agent.sh | [`a0e3796`](https://github.com/LIghtJUNction/agent.sh/commit/a0e37966b808e23f66d06612d122165144dc9e81) Update agent CLI for CortexFS ABI |
+| 01:33 | cortexfs | [`c6f9f22`](https://github.com/LIghtJUNction/cortexfs/commit/c6f9f22fbb2a96f0a8523dfacf1450f3aae80b3b) feat: add hook file abi |
+| 01:22 | new-api-privacy-filter | [`122ac5b`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/122ac5b4b458c499a432f48a5c4f8ee3d0759ac7) chore: update aur package and systemd unit |
+| 00:59 | new-api-privacy-filter | [`0ac2deb`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/0ac2debd1751f7cc06779e740c78a9853b8c8474) Default to low privacy filter mode |
+| 00:55 | new-api-privacy-filter | [`3342302`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/3342302e156051e9db87c934346e956fa6b67155) Relax privacy filter control handling |
+| 00:55 | cortexfs | [`805ab37`](https://github.com/LIghtJUNction/cortexfs/commit/805ab3733e63f089d9080a3b7e971bdbfdfe7a83) chore: update aur package |
 
 </details>
 
