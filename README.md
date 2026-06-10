@@ -105,7 +105,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 | Joined | Repos | Followers | Following |
 |:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (4yr 0mo) | **86** | **73** | **120** |
+| 2022-06-06 (4yr 0mo) | **86** | **73** | **121** |
 
 ---
 
@@ -115,16 +115,16 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 ### This Week
 
-**221** commits across **17** repositories
+**255** commits across **17** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [cortexfs](https://github.com/LIghtJUNction/cortexfs) | ▓▓▓░░░░░░░ 70 |
+| [cortexfs](https://github.com/LIghtJUNction/cortexfs) | ▓▓▓░░░░░░░ 71 |
+| [humen-mcp](https://github.com/LIghtJUNction/humen-mcp) | ▓░░░░░░░░░ 36 |
 | [new-api-privacy-filter](https://github.com/LIghtJUNction/new-api-privacy-filter) | ▓░░░░░░░░░ 21 |
+| [humen-mcp-webui](https://github.com/LIghtJUNction/humen-mcp-webui) | ▓░░░░░░░░░ 19 |
 | [AndroidUse](https://github.com/LIghtJUNction/AndroidUse) | ▓░░░░░░░░░ 18 |
 | [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 17 |
-| [humen-mcp](https://github.com/LIghtJUNction/humen-mcp) | ▓░░░░░░░░░ 14 |
-| [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | ▓░░░░░░░░░ 14 |
 
 ---
 
@@ -167,8 +167,8 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
  ╻╻╻╻ ╻╻╻╻╻┃╻╻╻ ╻╻╻╻╻╻╻............................. 
  ▒░░░╻░░░░░░░░░╻░░░░░░░............................. 
  ░░░░░░░░░░░░░░░░░░░░░░..............................
- ░░░░░░░░░░▓▒░░░░░░░░░▓..............................
-╻░░░░░░░░░░▒░░░░░░░░░░▓┃.............................
+ ░░░░░░░░░░▓▒░░░░░░░░░▓╻.............................
+╻░░░░░░░░░░▒░░░░░░░░░░▓▓.............................
 ░░░░░░░░░░░░░░░░░░░░░░▓░.............................
 ░░░░░░░░░░░░░░░░░░░░░░░▒.............................
 ```
@@ -190,46 +190,16 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/new-api-privacy-filter">new-api-privacy-filter</a> <sub>RS</sub>
-
-Rust privacy redaction proxy for OpenAI-compatible New API deployments
-
-<sub>Rust / 1 stars / 0 forks / updated 2026-06-09</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/new-api-privacy-filter?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/new-api-privacy-filter?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
 #### <a href="https://github.com/LIghtJUNction/humen-mcp">humen-mcp</a> <sub>RS</sub>
 
 Human Interaction MCP Tool
 
-<sub>Rust / 1 stars / 0 forks / updated 2026-06-09</sub>
+<sub>Rust / 4 stars / 0 forks / updated 2026-06-10</sub>
 
 <br>
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/humen-mcp?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/humen-mcp?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-</tr>
-<tr>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/cortexfs">cortexfs</a> <sub>RS</sub>
-
-&quot;Everything is a file&quot; for AGI era. Mount LLM context and reasoning as a POSIX file system.
-
-<sub>Rust / 2 stars / 0 forks / updated 2026-06-09</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/cortexfs?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 <td align="left" valign="top" width="50%">
@@ -238,7 +208,7 @@ Human Interaction MCP Tool
 
 Web UI for humen-mcp
 
-<sub>TypeScript / 1 stars / 0 forks / updated 2026-06-09</sub>
+<sub>TypeScript / 1 stars / 0 forks / updated 2026-06-10</sub>
 
 <br>
 
@@ -250,30 +220,60 @@ Web UI for humen-mcp
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/agent.sh">agent.sh</a> <sub>SH</sub>
-
-Tiny dependency-free CortexFS MCP terminal agent
-
-<sub>Shell / 1 stars / 0 forks / updated 2026-06-09</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/agent.sh?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/agent.sh?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
 #### <a href="https://github.com/LIghtJUNction/MagicMihomo">MagicMihomo</a> <sub>SH</sub>
 
 MagicNet-mihomo
 
-<sub>Shell / 10 stars / 0 forks / updated 2026-06-08</sub>
+<sub>Shell / 10 stars / 0 forks / updated 2026-06-09</sub>
 
 <br>
 
 ![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
 ![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/lightjunction">lightjunction</a> <sub>SH</sub>
+
+I&#x27;M LIghtJUNction
+
+<sub>Shell / 2 stars / 0 forks / updated 2026-06-09</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/LightFlow">LightFlow</a> <sub>RS</sub>
+
+No description
+
+<sub>Rust / 1 stars / 0 forks / updated 2026-06-09</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/LightFlow?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/LightFlow?style=flat-square&labelColor=0d1117&color=4ecdc4)
+
+</td>
+<td align="left" valign="top" width="50%">
+
+#### <a href="https://github.com/LIghtJUNction/LightFlowUI">LightFlowUI</a> <sub>RS</sub>
+
+Frontend control console for LightFlow
+
+<sub>Rust / 1 stars / 0 forks / updated 2026-06-09</sub>
+
+<br>
+
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/LightFlowUI?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/LightFlowUI?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
@@ -292,22 +292,22 @@ MagicNet-mihomo
 <details>
 <summary>Last 7 days</summary>
 
-**2026-06-09**
+**2026-06-10**
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 03:53 | new-api-privacy-filter | [`7a86c6a`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/7a86c6ad705c3797a854576da6d29995d1a1f3e0) Update AUR package metadata |
-| 03:42 | new-api-privacy-filter | [`a8853f5`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/a8853f53ecfa979322b40485edea4e42452fe82f) Redact obfuscated secrets without hiding context |
-| 01:53 | humen-mcp | [`f0ad046`](https://github.com/LIghtJUNction/humen-mcp/commit/f0ad0463977d98524c3f149fff5e7e27624b5410) Release 0.1.3 with persistent requests and agent setup |
-| 01:49 | cortexfs | [`2ecbbcf`](https://github.com/LIghtJUNction/cortexfs/commit/2ecbbcfc48e27421ba1807973a8c7588d24c73f2) Update cortexfs-git AUR submodule |
-| 01:48 | humen-mcp-webui | [`82fb043`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/82fb043dfe9890422d78e5f46a3fcf667f65f440) Add settings personalization and agent setup UI |
-| 01:43 | cortexfs | [`b0d93aa`](https://github.com/LIghtJUNction/cortexfs/commit/b0d93aa3aff0ef76e75dd95cc40adf1db149098b) Update agent.sh submodule |
-| 01:41 | agent.sh | [`a0e3796`](https://github.com/LIghtJUNction/agent.sh/commit/a0e37966b808e23f66d06612d122165144dc9e81) Update agent CLI for CortexFS ABI |
-| 01:33 | cortexfs | [`c6f9f22`](https://github.com/LIghtJUNction/cortexfs/commit/c6f9f22fbb2a96f0a8523dfacf1450f3aae80b3b) feat: add hook file abi |
-| 01:22 | new-api-privacy-filter | [`122ac5b`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/122ac5b4b458c499a432f48a5c4f8ee3d0759ac7) chore: update aur package and systemd unit |
-| 00:59 | new-api-privacy-filter | [`0ac2deb`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/0ac2debd1751f7cc06779e740c78a9853b8c8474) Default to low privacy filter mode |
-| 00:55 | new-api-privacy-filter | [`3342302`](https://github.com/LIghtJUNction/new-api-privacy-filter/commit/3342302e156051e9db87c934346e956fa6b67155) Relax privacy filter control handling |
-| 00:55 | cortexfs | [`805ab37`](https://github.com/LIghtJUNction/cortexfs/commit/805ab3733e63f089d9080a3b7e971bdbfdfe7a83) chore: update aur package |
+| 03:38 | humen-mcp | [`fee1a97`](https://github.com/LIghtJUNction/humen-mcp/commit/fee1a976b3924201c2075241135e6d9411d54812) Add agent offline memo tool |
+| 03:38 | humen-mcp-webui | [`3d8dd1b`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/3d8dd1b44bfacbfcffb0bd6b239d628457022162) Show agent-authored memos |
+| 03:27 | humen-mcp | [`6173806`](https://github.com/LIghtJUNction/humen-mcp/commit/6173806d7a7a6559a373fd1a860b6048f7c637f3) Hide sent and expired requests per user |
+| 03:27 | humen-mcp-webui | [`9cc5cb3`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/9cc5cb3f0425823f303fb710ff980724cc10018b) Allow hiding sent and expired requests |
+| 03:09 | humen-mcp | [`39b7ca0`](https://github.com/LIghtJUNction/humen-mcp/commit/39b7ca01b882265c1c088437a335d5ecaf88c2fd) Add agent inbox read state and one-time ratings |
+| 03:09 | humen-mcp-webui | [`81f884d`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/81f884decfd3426caf9864b4e605c5ec4f8b07cc) Show agent read state and ratings |
+| 02:49 | humen-mcp | [`2ebd01b`](https://github.com/LIghtJUNction/humen-mcp/commit/2ebd01bf776cd3c882fc44ecd0837a073ee34fde) Update web UI timeout display |
+| 02:49 | humen-mcp-webui | [`5c8ae33`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/5c8ae337d8f87f02f62308a1313dc6107acdbb14) Remove duplicate timeout display |
+| 02:33 | humen-mcp | [`a016729`](https://github.com/LIghtJUNction/humen-mcp/commit/a0167290ba05e0e27ce5a1ada6307a42f9504e22) Allow agents to accept pending human requests |
+| 02:29 | humen-mcp | [`7a6de41`](https://github.com/LIghtJUNction/humen-mcp/commit/7a6de4169ac88944866085b5d910cd064594c958) Fix agent inbox identity routing |
+| 02:29 | humen-mcp-webui | [`69939ae`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/69939ae7e4c7ef38471674c0ddd317c0f26f1a7d) Add connected agents panel |
+| 01:57 | humen-mcp | [`5248717`](https://github.com/LIghtJUNction/humen-mcp/commit/52487170fbbf9150370b9cb6c297aaa3b9f9ae50) Add human memo boards |
 
 </details>
 
