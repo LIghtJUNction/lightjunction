@@ -79,12 +79,14 @@ npx skills add LIghtJUNction/lightjunction -g
 | [AstrBot](https://github.com/AstrBotDevs/AstrBot) ecosystem | 围绕真实运行时行为参与 bot framework 贡献、打包和插件工作。 |
 | [lightjunction](https://github.com/LIghtJUNction/lightjunction) | 个人终端网站、bootstrap 脚本、加密联系流程和可复用 shell helpers。 |
 | [OniMods](https://github.com/LIghtJUNction/OniMods) | Oxygen Not Included 工具和面向复杂模拟游戏的 MCP 风格自动化实验。 |
+| [humen-mcp](https://github.com/LIghtJUNction/humen-mcp) | 面向真人参与的 Rust MCP 工具，支持持久化请求和 agent 初始化，适合真实工作流。 |
+| [emailctl](https://github.com/LIghtJUNction/emailctl) | 已发布到 crates.io 的 Rust 终端邮件工具；crate/package 名是 `emailctl`，命令行 binary 仍是 `email`。 |
 | [douyin](https://github.com/LIghtJUNction/douyin) | 围绕抖音 API、认证流程和自动化工作流的 Python package 与 CLI。 |
 | [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | 网络配置自动化，可靠性比炫技更重要。 |
 
 ## 工具箱
 
-`Python` · `TypeScript` · `Shell/Bash` · `Linux` · `macOS` · `GitHub Actions` · `OpenPGP` · `MCP` · `Network Debugging` · `CLI Design`
+`Python` · `Rust` · `TypeScript` · `Shell/Bash` · `Linux` · `macOS` · `GitHub Actions` · `OpenPGP` · `MCP` · `Network Debugging` · `CLI Design`
 
 ## Bootstrap Lab
 

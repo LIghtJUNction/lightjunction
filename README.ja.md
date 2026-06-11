@@ -79,12 +79,14 @@ Skills は `.agents/skills/` にあり、再利用可能な workflows、preferen
 | [AstrBot](https://github.com/AstrBotDevs/AstrBot) ecosystem | Bot framework contribution and packaging/plugin work around real runtime behavior. |
 | [lightjunction](https://github.com/LIghtJUNction/lightjunction) | Personal terminal site, bootstrap scripts, encrypted contact flow, reusable shell helpers. |
 | [OniMods](https://github.com/LIghtJUNction/OniMods) | Oxygen Not Included tooling and MCP-style automation experiments for a complex simulation game. |
+| [humen-mcp](https://github.com/LIghtJUNction/humen-mcp) | Rust MCP tool for human-in-the-loop interaction, with persistence and agent setup for real workflows. |
+| [emailctl](https://github.com/LIghtJUNction/emailctl) | Published Rust crate for terminal email workflows; the package is `emailctl` and the CLI binary remains `email`. |
 | [douyin](https://github.com/LIghtJUNction/douyin) | Python package and CLI work around Douyin APIs, auth flows, automation-heavy workflows. |
 | [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | Network configuration automation where reliability matters more than cleverness. |
 
 ## Toolbox
 
-`Python` · `TypeScript` · `Shell/Bash` · `Linux` · `macOS` · `GitHub Actions` · `OpenPGP` · `MCP` · `Network Debugging` · `CLI Design`
+`Python` · `Rust` · `TypeScript` · `Shell/Bash` · `Linux` · `macOS` · `GitHub Actions` · `OpenPGP` · `MCP` · `Network Debugging` · `CLI Design`
 
 ## Bootstrap Lab
 

@@ -45,6 +45,7 @@
 html,
 body {
     height: 100%;
+    min-height: 100%;
     margin: 0;
     overflow: hidden;
     background:
@@ -151,6 +152,7 @@ a:hover {
     position: relative;
     z-index: 1;
     height: 100vh;
+    height: 100dvh;
     display: grid;
     grid-template-columns: var(--identity-width) var(--terminal-width);
     gap: var(--app-gap);
@@ -1000,30 +1002,73 @@ kbd {
 }
 
 @media (max-width: 840px) {
+    :root {
+        --app-gap: 12px;
+        --app-padding: 12px;
+        --identity-padding: 16px;
+        --avatar-size: 72px;
+        --brand-size: clamp(30px, 10vw, 48px);
+    }
+
+    html,
+    body {
+        height: auto;
+        min-height: 100%;
+    }
+
     body {
         overflow: auto;
+        -webkit-text-size-adjust: 100%;
     }
 
-    .app {
-        min-height: 100vh;
-        height: auto;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-    }
-
-    .identity {
-        min-height: 320px;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr auto;
+    body::before {
         transform: none;
     }
 
+    #ascii-bg {
+        opacity: 0.42;
+    }
+
+    body[data-active-app="terminal"] #ascii-bg {
+        opacity: 0.58;
+    }
+
+    body[data-layout] .app,
+    .app {
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+        height: auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    body[data-layout] .identity,
+    body[data-layout] .workspace,
+    .identity,
     .workspace {
-        min-height: 680px;
+        order: initial;
+    }
+
+    body[data-layout] .identity,
+    .identity {
+        min-height: 0;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        transform: none;
+    }
+
+    body[data-frame="double"] .identity,
+    body[data-frame="double"] .workspace {
+        outline-offset: 3px;
+    }
+
+    .workspace {
+        min-height: min(680px, calc(100dvh - 24px));
     }
 
     .terminal {
-        min-height: 620px;
+        min-height: min(620px, calc(100dvh - 24px));
         transform: none;
     }
 
@@ -1045,22 +1090,89 @@ kbd {
         justify-content: flex-end;
     }
 
+    .project-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+    }
+
     .statusbar {
         display: none;
     }
 }
 
 @media (max-width: 440px) {
+    :root {
+        --app-gap: 10px;
+        --app-padding: 10px;
+        --identity-padding: 14px;
+        --avatar-size: 58px;
+        --panel-shadow: 0 14px 38px rgba(0, 0, 0, 0.42);
+    }
+
     .app {
         padding: 10px;
     }
 
     .identity {
-        min-height: 280px;
+        gap: 12px;
+    }
+
+    .identity > div:first-child {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 12px;
     }
 
     .brand {
-        font-size: clamp(30px, 16vw, 58px);
+        margin: 0;
+        font-size: clamp(28px, 12vw, 44px);
+    }
+
+    .summary,
+    .launcher,
+    .collab-callout {
+        grid-column: 1 / -1;
+    }
+
+    .summary {
+        margin: 10px 0 0;
+        line-height: 1.5;
+    }
+
+    .launcher {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .launcher-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        min-height: 0;
+        padding: 10px;
+    }
+
+    .launcher-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .collab-callout {
+        margin-top: 12px;
+        padding: 10px 12px;
+    }
+
+    .key-block {
+        gap: 6px;
+        font-size: 10px;
+    }
+
+    .workspace {
+        min-height: calc(100dvh - 20px);
+    }
+
+    .workspace-titlebar h2 {
+        font-size: clamp(24px, 9vw, 34px);
     }
 
     .titlebar {
@@ -1068,8 +1180,22 @@ kbd {
         padding-inline: 12px;
     }
 
+    .titlebar,
+    .input-row {
+        font-size: 11px;
+    }
+
+    .input-row {
+        gap: 5px;
+        padding-inline: 12px;
+    }
+
     #terminal-output {
         padding: 14px;
+    }
+
+    .term-line {
+        font-size: 12px;
     }
 
     .project-app {
@@ -1084,6 +1210,36 @@ kbd {
 
     .project-grid {
         grid-template-columns: 1fr;
+        padding-right: 0;
+    }
+
+    .project-card {
+        min-height: 0;
+    }
+
+    .project-card footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .secure-card {
+        width: calc(100vw - 20px);
+        padding: 14px;
+    }
+
+    .modal {
+        padding: 10px;
+    }
+
+    .modal-box {
+        max-height: calc(100dvh - 20px);
+        overflow: auto;
+        padding: 14px;
+    }
+
+    #toast {
+        width: calc(100vw - 20px);
+        text-align: center;
     }
 
     .secure-foot,

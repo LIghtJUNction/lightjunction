@@ -48,3 +48,12 @@ scripting toolkit.
 - `STRICT_MODE=1` (default) enables `set -euo pipefall`.
 - `NON_INTERACTIVE=1` is auto-set when `CI` is set or stdin is not a TTY.
 - GPG Key ID: `EB21B83AB1E982DF66F08387A67178405F7736FD`
+
+## Agent Preferences
+
+- Avoid heavy tasks by default; this machine is resource-constrained
+  (about 1 GiB RAM, KVM/QEMU Arch Linux VM).
+- Prefer lightweight checks and targeted commands over full scans, full builds,
+  or broad test suites unless explicitly requested.
+- When running user-environment commands, prefer the `arch` user environment,
+  for example `su - arch -c "bash -lc '<command>'"`.

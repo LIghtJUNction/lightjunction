@@ -1,4 +1,4 @@
-> **今日工作汇报:** [WORK_REPORT.md](WORK_REPORT.md)
+> **今日工作汇报:** [WORK_REPORT/index.md](WORK_REPORT/index.md)
 
 > **Support / ad slot:** Want to support my work or leave a public message? Open the project website, choose **Encrypted Message**, and send any donation details: payment method, password red packet, Bitcoin wallet private key, your contact information, or any other sponsorship note. Your message is encrypted in the browser with my GPG public key, so only I can decrypt it.
 
@@ -98,7 +98,7 @@ My rule of thumb: if a tool only works on my machine, it is not finished yet. Go
 
 ## Profile References
 
-I keep this README closer to a compact portfolio than a sticker wall. The structure borrows from GitHub's profile README guidance and the community examples collected in `awesome-github-profile-readme`: clear identity first, selected proof second, and daily work notes kept separately in [WORK_REPORT.md](WORK_REPORT.md).
+I keep this README closer to a compact portfolio than a sticker wall. The structure borrows from GitHub's profile README guidance and the community examples collected in `awesome-github-profile-readme`: clear identity first, selected proof second, and daily work notes kept separately in [WORK_REPORT/index.md](WORK_REPORT/index.md).
 
 - GitHub Docs: [Managing your profile README](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-profile/customizing-your-profile/managing-your-profile-readme)
 - Examples: [abhisheknaiidu/awesome-github-profile-readme](https://github.com/abhisheknaiidu/awesome-github-profile-readme)
