@@ -105,7 +105,7 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 | Joined | Repos | Followers | Following |
 |:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (4yr 0mo) | **86** | **73** | **121** |
+| 2022-06-06 (4yr 0mo) | **87** | **74** | **121** |
 
 ---
 
@@ -115,16 +115,16 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
 ### This Week
 
-**255** commits across **17** repositories
+**230** commits across **14** repositories
 
 | Repository | Activity |
 |:-----------|:--------:|
-| [cortexfs](https://github.com/LIghtJUNction/cortexfs) | ▓▓▓░░░░░░░ 71 |
-| [humen-mcp](https://github.com/LIghtJUNction/humen-mcp) | ▓░░░░░░░░░ 36 |
-| [new-api-privacy-filter](https://github.com/LIghtJUNction/new-api-privacy-filter) | ▓░░░░░░░░░ 21 |
-| [humen-mcp-webui](https://github.com/LIghtJUNction/humen-mcp-webui) | ▓░░░░░░░░░ 19 |
-| [AndroidUse](https://github.com/LIghtJUNction/AndroidUse) | ▓░░░░░░░░░ 18 |
-| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 17 |
+| [cortexfs](https://github.com/LIghtJUNction/cortexfs) | ▓▓▓░░░░░░░ 72 |
+| [humen-mcp](https://github.com/LIghtJUNction/humen-mcp) | ▓▓░░░░░░░░ 38 |
+| [humen-mcp-webui](https://github.com/LIghtJUNction/humen-mcp-webui) | ▓░░░░░░░░░ 21 |
+| [AndroidUse](https://github.com/LIghtJUNction/AndroidUse) | ▓░░░░░░░░░ 19 |
+| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 16 |
+| [AI-Worker-Proxy](https://github.com/LIghtJUNction/AI-Worker-Proxy) | ▓░░░░░░░░░ 14 |
 
 ---
 
@@ -166,9 +166,9 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 
  ╻╻╻╻ ╻╻╻╻╻┃╻╻╻ ╻╻╻╻╻╻╻............................. 
  ▒░░░╻░░░░░░░░░╻░░░░░░░............................. 
- ░░░░░░░░░░░░░░░░░░░░░░..............................
- ░░░░░░░░░░▓▒░░░░░░░░░▓╻.............................
-╻░░░░░░░░░░▒░░░░░░░░░░▓▓.............................
+ ░░░░░░░░░░░░░░░░░░░░░░╻.............................
+ ░░░░░░░░░░▓▒░░░░░░░░░▓░.............................
+╻░░░░░░░░░░▒░░░░░░░░░░▓▒.............................
 ░░░░░░░░░░░░░░░░░░░░░░▓░.............................
 ░░░░░░░░░░░░░░░░░░░░░░░▒.............................
 ```
@@ -190,30 +190,30 @@ I keep this README closer to a compact portfolio than a sticker wall. The struct
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/humen-mcp">humen-mcp</a> <sub>RS</sub>
+#### <a href="https://github.com/LIghtJUNction/MagicNet">MagicNet</a> <sub>SH</sub>
 
-Human Interaction MCP Tool
+A module for treating internet addiction.
 
-<sub>Rust / 4 stars / 0 forks / updated 2026-06-10</sub>
+<sub>Shell / 71 stars / 2 forks / updated 2026-06-11</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/humen-mcp?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/humen-mcp?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/humen-mcp-webui">humen-mcp-webui</a> <sub>TS</sub>
+#### <a href="https://github.com/LIghtJUNction/avio">avio</a> <sub>CODE</sub>
 
-Web UI for humen-mcp
+A safe, high-level Rust wrapper around FFmpeg for building video editors — decode, encode, filter, compose, and stream.
 
-<sub>TypeScript / 1 stars / 0 forks / updated 2026-06-10</sub>
+<sub>Unknown / 0 stars / 0 forks / updated 2026-06-11</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/humen-mcp-webui?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/humen-mcp-webui?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/avio?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/avio?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
@@ -224,7 +224,7 @@ Web UI for humen-mcp
 
 MagicNet-mihomo
 
-<sub>Shell / 10 stars / 0 forks / updated 2026-06-09</sub>
+<sub>Shell / 10 stars / 0 forks / updated 2026-06-10</sub>
 
 <br>
 
@@ -234,46 +234,46 @@ MagicNet-mihomo
 </td>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/lightjunction">lightjunction</a> <sub>SH</sub>
+#### <a href="https://github.com/LIghtJUNction/SitePing">SitePing</a> <sub>CODE</sub>
 
-I&#x27;M LIghtJUNction
+Drop-in visual feedback widget for websites. Pin comments directly on page elements — Shadow DOM isolated, framework-agnostic.
 
-<sub>Shell / 2 stars / 0 forks / updated 2026-06-09</sub>
+<sub>Unknown / 0 stars / 0 forks / updated 2026-06-10</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/SitePing?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/SitePing?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
 <tr>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/LightFlow">LightFlow</a> <sub>RS</sub>
+#### <a href="https://github.com/LIghtJUNction/PiEEG-server">PiEEG-server</a> <sub>CODE</sub>
 
-No description
+One-line install streaming server, terminal monitor, and browser dashboard for the PiEEG shields.
 
-<sub>Rust / 1 stars / 0 forks / updated 2026-06-09</sub>
+<sub>Unknown / 0 stars / 0 forks / updated 2026-06-10</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/LightFlow?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/LightFlow?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/PiEEG-server?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/PiEEG-server?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 <td align="left" valign="top" width="50%">
 
-#### <a href="https://github.com/LIghtJUNction/LightFlowUI">LightFlowUI</a> <sub>RS</sub>
+#### <a href="https://github.com/LIghtJUNction/lightjunction">lightjunction</a> <sub>SH</sub>
 
-Frontend control console for LightFlow
+I&#x27;M LIghtJUNction
 
-<sub>Rust / 1 stars / 0 forks / updated 2026-06-09</sub>
+<sub>Shell / 2 stars / 0 forks / updated 2026-06-10</sub>
 
 <br>
 
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/LightFlowUI?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/LightFlowUI?style=flat-square&labelColor=0d1117&color=4ecdc4)
+![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
+![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
 
 </td>
 </tr>
@@ -296,18 +296,18 @@ Frontend control console for LightFlow
 
 | Time | Repo | Commit |
 |:-----|:-----|:-------|
-| 03:38 | humen-mcp | [`fee1a97`](https://github.com/LIghtJUNction/humen-mcp/commit/fee1a976b3924201c2075241135e6d9411d54812) Add agent offline memo tool |
-| 03:38 | humen-mcp-webui | [`3d8dd1b`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/3d8dd1b44bfacbfcffb0bd6b239d628457022162) Show agent-authored memos |
-| 03:27 | humen-mcp | [`6173806`](https://github.com/LIghtJUNction/humen-mcp/commit/6173806d7a7a6559a373fd1a860b6048f7c637f3) Hide sent and expired requests per user |
-| 03:27 | humen-mcp-webui | [`9cc5cb3`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/9cc5cb3f0425823f303fb710ff980724cc10018b) Allow hiding sent and expired requests |
-| 03:09 | humen-mcp | [`39b7ca0`](https://github.com/LIghtJUNction/humen-mcp/commit/39b7ca01b882265c1c088437a335d5ecaf88c2fd) Add agent inbox read state and one-time ratings |
-| 03:09 | humen-mcp-webui | [`81f884d`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/81f884decfd3426caf9864b4e605c5ec4f8b07cc) Show agent read state and ratings |
-| 02:49 | humen-mcp | [`2ebd01b`](https://github.com/LIghtJUNction/humen-mcp/commit/2ebd01bf776cd3c882fc44ecd0837a073ee34fde) Update web UI timeout display |
-| 02:49 | humen-mcp-webui | [`5c8ae33`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/5c8ae337d8f87f02f62308a1313dc6107acdbb14) Remove duplicate timeout display |
-| 02:33 | humen-mcp | [`a016729`](https://github.com/LIghtJUNction/humen-mcp/commit/a0167290ba05e0e27ce5a1ada6307a42f9504e22) Allow agents to accept pending human requests |
-| 02:29 | humen-mcp | [`7a6de41`](https://github.com/LIghtJUNction/humen-mcp/commit/7a6de4169ac88944866085b5d910cd064594c958) Fix agent inbox identity routing |
-| 02:29 | humen-mcp-webui | [`69939ae`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/69939ae7e4c7ef38471674c0ddd317c0f26f1a7d) Add connected agents panel |
-| 01:57 | humen-mcp | [`5248717`](https://github.com/LIghtJUNction/humen-mcp/commit/52487170fbbf9150370b9cb6c297aaa3b9f9ae50) Add human memo boards |
+| 23:56 | MagicMihomo | [`b6891f8`](https://github.com/LIghtJUNction/MagicMihomo/commit/b6891f8861944d0288bb2c082bbd34aaf8b03ace) ruleset: update-ruleset |
+| 20:55 | MagicNet | [`35ba0ba`](https://github.com/LIghtJUNction/MagicNet/commit/35ba0badfce54a60cdd17c9fd650bad7079165d2) fix: improve subscription setup flows |
+| 20:29 | MagicNet | [`3d995af`](https://github.com/LIghtJUNction/MagicNet/commit/3d995affba3bc2adce49b7bbf468bf182c954597) style(kamfw): refine console output |
+| 20:10 | MagicNet | [`c263da7`](https://github.com/LIghtJUNction/MagicNet/commit/c263da758947c3cdb1241e8c77b77058cbbbc968) fix(build): package webui artifacts |
+| 17:36 | emailctl | [`0f72a99`](https://github.com/LIghtJUNction/emailctl/commit/0f72a999e33be96efa40fa09fb3de33f6140ac72) Rename project to emailctl |
+| 13:54 | humen-mcp | [`8af6221`](https://github.com/LIghtJUNction/humen-mcp/commit/8af622150a910f462bf34ea0741468a2a55bcd04) Persist web sessions with cookies |
+| 13:52 | humen-mcp-webui | [`eaa3ac7`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/eaa3ac7cad6c87657da98612c0a602d02d3efabc) Improve mobile layout and session restore |
+| 10:02 | MagicNet | [`b89c575`](https://github.com/LIghtJUNction/MagicNet/commit/b89c575c5eb44150a6d10fa6985a0f7aad8482b6) docs: polish README |
+| 08:03 | humen-mcp | [`f5bbc6c`](https://github.com/LIghtJUNction/humen-mcp/commit/f5bbc6c489e29d6a8a867b92f7815c94c308e6e9) docs: improve README navigation |
+| 08:00 | humen-mcp-webui | [`8b862e1`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/8b862e1f1b1c0c9c4fbe0588aa11590314c7f920) docs: polish README |
+| 08:00 | AndroidUse | [`2b3c178`](https://github.com/LIghtJUNction/AndroidUse/commit/2b3c17898e61ef6953ea25d8c76b63f21e60711c) docs: polish README |
+| 08:00 | OniMods | [`4d63c61`](https://github.com/LIghtJUNction/OniMods/commit/4d63c6118031a4ae8623646819acc378b27ce847) docs: polish README |
 
 </details>
 
