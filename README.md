@@ -1,8 +1,10 @@
+> **今日工作汇报:** [WORK_REPORT.md](WORK_REPORT.md)
+
 > **Support / ad slot:** Want to support my work or leave a public message? Open the project website, choose **Encrypted Message**, and send any donation details: payment method, password red packet, Bitcoin wallet private key, your contact information, or any other sponsorship note. Your message is encrypted in the browser with my GPG public key, so only I can decrypt it.
 
 > **OpenReview verification:** Hello OpenReview reviewers, I confirm that I have registered an OpenReview account under the name **LIghtJUNction**.
 
-**Languages:** English (full, dynamically updated) · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
+**Languages:** English · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
 
 <div align="center">
   <a href="https://gravatar.com/totallytriumph1a8c29e246" target="_blank">
@@ -85,235 +87,21 @@ My rule of thumb: if a tool only works on my machine, it is not finished yet. Go
 | [AstrBot](https://github.com/AstrBotDevs/AstrBot) ecosystem | Bot framework contribution and packaging/plugin work around real runtime behavior. |
 | [lightjunction](https://github.com/LIghtJUNction/lightjunction) | Personal terminal site, bootstrap scripts, encrypted contact flow, and reusable shell helpers. |
 | [OniMods](https://github.com/LIghtJUNction/OniMods) | Oxygen Not Included tooling and MCP-style automation experiments for a complex simulation game. |
+| [humen-mcp](https://github.com/LIghtJUNction/humen-mcp) | Rust MCP tool for human-in-the-loop interaction, with persistence and agent setup for real workflows. |
+| [emailctl](https://github.com/LIghtJUNction/emailctl) | Published Rust crate for terminal email workflows; the package is `emailctl` and the CLI binary remains `email`. |
 | [douyin](https://github.com/LIghtJUNction/douyin) | Python package and CLI work around Douyin APIs, auth flows, and automation-heavy workflows. |
 | [MagicMihomo](https://github.com/LIghtJUNction/MagicMihomo) | Network configuration automation where reliability matters more than cleverness. |
 
 ## Toolbox
 
-`Python` · `TypeScript` · `Shell/Bash` · `Linux` · `macOS` · `GitHub Actions` · `OpenPGP` · `MCP` · `Network Debugging` · `CLI Design`
+`Python` · `Rust` · `TypeScript` · `Shell/Bash` · `Linux` · `macOS` · `GitHub Actions` · `OpenPGP` · `MCP` · `Network Debugging` · `CLI Design`
 
 ## Profile References
 
-I keep this README closer to a compact portfolio than a sticker wall. The structure borrows from GitHub's profile README guidance and the community examples collected in `awesome-github-profile-readme`: clear identity first, selected proof second, dynamic activity only after the human-readable story.
+I keep this README closer to a compact portfolio than a sticker wall. The structure borrows from GitHub's profile README guidance and the community examples collected in `awesome-github-profile-readme`: clear identity first, selected proof second, and daily work notes kept separately in [WORK_REPORT.md](WORK_REPORT.md).
 
-- GitHub Docs: [Managing your profile README](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)
+- GitHub Docs: [Managing your profile README](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-profile/customizing-your-profile/managing-your-profile-readme)
 - Examples: [abhisheknaiidu/awesome-github-profile-readme](https://github.com/abhisheknaiidu/awesome-github-profile-readme)
-
-## Current Signal
-
-<!-- START_DYNAMIC_STATS -->
-
-| Joined | Repos | Followers | Following |
-|:------:|:-----:|:---------:|:---------:|
-| 2022-06-06 (4yr 0mo) | **87** | **74** | **121** |
-
----
-
-<!-- END_DYNAMIC_STATS -->
-
-<!-- START_DYNAMIC_SUMMARY -->
-
-### This Week
-
-**230** commits across **14** repositories
-
-| Repository | Activity |
-|:-----------|:--------:|
-| [cortexfs](https://github.com/LIghtJUNction/cortexfs) | ▓▓▓░░░░░░░ 72 |
-| [humen-mcp](https://github.com/LIghtJUNction/humen-mcp) | ▓▓░░░░░░░░ 38 |
-| [humen-mcp-webui](https://github.com/LIghtJUNction/humen-mcp-webui) | ▓░░░░░░░░░ 21 |
-| [AndroidUse](https://github.com/LIghtJUNction/AndroidUse) | ▓░░░░░░░░░ 19 |
-| [MagicNet](https://github.com/LIghtJUNction/MagicNet) | ▓░░░░░░░░░ 16 |
-| [AI-Worker-Proxy](https://github.com/LIghtJUNction/AI-Worker-Proxy) | ▓░░░░░░░░░ 14 |
-
----
-
-<!-- END_DYNAMIC_SUMMARY -->
-
-<!-- START_DYNAMIC_SKYLINE -->
-
-### Skyline
-
-<details>
-<summary>Contribution skyline</summary>
-
-```
-▓                             
-
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-
-                                                     
-                                                     
-                                       ╻             
-                                       ░   ╻         
-                                       ▓┃  ░      ╻  
-                      ╻ ╻        ╻     ░░  ░      ░╻ 
-                    ░ ░░░░░  ░  ░▒ ░  ▒░░░ ▒     ░░░░
-
-                                        ╻╻╻╻╻╻   ╻╻╽ 
-                                        ░░░░░░ ╻╻░░▒ 
-                ╻     ╻╻╻             ╻╻░░░░░░╻░░░▓▓ 
-                ░    ╻░░░             ░░░░░░░░░░░░░▒╻
-       ╻ ╻      ░╻   ░░░░             ░░░░░░░░░░░░░░░
-   ╻   ░ ░ ╻   ╻░░╻  ░░░░╻  ╻         ░░░░░░░░░░░▒░░▓
- ░░░  ░░░░░░░ ░░░░░  ░░░░░  ░        ░░░░░░░░░░░░░░░▒
-
- ╻╻╻╻ ╻╻╻╻╻┃╻╻╻ ╻╻╻╻╻╻╻............................. 
- ▒░░░╻░░░░░░░░░╻░░░░░░░............................. 
- ░░░░░░░░░░░░░░░░░░░░░░╻.............................
- ░░░░░░░░░░▓▒░░░░░░░░░▓░.............................
-╻░░░░░░░░░░▒░░░░░░░░░░▓▒.............................
-░░░░░░░░░░░░░░░░░░░░░░▓░.............................
-░░░░░░░░░░░░░░░░░░░░░░░▒.............................
-```
-
-</details>
-
----
-
-<!-- END_DYNAMIC_SKYLINE -->
-
-<!-- START_DYNAMIC_REPO_LIST -->
-
-### Latest Projects
-
-<details>
-<summary>6 recently updated repositories</summary>
-
-<table>
-<tr>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/MagicNet">MagicNet</a> <sub>SH</sub>
-
-A module for treating internet addiction.
-
-<sub>Shell / 71 stars / 2 forks / updated 2026-06-11</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicNet?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/avio">avio</a> <sub>CODE</sub>
-
-A safe, high-level Rust wrapper around FFmpeg for building video editors — decode, encode, filter, compose, and stream.
-
-<sub>Unknown / 0 stars / 0 forks / updated 2026-06-11</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/avio?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/avio?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-</tr>
-<tr>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/MagicMihomo">MagicMihomo</a> <sub>SH</sub>
-
-MagicNet-mihomo
-
-<sub>Shell / 10 stars / 0 forks / updated 2026-06-10</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/MagicMihomo?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/SitePing">SitePing</a> <sub>CODE</sub>
-
-Drop-in visual feedback widget for websites. Pin comments directly on page elements — Shadow DOM isolated, framework-agnostic.
-
-<sub>Unknown / 0 stars / 0 forks / updated 2026-06-10</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/SitePing?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/SitePing?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-</tr>
-<tr>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/PiEEG-server">PiEEG-server</a> <sub>CODE</sub>
-
-One-line install streaming server, terminal monitor, and browser dashboard for the PiEEG shields.
-
-<sub>Unknown / 0 stars / 0 forks / updated 2026-06-10</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/PiEEG-server?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/PiEEG-server?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-<td align="left" valign="top" width="50%">
-
-#### <a href="https://github.com/LIghtJUNction/lightjunction">lightjunction</a> <sub>SH</sub>
-
-I&#x27;M LIghtJUNction
-
-<sub>Shell / 2 stars / 0 forks / updated 2026-06-10</sub>
-
-<br>
-
-![Stars](https://img.shields.io/github/stars/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=ffcb2f)
-![Forks](https://img.shields.io/github/forks/LIghtJUNction/lightjunction?style=flat-square&labelColor=0d1117&color=4ecdc4)
-
-</td>
-</tr>
-</table>
-
-</details>
-
----
-
-<!-- END_DYNAMIC_REPO_LIST -->
-
-<!-- START_DYNAMIC_COMMITS -->
-
-### Recent Commits
-
-<details>
-<summary>Last 7 days</summary>
-
-**2026-06-10**
-
-| Time | Repo | Commit |
-|:-----|:-----|:-------|
-| 23:56 | MagicMihomo | [`b6891f8`](https://github.com/LIghtJUNction/MagicMihomo/commit/b6891f8861944d0288bb2c082bbd34aaf8b03ace) ruleset: update-ruleset |
-| 20:55 | MagicNet | [`35ba0ba`](https://github.com/LIghtJUNction/MagicNet/commit/35ba0badfce54a60cdd17c9fd650bad7079165d2) fix: improve subscription setup flows |
-| 20:29 | MagicNet | [`3d995af`](https://github.com/LIghtJUNction/MagicNet/commit/3d995affba3bc2adce49b7bbf468bf182c954597) style(kamfw): refine console output |
-| 20:10 | MagicNet | [`c263da7`](https://github.com/LIghtJUNction/MagicNet/commit/c263da758947c3cdb1241e8c77b77058cbbbc968) fix(build): package webui artifacts |
-| 17:36 | emailctl | [`0f72a99`](https://github.com/LIghtJUNction/emailctl/commit/0f72a999e33be96efa40fa09fb3de33f6140ac72) Rename project to emailctl |
-| 13:54 | humen-mcp | [`8af6221`](https://github.com/LIghtJUNction/humen-mcp/commit/8af622150a910f462bf34ea0741468a2a55bcd04) Persist web sessions with cookies |
-| 13:52 | humen-mcp-webui | [`eaa3ac7`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/eaa3ac7cad6c87657da98612c0a602d02d3efabc) Improve mobile layout and session restore |
-| 10:02 | MagicNet | [`b89c575`](https://github.com/LIghtJUNction/MagicNet/commit/b89c575c5eb44150a6d10fa6985a0f7aad8482b6) docs: polish README |
-| 08:03 | humen-mcp | [`f5bbc6c`](https://github.com/LIghtJUNction/humen-mcp/commit/f5bbc6c489e29d6a8a867b92f7815c94c308e6e9) docs: improve README navigation |
-| 08:00 | humen-mcp-webui | [`8b862e1`](https://github.com/LIghtJUNction/humen-mcp-webui/commit/8b862e1f1b1c0c9c4fbe0588aa11590314c7f920) docs: polish README |
-| 08:00 | AndroidUse | [`2b3c178`](https://github.com/LIghtJUNction/AndroidUse/commit/2b3c17898e61ef6953ea25d8c76b63f21e60711c) docs: polish README |
-| 08:00 | OniMods | [`4d63c61`](https://github.com/LIghtJUNction/OniMods/commit/4d63c6118031a4ae8623646819acc378b27ce847) docs: polish README |
-
-</details>
-
----
-
-<!-- END_DYNAMIC_COMMITS -->
 
 ## Bootstrap Lab
 
