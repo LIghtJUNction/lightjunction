@@ -17,6 +17,9 @@ subdirectory and includes a `SKILL.md` file plus optional references.
   error handling, testing, tooling, and prohibited-pattern rules.
 - `git-workflow-standards` - Trunk-based branching, Conventional Commits, PR
   rules, semantic versioning, tags, and prohibited-pattern rules.
+- `obscura-browser` - Use the lightweight Obscura headless browser for webpage
+  visits, browser automation, scraping, and rendered page access without
+  reinstalling heavyweight Playwright/Puppeteer browser caches.
 
 Each skill should explain:
 
