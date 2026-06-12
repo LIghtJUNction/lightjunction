@@ -51,6 +51,14 @@ script_output.txt
 github_data.json
 ai_enhanced.json
 
+# Local assistant workspace
+workspace/**
+!workspace/
+!workspace/**/
+!workspace/**/.gitkeep
+.kimaki/
+skills/**/tmp/
+
 # Agent iteration logs
 logs/
 

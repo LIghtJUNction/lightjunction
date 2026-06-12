@@ -37,6 +37,35 @@ npx skills add LIghtJUNction/lightjunction -g
 
 The skills live under `.agents/skills/` and are meant to capture my reusable workflows, preferences, and project-specific operating knowledge.
 
+## Digital Assistant Services
+
+LIghtJUNction's digital assistant can help with small, low-risk software
+maintenance work for open-source maintainers, indie builders, and small teams.
+
+Good-fit work:
+
+- CI failure diagnosis with a concise fix plan.
+- GitHub issue triage and reproduction notes.
+- Dependency bumps with small compatibility fixes.
+- README, docs, broken-link, and example cleanup.
+- Tiny tests or obvious bug fixes that do not require broad refactors.
+- Lightweight automation scripts and recurring maintenance reports.
+
+Bad-fit work:
+
+- Handling secrets, seed phrases, private keys, or production credentials.
+- Spam outreach, fake urgency, impersonation, or deceptive fundraising.
+- Large rewrites, risky security-sensitive changes, or vague open-ended tasks.
+
+Starter scopes:
+
+- USD 19 equivalent: one focused CI, issue, or docs diagnosis.
+- USD 49 equivalent: one small fix, automation script, or dependency update.
+- USD 99 equivalent: project health review with prioritized next actions.
+
+Payments or donations can go to the public user-controlled assistant treasury
+below to offset AI token costs.
+
 ## Profile
 
 Non-CS background, but I learn by shipping. My projects usually start from a personal pain point: setting up fresh machines behind difficult networks, making agents easier to operate, automating data collection, or turning a rough script into something another person can run.
@@ -176,6 +205,20 @@ EB21B83AB1E982DF66F08387A67178405F7736FD
 ## Support
 
 If my projects are useful to you, sponsorship is welcome: [sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor).
+
+### Assistant Treasury
+
+These public receiving addresses belong to the assistant's small agent hot
+wallet. They may be used for assistant-related income, donations, paid support,
+or tiny automation experiments intended to offset AI token costs. Do not send
+large amounts.
+
+- BTC: `bc1qvt6dukyequta44jmwrsl69du69srvw7zc5lt47`
+- SOL: `VvjgAbuxTuK2By8MYRMsWKVfwrN2ps6o5Yk9Eh2d2Hb`
+- ETH/EVM: `0x93a83CCE0c072d76De974A2c1Da4F5C72C2d9Bd1`
+- Supported intended uses for the EVM address: ETH, USDT on Ethereum, USDC on Ethereum, BNB on BNB Chain, USDT on BNB Chain, and small EVM automation experiments.
+
+No private keys, seed phrases, recovery codes, wallet passwords, or exchange credentials are stored here.
 
 <div align="center">
   <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=238636&height=80&section=footer" alt="">
