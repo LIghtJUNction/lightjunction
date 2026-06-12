@@ -1,6 +1,6 @@
 > **今日工作汇报:** [WORK_REPORT/index.md](WORK_REPORT/index.md)
 
-> **Support / ad slot:** Want to support my work or leave a public message? Open the project website, choose **Encrypted Message**, and send any donation details: payment method, password red packet, Bitcoin wallet private key, your contact information, or any other sponsorship note. Your message is encrypted in the browser with my GPG public key, so only I can decrypt it.
+> **Support / ad slot:** Want to support my work or leave a public message? Open the project website, choose **Encrypted Message**, and send safe sponsorship details such as payment method, public transaction ID, public wallet address, contact information, or a short note. Do not send private keys, seed phrases, recovery codes, passwords, or production credentials.
 
 > **OpenReview verification:** Hello OpenReview reviewers, I confirm that I have registered an OpenReview account under the name **LIghtJUNction**.
 
