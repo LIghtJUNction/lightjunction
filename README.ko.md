@@ -1,7 +1,3 @@
-> **후원 / 광고 공간:** 제 프로젝트를 후원하거나 공개 메시지를 남기고 싶다면 프로젝트 웹사이트에서 **Encrypted Message**를 열고 후원 정보를 보내 주세요. 결제 방식, 비밀번호 홍바오, Bitcoin 지갑 개인키, 연락처 또는 기타 후원 메모 모두 가능합니다. 메시지는 브라우저에서 제 GPG 공개키로 암호화되며, 저만 복호화할 수 있습니다.
-
-**언어:** [English](README.md) (전체 버전, 동적 업데이트) · [中文](README.zh.md) · [Русский](README.ru.md) · 한국어 (정적 버전) · [日本語](README.ja.md)
-
 <div align="center">
   <a href="https://gravatar.com/totallytriumph1a8c29e246" target="_blank">
     <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=160&d=identicon" alt="LIghtJUNction" width="128" height="128">
@@ -18,6 +14,8 @@
 [Website Terminal](https://lightjunction.github.io/lightjunction/) · [Encrypted Message](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Hugging Face](https://huggingface.co/LIghtJUNction) · [Kaggle](https://www.kaggle.com/lightjunction) · [Email](mailto:lightjunction.me@gmail.com)
 
 </div>
+
+**언어:** [English](README.md) (전체 버전, 동적 업데이트) · [中文](README.zh.md) · [Русский](README.ru.md) · 한국어 (정적 버전) · [日本語](README.ja.md)
 
 ## Agent Skills
 
@@ -144,6 +142,6 @@ EB21B83AB1E982DF66F08387A67178405F7736FD
 
 ## Support
 
-제 프로젝트가 유용하다면 후원을 환영합니다: [sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor).
+제 프로젝트가 유용하다면 후원을 환영합니다: [sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor). 웹사이트 터미널을 통해 후원 메모, 결제 참고 정보, 공개 메시지 또는 연락처를 보낼 수 있습니다. 개인키, seed phrase, 비밀번호, access token 또는 기타 인증 정보는 보내지 마세요.
 
 > 이 문서는 정적 번역본입니다. 영어 [README.md](README.md)는 전체 버전이며 자동으로 업데이트되는 동적 정보를 포함합니다.

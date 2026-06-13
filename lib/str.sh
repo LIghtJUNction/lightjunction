@@ -112,7 +112,7 @@ str_rand() {
     local len="${1:-32}"
     local chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     local result='' i c idx
-    for i in $(seq 1 "$len"); do
+    for ((i = 0; i < len; i++)); do
         idx=$((RANDOM % ${#chars}))
         c="${chars:$idx:1}"
         result+="$c"

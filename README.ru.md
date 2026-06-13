@@ -1,7 +1,3 @@
-> **Поддержка / рекламное место:** Если вы хотите поддержать мои проекты или оставить сообщение для публикации, откройте сайт проекта, выберите **Encrypted Message**, и отправьте любые данные о донате: способ оплаты, парольный red packet, приватный ключ Bitcoin-кошелька, ваши контакты или любую другую заметку о спонсорстве. Сообщение шифруется в браузере моим GPG-ключом, поэтому расшифровать его могу только я.
-
-**Языки:** [English](README.md) (полная версия, динамически обновляется) · [中文](README.zh.md) · Русский (статическая версия) · [한국어](README.ko.md) · [日本語](README.ja.md)
-
 <div align="center">
   <a href="https://gravatar.com/totallytriumph1a8c29e246" target="_blank">
     <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=160&d=identicon" alt="LIghtJUNction" width="128" height="128">
@@ -18,6 +14,8 @@
 [Website Terminal](https://lightjunction.github.io/lightjunction/) · [Encrypted Message](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Hugging Face](https://huggingface.co/LIghtJUNction) · [Kaggle](https://www.kaggle.com/lightjunction) · [Email](mailto:lightjunction.me@gmail.com)
 
 </div>
+
+**Языки:** [English](README.md) (полная версия, динамически обновляется) · [中文](README.zh.md) · Русский (статическая версия) · [한국어](README.ko.md) · [日本語](README.ja.md)
 
 ## Agent Skills
 
@@ -144,6 +142,6 @@ EB21B83AB1E982DF66F08387A67178405F7736FD
 
 ## Поддержка
 
-Если мои проекты полезны, sponsorship welcome: [sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor).
+Если мои проекты полезны, sponsorship welcome: [sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor). Через website terminal можно отправить заметку о спонсорстве, платежную справку, публичное сообщение или контакты. Не отправляйте приватные ключи, seed-фразы, пароли, access tokens или другие учетные данные.
 
 > Это статическая переводная версия. Английский [README.md](README.md) является полной версией и содержит автоматически обновляемую динамическую информацию.

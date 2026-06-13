@@ -16,6 +16,10 @@ Instead, contact me via:
 
 Please include as much detail as possible. I aim to respond within 48 hours.
 
+Do not send private keys, seed phrases, passwords, access tokens, or other
+credentials. If a report requires sensitive proof, describe the minimum context
+needed first and we can agree on a safer handoff.
+
 ## `curl | bash` Install Scripts
 
 All install scripts (e.g. `deploy-ssh-keys.sh`) prompt for review via `less` before

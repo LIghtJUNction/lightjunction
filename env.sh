@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2034
 # env.sh - Terminal environment and color setup
 # Usage: import env.sh
 

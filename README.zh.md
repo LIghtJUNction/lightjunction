@@ -1,7 +1,3 @@
-> **赞助 / 广告位：** 如果你想支持我的项目，或者留下公开展示用的信息，请打开本项目网页，进入 **Encrypted Message / 加密消息**，发送任意捐款信息：付款方式、口令红包、比特币钱包私钥、你的联系方式，或其他赞助备注。消息会在前端使用我的 GPG 公钥加密，只有我能解开。
-
-**语言：** [English](README.md)（完整版本，动态更新） · 中文（静态版本） · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
-
 <div align="center">
   <a href="https://gravatar.com/totallytriumph1a8c29e246" target="_blank">
     <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=160&d=identicon" alt="LIghtJUNction" width="128" height="128">
@@ -18,6 +14,14 @@
 [网站终端](https://lightjunction.github.io/lightjunction/) · [加密消息](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Hugging Face](https://huggingface.co/LIghtJUNction) · [Kaggle](https://www.kaggle.com/lightjunction) · [Email](mailto:lightjunction.me@gmail.com)
 
 </div>
+
+**语言：** [English](README.md)（完整版本，动态更新） · 中文（静态版本） · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
+
+## 开源协作招募
+
+寻找活跃的开源贡献者，学生优先。我可以赞助 GPT-5.5 token：你可以用于自己的开源项目，也请用 GPT-5.5 帮我测试、调试、改进我的公开仓库。
+
+如果你需要项目经历、又缺少 token，欢迎随时联系我，互加微信沟通。唯一要求：token 仅限开源与学习使用，禁止用于商业项目。
 
 ## Agent Skills
 
@@ -144,6 +148,6 @@ EB21B83AB1E982DF66F08387A67178405F7736FD
 
 ## 赞助
 
-如果我的项目对你有用，欢迎赞助：[sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor)。
+如果我的项目对你有用，欢迎赞助：[sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor)。也可以通过网站终端发送赞助备注、付款说明、公开留言或联系方式。请不要发送私钥、助记词、密码、访问令牌或其他凭证。
 
 > 这是静态翻译版本。英文 [README.md](README.md) 是完整版本，并包含自动更新的动态信息。

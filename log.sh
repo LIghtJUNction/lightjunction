@@ -11,7 +11,8 @@ _LAST_LVL=""
 _REPEAT_CNT=0
 _msg() {
     local lvl=$1 col=$2 msg=$3
-    local now=$(date +%H:%M:%S)
+    local now
+    now=$(date +%H:%M:%S)
     if [[ "$msg" == "$_LAST_MSG" && "$lvl" == "$_LAST_LVL" ]]; then
         ((_REPEAT_CNT++))
         if [[ "$NON_INTERACTIVE" -eq 0 && -n "$C_UP" ]]; then
@@ -24,7 +25,7 @@ _msg() {
     fi
     local display_lvl=$lvl
     if [[ "$lvl" == "$_LAST_LVL" && $_REPEAT_CNT -eq 0 ]]; then
-        display_lvl="     " 
+        display_lvl="     "
     fi
     printf "${C_DIM}%s${C_RESET} ${col}%-5s${C_RESET} %b\n" "$now" "$display_lvl" "$msg" >&2
     _LAST_MSG="$msg"

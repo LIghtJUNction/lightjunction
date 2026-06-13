@@ -61,6 +61,7 @@ import() {
         verify_sha256 "$tmpfile" "$sha256" || return 1
     fi
 
+    # shellcheck source=/dev/null
     source "$tmpfile"
     rm -f "$tmpfile"
 }

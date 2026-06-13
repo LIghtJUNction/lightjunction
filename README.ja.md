@@ -1,7 +1,3 @@
-> **支援 / 広告枠:** 私のプロジェクトを支援したい場合、または公開用のメッセージを残したい場合は、プロジェクトの Web サイトで **Encrypted Message** を開き、任意の寄付情報を送ってください。支払い方法、口令红包、Bitcoin ウォレットの秘密鍵、連絡先、その他のスポンサー用メモを送れます。メッセージはブラウザ上で私の GPG 公開鍵により暗号化され、復号できるのは私だけです。
-
-**言語:** [English](README.md)（完全版、動的更新） · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · 日本語（静的版）
-
 <div align="center">
   <a href="https://gravatar.com/totallytriumph1a8c29e246" target="_blank">
     <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=160&d=identicon" alt="LIghtJUNction" width="128" height="128">
@@ -18,6 +14,8 @@
 [Website Terminal](https://lightjunction.github.io/lightjunction/) · [Encrypted Message](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Hugging Face](https://huggingface.co/LIghtJUNction) · [Kaggle](https://www.kaggle.com/lightjunction) · [Email](mailto:lightjunction.me@gmail.com)
 
 </div>
+
+**言語:** [English](README.md)（完全版、動的更新） · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · 日本語（静的版）
 
 ## Agent Skills
 
@@ -144,6 +142,6 @@ EB21B83AB1E982DF66F08387A67178405F7736FD
 
 ## Support
 
-私のプロジェクトが役に立つ場合は、スポンサーを歓迎します: [sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor)。
+私のプロジェクトが役に立つ場合は、スポンサーを歓迎します: [sponsor and support](https://github.com/LIghtJUNction/lightjunction/tree/master/sponsor)。Web terminal からスポンサー用メモ、支払い参照、公開メッセージ、または連絡先を送れます。秘密鍵、seed phrase、パスワード、access token、その他の認証情報は送らないでください。
 
 > これは静的な翻訳版です。英語の [README.md](README.md) が完全版で、自動更新される動的情報を含みます。

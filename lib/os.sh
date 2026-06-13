@@ -111,7 +111,7 @@ os_tmpdir() {
 os_random() {
     local count="${1:-16}"
     local i
-    for i in $(seq 1 "$count"); do
+    for ((i = 0; i < count; i++)); do
         printf '%02x' $((RANDOM % 256))
     done
     echo

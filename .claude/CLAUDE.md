@@ -11,16 +11,17 @@ scripting toolkit.
 ### Auto-Updating GitHub Profile (`README.md`)
 - Dynamic sections (stats, weekly summary, repos, commits, skyline) are
   generated daily by `.github/workflows/daily-readme-update.yml`.
-- Three Python scripts power the automation:
+- Two Python scripts power the automation:
   - `scripts/fetch-github-data.py` — fetches GitHub API data
-  - `scripts/ai-enhance.py` — calls GitHub Copilot API for insights
   - `scripts/update-readme.py` — replaces `<!-- START_...-->` markers
 
-### Secure Message Web App (`src/main.ts`, `index.html`)
+### Secure Message Web App (`src/terminal.ts`, `index.html`)
 - Vite + TypeScript app deployed to GitHub Pages.
 - Uses `openpgp` v6 to encrypt messages with the owner's GPG public key.
 - Physics-based card interaction (drag up to send).
-- Build: `npm run build` → `dist/`
+- Check: `npm run check`
+- Build: `npm run build` -> `dist/`
+- Full repository gate: `scripts/check.sh`
 
 ### Shell Toolkit
 - `basic.sh` — `import()` function to download and source scripts from GitHub.
@@ -38,15 +39,17 @@ scripting toolkit.
 
 | File | Trigger | Purpose |
 |------|---------|---------|
-| `daily-readme-update.yml` | Daily midnight UTC | Fetch data, AI enhance, update README |
-| `deploy-pages.yml` | Manual | Build web app, deploy to GitHub Pages |
+| `ci.yml` | Push, pull request, manual | Shell, Python, and frontend quality gates |
+| `daily-readme-update.yml` | Daily midnight UTC, manual | Fetch data, skyline, update README |
+| `deploy-pages.yml` | Push to `main`, manual | Build web app, deploy to GitHub Pages |
 
 ## Important Notes
 
 - `import()` deduplicates by URL. All imported scripts must define a guard
   (`[[ -n "${__VAR:-}" ]] && return 0`) to prevent double-sourcing.
-- `STRICT_MODE=1` (default) enables `set -euo pipefall`.
+- `STRICT_MODE=1` (default) enables `set -euo pipefail`.
 - `NON_INTERACTIVE=1` is auto-set when `CI` is set or stdin is not a TTY.
+- Local secrets belong in `.env`; commit only `.env.example`.
 - GPG Key ID: `EB21B83AB1E982DF66F08387A67178405F7736FD`
 
 ## Agent Preferences
