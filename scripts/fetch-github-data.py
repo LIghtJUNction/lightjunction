@@ -5,7 +5,7 @@
 #   "requests>=2.32.0",
 # ]
 # ///
-"""Collect the GitHub snapshot consumed by scripts/update-readme.py."""
+"""Collect the GitHub snapshot consumed by the website project cards."""
 
 from __future__ import annotations
 

@@ -3,17 +3,17 @@
 ## Project Overview
 
 This is LIghtJUNction's personal GitHub profile repository. It combines a
-dynamic auto-updating README, a secure message web app, and a portable shell
+manually maintained README, a secure message web app, and a portable shell
 scripting toolkit.
 
 ## Key Components
 
-### Auto-Updating GitHub Profile (`README.md`)
-- Dynamic sections (stats, weekly summary, repos, commits, skyline) are
-  generated daily by `.github/workflows/daily-readme-update.yml`.
-- Two Python scripts power the automation:
-  - `scripts/fetch-github-data.py` — fetches GitHub API data
-  - `scripts/update-readme.py` — replaces `<!-- START_...-->` markers
+### GitHub Profile (`README.md`)
+- The README is maintained through deliberate agent edits.
+- Do not reintroduce generated recent-commit lists, live repository cards,
+  weekly activity counters, or dynamic section markers.
+- `scripts/fetch-github-data.py` still feeds `public/github-projects.json` for
+  the website project cards; it should not rewrite `README.md`.
 
 ### Secure Message Web App (`src/terminal.ts`, `index.html`)
 - Vite + TypeScript app deployed to GitHub Pages.
@@ -40,8 +40,8 @@ scripting toolkit.
 | File | Trigger | Purpose |
 |------|---------|---------|
 | `ci.yml` | Push, pull request, manual | Shell, Python, and frontend quality gates |
-| `daily-readme-update.yml` | Daily midnight UTC, manual | Fetch data, skyline, update README |
 | `deploy-pages.yml` | Push to `main`, manual | Build web app, deploy to GitHub Pages |
+| `sync-project-cards.yml` | Every 6 hours, manual | Refresh website project-card JSON |
 
 ## Important Notes
 

@@ -27,7 +27,6 @@ files = [
 [[tool.mypy.overrides]]
 module = [
     "fetch_github_data",
-    "update_readme",
 ]
 ignore_missing_imports = true
 

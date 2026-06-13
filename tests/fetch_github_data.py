@@ -11,7 +11,6 @@ SCRIPTS = Path(__file__).parent.parent / "scripts"
 # Map underscore name -> hyphenated filename
 _ALIASES = {
     "fetch_github_data": "fetch-github-data.py",
-    "update_readme": "update-readme.py",
 }
 
 # Load and re-export each aliased script

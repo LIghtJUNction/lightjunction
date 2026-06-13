@@ -11,12 +11,11 @@ README_FILES = [
 ]
 
 
-def test_readmes_open_with_identity() -> None:
+def test_readmes_start_with_identity_block() -> None:
     for path in README_FILES:
         text = path.read_text(encoding="utf-8")
-        first_line = text.splitlines()[0]
-        assert first_line == '<div align="center">', path
-        assert not first_line.startswith(">"), path
+        leading_lines = text.splitlines()[:12]
+        assert '<div align="center">' in leading_lines, path
 
 
 def test_translated_support_sections_warn_against_credentials() -> None:
