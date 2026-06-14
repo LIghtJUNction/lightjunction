@@ -10,7 +10,6 @@ from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
-
 DEFAULT_REPORTS_DIR = Path(__file__).resolve().parents[1] / "WORK_REPORT"
 REPORT_RE = re.compile(r"^(\d{4})/(\d{2})/(\d{2})\.md$")
 
@@ -108,11 +107,13 @@ def render_index(reports: list[Report], recent_count: int) -> str:
 
         for year in sorted(by_year, reverse=True):
             year_reports = by_year[year]
-            lines.extend([
-                "<details>",
-                f"<summary>{year} ({len(year_reports)} reports)</summary>",
-                "",
-            ])
+            lines.extend(
+                [
+                    "<details>",
+                    f"<summary>{year} ({len(year_reports)} reports)</summary>",
+                    "",
+                ]
+            )
 
             by_month: dict[str, list[Report]] = defaultdict(list)
             for report in year_reports:
@@ -120,14 +121,14 @@ def render_index(reports: list[Report], recent_count: int) -> str:
 
             for month in sorted(by_month, reverse=True):
                 month_reports = by_month[month]
-                lines.extend([
-                    "<details>",
-                    f"<summary>{year}-{month} ({len(month_reports)} reports)</summary>",
-                    "",
-                ])
                 lines.extend(
-                    f"- [{report.date}]({report.rel_link})" for report in month_reports
+                    [
+                        "<details>",
+                        f"<summary>{year}-{month} ({len(month_reports)} reports)</summary>",
+                        "",
+                    ]
                 )
+                lines.extend(f"- [{report.date}]({report.rel_link})" for report in month_reports)
                 lines.extend(["", "</details>", ""])
 
             lines.extend(["</details>", ""])
