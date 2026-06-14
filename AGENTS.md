@@ -72,5 +72,6 @@
 - Use `skills/opensource-small-pr/SKILL.md` for the low-star, small-PR open-source contribution workflow. Start each run with `./scripts/opensource-contrib-context.sh` from the `lightjunction` project root.
 - Use AgentMail mailbox skills when reading, sending, configuring, or documenting the assistant mailbox `lightjunction@agentmail.to`.
 - Use `skills/work-report-index/SKILL.md` when generating, syncing, checking, or changing the canonical daily `WORK_REPORT/index.md` index with collapsible archives.
+- Use `skills/skill-improvement/SKILL.md` when repeated work, recurring mistakes, copied prompts, repeated command sequences, or stable operating rules should be compressed into reusable skills to reduce token waste.
 - Use `skills/lmm-best-service-page/SKILL.md` when designing, selling, or deploying customer personal static websites under `lmm.best/<username>`. Keep this separate from the `lightjunction` profile site; do not turn the profile site into a pricing/service page unless explicitly asked.
 - Use `skills/share-file-handoff/SKILL.md` when delivering files, creating `share.lmm.best` download links, DMing finished work products, or maintaining the `share-lmm-best.service` copyparty file handoff system.
