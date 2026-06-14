@@ -108,6 +108,16 @@ These are draft anchors, not public promises. Adjust only with user approval or 
 
 Payment should stay user-controlled. Do not request payment in public replies unless there is a clear inbound buying signal.
 
+## Public One-Liner
+
+No-hype OSS AI support readiness: a short, no-secrets packet that turns a maintainer's real bottleneck into 1-2 narrow AI workflows, budget limits, approval gates, untrusted-input notes, and a factual application draft. No funding promises, no private credentials, no form submission without maintainer approval.
+
+## Tiny Sample Output
+
+```md
+For this CLI project, AI support should start with two narrow workflows: stale issue triage and release-note drafting. Keep code changes human-approved, treat issue comments and crash logs as untrusted input, cap exploratory agent runs before fan-out, and measure success by fewer stale issues plus reviewed diffs per dollar. A 30-day target could be: triage the oldest 20 issues, draft release notes from merged PRs, and document the exact revocation path for every connected tool.
+```
+
 ## Safe Public Reply Template
 
 Use only when someone is already discussing open-source AI support or maintainer tooling.
