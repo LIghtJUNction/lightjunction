@@ -473,9 +473,10 @@ body[data-layout="console-first"] .identity {
     min-height: 0;
     overflow-y: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     align-content: start;
-    gap: 12px;
+    align-items: stretch;
+    gap: 14px;
     padding-right: 4px;
     scrollbar-color: var(--line) transparent;
 }
@@ -490,10 +491,12 @@ body[data-layout="console-first"] .identity {
 }
 
 .project-card {
-    min-height: 190px;
-    display: grid;
-    grid-template-rows: auto auto minmax(48px, 1fr) auto;
+    min-height: 236px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
+    overflow: hidden;
     border: 1px solid rgba(141, 247, 189, 0.14);
     border-radius: 8px;
     background:
@@ -514,13 +517,22 @@ body[data-layout="console-first"] .identity {
     align-items: flex-start;
     justify-content: space-between;
     gap: 10px;
+    min-width: 0;
 }
 
 .project-card h3 {
+    min-width: 0;
     margin: 0;
     font-size: 15px;
     line-height: 1.25;
     overflow-wrap: anywhere;
+}
+
+.project-card h3 a {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .project-card p {
@@ -529,6 +541,10 @@ body[data-layout="console-first"] .identity {
     font-size: 12px;
     line-height: 1.55;
     overflow-wrap: anywhere;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 }
 
 .project-rank {
@@ -542,16 +558,21 @@ body[data-layout="console-first"] .identity {
     display: flex;
     flex-wrap: wrap;
     gap: 7px;
+    min-width: 0;
 }
 
 .project-metrics span,
 .project-tags span {
+    max-width: 100%;
     border: 1px solid rgba(141, 247, 189, 0.14);
     border-radius: 999px;
     padding: 4px 8px;
     color: var(--text);
     background: rgba(0, 0, 0, 0.16);
     font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .project-metrics span:first-child {
@@ -562,9 +583,21 @@ body[data-layout="console-first"] .identity {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 10px;
+    min-width: 0;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid rgba(141, 247, 189, 0.09);
     color: var(--dim);
     font-size: 11px;
+}
+
+.project-card footer span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .project-card footer a {
