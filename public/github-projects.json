@@ -31,17 +31,17 @@
         "qqbot",
         "telegram"
       ],
-      "stargazers_count": 34951,
-      "forks_count": 2408,
+      "stargazers_count": 34953,
+      "forks_count": 2409,
       "open_issues_count": 1282,
       "default_branch": "master",
       "created_at": "2022-12-08T13:27:46Z",
-      "updated_at": "2026-06-19T14:48:28Z",
-      "pushed_at": "2026-06-19T15:42:40Z",
+      "updated_at": "2026-06-19T19:25:21Z",
+      "pushed_at": "2026-06-19T17:15:31Z",
       "archived": false,
       "fork": false,
-      "commit_count": 4856,
-      "rank_score": 154417.1106132835
+      "commit_count": 4859,
+      "rank_score": 154283.99238679733
     },
     {
       "id": 1161409654,
@@ -56,12 +56,12 @@
       "open_issues_count": 0,
       "default_branch": "main",
       "created_at": "2026-02-19T04:25:10Z",
-      "updated_at": "2026-06-19T13:41:01Z",
-      "pushed_at": "2026-06-19T14:18:46Z",
+      "updated_at": "2026-06-19T16:34:07Z",
+      "pushed_at": "2026-06-19T17:07:34Z",
       "archived": false,
       "fork": false,
-      "commit_count": 397,
-      "rank_score": 145124.72234259202
+      "commit_count": 398,
+      "rank_score": 145046.10799027342
     },
     {
       "id": 1156306199,
@@ -83,7 +83,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 285,
-      "rank_score": 140311.4417073736
+      "rank_score": 140110.54015148786
     },
     {
       "id": 868786460,
@@ -104,12 +104,32 @@
       "open_issues_count": 703,
       "default_branch": "main",
       "created_at": "2024-10-07T07:24:27Z",
-      "updated_at": "2026-06-19T15:22:41Z",
-      "pushed_at": "2026-06-19T15:22:37Z",
+      "updated_at": "2026-06-19T20:00:27Z",
+      "pushed_at": "2026-06-19T20:00:16Z",
       "archived": false,
       "fork": false,
-      "commit_count": 6168,
-      "rank_score": 129096.49464845896
+      "commit_count": 6171,
+      "rank_score": 129110.13950435724
+    },
+    {
+      "id": 998453022,
+      "name": "MagicNet",
+      "full_name": "LIghtJUNction/MagicNet",
+      "html_url": "https://github.com/LIghtJUNction/MagicNet",
+      "description": "A module for treating internet addiction.",
+      "language": "Shell",
+      "topics": [],
+      "stargazers_count": 90,
+      "forks_count": 2,
+      "open_issues_count": 5,
+      "default_branch": "main",
+      "created_at": "2025-06-08T16:33:48Z",
+      "updated_at": "2026-06-19T18:30:34Z",
+      "pushed_at": "2026-06-19T18:30:30Z",
+      "archived": false,
+      "fork": false,
+      "commit_count": 37,
+      "rank_score": 127544.70176274118
     },
     {
       "id": 1247271738,
@@ -129,27 +149,31 @@
       "archived": false,
       "fork": false,
       "commit_count": 36,
-      "rank_score": 125989.32577225787
+      "rank_score": 125772.5977511618
     },
     {
-      "id": 998453022,
-      "name": "MagicNet",
-      "full_name": "LIghtJUNction/MagicNet",
-      "html_url": "https://github.com/LIghtJUNction/MagicNet",
-      "description": "A module for treating internet addiction.",
-      "language": "Shell",
-      "topics": [],
-      "stargazers_count": 90,
-      "forks_count": 2,
-      "open_issues_count": 7,
+      "id": 1259316986,
+      "name": "cortexfs",
+      "full_name": "LIghtJUNction/cortexfs",
+      "html_url": "https://github.com/LIghtJUNction/cortexfs",
+      "description": "\"Everything is a file\" for AGI era. Mount LLM context and reasoning as a POSIX file system.",
+      "language": "Rust",
+      "topics": [
+        "agent",
+        "fuse",
+        "linux"
+      ],
+      "stargazers_count": 2,
+      "forks_count": 0,
+      "open_issues_count": 0,
       "default_branch": "main",
-      "created_at": "2025-06-08T16:33:48Z",
-      "updated_at": "2026-06-18T22:22:33Z",
-      "pushed_at": "2026-06-18T01:03:46Z",
+      "created_at": "2026-06-04T11:44:02Z",
+      "updated_at": "2026-06-19T20:00:55Z",
+      "pushed_at": "2026-06-19T20:00:50Z",
       "archived": false,
       "fork": false,
-      "commit_count": 36,
-      "rank_score": 125755.67869976988
+      "commit_count": 73,
+      "rank_score": 125566.97561598888
     },
     {
       "id": 1118717745,
@@ -169,7 +193,27 @@
       "archived": false,
       "fork": false,
       "commit_count": 246,
-      "rank_score": 123611.97075621085
+      "rank_score": 123399.05898963372
+    },
+    {
+      "id": 1261536831,
+      "name": "LightFlow",
+      "full_name": "LIghtJUNction/LightFlow",
+      "html_url": "https://github.com/LIghtJUNction/LightFlow",
+      "description": null,
+      "language": "Rust",
+      "topics": [],
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "open_issues_count": 0,
+      "default_branch": "main",
+      "created_at": "2026-06-06T20:29:55Z",
+      "updated_at": "2026-06-19T19:50:01Z",
+      "pushed_at": "2026-06-19T19:49:57Z",
+      "archived": false,
+      "fork": false,
+      "commit_count": 29,
+      "rank_score": 123121.35646075287
     },
     {
       "id": 1263231992,
@@ -192,7 +236,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 59,
-      "rank_score": 123258.5667416621
+      "rank_score": 123053.60895576503
     },
     {
       "id": 1143820390,
@@ -212,27 +256,27 @@
       "archived": false,
       "fork": false,
       "commit_count": 256,
-      "rank_score": 122965.27277232325
+      "rank_score": 122773.76623141901
     },
     {
-      "id": 1261536831,
-      "name": "LightFlow",
-      "full_name": "LIghtJUNction/LightFlow",
-      "html_url": "https://github.com/LIghtJUNction/LightFlow",
-      "description": null,
+      "id": 1273594514,
+      "name": "lightflow-rig",
+      "full_name": "LIghtJUNction/lightflow-rig",
+      "html_url": "https://github.com/LIghtJUNction/lightflow-rig",
+      "description": "lightflow-rig",
       "language": "Rust",
       "topics": [],
       "stargazers_count": 1,
       "forks_count": 0,
       "open_issues_count": 0,
       "default_branch": "main",
-      "created_at": "2026-06-06T20:29:55Z",
-      "updated_at": "2026-06-19T00:45:46Z",
-      "pushed_at": "2026-06-19T00:45:42Z",
+      "created_at": "2026-06-18T17:17:17Z",
+      "updated_at": "2026-06-19T19:50:00Z",
+      "pushed_at": "2026-06-19T19:49:57Z",
       "archived": false,
       "fork": false,
-      "commit_count": 28,
-      "rank_score": 122397.58224112948
+      "commit_count": 3,
+      "rank_score": 122209.23431877272
     },
     {
       "id": 1263226742,
@@ -252,27 +296,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 37,
-      "rank_score": 121421.52076887258
-    },
-    {
-      "id": 1273594514,
-      "name": "lightflow-rig",
-      "full_name": "LIghtJUNction/lightflow-rig",
-      "html_url": "https://github.com/LIghtJUNction/lightflow-rig",
-      "description": "lightflow-rig",
-      "language": "Rust",
-      "topics": [],
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-06-18T17:17:17Z",
-      "updated_at": "2026-06-19T00:46:53Z",
-      "pushed_at": "2026-06-19T00:46:07Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 2,
-      "rank_score": 121270.63246407708
+      "rank_score": 121205.48324320698
     },
     {
       "id": 1269577292,
@@ -292,7 +316,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 2818,
-      "rank_score": 121210.00120044267
+      "rank_score": 120996.14257769195
     },
     {
       "id": 1272767726,
@@ -312,7 +336,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 169,
-      "rank_score": 120322.48369712067
+      "rank_score": 120105.860993686
     },
     {
       "id": 1233495174,
@@ -332,7 +356,27 @@
       "archived": false,
       "fork": false,
       "commit_count": 76,
-      "rank_score": 119291.77061100758
+      "rank_score": 119078.92542341638
+    },
+    {
+      "id": 1273875409,
+      "name": "lightflow-std",
+      "full_name": "LIghtJUNction/lightflow-std",
+      "html_url": "https://github.com/LIghtJUNction/lightflow-std",
+      "description": "lightflow-std",
+      "language": "Rust",
+      "topics": [],
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "open_issues_count": 0,
+      "default_branch": "main",
+      "created_at": "2026-06-19T00:47:31Z",
+      "updated_at": "2026-06-19T19:50:01Z",
+      "pushed_at": "2026-06-19T19:49:57Z",
+      "archived": false,
+      "fork": false,
+      "commit_count": 2,
+      "rank_score": 118867.13151967982
     },
     {
       "id": 1269440878,
@@ -352,27 +396,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1686,
-      "rank_score": 118891.13299040729
-    },
-    {
-      "id": 1273875409,
-      "name": "lightflow-std",
-      "full_name": "LIghtJUNction/lightflow-std",
-      "html_url": "https://github.com/LIghtJUNction/lightflow-std",
-      "description": "lightflow-std",
-      "language": "Rust",
-      "topics": [],
-      "stargazers_count": 0,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-06-19T00:47:31Z",
-      "updated_at": "2026-06-19T00:47:42Z",
-      "pushed_at": "2026-06-19T00:47:39Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 1,
-      "rank_score": 117829.6480437436
+      "rank_score": 118681.19029468967
     },
     {
       "id": 1269546230,
@@ -392,7 +416,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 468,
-      "rank_score": 117530.81474782487
+      "rank_score": 117321.39368432472
     },
     {
       "id": 1269582073,
@@ -412,7 +436,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 421,
-      "rank_score": 117503.53781129373
+      "rank_score": 117293.92802089498
     },
     {
       "id": 1144881573,
@@ -432,7 +456,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 145,
-      "rank_score": 117312.61107590862
+      "rank_score": 117098.20040977314
     },
     {
       "id": 1269477614,
@@ -452,7 +476,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 263,
-      "rank_score": 117072.80476970832
+      "rank_score": 116863.2833554539
     },
     {
       "id": 1267814237,
@@ -472,7 +496,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 3065,
-      "rank_score": 116882.60989934139
+      "rank_score": 116677.78871564947
     },
     {
       "id": 1267724950,
@@ -492,7 +516,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 3378,
-      "rank_score": 116864.42108420822
+      "rank_score": 116659.76336414066
     },
     {
       "id": 1265537073,
@@ -512,7 +536,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 209,
-      "rank_score": 116613.66659196478
+      "rank_score": 116404.4681674067
     },
     {
       "id": 1272790832,
@@ -532,7 +556,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1,
-      "rank_score": 116583.07491074558
+      "rank_score": 116366.31839081907
     },
     {
       "id": 1185044601,
@@ -552,7 +576,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 247,
-      "rank_score": 116501.60947127364
+      "rank_score": 116303.05492728045
     },
     {
       "id": 1266715620,
@@ -572,7 +596,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 128,
-      "rank_score": 116261.95763866324
+      "rank_score": 116052.55112218802
     },
     {
       "id": 1266213722,
@@ -592,7 +616,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 96,
-      "rank_score": 115990.62974532678
+      "rank_score": 115781.39969793324
     },
     {
       "id": 1268673896,
@@ -612,7 +636,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 59,
-      "rank_score": 115744.38239055712
+      "rank_score": 115535.01931839634
     },
     {
       "id": 1268738429,
@@ -632,31 +656,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 44,
-      "rank_score": 115506.5108640588
-    },
-    {
-      "id": 1259316986,
-      "name": "cortexfs",
-      "full_name": "LIghtJUNction/cortexfs",
-      "html_url": "https://github.com/LIghtJUNction/cortexfs",
-      "description": "\"Everything is a file\" for AGI era. Mount LLM context and reasoning as a POSIX file system.",
-      "language": "Rust",
-      "topics": [
-        "agent",
-        "fuse",
-        "linux"
-      ],
-      "stargazers_count": 2,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-06-04T11:44:02Z",
-      "updated_at": "2026-06-10T08:01:49Z",
-      "pushed_at": "2026-06-10T08:01:44Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 72,
-      "rank_score": 115361.13801456756
+      "rank_score": 115297.03517364089
     },
     {
       "id": 1267677747,
@@ -676,7 +676,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 502,
-      "rank_score": 115198.12415913794
+      "rank_score": 114993.55628775725
     },
     {
       "id": 1267772236,
@@ -696,7 +696,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 344,
-      "rank_score": 114974.99443149418
+      "rank_score": 114770.2181766337
     },
     {
       "id": 1269513958,
@@ -716,7 +716,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 17,
-      "rank_score": 114711.57080442563
+      "rank_score": 114502.33109085537
     },
     {
       "id": 1265657570,
@@ -736,7 +736,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1145,
-      "rank_score": 114030.82551457957
+      "rank_score": 113829.88731521856
     },
     {
       "id": 1268594022,
@@ -756,7 +756,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 23,
-      "rank_score": 113704.97424769808
+      "rank_score": 113498.14158408156
     },
     {
       "id": 1268719626,
@@ -776,7 +776,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 2,
-      "rank_score": 113200.77756867718
+      "rank_score": 112991.45850419288
     },
     {
       "id": 1265530765,
@@ -796,7 +796,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 452,
-      "rank_score": 112973.5990433853
+      "rank_score": 112773.31630335763
     },
     {
       "id": 1233513165,
@@ -816,7 +816,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 98,
-      "rank_score": 112570.79836146555
+      "rank_score": 112372.39135309435
     },
     {
       "id": 1260014256,
@@ -836,7 +836,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 19,
-      "rank_score": 112482.0794954742
+      "rank_score": 112283.13887454728
     },
     {
       "id": 1263173492,
@@ -856,7 +856,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 7,
-      "rank_score": 112352.52418018546
+      "rank_score": 112152.60042672911
     },
     {
       "id": 1266718457,
@@ -876,7 +876,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 41,
-      "rank_score": 112112.984299305
+      "rank_score": 111910.27722067124
     },
     {
       "id": 866676324,
@@ -902,12 +902,12 @@
       "open_issues_count": 0,
       "default_branch": "main",
       "created_at": "2024-10-02T17:20:12Z",
-      "updated_at": "2026-06-19T10:58:11Z",
-      "pushed_at": "2026-06-19T10:58:07Z",
+      "updated_at": "2026-06-19T15:44:38Z",
+      "pushed_at": "2026-06-19T15:44:35Z",
       "archived": false,
       "fork": false,
-      "commit_count": 417,
-      "rank_score": 111467.24281579796
+      "commit_count": 418,
+      "rank_score": 111489.40111084426
     },
     {
       "id": 1267735668,
@@ -927,7 +927,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 188,
-      "rank_score": 111375.77656496176
+      "rank_score": 111177.34834584668
     },
     {
       "id": 1263299170,
@@ -947,7 +947,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 3,
-      "rank_score": 110541.4848718309
+      "rank_score": 110344.14563414796
     },
     {
       "id": 1261642868,
@@ -967,7 +967,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 6,
-      "rank_score": 110410.71824661962
+      "rank_score": 110214.39251327128
     },
     {
       "id": 1124559673,
@@ -987,7 +987,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 24,
-      "rank_score": 110152.60499915664
+      "rank_score": 109941.7374481597
     },
     {
       "id": 1267557704,
@@ -1007,7 +1007,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 2,
-      "rank_score": 107802.57899826774
+      "rank_score": 107604.27142182722
     },
     {
       "id": 1260669680,
@@ -1027,7 +1027,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 5,
-      "rank_score": 107715.35179762816
+      "rank_score": 107524.26785407531
     },
     {
       "id": 1187797650,
@@ -1047,7 +1047,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 51,
-      "rank_score": 106702.74263239613
+      "rank_score": 106511.57678471433
     },
     {
       "id": 1047708189,
@@ -1063,11 +1063,11 @@
       "default_branch": "main",
       "created_at": "2025-08-31T03:25:13Z",
       "updated_at": "2025-08-31T03:44:18Z",
-      "pushed_at": "2026-06-19T14:50:43Z",
+      "pushed_at": "2026-06-19T17:17:48Z",
       "archived": false,
       "fork": false,
       "commit_count": 1,
-      "rank_score": 106381.59638570434
+      "rank_score": 106287.24362263462
     },
     {
       "id": 1254097637,
@@ -1087,7 +1087,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 3,
-      "rank_score": 103700.54429236522
+      "rank_score": 103520.35914736356
     },
     {
       "id": 1255417378,
@@ -1107,7 +1107,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 469,
-      "rank_score": 102474.4890172972
+      "rank_score": 102295.22409541349
     },
     {
       "id": 1256925534,
@@ -1127,7 +1127,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 7,
-      "rank_score": 101706.26281542754
+      "rank_score": 101521.55733899715
     },
     {
       "id": 1233513177,
@@ -1147,7 +1147,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 62,
-      "rank_score": 100944.66955009868
+      "rank_score": 100763.16605032314
     },
     {
       "id": 1233513150,
@@ -1167,7 +1167,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 73,
-      "rank_score": 99973.63293514846
+      "rank_score": 99794.43725147027
     },
     {
       "id": 993417468,
@@ -1187,7 +1187,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 2,
-      "rank_score": 99473.36066931207
+      "rank_score": 99273.72303971159
     },
     {
       "id": 1191493381,
@@ -1207,7 +1207,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 32,
-      "rank_score": 91207.44513152563
+      "rank_score": 91048.19903386156
     },
     {
       "id": 952581543,
@@ -1227,7 +1227,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1595,
-      "rank_score": 90346.37126641056
+      "rank_score": 90175.6019705177
     },
     {
       "id": 1242876434,
@@ -1247,7 +1247,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 4,
-      "rank_score": 89693.91425275037
+      "rank_score": 89538.47161499888
     },
     {
       "id": 1242894908,
@@ -1267,7 +1267,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 2,
-      "rank_score": 89270.48436483048
+      "rank_score": 89115.02275998208
     },
     {
       "id": 1148866064,
@@ -1287,7 +1287,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1156,
-      "rank_score": 87121.4182093388
+      "rank_score": 86967.26251075341
     },
     {
       "id": 1094019945,
@@ -1307,7 +1307,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 45,
-      "rank_score": 85878.16810495465
+      "rank_score": 85747.01976034376
     },
     {
       "id": 944020068,
@@ -1327,7 +1327,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 13,
-      "rank_score": 83343.20257284647
+      "rank_score": 83184.84334405258
     },
     {
       "id": 1232420824,
@@ -1347,7 +1347,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1343,
-      "rank_score": 82467.01977841428
+      "rank_score": 82329.18655957068
     },
     {
       "id": 1232798359,
@@ -1367,7 +1367,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 13,
-      "rank_score": 78908.92547997809
+      "rank_score": 78770.4386720581
     },
     {
       "id": 1231456137,
@@ -1387,7 +1387,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 6,
-      "rank_score": 77291.69137597637
+      "rank_score": 77155.27982495366
     },
     {
       "id": 1242253116,
@@ -1407,7 +1407,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 35,
-      "rank_score": 76334.6993267423
+      "rank_score": 76204.08680047696
     },
     {
       "id": 1226087759,
@@ -1427,7 +1427,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 240,
-      "rank_score": 75903.02344965789
+      "rank_score": 75775.30710980929
     },
     {
       "id": 1208403047,
@@ -1447,7 +1447,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 38,
-      "rank_score": 73165.7508727721
+      "rank_score": 73061.5986069477
     },
     {
       "id": 1223848385,
@@ -1467,7 +1467,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 15,
-      "rank_score": 72518.04459333564
+      "rank_score": 72392.40384708675
     },
     {
       "id": 1051991345,
@@ -1490,7 +1490,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 8,
-      "rank_score": 71668.67038330162
+      "rank_score": 71541.97699006156
     },
     {
       "id": 1218577687,
@@ -1510,7 +1510,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 50,
-      "rank_score": 70659.17632450693
+      "rank_score": 70538.96213564923
     },
     {
       "id": 1108454911,
@@ -1530,7 +1530,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 6378,
-      "rank_score": 65940.91046380393
+      "rank_score": 65837.15407222047
     },
     {
       "id": 1010585221,
@@ -1553,7 +1553,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 45,
-      "rank_score": 61862.36812690349
+      "rank_score": 61775.24026149999
     },
     {
       "id": 1200519588,
@@ -1573,7 +1573,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 119,
-      "rank_score": 58519.94539462044
+      "rank_score": 58425.06363114708
     },
     {
       "id": 1130509501,
@@ -1595,7 +1595,7 @@
       "archived": true,
       "fork": false,
       "commit_count": 115,
-      "rank_score": 55894.124259722565
+      "rank_score": 55781.898832184976
     },
     {
       "id": 1065718030,
@@ -1618,7 +1618,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 86,
-      "rank_score": 52498.707348748845
+      "rank_score": 52442.42677281508
     },
     {
       "id": 625614977,
@@ -1638,7 +1638,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 43,
-      "rank_score": 48656.95873613906
+      "rank_score": 48607.65073350014
     },
     {
       "id": 1100407315,
@@ -1658,7 +1658,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 9,
-      "rank_score": 46900.767043504566
+      "rank_score": 46818.244905676
     },
     {
       "id": 1073726103,
@@ -1678,7 +1678,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 5,
-      "rank_score": 45747.895358712325
+      "rank_score": 45675.58039210194
     },
     {
       "id": 926859239,
@@ -1698,7 +1698,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 156,
-      "rank_score": 36070.277924715534
+      "rank_score": 36036.293911133616
     },
     {
       "id": 970126982,
@@ -1722,7 +1722,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 47,
-      "rank_score": 35594.45953026923
+      "rank_score": 35553.66608001603
     },
     {
       "id": 735005623,
@@ -1742,7 +1742,7 @@
       "archived": true,
       "fork": false,
       "commit_count": 701,
-      "rank_score": 35233.36317900715
+      "rank_score": 35168.93194252036
     },
     {
       "id": 1200604721,
@@ -1762,7 +1762,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 357,
-      "rank_score": 33775.35088312203
+      "rank_score": 33734.00082040293
     },
     {
       "id": 1093633819,
@@ -1782,7 +1782,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 14,
-      "rank_score": 30618.156886143668
+      "rank_score": 30593.153141992305
     },
     {
       "id": 1127712302,
@@ -1802,7 +1802,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 3,
-      "rank_score": 30293.51272921492
+      "rank_score": 30256.368847969356
     },
     {
       "id": 1072123637,
@@ -1822,7 +1822,7 @@
       "archived": true,
       "fork": false,
       "commit_count": 202,
-      "rank_score": 29771.027231089814
+      "rank_score": 29699.12143065023
     },
     {
       "id": 1102345955,
@@ -1842,7 +1842,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1018755,
-      "rank_score": 29276.279249962026
+      "rank_score": 29250.98783440079
     },
     {
       "id": 1102348706,
@@ -1862,7 +1862,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1000610,
-      "rank_score": 29248.450252134026
+      "rank_score": 29223.18483630765
     },
     {
       "id": 1120204070,
@@ -1882,7 +1882,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 451,
-      "rank_score": 26533.832940227046
+      "rank_score": 26501.843047475813
     },
     {
       "id": 1103269244,
@@ -1902,7 +1902,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 279,
-      "rank_score": 25966.57459335206
+      "rank_score": 25933.71378958373
     },
     {
       "id": 1024651982,
@@ -1928,7 +1928,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 18,
-      "rank_score": 24665.34192779729
+      "rank_score": 24647.74438383178
     },
     {
       "id": 1123409430,
@@ -1948,7 +1948,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 8,
-      "rank_score": 24600.143428922558
+      "rank_score": 24565.553418153053
     },
     {
       "id": 1123357574,
@@ -1968,7 +1968,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 10,
-      "rank_score": 24473.546660688004
+      "rank_score": 24439.57314310582
     },
     {
       "id": 817845854,
@@ -1988,7 +1988,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 230,
-      "rank_score": 24018.58939098418
+      "rank_score": 23992.690918284075
     },
     {
       "id": 1105353486,
@@ -2008,7 +2008,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 3,
-      "rank_score": 23900.877392665363
+      "rank_score": 23875.24469002698
     },
     {
       "id": 1121090215,
@@ -2028,7 +2028,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 337,
-      "rank_score": 23395.619245447553
+      "rank_score": 23369.74392360887
     },
     {
       "id": 1097401951,
@@ -2048,7 +2048,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 301,
-      "rank_score": 23216.48304311378
+      "rank_score": 23189.143290959502
     },
     {
       "id": 969305709,
@@ -2068,7 +2068,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 91,
-      "rank_score": 23112.71172585327
+      "rank_score": 23083.914323559595
     },
     {
       "id": 1112198455,
@@ -2088,7 +2088,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 52,
-      "rank_score": 22652.46571116119
+      "rank_score": 22624.194192238712
     },
     {
       "id": 1090194490,
@@ -2108,7 +2108,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 3251,
-      "rank_score": 22070.865970315386
+      "rank_score": 22049.675847496917
     },
     {
       "id": 1113870174,
@@ -2128,7 +2128,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 13,
-      "rank_score": 21876.835941635716
+      "rank_score": 21847.917385999008
     },
     {
       "id": 1113235170,
@@ -2148,7 +2148,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 9,
-      "rank_score": 21446.21734003872
+      "rank_score": 21417.56110557619
     },
     {
       "id": 1113705207,
@@ -2168,7 +2168,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 23,
-      "rank_score": 21344.3428595846
+      "rank_score": 21317.47847905858
     },
     {
       "id": 1051042120,
@@ -2188,7 +2188,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 217,
-      "rank_score": 20905.17724053387
+      "rank_score": 20885.94436083023
     },
     {
       "id": 994790264,
@@ -2208,7 +2208,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 7837,
-      "rank_score": 20297.623251112767
+      "rank_score": 20276.967351867483
     },
     {
       "id": 1102347069,
@@ -2228,7 +2228,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 16,
-      "rank_score": 19723.352158599304
+      "rank_score": 19698.488788775885
     },
     {
       "id": 1102348890,
@@ -2248,7 +2248,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 5,
-      "rank_score": 18615.140919918078
+      "rank_score": 18590.73549199486
     },
     {
       "id": 1076199063,
@@ -2268,7 +2268,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 736,
-      "rank_score": 18578.1183644564
+      "rank_score": 18560.729841040178
     },
     {
       "id": 1206274221,
@@ -2288,7 +2288,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 181,
-      "rank_score": 18218.475977107497
+      "rank_score": 18208.75583952642
     },
     {
       "id": 1007647427,
@@ -2311,7 +2311,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 29069,
-      "rank_score": 17914.960151940948
+      "rank_score": 17908.582012410785
     },
     {
       "id": 1076028863,
@@ -2331,7 +2331,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 443,
-      "rank_score": 17784.790491761545
+      "rank_score": 17768.151597416116
     },
     {
       "id": 1004432451,
@@ -2351,7 +2351,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 279,
-      "rank_score": 13539.409051799787
+      "rank_score": 13533.789218173031
     },
     {
       "id": 975046100,
@@ -2371,7 +2371,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 9689,
-      "rank_score": 12248.16192021111
+      "rank_score": 12243.93534901466
     },
     {
       "id": 993293487,
@@ -2391,7 +2391,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 2861,
-      "rank_score": 12018.355930306672
+      "rank_score": 12013.0865608422
     },
     {
       "id": 804638566,
@@ -2411,7 +2411,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1902,
-      "rank_score": 11804.97837696378
+      "rank_score": 11801.6065929014
     },
     {
       "id": 953426806,
@@ -2431,7 +2431,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 4329,
-      "rank_score": 11533.762146388208
+      "rank_score": 11528.92645110446
     },
     {
       "id": 879308005,
@@ -2451,7 +2451,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 13,
-      "rank_score": 11372.354606672097
+      "rank_score": 11370.90351630129
     },
     {
       "id": 816900425,
@@ -2471,7 +2471,7 @@
       "archived": true,
       "fork": true,
       "commit_count": 912,
-      "rank_score": 11015.769771947533
+      "rank_score": 10997.779387868359
     },
     {
       "id": 927837443,
@@ -2491,7 +2491,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 3,
-      "rank_score": 10369.169616134415
+      "rank_score": 10366.67932072342
     },
     {
       "id": 1097402560,
@@ -2511,7 +2511,7 @@
       "archived": true,
       "fork": true,
       "commit_count": 103,
-      "rank_score": 10319.00703052307
+      "rank_score": 10285.2627851904
     },
     {
       "id": 1002604822,
@@ -2531,7 +2531,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 185,
-      "rank_score": 10154.147938132483
+      "rank_score": 10148.285105750894
     },
     {
       "id": 927703582,
@@ -2551,7 +2551,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 2,
-      "rank_score": 10118.53963399249
+      "rank_score": 10116.059591885603
     },
     {
       "id": 998815055,
@@ -2571,7 +2571,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 4,
-      "rank_score": 10115.847870861066
+      "rank_score": 10110.013261141632
     },
     {
       "id": 973291206,
@@ -2591,7 +2591,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 317,
-      "rank_score": 9275.31352796697
+      "rank_score": 9271.171801848766
     },
     {
       "id": 868531013,
@@ -2611,7 +2611,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 126,
-      "rank_score": 8961.200108784647
+      "rank_score": 8959.894555217557
     },
     {
       "id": 1002594231,
@@ -2631,7 +2631,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 28,
-      "rank_score": 8623.356987227402
+      "rank_score": 8617.395977744318
     },
     {
       "id": 920664250,
@@ -2651,7 +2651,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 327,
-      "rank_score": 8585.406340350695
+      "rank_score": 8581.244744660318
     },
     {
       "id": 996919274,
@@ -2671,7 +2671,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 13,
-      "rank_score": 7682.527905124112
+      "rank_score": 7677.008053765521
     },
     {
       "id": 928447245,
@@ -2691,7 +2691,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 4,
-      "rank_score": 7455.87710125871
+      "rank_score": 7453.367708721738
     },
     {
       "id": 916675520,
@@ -2711,7 +2711,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 279,
-      "rank_score": 7453.436030075103
+      "rank_score": 7451.248053862462
     },
     {
       "id": 927818648,
@@ -2731,7 +2731,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 4,
-      "rank_score": 7435.6759854569755
+      "rank_score": 7433.193623034754
     },
     {
       "id": 996718768,
@@ -2751,7 +2751,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 4,
-      "rank_score": 7269.4678471110465
+      "rank_score": 7262.98002070932
     },
     {
       "id": 991412111,
@@ -2771,7 +2771,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 3,
-      "rank_score": 6360.34753224214
+      "rank_score": 6355.164171771275
     },
     {
       "id": 930096951,
@@ -2791,7 +2791,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 14,
-      "rank_score": 6256.15486469063
+      "rank_score": 6251.6401736664575
     },
     {
       "id": 868911369,
@@ -2811,7 +2811,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 101,
-      "rank_score": 5662.016288489261
+      "rank_score": 5660.704893143582
     },
     {
       "id": 880719207,
@@ -2831,7 +2831,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 72,
-      "rank_score": 5633.367321591539
+      "rank_score": 5631.733776119325
     },
     {
       "id": 879249274,
@@ -2851,7 +2851,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 7,
-      "rank_score": 3649.8414418632465
+      "rank_score": 3648.3990446748458
     },
     {
       "id": 1060704364,
@@ -2871,7 +2871,7 @@
       "archived": true,
       "fork": false,
       "commit_count": 64,
-      "rank_score": 3034.0195530727724
+      "rank_score": 3008.6964534922117
     },
     {
       "id": 998464427,
@@ -2891,8 +2891,8 @@
       "archived": true,
       "fork": false,
       "commit_count": 2,
-      "rank_score": -7295.789556319527
+      "rank_score": -7301.4376679209345
     }
   ],
-  "generated_at": "2026-06-19T15:44:34.280639+00:00"
+  "generated_at": "2026-06-19T20:04:16.315388+00:00"
 }
