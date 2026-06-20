@@ -19,6 +19,8 @@ README_FILE = ROOT / "README.md"
 PROJECT_CARDS_FILE = ROOT / "public" / "github-projects.json"
 START_MARKER = "<!-- profile-pulse:start -->"
 END_MARKER = "<!-- profile-pulse:end -->"
+PORTFOLIO_START_MARKER = "<!-- portfolio-glance:start -->"
+PORTFOLIO_END_MARKER = "<!-- portfolio-glance:end -->"
 DEFAULT_OWNER = "LIghtJUNction"
 API_ROOT = "https://api.github.com"
 
@@ -158,12 +160,63 @@ def render_profile_pulse(pulse: ProfilePulse) -> str:
     )
 
 
-def replace_managed_section(readme_text: str, replacement: str) -> str:
-    """Replace the managed profile-pulse section between README markers."""
-    start = readme_text.index(START_MARKER)
-    end = readme_text.index(END_MARKER) + len(END_MARKER)
+def render_portfolio_glance(pulse: ProfilePulse) -> str:
+    """Render the managed portfolio-at-a-glance table."""
+    return "\n".join(
+        [
+            PORTFOLIO_START_MARKER,
+            "<table>",
+            "  <tr>",
+            '    <td align="center" width="20%">',
+            "      <sub>PUBLIC REPOS</sub><br/>",
+            f"      <strong>{format_value(pulse.public_repos)}</strong>",
+            "    </td>",
+            '    <td align="center" width="20%">',
+            "      <sub>PROJECT CARDS</sub><br/>",
+            f"      <strong>{pulse.project_cards}</strong>",
+            "    </td>",
+            '    <td align="center" width="20%">',
+            "      <sub>AGENT SKILLS</sub><br/>",
+            f"      <strong>{pulse.skill_count}</strong>",
+            "    </td>",
+            '    <td align="center" width="20%">',
+            "      <sub>WORK REPORTS</sub><br/>",
+            f"      <strong>{pulse.work_report_count}</strong>",
+            "    </td>",
+            '    <td align="center" width="20%">',
+            "      <sub>PROFILE UPDATE</sub><br/>",
+            "      <strong>Daily</strong>",
+            "    </td>",
+            "  </tr>",
+            "</table>",
+            PORTFOLIO_END_MARKER,
+            "",
+        ]
+    )
+
+
+def replace_marked_section(
+    readme_text: str,
+    *,
+    start_marker: str,
+    end_marker: str,
+    replacement: str,
+) -> str:
+    """Replace a README section between explicit markers."""
+    start = readme_text.index(start_marker)
+    end = readme_text.index(end_marker) + len(end_marker)
     return (
         f"{readme_text[:start].rstrip()}\n\n{replacement.rstrip()}\n\n{readme_text[end:].lstrip()}"
+    )
+
+
+def replace_managed_section(readme_text: str, replacement: str) -> str:
+    """Replace the managed profile-pulse section between README markers."""
+    return replace_marked_section(
+        readme_text,
+        start_marker=START_MARKER,
+        end_marker=END_MARKER,
+        replacement=replacement,
     )
 
 
@@ -173,8 +226,15 @@ def main() -> int:
     token = os.environ.get("GITHUB_TOKEN", "")
     readme = README_FILE.read_text(encoding="utf-8")
     pulse = build_pulse(owner=owner, token=token)
+    updated = replace_marked_section(
+        readme,
+        start_marker=PORTFOLIO_START_MARKER,
+        end_marker=PORTFOLIO_END_MARKER,
+        replacement=render_portfolio_glance(pulse),
+    )
+    updated = replace_managed_section(updated, render_profile_pulse(pulse))
     README_FILE.write_text(
-        replace_managed_section(readme, render_profile_pulse(pulse)),
+        updated,
         encoding="utf-8",
     )
     print(f"Updated {README_FILE.relative_to(ROOT)} profile pulse for {pulse.refreshed_on}")

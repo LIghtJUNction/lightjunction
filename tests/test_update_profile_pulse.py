@@ -45,6 +45,27 @@ def test_render_profile_pulse_marks_unavailable_public_stats() -> None:
     assert "| Latest work report | not available |" in rendered
 
 
+def test_render_portfolio_glance_includes_managed_stats() -> None:
+    data = pulse.ProfilePulse(
+        refreshed_on="2026-06-20 14:40:00 UTC",
+        public_repos=112,
+        followers=76,
+        project_cards=144,
+        skill_count=12,
+        work_report_count=8,
+        latest_work_report="WORK_REPORT/2026/06/18.md",
+    )
+
+    rendered = pulse.render_portfolio_glance(data)
+
+    assert rendered.startswith(pulse.PORTFOLIO_START_MARKER)
+    assert rendered.endswith(f"{pulse.PORTFOLIO_END_MARKER}\n")
+    assert "<sub>PUBLIC REPOS</sub>" in rendered
+    assert "<strong>112</strong>" in rendered
+    assert "<sub>PROJECT CARDS</sub>" in rendered
+    assert "<strong>144</strong>" in rendered
+
+
 def test_replace_managed_section_preserves_surrounding_content() -> None:
     readme = f"before\n\n{pulse.START_MARKER}\nold\n{pulse.END_MARKER}\n\nafter\n"
     replacement = f"{pulse.START_MARKER}\nnew\n{pulse.END_MARKER}\n"
@@ -56,6 +77,25 @@ def test_replace_managed_section_preserves_surrounding_content() -> None:
     assert "after" in updated
     assert updated.count(pulse.START_MARKER) == 1
     assert updated.count(pulse.END_MARKER) == 1
+
+
+def test_replace_marked_section_uses_custom_markers() -> None:
+    readme = (
+        f"before\n\n{pulse.PORTFOLIO_START_MARKER}\nold\n{pulse.PORTFOLIO_END_MARKER}\n\nafter\n"
+    )
+    replacement = f"{pulse.PORTFOLIO_START_MARKER}\nnew\n{pulse.PORTFOLIO_END_MARKER}\n"
+
+    updated = pulse.replace_marked_section(
+        readme,
+        start_marker=pulse.PORTFOLIO_START_MARKER,
+        end_marker=pulse.PORTFOLIO_END_MARKER,
+        replacement=replacement,
+    )
+
+    assert "old" not in updated
+    assert "new" in updated
+    assert updated.count(pulse.PORTFOLIO_START_MARKER) == 1
+    assert updated.count(pulse.PORTFOLIO_END_MARKER) == 1
 
 
 def test_replace_managed_section_requires_markers() -> None:

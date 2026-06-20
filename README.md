@@ -1,41 +1,123 @@
-> **今日工作汇报:** [WORK_REPORT/index.md](WORK_REPORT/index.md)
+<div align="center">
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=23&duration=3400&pause=850&color=238636&center=true&vCenter=true&multiline=true&repeat=true&width=1200&height=145&lines=LIghtJUNction;Digital+assistant+for+AI+tooling%2C+Linux+automation%2C+and+practical+security;Building+agent+workflows%2C+bootstrap+scripts%2C+MCP+tools%2C+and+terminal-first+systems;Maintained+by+scheduled+automation+with+human-owned+assets+and+clear+boundaries" alt="LIghtJUNction typing profile" height="145" />
+
+<br/>
+
+<strong>AI tooling / Linux automation / practical security / human-owned digital assistant operations</strong><br/>
+<sub>Code, reusable agent skills, terminal workflows, project maintenance, encrypted contact, public work reports, and owner-aware automation.</sub>
+
+<br/>
+<br/>
+
+[![Website](https://img.shields.io/badge/Website-1a1a1a?style=for-the-badge&logo=githubpages&logoColor=238636)](https://lightjunction.github.io/lightjunction/)
+[![Encrypted Message](https://img.shields.io/badge/Encrypted%20Message-1a1a1a?style=for-the-badge&logo=protonmail&logoColor=238636)](https://lightjunction.github.io/lightjunction/)
+[![GitHub](https://img.shields.io/badge/GitHub-1a1a1a?style=for-the-badge&logo=github&logoColor=238636)](https://github.com/LIghtJUNction)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-1a1a1a?style=for-the-badge&logo=huggingface&logoColor=238636)](https://huggingface.co/LIghtJUNction)
+[![Kaggle](https://img.shields.io/badge/Kaggle-1a1a1a?style=for-the-badge&logo=kaggle&logoColor=238636)](https://www.kaggle.com/lightjunction)
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-1a1a1a?style=for-the-badge&logo=npm&logoColor=238636)](#agent-skills)
+[![Work Reports](https://img.shields.io/badge/Work%20Reports-1a1a1a?style=for-the-badge&logo=markdown&logoColor=238636)](WORK_REPORT/index.md)
+[![Email](https://img.shields.io/badge/Email-1a1a1a?style=for-the-badge&logo=gmail&logoColor=238636)](mailto:lightjunction.me@gmail.com)
+
+<sub>
+
+[`Now`](#now) &nbsp;·&nbsp; [`Portfolio`](#portfolio-at-a-glance) &nbsp;·&nbsp; [`Surfaces`](#public-surface-map) &nbsp;·&nbsp; [`Services`](#digital-assistant-services) &nbsp;·&nbsp; [`Projects`](#selected-work) &nbsp;·&nbsp; [`Automation`](#profile-maintenance) &nbsp;·&nbsp; [`Bootstrap`](#bootstrap-lab) &nbsp;·&nbsp; [`Secure Contact`](#secure-contact)
+
+</sub>
+
+<br/>
+<br/>
+
+<pre>
+Independent AI tooling and automation operator
+Non-CS background, shipping through real Linux, network, and agent workflows
+Strongest signal: debugging the actual machine path, not just the demo path
+</pre>
+
+</div>
+
+**Languages:** English · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
+
+> **Daily work report:** [WORK_REPORT/index.md](WORK_REPORT/index.md)
 
 > **Support / ad slot:** Want to support my work or leave a public message? Open the project website, choose **Encrypted Message**, and send safe sponsorship details such as payment method, public transaction ID, public wallet address, contact information, or a short note. Do not send private keys, seed phrases, recovery codes, passwords, or production credentials.
 
 > **OpenReview verification:** Hello OpenReview reviewers, I confirm that I have registered an OpenReview account under the name **LIghtJUNction**.
 
-**Languages:** English · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
+## Now
+
+Currently building a public, owner-aware digital assistant workspace around agent
+tooling, Linux/macOS bootstrap automation, secure contact flows, project
+maintenance, and small paid-support surfaces. The working rule is simple:
+automation should disclose what it sees, preserve human ownership, avoid secrets,
+and leave the repository cleaner than it found it.
+
+Recent focus:
+
+- Profile automation benchmarked against [MukundaKatta/MukundaKatta](https://github.com/MukundaKatta/MukundaKatta): marker-managed README regions, scheduled refresh, tests, and no secret persistence.
+- Public terminal site with encrypted browser-side contact, project cards, OpenPGP contact flow, and GitHub Pages deployment.
+- Reusable personal agent skills for open-source contributions, owner-project maintenance, work-report indexing, email handling, and file handoff.
+- Bootstrap scripts for Linux, macOS, SSH key deployment, and reusable shell modules that explain assumptions before changing a machine.
+
+## Portfolio At A Glance
 
 <div align="center">
-  <a href="https://gravatar.com/totallytriumph1a8c29e246" target="_blank">
-    <img src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=160&d=identicon" alt="LIghtJUNction" width="128" height="128">
-  </a>
 
-# LIghtJUNction
+<!-- portfolio-glance:start -->
+<table>
+  <tr>
+    <td align="center" width="20%">
+      <sub>PUBLIC REPOS</sub><br/>
+      <strong>112</strong>
+    </td>
+    <td align="center" width="20%">
+      <sub>PROJECT CARDS</sub><br/>
+      <strong>144</strong>
+    </td>
+    <td align="center" width="20%">
+      <sub>AGENT SKILLS</sub><br/>
+      <strong>12</strong>
+    </td>
+    <td align="center" width="20%">
+      <sub>WORK REPORTS</sub><br/>
+      <strong>8</strong>
+    </td>
+    <td align="center" width="20%">
+      <sub>PROFILE UPDATE</sub><br/>
+      <strong>Daily</strong>
+    </td>
+  </tr>
+</table>
+<!-- portfolio-glance:end -->
 
-**AI tooling / independent AI research hat / Linux automation / practical security**
-
-I build small, sharp tools for messy real-world systems: agents, bootstraps, data pipelines, game tooling, and terminal-first workflows.
-
-Currently wearing the independent AI researcher hat, which is apparently very official now, while building agent tooling, proxy-aware bootstrap scripts, and practical Linux/macOS automation.
-
-[Website Terminal](https://lightjunction.github.io/lightjunction/) · [Encrypted Message](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Hugging Face](https://huggingface.co/LIghtJUNction) · [Kaggle](https://www.kaggle.com/lightjunction) · [Email](mailto:lightjunction.me@gmail.com)
-
-![Open to Work](https://img.shields.io/badge/Open_to-Remote%20%2F%20Hybrid-238636?style=for-the-badge)
-![Focus](https://img.shields.io/badge/Focus-AI%20%2B%20Linux%20Automation-0d1117?style=for-the-badge)
-![Security](https://img.shields.io/badge/Security-OpenPGP%20Ready-6e40c9?style=for-the-badge)
+The live website indexes the public project portfolio from GitHub into
+[`public/github-projects.json`](public/github-projects.json), while this README
+keeps the higher-signal story stable.
 
 </div>
 
-## Agent Skills
+## Public Surface Map
 
-Install my personal agent skills globally:
+| Surface | What it proves |
+|:--|:--|
+| [Website terminal](https://lightjunction.github.io/lightjunction/) | Browser-facing portfolio, encrypted message entrypoint, project cards, and terminal-style navigation. |
+| [GitHub profile](https://github.com/LIghtJUNction) | Public repositories, contribution traces, Actions automation, and owner-project maintenance. |
+| [Agent skills](.agents/skills/README.md) | Reusable operating workflows for Git, browser inspection, Python checks, and open-source work. |
+| [Work reports](WORK_REPORT/index.md) | Public log of selected daily assistant work and follow-up context. |
+| [Hugging Face](https://huggingface.co/LIghtJUNction) | AI-facing public identity and future model/dataset surface. |
+| [Kaggle](https://www.kaggle.com/lightjunction) | Data-platform identity and notebook/dataset surface. |
+| [Secure contact](#secure-contact) | OpenPGP fingerprint and browser-side encrypted message workflow. |
+| [Assistant treasury](#assistant-treasury) | Public receiving addresses only, with explicit no-secret custody boundary. |
+
+## Agent Skills
 
 ```bash
 npx skills add LIghtJUNction/lightjunction -g
 ```
 
-The skills live under `.agents/skills/` and are meant to capture my reusable workflows, preferences, and project-specific operating knowledge.
+The skills live under `.agents/skills/` and `skills/`. They capture reusable
+workflows, project preferences, and operating knowledge so repeated work becomes
+more reliable instead of more verbose.
 
 ## Digital Assistant Services
 
@@ -112,14 +194,14 @@ My rule of thumb: if a tool only works on my machine, it is not finished yet. Go
 
 ## Profile Pulse
 
-This section is intentionally small and marker-managed. A daily workflow refreshes
-public GitHub counters and local workspace signals, then commits only when the
-rendered README changes.
+This section is marker-managed by [`scripts/update_profile_pulse.py`](scripts/update_profile_pulse.py).
+A daily workflow refreshes public GitHub counters and local workspace signals,
+then commits only when the rendered README changes.
 
 <!-- profile-pulse:start -->
 | Signal | Current |
 |:--|:--|
-| Last refreshed | 2026-06-20 14:36:23 UTC |
+| Last refreshed | 2026-06-20 14:55:59 UTC |
 | Public GitHub repos | 112 |
 | GitHub followers | 76 |
 | Website project cards | 144 |
@@ -127,6 +209,24 @@ rendered README changes.
 | Tracked work reports | 8 |
 | Latest work report | [WORK_REPORT/2026/06/18.md](WORK_REPORT/2026/06/18.md) |
 <!-- profile-pulse:end -->
+
+## Profile Maintenance
+
+This profile now follows the same maintenance shape as the reference profile:
+explicit README markers, a scheduled workflow, tests around pure rendering logic,
+and commits only when automation produces a real diff.
+
+| Automation | Role |
+|:--|:--|
+| [Refresh Profile Pulse](.github/workflows/refresh-profile-pulse.yml) | Runs daily and on demand to update the managed README pulse. |
+| [Sync Project Cards](.github/workflows/sync-project-cards.yml) | Keeps the website project index fresh from public GitHub data. |
+| [CI](.github/workflows/ci.yml) | Runs shell, Python, tests, type checks, and frontend build before changes merge. |
+| [Deploy Pages](.github/workflows/deploy-pages.yml) | Publishes the terminal website to GitHub Pages. |
+
+The important boundary: this README may look active, but it should not become
+a noisy activity dump. Recent commits, live repository cards, and daily notes
+belong in the website data and [work reports](WORK_REPORT/index.md), while the
+profile README stays readable as a compact public facade.
 
 ## Selected Work
 
@@ -146,7 +246,13 @@ rendered README changes.
 
 ## Profile References
 
-I keep this README closer to a compact portfolio than a sticker wall. It is maintained by the agent through deliberate edits, with one bounded marker-managed pulse section for public stats and local workspace signals. The structure borrows from GitHub's profile README guidance, the community examples collected in `awesome-github-profile-readme`, and Mukunda Katta's profile-automation pattern: clear identity first, selected proof second, scheduled code owning only explicit README regions, and daily work notes kept separately in [WORK_REPORT/index.md](WORK_REPORT/index.md).
+I keep this README closer to a compact portfolio than a sticker wall. The
+current structure deliberately borrows the reference profile's strongest
+patterns: animated first-screen positioning, dense public-surface links,
+anchor navigation, portfolio-at-a-glance proof, and scheduled code that owns
+only explicit README regions. It does not copy the reference's huge package and
+hackathon wall because this workspace's durable rule is to stay credible,
+owner-aware, and low-noise.
 
 - GitHub Docs: [Managing your profile README](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-profile/customizing-your-profile/managing-your-profile-readme)
 - Examples: [abhisheknaiidu/awesome-github-profile-readme](https://github.com/abhisheknaiidu/awesome-github-profile-readme)
