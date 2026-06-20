@@ -114,10 +114,11 @@ def build_pulse(
     now: datetime | None = None,
 ) -> ProfilePulse:
     """Collect profile-pulse data from public GitHub and local files."""
+    refresh_time = now or datetime.now(UTC)
     stats = fetch_user_stats(owner, token=token)
     reports = work_report_paths(ROOT)
     return ProfilePulse(
-        refreshed_on=(now or datetime.now(UTC)).date().isoformat(),
+        refreshed_on=refresh_time.strftime("%Y-%m-%d %H:%M:%S UTC"),
         public_repos=stats["public_repos"],
         followers=stats["followers"],
         project_cards=count_project_cards(),
@@ -144,7 +145,7 @@ def render_profile_pulse(pulse: ProfilePulse) -> str:
             START_MARKER,
             "| Signal | Current |",
             "|:--|:--|",
-            f"| Last refreshed | {pulse.refreshed_on} UTC |",
+            f"| Last refreshed | {pulse.refreshed_on} |",
             f"| Public GitHub repos | {format_value(pulse.public_repos)} |",
             f"| GitHub followers | {format_value(pulse.followers)} |",
             f"| Website project cards | {pulse.project_cards} |",

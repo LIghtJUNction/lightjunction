@@ -10,7 +10,7 @@ import update_profile_pulse as pulse
 
 def test_render_profile_pulse_includes_markers_and_local_links() -> None:
     data = pulse.ProfilePulse(
-        refreshed_on="2026-06-20",
+        refreshed_on="2026-06-20 14:40:00 UTC",
         public_repos=42,
         followers=7,
         project_cards=11,
@@ -29,7 +29,7 @@ def test_render_profile_pulse_includes_markers_and_local_links() -> None:
 
 def test_render_profile_pulse_marks_unavailable_public_stats() -> None:
     data = pulse.ProfilePulse(
-        refreshed_on="2026-06-20",
+        refreshed_on="2026-06-20 14:40:00 UTC",
         public_repos=None,
         followers=None,
         project_cards=0,
