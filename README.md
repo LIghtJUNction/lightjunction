@@ -122,7 +122,7 @@ rendered README changes.
 | Last refreshed | 2026-06-20 UTC |
 | Public GitHub repos | 112 |
 | GitHub followers | 76 |
-| Website project cards | 138 |
+| Website project cards | 141 |
 | Reusable agent skills | 12 |
 | Tracked work reports | 8 |
 | Latest work report | [WORK_REPORT/2026/06/18.md](WORK_REPORT/2026/06/18.md) |
