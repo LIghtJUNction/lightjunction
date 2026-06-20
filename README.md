@@ -110,6 +110,24 @@ My rule of thumb: if a tool only works on my machine, it is not finished yet. Go
 | Ship usable surfaces | CLIs, README commands, defaults, and error messages are part of the product. |
 | Keep learning public | The repository is a workshop: rough ideas become documented tools over time. |
 
+## Profile Pulse
+
+This section is intentionally small and marker-managed. A daily workflow refreshes
+public GitHub counters and local workspace signals, then commits only when the
+rendered README changes.
+
+<!-- profile-pulse:start -->
+| Signal | Current |
+|:--|:--|
+| Last refreshed | 2026-06-20 UTC |
+| Public GitHub repos | 112 |
+| GitHub followers | 76 |
+| Website project cards | 138 |
+| Reusable agent skills | 12 |
+| Tracked work reports | 8 |
+| Latest work report | [WORK_REPORT/2026/06/18.md](WORK_REPORT/2026/06/18.md) |
+<!-- profile-pulse:end -->
+
 ## Selected Work
 
 | Project | Why it matters |
@@ -128,10 +146,11 @@ My rule of thumb: if a tool only works on my machine, it is not finished yet. Go
 
 ## Profile References
 
-I keep this README closer to a compact portfolio than a sticker wall. It is maintained by the agent through deliberate edits, not regenerated from recent commits, live repository cards, or weekly activity counters. The structure borrows from GitHub's profile README guidance and the community examples collected in `awesome-github-profile-readme`: clear identity first, selected proof second, and daily work notes kept separately in [WORK_REPORT/index.md](WORK_REPORT/index.md).
+I keep this README closer to a compact portfolio than a sticker wall. It is maintained by the agent through deliberate edits, with one bounded marker-managed pulse section for public stats and local workspace signals. The structure borrows from GitHub's profile README guidance, the community examples collected in `awesome-github-profile-readme`, and Mukunda Katta's profile-automation pattern: clear identity first, selected proof second, scheduled code owning only explicit README regions, and daily work notes kept separately in [WORK_REPORT/index.md](WORK_REPORT/index.md).
 
 - GitHub Docs: [Managing your profile README](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-profile/customizing-your-profile/managing-your-profile-readme)
 - Examples: [abhisheknaiidu/awesome-github-profile-readme](https://github.com/abhisheknaiidu/awesome-github-profile-readme)
+- Benchmark: [MukundaKatta/MukundaKatta](https://github.com/MukundaKatta/MukundaKatta)
 
 ## Bootstrap Lab
 
