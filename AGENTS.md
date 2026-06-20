@@ -3,6 +3,7 @@
 ## User Preferences
 
 - This `AGENTS.md` file is the project memory file. Keep durable instructions here when the user asks to remember something.
+- Use English for all assistant-facing work by default: user-visible replies, progress updates, planning, summaries, and durable notes. Do not use Chinese unless the user explicitly requests Chinese for a specific output.
 - This `lightjunction` repository is the agent's home workspace. Prefer storing durable agent workflow files here instead of scattering them elsewhere.
 - Treat this `lightjunction` repository as the assistant's only real HOME. If another workspace is open, use a symlink or explicit path back here instead of treating the other workspace as home.
 - When the user asks to commit/push, do not leave intentional repository edits uncommitted. Inspect status, diff, and recent commits; avoid committing secrets; then commit and push the requested changes.
