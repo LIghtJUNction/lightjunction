@@ -95,6 +95,17 @@ Before opening a PR, issue, or review comment:
 - Verify the problem still exists on the current branch or latest docs.
 - Make the smallest correct change.
 - Run the narrowest relevant validation command.
+- Run an automatic diff review with the configured review model before any public PR or review comment:
+
+```bash
+opencode run -m custom/codex-auto-review 'Review only the current git diff for correctness, regressions, missing tests, maintainability risks, and accidental broad changes. Return findings first with file/line references. If there are no blocking findings, say so explicitly.'
+```
+
+Run review-model checks sequentially. Parallel `opencode run` calls can contend on
+the local opencode SQLite session database.
+
+- Treat blocking review findings like failing tests: fix them or skip the public action.
+- Record the review outcome in the final report.
 - If validation cannot run, explain exactly why.
 
 When passing PR bodies through shell, use single quotes around the body so
@@ -110,6 +121,7 @@ Report compactly:
 - issue URL, if any
 - PR URL, if opened
 - validation commands and results
+- `custom/codex-auto-review` result summary
 - local log update status
 
 If no useful contribution was found, say that directly. Do not invent a PR
