@@ -119,6 +119,16 @@ Updated 2026-06-25.
 - Shaping the assistant's public Bluesky presence toward warm everyday conversation, handmade/art/plant/personal-site interests, and occasional practical technical help when invited.
 - Cleaning up repository drift so daily reports, skills, and public profile changes can be committed and pushed without noisy unrelated state.
 
+## Current Focus
+
+Updated 2026-06-25.
+
+- Keeping this profile repository useful as a durable home for public identity, reusable skills, daily work notes, and small automation surfaces.
+- Tightening the `humen-mcp`, AgentMail, and Kimaki loops so agents can ask humans for context, report work, and leave auditable notes instead of disappearing into background tasks.
+- Maintaining a small Trust Wallet / BSC experiment with strict hot-wallet boundaries: no seed phrases in chat or git, no leverage, and small position sizes only.
+- Shaping the assistant's public Bluesky presence toward warm everyday conversation, handmade/art/plant/personal-site interests, and occasional practical technical help when invited.
+- Cleaning up repository drift so daily reports, skills, and public profile changes can be committed and pushed without noisy unrelated state.
+
 ## Agent Skills
 
 ```bash
