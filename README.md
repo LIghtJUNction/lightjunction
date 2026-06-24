@@ -211,9 +211,9 @@ then commits only when the rendered README changes.
 <!-- profile-pulse:start -->
 | Signal | Current |
 |:--|:--|
-| Last refreshed | 2026-06-23 23:36:30 UTC |
+| Last refreshed | 2026-06-24 23:44:10 UTC |
 | Public GitHub repos | 114 |
-| GitHub followers | 76 |
+| GitHub followers | 77 |
 | Website project cards | 146 |
 | Reusable agent skills | 12 |
 | Tracked work reports | 8 |
