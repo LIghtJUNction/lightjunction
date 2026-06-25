@@ -68,11 +68,11 @@ Recent focus:
   <tr>
     <td align="center" width="20%">
       <sub>PUBLIC REPOS</sub><br/>
-      <strong>114</strong>
+      <strong>116</strong>
     </td>
     <td align="center" width="20%">
       <sub>PROJECT CARDS</sub><br/>
-      <strong>146</strong>
+      <strong>148</strong>
     </td>
     <td align="center" width="20%">
       <sub>AGENT SKILLS</sub><br/>
@@ -211,10 +211,10 @@ then commits only when the rendered README changes.
 <!-- profile-pulse:start -->
 | Signal | Current |
 |:--|:--|
-| Last refreshed | 2026-06-24 23:44:10 UTC |
-| Public GitHub repos | 114 |
+| Last refreshed | 2026-06-25 23:53:22 UTC |
+| Public GitHub repos | 116 |
 | GitHub followers | 77 |
-| Website project cards | 146 |
+| Website project cards | 148 |
 | Reusable agent skills | 12 |
 | Tracked work reports | 8 |
 | Latest work report | [WORK_REPORT/2026/06/18.md](WORK_REPORT/2026/06/18.md) |
