@@ -47,6 +47,9 @@ uv run mypy
 log "Python tests"
 uv run pytest
 
+log "Work report index"
+uv run scripts/sync-work-report-index.py --check
+
 log "Frontend"
 npm run check
 
