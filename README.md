@@ -113,6 +113,19 @@ npx skills add LIghtJUNction/lightjunction -g
 
 Skills live under `.agents/skills/` and `skills/`. They turn repeated operating rules into versioned workflows instead of relying on long prompts and memory alone.
 
+## Global Agent Prompt
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/LIghtJUNction/AGENTS.md/main/AGENTS.md -o ~/AGENTS.md
+```
+
+This installs the global `AGENTS.md` prompt for agents to read before work. It is
+designed around a 3-agent collaboration model: a slower Planner handles task
+decomposition and coordination, a faster Worker executes the smallest required
+diff, and a Reviewer verifies correctness and catches drift. The point is
+fast/slow pairing: use stronger reasoning where decisions matter, use cheaper
+execution where the task is already clear, and keep coordination overhead low.
+
 ## Profile Pulse
 
 This section is marker-managed by [`scripts/update_profile_pulse.py`](scripts/update_profile_pulse.py). A scheduled workflow refreshes public counters and commits only when the rendered README changes.
