@@ -77,7 +77,7 @@ Current focus:
     </td>
     <td align="center" width="20%">
       <sub>WORK REPORTS</sub><br/>
-      <strong>20</strong>
+      <strong>21</strong>
     </td>
     <td align="center" width="20%">
       <sub>PROFILE UPDATE</sub><br/>
@@ -133,13 +133,13 @@ This section is marker-managed by [`scripts/update_profile_pulse.py`](scripts/up
 <!-- profile-pulse:start -->
 | Signal | Current |
 |:--|:--|
-| Last refreshed | 2026-06-30 23:45:41 UTC |
+| Last refreshed | 2026-07-01 23:52:00 UTC |
 | Public GitHub repos | 117 |
 | GitHub followers | 84 |
 | Website project cards | 149 |
 | Reusable agent skills | 12 |
-| Tracked work reports | 20 |
-| Latest work report | [WORK_REPORT/2026/07/01.md](WORK_REPORT/2026/07/01.md) |
+| Tracked work reports | 21 |
+| Latest work report | [WORK_REPORT/2026/07/02.md](WORK_REPORT/2026/07/02.md) |
 <!-- profile-pulse:end -->
 
 ## Selected Work
