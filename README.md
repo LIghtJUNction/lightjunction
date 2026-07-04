@@ -65,19 +65,19 @@ Current focus:
   <tr>
     <td align="center" width="20%">
       <sub>PUBLIC REPOS</sub><br/>
-      <strong>117</strong>
+      <strong>113</strong>
     </td>
     <td align="center" width="20%">
       <sub>PROJECT CARDS</sub><br/>
-      <strong>149</strong>
+      <strong>145</strong>
     </td>
     <td align="center" width="20%">
       <sub>AGENT SKILLS</sub><br/>
-      <strong>12</strong>
+      <strong>13</strong>
     </td>
     <td align="center" width="20%">
       <sub>WORK REPORTS</sub><br/>
-      <strong>23</strong>
+      <strong>24</strong>
     </td>
     <td align="center" width="20%">
       <sub>PROFILE UPDATE</sub><br/>
@@ -133,13 +133,13 @@ This section is marker-managed by [`scripts/update_profile_pulse.py`](scripts/up
 <!-- profile-pulse:start -->
 | Signal | Current |
 |:--|:--|
-| Last refreshed | 2026-07-03 23:35:52 UTC |
-| Public GitHub repos | 117 |
+| Last refreshed | 2026-07-04 23:33:02 UTC |
+| Public GitHub repos | 113 |
 | GitHub followers | 85 |
-| Website project cards | 149 |
-| Reusable agent skills | 12 |
-| Tracked work reports | 23 |
-| Latest work report | [WORK_REPORT/2026/07/04.md](WORK_REPORT/2026/07/04.md) |
+| Website project cards | 145 |
+| Reusable agent skills | 13 |
+| Tracked work reports | 24 |
+| Latest work report | [WORK_REPORT/2026/07/05.md](WORK_REPORT/2026/07/05.md) |
 <!-- profile-pulse:end -->
 
 ## Selected Work
