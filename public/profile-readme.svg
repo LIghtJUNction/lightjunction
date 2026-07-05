@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2050" viewBox="0 0 1600 2050" role="img" aria-labelledby="title desc">
+  <title id="title">LIghtJUNction profile</title>
+  <desc id="desc">A generated profile card for AI tooling, Linux automation, and agent operations.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07110d"/>
+      <stop offset="42%" stop-color="#0f1b18"/>
+      <stop offset="100%" stop-color="#161417"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2ea043"/>
+      <stop offset="50%" stop-color="#58a6ff"/>
+      <stop offset="100%" stop-color="#f0b72f"/>
+    </linearGradient>
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#ffffff" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="2050" fill="url(#bg)"/>
+  <rect width="1600" height="2050" fill="url(#grid)"/>
+  <path d="M0 310 C270 180 400 430 690 284 C920 168 1050 188 1600 76 L1600 0 L0 0 Z" fill="#2ea043" opacity="0.16"/>
+  <path d="M0 580 C360 455 500 650 805 482 C1050 347 1220 415 1600 250" fill="none" stroke="url(#beam)" stroke-width="5" opacity="0.58"/>
+  <path d="M120 1940 C390 1815 670 1990 940 1810 C1160 1665 1395 1740 1540 1608" fill="none" stroke="#58a6ff" stroke-width="4" opacity="0.35"/>
+
+  <style>
+    text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .eyebrow { fill: #7ee787; font-size: 30px; font-weight: 800; letter-spacing: 5px; }
+    .title { fill: #f0f6fc; font-size: 106px; font-weight: 900; letter-spacing: 0; }
+    .subtitle { fill: #c9d1d9; font-size: 34px; font-weight: 650; }
+    .body { fill: #aebac7; font-size: 28px; font-weight: 450; }
+    .small { fill: #8b949e; font-size: 22px; font-weight: 550; }
+    .metric-value { fill: #f0f6fc; font-size: 54px; font-weight: 900; }
+    .metric-label { fill: #8b949e; font-size: 20px; font-weight: 800; letter-spacing: 2px; }
+    .section-title { fill: #f0f6fc; font-size: 42px; font-weight: 900; }
+    .tag { fill: #d5f5df; font-size: 25px; font-weight: 800; }
+    .project-card rect, .panel { fill: #111c18; stroke: #30463d; stroke-width: 1.4; filter: url(#soft-shadow); }
+    .project-name { fill: #f0f6fc; font-size: 28px; font-weight: 850; }
+    .project-meta { fill: #7ee787; font-size: 18px; font-weight: 800; }
+    .project-desc { fill: #aebac7; font-size: 20px; font-weight: 500; }
+    .link { fill: #58a6ff; font-size: 24px; font-weight: 750; }
+    .rule { stroke: #2ea043; stroke-width: 3; opacity: 0.9; }
+  </style>
+
+  <g transform="translate(90 110)">
+    <text class="eyebrow" x="0" y="0">OWNER-AWARE DIGITAL ASSISTANT</text>
+    <text class="title" x="0" y="120">LIghtJUNction</text>
+    <text class="subtitle" x="4" y="184">AI tooling / Linux automation / agent workflows / practical security</text>
+    <rect x="4" y="236" width="1010" height="8" rx="4" fill="url(#beam)"/>
+    <text class="body" x="4" y="310">Terminal-first systems that survive real machines, clear boundaries, and auditable work.</text>
+    <text class="small" x="4" y="354">Generated from public repository data and local work-report state. Last refresh: 2026-07-05 10:36 UTC</text>
+  </g>
+
+  <g transform="translate(90 560)">
+    <rect class="panel" width="1420" height="270" rx="28"/>
+    <text class="section-title" x="42" y="70">Profile Pulse</text>
+    <g transform="translate(42 118)">
+      <text class="metric-value" x="0" y="0">113</text>
+      <text class="metric-label" x="0" y="48">PUBLIC REPOS</text>
+    </g>
+    <g transform="translate(322 118)">
+      <text class="metric-value" x="0" y="0">85</text>
+      <text class="metric-label" x="0" y="48">FOLLOWERS</text>
+    </g>
+    <g transform="translate(600 118)">
+      <text class="metric-value" x="0" y="0">145</text>
+      <text class="metric-label" x="0" y="48">PROJECT CARDS</text>
+    </g>
+    <g transform="translate(920 118)">
+      <text class="metric-value" x="0" y="0">13</text>
+      <text class="metric-label" x="0" y="48">AGENT SKILLS</text>
+    </g>
+    <g transform="translate(1184 118)">
+      <text class="metric-value" x="0" y="0">24</text>
+      <text class="metric-label" x="0" y="48">WORK REPORTS</text>
+    </g>
+    <text class="small" x="42" y="228">Latest report: WORK_REPORT/2026/07/05.md</text>
+  </g>
+
+  <g transform="translate(90 910)">
+    <text class="section-title" x="0" y="0">Operating Surface</text>
+    <line class="rule" x1="0" y1="34" x2="1420" y2="34"/>
+    <g transform="translate(0 88)">
+      <rect width="300" height="64" rx="18" fill="#163323" stroke="#2ea043" stroke-opacity="0.55"/>
+      <text class="tag" x="30" y="42">AI tooling</text>
+    </g>
+    <g transform="translate(330 88)">
+      <rect width="360" height="64" rx="18" fill="#14283b" stroke="#58a6ff" stroke-opacity="0.55"/>
+      <text class="tag" x="30" y="42">Linux automation</text>
+    </g>
+    <g transform="translate(720 88)">
+      <rect width="390" height="64" rx="18" fill="#332711" stroke="#f0b72f" stroke-opacity="0.55"/>
+      <text class="tag" x="30" y="42">Agent operations</text>
+    </g>
+    <g transform="translate(1140 88)">
+      <rect width="280" height="64" rx="18" fill="#241d2e" stroke="#d2a8ff" stroke-opacity="0.55"/>
+      <text class="tag" x="30" y="42">Security</text>
+    </g>
+  </g>
+
+  <g>
+    <text class="section-title" x="90" y="1092">Selected Public Work</text>
+    
+  <g class="project-card" transform="translate(90 1160)">
+    <rect width="450" height="168" rx="22"/>
+    <text class="project-name" x="24" y="42">AstrBot</text>
+    <text class="project-meta" x="24" y="72">Python / 35,836 stars / 2,476 forks</text>
+    <text class="project-desc" x="24" y="104"><tspan x="24" dy="0">AI Agent Assistant &amp;</tspan><tspan x="24" dy="24">development framework</tspan><tspan x="24" dy="24">that integrates lots...</tspan></text>
+  </g>
+
+  <g class="project-card" transform="translate(574 1160)">
+    <rect width="450" height="168" rx="22"/>
+    <text class="project-name" x="24" y="42">astrbot-launcher</text>
+    <text class="project-meta" x="24" y="72">Rust / 1,185 stars / 13 forks</text>
+    <text class="project-desc" x="24" y="104"><tspan x="24" dy="0">AstrBot Launcher是一款用于图形化</tspan><tspan x="24" dy="24">管理AstrBot的桌面应用程序，提供版本下载、</tspan><tspan x="24" dy="24">...</tspan></text>
+  </g>
+
+  <g class="project-card" transform="translate(1058 1160)">
+    <rect width="450" height="168" rx="22"/>
+    <text class="project-name" x="24" y="42">AstrBot-desktop</text>
+    <text class="project-meta" x="24" y="72">Rust / 632 stars / 27 forks</text>
+    <text class="project-desc" x="24" y="104"><tspan x="24" dy="0">The desktop edition of</tspan><tspan x="24" dy="24">AstrBot, designed for</tspan><tspan x="24" dy="24">fast local...</tspan></text>
+  </g>
+
+  <g class="project-card" transform="translate(90 1362)">
+    <rect width="450" height="168" rx="22"/>
+    <text class="project-name" x="24" y="42">shipyard-neo</text>
+    <text class="project-meta" x="24" y="72">Python / 80 stars / 14 forks</text>
+    <text class="project-desc" x="24" y="104"><tspan x="24" dy="0">The Secure, Persistent</tspan><tspan x="24" dy="24">Execution Platform for</tspan><tspan x="24" dy="24">AI Agents</tspan></text>
+  </g>
+
+  <g class="project-card" transform="translate(574 1362)">
+    <rect width="450" height="168" rx="22"/>
+    <text class="project-name" x="24" y="42">AstrBot_Plugins_Collection</text>
+    <text class="project-meta" x="24" y="72">Python / 94 stars / 66 forks</text>
+    <text class="project-desc" x="24" y="104"><tspan x="24" dy="0">AstrBot Plugin</tspan><tspan x="24" dy="24">Collections</tspan></text>
+  </g>
+
+  <g class="project-card" transform="translate(1058 1362)">
+    <rect width="450" height="168" rx="22"/>
+    <text class="project-name" x="24" y="42">OniMods</text>
+    <text class="project-meta" x="24" y="72">C# / 7 stars / 2 forks</text>
+    <text class="project-desc" x="24" y="104"><tspan x="24" dy="0">oxygen not included</tspan></text>
+  </g>
+  </g>
+
+  <g transform="translate(90 1620)">
+    <rect class="panel" width="1420" height="260" rx="28"/>
+    <text class="section-title" x="42" y="72">Links</text>
+    <text class="link" x="42" y="132">Website: https://lightjunction.github.io/lightjunction/</text>
+    <text class="link" x="42" y="174">Work reports: WORK_REPORT/index.md</text>
+    <text class="link" x="42" y="216">Skills: npx skills add LIghtJUNction/lightjunction -g</text>
+    <text class="small" x="760" y="128"><tspan x="760" dy="0">No private keys, seed phrases, OAuth tokens, cookies,</tspan><tspan x="760" dy="34">or recovery material belong in this repository.</tspan><tspan x="760" dy="34">Human-owned assets. Transparent</tspan><tspan x="760" dy="34">automation. Small useful changes.</tspan></text>
+  </g>
+
+  <text class="small" x="90" y="1970">Source data: public/github-projects.json / local WORK_REPORT / local skills. This README is intentionally one generated SVG image.</text>
+</svg>

@@ -1,4 +1,4 @@
-name: Refresh Profile Pulse
+name: Refresh Profile SVG
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: refresh-profile-pulse
+  group: refresh-profile-svg
   cancel-in-progress: false
 
 permissions:
@@ -28,20 +28,20 @@ jobs:
             uv.lock
             scripts/*.py
 
-      - name: Refresh README profile pulse
+      - name: Refresh README profile SVG
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: uv run scripts/update_profile_pulse.py
 
-      - name: Commit profile pulse
+      - name: Commit profile SVG
         run: |
-          if [ -z "$(git status --porcelain README.md)" ]; then
-            echo "No profile pulse changes"
+          if [ -z "$(git status --porcelain README.md public/profile-readme.svg)" ]; then
+            echo "No profile SVG changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "chore: refresh profile pulse"
+          git add README.md public/profile-readme.svg
+          git commit -m "chore: refresh profile svg"
           git push

@@ -35,16 +35,18 @@ jobs:
           TEAM_ORGS: SlashNephy
           GITHUB_DATA_PATH: /tmp/lightjunction-github-data.json
           GITHUB_PROJECTS_PATH: public/github-projects.json
-        run: uv run scripts/fetch-github-data.py
-
-      - name: Commit project cards
         run: |
-          if [ -z "$(git status --porcelain public/github-projects.json)" ]; then
-            echo "No project card changes"
+          uv run scripts/fetch-github-data.py
+          uv run scripts/update_profile_pulse.py
+
+      - name: Commit project cards and profile SVG
+        run: |
+          if [ -z "$(git status --porcelain public/github-projects.json README.md public/profile-readme.svg)" ]; then
+            echo "No project card or profile SVG changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/github-projects.json
-          git commit -m "chore: sync project cards"
+          git add public/github-projects.json README.md public/profile-readme.svg
+          git commit -m "chore: sync project cards and profile svg"
           git push
