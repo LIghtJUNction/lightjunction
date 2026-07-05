@@ -70,3 +70,12 @@ uv run scripts/sync-work-report-index.py --dry-run
 - If a daily report exists but is missing from the index, run the sync script
   rather than adding a one-off link.
 - If the index format needs to change, update the script and this skill together.
+- Treat tracked daily reports as public. Before committing or sending report
+  content, run `uv run scripts/sanitize-work-reports.py` and then
+  `uv run scripts/sanitize-work-reports.py --check` to redact local paths, email
+  addresses, raw social record URIs, wallet addresses, and transaction hashes.
+- Prefer concise operational summaries over raw evidence dumps. Record decisions,
+  outcomes, blockers, and next actions; avoid exact mailbox identifiers, private
+  recipient addresses, raw wallet balances, transaction hashes, internal absolute
+  paths, and social interaction record IDs unless the user explicitly asks for a
+  forensic report.

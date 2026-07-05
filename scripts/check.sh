@@ -50,6 +50,9 @@ uv run pytest
 log "Work report index"
 uv run scripts/sync-work-report-index.py --check
 
+log "Work report privacy"
+uv run scripts/sanitize-work-reports.py --check
+
 log "Frontend"
 npm run check
 

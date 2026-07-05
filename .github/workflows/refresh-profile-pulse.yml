@@ -36,12 +36,13 @@ jobs:
 
       - name: Commit profile SVG
         run: |
-          if [ -z "$(git status --porcelain README.md public/profile-readme.svg)" ]; then
+          if [ -z "$(git status --porcelain README.md PROFILE_ACTIONS.md public/profile-hero.svg public/profile-pulse.svg public/profile-projects.svg public/profile-actions.svg public/profile-readme.svg)" ]; then
             echo "No profile SVG changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md public/profile-readme.svg
+          git add README.md PROFILE_ACTIONS.md public/profile-hero.svg public/profile-pulse.svg public/profile-projects.svg public/profile-actions.svg
+          git rm -f --ignore-unmatch public/profile-readme.svg
           git commit -m "chore: refresh profile svg"
           git push

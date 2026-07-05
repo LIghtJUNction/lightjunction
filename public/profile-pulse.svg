@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="450" viewBox="0 0 1600 450" role="img" aria-labelledby="title desc">
+  <title id="title">LIghtJUNction profile pulse</title>
+  <desc id="desc">Generated LIghtJUNction README panel. Click the image in README for links and copyable commands.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06120d"/>
+      <stop offset="48%" stop-color="#111b18"/>
+      <stop offset="100%" stop-color="#171417"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2ea043"/>
+      <stop offset="52%" stop-color="#58a6ff"/>
+      <stop offset="100%" stop-color="#f0b72f"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-0.25 0;0.25 0;-0.25 0" dur="7s" repeatCount="indefinite"/>
+    </linearGradient>
+    <radialGradient id="orb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7ee787" stop-opacity="0.48"/>
+      <stop offset="48%" stop-color="#58a6ff" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#58a6ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000000" flood-opacity="0.30"/>
+    </filter>
+    <filter id="neon" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#ffffff" stroke-opacity="0.055" stroke-width="1"/>
+      <animateTransform attributeName="patternTransform" type="translate" values="0 0;48 48;0 0" dur="18s" repeatCount="indefinite"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="450" fill="url(#bg)"/>
+  <rect width="1600" height="450" fill="url(#grid)"/>
+  <circle cx="1260" cy="120" r="210" fill="url(#orb)" opacity="0.55">
+    <animate attributeName="cx" values="1260;1370;1160;1260" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="120;170;80;120" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.25;0.62;0.30;0.25" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="220" cy="360" r="180" fill="url(#orb)" opacity="0.24">
+    <animate attributeName="cx" values="220;360;180;220" dur="14s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.16;0.42;0.18;0.16" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <path d="M0 210 C270 90 430 310 720 162 C960 40 1120 110 1600 0 L1600 0 L0 0 Z" fill="#2ea043" opacity="0.14">
+    <animate attributeName="opacity" values="0.08;0.18;0.10;0.08" dur="9s" repeatCount="indefinite"/>
+  </path>
+  <path d="M0 354 C340 240 650 430 930 270 C1140 150 1320 205 1600 90" fill="none" stroke="#58a6ff" stroke-width="4" opacity="0.34" stroke-dasharray="70 28">
+    <animate attributeName="stroke-dashoffset" values="0;-196;0" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.22;0.55;0.26;0.22" dur="6s" repeatCount="indefinite"/>
+  </path>
+  <rect x="-400" y="0" width="360" height="450" fill="#ffffff" opacity="0.035" transform="skewX(-18)">
+    <animate attributeName="x" values="-420;1700" dur="7.5s" repeatCount="indefinite"/>
+  </rect>
+  <style>
+    text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .eyebrow { fill: #7ee787; font-size: 27px; font-weight: 850; letter-spacing: 5px; }
+    .title { fill: #f0f6fc; font-size: 98px; font-weight: 920; letter-spacing: 0; }
+    .subtitle { fill: #c9d1d9; font-size: 34px; font-weight: 650; }
+    .body { fill: #aebac7; font-size: 27px; font-weight: 480; }
+    .small { fill: #8b949e; font-size: 21px; font-weight: 550; }
+    .metric-value { fill: #f0f6fc; font-size: 58px; font-weight: 920; }
+    .metric-label { fill: #8b949e; font-size: 20px; font-weight: 850; letter-spacing: 2px; }
+    .section-title { fill: #f0f6fc; font-size: 44px; font-weight: 900; }
+    .tag { fill: #d5f5df; font-size: 25px; font-weight: 800; }
+    .panel, .project-card rect, .action-card { fill: #0d2118; stroke: #2f4c40; stroke-width: 1.5; filter: url(#soft-shadow); }
+    .project-name { fill: #f0f6fc; font-size: 29px; font-weight: 850; }
+    .project-meta { fill: #7ee787; font-size: 18px; font-weight: 850; }
+    .project-desc { fill: #aebac7; font-size: 20px; font-weight: 520; }
+    .link { fill: #58a6ff; font-size: 25px; font-weight: 800; }
+    .rule { stroke: url(#beam); stroke-width: 5; stroke-linecap: round; }
+  </style>
+
+  <g transform="translate(90 70)">
+    <rect class="panel" width="1420" height="300" rx="30"/>
+    <text class="section-title" x="52" y="76">Live Profile Pulse</text>
+
+    <g transform="translate(70 150)">
+      <text class="metric-value" x="0" y="0">113</text>
+      <text class="metric-label" x="0" y="52">PUBLIC REPOS</text>
+      <circle cx="18" cy="-20" r="5" fill="#7ee787" opacity="0.7" filter="url(#neon)">
+        <animate attributeName="r" values="4;10;4" dur="3.0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.25;0.9;0.25" dur="3.0s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <g transform="translate(356 150)">
+      <text class="metric-value" x="0" y="0">85</text>
+      <text class="metric-label" x="0" y="52">FOLLOWERS</text>
+      <circle cx="18" cy="-20" r="5" fill="#7ee787" opacity="0.7" filter="url(#neon)">
+        <animate attributeName="r" values="4;10;4" dur="3.35s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.25;0.9;0.25" dur="3.35s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <g transform="translate(642 150)">
+      <text class="metric-value" x="0" y="0">145</text>
+      <text class="metric-label" x="0" y="52">PROJECT CARDS</text>
+      <circle cx="18" cy="-20" r="5" fill="#7ee787" opacity="0.7" filter="url(#neon)">
+        <animate attributeName="r" values="4;10;4" dur="3.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.25;0.9;0.25" dur="3.7s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <g transform="translate(928 150)">
+      <text class="metric-value" x="0" y="0">13</text>
+      <text class="metric-label" x="0" y="52">AGENT SKILLS</text>
+      <circle cx="18" cy="-20" r="5" fill="#7ee787" opacity="0.7" filter="url(#neon)">
+        <animate attributeName="r" values="4;10;4" dur="4.05s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.25;0.9;0.25" dur="4.05s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <g transform="translate(1214 150)">
+      <text class="metric-value" x="0" y="0">24</text>
+      <text class="metric-label" x="0" y="52">WORK REPORTS</text>
+      <circle cx="18" cy="-20" r="5" fill="#7ee787" opacity="0.7" filter="url(#neon)">
+        <animate attributeName="r" values="4;10;4" dur="4.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.25;0.9;0.25" dur="4.4s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <text class="small" x="52" y="250">Latest report: WORK_REPORT/2026/07/05.md / click for report and data links</text>
+  </g>
+
+</svg>
