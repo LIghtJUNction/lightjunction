@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ruff: noqa: E501
-"""Render the GitHub profile README as several clickable SVG panels."""
+"""Render animated liquid-glass README panels and synchronized README files."""
 
 from __future__ import annotations
 
@@ -20,7 +20,6 @@ from typing import Any
 import requests
 
 ROOT = Path(__file__).resolve().parents[1]
-README_FILE = ROOT / "README.md"
 ACTIONS_FILE = ROOT / "PROFILE_ACTIONS.md"
 PROJECT_CARDS_FILE = ROOT / "public" / "github-projects.json"
 LEGACY_SVG_FILE = ROOT / "public" / "profile-readme.svg"
@@ -30,13 +29,20 @@ SVG_FILES = {
     "projects": ROOT / "public" / "profile-projects.svg",
     "actions": ROOT / "public" / "profile-actions.svg",
 }
+README_OUTPUTS = {
+    "en": ROOT / "README.md",
+    "zh": ROOT / "README.zh.md",
+    "ru": ROOT / "README.ru.md",
+    "ko": ROOT / "README.ko.md",
+    "ja": ROOT / "README.ja.md",
+}
 DEFAULT_OWNER = "LIghtJUNction"
 API_ROOT = "https://api.github.com"
 
 
 @dataclass(frozen=True)
 class ProjectCard:
-    """Small public project summary rendered in the profile image."""
+    """Small public project summary rendered in profile images."""
 
     name: str
     full_name: str
@@ -195,7 +201,6 @@ def build_pulse(
 
 
 def format_value(value: int | None) -> str:
-    """Render an integer value or explicit unknown marker."""
     return "n/a" if value is None else f"{value:,}"
 
 
@@ -211,206 +216,255 @@ def text_lines(text: str, *, width: int, max_lines: int) -> list[str]:
     return wrapped or ["No public description yet."]
 
 
-def svg_text_block(
-    lines: list[str],
-    *,
-    x: int,
-    y: int,
-    class_name: str,
-    line_height: int,
-) -> str:
-    tspans = [
-        f'<tspan x="{x}" dy="{0 if index == 0 else line_height}">{esc(line)}</tspan>'
-        for index, line in enumerate(lines)
-    ]
-    return f'<text class="{class_name}" x="{x}" y="{y}">' + "".join(tspans) + "</text>"
-
-
-def svg_shell(title: str, height: int, body: str) -> str:
-    """Wrap panel-specific SVG content with shared visual language."""
+def glass_shell(title: str, height: int, body: str) -> str:
+    """Wrap panel-specific content in a rounded liquid-glass stage."""
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="{height}" viewBox="0 0 1600 {height}" role="img" aria-labelledby="title desc">
   <title id="title">{esc(title)}</title>
-  <desc id="desc">Generated LIghtJUNction README panel with restrained editorial animation. Click the image in README for links and copyable commands.</desc>
+  <desc id="desc">Animated rounded liquid-glass README panel. Click the image in README for links and copyable commands.</desc>
   <defs>
-    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#fbfaf6"/>
-      <stop offset="58%" stop-color="#f4f0e8"/>
-      <stop offset="100%" stop-color="#ece4d6"/>
+    <linearGradient id="aurora" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef7ff"/>
+      <stop offset="28%" stop-color="#dff4ee"/>
+      <stop offset="58%" stop-color="#eee7ff"/>
+      <stop offset="100%" stop-color="#fff4df"/>
+      <animateTransform attributeName="gradientTransform" type="rotate" values="0 .5 .5;18 .5 .5;0 .5 .5" dur="18s" repeatCount="indefinite"/>
     </linearGradient>
-    <linearGradient id="ink-line" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#171717"/>
-      <stop offset="46%" stop-color="#171717"/>
-      <stop offset="72%" stop-color="#8f6a35"/>
-      <stop offset="100%" stop-color="#171717"/>
-      <animateTransform attributeName="gradientTransform" type="translate" values="-0.18 0;0.18 0;-0.18 0" dur="13s" repeatCount="indefinite"/>
+    <linearGradient id="glass-fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.70"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#cfe7ff" stop-opacity="0.28"/>
     </linearGradient>
-    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#3d3428" flood-opacity="0.10"/>
+    <linearGradient id="glass-stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#7aa7ff" stop-opacity="0.36"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.58"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-0.2 0;0.25 0;-0.2 0" dur="10s" repeatCount="indefinite"/>
+    </linearGradient>
+    <radialGradient id="liquid" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.82"/>
+      <stop offset="52%" stop-color="#86d9ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glass-shadow" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#45607f" flood-opacity="0.22"/>
     </filter>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#1d1a16" stroke-opacity="0.035" stroke-width="1"/>
-      <animateTransform attributeName="patternTransform" type="translate" values="0 0;24 24;0 0" dur="36s" repeatCount="indefinite"/>
-    </pattern>
+    <filter id="soft-blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <clipPath id="stage-clip">
+      <rect x="70" y="54" width="1460" height="{height - 108}" rx="74"/>
+    </clipPath>
   </defs>
-  <rect width="1600" height="{height}" fill="url(#paper)"/>
-  <rect width="1600" height="{height}" fill="url(#grid)"/>
-  <path d="M120 {height - 92} C420 {height - 220} 690 {height - 44} 980 {height - 166} C1190 {height - 254} 1350 {height - 205} 1480 {height - 314}" fill="none" stroke="url(#ink-line)" stroke-width="2.2" opacity="0.36" stroke-dasharray="720 720" stroke-dashoffset="720">
-    <animate attributeName="stroke-dashoffset" values="720;0;0;720" dur="16s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.18;0.42;0.30;0.18" dur="16s" repeatCount="indefinite"/>
-  </path>
-  <circle cx="1478" cy="{height - 314}" r="5" fill="#171717" opacity="0.45">
-    <animate attributeName="cx" values="120;420;690;980;1190;1350;1480" dur="16s" repeatCount="indefinite"/>
-    <animate attributeName="cy" values="{height - 92};{height - 220};{height - 44};{height - 166};{height - 254};{height - 205};{height - 314}" dur="16s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;0.55;0.35;0" dur="16s" repeatCount="indefinite"/>
-  </circle>
+  <rect width="1600" height="{height}" fill="url(#aurora)"/>
+  <g opacity="0.68" filter="url(#soft-blur)">
+    <circle cx="260" cy="120" r="170" fill="#77c9ff">
+      <animate attributeName="cx" values="260;420;240;260" dur="16s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="120;220;170;120" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1260" cy="{height - 120}" r="220" fill="#d7b6ff">
+      <animate attributeName="cx" values="1260;1120;1360;1260" dur="17s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="{height - 120};{height - 250};{height - 180};{height - 120}" dur="15s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="860" cy="90" r="150" fill="#fff1a8">
+      <animate attributeName="opacity" values="0.35;0.75;0.35" dur="12s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <rect x="70" y="54" width="1460" height="{height - 108}" rx="74" fill="url(#glass-fill)" stroke="url(#glass-stroke)" stroke-width="2.2" filter="url(#glass-shadow)"/>
+  <g clip-path="url(#stage-clip)">
+    <rect x="-260" y="76" width="210" height="{height - 152}" rx="90" fill="#ffffff" opacity="0.18" transform="skewX(-18)">
+      <animate attributeName="x" values="-280;1680" dur="9s" repeatCount="indefinite"/>
+    </rect>
+    <circle cx="320" cy="{height - 118}" r="120" fill="url(#liquid)" opacity="0.55">
+      <animate attributeName="cx" values="320;560;420;320" dur="14s" repeatCount="indefinite"/>
+    </circle>
+    <path d="M130 {height - 105} C430 {height - 238} 690 {height - 30} 980 {height - 184} C1210 {height - 306} 1370 {height - 210} 1490 {height - 330}" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.50" stroke-dasharray="740" stroke-dashoffset="740">
+      <animate attributeName="stroke-dashoffset" values="740;0;0;740" dur="12s" repeatCount="indefinite"/>
+    </path>
+  </g>
   <style>
     text {{ font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-    .eyebrow {{ fill: #8f6a35; font-size: 23px; font-weight: 760; letter-spacing: 6px; }}
-    .title {{ fill: #171717; font-family: Georgia, "Times New Roman", serif; font-size: 112px; font-weight: 500; letter-spacing: 0; }}
-    .subtitle {{ fill: #25221e; font-size: 31px; font-weight: 560; }}
-    .body {{ fill: #4f4a43; font-size: 25px; font-weight: 430; }}
-    .small {{ fill: #81786d; font-size: 20px; font-weight: 470; }}
-    .metric-value {{ fill: #171717; font-family: Georgia, "Times New Roman", serif; font-size: 66px; font-weight: 500; }}
-    .metric-label {{ fill: #81786d; font-size: 17px; font-weight: 760; letter-spacing: 2.6px; }}
-    .section-title {{ fill: #171717; font-family: Georgia, "Times New Roman", serif; font-size: 50px; font-weight: 500; }}
-    .tag {{ fill: #25221e; font-size: 22px; font-weight: 650; }}
-    .panel, .project-card rect, .action-card {{ fill: #fffdf8; fill-opacity: 0.72; stroke: #d7cbbb; stroke-width: 1.2; filter: url(#soft-shadow); }}
-    .project-name {{ fill: #171717; font-size: 29px; font-weight: 760; }}
-    .project-meta {{ fill: #8f6a35; font-size: 18px; font-weight: 720; }}
-    .project-desc {{ fill: #5b554d; font-size: 20px; font-weight: 430; }}
-    .link {{ fill: #3a5271; font-size: 24px; font-weight: 700; }}
-    .rule {{ stroke: url(#ink-line); stroke-width: 2; stroke-linecap: round; }}
+    .eyebrow {{ fill: #476070; font-size: 22px; font-weight: 800; letter-spacing: 5px; }}
+    .title {{ fill: #17202a; font-size: 104px; font-weight: 860; letter-spacing: 0; }}
+    .subtitle {{ fill: #243544; font-size: 34px; font-weight: 620; }}
+    .body {{ fill: #425366; font-size: 26px; font-weight: 510; }}
+    .small {{ fill: #607386; font-size: 20px; font-weight: 520; }}
+    .metric-value {{ fill: #111b25; font-size: 64px; font-weight: 860; }}
+    .metric-label {{ fill: #5d7184; font-size: 18px; font-weight: 800; letter-spacing: 2.4px; }}
+    .section-title {{ fill: #15212c; font-size: 48px; font-weight: 840; }}
+    .project-name {{ fill: #142231; font-size: 29px; font-weight: 820; }}
+    .project-meta {{ fill: #376d8a; font-size: 18px; font-weight: 780; }}
+    .project-desc {{ fill: #4b5d6e; font-size: 20px; font-weight: 500; }}
+    .link {{ fill: #244d7a; font-size: 24px; font-weight: 800; }}
+    .glass-tile {{ fill: rgba(255,255,255,0.30); stroke: rgba(255,255,255,0.74); stroke-width: 1.3; }}
   </style>
   {body}
 </svg>
 """
 
 
+def carousel_page(index: int, content: str) -> str:
+    """Render one looping page in a 3-page carousel."""
+    values = {
+        0: ("1;1;0;0;0;1", "0 0;0 0;-42 0;-42 0;42 0;0 0"),
+        1: ("0;0;1;1;0;0", "42 0;42 0;0 0;0 0;-42 0;42 0"),
+        2: ("0;0;0;0;1;1", "42 0;42 0;42 0;42 0;0 0;0 0"),
+    }[index]
+    opacity_values, translate_values = values
+    return f"""
+  <g opacity="{1 if index == 0 else 0}">
+    <animate attributeName="opacity" values="{opacity_values}" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="{translate_values}" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
+    {content}
+  </g>"""
+
+
 def render_hero_svg(pulse: ProfilePulse) -> str:
-    body = f"""
-  <g transform="translate(110 110)">
-    <text class="eyebrow" x="0" y="0">CLICK FOR PROFILE ACTIONS</text>
-    <text class="title" x="0" y="120">LIghtJUNction</text>
-    <text class="subtitle" x="4" y="184">AI tooling / Linux automation / agent workflows</text>
-    <text class="subtitle" x="4" y="226">Practical security / auditable operations</text>
-    <line class="rule" x1="4" y1="292" x2="760" y2="292" stroke-dasharray="760" stroke-dashoffset="760">
-      <animate attributeName="stroke-dashoffset" values="760;0;0;760" dur="14s" repeatCount="indefinite"/>
-    </line>
-    <text class="body" x="4" y="372">Terminal-first systems. Human-owned assets. Quiet, inspectable automation.</text>
-    <text class="small" x="4" y="418">Generated from public repository data and local work-report state. Last refresh: {esc(pulse.refreshed_on)}</text>
-  </g>
-  <g transform="translate(1090 112)">
-    <rect class="panel" width="360" height="360" rx="2"/>
-    <text class="eyebrow" x="34" y="62">OPEN</text>
-    <text class="section-title" x="34" y="132">Hub</text>
-    <text class="body" x="34" y="194">Links</text>
-    <text class="body" x="34" y="232">Commands</text>
-    <text class="body" x="34" y="270">Reports</text>
-    <text class="link" x="34" y="326">PROFILE_ACTIONS.md</text>
-  </g>
+    pages = [
+        f"""
+    <text class="eyebrow" x="132" y="134">LIQUID GLASS / PROFILE 01</text>
+    <text class="title" x="132" y="260">LIghtJUNction</text>
+    <text class="subtitle" x="136" y="326">AI tooling / Linux automation / agent workflows</text>
+    <text class="body" x="136" y="388">Terminal-first systems that survive real machines.</text>
+    <text class="small" x="136" y="448">Last refresh: {esc(pulse.refreshed_on)}</text>
+    """,
+        """
+    <text class="eyebrow" x="132" y="134">PAGE 02 / OPERATING STYLE</text>
+    <text class="section-title" x="132" y="236">Human-owned assets.</text>
+    <text class="subtitle" x="136" y="306">Clear boundaries. Auditable work.</text>
+    <text class="body" x="136" y="370">The interface moves, but the promises stay small.</text>
+    """,
+        """
+    <text class="eyebrow" x="132" y="134">PAGE 03 / OPEN HUB</text>
+    <text class="section-title" x="132" y="236">Click through.</text>
+    <text class="subtitle" x="136" y="306">Links, reports, install commands, contact routes.</text>
+    <text class="link" x="136" y="382">PROFILE_ACTIONS.md</text>
+    """,
+    ]
+    body = "".join(carousel_page(index, page) for index, page in enumerate(pages))
+    body += """
+  <rect class="glass-tile" x="1120" y="118" width="260" height="260" rx="58"/>
+  <text class="metric-value" x="1188" y="270">01</text>
+  <text class="metric-label" x="1166" y="322">LOOPING ENTRY</text>
 """
-    return svg_shell("LIghtJUNction hero", 620, body)
+    return glass_shell("LIghtJUNction hero", 620, body)
 
 
 def render_pulse_svg(pulse: ProfilePulse) -> str:
     latest = pulse.latest_work_report or "No report yet"
-    metrics = [
-        ("PUBLIC REPOS", format_value(pulse.public_repos)),
-        ("FOLLOWERS", format_value(pulse.followers)),
-        ("PROJECT CARDS", f"{pulse.project_cards:,}"),
-        ("AGENT SKILLS", f"{pulse.skill_count:,}"),
-        ("WORK REPORTS", f"{pulse.work_report_count:,}"),
+    pages = [
+        f"""
+    <text class="eyebrow" x="132" y="126">LIVE DATA / PAGE 01</text>
+    <text class="metric-value" x="132" y="244">{format_value(pulse.public_repos)}</text>
+    <text class="metric-label" x="136" y="292">PUBLIC REPOS</text>
+    <text class="metric-value" x="430" y="244">{format_value(pulse.followers)}</text>
+    <text class="metric-label" x="434" y="292">FOLLOWERS</text>
+    <text class="metric-value" x="728" y="244">{pulse.project_cards:,}</text>
+    <text class="metric-label" x="732" y="292">PROJECT CARDS</text>
+    """,
+        f"""
+    <text class="eyebrow" x="132" y="126">LIVE DATA / PAGE 02</text>
+    <text class="metric-value" x="132" y="244">{pulse.skill_count:,}</text>
+    <text class="metric-label" x="136" y="292">AGENT SKILLS</text>
+    <text class="metric-value" x="430" y="244">{pulse.work_report_count:,}</text>
+    <text class="metric-label" x="434" y="292">WORK REPORTS</text>
+    """,
+        f"""
+    <text class="eyebrow" x="132" y="126">LIVE DATA / PAGE 03</text>
+    <text class="section-title" x="132" y="232">Latest report</text>
+    <text class="link" x="136" y="300">{esc(latest)}</text>
+    <text class="small" x="136" y="360">Click for the report index and source data.</text>
+    """,
     ]
-    metric_svg = []
-    for index, (label, value) in enumerate(metrics):
-        metric_svg.append(
-            f"""
-    <g transform="translate({70 + index * 286} 150)">
-      <text class="metric-value" x="0" y="0">{esc(value)}</text>
-      <text class="metric-label" x="0" y="52">{esc(label)}</text>
-      <line x1="0" y1="76" x2="120" y2="76" stroke="#8f6a35" stroke-width="1.4" opacity="0.45" stroke-dasharray="120" stroke-dashoffset="120">
-        <animate attributeName="stroke-dashoffset" values="120;0;0;120" dur="{9 + index * 0.7}s" repeatCount="indefinite"/>
-      </line>
-    </g>"""
-        )
-    body = f"""
-  <g transform="translate(110 86)">
-    <rect class="panel" width="1380" height="270" rx="2"/>
-    <text class="section-title" x="52" y="82">Live Profile Pulse</text>
-    {"".join(metric_svg)}
-    <text class="small" x="52" y="240">Latest report: {esc(latest)} / click for report and data links</text>
-  </g>
-"""
-    return svg_shell("LIghtJUNction profile pulse", 470, body)
+    return glass_shell(
+        "LIghtJUNction profile pulse",
+        470,
+        "".join(carousel_page(index, page) for index, page in enumerate(pages)),
+    )
 
 
 def render_projects_svg(pulse: ProfilePulse) -> str:
-    rendered: list[str] = []
-    start_x = 110
-    start_y = 194
-    card_width = 450
-    card_height = 170
-    gap_x = 34
-    gap_y = 34
-    for index, project in enumerate(pulse.top_projects):
-        col = index % 3
-        row = index // 3
-        x = start_x + col * (card_width + gap_x)
-        y = start_y + row * (card_height + gap_y)
-        description = text_lines(project.description, width=24, max_lines=3)
-        rendered.append(
+    projects = pulse.top_projects[:6]
+    pages: list[str] = []
+    for page_index in range(3):
+        pair = projects[page_index * 2 : page_index * 2 + 2]
+        rows = []
+        for row_index, project in enumerate(pair):
+            y = 222 + row_index * 150
+            desc = " ".join(text_lines(project.description, width=68, max_lines=1))
+            rows.append(
+                f"""
+    <text class="project-name" x="136" y="{y}">{esc(project.name)}</text>
+    <text class="project-meta" x="136" y="{y + 34}">{esc(project.language)} / {project.stars:,} stars / {project.forks:,} forks</text>
+    <text class="project-desc" x="136" y="{y + 70}">{esc(desc)}</text>"""
+            )
+        pages.append(
             f"""
-  <g class="project-card" transform="translate({x} {y})">
-    <animate attributeName="opacity" values="0.86;1;0.86" dur="{8 + index * 0.45}s" repeatCount="indefinite"/>
-    <rect width="{card_width}" height="{card_height}" rx="22"/>
-    <text class="project-name" x="24" y="42">{esc(project.name)}</text>
-    <text class="project-meta" x="24" y="72">{esc(project.language)} / {project.stars:,} stars / {project.forks:,} forks</text>
-    {svg_text_block(description, x=24, y=106, class_name="project-desc", line_height=24)}
-  </g>"""
+    <text class="eyebrow" x="132" y="126">PUBLIC WORK / PAGE {page_index + 1:02d}</text>
+    <text class="section-title" x="132" y="178">Selected repositories</text>
+    {"".join(rows)}
+    """
         )
-    body = f"""
-  <text class="section-title" x="110" y="94">Selected Public Work</text>
-  <text class="small" x="110" y="136">Synchronized from public/github-projects.json. Click for repository links.</text>
-  {"".join(rendered)}
-"""
-    return svg_shell("LIghtJUNction selected projects", 700, body)
+    return glass_shell(
+        "LIghtJUNction selected projects",
+        620,
+        "".join(carousel_page(index, page) for index, page in enumerate(pages)),
+    )
 
 
 def render_actions_svg(_: ProfilePulse) -> str:
-    cards = [
-        ("Install skills", "npx skills add LIghtJUNction/lightjunction -g"),
-        ("Bootstrap Linux", "curl -sSL .../bootstrap-linux.sh | bash"),
-        ("Read reports", "WORK_REPORT/index.md"),
-        ("Secure contact", "OpenPGP browser message flow"),
+    pages = [
+        """
+    <text class="eyebrow" x="132" y="126">COMMANDS / PAGE 01</text>
+    <text class="section-title" x="132" y="220">Install skills</text>
+    <text class="link" x="136" y="292">npx skills add LIghtJUNction/lightjunction -g</text>
+    """,
+        """
+    <text class="eyebrow" x="132" y="126">COMMANDS / PAGE 02</text>
+    <text class="section-title" x="132" y="220">Bootstrap</text>
+    <text class="link" x="136" y="292">curl -sSL .../bootstrap-linux.sh | bash</text>
+    """,
+        """
+    <text class="eyebrow" x="132" y="126">COMMANDS / PAGE 03</text>
+    <text class="section-title" x="132" y="220">Reports and contact</text>
+    <text class="link" x="136" y="292">WORK_REPORT/index.md / OpenPGP browser flow</text>
+    """,
     ]
-    rendered = []
-    for index, (title, detail) in enumerate(cards):
-        x = 110 + (index % 2) * 704
-        y = 190 + (index // 2) * 154
-        rendered.append(
-            f"""
-  <g transform="translate({x} {y})">
-    <animate attributeName="opacity" values="0.86;1;0.86" dur="{8 + index * 0.6}s" repeatCount="indefinite"/>
-    <rect class="action-card" width="636" height="110" rx="2"/>
-    <text class="project-name" x="28" y="44">{esc(title)}</text>
-    <text class="link" x="28" y="82">{esc(detail)}</text>
-  </g>"""
-        )
-    body = f"""
-  <text class="section-title" x="110" y="94">Click Actions</text>
-  <text class="small" x="110" y="136">Each README image jumps to PROFILE_ACTIONS.md with copyable commands and links.</text>
-  {"".join(rendered)}
-"""
-    return svg_shell("LIghtJUNction actions", 560, body)
+    return glass_shell(
+        "LIghtJUNction actions",
+        470,
+        "".join(carousel_page(index, page) for index, page in enumerate(pages)),
+    )
 
 
-def render_readme() -> str:
-    return """<div align="center">
+LOCALIZED_NOTES = {
+    "en": "Animated liquid-glass profile. Click any panel for links and copyable commands.",
+    "zh": "动画液态玻璃主页。点击任意面板可打开链接和可复制命令。请不要发送私钥、助记词、恢复码、密码或生产凭据。",
+    "ru": "Анимированный профиль в стиле liquid glass. Нажмите любую панель для ссылок и команд. Не отправляйте приватные ключи, seed-фразы, коды восстановления, пароли или production-секреты.",
+    "ko": "애니메이션 liquid glass 프로필입니다. 아무 패널이나 누르면 링크와 복사 가능한 명령으로 이동합니다. 개인키, 시드 문구, 복구 코드, 비밀번호, 운영 비밀은 보내지 마세요.",
+    "ja": "アニメーション付き liquid glass プロフィールです。任意のパネルをクリックするとリンクとコピー可能なコマンドに移動します。秘密鍵、シードフレーズ、復旧コード、パスワード、本番環境の秘密情報は送らないでください。",
+}
+
+
+LANGUAGE_LINES = {
+    "en": "English · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)",
+    "zh": "[English](README.md) · 中文 · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)",
+    "ru": "[English](README.md) · [中文](README.zh.md) · Русский · [한국어](README.ko.md) · [日本語](README.ja.md)",
+    "ko": "[English](README.md) · [中文](README.zh.md) · [Русский](README.ru.md) · 한국어 · [日本語](README.ja.md)",
+    "ja": "[English](README.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · 日本語",
+}
+
+
+def render_readme(locale: str = "en") -> str:
+    return f"""<div align="center">
   <a href="PROFILE_ACTIONS.md#quick-links"><img src="public/profile-hero.svg" alt="LIghtJUNction profile hero" width="100%" /></a>
   <a href="PROFILE_ACTIONS.md#live-data"><img src="public/profile-pulse.svg" alt="LIghtJUNction live profile data" width="100%" /></a>
   <a href="PROFILE_ACTIONS.md#repositories"><img src="public/profile-projects.svg" alt="LIghtJUNction selected public work" width="100%" /></a>
   <a href="PROFILE_ACTIONS.md#copyable-commands"><img src="public/profile-actions.svg" alt="LIghtJUNction copyable commands and links" width="100%" /></a>
 </div>
+
+**Languages:** {LANGUAGE_LINES[locale]}
+
+{LOCALIZED_NOTES[locale]}
 """
 
 
@@ -422,7 +476,7 @@ def render_actions_md(pulse: ProfilePulse) -> str:
     latest_report = pulse.latest_work_report or "WORK_REPORT/index.md"
     return f"""# LIghtJUNction Profile Actions
 
-This file is the click target for the generated SVG panels in `README.md`.
+This file is the click target for generated SVG panels in `README.md` and localized README files.
 
 ## Quick Links
 
@@ -512,7 +566,7 @@ def clean_generated_text(text: str) -> str:
 
 
 def main() -> int:
-    """Refresh README.md, click target Markdown, and generated SVG panels."""
+    """Refresh README files, click target Markdown, and generated SVG panels."""
     owner = os.environ.get("GITHUB_REPOSITORY_OWNER", DEFAULT_OWNER)
     token = os.environ.get("GITHUB_TOKEN", "")
     pulse = build_pulse(owner=owner, token=token)
@@ -527,9 +581,10 @@ def main() -> int:
     )
     if LEGACY_SVG_FILE.exists():
         LEGACY_SVG_FILE.unlink()
-    README_FILE.write_text(clean_generated_text(render_readme()), encoding="utf-8")
+    for locale, path in README_OUTPUTS.items():
+        path.write_text(clean_generated_text(render_readme(locale)), encoding="utf-8")
     ACTIONS_FILE.write_text(clean_generated_text(render_actions_md(pulse)), encoding="utf-8")
-    print(f"Updated profile SVG panels and README for {pulse.refreshed_on}")
+    print(f"Updated profile SVG panels and README files for {pulse.refreshed_on}")
     return 0
 
 

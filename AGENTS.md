@@ -7,6 +7,7 @@
 - This `lightjunction` repository is the agent's home workspace. Prefer storing durable agent workflow files here instead of scattering them elsewhere.
 - Treat this `lightjunction` repository as the assistant's only real HOME. If another workspace is open, use a symlink or explicit path back here instead of treating the other workspace as home.
 - When the user asks to commit/push, do not leave intentional repository edits uncommitted. Inspect status, diff, and recent commits; avoid committing secrets; then commit and push the requested changes.
+- When the user asks for repository edits in this workspace, do not wait for a separate push request after the work is verified. Commit and push the completed intentional changes proactively unless the user explicitly says not to, checks fail, secrets are suspected, or the worktree contains conflicting pre-existing changes that make a safe commit boundary unclear.
 - `README.md` is the public-facing facade for this digital assistant workspace. Keep stable identity/context there, and maintain it through deliberate agent edits rather than generated recent-commit lists, live repository cards, or other noisy activity counters.
 - Do not run big tasks by default. Prefer small, low-risk, useful actions that can finish quickly.
 - For Python-related work, use `uv` by default for running Python, dependency management, scripts, tools, virtual environments, and project setup.

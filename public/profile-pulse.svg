@@ -1,97 +1,115 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="470" viewBox="0 0 1600 470" role="img" aria-labelledby="title desc">
   <title id="title">LIghtJUNction profile pulse</title>
-  <desc id="desc">Generated LIghtJUNction README panel with restrained editorial animation. Click the image in README for links and copyable commands.</desc>
+  <desc id="desc">Animated rounded liquid-glass README panel. Click the image in README for links and copyable commands.</desc>
   <defs>
-    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#fbfaf6"/>
-      <stop offset="58%" stop-color="#f4f0e8"/>
-      <stop offset="100%" stop-color="#ece4d6"/>
+    <linearGradient id="aurora" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef7ff"/>
+      <stop offset="28%" stop-color="#dff4ee"/>
+      <stop offset="58%" stop-color="#eee7ff"/>
+      <stop offset="100%" stop-color="#fff4df"/>
+      <animateTransform attributeName="gradientTransform" type="rotate" values="0 .5 .5;18 .5 .5;0 .5 .5" dur="18s" repeatCount="indefinite"/>
     </linearGradient>
-    <linearGradient id="ink-line" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#171717"/>
-      <stop offset="46%" stop-color="#171717"/>
-      <stop offset="72%" stop-color="#8f6a35"/>
-      <stop offset="100%" stop-color="#171717"/>
-      <animateTransform attributeName="gradientTransform" type="translate" values="-0.18 0;0.18 0;-0.18 0" dur="13s" repeatCount="indefinite"/>
+    <linearGradient id="glass-fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.70"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#cfe7ff" stop-opacity="0.28"/>
     </linearGradient>
-    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#3d3428" flood-opacity="0.10"/>
+    <linearGradient id="glass-stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#7aa7ff" stop-opacity="0.36"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.58"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-0.2 0;0.25 0;-0.2 0" dur="10s" repeatCount="indefinite"/>
+    </linearGradient>
+    <radialGradient id="liquid" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.82"/>
+      <stop offset="52%" stop-color="#86d9ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glass-shadow" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#45607f" flood-opacity="0.22"/>
     </filter>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#1d1a16" stroke-opacity="0.035" stroke-width="1"/>
-      <animateTransform attributeName="patternTransform" type="translate" values="0 0;24 24;0 0" dur="36s" repeatCount="indefinite"/>
-    </pattern>
+    <filter id="soft-blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <clipPath id="stage-clip">
+      <rect x="70" y="54" width="1460" height="362" rx="74"/>
+    </clipPath>
   </defs>
-  <rect width="1600" height="470" fill="url(#paper)"/>
-  <rect width="1600" height="470" fill="url(#grid)"/>
-  <path d="M120 378 C420 250 690 426 980 304 C1190 216 1350 265 1480 156" fill="none" stroke="url(#ink-line)" stroke-width="2.2" opacity="0.36" stroke-dasharray="720 720" stroke-dashoffset="720">
-    <animate attributeName="stroke-dashoffset" values="720;0;0;720" dur="16s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.18;0.42;0.30;0.18" dur="16s" repeatCount="indefinite"/>
-  </path>
-  <circle cx="1478" cy="156" r="5" fill="#171717" opacity="0.45">
-    <animate attributeName="cx" values="120;420;690;980;1190;1350;1480" dur="16s" repeatCount="indefinite"/>
-    <animate attributeName="cy" values="378;250;426;304;216;265;156" dur="16s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;0.55;0.35;0" dur="16s" repeatCount="indefinite"/>
-  </circle>
+  <rect width="1600" height="470" fill="url(#aurora)"/>
+  <g opacity="0.68" filter="url(#soft-blur)">
+    <circle cx="260" cy="120" r="170" fill="#77c9ff">
+      <animate attributeName="cx" values="260;420;240;260" dur="16s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="120;220;170;120" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1260" cy="350" r="220" fill="#d7b6ff">
+      <animate attributeName="cx" values="1260;1120;1360;1260" dur="17s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="350;220;290;350" dur="15s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="860" cy="90" r="150" fill="#fff1a8">
+      <animate attributeName="opacity" values="0.35;0.75;0.35" dur="12s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <rect x="70" y="54" width="1460" height="362" rx="74" fill="url(#glass-fill)" stroke="url(#glass-stroke)" stroke-width="2.2" filter="url(#glass-shadow)"/>
+  <g clip-path="url(#stage-clip)">
+    <rect x="-260" y="76" width="210" height="318" rx="90" fill="#ffffff" opacity="0.18" transform="skewX(-18)">
+      <animate attributeName="x" values="-280;1680" dur="9s" repeatCount="indefinite"/>
+    </rect>
+    <circle cx="320" cy="352" r="120" fill="url(#liquid)" opacity="0.55">
+      <animate attributeName="cx" values="320;560;420;320" dur="14s" repeatCount="indefinite"/>
+    </circle>
+    <path d="M130 365 C430 232 690 440 980 286 C1210 164 1370 260 1490 140" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.50" stroke-dasharray="740" stroke-dashoffset="740">
+      <animate attributeName="stroke-dashoffset" values="740;0;0;740" dur="12s" repeatCount="indefinite"/>
+    </path>
+  </g>
   <style>
     text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    .eyebrow { fill: #8f6a35; font-size: 23px; font-weight: 760; letter-spacing: 6px; }
-    .title { fill: #171717; font-family: Georgia, "Times New Roman", serif; font-size: 112px; font-weight: 500; letter-spacing: 0; }
-    .subtitle { fill: #25221e; font-size: 31px; font-weight: 560; }
-    .body { fill: #4f4a43; font-size: 25px; font-weight: 430; }
-    .small { fill: #81786d; font-size: 20px; font-weight: 470; }
-    .metric-value { fill: #171717; font-family: Georgia, "Times New Roman", serif; font-size: 66px; font-weight: 500; }
-    .metric-label { fill: #81786d; font-size: 17px; font-weight: 760; letter-spacing: 2.6px; }
-    .section-title { fill: #171717; font-family: Georgia, "Times New Roman", serif; font-size: 50px; font-weight: 500; }
-    .tag { fill: #25221e; font-size: 22px; font-weight: 650; }
-    .panel, .project-card rect, .action-card { fill: #fffdf8; fill-opacity: 0.72; stroke: #d7cbbb; stroke-width: 1.2; filter: url(#soft-shadow); }
-    .project-name { fill: #171717; font-size: 29px; font-weight: 760; }
-    .project-meta { fill: #8f6a35; font-size: 18px; font-weight: 720; }
-    .project-desc { fill: #5b554d; font-size: 20px; font-weight: 430; }
-    .link { fill: #3a5271; font-size: 24px; font-weight: 700; }
-    .rule { stroke: url(#ink-line); stroke-width: 2; stroke-linecap: round; }
+    .eyebrow { fill: #476070; font-size: 22px; font-weight: 800; letter-spacing: 5px; }
+    .title { fill: #17202a; font-size: 104px; font-weight: 860; letter-spacing: 0; }
+    .subtitle { fill: #243544; font-size: 34px; font-weight: 620; }
+    .body { fill: #425366; font-size: 26px; font-weight: 510; }
+    .small { fill: #607386; font-size: 20px; font-weight: 520; }
+    .metric-value { fill: #111b25; font-size: 64px; font-weight: 860; }
+    .metric-label { fill: #5d7184; font-size: 18px; font-weight: 800; letter-spacing: 2.4px; }
+    .section-title { fill: #15212c; font-size: 48px; font-weight: 840; }
+    .project-name { fill: #142231; font-size: 29px; font-weight: 820; }
+    .project-meta { fill: #376d8a; font-size: 18px; font-weight: 780; }
+    .project-desc { fill: #4b5d6e; font-size: 20px; font-weight: 500; }
+    .link { fill: #244d7a; font-size: 24px; font-weight: 800; }
+    .glass-tile { fill: rgba(255,255,255,0.30); stroke: rgba(255,255,255,0.74); stroke-width: 1.3; }
   </style>
 
-  <g transform="translate(110 86)">
-    <rect class="panel" width="1380" height="270" rx="2"/>
-    <text class="section-title" x="52" y="82">Live Profile Pulse</text>
+  <g opacity="1">
+    <animate attributeName="opacity" values="1;1;0;0;0;1" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 0;-42 0;-42 0;42 0;0 0" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
 
-    <g transform="translate(70 150)">
-      <text class="metric-value" x="0" y="0">113</text>
-      <text class="metric-label" x="0" y="52">PUBLIC REPOS</text>
-      <line x1="0" y1="76" x2="120" y2="76" stroke="#8f6a35" stroke-width="1.4" opacity="0.45" stroke-dasharray="120" stroke-dashoffset="120">
-        <animate attributeName="stroke-dashoffset" values="120;0;0;120" dur="9.0s" repeatCount="indefinite"/>
-      </line>
-    </g>
-    <g transform="translate(356 150)">
-      <text class="metric-value" x="0" y="0">85</text>
-      <text class="metric-label" x="0" y="52">FOLLOWERS</text>
-      <line x1="0" y1="76" x2="120" y2="76" stroke="#8f6a35" stroke-width="1.4" opacity="0.45" stroke-dasharray="120" stroke-dashoffset="120">
-        <animate attributeName="stroke-dashoffset" values="120;0;0;120" dur="9.7s" repeatCount="indefinite"/>
-      </line>
-    </g>
-    <g transform="translate(642 150)">
-      <text class="metric-value" x="0" y="0">145</text>
-      <text class="metric-label" x="0" y="52">PROJECT CARDS</text>
-      <line x1="0" y1="76" x2="120" y2="76" stroke="#8f6a35" stroke-width="1.4" opacity="0.45" stroke-dasharray="120" stroke-dashoffset="120">
-        <animate attributeName="stroke-dashoffset" values="120;0;0;120" dur="10.4s" repeatCount="indefinite"/>
-      </line>
-    </g>
-    <g transform="translate(928 150)">
-      <text class="metric-value" x="0" y="0">13</text>
-      <text class="metric-label" x="0" y="52">AGENT SKILLS</text>
-      <line x1="0" y1="76" x2="120" y2="76" stroke="#8f6a35" stroke-width="1.4" opacity="0.45" stroke-dasharray="120" stroke-dashoffset="120">
-        <animate attributeName="stroke-dashoffset" values="120;0;0;120" dur="11.1s" repeatCount="indefinite"/>
-      </line>
-    </g>
-    <g transform="translate(1214 150)">
-      <text class="metric-value" x="0" y="0">24</text>
-      <text class="metric-label" x="0" y="52">WORK REPORTS</text>
-      <line x1="0" y1="76" x2="120" y2="76" stroke="#8f6a35" stroke-width="1.4" opacity="0.45" stroke-dasharray="120" stroke-dashoffset="120">
-        <animate attributeName="stroke-dashoffset" values="120;0;0;120" dur="11.8s" repeatCount="indefinite"/>
-      </line>
-    </g>
-    <text class="small" x="52" y="240">Latest report: WORK_REPORT/2026/07/05.md / click for report and data links</text>
+    <text class="eyebrow" x="132" y="126">LIVE DATA / PAGE 01</text>
+    <text class="metric-value" x="132" y="244">113</text>
+    <text class="metric-label" x="136" y="292">PUBLIC REPOS</text>
+    <text class="metric-value" x="430" y="244">85</text>
+    <text class="metric-label" x="434" y="292">FOLLOWERS</text>
+    <text class="metric-value" x="728" y="244">145</text>
+    <text class="metric-label" x="732" y="292">PROJECT CARDS</text>
+
   </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="42 0;42 0;0 0;0 0;-42 0;42 0" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
 
+    <text class="eyebrow" x="132" y="126">LIVE DATA / PAGE 02</text>
+    <text class="metric-value" x="132" y="244">13</text>
+    <text class="metric-label" x="136" y="292">AGENT SKILLS</text>
+    <text class="metric-value" x="430" y="244">24</text>
+    <text class="metric-label" x="434" y="292">WORK REPORTS</text>
+
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;0;0;1;1" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="42 0;42 0;42 0;42 0;0 0;0 0" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
+
+    <text class="eyebrow" x="132" y="126">LIVE DATA / PAGE 03</text>
+    <text class="section-title" x="132" y="232">Latest report</text>
+    <text class="link" x="136" y="300">WORK_REPORT/2026/07/05.md</text>
+    <text class="small" x="136" y="360">Click for the report index and source data.</text>
+
+  </g>
 </svg>
