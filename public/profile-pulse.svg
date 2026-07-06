@@ -83,11 +83,11 @@
     <animateTransform attributeName="transform" type="translate" values="0 0;0 0;-42 0;-42 0;42 0;0 0" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
 
     <text class="eyebrow" x="132" y="126">LIVE DATA / PAGE 01</text>
-    <text class="metric-value" x="132" y="244">113</text>
+    <text class="metric-value" x="132" y="244">115</text>
     <text class="metric-label" x="136" y="292">PUBLIC REPOS</text>
     <text class="metric-value" x="430" y="244">85</text>
     <text class="metric-label" x="434" y="292">FOLLOWERS</text>
-    <text class="metric-value" x="728" y="244">145</text>
+    <text class="metric-value" x="728" y="244">147</text>
     <text class="metric-label" x="732" y="292">PROJECT CARDS</text>
 
   </g>
