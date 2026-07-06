@@ -296,6 +296,21 @@ def glass_shell(title: str, height: int, body: str) -> str:
     .project-desc {{ fill: #4b5d6e; font-size: 20px; font-weight: 500; }}
     .link {{ fill: #244d7a; font-size: 24px; font-weight: 800; }}
     .glass-tile {{ fill: rgba(255,255,255,0.30); stroke: rgba(255,255,255,0.74); stroke-width: 1.3; }}
+    @keyframes cycle-page0 {{
+      0%, 25%, 100% {{ opacity: 1; transform: translate(0, 0); }}
+      33%, 92% {{ opacity: 0; transform: translate(-42px, 0); }}
+    }}
+    @keyframes cycle-page1 {{
+      0%, 25%, 66%, 100% {{ opacity: 0; transform: translate(42px, 0); }}
+      33%, 58% {{ opacity: 1; transform: translate(0, 0); }}
+    }}
+    @keyframes cycle-page2 {{
+      0%, 58%, 100% {{ opacity: 0; transform: translate(42px, 0); }}
+      66%, 92% {{ opacity: 1; transform: translate(0, 0); }}
+    }}
+    .page-0 {{ opacity: 1; animation: cycle-page0 12s infinite ease-in-out; }}
+    .page-1 {{ opacity: 0; animation: cycle-page1 12s infinite ease-in-out; }}
+    .page-2 {{ opacity: 0; animation: cycle-page2 12s infinite ease-in-out; }}
   </style>
   {body}
 </svg>
@@ -304,16 +319,8 @@ def glass_shell(title: str, height: int, body: str) -> str:
 
 def carousel_page(index: int, content: str) -> str:
     """Render one looping page in a 3-page carousel."""
-    values = {
-        0: ("1;1;0;0;0;1", "0 0;0 0;-42 0;-42 0;42 0;0 0"),
-        1: ("0;0;1;1;0;0", "42 0;42 0;0 0;0 0;-42 0;42 0"),
-        2: ("0;0;0;0;1;1", "42 0;42 0;42 0;42 0;0 0;0 0"),
-    }[index]
-    opacity_values, translate_values = values
     return f"""
-  <g opacity="{1 if index == 0 else 0}">
-    <animate attributeName="opacity" values="{opacity_values}" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
-    <animateTransform attributeName="transform" type="translate" values="{translate_values}" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
+  <g class="page-{index}">
     {content}
   </g>"""
 
