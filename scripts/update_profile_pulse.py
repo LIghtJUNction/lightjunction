@@ -454,12 +454,13 @@ LANGUAGE_LINES = {
 }
 
 
-def render_readme(locale: str = "en") -> str:
+def render_readme(locale: str = "en", cache_bust: int = 0) -> str:
+    suffix = f"?v={cache_bust}" if cache_bust else ""
     return f"""<div align="center">
-  <a href="PROFILE_ACTIONS.md#quick-links"><img src="public/profile-hero.svg" alt="LIghtJUNction profile hero" width="100%" /></a>
-  <a href="PROFILE_ACTIONS.md#live-data"><img src="public/profile-pulse.svg" alt="LIghtJUNction live profile data" width="100%" /></a>
-  <a href="PROFILE_ACTIONS.md#repositories"><img src="public/profile-projects.svg" alt="LIghtJUNction selected public work" width="100%" /></a>
-  <a href="PROFILE_ACTIONS.md#copyable-commands"><img src="public/profile-actions.svg" alt="LIghtJUNction copyable commands and links" width="100%" /></a>
+  <a href="PROFILE_ACTIONS.md#quick-links"><img src="public/profile-hero.svg{suffix}" alt="LIghtJUNction profile hero" width="100%" /></a>
+  <a href="PROFILE_ACTIONS.md#live-data"><img src="public/profile-pulse.svg{suffix}" alt="LIghtJUNction live profile data" width="100%" /></a>
+  <a href="PROFILE_ACTIONS.md#repositories"><img src="public/profile-projects.svg{suffix}" alt="LIghtJUNction selected public work" width="100%" /></a>
+  <a href="PROFILE_ACTIONS.md#copyable-commands"><img src="public/profile-actions.svg{suffix}" alt="LIghtJUNction copyable commands and links" width="100%" /></a>
 </div>
 
 **Languages:** {LANGUAGE_LINES[locale]}
@@ -582,8 +583,10 @@ def main() -> int:
     )
     if LEGACY_SVG_FILE.exists():
         LEGACY_SVG_FILE.unlink()
+    import time
+    cache_bust = int(time.time())
     for locale, path in README_OUTPUTS.items():
-        path.write_text(clean_generated_text(render_readme(locale)), encoding="utf-8")
+        path.write_text(clean_generated_text(render_readme(locale, cache_bust)), encoding="utf-8")
     ACTIONS_FILE.write_text(clean_generated_text(render_actions_md(pulse)), encoding="utf-8")
     print(f"Updated profile SVG panels and README files for {pulse.refreshed_on}")
     return 0
