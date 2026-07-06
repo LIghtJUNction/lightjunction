@@ -55,22 +55,53 @@ def tongue(
 
 def flame_heat(x: float, y: float) -> float:
     """Return procedural heat for normalized x [-1, 1], y [0, 1], bottom up."""
-    outer = max(
-        tongue(x, y, -0.04, 0.04, 0.00, 1.00, 0.48, 1.00),
-        tongue(x, y, -0.31, -0.18, 0.06, 0.72, 0.25, 0.78),
-        tongue(x, y, 0.28, 0.18, 0.05, 0.78, 0.27, 0.74),
-        tongue(x, y, -0.02, -0.20, 0.25, 0.96, 0.21, 0.85),
-        tongue(x, y, 0.10, 0.34, 0.34, 0.94, 0.18, 0.72),
-    )
-    inner = max(
-        tongue(x, y, -0.02, 0.02, 0.12, 0.82, 0.20, 1.00),
-        tongue(x, y, 0.05, -0.08, 0.28, 0.93, 0.13, 0.90),
-    )
-    if outer < 0.035:
+    # Main center tongue
+    y0, y1 = 0.05, 0.85
+    base_heat = 0.0
+    if y0 <= y <= y1:
+        t = (y - y0) / (y1 - y0)
+        center = 0.04 * sin(t * 6.28)
+        w = 0.28 * (sin(t * 3.14159) ** 0.5) * (1.0 - 0.15 * t)
+        if w > 0:
+            dist = abs(x - center) / w
+            if dist < 1.0:
+                base_heat = (1.0 - dist) ** 1.4
+
+    # Left tongue lick
+    left_heat = 0.0
+    ly0, ly1 = 0.10, 0.65
+    if ly0 <= y <= ly1:
+        lt = (y - ly0) / (ly1 - ly0)
+        lcenter = -0.15 - 0.04 * lt + 0.02 * sin(lt * 6.28)
+        lw = 0.14 * (sin(lt * 3.14159) ** 0.6)
+        if lw > 0:
+            ldist = abs(x - lcenter) / lw
+            if ldist < 1.0:
+                left_heat = 0.75 * (1.0 - ldist) ** 1.5
+
+    # Right tongue lick
+    right_heat = 0.0
+    ry0, ry1 = 0.12, 0.70
+    if ry0 <= y <= ry1:
+        rt = (y - ry0) / (ry1 - ry0)
+        rcenter = 0.15 + 0.04 * rt + 0.02 * sin(rt * 6.28)
+        rw = 0.14 * (sin(rt * 3.14159) ** 0.6)
+        if rw > 0:
+            rdist = abs(x - rcenter) / rw
+            if rdist < 1.0:
+                right_heat = 0.75 * (1.0 - rdist) ** 1.5
+
+
+    heat = max(base_heat, left_heat, right_heat)
+    if heat <= 0.0:
         return 0.0
-    grain = (0.08 * sin(x * 17.0 + y * 31.0) + 0.05 * sin(x * 37.0 - y * 18.0)) * outer
-    heat = outer * 0.70 + inner * 0.45 + grain
+
+    # Add a gentle grain/noise at the edges
+    grain = 0.04 * sin(x * 30.0 + y * 50.0) * heat
+    heat = heat + grain
     return max(0.0, min(1.0, heat))
+
+
 
 
 def make_lines() -> list[FlameLine]:
@@ -95,13 +126,14 @@ def make_lines() -> list[FlameLine]:
             raw_text = "".join(chars).rstrip()
             leading_spaces = len(raw_text) - len(raw_text.lstrip())
             text = raw_text[leading_spaces:]
-            raw_x = (row * 0.8) + leading_spaces * CHAR_W
+            raw_x = leading_spaces * CHAR_W
             pending.append((text, raw_x, 70 + row * ROW_H, row_heat))
     min_x = min(raw_x for _, raw_x, _, _ in pending)
     lines = [
-        FlameLine(text=text, x=410 + raw_x - min_x, y=y, heat=heat)
+        FlameLine(text=text, x=530 + raw_x - min_x, y=y, heat=heat)
         for text, raw_x, y, heat in pending
     ]
+
     return lines
 
 
@@ -153,7 +185,7 @@ def build_svg(lines: list[FlameLine]) -> str:
     .mark {{ fill: #ffbf61; font-size: 18px; font-weight: 900; }}
     .dim {{ fill: #9b3a10; font-size: 14px; }}
   </style>
-  <g transform="translate(-28 -24) rotate(-8) scale(1.08)" filter="url(#glow)" xml:space="preserve">
+  <g transform="translate(40 -10) rotate(-1) scale(1.02)" filter="url(#glow)" xml:space="preserve">
     <g>
       <animateTransform attributeName="transform" type="translate" values="-12 8;10 -8;-6 5;-12 8" dur="1.25s" repeatCount="indefinite"/>
 {ghost}
