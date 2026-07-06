@@ -1,126 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="620" viewBox="0 0 1600 620" role="img" aria-labelledby="title desc">
-  <title id="title">LIghtJUNction selected projects</title>
-  <desc id="desc">Animated rounded liquid-glass README panel. Click the image in README for links and copyable commands.</desc>
+  <title id="title">LIghtJUNction ASCII selected projects</title>
+  <desc id="desc">Animated terminal-style selected repositories panel with ASCII flame motion.</desc>
+  <rect width="1600" height="620" fill="#050403"/>
   <defs>
-    <linearGradient id="aurora" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#eef7ff"/>
-      <stop offset="28%" stop-color="#dff4ee"/>
-      <stop offset="58%" stop-color="#eee7ff"/>
-      <stop offset="100%" stop-color="#fff4df"/>
-      <animateTransform attributeName="gradientTransform" type="rotate" values="0 .5 .5;18 .5 .5;0 .5 .5" dur="18s" repeatCount="indefinite"/>
-    </linearGradient>
-    <linearGradient id="glass-fill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.70"/>
-      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#cfe7ff" stop-opacity="0.28"/>
-    </linearGradient>
-    <linearGradient id="glass-stroke" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="45%" stop-color="#7aa7ff" stop-opacity="0.36"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.58"/>
-      <animateTransform attributeName="gradientTransform" type="translate" values="-0.2 0;0.25 0;-0.2 0" dur="10s" repeatCount="indefinite"/>
-    </linearGradient>
-    <radialGradient id="liquid" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.82"/>
-      <stop offset="52%" stop-color="#86d9ff" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="glass-shadow" x="-20%" y="-30%" width="140%" height="160%">
-      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#45607f" flood-opacity="0.22"/>
+    <filter id="hot" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
-    <filter id="soft-blur" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="18"/>
-    </filter>
-    <clipPath id="stage-clip">
-      <rect x="70" y="54" width="1460" height="512" rx="74"/>
-    </clipPath>
   </defs>
-  <rect width="1600" height="620" fill="url(#aurora)"/>
-  <g opacity="0.68" filter="url(#soft-blur)">
-    <circle cx="260" cy="120" r="170" fill="#77c9ff">
-      <animate attributeName="cx" values="260;420;240;260" dur="16s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="120;220;170;120" dur="18s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="1260" cy="500" r="220" fill="#d7b6ff">
-      <animate attributeName="cx" values="1260;1120;1360;1260" dur="17s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="500;370;440;500" dur="15s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="860" cy="90" r="150" fill="#fff1a8">
-      <animate attributeName="opacity" values="0.35;0.75;0.35" dur="12s" repeatCount="indefinite"/>
-    </circle>
-  </g>
-  <rect x="70" y="54" width="1460" height="512" rx="74" fill="url(#glass-fill)" stroke="url(#glass-stroke)" stroke-width="2.2" filter="url(#glass-shadow)"/>
-  <g clip-path="url(#stage-clip)">
-    <rect x="-260" y="76" width="210" height="468" rx="90" fill="#ffffff" opacity="0.18" transform="skewX(-18)">
-      <animate attributeName="x" values="-280;1680" dur="9s" repeatCount="indefinite"/>
-    </rect>
-    <circle cx="320" cy="502" r="120" fill="url(#liquid)" opacity="0.55">
-      <animate attributeName="cx" values="320;560;420;320" dur="14s" repeatCount="indefinite"/>
-    </circle>
-    <path d="M130 515 C430 382 690 590 980 436 C1210 314 1370 410 1490 290" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.50" stroke-dasharray="740" stroke-dashoffset="740">
-      <animate attributeName="stroke-dashoffset" values="740;0;0;740" dur="12s" repeatCount="indefinite"/>
-    </path>
-  </g>
   <style>
-    text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    .eyebrow { fill: #476070; font-size: 22px; font-weight: 800; letter-spacing: 5px; }
-    .title { fill: #17202a; font-size: 104px; font-weight: 860; letter-spacing: 0; }
-    .subtitle { fill: #243544; font-size: 34px; font-weight: 620; }
-    .body { fill: #425366; font-size: 26px; font-weight: 510; }
-    .small { fill: #607386; font-size: 20px; font-weight: 520; }
-    .metric-value { fill: #111b25; font-size: 64px; font-weight: 860; }
-    .metric-label { fill: #5d7184; font-size: 18px; font-weight: 800; letter-spacing: 2.4px; }
-    .section-title { fill: #15212c; font-size: 48px; font-weight: 840; }
-    .project-name { fill: #142231; font-size: 29px; font-weight: 820; }
-    .project-meta { fill: #376d8a; font-size: 18px; font-weight: 780; }
-    .project-desc { fill: #4b5d6e; font-size: 20px; font-weight: 500; }
-    .link { fill: #244d7a; font-size: 24px; font-weight: 800; }
-    .glass-tile { fill: rgba(255,255,255,0.30); stroke: rgba(255,255,255,0.74); stroke-width: 1.3; }
+    text { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; letter-spacing: 0; }
+    .frame { fill: #9b3c14; font-size: 18px; opacity: .75; }
+    .head { fill: #ffdf91; font-size: 28px; font-weight: 900; }
+    .repo { fill: #ffc45f; font-size: 30px; font-weight: 900; }
+    .meta { fill: #ff8c1a; font-size: 20px; font-weight: 800; }
+    .desc { fill: #c25c25; font-size: 20px; }
+    .flame { fill: #ff7a18; font-size: 23px; font-weight: 900; white-space: pre; }
   </style>
-
-  <g opacity="1">
-    <animate attributeName="opacity" values="1;1;0;0;0;1" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
-    <animateTransform attributeName="transform" type="translate" values="0 0;0 0;-42 0;-42 0;42 0;0 0" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
-
-    <text class="eyebrow" x="132" y="126">PUBLIC WORK / PAGE 01</text>
-    <text class="section-title" x="132" y="178">Selected repositories</text>
-
-    <text class="project-name" x="136" y="222">AstrBot</text>
-    <text class="project-meta" x="136" y="256">Python / 35,889 stars / 2,481 forks</text>
-    <text class="project-desc" x="136" y="292">AI Agent Assistant &amp; development framework that integrates lots...</text>
-    <text class="project-name" x="136" y="372">AstrBot-desktop</text>
-    <text class="project-meta" x="136" y="406">Rust / 634 stars / 28 forks</text>
-    <text class="project-desc" x="136" y="442">The desktop edition of AstrBot, designed for fast local...</text>
-
+  <text class="frame" x="18" y="30">===[ selected-work ]==============================================================================</text>
+  <text class="head" x="86" y="96">/repos: useful surface area, kept visible</text>
+  <g transform="translate(930 86) rotate(-8) scale(1.18)" filter="url(#hot)">
+    <animate attributeName="opacity" values=".68;1;.76;.92;.68" dur="1.4s" repeatCount="indefinite"/>
+    <text class="flame" x="0" y="0">+++++++***###%%%%@@@@%%%%###***+++++++</text>
+    <text class="flame" x="-42" y="30">----++++***###%%%%%%%%%%%%###***++++----</text>
+    <text class="flame" x="-72" y="60">-------+++***####%%%%%%####***+++-------</text>
+    <text class="flame" x="-84" y="90">----------+++****######****+++----------</text>
+    <text class="flame" x="-72" y="120">-------------+++********+++-------------</text>
   </g>
-  <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
-    <animateTransform attributeName="transform" type="translate" values="42 0;42 0;0 0;0 0;-42 0;42 0" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
-
-    <text class="eyebrow" x="132" y="126">PUBLIC WORK / PAGE 02</text>
-    <text class="section-title" x="132" y="178">Selected repositories</text>
-
-    <text class="project-name" x="136" y="222">astrbot-launcher</text>
-    <text class="project-meta" x="136" y="256">Rust / 1,193 stars / 13 forks</text>
-    <text class="project-desc" x="136" y="292">AstrBot...</text>
-    <text class="project-name" x="136" y="372">shipyard-neo</text>
-    <text class="project-meta" x="136" y="406">Python / 80 stars / 14 forks</text>
-    <text class="project-desc" x="136" y="442">The Secure, Persistent Execution Platform for AI Agents</text>
-
+  <g>
+    <text class="repo" x="96" y="170">AstrBot</text>
+    <text class="meta" x="96" y="206">Python / 35,836 stars / 2,476 forks</text>
+    <text class="desc" x="96" y="238">AI Agent Assistant and development framework.</text>
+    <text class="repo" x="96" y="316">astrbot-launcher</text>
+    <text class="meta" x="96" y="352">Rust / 1,185 stars / 13 forks</text>
+    <text class="desc" x="96" y="384">Fast launcher surface for AstrBot.</text>
+    <text class="repo" x="96" y="462">OniMods</text>
+    <text class="meta" x="96" y="498">C# / game automation and MCP tooling</text>
+    <text class="desc" x="96" y="530">Small, verified helpers for Oxygen Not Included workflows.</text>
   </g>
-  <g opacity="0">
-    <animate attributeName="opacity" values="0;0;0;0;1;1" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
-    <animateTransform attributeName="transform" type="translate" values="42 0;42 0;42 0;42 0;0 0;0 0" keyTimes="0;0.25;0.33;0.58;0.66;1" dur="12s" repeatCount="indefinite"/>
-
-    <text class="eyebrow" x="132" y="126">PUBLIC WORK / PAGE 03</text>
-    <text class="section-title" x="132" y="178">Selected repositories</text>
-
-    <text class="project-name" x="136" y="222">AstrBot_Plugins_Collection</text>
-    <text class="project-meta" x="136" y="256">Python / 94 stars / 66 forks</text>
-    <text class="project-desc" x="136" y="292">AstrBot Plugin Collections</text>
-    <text class="project-name" x="136" y="372">OniMods</text>
-    <text class="project-meta" x="136" y="406">C# / 7 stars / 2 forks</text>
-    <text class="project-desc" x="136" y="442">oxygen not included</text>
-
-  </g>
+  <text class="frame" x="18" y="590">click this panel -&gt; PROFILE_ACTIONS.md#repositories ===========================================</text>
 </svg>
