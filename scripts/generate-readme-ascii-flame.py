@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from html import escape
-from math import exp, sin
+from math import sin
 from pathlib import Path
 
 
@@ -18,10 +18,10 @@ OUT = ROOT / "public" / "profile-hero.svg"
 
 WIDTH = 1600
 HEIGHT = 500
-COLS = 108
-ROWS = 34
-CHAR_W = 13.2
-ROW_H = 17.2
+COLS = 96
+ROWS = 36
+CHAR_W = 13.6
+ROW_H = 14.0
 CHARS = " .:-=+*#%@"
 
 
@@ -33,33 +33,43 @@ class FlameLine:
     heat: float
 
 
-def lobe(x: float, y: float, cx: float, cy: float, sx: float, sy: float, amp: float) -> float:
-    dx = (x - cx) / sx
-    dy = (y - cy) / sy
-    return amp * exp(-(dx * dx + dy * dy))
+def tongue(
+    x: float,
+    y: float,
+    base_x: float,
+    tip_x: float,
+    y0: float,
+    y1: float,
+    max_width: float,
+    amp: float,
+) -> float:
+    if y < y0 or y > y1:
+        return 0.0
+    t = (y - y0) / (y1 - y0)
+    center = base_x + (tip_x - base_x) * t + 0.045 * sin(t * 10.0)
+    width = 0.018 + max_width * (sin(t * 3.14159) ** 0.72) * (1.0 - 0.18 * t)
+    edge = max(0.0, 1.0 - abs(x - center) / width)
+    vertical = (sin(t * 3.14159) ** 0.22) * (0.72 + 0.38 * t)
+    return amp * (edge**1.35) * vertical
 
 
 def flame_heat(x: float, y: float) -> float:
     """Return procedural heat for normalized x [-1, 1], y [0, 1], bottom up."""
-    root_taper = 0.30 + 0.70 * min(1.0, y / 0.24)
-    base_width = (0.82 * (1.0 - y) ** 0.58 + 0.045) * root_taper
-    center = 0.13 * sin(y * 8.8) - 0.08 * y
-    silhouette = max(0.0, 1.0 - abs(x - center) / base_width)
-    silhouette = silhouette**1.9
-
-    tongues = (
-        lobe(x, y, -0.24, 0.34, 0.22, 0.32, 0.92)
-        + lobe(x, y, 0.14, 0.46, 0.24, 0.42, 1.10)
-        + lobe(x, y, -0.02, 0.72, 0.18, 0.28, 1.32)
-        + lobe(x, y, 0.24, 0.82, 0.12, 0.20, 0.86)
-        + lobe(x, y, -0.18, 0.88, 0.10, 0.16, 0.72)
+    outer = max(
+        tongue(x, y, -0.04, 0.04, 0.00, 1.00, 0.48, 1.00),
+        tongue(x, y, -0.31, -0.18, 0.06, 0.72, 0.25, 0.78),
+        tongue(x, y, 0.28, 0.18, 0.05, 0.78, 0.27, 0.74),
+        tongue(x, y, -0.02, -0.20, 0.25, 0.96, 0.21, 0.85),
+        tongue(x, y, 0.10, 0.34, 0.34, 0.94, 0.18, 0.72),
     )
-
-    hollow = lobe(x, y, 0.0, 0.28, 0.18, 0.20, 0.62)
-    lick = 0.12 * sin((x * 10.0) + (y * 22.0)) + 0.08 * sin((x * 23.0) - (y * 15.0))
-    taper = 0.24 + 0.90 * y
-    bottom_fade = 0.20 + 0.80 * min(1.0, y / 0.18)
-    heat = ((silhouette * taper + tongues - hollow + lick) / 2.45) * bottom_fade
+    inner = max(
+        tongue(x, y, -0.02, 0.02, 0.12, 0.82, 0.20, 1.00),
+        tongue(x, y, 0.05, -0.08, 0.28, 0.93, 0.13, 0.90),
+    )
+    if outer < 0.035:
+        return 0.0
+    grain = (0.08 * sin(x * 17.0 + y * 31.0) + 0.05 * sin(x * 37.0 - y * 18.0)) * outer
+    heat = outer * 0.70 + inner * 0.45 + grain
     return max(0.0, min(1.0, heat))
 
 
@@ -74,7 +84,7 @@ def make_lines() -> list[FlameLine]:
             x_norm = (col / (COLS - 1)) * 2.0 - 1.0
             heat = flame_heat(x_norm, y_norm)
             row_heat = max(row_heat, heat)
-            if heat < 0.135:
+            if heat < 0.115:
                 chars.append(" ")
                 continue
             active = True
@@ -85,11 +95,11 @@ def make_lines() -> list[FlameLine]:
             raw_text = "".join(chars).rstrip()
             leading_spaces = len(raw_text) - len(raw_text.lstrip())
             text = raw_text[leading_spaces:]
-            raw_x = (row * 2.4) + leading_spaces * CHAR_W
+            raw_x = (row * 0.8) + leading_spaces * CHAR_W
             pending.append((text, raw_x, 70 + row * ROW_H, row_heat))
     min_x = min(raw_x for _, raw_x, _, _ in pending)
     lines = [
-        FlameLine(text=text, x=285 + raw_x - min_x, y=y, heat=heat)
+        FlameLine(text=text, x=410 + raw_x - min_x, y=y, heat=heat)
         for text, raw_x, y, heat in pending
     ]
     return lines
@@ -137,13 +147,13 @@ def build_svg(lines: list[FlameLine]) -> str:
   </defs>
   <style>
     text {{ font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; letter-spacing: 0; }}
-    .flame {{ font-size: 20px; font-weight: 900; white-space: pre; }}
-    .ghost {{ font-size: 20px; font-weight: 900; opacity: .26; white-space: pre; }}
-    .core {{ font-size: 20px; font-weight: 900; opacity: .72; white-space: pre; }}
+    .flame {{ font-size: 19px; font-weight: 900; white-space: pre; }}
+    .ghost {{ font-size: 19px; font-weight: 900; opacity: .24; white-space: pre; }}
+    .core {{ font-size: 19px; font-weight: 900; opacity: .70; white-space: pre; }}
     .mark {{ fill: #ffbf61; font-size: 18px; font-weight: 900; }}
     .dim {{ fill: #9b3a10; font-size: 14px; }}
   </style>
-  <g transform="translate(-110 -20) rotate(-4) scale(1.02)" filter="url(#glow)" xml:space="preserve">
+  <g transform="translate(-28 -24) rotate(-8) scale(1.08)" filter="url(#glow)" xml:space="preserve">
     <g>
       <animateTransform attributeName="transform" type="translate" values="-12 8;10 -8;-6 5;-12 8" dur="1.25s" repeatCount="indefinite"/>
 {ghost}

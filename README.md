@@ -15,3 +15,5 @@ reports     WORK_REPORT/index.md
 commands    PROFILE_ACTIONS.md#copyable-commands
 repos       PROFILE_ACTIONS.md#repositories
 ```
+
+Procedural ASCII flame profile. Do not send private keys, seed phrases, recovery codes, passwords, or production secrets.

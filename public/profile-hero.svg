@@ -14,106 +14,114 @@
   </defs>
   <style>
     text { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; letter-spacing: 0; }
-    .flame { font-size: 20px; font-weight: 900; white-space: pre; }
-    .ghost { font-size: 20px; font-weight: 900; opacity: .26; white-space: pre; }
-    .core { font-size: 20px; font-weight: 900; opacity: .72; white-space: pre; }
+    .flame { font-size: 19px; font-weight: 900; white-space: pre; }
+    .ghost { font-size: 19px; font-weight: 900; opacity: .24; white-space: pre; }
+    .core { font-size: 19px; font-weight: 900; opacity: .70; white-space: pre; }
     .mark { fill: #ffbf61; font-size: 18px; font-weight: 900; }
     .dim { fill: #9b3a10; font-size: 14px; }
   </style>
-  <g transform="translate(-110 -20) rotate(-4) scale(1.02)" filter="url(#glow)" xml:space="preserve">
+  <g transform="translate(-28 -24) rotate(-8) scale(1.08)" filter="url(#glow)" xml:space="preserve">
     <g>
       <animateTransform attributeName="transform" type="translate" values="-12 8;10 -8;-6 5;-12 8" dur="1.25s" repeatCount="indefinite"/>
-      <text class="ghost" x="419.4" y="84.0" fill="#f06a18">..:::-----::-+=:.....::::::....</text>
-      <text class="ghost" x="421.8" y="101.2" fill="#ff9d28">..:----=====++**+==---::::::...</text>
-      <text class="ghost" x="424.2" y="118.4" fill="#ffd66b">.::-=======+++*##**++===--::::...</text>
-      <text class="ghost" x="426.6" y="135.6" fill="#ffd66b">.:--===+++++***#%%##**++===--::...</text>
-      <text class="ghost" x="415.8" y="152.8" fill="#ffd66b">.::-==++++++***#%%%%###**+++==--::.</text>
-      <text class="ghost" x="405.0" y="170.0" fill="#ffd66b">..:--=+++++***##%%@@%%###***+++=--:..</text>
-      <text class="ghost" x="394.2" y="187.2" fill="#ffd66b">..:--=+++*****##%%@@%%%####****++=--:.</text>
-      <text class="ghost" x="383.4" y="204.4" fill="#ffd66b">..::-==++***###%%@@@@%%####*****++=--:..</text>
-      <text class="ghost" x="385.8" y="221.6" fill="#ffd66b">.::--=++***##%%@@@@@%%###*******++=--:..</text>
-      <text class="ghost" x="375.0" y="238.8" fill="#ffd66b">..::-==++**#%%@@@@@@@%%##******+++==-::..</text>
-      <text class="ghost" x="377.4" y="256.0" fill="#ffd66b">..::-==++*##%@@@@@@@@%%##*****+++==-::..</text>
-      <text class="ghost" x="366.6" y="273.2" fill="#ffd66b">..::---=++*##%@@@@@@@@%%##****+++==-::..</text>
-      <text class="ghost" x="342.6" y="290.4" fill="#ffd66b">..::::---==+*##%%@@@@@@%%%###****++=--::..</text>
-      <text class="ghost" x="305.4" y="307.6" fill="#ffd66b">...::::----===+*###%%%%%%%%%#####***++=--::..</text>
-      <text class="ghost" x="294.6" y="324.8" fill="#ffd66b">..::::-----===++**#####%%########***++==--::...</text>
-      <text class="ghost" x="283.8" y="342.0" fill="#ff9d28">..:::-----====++****############*****++==--:::...</text>
-      <text class="ghost" x="299.4" y="359.2" fill="#ff9d28">.:::----====+++***#***************+++===---::::..</text>
-      <text class="ghost" x="301.8" y="376.4" fill="#ff9d28">..:::---===+++***##************+++++===----::::...</text>
-      <text class="ghost" x="304.2" y="393.6" fill="#ff9d28">...:::---==+++*********+++++++++++===------::::...</text>
-      <text class="ghost" x="306.6" y="410.8" fill="#ff9d28">....:::---==+++*******++++++++++====------:::::..</text>
-      <text class="ghost" x="295.8" y="428.0" fill="#f06a18">......:::--===++++++++++++++++++====------::::...</text>
-      <text class="ghost" x="285.0" y="445.2" fill="#f06a18">.......:::---============+++++++=====------::::..</text>
-      <text class="ghost" x="261.0" y="462.4" fill="#f06a18">.........:::---======-----===============-----::..</text>
-      <text class="ghost" x="276.6" y="479.6" fill="#f06a18">.......:::-------------------=============---::..</text>
-      <text class="ghost" x="305.4" y="496.8" fill="#f06a18">....:::-----------:::::::::-------=======--:::..</text>
-      <text class="ghost" x="334.2" y="514.0" fill="#f06a18">...::----------::::::::::::::-----====---:::...</text>
-      <text class="ghost" x="349.8" y="531.2" fill="#9d3510">..:::---------::::::::.....:::----------:::......</text>
-      <text class="ghost" x="365.4" y="548.4" fill="#9d3510">..::::------::::::::.......::::-----:::::........</text>
-      <text class="ghost" x="381.0" y="565.6" fill="#9d3510">.....:::::::::::::.........::::::::...........</text>
-      <text class="ghost" x="449.4" y="582.8" fill="#9d3510">........::....................</text>
-      <text class="ghost" x="531.0" y="600.0" fill="#9d3510">.......     .........</text>
-      <text class="ghost" x="718.2" y="617.2" fill="#9d3510">....</text>
+      <text class="ghost" x="654.8" y="98.0" fill="#9d3510">.--:.</text>
+      <text class="ghost" x="519.6" y="112.0" fill="#9d3510">::      ..:---:..</text>
+      <text class="ghost" x="520.4" y="126.0" fill="#9d3510">.--:  :..:--=--::..      :-.</text>
+      <text class="ghost" x="521.2" y="140.0" fill="#f06a18">.:-=:..-=--====--:..    .:--.</text>
+      <text class="ghost" x="535.6" y="154.0" fill="#f06a18">.:---:-+++==++==-:...  .:--:.</text>
+      <text class="ghost" x="536.4" y="168.0" fill="#ff9d28">.::----=+*+++*+=--:... .:--::.</text>
+      <text class="ghost" x="523.6" y="182.0" fill="#ff9d28">..::-==-=+*****++=--::..::-::..</text>
+      <text class="ghost" x="524.4" y="196.0" fill="#ff9d28">..:-=+===+**##*++=---:::--::..</text>
+      <text class="ghost" x="525.2" y="210.0" fill="#ffd66b">.::-=++=++#*#%#+==---:-==-:..</text>
+      <text class="ghost" x="512.4" y="224.0" fill="#ffd66b">..:-=++++*###%@#*==----==-:..</text>
+      <text class="ghost" x="499.6" y="238.0" fill="#ffd66b">...:-=++++#%##@@%*+=---=-::..</text>
+      <text class="ghost" x="486.8" y="252.0" fill="#ffd66b">...::-=+++*#%%%@@%*+=-----::..</text>
+      <text class="ghost" x="487.6" y="266.0" fill="#ffd66b">..::-=++=+*##%@@@#*+===----::..</text>
+      <text class="ghost" x="474.8" y="280.0" fill="#ffd66b">...:--=++=+*##%@@%#*+=+=----:::..</text>
+      <text class="ghost" x="462.0" y="294.0" fill="#ffd66b">....:--=++++*%#%%#**++===--=--::..</text>
+      <text class="ghost" x="462.8" y="308.0" fill="#ffd66b">...::-=+=++*#%%%#*++==-=--==--::..</text>
+      <text class="ghost" x="436.4" y="322.0" fill="#ffd66b">.....:--===+*#%@@%#*+==-----==--::..</text>
+      <text class="ghost" x="437.2" y="336.0" fill="#ffd66b">...::--==-=+*#%@@%#*+==-::------:...</text>
+      <text class="ghost" x="424.4" y="350.0" fill="#ffd66b">..::--===--=+*#%@@%##*+=-::----:::..</text>
+      <text class="ghost" x="411.6" y="364.0" fill="#ffd66b">..::--=+=---=+*#%%%##*#*+=-----:::...</text>
+      <text class="ghost" x="398.8" y="378.0" fill="#ffd66b">...::-=+=----=++*####****+=------:....</text>
+      <text class="ghost" x="386.0" y="392.0" fill="#ffd66b">....::-===-:--=++***##**+*+=--==--::...</text>
+      <text class="ghost" x="386.8" y="406.0" fill="#ffd66b">....::-==--::--=++**###*++=----==-::...</text>
+      <text class="ghost" x="401.2" y="420.0" fill="#ffd66b">...::----::::-==++**##*+==-::--=--:::..</text>
+      <text class="ghost" x="415.6" y="434.0" fill="#ffd66b">..::----:::::--==+*###*+=-::::----:::..</text>
+      <text class="ghost" x="430.0" y="448.0" fill="#ffd66b">..::---:::.:::-=+*###*+=--:.:::---::..</text>
+      <text class="ghost" x="444.4" y="462.0" fill="#ff9d28">..::---:::..::-=+*##*+=--:...::--::...</text>
+      <text class="ghost" x="458.8" y="476.0" fill="#ff9d28">..::---::...::-=+**+==-::....::-::...</text>
+      <text class="ghost" x="473.2" y="490.0" fill="#f06a18">..::--:....::-==++=--:::....::::...</text>
+      <text class="ghost" x="487.6" y="504.0" fill="#f06a18">..:-:.....:::-==-:::::..  ..:::..</text>
+      <text class="ghost" x="488.4" y="518.0" fill="#9d3510">..:..   ..:::---::::..    ..:::.</text>
+      <text class="ghost" x="489.2" y="532.0" fill="#9d3510">...      ..:::--::..       .::.</text>
+      <text class="ghost" x="626.0" y="546.0" fill="#9d3510">..::-::..         .</text>
+      <text class="ghost" x="640.4" y="560.0" fill="#9d3510">..::..</text>
     </g>
     <g>
       <animateTransform attributeName="transform" type="translate" values="0 0;18 -10;-8 7;0 0" dur="1.55s" repeatCount="indefinite"/>
-      <text class="flame" x="443.4" y="70.0" fill="#f06a18">..:::-----::-+=:.....::::::....</text>
-      <text class="flame" x="445.8" y="87.2" fill="#ff9d28">..:----=====++**+==---::::::...</text>
-      <text class="flame" x="448.2" y="104.4" fill="#ffd66b">.::-=======+++*##**++===--::::...</text>
-      <text class="flame" x="450.6" y="121.6" fill="#ffd66b">.:--===+++++***#%%##**++===--::...</text>
-      <text class="flame" x="439.8" y="138.8" fill="#ffd66b">.::-==++++++***#%%%%###**+++==--::.</text>
-      <text class="flame" x="429.0" y="156.0" fill="#ffd66b">..:--=+++++***##%%@@%%###***+++=--:..</text>
-      <text class="flame" x="418.2" y="173.2" fill="#ffd66b">..:--=+++*****##%%@@%%%####****++=--:.</text>
-      <text class="flame" x="407.4" y="190.4" fill="#ffd66b">..::-==++***###%%@@@@%%####*****++=--:..</text>
-      <text class="flame" x="409.8" y="207.6" fill="#ffd66b">.::--=++***##%%@@@@@%%###*******++=--:..</text>
-      <text class="flame" x="399.0" y="224.8" fill="#ffd66b">..::-==++**#%%@@@@@@@%%##******+++==-::..</text>
-      <text class="flame" x="401.4" y="242.0" fill="#ffd66b">..::-==++*##%@@@@@@@@%%##*****+++==-::..</text>
-      <text class="flame" x="390.6" y="259.2" fill="#ffd66b">..::---=++*##%@@@@@@@@%%##****+++==-::..</text>
-      <text class="flame" x="366.6" y="276.4" fill="#ffd66b">..::::---==+*##%%@@@@@@%%%###****++=--::..</text>
-      <text class="flame" x="329.4" y="293.6" fill="#ffd66b">...::::----===+*###%%%%%%%%%#####***++=--::..</text>
-      <text class="flame" x="318.6" y="310.8" fill="#ffd66b">..::::-----===++**#####%%########***++==--::...</text>
-      <text class="flame" x="307.8" y="328.0" fill="#ff9d28">..:::-----====++****############*****++==--:::...</text>
-      <text class="flame" x="323.4" y="345.2" fill="#ff9d28">.:::----====+++***#***************+++===---::::..</text>
-      <text class="flame" x="325.8" y="362.4" fill="#ff9d28">..:::---===+++***##************+++++===----::::...</text>
-      <text class="flame" x="328.2" y="379.6" fill="#ff9d28">...:::---==+++*********+++++++++++===------::::...</text>
-      <text class="flame" x="330.6" y="396.8" fill="#ff9d28">....:::---==+++*******++++++++++====------:::::..</text>
-      <text class="flame" x="319.8" y="414.0" fill="#f06a18">......:::--===++++++++++++++++++====------::::...</text>
-      <text class="flame" x="309.0" y="431.2" fill="#f06a18">.......:::---============+++++++=====------::::..</text>
-      <text class="flame" x="285.0" y="448.4" fill="#f06a18">.........:::---======-----===============-----::..</text>
-      <text class="flame" x="300.6" y="465.6" fill="#f06a18">.......:::-------------------=============---::..</text>
-      <text class="flame" x="329.4" y="482.8" fill="#f06a18">....:::-----------:::::::::-------=======--:::..</text>
-      <text class="flame" x="358.2" y="500.0" fill="#f06a18">...::----------::::::::::::::-----====---:::...</text>
-      <text class="flame" x="373.8" y="517.2" fill="#9d3510">..:::---------::::::::.....:::----------:::......</text>
-      <text class="flame" x="389.4" y="534.4" fill="#9d3510">..::::------::::::::.......::::-----:::::........</text>
-      <text class="flame" x="405.0" y="551.6" fill="#9d3510">.....:::::::::::::.........::::::::...........</text>
-      <text class="flame" x="473.4" y="568.8" fill="#9d3510">........::....................</text>
-      <text class="flame" x="555.0" y="586.0" fill="#9d3510">.......     .........</text>
-      <text class="flame" x="742.2" y="603.2" fill="#9d3510">....</text>
+      <text class="flame" x="678.8" y="84.0" fill="#9d3510">.--:.</text>
+      <text class="flame" x="543.6" y="98.0" fill="#9d3510">::      ..:---:..</text>
+      <text class="flame" x="544.4" y="112.0" fill="#9d3510">.--:  :..:--=--::..      :-.</text>
+      <text class="flame" x="545.2" y="126.0" fill="#f06a18">.:-=:..-=--====--:..    .:--.</text>
+      <text class="flame" x="559.6" y="140.0" fill="#f06a18">.:---:-+++==++==-:...  .:--:.</text>
+      <text class="flame" x="560.4" y="154.0" fill="#ff9d28">.::----=+*+++*+=--:... .:--::.</text>
+      <text class="flame" x="547.6" y="168.0" fill="#ff9d28">..::-==-=+*****++=--::..::-::..</text>
+      <text class="flame" x="548.4" y="182.0" fill="#ff9d28">..:-=+===+**##*++=---:::--::..</text>
+      <text class="flame" x="549.2" y="196.0" fill="#ffd66b">.::-=++=++#*#%#+==---:-==-:..</text>
+      <text class="flame" x="536.4" y="210.0" fill="#ffd66b">..:-=++++*###%@#*==----==-:..</text>
+      <text class="flame" x="523.6" y="224.0" fill="#ffd66b">...:-=++++#%##@@%*+=---=-::..</text>
+      <text class="flame" x="510.8" y="238.0" fill="#ffd66b">...::-=+++*#%%%@@%*+=-----::..</text>
+      <text class="flame" x="511.6" y="252.0" fill="#ffd66b">..::-=++=+*##%@@@#*+===----::..</text>
+      <text class="flame" x="498.8" y="266.0" fill="#ffd66b">...:--=++=+*##%@@%#*+=+=----:::..</text>
+      <text class="flame" x="486.0" y="280.0" fill="#ffd66b">....:--=++++*%#%%#**++===--=--::..</text>
+      <text class="flame" x="486.8" y="294.0" fill="#ffd66b">...::-=+=++*#%%%#*++==-=--==--::..</text>
+      <text class="flame" x="460.4" y="308.0" fill="#ffd66b">.....:--===+*#%@@%#*+==-----==--::..</text>
+      <text class="flame" x="461.2" y="322.0" fill="#ffd66b">...::--==-=+*#%@@%#*+==-::------:...</text>
+      <text class="flame" x="448.4" y="336.0" fill="#ffd66b">..::--===--=+*#%@@%##*+=-::----:::..</text>
+      <text class="flame" x="435.6" y="350.0" fill="#ffd66b">..::--=+=---=+*#%%%##*#*+=-----:::...</text>
+      <text class="flame" x="422.8" y="364.0" fill="#ffd66b">...::-=+=----=++*####****+=------:....</text>
+      <text class="flame" x="410.0" y="378.0" fill="#ffd66b">....::-===-:--=++***##**+*+=--==--::...</text>
+      <text class="flame" x="410.8" y="392.0" fill="#ffd66b">....::-==--::--=++**###*++=----==-::...</text>
+      <text class="flame" x="425.2" y="406.0" fill="#ffd66b">...::----::::-==++**##*+==-::--=--:::..</text>
+      <text class="flame" x="439.6" y="420.0" fill="#ffd66b">..::----:::::--==+*###*+=-::::----:::..</text>
+      <text class="flame" x="454.0" y="434.0" fill="#ffd66b">..::---:::.:::-=+*###*+=--:.:::---::..</text>
+      <text class="flame" x="468.4" y="448.0" fill="#ff9d28">..::---:::..::-=+*##*+=--:...::--::...</text>
+      <text class="flame" x="482.8" y="462.0" fill="#ff9d28">..::---::...::-=+**+==-::....::-::...</text>
+      <text class="flame" x="497.2" y="476.0" fill="#f06a18">..::--:....::-==++=--:::....::::...</text>
+      <text class="flame" x="511.6" y="490.0" fill="#f06a18">..:-:.....:::-==-:::::..  ..:::..</text>
+      <text class="flame" x="512.4" y="504.0" fill="#9d3510">..:..   ..:::---::::..    ..:::.</text>
+      <text class="flame" x="513.2" y="518.0" fill="#9d3510">...      ..:::--::..       .::.</text>
+      <text class="flame" x="650.0" y="532.0" fill="#9d3510">..::-::..         .</text>
+      <text class="flame" x="664.4" y="546.0" fill="#9d3510">..::..</text>
     </g>
     <g>
       <animate attributeName="opacity" values=".48;.92;.62;.84;.48" dur=".95s" repeatCount="indefinite"/>
-      <text class="core" x="459.4" y="62.0" fill="#f06a18">..:::-----::-+=:.....::::::....</text>
-      <text class="core" x="461.8" y="79.2" fill="#ff9d28">..:----=====++**+==---::::::...</text>
-      <text class="core" x="464.2" y="96.4" fill="#ffd66b">.::-=======+++*##**++===--::::...</text>
-      <text class="core" x="466.6" y="113.6" fill="#ffd66b">.:--===+++++***#%%##**++===--::...</text>
-      <text class="core" x="455.8" y="130.8" fill="#ffd66b">.::-==++++++***#%%%%###**+++==--::.</text>
-      <text class="core" x="445.0" y="148.0" fill="#ffd66b">..:--=+++++***##%%@@%%###***+++=--:..</text>
-      <text class="core" x="434.2" y="165.2" fill="#ffd66b">..:--=+++*****##%%@@%%%####****++=--:.</text>
-      <text class="core" x="423.4" y="182.4" fill="#ffd66b">..::-==++***###%%@@@@%%####*****++=--:..</text>
-      <text class="core" x="425.8" y="199.6" fill="#ffd66b">.::--=++***##%%@@@@@%%###*******++=--:..</text>
-      <text class="core" x="415.0" y="216.8" fill="#ffd66b">..::-==++**#%%@@@@@@@%%##******+++==-::..</text>
-      <text class="core" x="417.4" y="234.0" fill="#ffd66b">..::-==++*##%@@@@@@@@%%##*****+++==-::..</text>
-      <text class="core" x="406.6" y="251.2" fill="#ffd66b">..::---=++*##%@@@@@@@@%%##****+++==-::..</text>
-      <text class="core" x="382.6" y="268.4" fill="#ffd66b">..::::---==+*##%%@@@@@@%%%###****++=--::..</text>
-      <text class="core" x="345.4" y="285.6" fill="#ffd66b">...::::----===+*###%%%%%%%%%#####***++=--::..</text>
-      <text class="core" x="334.6" y="302.8" fill="#ffd66b">..::::-----===++**#####%%########***++==--::...</text>
-      <text class="core" x="323.8" y="320.0" fill="#ff9d28">..:::-----====++****############*****++==--:::...</text>
-      <text class="core" x="339.4" y="337.2" fill="#ff9d28">.:::----====+++***#***************+++===---::::..</text>
-      <text class="core" x="341.8" y="354.4" fill="#ff9d28">..:::---===+++***##************+++++===----::::...</text>
-      <text class="core" x="344.2" y="371.6" fill="#ff9d28">...:::---==+++*********+++++++++++===------::::...</text>
-      <text class="core" x="346.6" y="388.8" fill="#ff9d28">....:::---==+++*******++++++++++====------:::::..</text>
-      <text class="core" x="335.8" y="406.0" fill="#f06a18">......:::--===++++++++++++++++++====------::::...</text>
+      <text class="core" x="575.6" y="132.0" fill="#f06a18">.:---:-+++==++==-:...  .:--:.</text>
+      <text class="core" x="576.4" y="146.0" fill="#ff9d28">.::----=+*+++*+=--:... .:--::.</text>
+      <text class="core" x="563.6" y="160.0" fill="#ff9d28">..::-==-=+*****++=--::..::-::..</text>
+      <text class="core" x="564.4" y="174.0" fill="#ff9d28">..:-=+===+**##*++=---:::--::..</text>
+      <text class="core" x="565.2" y="188.0" fill="#ffd66b">.::-=++=++#*#%#+==---:-==-:..</text>
+      <text class="core" x="552.4" y="202.0" fill="#ffd66b">..:-=++++*###%@#*==----==-:..</text>
+      <text class="core" x="539.6" y="216.0" fill="#ffd66b">...:-=++++#%##@@%*+=---=-::..</text>
+      <text class="core" x="526.8" y="230.0" fill="#ffd66b">...::-=+++*#%%%@@%*+=-----::..</text>
+      <text class="core" x="527.6" y="244.0" fill="#ffd66b">..::-=++=+*##%@@@#*+===----::..</text>
+      <text class="core" x="514.8" y="258.0" fill="#ffd66b">...:--=++=+*##%@@%#*+=+=----:::..</text>
+      <text class="core" x="502.0" y="272.0" fill="#ffd66b">....:--=++++*%#%%#**++===--=--::..</text>
+      <text class="core" x="502.8" y="286.0" fill="#ffd66b">...::-=+=++*#%%%#*++==-=--==--::..</text>
+      <text class="core" x="476.4" y="300.0" fill="#ffd66b">.....:--===+*#%@@%#*+==-----==--::..</text>
+      <text class="core" x="477.2" y="314.0" fill="#ffd66b">...::--==-=+*#%@@%#*+==-::------:...</text>
+      <text class="core" x="464.4" y="328.0" fill="#ffd66b">..::--===--=+*#%@@%##*+=-::----:::..</text>
+      <text class="core" x="451.6" y="342.0" fill="#ffd66b">..::--=+=---=+*#%%%##*#*+=-----:::...</text>
+      <text class="core" x="438.8" y="356.0" fill="#ffd66b">...::-=+=----=++*####****+=------:....</text>
+      <text class="core" x="426.0" y="370.0" fill="#ffd66b">....::-===-:--=++***##**+*+=--==--::...</text>
+      <text class="core" x="426.8" y="384.0" fill="#ffd66b">....::-==--::--=++**###*++=----==-::...</text>
+      <text class="core" x="441.2" y="398.0" fill="#ffd66b">...::----::::-==++**##*+==-::--=--:::..</text>
+      <text class="core" x="455.6" y="412.0" fill="#ffd66b">..::----:::::--==+*###*+=-::::----:::..</text>
+      <text class="core" x="470.0" y="426.0" fill="#ffd66b">..::---:::.:::-=+*###*+=--:.:::---::..</text>
+      <text class="core" x="484.4" y="440.0" fill="#ff9d28">..::---:::..::-=+*##*+=--:...::--::...</text>
+      <text class="core" x="498.8" y="454.0" fill="#ff9d28">..::---::...::-=+**+==-::....::-::...</text>
+      <text class="core" x="513.2" y="468.0" fill="#f06a18">..::--:....::-==++=--:::....::::...</text>
     </g>
   </g>
   <text class="mark" x="44" y="54">LIghtJUNction</text>
