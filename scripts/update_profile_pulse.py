@@ -223,30 +223,30 @@ def glass_shell(title: str, height: int, body: str) -> str:
   <desc id="desc">Animated rounded liquid-glass README panel. Click the image in README for links and copyable commands.</desc>
   <defs>
     <linearGradient id="aurora" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#eef7ff"/>
-      <stop offset="28%" stop-color="#dff4ee"/>
-      <stop offset="58%" stop-color="#eee7ff"/>
-      <stop offset="100%" stop-color="#fff4df"/>
+      <stop offset="0%" stop-color="#0a0503"/>
+      <stop offset="28%" stop-color="#0d0704"/>
+      <stop offset="58%" stop-color="#050505"/>
+      <stop offset="100%" stop-color="#140903"/>
       <animateTransform attributeName="gradientTransform" type="rotate" values="0 .5 .5;18 .5 .5;0 .5 .5" dur="18s" repeatCount="indefinite"/>
     </linearGradient>
     <linearGradient id="glass-fill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.70"/>
-      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#cfe7ff" stop-opacity="0.28"/>
+      <stop offset="0%" stop-color="#141414" stop-opacity="0.85"/>
+      <stop offset="45%" stop-color="#0c0c0c" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#080808" stop-opacity="0.75"/>
     </linearGradient>
     <linearGradient id="glass-stroke" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="45%" stop-color="#7aa7ff" stop-opacity="0.36"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.58"/>
+      <stop offset="0%" stop-color="#883300" stop-opacity="0.60"/>
+      <stop offset="45%" stop-color="#ff6600" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffaa00" stop-opacity="0.45"/>
       <animateTransform attributeName="gradientTransform" type="translate" values="-0.2 0;0.25 0;-0.2 0" dur="10s" repeatCount="indefinite"/>
     </linearGradient>
     <radialGradient id="liquid" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.82"/>
-      <stop offset="52%" stop-color="#86d9ff" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#ffaa33" stop-opacity="0.25"/>
+      <stop offset="52%" stop-color="#ff5500" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
     </radialGradient>
     <filter id="glass-shadow" x="-20%" y="-30%" width="140%" height="160%">
-      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#45607f" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000000" flood-opacity="0.70"/>
     </filter>
     <filter id="soft-blur" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="18"/>
@@ -257,45 +257,45 @@ def glass_shell(title: str, height: int, body: str) -> str:
   </defs>
   <rect width="1600" height="{height}" fill="url(#aurora)"/>
   <g opacity="0.68" filter="url(#soft-blur)">
-    <circle cx="260" cy="120" r="170" fill="#77c9ff">
+    <circle cx="260" cy="120" r="170" fill="#ff5500" opacity="0.18">
       <animate attributeName="cx" values="260;420;240;260" dur="16s" repeatCount="indefinite"/>
       <animate attributeName="cy" values="120;220;170;120" dur="18s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="1260" cy="{height - 120}" r="220" fill="#d7b6ff">
+    <circle cx="1260" cy="{height - 120}" r="220" fill="#ffaa33" opacity="0.15">
       <animate attributeName="cx" values="1260;1120;1360;1260" dur="17s" repeatCount="indefinite"/>
       <animate attributeName="cy" values="{height - 120};{height - 250};{height - 180};{height - 120}" dur="15s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="860" cy="90" r="150" fill="#fff1a8">
-      <animate attributeName="opacity" values="0.35;0.75;0.35" dur="12s" repeatCount="indefinite"/>
+    <circle cx="860" cy="90" r="150" fill="#e03b00" opacity="0.12">
+      <animate attributeName="opacity" values="0.05;0.22;0.05" dur="12s" repeatCount="indefinite"/>
     </circle>
   </g>
   <rect x="70" y="54" width="1460" height="{height - 108}" rx="74" fill="url(#glass-fill)" stroke="url(#glass-stroke)" stroke-width="2.2" filter="url(#glass-shadow)"/>
   <g clip-path="url(#stage-clip)">
-    <rect x="-260" y="76" width="210" height="{height - 152}" rx="90" fill="#ffffff" opacity="0.18" transform="skewX(-18)">
+    <rect x="-260" y="76" width="210" height="{height - 152}" rx="90" fill="#ffaa33" opacity="0.05" transform="skewX(-18)">
       <animate attributeName="x" values="-280;1680" dur="9s" repeatCount="indefinite"/>
     </rect>
     <circle cx="320" cy="{height - 118}" r="120" fill="url(#liquid)" opacity="0.55">
       <animate attributeName="cx" values="320;560;420;320" dur="14s" repeatCount="indefinite"/>
     </circle>
-    <path d="M130 {height - 105} C430 {height - 238} 690 {height - 30} 980 {height - 184} C1210 {height - 306} 1370 {height - 210} 1490 {height - 330}" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.50" stroke-dasharray="740" stroke-dashoffset="740">
+    <path d="M130 {height - 105} C430 {height - 238} 690 {height - 30} 980 {height - 184} C1210 {height - 306} 1370 {height - 210} 1490 {height - 330}" fill="none" stroke="#ffaa33" stroke-width="1.4" opacity="0.22" stroke-dasharray="740" stroke-dashoffset="740">
       <animate attributeName="stroke-dashoffset" values="740;0;0;740" dur="12s" repeatCount="indefinite"/>
     </path>
   </g>
   <style>
     text {{ font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-    .eyebrow {{ fill: #476070; font-size: 22px; font-weight: 800; letter-spacing: 5px; }}
-    .title {{ fill: #17202a; font-size: 104px; font-weight: 860; letter-spacing: 0; }}
-    .subtitle {{ fill: #243544; font-size: 34px; font-weight: 620; }}
-    .body {{ fill: #425366; font-size: 26px; font-weight: 510; }}
-    .small {{ fill: #607386; font-size: 20px; font-weight: 520; }}
-    .metric-value {{ fill: #111b25; font-size: 64px; font-weight: 860; }}
-    .metric-label {{ fill: #5d7184; font-size: 18px; font-weight: 800; letter-spacing: 2.4px; }}
-    .section-title {{ fill: #15212c; font-size: 48px; font-weight: 840; }}
-    .project-name {{ fill: #142231; font-size: 29px; font-weight: 820; }}
-    .project-meta {{ fill: #376d8a; font-size: 18px; font-weight: 780; }}
-    .project-desc {{ fill: #4b5d6e; font-size: 20px; font-weight: 500; }}
-    .link {{ fill: #244d7a; font-size: 24px; font-weight: 800; }}
-    .glass-tile {{ fill: rgba(255,255,255,0.30); stroke: rgba(255,255,255,0.74); stroke-width: 1.3; }}
+    .eyebrow {{ fill: #8e4f2f; font-size: 22px; font-weight: 800; letter-spacing: 5px; }}
+    .title {{ fill: #ffffff; font-size: 104px; font-weight: 860; letter-spacing: 0; }}
+    .subtitle {{ fill: #dcd6d0; font-size: 34px; font-weight: 620; }}
+    .body {{ fill: #c5bdbc; font-size: 26px; font-weight: 510; }}
+    .small {{ fill: #8c827a; font-size: 20px; font-weight: 520; }}
+    .metric-value {{ fill: #ffffff; font-size: 64px; font-weight: 860; }}
+    .metric-label {{ fill: #a39185; font-size: 18px; font-weight: 800; letter-spacing: 2.4px; }}
+    .section-title {{ fill: #ffffff; font-size: 48px; font-weight: 840; }}
+    .project-name {{ fill: #ffffff; font-size: 29px; font-weight: 820; }}
+    .project-meta {{ fill: #ff8833; font-size: 18px; font-weight: 780; }}
+    .project-desc {{ fill: #dcd6d0; font-size: 20px; font-weight: 500; }}
+    .link {{ fill: #ffaa33; font-size: 24px; font-weight: 800; }}
+    .glass-tile {{ fill: rgba(15,15,15,0.60); stroke: rgba(255,102,0,0.25); stroke-width: 1.3; }}
     @keyframes cycle-page0 {{
       0%, 25%, 100% {{ opacity: 1; transform: translate(0, 0); }}
       33%, 92% {{ opacity: 0; transform: translate(-42px, 0); }}
