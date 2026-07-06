@@ -18,10 +18,10 @@ OUT = ROOT / "public" / "profile-hero.svg"
 
 WIDTH = 1600
 HEIGHT = 500
-COLS = 110
-ROWS = 36
-CHAR_W = 13.6
-ROW_H = 14.0
+COLS = 180
+ROWS = 50
+CHAR_W = 8.4
+ROW_H = 9.2
 CHARS = " .:-=+*#%@"
 
 
@@ -118,13 +118,19 @@ def make_lines() -> list[FlameLine]:
 
 
 def color_for(heat: float) -> str:
-    if heat > 0.82:
-        return "#ffd66b"
-    if heat > 0.66:
-        return "#ff9d28"
-    if heat > 0.46:
-        return "#f06a18"
-    return "#9d3510"
+    if heat > 0.90:
+        return "#ffffff"  # white-hot core
+    if heat > 0.78:
+        return "#ffff80"  # bright yellow
+    if heat > 0.65:
+        return "#ffaa33"  # golden orange
+    if heat > 0.50:
+        return "#ff5500"  # vibrant red-orange
+    if heat > 0.35:
+        return "#d42000"  # deep red
+    if heat > 0.20:
+        return "#801000"  # dark red/purple
+    return "#400800"  # ember glow
 
 
 def text_nodes(lines: list[FlameLine], class_name: str, dx: float = 0, dy: float = 0) -> str:
@@ -159,9 +165,9 @@ def build_svg(lines: list[FlameLine]) -> str:
   </defs>
   <style>
     text {{ font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; letter-spacing: 0; }}
-    .flame {{ font-size: 19px; font-weight: 900; white-space: pre; }}
-    .ghost {{ font-size: 19px; font-weight: 900; opacity: .24; white-space: pre; }}
-    .core {{ font-size: 19px; font-weight: 900; opacity: .70; white-space: pre; }}
+    .flame {{ font-size: 11px; font-weight: 900; white-space: pre; }}
+    .ghost {{ font-size: 11px; font-weight: 900; opacity: .24; white-space: pre; }}
+    .core {{ font-size: 11px; font-weight: 900; opacity: .70; white-space: pre; }}
     .mark {{ fill: #ffbf61; font-size: 18px; font-weight: 900; }}
     .dim {{ fill: #9b3a10; font-size: 14px; }}
   </style>

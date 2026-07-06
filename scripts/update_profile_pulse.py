@@ -571,7 +571,8 @@ def main() -> int:
     token = os.environ.get("GITHUB_TOKEN", "")
     pulse = build_pulse(owner=owner, token=token)
 
-    SVG_FILES["hero"].write_text(clean_generated_text(render_hero_svg(pulse)), encoding="utf-8")
+    import subprocess
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "generate-readme-ascii-flame.py")], check=True)
     SVG_FILES["pulse"].write_text(clean_generated_text(render_pulse_svg(pulse)), encoding="utf-8")
     SVG_FILES["projects"].write_text(
         clean_generated_text(render_projects_svg(pulse)), encoding="utf-8"
