@@ -1,44 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="500" viewBox="0 0 1600 500" role="img" aria-labelledby="title desc">
-  <title id="title">LIghtJUNction ASCII live data</title>
-  <desc id="desc">Animated terminal-style live data panel with ASCII flame motion.</desc>
-  <rect width="1600" height="500" fill="#050403"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="220" viewBox="0 0 1600 220" role="img" aria-labelledby="title desc">
+  <title id="title">LIghtJUNction ASCII flame pulse</title>
+  <desc id="desc">Compact live-data strip over dense orange ASCII flame.</desc>
+  <rect width="1600" height="220" fill="#050505"/>
   <defs>
-    <linearGradient id="heat" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#7b2110"/>
-      <stop offset="45%" stop-color="#ff8c1a"/>
-      <stop offset="100%" stop-color="#ffe19a"/>
-      <animateTransform attributeName="gradientTransform" type="translate" values="-.25 0;.25 0;-.25 0" dur="4s" repeatCount="indefinite"/>
+    <linearGradient id="fire" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#71300e"/>
+      <stop offset="45%" stop-color="#ffc24b"/>
+      <stop offset="100%" stop-color="#e74412"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-.12 0;.18 0;-.12 0" dur="2.2s" repeatCount="indefinite"/>
     </linearGradient>
   </defs>
   <style>
     text { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; letter-spacing: 0; }
-    .grid { fill: #9b3c14; font-size: 18px; opacity: .72; }
-    .head { fill: #ffdf91; font-size: 28px; font-weight: 900; }
-    .num { fill: url(#heat); font-size: 88px; font-weight: 900; }
-    .label { fill: #df7d35; font-size: 22px; font-weight: 800; }
-    .line { fill: #ff8c1a; font-size: 23px; font-weight: 800; white-space: pre; }
-    .dim { fill: #8d3a19; font-size: 18px; }
+    .fire { fill: url(#fire); font-size: 20px; font-weight: 900; white-space: pre; }
+    .frame { fill: #7a2d0d; font-size: 14px; opacity: .76; }
+    .num { fill: #ff8a1d; font-size: 46px; font-weight: 900; }
+    .label { fill: #ffbf61; font-size: 15px; font-weight: 800; }
+    .dim { fill: #a84412; font-size: 14px; }
   </style>
-  <g class="grid">
-    <text x="18" y="30">===[ live-data ]=================================================================================</text>
-    <text x="18" y="468">=================================================================================================</text>
+  <text class="frame" x="10" y="22">==== live-data ====================================================================================</text>
+  <g transform="translate(620 26) rotate(-6) scale(1.18)">
+    <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;14 -3;-8 3;0 0" dur="1.2s" repeatCount="indefinite"/>
+    <text class="fire" x="-220" y="28">----------------++++++++++++++++++***###%%%%%%%%%%@@@@@@@%%%%%%%%###***++++++++++++++---------------</text>
+    <text class="fire" x="-170" y="54">------------+++++++++++++++***###%%%%@@@@@@@@@@@@@@@@@@@@@@@%%%%###***++++++++++++------------------</text>
+    <text class="fire" x="-122" y="80">--------+++++++++++***###%%%%@@@@@@@%%%%%%%%%%@@@@%%%%%%@@@@@@%%%%###***+++++++--------------------</text>
+    <text class="fire" x="-72" y="106">-----+++++++***###%%%%%%%#####********+++++++++******#####%%%%%%###***++++-------------------------</text>
+    <text class="fire" x="-24" y="132">---++++***#####******++++++++=================+++++++*****####***++++------------------------------</text>
   </g>
-  <g transform="translate(1040 88) rotate(-6) scale(1.08)">
-    <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -10;0 0" dur="1.25s" repeatCount="indefinite"/>
-    <text class="line" x="0" y="0">++++***###%%%%@@@@%%%%###***++++</text>
-    <text class="line" x="-32" y="32">---++++***###%%%%%%%%###***++++---</text>
-    <text class="line" x="-62" y="64">------+++***####%%%%####***+++------</text>
-    <text class="line" x="-82" y="96">---------+++***######***+++---------</text>
-    <text class="line" x="-74" y="128">------------+++******+++------------</text>
-    <text class="line" x="-40" y="160">---------------++++++---------------</text>
-  </g>
-  <text class="head" x="86" y="112">/pulse: public state, measured not mystified</text>
-  <text class="num" x="92" y="238">113</text>
-  <text class="label" x="100" y="282">PUBLIC REPOS</text>
-  <text class="num" x="392" y="238">85</text>
-  <text class="label" x="400" y="282">FOLLOWERS</text>
-  <text class="num" x="648" y="238">145</text>
-  <text class="label" x="656" y="282">PROJECT CARDS</text>
-  <text class="dim" x="96" y="368">latest public report: WORK_REPORT/2026/07/05.md</text>
-  <text class="dim" x="96" y="404">click this panel -&gt; PROFILE_ACTIONS.md#live-data</text>
+  <text class="num" x="58" y="110">113</text>
+  <text class="label" x="62" y="136">PUBLIC REPOS</text>
+  <text class="num" x="206" y="110">85</text>
+  <text class="label" x="210" y="136">FOLLOWERS</text>
+  <text class="num" x="336" y="110">145</text>
+  <text class="label" x="340" y="136">PROJECT CARDS</text>
+  <text class="dim" x="60" y="180">latest public report: WORK_REPORT/2026/07/05.md  |  click -&gt; PROFILE_ACTIONS.md#live-data</text>
 </svg>

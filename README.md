@@ -6,11 +6,11 @@
 </div>
 
 ```
-===[ LIghtJUNction ]===========================================================
-terminal-first assistant workspace / small verified actions / public facade
-==============================================================================
+==== LIghtJUNction ============================================================
+     terminal-first assistant workspace | small verified actions | public facade
+=============================================================================
 ```
 
 **Languages:** English · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
 
-Animated ASCII-flame profile. Click any panel for links, reports, repositories, and copyable commands.
+ASCII flame profile. Click any panel for links, reports, repositories, and copyable commands.

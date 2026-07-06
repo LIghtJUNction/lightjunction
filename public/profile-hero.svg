@@ -1,85 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
-  <title id="title">LIghtJUNction ASCII flame hero</title>
-  <desc id="desc">Animated terminal-style README hero with a rotated enlarged ASCII flame.</desc>
-  <rect width="1600" height="760" fill="#050403"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="360" viewBox="0 0 1600 360" role="img" aria-labelledby="title desc">
+  <title id="title">LIghtJUNction dense ASCII flame hero</title>
+  <desc id="desc">Dense orange ASCII flame, rotated and enlarged on a black field.</desc>
+  <rect width="1600" height="360" fill="#050505"/>
   <defs>
-    <linearGradient id="ember" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffd166"/>
-      <stop offset="42%" stop-color="#ff7a18"/>
-      <stop offset="72%" stop-color="#e23b10"/>
-      <stop offset="100%" stop-color="#6f1609"/>
-      <animateTransform attributeName="gradientTransform" type="rotate" values="-8 .5 .5;10 .5 .5;-8 .5 .5" dur="7s" repeatCount="indefinite"/>
+    <linearGradient id="fire" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7a2d0d"/>
+      <stop offset="18%" stop-color="#c65a15"/>
+      <stop offset="45%" stop-color="#ffb23e"/>
+      <stop offset="72%" stop-color="#ff6a1a"/>
+      <stop offset="100%" stop-color="#9e2a0a"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-.18 0;.18 0;-.18 0" dur="2.8s" repeatCount="indefinite"/>
     </linearGradient>
-    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#ffcc66"/>
-      <stop offset="50%" stop-color="#f7f1cf"/>
-      <stop offset="100%" stop-color="#ff6d1a"/>
-    </linearGradient>
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
+    <filter id="ember-glow" x="-20%" y="-50%" width="140%" height="200%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <pattern id="scan" width="1600" height="18" patternUnits="userSpaceOnUse">
-      <rect width="1600" height="2" fill="#ff9b2f" opacity="0.12"/>
-    </pattern>
   </defs>
-  <rect width="1600" height="760" fill="url(#scan)">
-    <animateTransform attributeName="patternTransform" type="translate" values="0 0;0 18" dur="1.6s" repeatCount="indefinite"/>
-  </rect>
   <style>
     text { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; letter-spacing: 0; }
-    .frame { fill: #9b3c14; font-size: 19px; opacity: .78; }
-    .flame { fill: url(#ember); font-size: 28px; font-weight: 800; white-space: pre; }
-    .flame2 { fill: #ffb02e; font-size: 28px; font-weight: 800; opacity: .62; white-space: pre; }
-    .title { fill: url(#metal); font-size: 84px; font-weight: 900; }
-    .sub { fill: #f9b25b; font-size: 30px; font-weight: 700; }
-    .body { fill: #df7d35; font-size: 24px; font-weight: 650; }
-    .dim { fill: #8d3a19; font-size: 20px; }
-    .tag { fill: #ffdf91; font-size: 22px; font-weight: 800; }
+    .fire { fill: url(#fire); font-size: 26px; font-weight: 900; white-space: pre; }
+    .hot { fill: #ff9a24; font-size: 26px; font-weight: 900; opacity: .46; white-space: pre; }
+    .frame { fill: #7a2d0d; font-size: 15px; opacity: .72; }
+    .label { fill: #ffbf61; font-size: 20px; font-weight: 800; }
+    .dim { fill: #a84412; font-size: 16px; }
   </style>
   <g class="frame">
-    <text x="18" y="30">===[ /home/lightjunction :: public README console ]==============================================</text>
-    <text x="18" y="730">================================================================================================</text>
+    <text x="10" y="22">==== /home/lightjunction :: README.ASCII_FIRE ======================================================</text>
+    <text x="10" y="342">====================================================================================================</text>
   </g>
-  <g transform="translate(930 70) rotate(-7) scale(1.34)" filter="url(#glow)">
-    <g class="flame">
-      <animateTransform attributeName="transform" type="translate" values="0 0;14 -10;-8 6;0 0" dur="1.8s" repeatCount="indefinite"/>
-      <text x="0" y="28">+++++++++++++++++++++++##%%%@%%%%%##++++++++++++</text>
-      <text x="-34" y="60">+++++++++++++++***###%%%%@@@@@@@@@%%%%###***+++++</text>
-      <text x="-64" y="92">------+++++***###%%%@@@@@@@%%%@@@@@@@%%%###***++</text>
-      <text x="-92" y="124">----------+++**###%%%%@@%%%%####%%%%@@%%%%###***</text>
-      <text x="-116" y="156">-------------+++**##%%%%%###******###%%%%%##**++</text>
-      <text x="-130" y="188">---------------++**##%%%##***++++***##%%%##**++</text>
-      <text x="-122" y="220">-----------------++*###%##**++==++**##%###*++--</text>
-      <text x="-92" y="252">-------------------++**###**+====+**###**++----</text>
-      <text x="-52" y="284">---------------------++*****+====+*****++-------</text>
-      <text x="-8" y="316">------------------------++++======++++----------</text>
+  <g transform="translate(330 54) rotate(-7) scale(1.34)" filter="url(#ember-glow)">
+    <g class="fire">
+      <animateTransform attributeName="transform" type="translate" values="0 0;18 -5;-10 4;0 0" dur="1.4s" repeatCount="indefinite"/>
+      <text x="-210" y="30">------------------------------+++++++++++++++++++++++++***###%%%%%%%%%%%%@@@@@@@%%%%%%%###***++++++</text>
+      <text x="-180" y="58">-----------------------+++++++++++++++++++++***###%%%%%%%@@@@@@@@@@@@@@@@@@@@@@@%%%%%%%%###***+++++</text>
+      <text x="-145" y="86">----------------++++++++++++++++++++***###%%%%%%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%%%%%%%###***+++</text>
+      <text x="-120" y="114">----------+++++++++++++++***###%%%%%%%%@@@@@@@@@@@@@@@@%%%%%%@@@@@@@%%%%%%@@@@@@@@@@%%%%%%###***+++</text>
+      <text x="-95" y="142">------++++++++++++***###%%%%%%%%@@@@@@@%%%%%%%%%%%%####*****#########%%%%%%@@@@@@%%%%%%###***++++--</text>
+      <text x="-72" y="170">----+++++++++***###%%%%%%@@@@%%%%%#####********++++++++++++++****#####%%%%%%@@%%%%###***++++-------</text>
+      <text x="-44" y="198">---++++++***###%%%%%%####********+++++++++=================+++++++****####%%%%###***++++-----------</text>
+      <text x="-18" y="226">--++++***#######*****++++++++=============================++++++++*****####***++++------------------</text>
+      <text x="10" y="254">-+++*****+++++++=======================================+++++++++*****++++--------------------------</text>
     </g>
-    <g class="flame2">
-      <animate attributeName="opacity" values=".25;.85;.42;.7;.25" dur="1.15s" repeatCount="indefinite"/>
-      <text x="-18" y="44">..............*****#####%%%%%%%%#####*****........</text>
-      <text x="-52" y="76">.........+++++***###%%@@@@@@@@@@@@%%###***++++...</text>
-      <text x="-78" y="108">------++++***###%%%%@@@@@%%%%%@@@@@%%%%###***+++</text>
-      <text x="-102" y="140">---------+++***####%%%%###*****###%%%%####***+++</text>
-      <text x="-118" y="172">-------------+++**####***+++++++***####**+++----</text>
-      <text x="-104" y="204">----------------++****++=========++****++-------</text>
+    <g class="hot">
+      <animate attributeName="opacity" values=".18;.62;.28;.52;.18" dur=".9s" repeatCount="indefinite"/>
+      <text x="-240" y="44">--------------------------++++++++++++++****####%%%%%%%%%%%%%@@@@%%%%%%%%####****++++-------------</text>
+      <text x="-190" y="72">-------------------++++++++++++****####%%%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%%####****++++----------</text>
+      <text x="-132" y="100">-------------+++++++++***####%%%%%%%@@@@@@@@@@@%%%%%%%###%%%%%%@@@@@@@@%%%%%%%####***++++--------</text>
+      <text x="-82" y="128">--------+++++++***###%%%%%%%@@@@%%%%%#####***************#####%%%%%%@@@@%%%%###***++++------------</text>
+      <text x="-34" y="156">-----++++***####%%%%####********++++++++================+++++++****####%%%%###***+++---------------</text>
     </g>
   </g>
   <g>
-    <text class="tag" x="92" y="132">ASCII-FLAME PROFILE / ROTATED SIGNAL</text>
-    <text class="title" x="88" y="238">LIghtJUNction</text>
-    <text class="sub" x="94" y="302">AI tooling / Linux automation / agent workflows</text>
-    <text class="body" x="96" y="380">&gt; terminal-first systems that survive real machines</text>
-    <text class="body" x="96" y="424">&gt; small verified actions over noisy automation</text>
-    <text class="body" x="96" y="468">&gt; human-owned assets, auditable assistant work</text>
-    <text class="dim" x="96" y="556">click this panel -&gt; PROFILE_ACTIONS.md#quick-links</text>
-  </g>
-  <g opacity=".72">
-    <text class="frame" x="92" y="640">+---------------------------------------------------------------------------+</text>
-    <text class="frame" x="92" y="672">| README facade rebuilt as a live terminal surface: no glass, no placeholder |</text>
-    <text class="frame" x="92" y="704">+---------------------------------------------------------------------------+</text>
+    <text class="label" x="58" y="86">LIghtJUNction // ASCII-FLAME PROFILE</text>
+    <text class="dim" x="60" y="316">click -&gt; PROFILE_ACTIONS.md#quick-links</text>
   </g>
 </svg>

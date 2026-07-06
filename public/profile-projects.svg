@@ -1,45 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="620" viewBox="0 0 1600 620" role="img" aria-labelledby="title desc">
-  <title id="title">LIghtJUNction ASCII selected projects</title>
-  <desc id="desc">Animated terminal-style selected repositories panel with ASCII flame motion.</desc>
-  <rect width="1600" height="620" fill="#050403"/>
-  <defs>
-    <filter id="hot" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="2.2" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="260" viewBox="0 0 1600 260" role="img" aria-labelledby="title desc">
+  <title id="title">LIghtJUNction ASCII flame projects</title>
+  <desc id="desc">Compact selected-work strip over dense orange ASCII flame.</desc>
+  <rect width="1600" height="260" fill="#050505"/>
   <style>
     text { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; letter-spacing: 0; }
-    .frame { fill: #9b3c14; font-size: 18px; opacity: .75; }
-    .head { fill: #ffdf91; font-size: 28px; font-weight: 900; }
-    .repo { fill: #ffc45f; font-size: 30px; font-weight: 900; }
-    .meta { fill: #ff8c1a; font-size: 20px; font-weight: 800; }
-    .desc { fill: #c25c25; font-size: 20px; }
-    .flame { fill: #ff7a18; font-size: 23px; font-weight: 900; white-space: pre; }
+    .fire { fill: #ff7a16; font-size: 19px; font-weight: 900; white-space: pre; }
+    .frame { fill: #7a2d0d; font-size: 14px; opacity: .76; }
+    .repo { fill: #ffbf61; font-size: 21px; font-weight: 900; }
+    .meta { fill: #ff8a1d; font-size: 14px; font-weight: 800; }
+    .dim { fill: #b94c12; font-size: 14px; }
   </style>
-  <text class="frame" x="18" y="30">===[ selected-work ]==============================================================================</text>
-  <text class="head" x="86" y="96">/repos: useful surface area, kept visible</text>
-  <g transform="translate(930 86) rotate(-8) scale(1.18)" filter="url(#hot)">
-    <animate attributeName="opacity" values=".68;1;.76;.92;.68" dur="1.4s" repeatCount="indefinite"/>
-    <text class="flame" x="0" y="0">+++++++***###%%%%@@@@%%%%###***+++++++</text>
-    <text class="flame" x="-42" y="30">----++++***###%%%%%%%%%%%%###***++++----</text>
-    <text class="flame" x="-72" y="60">-------+++***####%%%%%%####***+++-------</text>
-    <text class="flame" x="-84" y="90">----------+++****######****+++----------</text>
-    <text class="flame" x="-72" y="120">-------------+++********+++-------------</text>
+  <text class="frame" x="10" y="22">==== selected-work ================================================================================</text>
+  <g transform="translate(685 28) rotate(-7) scale(1.22)">
+    <animate attributeName="opacity" values=".72;1;.8;.95;.72" dur="1.3s" repeatCount="indefinite"/>
+    <text class="fire" x="-170" y="30">---------------++++++++++++++++***###%%%%%%%%%%%%@@@@@@%%%%%%%###***++++++++++--------------------</text>
+    <text class="fire" x="-130" y="56">----------+++++++++++++***###%%%%@@@@@@@@@@@@@@@@@@@@@@@@@%%%%###***++++++++----------------------</text>
+    <text class="fire" x="-86" y="82">------+++++++++***###%%%%@@@@@@%%%%%%############%%%%%%@@@@%%%%###***++++------------------------</text>
+    <text class="fire" x="-42" y="108">----++++++***###%%%%#####*******++++++++++++++++++****#####%%%###***+++--------------------------</text>
+    <text class="fire" x="0" y="134">--++++***#####*****+++++++=====================+++++++*****###***+++-----------------------------</text>
   </g>
-  <g>
-    <text class="repo" x="96" y="170">AstrBot</text>
-    <text class="meta" x="96" y="206">Python / 35,836 stars / 2,476 forks</text>
-    <text class="desc" x="96" y="238">AI Agent Assistant and development framework.</text>
-    <text class="repo" x="96" y="316">astrbot-launcher</text>
-    <text class="meta" x="96" y="352">Rust / 1,185 stars / 13 forks</text>
-    <text class="desc" x="96" y="384">Fast launcher surface for AstrBot.</text>
-    <text class="repo" x="96" y="462">OniMods</text>
-    <text class="meta" x="96" y="498">C# / game automation and MCP tooling</text>
-    <text class="desc" x="96" y="530">Small, verified helpers for Oxygen Not Included workflows.</text>
-  </g>
-  <text class="frame" x="18" y="590">click this panel -&gt; PROFILE_ACTIONS.md#repositories ===========================================</text>
+  <text class="repo" x="58" y="78">AstrBot</text>
+  <text class="meta" x="58" y="102">Python / 35,836 stars / 2,476 forks</text>
+  <text class="repo" x="58" y="144">astrbot-launcher</text>
+  <text class="meta" x="58" y="168">Rust / 1,185 stars / 13 forks</text>
+  <text class="repo" x="58" y="210">OniMods</text>
+  <text class="meta" x="58" y="234">C# / game automation and MCP tooling</text>
+  <text class="dim" x="1170" y="234">click -&gt; PROFILE_ACTIONS.md#repositories</text>
 </svg>

@@ -1,27 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="500" viewBox="0 0 1600 500" role="img" aria-labelledby="title desc">
-  <title id="title">LIghtJUNction ASCII actions</title>
-  <desc id="desc">Animated terminal-style action links panel with ASCII flame motion.</desc>
-  <rect width="1600" height="500" fill="#050403"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="220" viewBox="0 0 1600 220" role="img" aria-labelledby="title desc">
+  <title id="title">LIghtJUNction ASCII flame actions</title>
+  <desc id="desc">Compact command strip over dense orange ASCII flame.</desc>
+  <rect width="1600" height="220" fill="#050505"/>
   <style>
     text { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; letter-spacing: 0; }
-    .frame { fill: #9b3c14; font-size: 18px; opacity: .75; }
-    .head { fill: #ffdf91; font-size: 28px; font-weight: 900; }
-    .cmd { fill: #ffbd58; font-size: 28px; font-weight: 800; }
-    .note { fill: #c25c25; font-size: 20px; }
-    .flame { fill: #ff7a18; font-size: 22px; font-weight: 900; white-space: pre; }
+    .fire { fill: #ff7a16; font-size: 20px; font-weight: 900; white-space: pre; }
+    .frame { fill: #7a2d0d; font-size: 14px; opacity: .76; }
+    .cmd { fill: #ffbf61; font-size: 23px; font-weight: 900; }
+    .dim { fill: #b94c12; font-size: 14px; }
   </style>
-  <text class="frame" x="18" y="30">===[ command-links ]==============================================================================</text>
-  <g transform="translate(1030 112) rotate(-7) scale(1.08)">
-    <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;18 -8;-10 4;0 0" dur="1.7s" repeatCount="indefinite"/>
-    <text class="flame" x="0" y="0">++++***###%%%%@@@@%%%%###***++++</text>
-    <text class="flame" x="-28" y="30">---++++***###%%%%%%%%###***++++---</text>
-    <text class="flame" x="-56" y="60">------+++***########***+++------</text>
-    <text class="flame" x="-48" y="90">----------+++******+++----------</text>
+  <text class="frame" x="10" y="22">==== command-links ================================================================================</text>
+  <g transform="translate(690 30) rotate(-6) scale(1.18)">
+    <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;16 -4;-6 3;0 0" dur="1.35s" repeatCount="indefinite"/>
+    <text class="fire" x="-180" y="28">----------------+++++++++++++++***###%%%%%%%%%%@@@@@@%%%%%%%%###***+++++++++++--------------------</text>
+    <text class="fire" x="-126" y="54">-----------++++++++++***###%%%%@@@@@@@@@@@@@@@@@@@@@@@%%%%###***+++++++--------------------------</text>
+    <text class="fire" x="-74" y="80">-------+++++++***###%%%%%%######*************######%%%%%%###***++++------------------------------</text>
+    <text class="fire" x="-20" y="106">----++++***#####******+++++++=============+++++++*****####***++++--------------------------------</text>
   </g>
-  <text class="head" x="86" y="104">/actions: copy, run, inspect, repeat</text>
-  <text class="cmd" x="94" y="184">$ npx skills add LIghtJUNction/lightjunction -g</text>
-  <text class="cmd" x="94" y="252">$ curl -sSL .../bootstrap-linux.sh | bash</text>
-  <text class="cmd" x="94" y="320">$ open WORK_REPORT/index.md</text>
-  <text class="note" x="96" y="398">click this panel -&gt; PROFILE_ACTIONS.md#copyable-commands</text>
-  <text class="frame" x="18" y="468">=================================================================================================</text>
+  <text class="cmd" x="58" y="78">$ npx skills add LIghtJUNction/lightjunction -g</text>
+  <text class="cmd" x="58" y="122">$ curl -sSL .../bootstrap-linux.sh | bash</text>
+  <text class="cmd" x="58" y="166">$ open WORK_REPORT/index.md</text>
+  <text class="dim" x="60" y="202">click -&gt; PROFILE_ACTIONS.md#copyable-commands</text>
 </svg>
