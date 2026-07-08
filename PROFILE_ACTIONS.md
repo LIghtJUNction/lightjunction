@@ -14,7 +14,7 @@ This file is the click target for generated SVG panels in `README.md` and locali
 
 ## Live Data
 
-- Last refreshed: `2026-07-08 14:41 UTC`
+- Last refreshed: `2026-07-08 19:56 UTC`
 - Public repositories: `115`
 - Followers: `85`
 - Website project cards: `147`
@@ -23,9 +23,9 @@ This file is the click target for generated SVG panels in `README.md` and locali
 
 ## Repositories
 
-- [AstrBotDevs/AstrBot](https://github.com/AstrBotDevs/AstrBot) - Python, 36,013 stars
+- [AstrBotDevs/AstrBot](https://github.com/AstrBotDevs/AstrBot) - Python, 36,022 stars
 - [AstrBotDevs/AstrBot-desktop](https://github.com/AstrBotDevs/AstrBot-desktop) - Rust, 639 stars
-- [AstrBotDevs/astrbot-launcher](https://github.com/AstrBotDevs/astrbot-launcher) - Rust, 1,206 stars
+- [AstrBotDevs/astrbot-launcher](https://github.com/AstrBotDevs/astrbot-launcher) - Rust, 1,207 stars
 - [AstrBotDevs/AstrBot_Plugins_Collection](https://github.com/AstrBotDevs/AstrBot_Plugins_Collection) - Python, 94 stars
 - [AstrBotDevs/shipyard-neo](https://github.com/AstrBotDevs/shipyard-neo) - Python, 80 stars
 - [LIghtJUNction/OniMods](https://github.com/LIghtJUNction/OniMods) - C#, 7 stars
