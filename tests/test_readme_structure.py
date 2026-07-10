@@ -1,4 +1,4 @@
-"""Structural checks for the profile README files."""
+"""Structural checks for the stable profile README files."""
 
 from pathlib import Path
 
@@ -10,12 +10,53 @@ README_FILES = [
     Path("README.ja.md"),
 ]
 
+OLD_PANELS = [
+    "profile-hero.svg",
+    "profile-pulse.svg",
+    "profile-projects.svg",
+    "profile-actions.svg",
+    "PROFILE_ACTIONS.md",
+]
 
-def test_readmes_start_with_identity_block() -> None:
+
+def test_readmes_start_with_one_stable_hero() -> None:
     for path in README_FILES:
         text = path.read_text(encoding="utf-8")
-        leading_lines = text.splitlines()[:12]
+        leading_lines = text.splitlines()[:8]
         assert '<div align="center">' in leading_lines, path
+        assert text.count("public/readme-hero.svg") == 1, path
+        assert "?" not in next(line for line in text.splitlines() if "readme-hero.svg" in line), (
+            path
+        )
+        for old_panel in OLD_PANELS:
+            assert old_panel not in text, path
+
+
+def test_readme_hero_is_lightweight_static_svg() -> None:
+    hero = Path("public/readme-hero.svg")
+    text = hero.read_text(encoding="utf-8")
+    assert hero.stat().st_size < 15_000
+    assert "<script" not in text
+    assert "<animate" not in text
+    assert "http://" not in text.replace('xmlns="http://www.w3.org/2000/svg"', "")
+    assert "https://" not in text
+
+
+def test_obsolete_profile_generation_is_removed() -> None:
+    obsolete = [
+        "PROFILE_ACTIONS.md",
+        "public/profile-hero.png",
+        "public/profile-hero.svg",
+        "public/profile-pulse.svg",
+        "public/profile-projects.svg",
+        "public/profile-actions.svg",
+        "scripts/update_profile_pulse.py",
+        "scripts/generate-readme-ascii-flame.py",
+        ".github/workflows/refresh-profile-pulse.yml",
+        "tests/test_update_profile_pulse.py",
+    ]
+    for path in obsolete:
+        assert not Path(path).exists(), path
 
 
 def test_translated_support_sections_warn_against_credentials() -> None:

@@ -3,125 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="dark">
-    <meta name="theme-color" content="#080b0a">
-    <meta name="description" content="LIghtJUNction's app launcher for project cards, terminal workflows, GitHub activity, and encrypted OpenPGP contact.">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#f3efe6">
+    <meta name="description" content="LIghtJUNction — an independent builder working across AI tools, Linux systems, practical security, and open-source infrastructure.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="LIghtJUNction App Launcher">
-    <meta property="og:description" content="Project cards, terminal workflows, GitHub activity, and encrypted contact in a compact personal app launcher.">
+    <meta property="og:title" content="LIghtJUNction — Independent Builder">
+    <meta property="og:description" content="A working library of open-source tools, systems experiments, and secure ways to make contact.">
     <meta property="og:url" content="https://lightjunction.github.io/lightjunction/">
-    <meta property="og:image" content="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=512&d=identicon">
+    <meta property="og:image" content="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=512&amp;d=identicon">
     <meta name="twitter:card" content="summary">
     <link rel="canonical" href="https://lightjunction.github.io/lightjunction/">
-    <title>LIghtJUNction App Launcher</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23080b0a'/%3E%3Cpath d='M16 19l15 13-15 13V19zm18 28h16v-6H34v6z' fill='%238df7bd'/%3E%3C/svg%3E">
+    <title>LIghtJUNction — Independent Builder</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23171511'/%3E%3Cpath d='M15 18h8v21h18v7H15V18zm27 0h7v28h-7V18z' fill='%23f36a2d'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 </head>
 <body>
-    <canvas id="ascii-bg" aria-hidden="true"></canvas>
-    <a class="skip-link" href="#workspace-title">Skip to apps</a>
-    <main class="app" id="app">
-        <aside class="identity" aria-label="Profile">
-            <div>
-                <img class="avatar" src="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=184&d=identicon" alt="LIghtJUNction avatar">
-                <h1 class="brand">LIght<br>JUNction</h1>
-                <p class="summary">Personal app launcher for project cards, bootstrap systems, agent workflows, and encrypted contact.</p>
-                <nav class="launcher" aria-label="Apps">
-                    <button class="launcher-item active" type="button" data-app-target="projects" aria-pressed="true">
-                        <span class="launcher-icon" aria-hidden="true">▦</span>
-                        <span><strong>Proj Cards</strong><small>ranked repositories</small></span>
-                    </button>
-                    <button class="launcher-item" type="button" data-app-target="terminal" aria-pressed="false">
-                        <span class="launcher-icon" aria-hidden="true">›_</span>
-                        <span><strong>Terminal</strong><small>commands and contact</small></span>
-                    </button>
-                </nav>
-                <section class="collab-callout" aria-labelledby="collab-title">
-                    <strong id="collab-title">开源支持</strong>
-                    <p>如果你觉得这些项目有帮助，欢迎通过加密消息留下赞助或支持信息。</p>
-                    <p>输入 <kbd>msg</kbd> 可发送加密联系内容。</p>
-                </section>
-            </div>
-            <div class="key-block">
-                <strong>GPG fingerprint</strong>
-                <code>EB21B83AB1E982DF66F08387A67178405F7736FD</code>
-            </div>
-        </aside>
+    <a class="skip-link" href="#workspace-title">Skip to selected work</a>
 
-        <section class="workspace" aria-label="App workspace">
-            <header class="workspace-titlebar">
-                <div>
-                    <span id="workspace-kicker">App</span>
-                    <h2 id="workspace-title" tabindex="-1">Proj Cards</h2>
+    <header class="site-header" aria-label="Primary navigation">
+        <a class="wordmark" href="#top" aria-label="LIghtJUNction home">
+            <span class="signal-dot" aria-hidden="true"></span>
+            <span>LIghtJUNction</span>
+        </a>
+        <nav class="site-nav" aria-label="Explore">
+            <button class="nav-tab active" type="button" data-app-target="projects" aria-pressed="true">Work</button>
+            <button class="nav-tab" type="button" data-app-target="terminal" aria-pressed="false">Terminal</button>
+            <a href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+        <button class="round-control" id="btn-fullscreen" type="button" title="Fullscreen" aria-label="Enter fullscreen">↗</button>
+    </header>
+
+    <main id="top">
+        <section class="hero page-shell" aria-labelledby="hero-title">
+            <div class="hero-copy reveal">
+                <p class="eyebrow"><span>Independent builder</span><span>Shanghai · Internet</span></p>
+                <h1 id="hero-title">Tools for the<br><em>real world.</em></h1>
+                <p class="hero-lede">I build compact systems at the junction of AI, Linux, automation, and practical security — then make the useful parts public.</p>
+                <div class="hero-actions">
+                    <a class="pill-action primary" href="#workbench">
+                        <span>Explore the work</span><span class="action-orb" aria-hidden="true">↓</span>
+                    </a>
+                    <button class="pill-action secondary" id="btn-message" type="button">
+                        <span>Encrypted contact</span><span class="action-orb" aria-hidden="true">↗</span>
+                    </button>
                 </div>
-                <nav class="actions" aria-label="Workspace actions">
-                    <button class="icon-btn" id="btn-refresh-projects" title="Refresh projects" aria-label="Refresh projects">↻</button>
-                    <button class="icon-btn" id="btn-fullscreen" title="Fullscreen" aria-label="Fullscreen">⛶</button>
-                    <button class="text-btn" id="btn-message">Encrypt</button>
-                </nav>
-            </header>
+            </div>
+
+            <aside class="hero-aside reveal" aria-label="Current focus">
+                <div class="bezel-shell portrait-shell">
+                    <div class="bezel-core portrait-core">
+                        <div class="monogram" aria-hidden="true">L<span>J</span></div>
+                        <div class="portrait-note">
+                            <span class="mono-label">Current practice / 2026</span>
+                            <p>Small software, observable systems, durable automation.</p>
+                        </div>
+                        <div class="junction-mark" aria-hidden="true">
+                            <i></i><i></i><i></i><i></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="aside-caption"><span>01</span> Engineering with curiosity, restraint, and a bias toward things that actually run.</p>
+            </aside>
+        </section>
+
+        <section class="principles page-shell reveal" aria-label="Working principles">
+            <p class="section-index">Field notes / 03</p>
+            <div class="principle-grid">
+                <article><span>01</span><h2>Useful over ornamental.</h2><p>Real controls, honest constraints, working paths.</p></article>
+                <article><span>02</span><h2>Systems over snapshots.</h2><p>Tools designed for repetition, maintenance, and change.</p></article>
+                <article><span>03</span><h2>Open where possible.</h2><p>Learning in public and returning improvements upstream.</p></article>
+            </div>
+        </section>
+
+        <section class="workbench page-shell" id="workbench" aria-labelledby="workspace-title">
+            <div class="section-heading reveal">
+                <div>
+                    <span id="workspace-kicker">Library / GitHub</span>
+                    <h2 id="workspace-title" tabindex="-1">Selected work</h2>
+                </div>
+                <p>A living index of repositories, experiments, and practical infrastructure.</p>
+            </div>
+
+            <div class="workspace-controls reveal">
+                <div class="view-switcher" aria-label="Choose experience">
+                    <button class="nav-tab active" type="button" data-app-target="projects" aria-pressed="true">Project library</button>
+                    <button class="nav-tab" type="button" data-app-target="terminal" aria-pressed="false">Terminal experience</button>
+                </div>
+                <div class="workspace-actions">
+                    <button class="quiet-action" id="btn-refresh-projects" type="button" aria-label="Refresh projects">Refresh index</button>
+                    <a class="quiet-action" href="https://github.com/LIghtJUNction?tab=repositories" target="_blank" rel="noopener noreferrer">All on GitHub ↗</a>
+                </div>
+            </div>
 
             <section class="project-app app-panel active" id="projects-app" data-app-panel="projects" aria-label="Project cards">
-                <div class="project-toolbar">
+                <div class="project-toolbar reveal">
                     <div>
                         <strong id="project-count">Loading repositories</strong>
                         <span id="project-sort">Rank: recent activity first, then newness, stars, and commits</span>
                     </div>
-                    <a class="text-btn link-btn" href="https://github.com/LIghtJUNction?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
-                <div class="project-groups" id="project-groups" role="tablist" aria-label="Project groups"></div>
-                <div class="project-status" id="project-status" role="status">Fetching projects from GitHub...</div>
+                <div class="project-groups reveal" id="project-groups" role="tablist" aria-label="Project groups"></div>
+                <div class="project-status reveal" id="project-status" role="status">Fetching projects from GitHub...</div>
                 <div class="project-grid" id="project-grid" aria-live="polite"></div>
             </section>
 
-            <section class="terminal app-panel" id="terminal-app" data-app-panel="terminal" aria-label="Interactive terminal" hidden>
-                <header class="titlebar">
-                    <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-                    <span>secure-message tty1</span>
-                    <nav class="actions" aria-label="Terminal actions">
-                        <button class="icon-btn" id="btn-reset" title="Reset terminal" aria-label="Reset terminal">↻</button>
-                    </nav>
-                </header>
-
-                <div id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
-
-                <footer class="input-row">
-                    <span class="prompt">guest@lj</span><span class="path">:~</span><span>$</span>
-                    <span id="input-text"></span><span class="cursor" aria-hidden="true"></span>
-                </footer>
-
-                <div class="statusbar">
-                    <span>OpenPGP / GitHub API / Vite</span>
-                    <span>Type help, msg, projects, stats</span>
+            <section class="terminal app-panel bezel-shell" id="terminal-app" data-app-panel="terminal" aria-label="Interactive terminal" hidden>
+                <div class="terminal-core bezel-core" id="terminal-console" tabindex="0" aria-label="Terminal command input. Type a command and press Enter.">
+                    <header class="titlebar">
+                        <div><span class="terminal-light" aria-hidden="true"></span><span>lightjunction / secure tty</span></div>
+                        <button class="round-control terminal-control" id="btn-reset" type="button" title="Reset terminal" aria-label="Reset terminal">↻</button>
+                    </header>
+                    <div id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
+                    <footer class="input-row">
+                        <span class="prompt">guest@lj</span><span class="path">:~</span><span>$</span>
+                        <span id="input-text"></span><span class="cursor" aria-hidden="true"></span>
+                    </footer>
+                    <div class="statusbar"><span>OpenPGP / GitHub API / Vite</span><span>Type help, msg, projects, stats</span></div>
                 </div>
             </section>
         </section>
+
+        <section class="contact-band page-shell reveal" aria-labelledby="contact-title">
+            <div>
+                <p class="eyebrow"><span>Open channel</span><span>OpenPGP ready</span></p>
+                <h2 id="contact-title">Have a useful<br><em>intersection?</em></h2>
+            </div>
+            <div class="contact-copy">
+                <p>For project ideas, thoughtful collaboration, or open-source support, send a message encrypted in your browser.</p>
+                <button class="pill-action ink" id="btn-contact-message" type="button">
+                    <span>Write a secure note</span><span class="action-orb" aria-hidden="true">↗</span>
+                </button>
+                <p class="fingerprint">PGP · EB21 B83A B1E9 82DF 66F0 8387 A671 7840 5F77 36FD</p>
+            </div>
+        </section>
     </main>
 
-    <section class="secure-card" id="secure-card" hidden aria-label="Secure message card">
-        <div class="secure-title">
-            <strong>OpenPGP message</strong>
-            <span>drag upward or press encrypt</span>
-        </div>
-        <label class="sr-only" for="secure-message">Message to encrypt</label>
-        <textarea id="secure-message" placeholder="Sponsorship note, public message, or contact details..."></textarea>
-        <div class="secure-foot">
-            <span>Encrypted locally before GitHub handoff.</span>
-            <button class="text-btn" id="encrypt-now">Encrypt</button>
+    <footer class="site-footer page-shell">
+        <span>LIghtJUNction / Digital assistant workspace</span>
+        <span>Built for useful work, not noise.</span>
+        <a href="#top">Back to top ↑</a>
+    </footer>
+
+    <section class="secure-card bezel-shell" id="secure-card" hidden aria-label="Secure message card">
+        <div class="secure-core bezel-core">
+            <div class="secure-title"><strong>OpenPGP message</strong><span>drag upward or press encrypt</span></div>
+            <label class="sr-only" for="secure-message">Message to encrypt</label>
+            <textarea id="secure-message" placeholder="A project note, public message, or contact details..."></textarea>
+            <div class="secure-foot">
+                <span>Encrypted locally before GitHub handoff.</span>
+                <div class="secure-actions">
+                    <button class="quiet-action secure-cancel" id="secure-cancel" type="button">Cancel</button>
+                    <button class="pill-action compact ink" id="encrypt-now" type="button"><span>Encrypt</span><span class="action-orb" aria-hidden="true">↗</span></button>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="modal" id="result-overlay" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-label="Encrypted result">
-        <div class="modal-box">
-            <h2 id="result-title">Encrypted message</h2>
-            <pre id="result-content"></pre>
-            <div class="modal-actions">
-                <button class="text-btn" id="result-copy">Copy</button>
-                <button class="text-btn" id="result-github">GitHub Issue</button>
-                <button class="text-btn" id="result-close">Close</button>
+    <section class="modal" id="result-overlay" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-label="Encrypted result" aria-hidden="true">
+        <div class="modal-shell bezel-shell">
+            <div class="modal-box bezel-core">
+                <h2 id="result-title">Encrypted message</h2>
+                <pre id="result-content"></pre>
+                <div class="modal-actions">
+                    <button class="quiet-action" id="result-copy" type="button">Copy</button>
+                    <button class="quiet-action" id="result-github" type="button">GitHub Issue</button>
+                    <button class="quiet-action" id="result-close" type="button">Close</button>
+                </div>
             </div>
         </div>
     </section>

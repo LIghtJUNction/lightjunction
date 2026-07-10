@@ -28,26 +28,22 @@ jobs:
             uv.lock
             scripts/*.py
 
-      - name: Generate project cards
+      - name: Fetch project cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           TEAM_ORGS: SlashNephy
-          GITHUB_DATA_PATH: /tmp/lightjunction-github-data.json
           GITHUB_PROJECTS_PATH: public/github-projects.json
-        run: |
-          uv run scripts/fetch-github-data.py
-          uv run scripts/update_profile_pulse.py
+        run: uv run scripts/fetch-github-data.py
 
-      - name: Commit project cards and profile SVG
+      - name: Commit project cards
         run: |
-          if [ -z "$(git status --porcelain public/github-projects.json README.md PROFILE_ACTIONS.md public/profile-hero.svg public/profile-pulse.svg public/profile-projects.svg public/profile-actions.svg public/profile-readme.svg)" ]; then
-            echo "No project card or profile SVG changes"
+          if git diff --quiet -- public/github-projects.json; then
+            echo "No project card changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/github-projects.json README.md PROFILE_ACTIONS.md public/profile-hero.svg public/profile-pulse.svg public/profile-projects.svg public/profile-actions.svg
-          git rm -f --ignore-unmatch public/profile-readme.svg
-          git commit -m "chore: sync project cards and profile svg"
+          git add public/github-projects.json
+          git commit -m "chore: sync project cards"
           git push

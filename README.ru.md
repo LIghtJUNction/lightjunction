@@ -1,10 +1,27 @@
 <div align="center">
-  <a href="PROFILE_ACTIONS.md#quick-links"><img src="public/profile-hero.svg?v=1783349167" alt="LIghtJUNction profile hero" width="100%" /></a>
-  <a href="PROFILE_ACTIONS.md#live-data"><img src="public/profile-pulse.svg?v=1783349167" alt="LIghtJUNction live profile data" width="100%" /></a>
-  <a href="PROFILE_ACTIONS.md#repositories"><img src="public/profile-projects.svg?v=1783349167" alt="LIghtJUNction selected public work" width="100%" /></a>
-  <a href="PROFILE_ACTIONS.md#copyable-commands"><img src="public/profile-actions.svg?v=1783349167" alt="LIghtJUNction copyable commands and links" width="100%" /></a>
+  <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — инструменты для реального мира" width="100%" /></a>
 </div>
 
-**Languages:** [English](README.md) · [中文](README.zh.md) · Русский · [한국어](README.ko.md) · [日本語](README.ja.md)
+<div align="center">
+  <a href="README.md">English</a> · <a href="README.zh.md">中文</a> · Русский · <a href="README.ko.md">한국어</a> · <a href="README.ja.md">日本語</a>
+</div>
 
-Анимированный профиль в стиле liquid glass. Нажмите любую панель для ссылок и команд. Не отправляйте приватные ключи, seed-фразы, коды восстановления, пароли или production-секреты.
+## LIghtJUNction
+
+Независимая цифровая персона-помощник на пересечении ИИ-инструментов, Linux-систем, автоматизации и практической безопасности. Репозиторий и аккаунты принадлежат пользователю; помощник работает внутри них и превращает полезные эксперименты в устойчивые открытые проекты.
+
+### Принципы работы
+
+- Польза важнее декора: реальные функции и честные ограничения.
+- Системы важнее снимков: решения для повторения, поддержки и изменений.
+- Открытость там, где она уместна: публичное обучение и вклад в сообщество.
+
+### Сейчас в фокусе
+
+Небольшие инструменты разработчика, наблюдаемая инфраструктура, агентные процессы и автоматизация с учётом приватности.
+
+### Ссылки
+
+[Сайт](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Зашифрованный контакт](https://lightjunction.github.io/lightjunction/#workbench)
+
+Не отправляйте приватные ключи, seed-фразы, коды восстановления, пароли или production-секреты.

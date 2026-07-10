@@ -2,8 +2,8 @@ import * as openpgp from 'openpgp'
 import { COMMAND_NAMES, commandDescription } from './commands'
 import { $, escapeHtml } from './dom'
 import { fetchJson, fetchStaticProjectCards, type GitHubUser, type Repo, type RepoCard } from './github'
+import { initMotion, registerReveals } from './motion'
 import { PUBLIC_KEY } from './public-key'
-import { applyRandomVisuals } from './visuals'
 import './styles.css'
 
 type CommandHandler = (args: string[]) => void | Promise<void>
@@ -14,8 +14,9 @@ const secureCard = $<HTMLElement>('secure-card')
 const secureMessage = $<HTMLTextAreaElement>('secure-message')
 const resultOverlay = $<HTMLElement>('result-overlay')
 const resultContent = $<HTMLElement>('result-content')
+const resultCopy = $<HTMLButtonElement>('result-copy')
 const toast = $<HTMLElement>('toast')
-const asciiBg = $<HTMLCanvasElement>('ascii-bg')
+const terminalRegion = $<HTMLElement>('terminal-console')
 const workspaceTitle = $<HTMLElement>('workspace-title')
 const workspaceKicker = $<HTMLElement>('workspace-kicker')
 const projectGrid = $<HTMLElement>('project-grid')
@@ -32,9 +33,13 @@ let sending = false
 let activeApp: AppId = 'projects'
 let projectsLoaded = false
 let projectCards: RepoCard[] = []
+let projectSource: ProjectSource = 'network'
 let activeProjectGroup: ProjectGroupId = 'ai'
+let previousFocus: HTMLElement | null = null
+let inertElements: HTMLElement[] = []
 
 type AppId = 'projects' | 'terminal'
+type ProjectSource = 'cache' | 'network'
 type ProjectGroupId = 'ai' | 'systems' | 'security' | 'web' | 'data' | 'tools' | 'all'
 
 type CachedProjects = {
@@ -160,146 +165,6 @@ function showToast(message: string): void {
     window.setTimeout(() => toast.classList.remove('show'), 2400)
 }
 
-function initAsciiBackground(): void {
-    const context = asciiBg.getContext('2d')
-    if (!context) return
-    const drawContext = context
-
-    type AsciiGlyph = {
-        homeX: number
-        homeY: number
-        phase: number
-        seed: number
-        char: string
-        layer: number
-    }
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        asciiBg.hidden = true
-        return
-    }
-
-    const pointer = {
-        x: window.innerWidth * 0.5,
-        y: window.innerHeight * 0.5,
-        tx: window.innerWidth * 0.5,
-        ty: window.innerHeight * 0.5,
-        active: false,
-    }
-    const chars = '01<>[]{}\\/|*+=-_.'
-    const hotChars = '@#%&*+=<>'
-    const cell = 34
-    const maxGlyphs = 760
-    const frameIntervalMs = 1000 / 24
-    const glyphs: AsciiGlyph[] = []
-    let width = 0
-    let height = 0
-    let frame = 0
-    let lastDraw = 0
-
-    function pickChar(seed: number, hot = 0): string {
-        const alphabet = hot > 0.62 ? hotChars : chars
-        return alphabet[Math.abs(Math.floor(seed * alphabet.length)) % alphabet.length] ?? '.'
-    }
-
-    function resize(): void {
-        const ratio = Math.min(window.devicePixelRatio || 1, 1.25)
-        width = window.innerWidth
-        height = window.innerHeight
-        asciiBg.width = Math.floor(width * ratio)
-        asciiBg.height = Math.floor(height * ratio)
-        asciiBg.style.width = `${width}px`
-        asciiBg.style.height = `${height}px`
-        drawContext.setTransform(ratio, 0, 0, ratio, 0, 0)
-        drawContext.font = '12px "JetBrains Mono", monospace'
-        drawContext.textBaseline = 'middle'
-        drawContext.textAlign = 'center'
-
-        glyphs.length = 0
-        const columns = Math.ceil(width / cell) + 2
-        const rows = Math.ceil(height / cell) + 2
-        const density = Math.min(1, maxGlyphs / Math.max(1, columns * rows))
-
-        for (let row = 0; row < rows; row += 1) {
-            for (let col = 0; col < columns; col += 1) {
-                const seed = Math.sin((row + 1) * 91.17 + (col + 1) * 47.31) * 10_000
-                const unit = seed - Math.floor(seed)
-                if (unit > density) continue
-
-                const jitterX = (seed - Math.floor(seed) - 0.5) * 8
-                const jitterY = (Math.sin(seed * 2.17) - Math.floor(Math.sin(seed * 2.17)) - 0.5) * 8
-                const homeX = col * cell - cell + jitterX
-                const homeY = row * cell - cell + jitterY
-
-                glyphs.push({
-                    homeX,
-                    homeY,
-                    phase: seed,
-                    seed,
-                    char: pickChar(seed),
-                    layer: 0.68 + unit * 0.52,
-                })
-            }
-        }
-    }
-
-    function draw(now = 0): void {
-        if (now - lastDraw < frameIntervalMs) {
-            requestAnimationFrame(draw)
-            return
-        }
-        lastDraw = now
-        frame += 1
-        pointer.x += (pointer.tx - pointer.x) * 0.16
-        pointer.y += (pointer.ty - pointer.y) * 0.16
-
-        drawContext.clearRect(0, 0, width, height)
-
-        for (const glyph of glyphs) {
-            const homeWave = Math.sin(frame * 0.035 + glyph.phase)
-            const baseX = glyph.homeX + Math.cos(frame * 0.012 + glyph.phase) * glyph.layer * 4
-            const baseY = glyph.homeY + homeWave * glyph.layer * 5
-            const dx = baseX - pointer.x
-            const dy = baseY - pointer.y
-            const distance = Math.sqrt(dx * dx + dy * dy) || 1
-            const hot = pointer.active ? Math.max(0, 1 - distance / 330) : 0
-            const swirl = hot * hot * 30 * glyph.layer
-            const drift = hot * 18 * glyph.layer
-            const x = baseX + (-dy / distance) * swirl + (-dx / distance) * drift
-            const y = baseY + (dx / distance) * swirl + (-dy / distance) * drift
-            const pulse = Math.max(0, Math.sin(frame * 0.07 + glyph.phase))
-            const alpha = 0.14 + hot * 0.44 + pulse * 0.045
-
-            if (hot > 0.35 && (frame + Math.floor(glyph.seed)) % 5 === 0) {
-                glyph.char = pickChar(glyph.seed + frame * 0.023 + hot * 8, hot)
-            } else if (frame % 48 === 0 && pulse > 0.92) {
-                glyph.char = pickChar(glyph.seed + frame * 0.004)
-            }
-
-            const hue = 142 + hot * 58 + Math.sin(glyph.phase + frame * 0.01) * 10
-            const light = 58 + hot * 26 + pulse * 6
-            drawContext.font = `${11 + hot * 4}px "JetBrains Mono", monospace`
-            drawContext.fillStyle = `hsla(${hue}, 90%, ${light}%, ${Math.min(alpha, 0.76)})`
-            drawContext.fillText(glyph.char, x, y)
-        }
-
-        requestAnimationFrame(draw)
-    }
-
-    window.addEventListener('resize', resize)
-    window.addEventListener('pointermove', (event) => {
-        pointer.tx = event.clientX
-        pointer.ty = event.clientY
-        pointer.active = true
-    })
-    window.addEventListener('pointerleave', () => {
-        pointer.active = false
-    })
-
-    resize()
-    requestAnimationFrame(draw)
-}
-
 function formatNumber(value: number | null): string {
     if (value === null) return 'unknown'
     return new Intl.NumberFormat('en-US').format(value)
@@ -378,8 +243,9 @@ function renderProjectGroups(): void {
     }).join('')
 }
 
-function renderProjectCards(cards: RepoCard[], source: 'cache' | 'network'): void {
+function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
     projectCards = cards
+    projectSource = source
     renderProjectGroups()
 
     const filteredCards = cards.filter((repo) => repoMatchesGroup(repo, activeProjectGroup))
@@ -409,6 +275,7 @@ function renderProjectCards(cards: RepoCard[], source: 'cache' | 'network'): voi
         ]
         const description = repo.description ?? 'No description yet.'
         return `
+            <div class="project-shell reveal">
             <article class="project-card">
                 <header>
                     <h3><a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.full_name)}</a></h3>
@@ -429,8 +296,11 @@ function renderProjectCards(cards: RepoCard[], source: 'cache' | 'network'): voi
                     <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">Open</a>
                 </footer>
             </article>
+            </div>
         `
     }).join('')
+
+    registerReveals(projectGrid)
 }
 
 async function loadProjectCards(force = false): Promise<void> {
@@ -476,11 +346,14 @@ function switchApp(appId: AppId): void {
         button.setAttribute('aria-pressed', String(selected))
     })
 
-    workspaceTitle.textContent = appId === 'projects' ? 'Proj Cards' : 'Terminal'
-    workspaceKicker.textContent = appId === 'projects' ? 'App / GitHub' : 'App / tty1'
+    workspaceTitle.textContent = appId === 'projects' ? 'Selected work' : 'Terminal experience'
+    workspaceKicker.textContent = appId === 'projects' ? 'Library / GitHub' : 'Interactive / secure tty'
 
     if (appId === 'projects' && !projectsLoaded) {
         void loadProjectCards()
+    }
+    if (appId === 'terminal') {
+        requestAnimationFrame(() => terminalRegion.focus())
     }
 }
 
@@ -495,11 +368,36 @@ function resetTerminal(): void {
 }
 
 function openSecureCard(): void {
+    const activeElement = document.activeElement
+    if (activeElement instanceof HTMLElement && !secureCard.contains(activeElement)) {
+        previousFocus = activeElement
+    }
     secureMessage.value = ''
     sending = false
     secureCard.hidden = false
     placeSecureCard()
     showToast('Secure card armed')
+    secureMessage.focus()
+}
+
+function restorePreviousFocus(): void {
+    const focusTarget = previousFocus
+    previousFocus = null
+    if (focusTarget?.isConnected) {
+        focusTarget.focus()
+    }
+}
+
+function dismissSecureCard(): void {
+    if (secureCard.hidden) return
+    if (document.activeElement instanceof HTMLElement && secureCard.contains(document.activeElement)) {
+        document.activeElement.blur()
+    }
+    secureCard.hidden = true
+    sending = false
+    drag.active = false
+    secureCard.classList.remove('dragging')
+    restorePreviousFocus()
 }
 
 function placeSecureCard(): void {
@@ -567,9 +465,9 @@ async function encryptAndReveal(): Promise<void> {
         }) as string
 
         await navigator.clipboard.writeText(encryptedMessage)
-        resultContent.textContent = encryptedMessage
-        resultOverlay.classList.add('show')
         secureCard.hidden = true
+        resultContent.textContent = encryptedMessage
+        showResultDialog()
         writeLine('Message encrypted with OpenPGP and copied to clipboard.', 'success')
         showToast('Encrypted and copied')
     } catch (error) {
@@ -591,10 +489,36 @@ function openGitHubIssue(): void {
     window.open(url, '_blank', 'noopener,noreferrer')
 }
 
+function setModalBackgroundInert(): void {
+    inertElements = []
+    for (const child of document.body.children) {
+        if (!(child instanceof HTMLElement) || child === resultOverlay || child === toast) continue
+        if (child.inert) continue
+        child.inert = true
+        inertElements.push(child)
+    }
+}
+
+function clearModalBackgroundInert(): void {
+    for (const element of inertElements) {
+        element.inert = false
+    }
+    inertElements = []
+}
+
+function showResultDialog(): void {
+    resultOverlay.classList.add('show')
+    resultOverlay.setAttribute('aria-hidden', 'false')
+    setModalBackgroundInert()
+    resultCopy.focus()
+}
+
 function closeResult(): void {
     resultOverlay.classList.remove('show')
+    resultOverlay.setAttribute('aria-hidden', 'true')
     encryptedMessage = ''
-    openSecureCard()
+    clearModalBackgroundInert()
+    restorePreviousFocus()
 }
 
 const commands: Record<string, CommandHandler> = {
@@ -734,13 +658,18 @@ async function execute(commandLine: string): Promise<void> {
 }
 
 function handleKeydown(event: KeyboardEvent): void {
-    if (activeApp !== 'terminal') {
+    if (isInteractiveTarget(event.target)) return
+    if (
+        activeApp !== 'terminal'
+        || event.target !== terminalRegion
+        || event.metaKey
+        || event.ctrlKey
+        || event.altKey
+    ) {
         return
     }
 
-    if (event.target instanceof HTMLTextAreaElement || event.metaKey || event.ctrlKey || event.altKey) {
-        return
-    }
+    if (event.key === 'Tab') return
 
     if (event.key === 'Enter') {
         event.preventDefault()
@@ -781,15 +710,62 @@ function handleKeydown(event: KeyboardEvent): void {
         return
     }
 
-    if (event.key === 'Tab') {
-        event.preventDefault()
+    if (event.key === 'ArrowRight' && currentInput) {
         const match = COMMAND_NAMES.find((name) => name.startsWith(currentInput.toLowerCase()))
-        if (match) setInput(match)
+        if (match && match !== currentInput.toLowerCase()) {
+            event.preventDefault()
+            setInput(match)
+        }
         return
     }
 
     if (event.key.length === 1) {
         setInput(currentInput + event.key)
+    }
+}
+
+const INTERACTIVE_SELECTOR = 'button, a, textarea, input, select, summary, [contenteditable]:not([contenteditable="false"])'
+const DIALOG_FOCUSABLE_SELECTOR = 'button:not([disabled]), a[href], textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
+function isInteractiveTarget(target: EventTarget | null): boolean {
+    return target instanceof Element && target.closest(INTERACTIVE_SELECTOR) !== null
+}
+
+function trapResultFocus(event: KeyboardEvent): void {
+    const focusable = Array.from(
+        resultOverlay.querySelectorAll<HTMLElement>(DIALOG_FOCUSABLE_SELECTOR),
+    )
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    if (!first || !last) {
+        event.preventDefault()
+        return
+    }
+
+    const activeElement = document.activeElement
+    if (event.shiftKey && (activeElement === first || !resultOverlay.contains(activeElement))) {
+        event.preventDefault()
+        last.focus()
+    } else if (!event.shiftKey && (activeElement === last || !resultOverlay.contains(activeElement))) {
+        event.preventDefault()
+        first.focus()
+    }
+}
+
+function handleGlobalKeydown(event: KeyboardEvent): void {
+    if (resultOverlay.classList.contains('show')) {
+        if (event.key === 'Escape') {
+            event.preventDefault()
+            closeResult()
+        } else if (event.key === 'Tab') {
+            trapResultFocus(event)
+        }
+        return
+    }
+
+    if (event.key === 'Escape' && !secureCard.hidden) {
+        event.preventDefault()
+        dismissSecureCard()
     }
 }
 
@@ -830,12 +806,14 @@ function bindSecureCard(): void {
     })
 
     $('encrypt-now').addEventListener('click', () => void encryptAndReveal())
+    $('secure-cancel').addEventListener('click', dismissSecureCard)
 }
 
 function bindChrome(): void {
     $('btn-reset').addEventListener('click', resetTerminal)
     $('btn-fullscreen').addEventListener('click', () => void document.documentElement.requestFullscreen?.())
     $('btn-message').addEventListener('click', openSecureCard)
+    $('btn-contact-message').addEventListener('click', openSecureCard)
     $('btn-refresh-projects').addEventListener('click', () => {
         void loadProjectCards(true)
         showToast('Refreshing projects')
@@ -848,7 +826,7 @@ function bindChrome(): void {
         if (!isProjectGroupId(group)) return
 
         activeProjectGroup = group
-        renderProjectCards(projectCards, 'cache')
+        renderProjectCards(projectCards, projectSource)
     })
     $('result-copy').addEventListener('click', () => void copyEncrypted())
     $('result-github').addEventListener('click', openGitHubIssue)
@@ -868,7 +846,11 @@ function bindChrome(): void {
             paintSecureCard()
         }
     })
-    document.addEventListener('keydown', handleKeydown)
+    terminalRegion.addEventListener('keydown', handleKeydown)
+    terminalRegion.addEventListener('click', (event) => {
+        if (!isInteractiveTarget(event.target)) terminalRegion.focus()
+    })
+    document.addEventListener('keydown', handleGlobalKeydown)
 }
 
 function boot(): void {
@@ -876,8 +858,7 @@ function boot(): void {
     writeLine('Terminal app. PGP messages. Open-source support. Type <kbd>sponsor</kbd> or <kbd>help</kbd>.', 'muted')
 }
 
-applyRandomVisuals()
-initAsciiBackground()
+initMotion()
 bindChrome()
 bindSecureCard()
 boot()
