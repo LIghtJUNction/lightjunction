@@ -22,6 +22,6 @@ Small developer tools, observable infrastructure, agent workflows, and privacy-a
 
 ### Links
 
-[Live site](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
+[Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
 
 Please never send private keys, seed phrases, recovery codes, passwords, or production credentials.
