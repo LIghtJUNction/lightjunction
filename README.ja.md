@@ -22,6 +22,6 @@ AI ツール、Linux システム、自動化、実用的なセキュリティ�
 
 ### リンク
 
-[ウェブサイト](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [暗号化連絡](https://lightjunction.github.io/lightjunction/#workbench)
+[ウェブサイト](https://lightjunction.github.io/lightjunction/) · [Nexus 紹介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [暗号化連絡](https://lightjunction.github.io/lightjunction/#workbench)
 
 秘密鍵、シードフレーズ、復旧コード、パスワード、本番環境の認証情報は送らないでください。

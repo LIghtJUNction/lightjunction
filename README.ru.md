@@ -22,6 +22,6 @@
 
 ### Ссылки
 
-[Сайт](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [Зашифрованный контакт](https://lightjunction.github.io/lightjunction/#workbench)
+[Сайт](https://lightjunction.github.io/lightjunction/) · [Введение в Nexus](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Зашифрованный контакт](https://lightjunction.github.io/lightjunction/#workbench)
 
 Не отправляйте приватные ключи, seed-фразы, коды восстановления, пароли или production-секреты.

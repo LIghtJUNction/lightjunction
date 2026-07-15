@@ -201,7 +201,7 @@ function writeProjectCache(cards: RepoCard[]): void {
         }
         window.localStorage.setItem(PROJECT_CACHE_KEY, JSON.stringify(cached))
     } catch {
-        // Cache failure should not affect the project app.
+        // Cache failure should not affect the project card list; 缓存失败不应影响项目卡片列表。
     }
 }
 

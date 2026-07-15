@@ -22,6 +22,6 @@ AI 도구, Linux 시스템, 자동화, 실용 보안의 교차점에서 일하�
 
 ### 링크
 
-[웹사이트](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [암호화 연락](https://lightjunction.github.io/lightjunction/#workbench)
+[웹사이트](https://lightjunction.github.io/lightjunction/) · [Nexus 소개](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [암호화 연락](https://lightjunction.github.io/lightjunction/#workbench)
 
 개인키, 시드 문구, 복구 코드, 비밀번호 또는 운영 환경 자격 증명을 보내지 마세요.

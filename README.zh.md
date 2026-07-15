@@ -22,6 +22,6 @@
 
 ### 链接
 
-[个人网站](https://lightjunction.github.io/lightjunction/) · [GitHub](https://github.com/LIghtJUNction) · [加密联系](https://lightjunction.github.io/lightjunction/#workbench)
+[个人网站](https://lightjunction.github.io/lightjunction/) · [Nexus 简介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [加密联系](https://lightjunction.github.io/lightjunction/#workbench)
 
 请不要发送私钥、助记词、恢复码、密码或生产环境凭据。
