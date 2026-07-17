@@ -1,6 +1,6 @@
 import { COMMAND_NAMES, commandDescription } from './commands'
-import { $, escapeHtml } from './dom'
-import { fetchJson, fetchStaticProjectCards, type GitHubUser, type Repo, type RepoCard } from './github'
+import { $, escapeHtml, safeExternalUrl } from './dom'
+import { fetchJson, fetchStaticProjectCards, isRepoCardArray, type GitHubUser, type Repo, type RepoCard } from './github'
 import { initMotion, registerReveals } from './motion'
 import { PUBLIC_KEY } from './public-key'
 import './styles.css'
@@ -51,6 +51,7 @@ let projectSource: ProjectSource = 'network'
 let activeProjectGroup: ProjectGroupId = 'ai'
 let previousFocus: HTMLElement | null = null
 let inertElements: HTMLElement[] = []
+let secureCardAnimationFrame: number | null = null
 
 type AppId = 'projects' | 'terminal'
 type ProjectSource = 'cache' | 'network'
@@ -186,7 +187,8 @@ function formatNumber(value: number | null): string {
 
 function formatDate(value: string | null): string {
     if (!value) return 'not pushed'
-    return new Date(value).toISOString().slice(0, 10)
+    const date = new Date(value)
+    return Number.isNaN(date.getTime()) ? 'unknown date' : date.toISOString().slice(0, 10)
 }
 
 type Theme = 'light' | 'dark'
@@ -260,12 +262,12 @@ function readProjectCache(): CachedProjects | null {
         if (!raw) return null
 
         const parsed = JSON.parse(raw) as Partial<CachedProjects>
-        if (typeof parsed.cachedAt !== 'number' || !Array.isArray(parsed.cards)) return null
+        if (typeof parsed.cachedAt !== 'number' || !isRepoCardArray(parsed.cards)) return null
         if (Date.now() - parsed.cachedAt > PROJECT_CACHE_TTL_MS) return null
 
         return {
             cachedAt: parsed.cachedAt,
-            cards: parsed.cards as RepoCard[],
+            cards: parsed.cards,
         }
     } catch {
         return null
@@ -353,11 +355,12 @@ function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
             repo.archived ? 'Archived' : 'Active',
         ]
         const description = repo.description ?? 'No description yet.'
+        const repoUrl = escapeHtml(safeExternalUrl(repo.html_url))
         return `
             <div class="project-shell reveal">
             <article class="project-card">
                 <header>
-                    <h3><a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.full_name)}</a></h3>
+                    <h3><a href="${repoUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.full_name)}</a></h3>
                     <span class="project-rank">#${index + 1}</span>
                 </header>
                 <div class="project-metrics" aria-label="Repository metrics">
@@ -372,7 +375,7 @@ function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
                 </div>
                 <footer>
                     <span>pushed ${formatDate(repo.pushed_at)}</span>
-                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">Open</a>
+                    <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">Open</a>
                 </footer>
             </article>
             </div>
@@ -455,6 +458,7 @@ function openSecureCard(): void {
     sending = false
     secureCard.hidden = false
     placeSecureCard()
+    startSecureCardAnimation()
     showToast('Secure card armed')
     secureMessage.focus()
 }
@@ -473,6 +477,7 @@ function dismissSecureCard(): void {
         document.activeElement.blur()
     }
     secureCard.hidden = true
+    stopSecureCardAnimation()
     sending = false
     drag.active = false
     secureCard.classList.remove('dragging')
@@ -490,6 +495,11 @@ function paintSecureCard(): void {
 }
 
 function tick(): void {
+    if (secureCard.hidden || reduceMotionQuery.matches) {
+        secureCardAnimationFrame = null
+        return
+    }
+
     if (!secureCard.hidden && !drag.active && !sending && !reduceMotionQuery.matches) {
         drag.vy += 0.28
         drag.vx *= 0.985
@@ -518,7 +528,20 @@ function tick(): void {
         paintSecureCard()
     }
 
-    requestAnimationFrame(tick)
+    secureCardAnimationFrame = requestAnimationFrame(tick)
+}
+
+function startSecureCardAnimation(): void {
+    if (secureCardAnimationFrame === null && !secureCard.hidden && !reduceMotionQuery.matches) {
+        secureCardAnimationFrame = requestAnimationFrame(tick)
+    }
+}
+
+function stopSecureCardAnimation(): void {
+    if (secureCardAnimationFrame !== null) {
+        cancelAnimationFrame(secureCardAnimationFrame)
+        secureCardAnimationFrame = null
+    }
 }
 
 async function encryptAndReveal(): Promise<void> {
@@ -544,12 +567,18 @@ async function encryptAndReveal(): Promise<void> {
             encryptionKeys: publicKey,
         }) as string
 
-        await navigator.clipboard.writeText(encryptedMessage)
         secureCard.hidden = true
+        stopSecureCardAnimation()
         resultContent.textContent = encryptedMessage
         showResultDialog()
-        writeLine('Message encrypted with OpenPGP and copied to clipboard.', 'success')
-        showToast('Encrypted and copied')
+        try {
+            await navigator.clipboard.writeText(encryptedMessage)
+            writeLine('Message encrypted with OpenPGP and copied to clipboard.', 'success')
+            showToast('Encrypted and copied')
+        } catch {
+            writeLine('Message encrypted with OpenPGP. Clipboard access was unavailable.', 'success')
+            showToast('Encrypted; copy manually')
+        }
     } catch (error) {
         sending = false
         writeLine(`Encryption failed: ${escapeHtml(error instanceof Error ? error.message : String(error))}`, 'error')
@@ -559,8 +588,12 @@ async function encryptAndReveal(): Promise<void> {
 
 async function copyEncrypted(): Promise<void> {
     if (!encryptedMessage) return
-    await navigator.clipboard.writeText(encryptedMessage)
-    showToast('Copied')
+    try {
+        await navigator.clipboard.writeText(encryptedMessage)
+        showToast('Copied')
+    } catch {
+        showToast('Clipboard unavailable')
+    }
 }
 
 function openGitHubIssue(): void {
@@ -645,7 +678,7 @@ const commands: Record<string, CommandHandler> = {
                 <div class="project-list">
                     ${repos.map((repo) => `
                         <article>
-                            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.name)}</a>
+                            <a href="${escapeHtml(safeExternalUrl(repo.html_url))}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.name)}</a>
                             <p>${escapeHtml(repo.description ?? 'No description')}</p>
                             <small>${escapeHtml(repo.language ?? 'Unknown')} / ${repo.stargazers_count} stars / ${formatNumber(repo.commit_count)} commits</small>
                         </article>
@@ -948,4 +981,3 @@ switchApp('projects')
 placeSecureCard()
 secureCard.hidden = true
 void initPulse()
-requestAnimationFrame(tick)

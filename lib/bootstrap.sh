@@ -140,6 +140,7 @@ append_managed_block() {
         return
     fi
 
-    mv "$tmp" "$file"
+    chmod --reference="$file" "$tmp" 2>/dev/null || true
+    mv -f "$tmp" "$file"
     ok "Updated $file"
 }

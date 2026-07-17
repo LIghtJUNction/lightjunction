@@ -53,7 +53,7 @@ prompt_choice() {
     echo "$msg" >&2
     for opt in "${opts[@]}"; do
         echo "  $i) $opt" >&2
-        ((i++))
+        ((i += 1))
     done
     printf '> ' >&2
     local choice
@@ -128,6 +128,7 @@ prompt_spinner() {
         return $?
     fi
     local chars='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    "$@" &
     local pid=$!
     local i=0
     printf ' %s ' "$msg" >&2
@@ -137,11 +138,14 @@ prompt_spinner() {
         sleep 0.1
     done
     printf '\b\b  \b\b\n' >&2
-    wait "$pid"
+    local status=0
+    wait "$pid" || status=$?
+    return "$status"
 }
 
 prompt_progress() {
     local current="${1:?}" total="${2:?}" label="${3:-}"
+    ((total > 0)) || { echo "prompt_progress: total must be greater than zero" >&2; return 2; }
     local width=40
     local percent=$((current * 100 / total))
     local filled=$((width * current / total))

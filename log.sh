@@ -14,7 +14,7 @@ _msg() {
     local now
     now=$(date +%H:%M:%S)
     if [[ "$msg" == "$_LAST_MSG" && "$lvl" == "$_LAST_LVL" ]]; then
-        ((_REPEAT_CNT++))
+        ((_REPEAT_CNT += 1))
         if [[ "$NON_INTERACTIVE" -eq 0 && -n "$C_UP" ]]; then
             printf "${C_UP}${C_CLEAR_LINE}${C_DIM}%s${C_RESET} ${col}%-5s${C_RESET} %b ${C_DIM}(x%d)${C_RESET}\n" \
                 "$now" "$lvl" "$msg" "$((_REPEAT_CNT + 1))" >&2

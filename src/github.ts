@@ -42,6 +42,63 @@ export type ProjectCardsPayload = {
     generated_at: string
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+    return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function isFiniteNumber(value: unknown): value is number {
+    return typeof value === 'number' && Number.isFinite(value)
+}
+
+function isNullableString(value: unknown): value is string | null {
+    return value === null || typeof value === 'string'
+}
+
+function isRepoCard(value: unknown): value is RepoCard {
+    if (!isRecord(value)) return false
+
+    return Number.isSafeInteger(value.id)
+        && typeof value.name === 'string'
+        && typeof value.full_name === 'string'
+        && /^[^/\s]+\/[^/\s]+$/.test(value.full_name)
+        && typeof value.html_url === 'string'
+        && isNullableString(value.description)
+        && isNullableString(value.language)
+        && Array.isArray(value.topics)
+        && value.topics.every((topic) => typeof topic === 'string')
+        && isFiniteNumber(value.stargazers_count)
+        && isFiniteNumber(value.forks_count)
+        && isFiniteNumber(value.open_issues_count)
+        && typeof value.default_branch === 'string'
+        && typeof value.created_at === 'string'
+        && typeof value.updated_at === 'string'
+        && isNullableString(value.pushed_at)
+        && typeof value.archived === 'boolean'
+        && typeof value.fork === 'boolean'
+        && (value.commit_count === null || isFiniteNumber(value.commit_count))
+        && isFiniteNumber(value.rank_score)
+}
+
+export function isRepoCardArray(value: unknown): value is RepoCard[] {
+    return Array.isArray(value) && value.every(isRepoCard)
+}
+
+function parseProjectCardsPayload(value: unknown): ProjectCardsPayload {
+    if (
+        !isRecord(value)
+        || value.schema_version !== 1
+        || typeof value.owner !== 'string'
+        || !Array.isArray(value.included_orgs)
+        || !value.included_orgs.every((org) => typeof org === 'string')
+        || !isRepoCardArray(value.project_cards)
+        || typeof value.generated_at !== 'string'
+    ) {
+        throw new Error('Invalid project cards payload schema')
+    }
+
+    return value as ProjectCardsPayload
+}
+
 export async function fetchJson<T>(url: string): Promise<T> {
     const response = await fetch(url)
     if (!response.ok) {
@@ -55,11 +112,8 @@ function staticProjectCardsUrl(): string {
 }
 
 export async function fetchStaticProjectCards(): Promise<RepoCard[]> {
-    const payload = await fetchJson<ProjectCardsPayload>(staticProjectCardsUrl())
-    if (!Array.isArray(payload.project_cards)) {
-        throw new Error('Invalid project cards payload')
-    }
-    return payload.project_cards.sort(compareRepoCards)
+    const payload = parseProjectCardsPayload(await fetchJson<unknown>(staticProjectCardsUrl()))
+    return [...payload.project_cards].sort(compareRepoCards)
 }
 
 async function fetchJsonWithHeaders<T>(url: string): Promise<{ data: T; headers: Headers }> {
@@ -92,7 +146,8 @@ async function fetchPaged<T>(buildUrl: (page: number) => string): Promise<T[]> {
     let page = 1
 
     while (true) {
-        const data = await fetchJson<T[]>(buildUrl(page))
+        const data = await fetchJson<unknown>(buildUrl(page))
+        if (!Array.isArray(data)) throw new Error('Invalid paginated GitHub response')
         items.push(...data)
 
         if (data.length < 100) break
@@ -103,20 +158,23 @@ async function fetchPaged<T>(buildUrl: (page: number) => string): Promise<T[]> {
 }
 
 export async function fetchUserOwnedRepos(owner = 'LIghtJUNction'): Promise<Repo[]> {
+    const encodedOwner = encodeURIComponent(owner)
     return fetchPaged<Repo>(
-        (page) => `https://api.github.com/users/${owner}/repos?type=owner&sort=full_name&per_page=100&page=${page}`,
+        (page) => `https://api.github.com/users/${encodedOwner}/repos?type=owner&sort=full_name&per_page=100&page=${page}`,
     )
 }
 
 export async function fetchUserOrgs(owner = 'LIghtJUNction'): Promise<GitHubOrg[]> {
+    const encodedOwner = encodeURIComponent(owner)
     return fetchPaged<GitHubOrg>(
-        (page) => `https://api.github.com/users/${owner}/orgs?per_page=100&page=${page}`,
+        (page) => `https://api.github.com/users/${encodedOwner}/orgs?per_page=100&page=${page}`,
     )
 }
 
 export async function fetchOrgRepos(org: GitHubOrg): Promise<Repo[]> {
+    const encodedOrg = encodeURIComponent(org.login)
     return fetchPaged<Repo>(
-        (page) => `https://api.github.com/orgs/${org.login}/repos?type=all&sort=full_name&per_page=100&page=${page}`,
+        (page) => `https://api.github.com/orgs/${encodedOrg}/repos?type=all&sort=full_name&per_page=100&page=${page}`,
     )
 }
 
@@ -167,7 +225,8 @@ export async function fetchAllRepos(owner = 'LIghtJUNction'): Promise<Repo[]> {
 export async function fetchRepoCommitCount(repo: Repo): Promise<number | null> {
     try {
         const branch = encodeURIComponent(repo.default_branch)
-        const url = `https://api.github.com/repos/${repo.full_name}/commits?sha=${branch}&per_page=1`
+        const encodedName = repo.full_name.split('/').map(encodeURIComponent).join('/')
+        const url = `https://api.github.com/repos/${encodedName}/commits?sha=${branch}&per_page=1`
         const { data, headers } = await fetchJsonWithHeaders<unknown[]>(url)
         const lastPage = lastPageFromLinkHeader(headers.get('Link'))
 

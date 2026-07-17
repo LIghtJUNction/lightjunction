@@ -8,9 +8,16 @@ if [[ -n "${BASH_SOURCE[0]:-}" && "${BASH_SOURCE[0]}" != "bash" && "${BASH_SOURC
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 fi
 REMOTE_BASE_URL="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
+FIRST_PARTY_RAW_BASE="https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main"
+COMMON_LIB_SHA256="${LIGHTJUNCTION_COMMON_LIB_SHA256:-}"
+BOOTSTRAP_LIB_SHA256="${LIGHTJUNCTION_BOOTSTRAP_LIB_SHA256:-}"
+if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
+    : "${COMMON_LIB_SHA256:=506b64503c03d8d20fa62cb0ae73c8ef099896d58e8affca6477b8067120bff3}"
+    : "${BOOTSTRAP_LIB_SHA256:=ceffc15192acc69a6da4b0b527140fa962a5171870a99a83a4e31bd7756fade2}"
+fi
 
 load_lib() {
-    local file="${1:?}" local_path tmp
+    local file="${1:?}" expected_sha256="${2:-}" local_path tmp actual_sha256
     local_path="${SCRIPT_DIR:+$SCRIPT_DIR/}$file"
     if [[ -n "$SCRIPT_DIR" && -f "$local_path" ]]; then
         # shellcheck source=/dev/null
@@ -22,15 +29,31 @@ load_lib() {
         source "$file"
         return
     fi
+    if [[ -z "$expected_sha256" ]]; then
+        if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
+            printf 'Warning: loading unverified first-party library: %s\n' "$file" >&2
+        else
+            printf 'Refusing unverified library from custom source: %s\n' "$REMOTE_BASE_URL/$file" >&2
+            exit 1
+        fi
+    fi
     tmp="$(mktemp)"
     curl -fsSL --connect-timeout 10 "$REMOTE_BASE_URL/$file" -o "$tmp"
+    if [[ -n "$expected_sha256" ]]; then
+        actual_sha256="$(openssl dgst -sha256 "$tmp" | awk '{print $2}')"
+        [[ "$actual_sha256" == "$expected_sha256" ]] || {
+            rm -f "$tmp"
+            printf 'SHA256 mismatch for %s\n' "$file" >&2
+            exit 1
+        }
+    fi
     # shellcheck source=/dev/null
     source "$tmp"
     rm -f "$tmp"
 }
 
-load_lib lib/common.sh
-load_lib lib/bootstrap.sh
+load_lib lib/common.sh "$COMMON_LIB_SHA256"
+load_lib lib/bootstrap.sh "$BOOTSTRAP_LIB_SHA256"
 
 DAED_RELEASE_TAGS=("${DAED_VERSION:-v1.23.0}" v1.21.1 v1.15.0)
 CACHYOS_REPO_URL="https://mirror.cachyos.org/cachyos-repo.tar.xz"

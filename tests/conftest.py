@@ -1,20 +1,24 @@
-"""pytest configuration - make scripts importable as modules."""
+"""Register the two explicitly tested hyphenated script modules."""
 
-import importlib
 import importlib.machinery
 import importlib.util
 import sys
 from pathlib import Path
 
-SCRIPTS = Path(__file__).parent.parent / "scripts"
+SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 
-# Register scripts as importable modules using importlib
-for path in SCRIPTS.glob("*.py"):
-    name = path.stem  # e.g. "fetch-github-data"
-    spec = importlib.util.spec_from_loader(
-        name, importlib.machinery.SourceFileLoader(name, str(path))
-    )
-    if spec and spec.loader:
-        mod = importlib.util.module_from_spec(spec)
-        sys.modules[name] = mod
-        spec.loader.exec_module(mod)
+
+def register_script(module_name: str, filename: str) -> None:
+    """Load one named script without importing unrelated executable scripts."""
+    path = SCRIPTS / filename
+    loader = importlib.machinery.SourceFileLoader(module_name, str(path))
+    spec = importlib.util.spec_from_loader(module_name, loader)
+    if spec is None:
+        raise RuntimeError(f"could not create module spec for {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    loader.exec_module(module)
+
+
+register_script("fetch_github_data", "fetch-github-data.py")
+register_script("sanitize_work_reports", "sanitize-work-reports.py")

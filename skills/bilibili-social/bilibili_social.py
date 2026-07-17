@@ -18,9 +18,12 @@ from pathlib import Path
 from typing import Any
 from urllib import error, parse, request
 
-
 API = "https://api.bilibili.com"
 VC_API = "https://api.vc.bilibili.com"
+
+
+class BilibiliError(RuntimeError):
+    """Raised for safe, user-facing Bilibili API failures."""
 
 
 def load_env(path: str | None) -> None:
@@ -68,27 +71,63 @@ def cookie_value(name: str) -> str | None:
     return jar[name].value
 
 
+def decode_json_response(response: Any, url: str) -> dict[str, Any]:
+    """Decode and validate one JSON object response."""
+    try:
+        data = json.load(response)
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        raise BilibiliError(f"invalid JSON response from {url}: {exc}") from exc
+    if not isinstance(data, dict):
+        raise BilibiliError(f"unexpected JSON response from {url}")
+    return data
+
+
+def request_failure(exc: BaseException, url: str) -> BilibiliError:
+    """Convert network exceptions without exposing cookie-bearing headers."""
+    if isinstance(exc, error.HTTPError):
+        body = exc.read().decode("utf-8", errors="replace")[:500]
+        return BilibiliError(
+            json.dumps({"http_error": exc.code, "url": url, "body": body}, ensure_ascii=False)
+        )
+    return BilibiliError(f"network request failed for {url}: {exc}")
+
+
 def get_json(url: str) -> dict[str, Any]:
     req = request.Request(url, headers=headers())
     try:
         with request.urlopen(req, timeout=20) as response:
-            return json.load(response)
-    except error.HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace")[:500]
-        raise SystemExit(json.dumps({"http_error": exc.code, "body": body}, ensure_ascii=False))
+            return decode_json_response(response, url)
+    except (error.URLError, TimeoutError) as exc:
+        raise request_failure(exc, url) from exc
 
 
-def post_json(url: str, data: dict[str, str], referer: str = "https://www.bilibili.com/") -> dict[str, Any]:
+def post_json(
+    url: str,
+    data: dict[str, str],
+    referer: str = "https://www.bilibili.com/",
+) -> dict[str, Any]:
     body = parse.urlencode(data).encode()
     post_headers = headers(referer)
     post_headers["Content-Type"] = "application/x-www-form-urlencoded"
     req = request.Request(url, data=body, headers=post_headers, method="POST")
     try:
         with request.urlopen(req, timeout=20) as response:
-            return json.load(response)
-    except error.HTTPError as exc:
-        response_body = exc.read().decode("utf-8", errors="replace")[:500]
-        raise SystemExit(json.dumps({"http_error": exc.code, "body": response_body}, ensure_ascii=False))
+            return decode_json_response(response, url)
+    except (error.URLError, TimeoutError) as exc:
+        raise request_failure(exc, url) from exc
+
+
+def require_confirm(args: argparse.Namespace, action: str) -> None:
+    """Require explicit confirmation before a network write."""
+    if not getattr(args, "confirm", False):
+        raise BilibiliError(f"{action} is a write action; re-run with --confirm")
+
+
+def require_api_success(data: dict[str, Any], action: str) -> None:
+    """Fail when Bilibili reports a non-zero API code."""
+    if data.get("code") != 0:
+        message = data.get("message") or "unknown API error"
+        raise BilibiliError(f"{action} failed: code={data.get('code')} message={message}")
 
 
 def resolve_aid(args: argparse.Namespace) -> int:
@@ -171,6 +210,7 @@ def cmd_comments(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def cmd_comment(args: argparse.Namespace) -> dict[str, Any]:
+    require_confirm(args, "comment")
     aid = resolve_aid(args)
     form = {
         "type": "1",
@@ -181,7 +221,10 @@ def cmd_comment(args: argparse.Namespace) -> dict[str, Any]:
     if args.root:
         form["root"] = str(args.root)
         form["parent"] = str(args.parent or args.root)
-    data = post_json(f"{API}/x/v2/reply/add", form, referer=args.referer or "https://www.bilibili.com/")
+    data = post_json(
+        f"{API}/x/v2/reply/add", form, referer=args.referer or "https://www.bilibili.com/"
+    )
+    require_api_success(data, "comment")
     reply = (data.get("data") or {}).get("reply") or {}
     return {
         "code": data.get("code"),
@@ -246,6 +289,7 @@ def cmd_messages(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def cmd_send_dm(args: argparse.Namespace) -> dict[str, Any]:
+    require_confirm(args, "send-dm")
     sender_uid = cookie_value("DedeUserID")
     if not sender_uid:
         raise SystemExit("DedeUserID is missing from BILIBILI_COOKIE; cannot send DM.")
@@ -264,10 +308,12 @@ def cmd_send_dm(args: argparse.Namespace) -> dict[str, Any]:
         "csrf_token": token,
     }
     data = post_json(f"{VC_API}/web_im/v1/web_im/send_msg", form)
+    require_api_success(data, "send-dm")
     return {"code": data.get("code"), "message": data.get("message"), "data": data.get("data")}
 
 
 def cmd_dynamic(args: argparse.Namespace) -> dict[str, Any]:
+    require_confirm(args, "dynamic")
     token = csrf_token()
     uid = cookie_value("DedeUserID")
     if not uid:
@@ -288,8 +334,11 @@ def cmd_dynamic(args: argparse.Namespace) -> dict[str, Any]:
         form,
         referer="https://t.bilibili.com/",
     )
+    require_api_success(data, "dynamic")
     result = {"code": data.get("code"), "message": data.get("message"), "data": data.get("data")}
-    dyn_id = (data.get("data") or {}).get("dynamic_id_str") or (data.get("data") or {}).get("dynamic_id")
+    dyn_id = (data.get("data") or {}).get("dynamic_id_str") or (data.get("data") or {}).get(
+        "dynamic_id"
+    )
     if dyn_id:
         result["url"] = f"https://t.bilibili.com/{dyn_id}"
     return result
@@ -322,6 +371,7 @@ def build_parser() -> argparse.ArgumentParser:
     comment.add_argument("--root", help="Root rpid when replying")
     comment.add_argument("--parent", help="Parent rpid when replying; defaults to root")
     comment.add_argument("--referer")
+    comment.add_argument("--confirm", action="store_true", help="Confirm the external write")
     comment.set_defaults(func=cmd_comment)
 
     sessions = sub.add_parser("sessions", help="Read private-message sessions")
@@ -338,10 +388,12 @@ def build_parser() -> argparse.ArgumentParser:
     dm.add_argument("--receiver-id", required=True)
     dm.add_argument("--text", required=True)
     dm.add_argument("--dev-id")
+    dm.add_argument("--confirm", action="store_true", help="Confirm the external write")
     dm.set_defaults(func=cmd_send_dm)
 
     dynamic = sub.add_parser("dynamic", help="Post a pure text dynamic")
     dynamic.add_argument("--text", required=True)
+    dynamic.add_argument("--confirm", action="store_true", help="Confirm the external write")
     dynamic.set_defaults(func=cmd_dynamic)
 
     return parser
@@ -351,7 +403,11 @@ def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
     load_env(args.env)
-    result = args.func(args)
+    try:
+        result = args.func(args)
+    except BilibiliError as exc:
+        print(json.dumps({"error": str(exc)}, ensure_ascii=False), file=sys.stderr)
+        return 1
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 

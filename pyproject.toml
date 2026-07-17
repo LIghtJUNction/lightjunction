@@ -27,12 +27,18 @@ files = [
 [[tool.mypy.overrides]]
 module = [
     "fetch_github_data",
+    "sanitize_work_reports",
 ]
 ignore_missing_imports = true
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+extend-exclude = [
+    ".kimaki",
+    ".omo",
+    "workspace",
+]
 
 [tool.ruff.lint]
 select = [
@@ -47,4 +53,9 @@ select = [
 [tool.ruff.lint.per-file-ignores]
 "tests/*.py" = [
     "B011",
+]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
 ]

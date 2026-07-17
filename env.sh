@@ -71,5 +71,5 @@ review_then_run() {
         esac
         printf '\033[1;32mRunning...\033[0m\n'
     fi
-    bash "$scratch"; return $?
+    bash -- "$scratch"
 }

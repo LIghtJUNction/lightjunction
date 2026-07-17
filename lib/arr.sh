@@ -83,7 +83,7 @@ arr_slice() {
         if ((count >= start && count < start + len)); then
             printf '%s\n' "$e"
         fi
-        ((count++))
+        ((count += 1))
     done
 }
 

@@ -119,10 +119,19 @@ os_random() {
 
 os_sleep() {
     local secs="${1:?}"
+    [[ "$secs" =~ ^[0-9]+([.][0-9]+)?$ ]] || {
+        echo "Invalid sleep duration: $secs" >&2
+        return 2
+    }
     if command -v python3 >/dev/null 2>&1; then
-        python3 -c "import time; time.sleep($secs)"
+        python3 - "$secs" <<'PY'
+import sys
+import time
+
+time.sleep(float(sys.argv[1]))
+PY
     elif command -v perl >/dev/null 2>&1; then
-        perl -e "select(undef, undef, undef, $secs)"
+        perl -e 'select(undef, undef, undef, $ARGV[0])' "$secs"
     else
         sleep "$secs"
     fi

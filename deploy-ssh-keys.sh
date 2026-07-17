@@ -7,6 +7,15 @@ set -euo pipefail
 
 KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
 REMOTE_BASE_URL="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
+FIRST_PARTY_RAW_BASE="https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main"
+COMMON_LIB_SHA256="${LIGHTJUNCTION_COMMON_LIB_SHA256:-}"
+BOOTSTRAP_LIB_SHA256="${LIGHTJUNCTION_BOOTSTRAP_LIB_SHA256:-}"
+OS_LIB_SHA256="${LIGHTJUNCTION_OS_LIB_SHA256:-}"
+if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
+    : "${COMMON_LIB_SHA256:=506b64503c03d8d20fa62cb0ae73c8ef099896d58e8affca6477b8067120bff3}"
+    : "${BOOTSTRAP_LIB_SHA256:=ceffc15192acc69a6da4b0b527140fa962a5171870a99a83a4e31bd7756fade2}"
+    : "${OS_LIB_SHA256:=5c60bf433dfc6160dee5f8034bafd113b6fd322bb8e58273f474a0393c24f67f}"
+fi
 
 # ==================== BOOTSTRAP ====================
 __IMPORTED_FILES=()
@@ -18,7 +27,14 @@ import() {
     for imported in "${__IMPORTED_FILES[@]}"; do
         [[ "$imported" == "$url" ]] && return 0
     done
-    __IMPORTED_FILES+=("$url")
+    if [[ -z "$sha256" ]]; then
+        if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
+            printf 'import: warning: loading unverified first-party script: %s\n' "$file" >&2
+        else
+            printf 'import: refusing unverified custom source: %s\n' "$REMOTE_BASE_URL/$file" >&2
+            exit 1
+        fi
+    fi
     local tmp; tmp=$(mktemp) || exit 1
     curl -fsSL --connect-timeout 10 "$url" -o "$tmp" || { rm -f "$tmp"; exit 1; }
     if [[ -n "$sha256" ]]; then
@@ -31,11 +47,12 @@ import() {
     fi
     # shellcheck source=/dev/null
     source "$tmp"; rm -f "$tmp"
+    __IMPORTED_FILES+=("$url")
 }
 
-import lib/common.sh
-import lib/bootstrap.sh
-import lib/os.sh
+import lib/common.sh "$COMMON_LIB_SHA256"
+import lib/bootstrap.sh "$BOOTSTRAP_LIB_SHA256"
+import lib/os.sh "$OS_LIB_SHA256"
 
 find_gpg() {
     command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null || true
@@ -52,9 +69,27 @@ GPG_PATH="\${GPG_PATH:-\$(command -v gpg 2>/dev/null || command -v gpg2 2>/dev/n
 [[ -n "\$GPG_PATH" ]] || { printf 'GPG not found\n' >&2; exit 1; }
 mkdir -p "\$HOME/.ssh"
 "\$GPG_PATH" --keyserver hkps://keyserver.ubuntu.com --recv-keys "\$KEY_ID" >/dev/null 2>&1
-"\$GPG_PATH" --export-ssh-key "\$KEY_ID" > "\$HOME/.ssh/authorized_keys"
+key="\$("\$GPG_PATH" --export-ssh-key "\$KEY_ID")"
+[[ "\$key" == ssh-* ]] || { printf 'GPG did not export a valid SSH public key\n' >&2; exit 1; }
+authorized_keys="\$HOME/.ssh/authorized_keys"
+tmp="\$(mktemp "\$HOME/.ssh/authorized_keys.XXXXXX")"
+begin='# >>> lightjunction managed key >>>'
+end='# <<< lightjunction managed key <<<'
+if [[ -f "\$authorized_keys" ]]; then
+    awk -v begin="\$begin" -v end="\$end" '
+        \$0 == begin { skip = 1; next }
+        \$0 == end { skip = 0; next }
+        !skip { print }
+    ' "\$authorized_keys" > "\$tmp"
+fi
+{
+    printf '%s\n' "\$begin"
+    printf '%s\n' "\$key"
+    printf '%s\n' "\$end"
+} >> "\$tmp"
+chmod 600 "\$tmp"
+mv -f "\$tmp" "\$authorized_keys"
 chmod 700 "\$HOME/.ssh"
-chmod 600 "\$HOME/.ssh/authorized_keys"
 EOF
 }
 

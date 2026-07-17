@@ -8,6 +8,13 @@ log() {
     printf '\n==> %s\n' "$*"
 }
 
+cleanup_python_bytecode() {
+    find scripts tests -type f -name '*.py[co]' -delete
+    find scripts tests -type d -name '__pycache__' -exec rm -rf {} +
+}
+
+trap cleanup_python_bytecode EXIT
+
 require_command() {
     local command_name="${1:?}"
     if ! command -v "$command_name" >/dev/null 2>&1; then
@@ -57,5 +64,4 @@ log "Frontend"
 npm run check
 
 log "Clean transient Python bytecode"
-find scripts tests -type f -name '*.py[co]' -delete
-find scripts tests -type d -name '__pycache__' -exec rm -rf {} +
+cleanup_python_bytecode

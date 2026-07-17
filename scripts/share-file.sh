@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+umask 077
 
 usage() {
   cat <<'USAGE'
@@ -40,6 +41,13 @@ mkdir -p "$share_root"
 token=$(openssl rand -hex 16)
 target_dir="$share_root/$token"
 mkdir -p "$target_dir"
+complete=0
+cleanup() {
+  if [[ "$complete" -eq 0 ]]; then
+    rm -rf -- "$target_dir"
+  fi
+}
+trap cleanup EXIT HUP INT TERM
 
 input_name=${2:-$(basename "$source_file")}
 safe_name=$(printf '%s' "$input_name" | tr -cs 'A-Za-z0-9._-' '-' | sed 's/^-//; s/-$//')
@@ -49,5 +57,6 @@ fi
 
 cp -- "$source_file" "$target_dir/$safe_name"
 chmod 0644 "$target_dir/$safe_name"
+complete=1
 
 printf '%s/%s/%s\n' "$base_url" "$token" "$safe_name"

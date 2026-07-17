@@ -34,9 +34,11 @@ str_split() {
     local delim="${1:?}" && shift
     local s="$*"
     [[ -z "$s" ]] && return
-    local IFS="$delim"
-    # shellcheck disable=SC2086
-    printf '%s\n' $s
+    while [[ "$s" == *"$delim"* ]]; do
+        printf '%s\n' "${s%%"$delim"*}"
+        s="${s#*"$delim"}"
+    done
+    printf '%s\n' "$s"
 }
 
 str_contains() {
@@ -100,11 +102,13 @@ str_uuid() {
     # Use /dev/urandom via openssl for cryptographic randomness
     local hex
     hex=$(openssl rand -hex 16)
+    local variant
+    variant="$(printf '%x' "$((16#${hex:16:1} & 3 | 8))")"
     printf '%s-%s-%s-%s-%s\n' \
         "${hex:0:8}" \
         "${hex:8:4}" \
         "4${hex:13:3}" \
-        "$((0x${hex:16:2} & 0x0f | 0x08))x${hex:18:2}" \
+        "${variant}${hex:17:3}" \
         "${hex:20:12}"
 }
 

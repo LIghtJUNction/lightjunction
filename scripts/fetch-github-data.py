@@ -13,6 +13,7 @@ import json
 import math
 import os
 import sys
+import tempfile
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -26,6 +27,10 @@ DEFAULT_OWNER = "LIghtJUNction"
 PROJECT_CARD_SCHEMA_VERSION = 1
 
 JsonObject = dict[str, Any]
+
+
+class GitHubDataError(RuntimeError):
+    """Raised when GitHub data cannot be fetched without corrupting the cache."""
 
 
 def env_list(name: str) -> list[str]:
@@ -91,14 +96,19 @@ class GitHubClient:
         *,
         max_pages: int | None = 2,
         **params: Any,
-    ) -> list[JsonObject]:
+    ) -> list[JsonObject] | None:
         """Return object items from paginated GitHub list responses."""
         items: list[JsonObject] = []
         page = 1
         per_page = params.pop("per_page", 100)
         while max_pages is None or page <= max_pages:
             data = self.get(path, per_page=per_page, page=page, **params)
-            if not isinstance(data, list) or not data:
+            if data is None:
+                return None
+            if not isinstance(data, list):
+                print(f"warn: GitHub returned a non-list response: {path}", file=sys.stderr)
+                return None
+            if not data:
                 break
             items.extend(item for item in data if isinstance(item, dict))
             if len(data) < per_page:
@@ -124,6 +134,8 @@ def normalize_orgs(orgs: list[str] | tuple[str, ...] | None) -> list[str]:
 def get_user_orgs(username: str) -> list[str]:
     """Return public organization logins for a user."""
     orgs = CLIENT.pages(f"/users/{username}/orgs", max_pages=None)
+    if orgs is None:
+        raise GitHubDataError(f"could not fetch organizations for {username}")
     return normalize_orgs([str(org.get("login", "")) for org in orgs])
 
 
@@ -162,17 +174,20 @@ def collect_project_repos(
         sort="full_name",
         per_page=100,
     )
+    if repos is None:
+        raise GitHubDataError(f"could not fetch repositories for {username}")
     known_orgs = project_orgs(username, orgs) if include_user_orgs else normalize_orgs(orgs)
     for org in known_orgs:
-        repos.extend(
-            CLIENT.pages(
-                f"/orgs/{org}/repos",
-                max_pages=None,
-                type="all",
-                sort="full_name",
-                per_page=100,
-            )
+        org_repos = CLIENT.pages(
+            f"/orgs/{org}/repos",
+            max_pages=None,
+            type="all",
+            sort="full_name",
+            per_page=100,
         )
+        if org_repos is None:
+            raise GitHubDataError(f"could not fetch repositories for organization {org}")
+        repos.extend(org_repos)
     return unique_all_repos(repos)
 
 
@@ -292,16 +307,33 @@ def build_project_cards_payload(settings: Settings = SETTINGS) -> JsonObject:
 def write_project_cards_payload(payload: JsonObject, output: Path) -> None:
     """Write a project-card payload to its configured JSON path."""
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(
-        f"{json.dumps(payload, indent=2, ensure_ascii=False)}\n",
-        encoding="utf-8",
+    content = f"{json.dumps(payload, indent=2, ensure_ascii=False)}\n"
+    descriptor, temporary_name = tempfile.mkstemp(
+        dir=output.parent,
+        prefix=f".{output.name}.",
+        suffix=".tmp",
+        text=True,
     )
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+            stream.write(content)
+            stream.flush()
+            os.fsync(stream.fileno())
+        temporary.replace(output)
+    except BaseException:
+        temporary.unlink(missing_ok=True)
+        raise
 
 
 def main(settings: Settings = SETTINGS) -> int:
     """Fetch, rank, and write the website project cards."""
     print(f"Fetching project cards for @{settings.owner}")
-    project_payload = build_project_cards_payload(settings)
+    try:
+        project_payload = build_project_cards_payload(settings)
+    except GitHubDataError as exc:
+        print(f"error: {exc}; existing project data was preserved", file=sys.stderr)
+        return 1
     write_project_cards_payload(project_payload, settings.projects_output)
     print(f"Wrote {settings.projects_output}")
     print(f"Project cards: {len(project_payload['project_cards'])}")

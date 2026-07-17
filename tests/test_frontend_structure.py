@@ -124,6 +124,19 @@ def test_frontend_uses_synced_project_cards_json() -> None:
     assert synced_json.exists()
 
 
+def test_frontend_validates_external_data_and_urls() -> None:
+    entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
+    github_module = Path("src/github.ts").read_text(encoding="utf-8")
+    dom_module = Path("src/dom.ts").read_text(encoding="utf-8")
+
+    assert "isRepoCardArray(parsed.cards)" in entrypoint
+    assert "Clipboard access was unavailable" in entrypoint
+    assert "stopSecureCardAnimation" in entrypoint
+    assert "parseProjectCardsPayload" in github_module
+    assert "value.schema_version !== 1" in github_module
+    assert "safeExternalUrl" in dom_module
+
+
 def test_terminal_imports_styles_and_motion() -> None:
     entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css")

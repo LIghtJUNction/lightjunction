@@ -146,6 +146,30 @@ def test_main_writes_only_configured_project_payload(tmp_path: Path) -> None:
     assert json.loads(output.read_text(encoding="utf-8")) == payload
 
 
+def test_main_preserves_existing_payload_when_github_fails(tmp_path: Path) -> None:
+    output = tmp_path / "projects.json"
+    output.write_text('{"project_cards":[{"name":"existing"}]}\n', encoding="utf-8")
+    original = output.read_text(encoding="utf-8")
+    settings = mod.Settings(owner="user", token="", orgs=(), projects_output=output)
+
+    with patch.object(
+        mod,
+        "build_project_cards_payload",
+        side_effect=mod.GitHubDataError("GitHub unavailable"),
+    ):
+        result = mod.main(settings)
+
+    assert result == 1
+    assert output.read_text(encoding="utf-8") == original
+
+
+def test_pages_reports_request_failure_instead_of_empty_success() -> None:
+    client = mod.GitHubClient()
+
+    with patch.object(client, "get", return_value=None):
+        assert client.pages("/users/test/repos") is None
+
+
 def test_legacy_activity_payload_configuration_is_absent() -> None:
     source = Path("scripts/fetch-github-data.py").read_text(encoding="utf-8")
     assert "GITHUB_DATA_PATH" not in source

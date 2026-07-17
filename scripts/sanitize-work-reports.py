@@ -4,8 +4,10 @@
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 DEFAULT_REPORTS_DIR = Path(__file__).resolve().parents[1] / "WORK_REPORT"
@@ -49,8 +51,11 @@ REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
         "`[btc-address]`",
     ),
     (
-        re.compile(r"`?[1-9A-HJ-NP-Za-km-z]{32,44}`?"),
-        "`[base58-address]`",
+        re.compile(
+            r"(?i)\b(?:sol(?:ana)?(?:\s+(?:wallet|address))?|wallet(?:\s+address)?)"
+            r"\s*[:=]\s*`?[1-9A-HJ-NP-Za-km-z]{32,44}`?"
+        ),
+        "SOL address: `[base58-address]`",
     ),
     (
         re.compile(r"\b\d+\.\d{6,}\s+(BNB|USDT|ASTER|SKYAI|COAI|CAKE|TAG|BEAT|WBNB)\b"),
@@ -93,6 +98,27 @@ LEAK_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
         re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b", re.IGNORECASE),
     ),
 )
+
+
+def atomic_write_text(path: Path, content: str) -> None:
+    """Replace a report atomically while preserving its permission bits."""
+    descriptor, temporary_name = tempfile.mkstemp(
+        dir=path.parent,
+        prefix=f".{path.name}.",
+        suffix=".tmp",
+        text=True,
+    )
+    temporary = Path(temporary_name)
+    try:
+        os.fchmod(descriptor, path.stat().st_mode)
+        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+            stream.write(content)
+            stream.flush()
+            os.fsync(stream.fileno())
+        temporary.replace(path)
+    except BaseException:
+        temporary.unlink(missing_ok=True)
+        raise
 
 
 def parse_args() -> argparse.Namespace:
@@ -149,7 +175,7 @@ def main() -> int:
         if sanitized != text:
             changed.append(path)
             if not args.check:
-                path.write_text(sanitized, encoding="utf-8")
+                atomic_write_text(path, sanitized)
         found = remaining_leaks(sanitized)
         if found:
             leaks.append((path, found))

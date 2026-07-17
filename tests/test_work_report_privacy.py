@@ -1,18 +1,5 @@
-from pathlib import Path
-
 import pytest
-
-
-def load_sanitizer():
-    import importlib.util
-
-    script = Path(__file__).resolve().parents[1] / "scripts" / "sanitize-work-reports.py"
-    spec = importlib.util.spec_from_file_location("sanitize_work_reports", script)
-    assert spec is not None
-    assert spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+import sanitize_work_reports as sanitizer
 
 
 @pytest.mark.parametrize(
@@ -30,13 +17,22 @@ def load_sanitizer():
     ],
 )
 def test_sanitize_text_redacts_sensitive_report_details(source: str, expected: str) -> None:
-    sanitizer = load_sanitizer()
-
     assert sanitizer.sanitize_text(source) == expected
 
 
 def test_remaining_leaks_allows_sanitized_text() -> None:
-    sanitizer = load_sanitizer()
     text = "Read `[local path]`, sent to [email address], and recorded `[evm-address]`."
 
     assert sanitizer.remaining_leaks(text) == []
+
+
+def test_sanitize_text_preserves_unlabelled_long_base58_text() -> None:
+    ordinary_identifier = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijk"
+
+    assert sanitizer.sanitize_text(ordinary_identifier) == ordinary_identifier
+
+
+def test_sanitize_text_redacts_labelled_solana_address() -> None:
+    address = "VvjgAbuxTuK2By8MYRMsWKVfwrN2ps6o5Yk9Eh2d2Hb"
+
+    assert sanitizer.sanitize_text(f"SOL address: {address}") == "SOL address: `[base58-address]`"

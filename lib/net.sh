@@ -22,7 +22,7 @@ net_check() {
     if command -v nc >/dev/null 2>&1; then
         nc -z -w5 "$host" "$port" >/dev/null 2>&1
     elif command -v timeout >/dev/null 2>&1; then
-        timeout 5 bash -c "echo >/dev/tcp/$host/$port" 2>/dev/null
+        timeout 5 bash -c 'exec 3<>"/dev/tcp/$1/$2"' bash "$host" "$port" 2>/dev/null
     else
         curl -s --connect-timeout 5 "http://$host:$port" >/dev/null 2>&1
     fi
@@ -30,14 +30,14 @@ net_check() {
 
 net_download() {
     local url="${1:?}" output="${2:-}"
-    local opts="-fsSL"
+    local opts=(-fsSL)
     if [[ -t 1 ]] && [[ "${NON_INTERACTIVE:-0}" -eq 0 ]]; then
-        opts="-#fsSL"
+        opts=(-#fsSL)
     fi
     if [[ -n "$output" ]]; then
-        curl $opts -o "$output" "$url"
+        curl "${opts[@]}" -o "$output" "$url"
     else
-        curl $opts "$url"
+        curl "${opts[@]}" "$url"
     fi
 }
 
