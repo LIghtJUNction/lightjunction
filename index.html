@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light">
+    <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f3efe6">
+    <script>
+        (function () {
+            var theme = 'light';
+            try {
+                var stored = localStorage.getItem('lightjunction.theme');
+                if (stored === 'dark' || stored === 'light') {
+                    theme = stored;
+                } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    theme = 'dark';
+                }
+            } catch (e) {
+                /* storage unavailable: fall back to light */
+            }
+            document.documentElement.dataset.theme = theme;
+            if (theme === 'dark') {
+                var meta = document.querySelector('meta[name="theme-color"]');
+                if (meta) meta.setAttribute('content', '#14120e');
+            }
+        })();
+    </script>
     <meta name="description" content="LIghtJUNction — an independent builder working across AI tools, Linux systems, practical security, and open-source infrastructure.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="LIghtJUNction — Independent Builder">
@@ -14,7 +34,7 @@
     <meta name="twitter:card" content="summary">
     <link rel="canonical" href="https://lightjunction.github.io/lightjunction/">
     <title>LIghtJUNction — Independent Builder</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23171511'/%3E%3Cpath d='M15 18h8v21h18v7H15V18zm27 0h7v28h-7V18z' fill='%23f36a2d'/%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23171511'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23f36a2d' stroke-width='3' opacity='.45'/%3E%3Ccircle cx='32' cy='32' r='6.5' fill='%23f36a2d'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -32,7 +52,10 @@
             <button class="nav-tab" type="button" data-app-target="terminal" aria-pressed="false">Terminal</button>
             <a href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer">GitHub</a>
         </nav>
-        <button class="round-control" id="btn-fullscreen" type="button" title="Fullscreen" aria-label="Enter fullscreen">↗</button>
+        <div class="header-controls">
+            <button class="round-control" id="btn-theme" type="button" title="Toggle color theme" aria-label="Toggle color theme" aria-pressed="false">◐</button>
+            <button class="round-control" id="btn-fullscreen" type="button" title="Fullscreen" aria-label="Enter fullscreen">↗</button>
+        </div>
     </header>
 
     <main id="top">
@@ -51,17 +74,38 @@
                 </div>
             </div>
 
-            <aside class="hero-aside reveal" aria-label="Current focus">
-                <div class="bezel-shell portrait-shell">
-                    <div class="bezel-core portrait-core">
-                        <div class="monogram" aria-hidden="true">L<span>J</span></div>
-                        <div class="portrait-note">
-                            <span class="mono-label">Current practice / 2026</span>
-                            <p>Small software, observable systems, durable automation.</p>
-                        </div>
-                        <div class="junction-mark" aria-hidden="true">
-                            <i></i><i></i><i></i><i></i>
-                        </div>
+            <aside class="hero-aside reveal" aria-label="Live GitHub pulse">
+                <div class="bezel-shell pulse-shell">
+                    <div class="bezel-core pulse-core" id="pulse-card" aria-live="polite">
+                        <span class="mono-label">Live pulse / GitHub</span>
+                        <dl class="pulse-stats">
+                            <div>
+                                <dt>Repositories</dt>
+                                <dd data-pulse="repos">—</dd>
+                            </div>
+                            <div>
+                                <dt>Stars earned</dt>
+                                <dd data-pulse="stars">—</dd>
+                            </div>
+                            <div class="pulse-wide">
+                                <dt>Latest push</dt>
+                                <dd><span data-pulse="latest">—</span><span class="pulse-date" data-pulse="latest-date"></span></dd>
+                            </div>
+                        </dl>
+                        <svg class="pulse-nodes" viewBox="0 0 220 130" aria-hidden="true" focusable="false">
+                            <g class="node-links" fill="none" stroke="currentColor" stroke-width="1">
+                                <path d="M18 104 L74 62 L128 80 L202 26" />
+                                <path d="M74 62 L112 22 L202 26" opacity=".55" />
+                                <path d="M128 80 L112 22" opacity=".3" />
+                            </g>
+                            <g class="node-dots" fill="currentColor">
+                                <circle cx="18" cy="104" r="3" />
+                                <circle cx="74" cy="62" r="4" />
+                                <circle cx="128" cy="80" r="3" />
+                                <circle cx="112" cy="22" r="3" />
+                                <circle class="node-accent" cx="202" cy="26" r="5.5" />
+                            </g>
+                        </svg>
                     </div>
                 </div>
                 <p class="aside-caption"><span>01</span> Engineering with curiosity, restraint, and a bias toward things that actually run.</p>
@@ -74,6 +118,79 @@
                 <article><span>01</span><h2>Useful over ornamental.</h2><p>Real controls, honest constraints, working paths.</p></article>
                 <article><span>02</span><h2>Systems over snapshots.</h2><p>Tools designed for repetition, maintenance, and change.</p></article>
                 <article><span>03</span><h2>Open where possible.</h2><p>Learning in public and returning improvements upstream.</p></article>
+            </div>
+        </section>
+
+        <section class="now page-shell reveal" aria-labelledby="now-title">
+            <p class="section-index">Now / 2026-07</p>
+            <div class="now-layout">
+                <h2 id="now-title">What I'm<br><em>doing now.</em></h2>
+                <ol class="now-list">
+                    <li>
+                        <span class="mono-label">Tools</span>
+                        <p>Small developer tools — compact utilities that earn their place.</p>
+                    </li>
+                    <li>
+                        <span class="mono-label">Infra</span>
+                        <p>Observable infrastructure — systems that explain themselves.</p>
+                    </li>
+                    <li>
+                        <span class="mono-label">Agents</span>
+                        <p>Agent workflows — assistants that do durable, reviewable work.</p>
+                    </li>
+                    <li>
+                        <span class="mono-label">Privacy</span>
+                        <p>Privacy-aware automation — OpenPGP contact flows, local-first encryption.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="stack page-shell reveal" aria-labelledby="stack-title">
+            <p class="section-index">Stack / Daily drivers</p>
+            <div class="stack-layout">
+                <div class="stack-intro">
+                    <h2 id="stack-title">Tools<br><em>that stay.</em></h2>
+                    <p>A short list, kept honest by daily use. Everything here has survived at least one full project.</p>
+                </div>
+                <div class="stack-grid">
+                    <article>
+                        <h3>Systems</h3>
+                        <ul>
+                            <li>Arch Linux</li>
+                            <li>Shell</li>
+                            <li>Packaging</li>
+                            <li>Self-hosting</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <h3>Code</h3>
+                        <ul>
+                            <li>TypeScript</li>
+                            <li>Python</li>
+                            <li>Go</li>
+                            <li>Rust</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <h3>AI</h3>
+                        <ul>
+                            <li>Agents</li>
+                            <li>Datasets</li>
+                            <li>Training loops</li>
+                            <li>Automation</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <h3>Security</h3>
+                        <ul>
+                            <li>OpenPGP</li>
+                            <li>SSH</li>
+                            <li>OAuth</li>
+                            <li>Operational hygiene</li>
+                        </ul>
+                    </article>
+                </div>
             </div>
         </section>
 
@@ -143,6 +260,7 @@
     <footer class="site-footer page-shell">
         <span>LIghtJUNction / Digital assistant workspace</span>
         <span>Built for useful work, not noise.</span>
+        <span class="footer-credit">Crafted by Kimi K3 × GPT-5.6-Sol</span>
         <a href="#top">Back to top ↑</a>
     </footer>
 

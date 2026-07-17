@@ -1,10 +1,20 @@
-import * as openpgp from 'openpgp'
 import { COMMAND_NAMES, commandDescription } from './commands'
 import { $, escapeHtml } from './dom'
 import { fetchJson, fetchStaticProjectCards, type GitHubUser, type Repo, type RepoCard } from './github'
 import { initMotion, registerReveals } from './motion'
 import { PUBLIC_KEY } from './public-key'
 import './styles.css'
+
+type OpenPgpModule = typeof import('openpgp')
+
+let openpgpModule: OpenPgpModule | null = null
+
+async function loadOpenPgp(): Promise<OpenPgpModule> {
+    if (!openpgpModule) {
+        openpgpModule = await import('openpgp')
+    }
+    return openpgpModule
+}
 
 type CommandHandler = (args: string[]) => void | Promise<void>
 
@@ -24,6 +34,10 @@ const projectStatus = $<HTMLElement>('project-status')
 const projectCount = $<HTMLElement>('project-count')
 const projectSort = $<HTMLElement>('project-sort')
 const projectGroups = $<HTMLElement>('project-groups')
+const themeButton = $<HTMLButtonElement>('btn-theme')
+const themeColorMeta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')
+const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+const pulseCard = document.getElementById('pulse-card')
 
 let currentInput = ''
 let history: string[] = []
@@ -173,6 +187,71 @@ function formatNumber(value: number | null): string {
 function formatDate(value: string | null): string {
     if (!value) return 'not pushed'
     return new Date(value).toISOString().slice(0, 10)
+}
+
+type Theme = 'light' | 'dark'
+
+function currentTheme(): Theme {
+    return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
+}
+
+function applyTheme(theme: Theme): void {
+    document.documentElement.dataset.theme = theme
+    themeButton.setAttribute('aria-pressed', String(theme === 'dark'))
+    themeColorMeta?.setAttribute('content', theme === 'dark' ? '#14120e' : '#f3efe6')
+}
+
+function toggleTheme(): void {
+    const next: Theme = currentTheme() === 'dark' ? 'light' : 'dark'
+    try {
+        window.localStorage.setItem('lightjunction.theme', next)
+    } catch {
+        // Storage may be unavailable; the theme still applies for this session.
+    }
+    applyTheme(next)
+    showToast(next === 'dark' ? 'Dark theme' : 'Light theme')
+}
+
+function countUp(element: HTMLElement, target: number): void {
+    if (reduceMotionQuery.matches) {
+        element.textContent = formatNumber(target)
+        return
+    }
+    const duration = 900
+    const start = performance.now()
+    const step = (now: number): void => {
+        const progress = Math.min(1, (now - start) / duration)
+        const eased = 1 - (1 - progress) ** 3
+        element.textContent = formatNumber(Math.round(target * eased))
+        if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+}
+
+async function initPulse(): Promise<void> {
+    if (!pulseCard) return
+    const reposEl = pulseCard.querySelector<HTMLElement>('[data-pulse="repos"]')
+    const starsEl = pulseCard.querySelector<HTMLElement>('[data-pulse="stars"]')
+    const latestEl = pulseCard.querySelector<HTMLElement>('[data-pulse="latest"]')
+    const latestDateEl = pulseCard.querySelector<HTMLElement>('[data-pulse="latest-date"]')
+    if (!reposEl || !starsEl || !latestEl || !latestDateEl) return
+
+    try {
+        const cards = readProjectCache()?.cards ?? await fetchStaticProjectCards()
+        if (cards.length === 0) return
+        const totalStars = cards.reduce((sum, repo) => sum + repo.stargazers_count, 0)
+        const latest = cards.reduce((a, b) => {
+            const timeA = a.pushed_at ? new Date(a.pushed_at).getTime() : 0
+            const timeB = b.pushed_at ? new Date(b.pushed_at).getTime() : 0
+            return timeB > timeA ? b : a
+        })
+        countUp(reposEl, cards.length)
+        countUp(starsEl, totalStars)
+        latestEl.textContent = latest.full_name
+        latestDateEl.textContent = latest.pushed_at ? `pushed ${formatDate(latest.pushed_at)}` : ''
+    } catch {
+        // The pulse card is informational; keep placeholders when data is unavailable.
+    }
 }
 
 function readProjectCache(): CachedProjects | null {
@@ -411,7 +490,7 @@ function paintSecureCard(): void {
 }
 
 function tick(): void {
-    if (!secureCard.hidden && !drag.active && !sending) {
+    if (!secureCard.hidden && !drag.active && !sending && !reduceMotionQuery.matches) {
         drag.vy += 0.28
         drag.vx *= 0.985
         drag.vy *= 0.985
@@ -458,6 +537,7 @@ async function encryptAndReveal(): Promise<void> {
 
     showToast('Encrypting')
     try {
+        const openpgp = await loadOpenPgp()
         const publicKey = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
         encryptedMessage = await openpgp.encrypt({
             message: await openpgp.createMessage({ text }),
@@ -812,6 +892,7 @@ function bindSecureCard(): void {
 function bindChrome(): void {
     $('btn-reset').addEventListener('click', resetTerminal)
     $('btn-fullscreen').addEventListener('click', () => void document.documentElement.requestFullscreen?.())
+    themeButton.addEventListener('click', toggleTheme)
     $('btn-message').addEventListener('click', openSecureCard)
     $('btn-contact-message').addEventListener('click', openSecureCard)
     $('btn-refresh-projects').addEventListener('click', () => {
@@ -859,10 +940,12 @@ function boot(): void {
 }
 
 initMotion()
+applyTheme(currentTheme())
 bindChrome()
 bindSecureCard()
 boot()
 switchApp('projects')
 placeSecureCard()
 secureCard.hidden = true
+void initPulse()
 requestAnimationFrame(tick)
