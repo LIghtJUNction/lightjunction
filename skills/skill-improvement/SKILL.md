@@ -21,7 +21,7 @@ Do not turn one-off preferences, secrets, or temporary task details into skills.
 
 Use this skill when at least one of these is true:
 
-- The same task pattern appears in multiple sessions, scheduled runs, or diary notes.
+- The same task pattern appears in multiple sessions, scheduled runs, or local notes.
 - The agent repeatedly searches for the same files, commands, account details, or safety rules.
 - A workflow needs a stable checklist to prevent missed steps.
 - Existing skill instructions are too broad, stale, duplicated, or contradicted by newer memory.
@@ -40,7 +40,7 @@ Do not use this skill for:
 Before editing a skill, gather the smallest useful evidence:
 
 - Search existing skills and `AGENTS.md` for overlapping instructions.
-- Check recent work reports or local notes only when the repeat pattern is not already obvious.
+- Check recent session handoffs or local notes only when the repeat pattern is not already obvious.
 - Identify the exact repeated cost: repeated lookup, repeated command, repeated decision, or repeated mistake.
 - Prefer updating an existing skill over creating a new one when the trigger and workflow already fit.
 
@@ -111,6 +111,6 @@ For recurring work, compress context in this order:
 2. Put reusable workflow details in `skills/<name>/SKILL.md`.
 3. Put reusable code or command orchestration in `skills/<name>/scripts/` or `scripts/`.
 4. Put run-specific logs, queues, and caches in `.kimaki/` or `workspace/`.
-5. Put daily outcomes and next actions in the canonical `WORK_REPORT/YYYY/MM/DD.md` diary.
+5. Keep one-off outcomes and next actions in session handoffs or untracked workspace notes.
 
 This keeps prompts short while preserving enough context for future sessions to act safely.

@@ -22,12 +22,12 @@ warn_unused_ignores = true
 files = [
     "scripts",
     "tests",
+    "skills",
 ]
 
 [[tool.mypy.overrides]]
 module = [
     "fetch_github_data",
-    "sanitize_work_reports",
 ]
 ignore_missing_imports = true
 

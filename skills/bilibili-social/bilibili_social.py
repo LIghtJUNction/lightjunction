@@ -40,11 +40,11 @@ def load_env(path: str | None) -> None:
         os.environ.setdefault(key, value)
 
 
-def cookie_parts() -> tuple[str, SimpleCookie[str]]:
+def cookie_parts() -> tuple[str, SimpleCookie]:
     cookie = os.environ.get("BILIBILI_COOKIE")
     if not cookie:
         raise SystemExit("BILIBILI_COOKIE is missing. Put it in local .env or environment.")
-    jar: SimpleCookie[str] = SimpleCookie(cookie)
+    jar: SimpleCookie = SimpleCookie(cookie)
     return cookie, jar
 
 

@@ -131,7 +131,7 @@ Use candidate queue mode when the agenda says to prepare ammunition for later,
 when it is a quiet hour, or when the user asks for opportunities without asking
 for public action.
 
-Write the queue under `workspace/reports/` or `workspace/repos/`. Do not open an
+Write the queue under `workspace/repos/`. Do not open an
 issue, PR, public review, or social post in this mode.
 
 Each candidate must include:

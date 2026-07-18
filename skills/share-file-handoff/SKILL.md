@@ -49,7 +49,6 @@ The intended flow is:
 3. Verify the URL returns `HTTP 200`.
 4. Send the URL to the recipient by Bluesky DM, Discord, email, or public reply
    when public delivery is acceptable.
-5. Record the handoff in the daily diary if it is part of paid/customer work.
 
 ## Quick Manual Handoff
 

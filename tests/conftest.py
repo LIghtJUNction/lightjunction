@@ -1,4 +1,4 @@
-"""Register the two explicitly tested hyphenated script modules."""
+"""Register the explicitly tested hyphenated script module."""
 
 import importlib.machinery
 import importlib.util
@@ -21,4 +21,3 @@ def register_script(module_name: str, filename: str) -> None:
 
 
 register_script("fetch_github_data", "fetch-github-data.py")
-register_script("sanitize_work_reports", "sanitize-work-reports.py")

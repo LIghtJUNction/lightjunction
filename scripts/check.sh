@@ -9,8 +9,8 @@ log() {
 }
 
 cleanup_python_bytecode() {
-    find scripts tests -type f -name '*.py[co]' -delete
-    find scripts tests -type d -name '__pycache__' -exec rm -rf {} +
+    find scripts tests skills -type f -name '*.py[co]' -delete
+    find scripts tests skills -type d -name '__pycache__' -exec rm -rf {} +
 }
 
 trap cleanup_python_bytecode EXIT
@@ -40,25 +40,19 @@ for file in "${shell_files[@]}"; do
 done
 
 log "ShellCheck"
-shellcheck --severity=error "${shell_files[@]}"
+shellcheck --severity=warning "${shell_files[@]}"
 
 log "Python format"
-uv run ruff format --check scripts tests
+uv run ruff format --check scripts tests skills
 
 log "Python lint"
-uv run ruff check scripts tests
+uv run ruff check scripts tests skills
 
 log "Python types"
 uv run mypy
 
 log "Python tests"
 uv run pytest
-
-log "Work report index"
-uv run scripts/sync-work-report-index.py --check
-
-log "Work report privacy"
-uv run scripts/sanitize-work-reports.py --check
 
 log "Frontend"
 npm run check

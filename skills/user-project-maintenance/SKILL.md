@@ -28,11 +28,11 @@ well-verified actions. Do not turn maintenance replies into sales outreach.
 
 ## Startup Checklist
 
-1. Read `AGENTS.md` and today's canonical diary.
+1. Read `AGENTS.md`.
 2. Record `git status --short --branch` for every repo that may be touched.
 3. Check GitHub notifications, direct mentions, issue comments, PR reviews, and failing workflows.
 4. Pick the highest-signal target from existing user/project context before exploring new repositories.
-5. Record the target, evidence, and skip boundaries in the diary.
+5. Keep the target, evidence, and skip boundaries in the current session context.
 
 ## Triage Order
 
@@ -96,9 +96,9 @@ When making a small fix:
 If no code change is justified, leave a handoff note with the next verification
 commands instead of opening a weak PR.
 
-## Diary Handoff
+## Final Handoff
 
-Record the outcome in the canonical diary:
+Report the outcome in the current final response:
 
 - target repository and issue/PR/release links
 - commands or APIs used as evidence

@@ -52,7 +52,7 @@ trap cleanup EXIT HUP INT TERM
 input_name=${2:-$(basename "$source_file")}
 safe_name=$(printf '%s' "$input_name" | tr -cs 'A-Za-z0-9._-' '-' | sed 's/^-//; s/-$//')
 if [[ -z "$safe_name" ]]; then
-  safe_name=file
+  safe_name="file"
 fi
 
 cp -- "$source_file" "$target_dir/$safe_name"

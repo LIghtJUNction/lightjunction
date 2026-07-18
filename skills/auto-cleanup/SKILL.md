@@ -23,8 +23,6 @@ This workflow may clean:
 
 - Completed or no-op Kimaki sessions that are safe to archive.
 - Local scratch files under `workspace/tmp/`.
-- Old generated run summaries under `workspace/reports/` when they are clearly
-  superseded or temporary.
 - Stale locks and caches under `.kimaki/` only when the owning workflow documents
   that they are stale and safe to remove.
 - Empty or obviously obsolete local working subdirectories created for temporary
@@ -34,7 +32,6 @@ This workflow may organize, but should not silently delete:
 
 - `workspace/inbox/`, `workspace/drafts/`, `workspace/repos/`, and any notes that
   may preserve context for future work.
-- Canonical daily diaries in `/root/.kimaki/projects/lightjunction/WORK_REPORT/`.
 - Durable instructions in `AGENTS.md`, `skills/`, `scripts/`, `identity-assets/`,
   or `money-assets/`.
 - Git worktrees, branches, commits, stashes, or user edits.
@@ -87,7 +84,7 @@ run's instructions say to archive quiet no-op checks.
 For Discord/Kimaki clutter, prefer these actions in order:
 
 1. Archive completed no-op sessions.
-2. Summarize useful outcomes into the canonical daily diary when the work belongs
+2. Summarize useful outcomes in the current-session handoff when the work belongs
    to scheduled/proactive activity.
 3. Leave active user-facing threads visible.
 4. Do not delete or hide threads that contain unresolved user questions, pending
@@ -115,8 +112,6 @@ Safe default cleanup candidates:
 
 - Files under `workspace/tmp/` that are clearly temporary.
 - Empty directories created by previous cleanup or scratch work.
-- Generated reports in `workspace/reports/` that are duplicated in the canonical
-  daily diary and not referenced by an active task.
 
 Do not delete files from these locations without a specific reason and user-safe
 summary:
@@ -143,12 +138,11 @@ instead of removing it.
 
 For scheduled cleanup runs:
 
-1. Read `AGENTS.md` and today's canonical diary if it exists.
+1. Read `AGENTS.md`.
 2. Do a small scan only; avoid broad audits by default.
 3. Archive duplicate/no-op completed sessions.
 4. Clean only clearly safe temporary local files.
-5. Update the canonical daily diary with concise evidence when meaningful work
-   occurred.
+5. Report concise evidence in the current session when meaningful work occurred.
 6. If nothing actionable happened, post a brief final summary and archive the
    scheduled session to reduce Discord noise.
 

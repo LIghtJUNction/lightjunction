@@ -90,10 +90,10 @@ weekday="$(TZ=Asia/Shanghai date +%u)"
 
 case "$china_hour" in
     00) agenda="quiet closeout: summarize, archive no-op runs, prepare next day" ;;
-    01) agenda="prepare day: diary, dirty files, candidate queue, workflow risks" ;;
+    01) agenda="prepare day: dirty files, candidate queue, workflow risks" ;;
     02|03|04|05|06) agenda="active contribution: one small issue-linked PR in a non-duplicate low-star repo" ;;
     07|08|09|10) agenda="user project maintenance: notifications, mentions, CI, small fixes" ;;
-    11|12|13|14) agenda="ethical money-making: concrete assets, inbound-safe leads, diary" ;;
+    11|12|13|14) agenda="ethical money-making: concrete assets, inbound-safe leads, backlog" ;;
     15|16|17|18) agenda="digital identity/social: bounded Bluesky/email/community work" ;;
     19|20|21|22|23) agenda="workflow closeout: memory, skills, README, logs, next-day prep" ;;
     *) agenda="unknown schedule hour: default to quiet local work" ;;
@@ -119,7 +119,7 @@ printf -- '- Lock path: `%s`\n' "$LOCK_DIR"
 printf -- '- Lock TTL: `%ss`\n\n' "$LOCK_TTL_SECONDS"
 
 printf '## Suggested Direction\n\n'
-printf -- '- Start from the diary candidate queue or maintainer follow-ups before searching GitHub.\n'
+printf -- '- Start from the local candidate queue or maintainer follow-ups before searching GitHub.\n'
 printf -- '- Prefer one clear issue-linked fix over broad exploration.\n'
 printf -- '- Stop if the repository is security-sensitive, high-traffic, vague, or needs private access.\n\n'
 

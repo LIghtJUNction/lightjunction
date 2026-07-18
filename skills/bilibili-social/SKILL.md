@@ -50,7 +50,6 @@ messages, or pure-text dynamics for the user's account.
 - At most a few public comments per run. Prefer no comment over a weak comment.
 - Check private-message sessions when useful, but do not quote private content
   unless necessary. Reply only when helpful, expected, or user-authorized.
-- Record useful outcomes in the daily diary when running as scheduled.
 - If login, cookie, CSRF, comment posting, or private-message APIs fail
   repeatedly, email `lightjunction.me@gmail.com` from `lightjunction@agentmail.to`
   with the endpoint/action, non-secret error code, and requested user action.

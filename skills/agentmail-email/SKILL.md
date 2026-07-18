@@ -73,5 +73,3 @@ agentmail --format json <resource> <command>
   `identity-assets/`.
 - Store temporary drafts in `workspace/drafts/` unless the user asks to publish or
   persist them elsewhere.
-- Record useful email-related outcomes in the canonical daily diary when the work
-  happens during scheduled or proactive sessions.
