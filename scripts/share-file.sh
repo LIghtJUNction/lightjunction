@@ -33,8 +33,9 @@ if [[ ! -f "$source_file" ]]; then
   exit 1
 fi
 
-share_root=/var/www/lmm.best/share
-base_url=https://lmm.best/share
+share_root=${SHARE_ROOT:-/srv/share-lmm-best/files}
+base_url=${SHARE_BASE_URL:-https://share.lmm.best}
+base_url=${base_url%/}
 
 mkdir -p "$share_root"
 
@@ -44,19 +45,23 @@ mkdir -p "$target_dir"
 complete=0
 cleanup() {
   if [[ "$complete" -eq 0 ]]; then
-    rm -rf -- "$target_dir"
+    rm -rf -- "$target_dir" || true
   fi
 }
-trap cleanup EXIT HUP INT TERM
+trap cleanup EXIT
+trap 'exit 130' HUP INT TERM
 
 input_name=${2:-$(basename "$source_file")}
 safe_name=$(printf '%s' "$input_name" | tr -cs 'A-Za-z0-9._-' '-' | sed 's/^-//; s/-$//')
 if [[ -z "$safe_name" ]]; then
   safe_name="file"
 fi
+if [[ "$safe_name" == "." || "$safe_name" == ".." ]]; then
+  echo "Refusing unsafe display name: $safe_name" >&2
+  exit 2
+fi
 
-cp -- "$source_file" "$target_dir/$safe_name"
-chmod 0644 "$target_dir/$safe_name"
+install -m 0644 -- "$source_file" "$target_dir/$safe_name"
 complete=1
 
 printf '%s/%s/%s\n' "$base_url" "$token" "$safe_name"

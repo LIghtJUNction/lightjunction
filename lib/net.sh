@@ -17,6 +17,9 @@
 [[ -n "${__net_sh_loaded:-}" ]] && return 0
 __net_sh_loaded=1
 
+NET_CONNECT_TIMEOUT="${NET_CONNECT_TIMEOUT:-10}"
+NET_MAX_TIME="${NET_MAX_TIME:-120}"
+
 net_check() {
     local host="${1:?}" port="${2:-80}"
     if command -v nc >/dev/null 2>&1; then
@@ -24,18 +27,29 @@ net_check() {
     elif command -v timeout >/dev/null 2>&1; then
         timeout 5 bash -c 'exec 3<>"/dev/tcp/$1/$2"' bash "$host" "$port" 2>/dev/null
     else
-        curl -s --connect-timeout 5 "http://$host:$port" >/dev/null 2>&1
+        curl -s --connect-timeout 5 --max-time 10 "http://$host:$port" >/dev/null 2>&1
     fi
 }
 
 net_download() {
     local url="${1:?}" output="${2:-}"
-    local opts=(-fsSL)
+    local opts=(-fsSL --connect-timeout "$NET_CONNECT_TIMEOUT" --max-time "$NET_MAX_TIME")
     if [[ -t 1 ]] && [[ "${NON_INTERACTIVE:-0}" -eq 0 ]]; then
-        opts=(-#fsSL)
+        opts[0]=-#fsSL
     fi
     if [[ -n "$output" ]]; then
-        curl "${opts[@]}" -o "$output" "$url"
+        local directory tmp
+        directory="$(dirname -- "$output")"
+        mkdir -p -- "$directory"
+        tmp="$(mktemp "$directory/.net-download.XXXXXX")" || return 1
+        if ! curl "${opts[@]}" -o "$tmp" "$url"; then
+            rm -f -- "$tmp"
+            return 1
+        fi
+        if ! mv -f -- "$tmp" "$output"; then
+            rm -f -- "$tmp"
+            return 1
+        fi
     else
         curl "${opts[@]}" "$url"
     fi
@@ -43,7 +57,7 @@ net_download() {
 
 net_http_get() {
     local url="${1:?}"
-    curl -fsSL "$url"
+    curl -fsSL --connect-timeout "$NET_CONNECT_TIMEOUT" --max-time "$NET_MAX_TIME" "$url"
 }
 
 net_http_post() {
@@ -51,12 +65,12 @@ net_http_post() {
     if [[ "$url" =~ ^http:// ]]; then
         echo "net_http_post: WARNING — URL uses unencrypted HTTP: $url" >&2
     fi
-    curl -fsSL -X POST -d "$data" "$url"
+    curl -fsSL --connect-timeout "$NET_CONNECT_TIMEOUT" --max-time "$NET_MAX_TIME" -X POST -d "$data" "$url"
 }
 
 net_http_status() {
     local url="${1:?}"
-    curl -s -o /dev/null -w '%{http_code}' "$url"
+    curl -s --connect-timeout "$NET_CONNECT_TIMEOUT" --max-time "$NET_MAX_TIME" -o /dev/null -w '%{http_code}' "$url"
 }
 
 net_is_online() {
@@ -72,7 +86,7 @@ net_public_ip() {
     )
     local ip result
     for ip in "${ips[@]}"; do
-        result=$(curl -fsSL --connect-timeout 5 "$ip" 2>/dev/null) && printf '%s' "$result" && return 0
+        result=$(curl -fsSL --connect-timeout 5 --max-time 10 "$ip" 2>/dev/null) && printf '%s' "$result" && return 0
     done
     echo "offline"
     return 1

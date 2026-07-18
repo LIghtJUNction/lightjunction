@@ -22,6 +22,20 @@ needed first and we can agree on a safer handoff.
 
 ## `curl | bash` Install Scripts
 
-All install scripts (e.g. `deploy-ssh-keys.sh`) prompt for review via `less` before
-execution when run in an interactive terminal. Always review the script content
-before proceeding.
+Piping a script to Bash executes it immediately; it does not pause for review.
+For a reviewable install, download the entrypoint, inspect it, and then run the
+saved file:
+
+```bash
+curl -fsSLo bootstrap.sh https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/bootstrap-linux.sh
+less bootstrap.sh
+bash bootstrap.sh
+```
+
+Bootstrap entrypoints pin and verify their downloaded helper libraries. Native
+daed packages are accepted only when the direct official GitHub release API
+provides a valid SHA256 digest, even if a mirror supplies the package bytes.
+Non-interactive Linux runs install no optional features unless
+`BOOTSTRAP_FEATURES` explicitly names them. Arch-family runs also refuse to add
+third-party package repositories automatically; configure a supported official
+repository yourself before requesting packages that require it.

@@ -12,44 +12,41 @@ FIRST_PARTY_RAW_BASE="https://raw.githubusercontent.com/LIghtJUNction/lightjunct
 COMMON_LIB_SHA256="${LIGHTJUNCTION_COMMON_LIB_SHA256:-}"
 BOOTSTRAP_LIB_SHA256="${LIGHTJUNCTION_BOOTSTRAP_LIB_SHA256:-}"
 if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
-    : "${COMMON_LIB_SHA256:=506b64503c03d8d20fa62cb0ae73c8ef099896d58e8affca6477b8067120bff3}"
-    : "${BOOTSTRAP_LIB_SHA256:=ceffc15192acc69a6da4b0b527140fa962a5171870a99a83a4e31bd7756fade2}"
+    : "${COMMON_LIB_SHA256:=ca059ee1633358864db21c2af98ad150823634ba44378fc6fa51fd302ac4cd86}"
+    : "${BOOTSTRAP_LIB_SHA256:=ddda9419f326510a438ba6236e8f7f772e4cde1ae7511d71852f99ae8bea8e90}"
 fi
 
 load_lib() {
-    local file="${1:?}" expected_sha256="${2:-}" local_path tmp actual_sha256
+    local file="${1:?}" expected_sha256="${2:-}" local_path tmp actual_sha256 status
     local_path="${SCRIPT_DIR:+$SCRIPT_DIR/}$file"
     if [[ -n "$SCRIPT_DIR" && -f "$local_path" ]]; then
         # shellcheck source=/dev/null
         source "$local_path"
         return
     fi
-    if [[ -f "$file" ]]; then
-        # shellcheck source=/dev/null
-        source "$file"
-        return
-    fi
     if [[ -z "$expected_sha256" ]]; then
-        if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
-            printf 'Warning: loading unverified first-party library: %s\n' "$file" >&2
-        else
-            printf 'Refusing unverified library from custom source: %s\n' "$REMOTE_BASE_URL/$file" >&2
-            exit 1
-        fi
+        printf 'Refusing library without required SHA256: %s\n' "$REMOTE_BASE_URL/$file" >&2
+        exit 1
     fi
     tmp="$(mktemp)"
-    curl -fsSL --connect-timeout 10 "$REMOTE_BASE_URL/$file" -o "$tmp"
-    if [[ -n "$expected_sha256" ]]; then
-        actual_sha256="$(openssl dgst -sha256 "$tmp" | awk '{print $2}')"
-        [[ "$actual_sha256" == "$expected_sha256" ]] || {
-            rm -f "$tmp"
-            printf 'SHA256 mismatch for %s\n' "$file" >&2
-            exit 1
-        }
-    fi
+    curl -fsSL --connect-timeout 10 --max-time 120 "$REMOTE_BASE_URL/$file" -o "$tmp" || {
+        rm -f -- "$tmp"
+        exit 1
+    }
+    actual_sha256="$(openssl dgst -sha256 "$tmp" | awk '{print $2}')"
+    [[ "$actual_sha256" == "$expected_sha256" ]] || {
+        rm -f -- "$tmp"
+        printf 'SHA256 mismatch for %s\n' "$file" >&2
+        exit 1
+    }
     # shellcheck source=/dev/null
-    source "$tmp"
-    rm -f "$tmp"
+    if source "$tmp"; then
+        status=0
+    else
+        status=$?
+    fi
+    rm -f -- "$tmp"
+    ((status == 0)) || exit "$status"
 }
 
 load_lib lib/common.sh "$COMMON_LIB_SHA256"
@@ -78,7 +75,8 @@ SHELL_MARKER_BEGIN="# >>> lightjunction macbook shell init >>>"
 SHELL_MARKER_END="# <<< lightjunction macbook shell init <<<"
 GHOSTTY_MARKER_BEGIN="# >>> lightjunction ghostty theme >>>"
 GHOSTTY_MARKER_END="# <<< lightjunction ghostty theme <<<"
-HIDDIFY_DMG_URL="https://github.com/hiddify/hiddify-app/releases/download/v4.1.1/Hiddify-MacOS.dmg"
+
+trap cleanup_tmp_dirs EXIT
 
 require_macos() {
     [[ "$(uname -s)" == "Darwin" ]] || die "This script only supports macOS."
@@ -163,8 +161,13 @@ clean_failed_xcode_cli_tools_install() {
     fi
 
     warn "Command Line Tools is not registered, but $clt_dir already exists."
-    warn "Removing the likely failed installer residue before retrying."
-    sudo rm -rf "$clt_dir"
+    if [[ "${BOOTSTRAP_REPAIR_CLT:-0}" != "1" ]]; then
+        die "Refusing to remove unregistered Command Line Tools. Inspect $clt_dir, or set BOOTSTRAP_REPAIR_CLT=1 to move it to a recoverable backup before retrying."
+    fi
+    local backup_path
+    backup_path="${clt_dir}.backup.$(date +%Y%m%d%H%M%S)"
+    warn "Moving the unregistered Command Line Tools directory to $backup_path."
+    sudo mv -- "$clt_dir" "$backup_path"
     sudo xcode-select --reset || true
     ok "Cleared stale Command Line Tools path"
 }
@@ -209,22 +212,15 @@ ensure_homebrew() {
     if ! command -v brew >/dev/null 2>&1; then
         install_xcode_cli_tools
         log "Installing Homebrew"
-        local installer expected_sha256 actual_sha256
-        installer="$(mktemp)"
-        curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o "$installer"
-        expected_sha256="${HOMEBREW_INSTALL_SHA256:-}"
-        if [[ -z "$expected_sha256" ]]; then
-            warn "Homebrew does not publish a stable installer checksum; running the downloaded first-party installer without SHA256 verification."
-        fi
-        if [[ -n "$expected_sha256" ]]; then
-            actual_sha256="$(openssl dgst -sha256 "$installer" | awk '{print $2}')"
-            [[ "$actual_sha256" == "$expected_sha256" ]] || {
-                rm -f "$installer"
-                die "Homebrew installer SHA256 mismatch."
-            }
-        fi
+        local installer installer_dir installer_url expected_sha256 actual_sha256
+        installer_dir="$(make_tmp_dir)"
+        installer="$installer_dir/install.sh"
+        installer_url="${HOMEBREW_INSTALL_URL:-https://raw.githubusercontent.com/Homebrew/install/fea42d9aedd20a82bea800a6898dcde19401ab1f/install.sh}"
+        expected_sha256="${HOMEBREW_INSTALL_SHA256:-99287f194a8b3c9e6b0203a11a5fa54518be57209343e6bb954dec4635796d9d}"
+        curl -fsSL --connect-timeout 10 --max-time 120 "$installer_url" -o "$installer"
+        actual_sha256="$(openssl dgst -sha256 "$installer" | awk '{print $2}')"
+        [[ "$actual_sha256" == "$expected_sha256" ]] || die "Homebrew installer SHA256 mismatch."
         /bin/bash "$installer"
-        rm -f "$installer"
     fi
 
     load_homebrew_env
@@ -365,49 +361,6 @@ ensure_desktop_apps() {
     else
         warn "clash-verge-rev cask installed but /Applications/Clash Verge.app was not found"
     fi
-}
-
-ensure_hiddify() {
-    local app_path="/Applications/Hiddify.app"
-    local tmp_dir dmg_path mount_dir url mounted_app
-
-    if [[ -d "$app_path" ]]; then
-        ok "Hiddify already installed"
-        sudo xattr -dr com.apple.quarantine "$app_path" 2>/dev/null || true
-        return
-    fi
-
-    tmp_dir="$(make_tmp_dir)"
-    dmg_path="$tmp_dir/Hiddify-MacOS.dmg"
-    mount_dir="$tmp_dir/mount"
-    mkdir -p "$mount_dir"
-
-    url="$(select_fastest_url "$HIDDIFY_DMG_URL")"
-    log "Downloading Hiddify from $url"
-    curl -fL --retry 3 --connect-timeout 15 -o "$dmg_path" "$url"
-
-    log "Mounting Hiddify DMG"
-    hdiutil attach "$dmg_path" -nobrowse -quiet -mountpoint "$mount_dir"
-
-    mounted_app="$(find "$mount_dir" -maxdepth 2 -type d -name 'Hiddify*.app' -print -quit)"
-    if [[ -z "$mounted_app" ]]; then
-        hdiutil detach "$mount_dir" -quiet || true
-        rm -rf "$tmp_dir"
-        die "Hiddify app bundle was not found in the mounted DMG."
-    fi
-
-    log "Installing Hiddify to /Applications"
-    sudo rm -rf "$app_path"
-    sudo ditto "$mounted_app" "$app_path"
-    sudo xattr -dr com.apple.quarantine "$app_path" 2>/dev/null || true
-    sudo chmod -R u+rwX,go+rX "$app_path"
-
-    hdiutil detach "$mount_dir" -quiet || true
-    rm -rf "$tmp_dir"
-
-    ok "Hiddify installed"
-    open -a Hiddify || warn "Open Hiddify manually from /Applications to approve macOS VPN/Network Extension permissions."
-    warn "macOS VPN/Network Extension permissions cannot be fully granted by a shell script; approve Hiddify in the system prompt if macOS asks."
 }
 
 configure_ghostty() {
@@ -573,7 +526,6 @@ main() {
     ensure_codex
     ensure_cc_switch
     ensure_desktop_apps
-    ensure_hiddify
     configure_ghostty
     ensure_fish
     check_environment

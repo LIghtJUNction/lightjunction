@@ -183,6 +183,11 @@ If Bilibili changes the endpoint or returns validation errors, inspect the
 browser Network panel shape or current public API notes, then retry only after
 confirming the payload still matches the user's requested action.
 
+If a comment, dynamic, or DM fails with "delivery status is unknown", do not
+retry automatically. First inspect the target thread, dynamics, or DM session to
+reconcile whether Bilibili already accepted it. For DMs, reuse the reported
+`dev_id` only after that inspection confirms a retry is needed.
+
 ## Final Report
 
 Report compactly:

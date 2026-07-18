@@ -115,24 +115,81 @@ select_fastest_url() {
     printf '%s\n' "$best_url"
 }
 
+github_release_asset_metadata() {
+    local owner="${1:?}" repo="${2:?}" tag="${3:?}" asset="${4:?}" response
+    command_exists jq || {
+        warn "jq is required to verify GitHub release asset metadata."
+        return 1
+    }
+    response="$(curl -fsSL --connect-timeout 10 --max-time 30 \
+        -H 'Accept: application/vnd.github+json' \
+        -H 'X-GitHub-Api-Version: 2022-11-28' \
+        "https://api.github.com/repos/$owner/$repo/releases/tags/$tag")" || return 1
+    jq -er --arg asset "$asset" '
+        [.assets[]? | select(.name == $asset)] as $matches
+        | select($matches | length == 1)
+        | $matches[0]
+        | select((.browser_download_url | type) == "string" and (.browser_download_url | length) > 0)
+        | select((.digest | type) == "string" and (.digest | test("^sha256:[0-9a-fA-F]{64}$")))
+        | [.browser_download_url, (.digest | ascii_downcase)]
+        | @tsv
+    ' <<<"$response"
+}
+
+validate_managed_markers() {
+    local file="${1:?}" begin="${2:?}" end="${3:?}"
+    [[ -f "$file" ]] || return 0
+    awk -v begin="$begin" -v end="$end" '
+        $0 == begin {
+            if (inside || seen_begin) exit 1
+            inside = 1
+            seen_begin = 1
+            next
+        }
+        $0 == end {
+            if (!inside || seen_end) exit 1
+            inside = 0
+            seen_end = 1
+            next
+        }
+        END {
+            if (inside || seen_begin != seen_end) exit 1
+        }
+    ' "$file"
+}
+
 append_managed_block() {
     local file="${1:?}" begin="${2:?}" end="${3:?}" body="${4:?}"
-    local tmp
-    mkdir -p "$(dirname "$file")"
-    touch "$file"
+    local directory tmp
+    directory="$(dirname -- "$file")"
+    mkdir -p "$directory"
+    if [[ ! -e "$file" ]]; then
+        : >"$file"
+    fi
 
-    tmp="$(mktemp)"
-    awk -v begin="$begin" -v end="$end" '
+    if ! validate_managed_markers "$file" "$begin" "$end"; then
+        warn "Malformed managed markers in $file; refusing to modify it."
+        return 1
+    fi
+
+    tmp="$(mktemp "$directory/.managed-block.XXXXXX")" || return 1
+    if ! awk -v begin="$begin" -v end="$end" '
         $0 == begin { skip = 1; next }
         $0 == end { skip = 0; next }
         !skip { print }
-    ' "$file" >"$tmp"
+    ' "$file" >"$tmp"; then
+        rm -f -- "$tmp"
+        return 1
+    fi
 
-    {
+    if ! {
         printf '\n%s\n' "$begin"
         printf '%s\n' "$body"
         printf '%s\n' "$end"
-    } >>"$tmp"
+    } >>"$tmp"; then
+        rm -f -- "$tmp"
+        return 1
+    fi
 
     if cmp -s "$tmp" "$file"; then
         rm -f "$tmp"
@@ -140,7 +197,19 @@ append_managed_block() {
         return
     fi
 
-    chmod --reference="$file" "$tmp" 2>/dev/null || true
-    mv -f "$tmp" "$file"
+    if ! chmod --reference="$file" "$tmp" 2>/dev/null; then
+        chmod "$(stat -f '%Lp' "$file")" "$tmp" || {
+            rm -f -- "$tmp"
+            return 1
+        }
+    fi
+    cp -p -- "$file" "${file}.bak" || {
+        rm -f -- "$tmp"
+        return 1
+    }
+    if ! mv -f -- "$tmp" "$file"; then
+        rm -f -- "$tmp"
+        return 1
+    fi
     ok "Updated $file"
 }

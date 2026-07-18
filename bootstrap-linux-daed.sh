@@ -13,7 +13,7 @@ fi
 
 FIRST_PARTY_RAW_BASE="https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main"
 REMOTE_BASE_URL="${LIGHTJUNCTION_RAW_BASE:-$FIRST_PARTY_RAW_BASE}"
-BOOTSTRAP_LINUX_PIN="3edc49087ca521d62bd24f69b2c33c39b6a8ea52232891018317a7fd1adf03fb"
+BOOTSTRAP_LINUX_PIN="6acd69883fdd2903e8640748584bb0a0a4295fab290c1bef1974756099062405"
 expected_sha256="${LIGHTJUNCTION_BOOTSTRAP_LINUX_SHA256:-}"
 if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" && -z "$expected_sha256" ]]; then
     expected_sha256="$BOOTSTRAP_LINUX_PIN"
@@ -24,8 +24,9 @@ if [[ -z "$expected_sha256" ]]; then
 fi
 
 tmp="$(mktemp)"
-trap 'rm -f -- "$tmp"' EXIT HUP INT TERM
-curl -fsSL --connect-timeout 10 "$REMOTE_BASE_URL/bootstrap-linux.sh" -o "$tmp"
+trap 'rm -f -- "$tmp"' EXIT
+trap 'exit 130' HUP INT TERM
+curl -fsSL --connect-timeout 10 --max-time 120 "$REMOTE_BASE_URL/bootstrap-linux.sh" -o "$tmp"
 actual_sha256="$(openssl dgst -sha256 "$tmp" | awk '{print $2}')"
 if [[ "$actual_sha256" != "$expected_sha256" ]]; then
     printf 'bootstrap-linux.sh SHA256 mismatch.\n' >&2

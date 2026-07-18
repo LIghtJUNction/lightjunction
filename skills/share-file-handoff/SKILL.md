@@ -45,22 +45,23 @@ is not publicly listable, but individual files are accessible by URL.
 The intended flow is:
 
 1. Create or receive a non-secret deliverable file.
-2. Put it under `/srv/share-lmm-best/files/` using a hard-to-guess folder name.
+2. Use `scripts/share-file.sh` to put it under `/srv/share-lmm-best/files/`
+   using a hard-to-guess folder name.
 3. Verify the URL returns `HTTP 200`.
 4. Send the URL to the recipient by Bluesky DM, Discord, email, or public reply
    when public delivery is acceptable.
 
-## Quick Manual Handoff
+## Preferred Handoff
 
-Use a random directory per customer/delivery:
+From the `lightjunction` repository, use the validated helper:
 
 ```bash
-token=$(openssl rand -hex 16)
-mkdir -p "/srv/share-lmm-best/files/$token"
-cp -- ./deliverable.zip "/srv/share-lmm-best/files/$token/deliverable.zip"
-chmod 0644 "/srv/share-lmm-best/files/$token/deliverable.zip"
-printf 'https://share.lmm.best/%s/deliverable.zip\n' "$token"
+scripts/share-file.sh ./deliverable.zip
 ```
+
+An optional second argument sets a sanitized display name. The helper creates a
+random delivery directory, installs a regular file with mode `0644`, cleans up
+failed deliveries, and prints the final `https://share.lmm.best/...` URL.
 
 Verify:
 

@@ -56,11 +56,32 @@ lj_file_size_bytes() {
 }
 
 lj_sha256_file() {
-    local path="${1:?}"
-    sha256sum "$path" 2>/dev/null | awk '{print $1}' || shasum -a 256 "$path" | awk '{print $1}'
+    local path="${1:?}" output digest
+    if command -v sha256sum >/dev/null 2>&1; then
+        output="$(sha256sum "$path")" || return 1
+    elif command -v shasum >/dev/null 2>&1; then
+        output="$(shasum -a 256 "$path")" || return 1
+    else
+        lj_err "No SHA256 tool found."
+        return 1
+    fi
+    digest="${output%%[[:space:]]*}"
+    [[ "$digest" =~ ^[[:xdigit:]]{64}$ ]] || return 1
+    printf '%s\n' "$digest"
 }
 
 lj_md5_file() {
-    local path="${1:?}"
-    md5sum "$path" 2>/dev/null | awk '{print $1}' || md5 -q "$path" 2>/dev/null
+    local path="${1:?}" output digest
+    if command -v md5sum >/dev/null 2>&1; then
+        output="$(md5sum "$path")" || return 1
+        digest="${output%%[[:space:]]*}"
+    elif command -v md5 >/dev/null 2>&1; then
+        output="$(md5 -q "$path")" || return 1
+        digest="${output%%[[:space:]]*}"
+    else
+        lj_err "No MD5 tool found."
+        return 1
+    fi
+    [[ "$digest" =~ ^[[:xdigit:]]{32}$ ]] || return 1
+    printf '%s\n' "$digest"
 }

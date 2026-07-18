@@ -12,8 +12,8 @@ COMMON_LIB_SHA256="${LIGHTJUNCTION_COMMON_LIB_SHA256:-}"
 BOOTSTRAP_LIB_SHA256="${LIGHTJUNCTION_BOOTSTRAP_LIB_SHA256:-}"
 OS_LIB_SHA256="${LIGHTJUNCTION_OS_LIB_SHA256:-}"
 if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
-    : "${COMMON_LIB_SHA256:=506b64503c03d8d20fa62cb0ae73c8ef099896d58e8affca6477b8067120bff3}"
-    : "${BOOTSTRAP_LIB_SHA256:=ceffc15192acc69a6da4b0b527140fa962a5171870a99a83a4e31bd7756fade2}"
+    : "${COMMON_LIB_SHA256:=ca059ee1633358864db21c2af98ad150823634ba44378fc6fa51fd302ac4cd86}"
+    : "${BOOTSTRAP_LIB_SHA256:=ddda9419f326510a438ba6236e8f7f772e4cde1ae7511d71852f99ae8bea8e90}"
     : "${OS_LIB_SHA256:=5c60bf433dfc6160dee5f8034bafd113b6fd322bb8e58273f474a0393c24f67f}"
 fi
 
@@ -27,26 +27,26 @@ import() {
     for imported in "${__IMPORTED_FILES[@]}"; do
         [[ "$imported" == "$url" ]] && return 0
     done
-    if [[ -z "$sha256" ]]; then
-        if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
-            printf 'import: warning: loading unverified first-party script: %s\n' "$file" >&2
-        else
-            printf 'import: refusing unverified custom source: %s\n' "$REMOTE_BASE_URL/$file" >&2
-            exit 1
-        fi
-    fi
+    [[ -n "$sha256" ]] || {
+        printf 'import: refusing script without required SHA256: %s\n' "$url" >&2
+        exit 1
+    }
     local tmp; tmp=$(mktemp) || exit 1
-    curl -fsSL --connect-timeout 10 "$url" -o "$tmp" || { rm -f "$tmp"; exit 1; }
-    if [[ -n "$sha256" ]]; then
-        local actual
-        actual=$(openssl dgst -sha256 "$tmp" | awk '{print $2}')
-        if [[ "$actual" != "$sha256" ]]; then
-            printf 'import: SHA256 mismatch for %s\n' "$file" >&2
-            rm -f "$tmp"; exit 1
-        fi
+    trap 'rm -f -- "$tmp"' EXIT
+    trap 'exit 130' HUP INT TERM
+    curl -fsSL --connect-timeout 10 --max-time 120 "$url" -o "$tmp" || { rm -f "$tmp"; exit 1; }
+    local actual
+    actual=$(openssl dgst -sha256 "$tmp" | awk '{print $2}')
+    if [[ "$actual" != "$sha256" ]]; then
+        printf 'import: SHA256 mismatch for %s\n' "$file" >&2
+        rm -f "$tmp"; exit 1
     fi
+    local status
     # shellcheck source=/dev/null
-    source "$tmp"; rm -f "$tmp"
+    if source "$tmp"; then status=0; else status=$?; fi
+    rm -f -- "$tmp"
+    trap - EXIT HUP INT TERM
+    ((status == 0)) || exit "$status"
     __IMPORTED_FILES+=("$url")
 }
 
@@ -73,9 +73,30 @@ key="\$("\$GPG_PATH" --export-ssh-key "\$KEY_ID")"
 [[ "\$key" == ssh-* ]] || { printf 'GPG did not export a valid SSH public key\n' >&2; exit 1; }
 authorized_keys="\$HOME/.ssh/authorized_keys"
 tmp="\$(mktemp "\$HOME/.ssh/authorized_keys.XXXXXX")"
+cleanup() { rm -f -- "\$tmp"; }
+trap cleanup EXIT
+trap 'exit 130' HUP INT TERM
 begin='# >>> lightjunction managed key >>>'
 end='# <<< lightjunction managed key <<<'
 if [[ -f "\$authorized_keys" ]]; then
+    if ! awk -v begin="\$begin" -v end="\$end" '
+        \$0 == begin {
+            if (inside || seen_begin) exit 1
+            inside = 1
+            seen_begin = 1
+            next
+        }
+        \$0 == end {
+            if (!inside || seen_end) exit 1
+            inside = 0
+            seen_end = 1
+            next
+        }
+        END { if (inside || seen_begin != seen_end) exit 1 }
+    ' "\$authorized_keys"; then
+        printf 'Malformed lightjunction managed key markers; refusing to modify authorized_keys.\n' >&2
+        exit 1
+    fi
     awk -v begin="\$begin" -v end="\$end" '
         \$0 == begin { skip = 1; next }
         \$0 == end { skip = 0; next }
@@ -88,7 +109,11 @@ fi
     printf '%s\n' "\$end"
 } >> "\$tmp"
 chmod 600 "\$tmp"
-mv -f "\$tmp" "\$authorized_keys"
+if [[ -f "\$authorized_keys" ]]; then
+    cp -p -- "\$authorized_keys" "\${authorized_keys}.bak"
+fi
+mv -f -- "\$tmp" "\$authorized_keys"
+trap - EXIT HUP INT TERM
 chmod 700 "\$HOME/.ssh"
 EOF
 }

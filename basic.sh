@@ -14,22 +14,10 @@ verify_sha256() {
     fi
 }
 
-is_first_party_url() {
-    case "${1:?}" in
-        https://raw.githubusercontent.com/lightjunction/lightjunction/* | \
-        https://raw.githubusercontent.com/LIghtJUNction/lightjunction/*) return 0 ;;
-        *) return 1 ;;
-    esac
-}
-
 require_remote_integrity() {
     local url="${1:?}" expected="${2:-}"
     [[ -n "$expected" ]] && return 0
-    if is_first_party_url "$url"; then
-        printf 'import: warning: loading unverified first-party URL: %s\n' "$url" >&2
-        return 0
-    fi
-    printf 'import: refusing unverified custom URL: %s\n' "$url" >&2
+    printf 'import: refusing URL without required SHA256: %s\n' "$url" >&2
     return 1
 }
 
@@ -45,12 +33,12 @@ import() {
     require_remote_integrity "$url" "$sha256" || return 1
 
     tmpfile="$(mktemp)" || return 1
-    if ! curl -fsSL --connect-timeout 10 "$url" -o "$tmpfile"; then
+    if ! curl -fsSL --connect-timeout 10 --max-time 120 "$url" -o "$tmpfile"; then
         rm -f -- "$tmpfile"
         printf 'import: failed to download %s\n' "$url" >&2
         return 1
     fi
-    if [[ -n "$sha256" ]] && ! verify_sha256 "$tmpfile" "$sha256"; then
+    if ! verify_sha256 "$tmpfile" "$sha256"; then
         return 1
     fi
 

@@ -12,51 +12,47 @@ FIRST_PARTY_RAW_BASE="https://raw.githubusercontent.com/LIghtJUNction/lightjunct
 COMMON_LIB_SHA256="${LIGHTJUNCTION_COMMON_LIB_SHA256:-}"
 BOOTSTRAP_LIB_SHA256="${LIGHTJUNCTION_BOOTSTRAP_LIB_SHA256:-}"
 if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
-    : "${COMMON_LIB_SHA256:=506b64503c03d8d20fa62cb0ae73c8ef099896d58e8affca6477b8067120bff3}"
-    : "${BOOTSTRAP_LIB_SHA256:=ceffc15192acc69a6da4b0b527140fa962a5171870a99a83a4e31bd7756fade2}"
+    : "${COMMON_LIB_SHA256:=ca059ee1633358864db21c2af98ad150823634ba44378fc6fa51fd302ac4cd86}"
+    : "${BOOTSTRAP_LIB_SHA256:=ddda9419f326510a438ba6236e8f7f772e4cde1ae7511d71852f99ae8bea8e90}"
 fi
 
 load_lib() {
-    local file="${1:?}" expected_sha256="${2:-}" local_path tmp actual_sha256
+    local file="${1:?}" expected_sha256="${2:-}" local_path tmp actual_sha256 status
     local_path="${SCRIPT_DIR:+$SCRIPT_DIR/}$file"
     if [[ -n "$SCRIPT_DIR" && -f "$local_path" ]]; then
         # shellcheck source=/dev/null
         source "$local_path"
         return
     fi
-    if [[ -f "$file" ]]; then
-        # shellcheck source=/dev/null
-        source "$file"
-        return
-    fi
     if [[ -z "$expected_sha256" ]]; then
-        if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
-            printf 'Warning: loading unverified first-party library: %s\n' "$file" >&2
-        else
-            printf 'Refusing unverified library from custom source: %s\n' "$REMOTE_BASE_URL/$file" >&2
-            exit 1
-        fi
+        printf 'Refusing library without required SHA256: %s\n' "$REMOTE_BASE_URL/$file" >&2
+        exit 1
     fi
     tmp="$(mktemp)"
-    curl -fsSL --connect-timeout 10 "$REMOTE_BASE_URL/$file" -o "$tmp"
-    if [[ -n "$expected_sha256" ]]; then
-        actual_sha256="$(openssl dgst -sha256 "$tmp" | awk '{print $2}')"
-        [[ "$actual_sha256" == "$expected_sha256" ]] || {
-            rm -f "$tmp"
-            printf 'SHA256 mismatch for %s\n' "$file" >&2
-            exit 1
-        }
-    fi
+    curl -fsSL --connect-timeout 10 --max-time 120 "$REMOTE_BASE_URL/$file" -o "$tmp" || {
+        rm -f -- "$tmp"
+        exit 1
+    }
+    actual_sha256="$(openssl dgst -sha256 "$tmp" | awk '{print $2}')"
+    [[ "$actual_sha256" == "$expected_sha256" ]] || {
+        rm -f -- "$tmp"
+        printf 'SHA256 mismatch for %s\n' "$file" >&2
+        exit 1
+    }
     # shellcheck source=/dev/null
-    source "$tmp"
-    rm -f "$tmp"
+    if source "$tmp"; then
+        status=0
+    else
+        status=$?
+    fi
+    rm -f -- "$tmp"
+    ((status == 0)) || exit "$status"
 }
 
 load_lib lib/common.sh "$COMMON_LIB_SHA256"
 load_lib lib/bootstrap.sh "$BOOTSTRAP_LIB_SHA256"
 
 DAED_RELEASE_TAGS=("${DAED_VERSION:-v1.23.0}" v1.21.1 v1.15.0)
-CACHYOS_REPO_URL="https://mirror.cachyos.org/cachyos-repo.tar.xz"
 FEATURES=()
 DOMESTIC_OK=1
 INTERNATIONAL_OK=1
@@ -171,16 +167,39 @@ install_packages() {
 }
 
 download_daed_asset() {
-    local asset="${1:?}" output="${2:?}" tag original url
+    local asset="${1:?}" output="${2:?}" tag metadata original url selected digest actual
+    local directory tmp
+    command_exists jq || install_packages jq
+    command_exists jq || die "jq is required to verify daed release metadata."
+    directory="$(dirname -- "$output")"
+    tmp="$(mktemp "$directory/.daed-download.XXXXXX")" || die "Could not create download temp file."
     for tag in "${DAED_RELEASE_TAGS[@]}"; do
-        original="https://github.com/daeuniverse/daed/releases/download/$tag/$asset"
-        if url="$(select_fastest_url "$original" 2>/dev/null)"; then
-            log "Downloading $asset from daed $tag via $url"
-            curl -fL --retry 3 --connect-timeout 15 -o "$output" "$url"
+        if ! metadata="$(github_release_asset_metadata daeuniverse daed "$tag" "$asset")"; then
+            warn "No uniquely verifiable $asset metadata for daed $tag"
+            continue
+        fi
+        IFS=$'\t' read -r original digest <<<"$metadata"
+        digest="${digest#sha256:}"
+        url="$original"
+        if selected="$(select_fastest_url "$original" 2>/dev/null)"; then
+            url="$selected"
+        fi
+        log "Downloading $asset from daed $tag via $url"
+        if curl -fL --retry 3 --connect-timeout 15 --max-time 300 -o "$tmp" "$url"; then
+            actual="$(lj_sha256_file "$tmp")" || {
+                rm -f -- "$tmp"
+                die "Could not calculate SHA256 for $asset."
+            }
+            if [[ "$actual" != "$digest" ]]; then
+                rm -f -- "$tmp"
+                die "SHA256 mismatch for daed $tag asset $asset."
+            fi
+            mv -f -- "$tmp" "$output"
             return
         fi
-        warn "No reachable $asset asset for daed $tag"
+        warn "Could not download verified $asset asset for daed $tag"
     done
+    rm -f -- "$tmp"
     die "Could not find a reachable daed release asset: $asset"
 }
 
@@ -194,16 +213,7 @@ configure_cachyos_repo() {
         return
     fi
 
-    local tmp installer
-    tmp="$(make_tmp_dir)"
-    log "Configuring CachyOS repositories for Arch-based Linux"
-    curl -fL --retry 3 --connect-timeout 15 -o "$tmp/cachyos-repo.tar.xz" "$CACHYOS_REPO_URL"
-    tar -C "$tmp" -xf "$tmp/cachyos-repo.tar.xz"
-    installer="$(find "$tmp" -maxdepth 3 -type f -name 'cachyos-repo.sh' -print -quit)"
-    [[ -n "$installer" ]] || die "CachyOS repository installer was not found in downloaded archive."
-    chmod +x "$installer"
-    ( cd "$(dirname "$installer")" && "${SUDO[@]}" ./cachyos-repo.sh )
-    ok "CachyOS repository configured"
+    die "daed on Arch requires CachyOS or an existing [cachyos] repository. Configure the repository manually using official CachyOS documentation, then rerun; this script will not add third-party repositories automatically."
 }
 
 install_daed_deb() {
@@ -333,6 +343,11 @@ parse_features() {
         for item in $raw; do
             FEATURES+=("$item")
         done
+        return
+    fi
+
+    if ! is_interactive; then
+        warn "No optional features selected. Set BOOTSTRAP_FEATURES=network-daed,fs-bees,shell,cn-desktop for non-interactive use."
         return
     fi
 

@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-STATE_DIR="$ROOT_DIR/.kimaki"
+STATE_DIR="${OPEN_SOURCE_CONTRIB_STATE_DIR:-$ROOT_DIR/.kimaki}"
 LOG_PATH="$STATE_DIR/opensource-contrib-log.jsonl"
 LOCK_DIR="$STATE_DIR/opensource-contrib.lock"
 LOCK_TTL_SECONDS="${OPEN_SOURCE_CONTRIB_LOCK_TTL_SECONDS:-3300}"
@@ -63,7 +63,7 @@ else
         owner_alive=1
     fi
 
-    if ((LOCK_TTL_SECONDS > 0 && age_seconds < LOCK_TTL_SECONDS && owner_alive == 1)); then
+    if ((owner_alive == 1)); then
         printf 'Open-source contribution context: another run appears active.\n'
         printf 'Lock path: %s\n' "$LOCK_DIR"
         printf 'Lock age: %ss; TTL: %ss; owner PID: %s\n' "$age_seconds" "$LOCK_TTL_SECONDS" "$lock_pid"

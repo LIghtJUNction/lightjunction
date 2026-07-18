@@ -26,6 +26,10 @@ class BilibiliError(RuntimeError):
     """Raised for safe, user-facing Bilibili API failures."""
 
 
+class BilibiliDeliveryUnknownError(BilibiliError):
+    """Raised when a write may have committed but no response was received."""
+
+
 def load_env(path: str | None) -> None:
     env_path = Path(path or ".env")
     if not env_path.exists():
@@ -92,6 +96,28 @@ def request_failure(exc: BaseException, url: str) -> BilibiliError:
     return BilibiliError(f"network request failed for {url}: {exc}")
 
 
+def require_mapping(value: Any, path: str) -> dict[str, Any]:
+    """Return a JSON mapping or raise a controlled schema error."""
+    if not isinstance(value, dict):
+        raise BilibiliError(f"unexpected API schema: {path} must be an object")
+    return value
+
+
+def require_list(value: Any, path: str) -> list[Any]:
+    """Return a JSON list or raise a controlled schema error."""
+    if not isinstance(value, list):
+        raise BilibiliError(f"unexpected API schema: {path} must be a list")
+    return value
+
+
+def require_mapping_list(value: Any, path: str) -> list[dict[str, Any]]:
+    """Return a JSON list containing only mappings."""
+    items = require_list(value, path)
+    if not all(isinstance(item, dict) for item in items):
+        raise BilibiliError(f"unexpected API schema: {path} must contain only objects")
+    return items
+
+
 def get_json(url: str) -> dict[str, Any]:
     req = request.Request(url, headers=headers())
     try:
@@ -105,6 +131,9 @@ def post_json(
     url: str,
     data: dict[str, str],
     referer: str = "https://www.bilibili.com/",
+    *,
+    action: str,
+    delivery_id: str | None = None,
 ) -> dict[str, Any]:
     body = parse.urlencode(data).encode()
     post_headers = headers(referer)
@@ -113,8 +142,14 @@ def post_json(
     try:
         with request.urlopen(req, timeout=20) as response:
             return decode_json_response(response, url)
-    except (error.URLError, TimeoutError) as exc:
+    except error.HTTPError as exc:
         raise request_failure(exc, url) from exc
+    except (error.URLError, TimeoutError) as exc:
+        delivery = f" delivery id {delivery_id}" if delivery_id else ""
+        raise BilibiliDeliveryUnknownError(
+            f"{action}{delivery} delivery status is unknown after a network failure; "
+            f"inspect Bilibili before retrying: {exc}"
+        ) from exc
 
 
 def require_confirm(args: argparse.Namespace, action: str) -> None:
@@ -132,19 +167,31 @@ def require_api_success(data: dict[str, Any], action: str) -> None:
 
 def resolve_aid(args: argparse.Namespace) -> int:
     if getattr(args, "aid", None):
-        return int(args.aid)
+        try:
+            return int(args.aid)
+        except (TypeError, ValueError) as exc:
+            raise BilibiliError("--aid must be an integer") from exc
     bvid = getattr(args, "bvid", None)
     if not bvid:
-        raise SystemExit("Provide --aid or --bvid.")
+        raise BilibiliError("Provide --aid or --bvid.")
     data = get_json(f"{API}/x/web-interface/view?{parse.urlencode({'bvid': bvid})}")
-    if data.get("code") != 0:
-        raise SystemExit(json.dumps(data, ensure_ascii=False))
-    return int(data["data"]["aid"])
+    require_api_success(data, "resolve-aid")
+    view = require_mapping(data.get("data"), "resolve-aid.data")
+    aid_value = view.get("aid")
+    if not isinstance(aid_value, (int, str)):
+        raise BilibiliError("unexpected API schema: resolve-aid.data.aid must be an integer")
+    try:
+        return int(aid_value)
+    except (TypeError, ValueError) as exc:
+        raise BilibiliError(
+            "unexpected API schema: resolve-aid.data.aid must be an integer"
+        ) from exc
 
 
 def cmd_nav(_: argparse.Namespace) -> dict[str, Any]:
     data = get_json(f"{API}/x/web-interface/nav")
-    nav = data.get("data") or {}
+    require_api_success(data, "nav")
+    nav = require_mapping(data.get("data"), "nav.data")
     return {
         "code": data.get("code"),
         "message": data.get("message"),
@@ -156,7 +203,12 @@ def cmd_nav(_: argparse.Namespace) -> dict[str, Any]:
 
 def cmd_hot(_: argparse.Namespace) -> dict[str, Any]:
     data = get_json("https://s.search.bilibili.com/main/hotword")
-    items = data.get("list") or data.get("data", {}).get("list") or []
+    require_api_success(data, "hot")
+    raw_items = data.get("list")
+    if raw_items is None:
+        hot_data = require_mapping(data.get("data"), "hot.data")
+        raw_items = hot_data.get("list")
+    items = require_mapping_list(raw_items, "hot.list")
     return {
         "items": [
             {
@@ -172,7 +224,9 @@ def cmd_hot(_: argparse.Namespace) -> dict[str, Any]:
 def cmd_popular(args: argparse.Namespace) -> dict[str, Any]:
     query = parse.urlencode({"ps": args.limit, "pn": args.page})
     data = get_json(f"{API}/x/web-interface/popular?{query}")
-    videos = data.get("data", {}).get("list") or []
+    require_api_success(data, "popular")
+    popular = require_mapping(data.get("data"), "popular.data")
+    videos = require_mapping_list(popular.get("list"), "popular.data.list")
     return {
         "code": data.get("code"),
         "videos": [
@@ -180,7 +234,7 @@ def cmd_popular(args: argparse.Namespace) -> dict[str, Any]:
                 "title": video.get("title"),
                 "bvid": video.get("bvid"),
                 "aid": video.get("aid"),
-                "owner": (video.get("owner") or {}).get("name"),
+                "owner": require_mapping(video.get("owner"), "popular.video.owner").get("name"),
                 "url": video.get("short_link_v2") or video.get("short_link"),
             }
             for video in videos[: args.limit]
@@ -192,7 +246,9 @@ def cmd_comments(args: argparse.Namespace) -> dict[str, Any]:
     aid = resolve_aid(args)
     query = parse.urlencode({"type": 1, "oid": aid, "mode": 3, "next": args.page, "ps": args.limit})
     data = get_json(f"{API}/x/v2/reply/main?{query}")
-    replies = (data.get("data") or {}).get("replies") or []
+    require_api_success(data, "comments")
+    comments_data = require_mapping(data.get("data"), "comments.data")
+    replies = require_mapping_list(comments_data.get("replies"), "comments.data.replies")
     return {
         "code": data.get("code"),
         "message": data.get("message"),
@@ -200,9 +256,11 @@ def cmd_comments(args: argparse.Namespace) -> dict[str, Any]:
         "comments": [
             {
                 "rpid": reply.get("rpid"),
-                "user": (reply.get("member") or {}).get("uname"),
+                "user": require_mapping(reply.get("member"), "comments.reply.member").get("uname"),
                 "likes": reply.get("like"),
-                "message": (reply.get("content") or {}).get("message"),
+                "message": require_mapping(reply.get("content"), "comments.reply.content").get(
+                    "message"
+                ),
             }
             for reply in replies[: args.limit]
         ],
@@ -222,16 +280,21 @@ def cmd_comment(args: argparse.Namespace) -> dict[str, Any]:
         form["root"] = str(args.root)
         form["parent"] = str(args.parent or args.root)
     data = post_json(
-        f"{API}/x/v2/reply/add", form, referer=args.referer or "https://www.bilibili.com/"
+        f"{API}/x/v2/reply/add",
+        form,
+        referer=args.referer or "https://www.bilibili.com/",
+        action="comment",
     )
     require_api_success(data, "comment")
-    reply = (data.get("data") or {}).get("reply") or {}
+    comment_data = require_mapping(data.get("data"), "comment.data")
+    reply = require_mapping(comment_data.get("reply"), "comment.data.reply")
+    content = require_mapping(reply.get("content"), "comment.data.reply.content")
     return {
         "code": data.get("code"),
         "message": data.get("message"),
         "rpid": reply.get("rpid"),
         "ctime": reply.get("ctime"),
-        "posted_message": (reply.get("content") or {}).get("message"),
+        "posted_message": content.get("message"),
     }
 
 
@@ -246,7 +309,9 @@ def cmd_sessions(args: argparse.Namespace) -> dict[str, Any]:
         }
     )
     data = get_json(f"{VC_API}/session_svr/v1/session_svr/get_sessions?{query}")
-    sessions = (data.get("data") or {}).get("session_list") or []
+    require_api_success(data, "sessions")
+    session_data = require_mapping(data.get("data"), "sessions.data")
+    sessions = require_mapping_list(session_data.get("session_list"), "sessions.data.session_list")
     return {
         "code": data.get("code"),
         "sessions": [
@@ -255,7 +320,9 @@ def cmd_sessions(args: argparse.Namespace) -> dict[str, Any]:
                 "session_type": session.get("session_type"),
                 "unread_count": session.get("unread_count"),
                 "timestamp": session.get("session_ts"),
-                "last_msg": session.get("last_msg", {}).get("content"),
+                "last_msg": require_mapping(
+                    session.get("last_msg"), "sessions.session.last_msg"
+                ).get("content"),
             }
             for session in sessions[: args.limit]
         ],
@@ -272,7 +339,9 @@ def cmd_messages(args: argparse.Namespace) -> dict[str, Any]:
         }
     )
     data = get_json(f"{VC_API}/svr_sync/v1/svr_sync/fetch_session_msgs?{query}")
-    messages = (data.get("data") or {}).get("messages") or []
+    require_api_success(data, "messages")
+    message_data = require_mapping(data.get("data"), "messages.data")
+    messages = require_mapping_list(message_data.get("messages"), "messages.data.messages")
     return {
         "code": data.get("code"),
         "messages": [
@@ -295,6 +364,7 @@ def cmd_send_dm(args: argparse.Namespace) -> dict[str, Any]:
         raise SystemExit("DedeUserID is missing from BILIBILI_COOKIE; cannot send DM.")
     now = str(int(time.time()))
     token = csrf_token()
+    dev_id = args.dev_id or str(uuid.uuid4())
     form = {
         "msg[sender_uid]": sender_uid,
         "msg[receiver_id]": str(args.receiver_id),
@@ -303,11 +373,16 @@ def cmd_send_dm(args: argparse.Namespace) -> dict[str, Any]:
         "msg[msg_status]": "0",
         "msg[content]": json.dumps({"content": args.text}, ensure_ascii=False),
         "msg[timestamp]": now,
-        "msg[dev_id]": args.dev_id or str(uuid.uuid4()),
+        "msg[dev_id]": dev_id,
         "csrf": token,
         "csrf_token": token,
     }
-    data = post_json(f"{VC_API}/web_im/v1/web_im/send_msg", form)
+    data = post_json(
+        f"{VC_API}/web_im/v1/web_im/send_msg",
+        form,
+        action="send-dm",
+        delivery_id=dev_id,
+    )
     require_api_success(data, "send-dm")
     return {"code": data.get("code"), "message": data.get("message"), "data": data.get("data")}
 
@@ -333,12 +408,12 @@ def cmd_dynamic(args: argparse.Namespace) -> dict[str, Any]:
         f"{VC_API}/dynamic_svr/v1/dynamic_svr/create",
         form,
         referer="https://t.bilibili.com/",
+        action="dynamic",
     )
     require_api_success(data, "dynamic")
-    result = {"code": data.get("code"), "message": data.get("message"), "data": data.get("data")}
-    dyn_id = (data.get("data") or {}).get("dynamic_id_str") or (data.get("data") or {}).get(
-        "dynamic_id"
-    )
+    dynamic_data = require_mapping(data.get("data"), "dynamic.data")
+    result = {"code": data.get("code"), "message": data.get("message"), "data": dynamic_data}
+    dyn_id = dynamic_data.get("dynamic_id_str") or dynamic_data.get("dynamic_id")
     if dyn_id:
         result["url"] = f"https://t.bilibili.com/{dyn_id}"
     return result

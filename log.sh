@@ -32,11 +32,11 @@ _msg() {
     _LAST_LVL="$lvl"
 }
 
-err()   { [[ ${LOG_LEVEL:-3} -ge 1 ]] && _msg "ERR"   "$C_RED"    "$1"; }
-warn()  { [[ ${LOG_LEVEL:-3} -ge 2 ]] && _msg "WARN"  "$C_YELLOW" "$1"; }
-ok()    { [[ ${LOG_LEVEL:-3} -ge 3 ]] && _msg "OK"    "$C_GREEN"  "$1"; }
-info()  { [[ ${LOG_LEVEL:-3} -ge 3 ]] && _msg "INFO"  "$C_BLUE"   "$1"; }
-debug() { [[ ${LOG_LEVEL:-3} -ge 4 ]] && _msg "DEBUG" "$C_PURPLE" "$1"; }
+err()   { if [[ ${LOG_LEVEL:-3} -ge 1 ]]; then _msg "ERR"   "$C_RED"    "$1"; else return 0; fi; }
+warn()  { if [[ ${LOG_LEVEL:-3} -ge 2 ]]; then _msg "WARN"  "$C_YELLOW" "$1"; else return 0; fi; }
+ok()    { if [[ ${LOG_LEVEL:-3} -ge 3 ]]; then _msg "OK"    "$C_GREEN"  "$1"; else return 0; fi; }
+info()  { if [[ ${LOG_LEVEL:-3} -ge 3 ]]; then _msg "INFO"  "$C_BLUE"   "$1"; else return 0; fi; }
+debug() { if [[ ${LOG_LEVEL:-3} -ge 4 ]]; then _msg "DEBUG" "$C_PURPLE" "$1"; else return 0; fi; }
 line() {
     printf "${C_DIM}%*s${C_RESET}\n" "${WIDTH:-80}" '' | tr ' ' "${S_DIVIDER:--}" >&2
 }
