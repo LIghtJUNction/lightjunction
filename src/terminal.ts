@@ -4,6 +4,7 @@ import { fetchJson, fetchStaticProjectCards, isRepoCardArray, type GitHubUser, t
 import { initMotion, registerReveals } from './motion'
 import { PUBLIC_KEY } from './public-key'
 import './styles.css'
+import './optical-theme.css'
 
 type OpenPgpModule = typeof import('openpgp')
 
@@ -200,7 +201,7 @@ function currentTheme(): Theme {
 function applyTheme(theme: Theme): void {
     document.documentElement.dataset.theme = theme
     themeButton.setAttribute('aria-pressed', String(theme === 'dark'))
-    themeColorMeta?.setAttribute('content', theme === 'dark' ? '#14120e' : '#f3efe6')
+    themeColorMeta?.setAttribute('content', theme === 'dark' ? '#0b0d0f' : '#e9e2d3')
 }
 
 function toggleTheme(): void {
@@ -360,7 +361,7 @@ function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
             <div class="project-shell reveal">
             <article class="project-card">
                 <header>
-                    <h3><a href="${repoUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.full_name)}</a></h3>
+                    <h3><a href="${repoUrl}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escapeHtml(repo.full_name)} on GitHub">${escapeHtml(repo.name)}</a></h3>
                     <span class="project-rank">#${index + 1}</span>
                 </header>
                 <div class="project-metrics" aria-label="Repository metrics">
