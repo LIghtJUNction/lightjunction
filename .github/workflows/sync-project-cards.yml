@@ -32,7 +32,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-          TEAM_ORGS: SlashNephy
           GITHUB_PROJECTS_PATH: public/github-projects.json
         run: uv run scripts/fetch-github-data.py
 
