@@ -4,7 +4,6 @@ import { fetchJson, fetchStaticProjectCards, isRepoCardArray, type GitHubUser, t
 import { initMotion, registerReveals } from './motion'
 import { PUBLIC_KEY } from './public-key'
 import './styles.css'
-import './optical-theme.css'
 
 type OpenPgpModule = typeof import('openpgp')
 
@@ -201,7 +200,7 @@ function currentTheme(): Theme {
 function applyTheme(theme: Theme): void {
     document.documentElement.dataset.theme = theme
     themeButton.setAttribute('aria-pressed', String(theme === 'dark'))
-    themeColorMeta?.setAttribute('content', theme === 'dark' ? '#0b0d0f' : '#e9e2d3')
+    themeColorMeta?.setAttribute('content', theme === 'dark' ? '#141413' : '#FAF9F5')
 }
 
 function toggleTheme(): void {

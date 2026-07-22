@@ -15,7 +15,7 @@ def test_index_has_personal_site_metadata() -> None:
     html = Path("index.html").read_text(encoding="utf-8")
     required = [
         '<meta name="description"',
-        '<meta name="theme-color" content="#e9e2d3">',
+        '<meta name="theme-color" content="#FAF9F5">',
         '<meta property="og:title" content="LIghtJUNction — Independent Builder">',
         '<meta property="og:image" content="https://1.gravatar.com/avatar/',
         '?s=512&amp;d=identicon">',
@@ -149,16 +149,16 @@ def test_terminal_imports_styles_and_motion() -> None:
     assert motion.exists() and motion.stat().st_size > 0
 
 
-def test_optical_edition_keeps_its_visual_asset_and_theme_layer() -> None:
+def test_anthropic_art_edition_keeps_its_ink_marks() -> None:
     html = Path("index.html").read_text(encoding="utf-8")
-    entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
-    theme = Path("src/optical-theme.css")
-    lens = Path("public/optical-lens.webp")
+    stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
 
-    assert 'src="./optical-lens.webp"' in html
-    assert "import './optical-theme.css'" in entrypoint
-    assert theme.exists() and theme.stat().st_size > 0
-    assert lens.exists() and lens.stat().st_size > 0
+    assert 'class="hero-blob"' in html
+    assert 'class="ink-mark"' in html
+    assert 'class="hero-underline"' in html
+    assert "#FAF9F5" in stylesheet
+    assert "#141413" in stylesheet
+    assert "#D97757" in stylesheet
 
 
 def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
