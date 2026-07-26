@@ -3,8 +3,8 @@
 ## Project Overview
 
 This is LIghtJUNction's personal GitHub profile repository. It combines a
-manually maintained README, a secure message web app, and a portable shell
-scripting toolkit.
+manually maintained README, a secure message web app, a portable shell
+scripting toolkit, and a set of host-neutral agent skills.
 
 ## Key Components
 
@@ -19,6 +19,20 @@ scripting toolkit.
 - Vite + TypeScript app deployed to GitHub Pages.
 - Uses `openpgp` v6 to encrypt messages with the owner's GPG public key.
 - Physics-based card interaction (drag up to send).
+- Liquid-glass art language: a fixed `.liquid-field` color layer drifts behind
+  frosted `.glass-shell` / `.glass-core` panes (`backdrop-filter` with an
+  `@supports` opaque fallback) defined in `src/styles.css`; scroll-reveal +
+  pointer-parallax motion lives in `src/motion.ts`, which sets the
+  `--lens-*`/`--caustic-*` custom properties on the document root.
+- Frontend modules: `terminal.ts` (entry + REPL + app switching),
+  `projects.ts` (project cards, groups, cache, pulse), `secure-card.ts`
+  (drag physics, encryption, result modal, focus management), `theme.ts`,
+  `toast.ts`, `format.ts`, `dom.ts`, `github.ts`, `motion.ts`,
+  `public-key.ts`.
+- The terminal exposes public commands listed in `src/commands.ts`
+  (`COMMAND_NAMES`), plus hidden commands defined only in the `commands` map
+  in `terminal.ts` (e.g. `fable5`) that intentionally do not appear in `help`
+  or autocomplete.
 - Check: `npm run check`
 - Build: `npm run build` -> `dist/`
 - Full repository gate: `scripts/check.sh`
@@ -35,16 +49,27 @@ scripting toolkit.
 - **Security:** script content is shown via `less` for review before execution.
   Use `--confirm` flag to skip review.
 
+### Agent Skills (`skills/`)
+- Host-neutral `SKILL.md` workflows, installable via
+  `npx skills add LIghtJUNction/lightjunction -g`.
+- See `skills/README.md` for the full index. Do not add a competing
+  `.agents/skills/` directory — `skills/` at the repo root is the single
+  source of truth.
+
 ## Workflows
 
 | File | Trigger | Purpose |
 |------|---------|---------|
-| `ci.yml` | Push, pull request, manual | Shell, Python, and frontend quality gates |
-| `deploy-pages.yml` | Push to `main`, manual | Build web app, deploy to GitHub Pages |
-| `sync-project-cards.yml` | Every 6 hours, manual | Refresh website project-card JSON |
+| `ci.yml` | Push, pull request, manual | Parallel `shell` / `python` / `frontend` jobs, each calling the matching `scripts/check-*.sh`, plus a `ci` gate job that fails if any of them did |
+| `deploy-pages.yml` | Push to `main`, manual | `build` job (typecheck, build, attest provenance, upload Pages artifact), then a separate `deploy` job |
+| `sync-project-cards.yml` | Every 6 hours, manual | Refresh website project-card JSON; guarded to the upstream repo, rebases before pushing |
 
 ## Important Notes
 
+- `scripts/check.sh` is a thin orchestrator over `scripts/check-shell.sh`,
+  `scripts/check-python.sh`, and `scripts/check-frontend.sh` — CI and local
+  dev both call the same domain scripts, so there is one source of truth for
+  what "passing" means.
 - `import()` deduplicates by URL. All imported scripts must define a guard
   (`[[ -n "${__VAR:-}" ]] && return 0`) to prevent double-sourcing.
 - `STRICT_MODE=1` (default) enables `set -euo pipefail`.

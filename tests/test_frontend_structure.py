@@ -93,7 +93,7 @@ def test_terminal_keyboard_input_is_scoped_and_keeps_native_tab() -> None:
 
 
 def test_contact_flows_restore_focus_and_isolate_modal() -> None:
-    entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
+    secure_card = Path("src/secure-card.ts").read_text(encoding="utf-8")
     required = [
         "dismissSecureCard",
         "restorePreviousFocus",
@@ -104,34 +104,35 @@ def test_contact_flows_restore_focus_and_isolate_modal() -> None:
         "$('secure-cancel').addEventListener('click', dismissSecureCard)",
     ]
     for fragment in required:
-        assert fragment in entrypoint
+        assert fragment in secure_card
 
 
 def test_project_filters_preserve_the_loaded_data_source() -> None:
-    entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
-    assert "let projectSource: ProjectSource" in entrypoint
-    assert "projectSource = source" in entrypoint
-    assert "renderProjectCards(projectCards, projectSource)" in entrypoint
+    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
+    assert "let projectSource: ProjectSource" in projects_module
+    assert "projectSource = source" in projects_module
+    assert "renderProjectCards(projectCards, projectSource)" in projects_module
 
 
 def test_frontend_uses_synced_project_cards_json() -> None:
-    entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
+    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
     github_module = Path("src/github.ts").read_text(encoding="utf-8")
     synced_json = Path("public/github-projects.json")
 
-    assert "fetchStaticProjectCards" in entrypoint
+    assert "fetchStaticProjectCards" in projects_module
     assert "github-projects.json" in github_module
     assert synced_json.exists()
 
 
 def test_frontend_validates_external_data_and_urls() -> None:
-    entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
+    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
+    secure_card = Path("src/secure-card.ts").read_text(encoding="utf-8")
     github_module = Path("src/github.ts").read_text(encoding="utf-8")
     dom_module = Path("src/dom.ts").read_text(encoding="utf-8")
 
-    assert "isRepoCardArray(parsed.cards)" in entrypoint
-    assert "Clipboard access was unavailable" in entrypoint
-    assert "stopSecureCardAnimation" in entrypoint
+    assert "isRepoCardArray(parsed.cards)" in projects_module
+    assert "Clipboard access was unavailable" in secure_card
+    assert "stopSecureCardAnimation" in secure_card
     assert "parseProjectCardsPayload" in github_module
     assert "value.schema_version !== 1" in github_module
     assert "safeExternalUrl" in dom_module
@@ -139,26 +140,31 @@ def test_frontend_validates_external_data_and_urls() -> None:
 
 def test_terminal_imports_styles_and_motion() -> None:
     entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
+    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css")
     motion = Path("src/motion.ts")
     assert "import './styles.css'" in entrypoint
     assert "from './motion'" in entrypoint
     assert "initMotion()" in entrypoint
-    assert "registerReveals(projectGrid)" in entrypoint
+    assert "registerReveals(projectGrid)" in projects_module
     assert stylesheet.exists() and stylesheet.stat().st_size > 0
     assert motion.exists() and motion.stat().st_size > 0
 
 
-def test_anthropic_art_edition_keeps_its_ink_marks() -> None:
+def test_liquid_glass_edition_keeps_its_identity() -> None:
     html = Path("index.html").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
 
     assert 'class="hero-blob"' in html
     assert 'class="ink-mark"' in html
     assert 'class="hero-underline"' in html
+    assert 'class="liquid-field"' in html
     assert "#FAF9F5" in stylesheet
     assert "#141413" in stylesheet
     assert "#D97757" in stylesheet
+    assert "backdrop-filter" in stylesheet
+    assert "--glass-bg" in stylesheet
+    assert "@supports not ((backdrop-filter: blur(1px))" in stylesheet
 
 
 def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
@@ -166,18 +172,30 @@ def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
     modules = [
         "src/commands.ts",
         "src/dom.ts",
+        "src/format.ts",
         "src/github.ts",
         "src/motion.ts",
+        "src/projects.ts",
         "src/public-key.ts",
+        "src/secure-card.ts",
+        "src/theme.ts",
+        "src/toast.ts",
     ]
 
     for module in modules:
         assert Path(module).exists(), module
 
-    assert "from './commands'" in entrypoint
-    assert "from './dom'" in entrypoint
-    assert "from './github'" in entrypoint
-    assert "from './public-key'" in entrypoint
+    entry_imports = [
+        "./commands",
+        "./dom",
+        "./format",
+        "./projects",
+        "./secure-card",
+        "./theme",
+    ]
+    for import_path in entry_imports:
+        assert f"from '{import_path}'" in entrypoint
+
     assert "from './visuals'" not in entrypoint
     assert "initAsciiBackground" not in entrypoint
     assert not Path("src/visuals.ts").exists()
@@ -195,7 +213,7 @@ def test_repository_keeps_formatting_standards() -> None:
 
 
 def test_quality_gate_cleans_python_bytecode() -> None:
-    check_script = Path("scripts/check.sh").read_text(encoding="utf-8")
+    check_script = Path("scripts/check-python.sh").read_text(encoding="utf-8")
 
     assert "Clean transient Python bytecode" in check_script
     assert "__pycache__" in check_script

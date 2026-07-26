@@ -14,7 +14,10 @@ permissions:
 
 jobs:
   sync:
+    name: Fetch + commit
+    if: github.repository == 'LIghtJUNction/lightjunction'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -45,4 +48,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/github-projects.json
           git commit -m "chore: sync project cards"
+          git fetch origin main
+          git rebase origin/main
           git push

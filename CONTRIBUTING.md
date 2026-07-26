@@ -21,6 +21,16 @@ Run the same checks that CI uses:
 scripts/check.sh
 ```
 
+CI runs the shell, Python, and frontend gates as separate parallel jobs. Each
+one calls the matching domain script directly, so you can also run just the
+part you touched:
+
+```bash
+scripts/check-shell.sh      # bash -n + shellcheck
+scripts/check-python.sh     # ruff format/lint + mypy + pytest
+scripts/check-frontend.sh   # npm run check (typecheck + build)
+```
+
 ## Pull Requests
 
 - Keep changes scoped and explain the user-visible reason.

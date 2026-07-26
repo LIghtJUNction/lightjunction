@@ -42,7 +42,11 @@
 <body>
     <a class="skip-link" href="#workspace-title">Skip to selected work</a>
 
-    <header class="site-header" aria-label="Primary navigation">
+    <div class="liquid-field" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <header class="site-header glass-bar" aria-label="Primary navigation">
         <a class="wordmark" href="#top" aria-label="LIghtJUNction home">
             <span class="signal-dot" aria-hidden="true"></span>
             <span>LIghtJUNction</span>
@@ -59,7 +63,7 @@
     </header>
 
     <main id="top">
-        <section class="hero page-shell" aria-labelledby="hero-title">
+        <section class="hero page-shell optical-stage" aria-labelledby="hero-title">
             <div class="hero-blob" aria-hidden="true">
                 <svg class="ink-mark" viewBox="0 0 600 570" fill="none" focusable="false">
                     <path d="M300 118 C 398 100, 478 182, 468 288 C 459 396, 378 468, 288 460 C 192 452, 122 378, 134 278 C 145 188, 212 134, 300 118 Z" fill="var(--paper)" stroke="none"/>
@@ -93,8 +97,8 @@
             </div>
 
             <aside class="hero-aside reveal" aria-label="Live GitHub pulse">
-                <div class="bezel-shell pulse-shell">
-                    <div class="bezel-core pulse-core" id="pulse-card" aria-live="polite">
+                <div class="glass-shell pulse-shell">
+                    <div class="glass-core pulse-core" id="pulse-card" aria-live="polite">
                         <span class="mono-label">Live pulse / GitHub</span>
                         <dl class="pulse-stats">
                             <div>
@@ -244,8 +248,8 @@
                 <div class="project-grid" id="project-grid" aria-live="polite"></div>
             </section>
 
-            <section class="terminal app-panel bezel-shell" id="terminal-app" data-app-panel="terminal" aria-label="Interactive terminal" hidden>
-                <div class="terminal-core bezel-core" id="terminal-console" tabindex="0" aria-label="Terminal command input. Type a command and press Enter.">
+            <section class="terminal app-panel glass-shell" id="terminal-app" data-app-panel="terminal" aria-label="Interactive terminal" hidden>
+                <div class="terminal-core glass-core" id="terminal-console" tabindex="0" aria-label="Terminal command input. Type a command and press Enter.">
                     <header class="titlebar">
                         <div><span class="terminal-light" aria-hidden="true"></span><span>lightjunction / secure tty</span></div>
                         <button class="round-control terminal-control" id="btn-reset" type="button" title="Reset terminal" aria-label="Reset terminal">↻</button>
@@ -287,12 +291,12 @@
     <footer class="site-footer page-shell">
         <span>LIghtJUNction / Digital assistant workspace</span>
         <span>Built for useful work, not noise.</span>
-        <span class="footer-credit">Crafted by Kimi K3 × GPT-5.6-Sol</span>
+        <span class="footer-credit">Crafted by Kimi K3 × GPT-5.6-Sol × Fable 5</span>
         <a href="#top">Back to top ↑</a>
     </footer>
 
-    <section class="secure-card bezel-shell" id="secure-card" hidden aria-label="Secure message card">
-        <div class="secure-core bezel-core">
+    <section class="secure-card glass-shell" id="secure-card" hidden aria-label="Secure message card">
+        <div class="secure-core glass-core">
             <div class="secure-title"><strong>OpenPGP message</strong><span>drag upward or press encrypt</span></div>
             <label class="sr-only" for="secure-message">Message to encrypt</label>
             <textarea id="secure-message" placeholder="A project note, public message, or contact details..."></textarea>
@@ -307,8 +311,8 @@
     </section>
 
     <section class="modal" id="result-overlay" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-label="Encrypted result" aria-hidden="true">
-        <div class="modal-shell bezel-shell">
-            <div class="modal-box bezel-core">
+        <div class="modal-shell glass-shell">
+            <div class="modal-box glass-core">
                 <h2 id="result-title">Encrypted message</h2>
                 <pre id="result-content"></pre>
                 <div class="modal-actions">

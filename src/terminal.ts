@@ -1,163 +1,26 @@
 import { COMMAND_NAMES, commandDescription } from './commands'
 import { $, escapeHtml, safeExternalUrl } from './dom'
-import { fetchJson, fetchStaticProjectCards, isRepoCardArray, type GitHubUser, type Repo, type RepoCard } from './github'
-import { initMotion, registerReveals } from './motion'
-import { PUBLIC_KEY } from './public-key'
+import { formatNumber } from './format'
+import { fetchJson, fetchStaticProjectCards, type GitHubUser, type Repo } from './github'
+import { initMotion } from './motion'
+import { ensureProjectCards, initProjectControls, initPulse, readProjectCache } from './projects'
+import { initSecureCard, openSecureCard } from './secure-card'
+import { initTheme } from './theme'
 import './styles.css'
 
-type OpenPgpModule = typeof import('openpgp')
-
-let openpgpModule: OpenPgpModule | null = null
-
-async function loadOpenPgp(): Promise<OpenPgpModule> {
-    if (!openpgpModule) {
-        openpgpModule = await import('openpgp')
-    }
-    return openpgpModule
-}
-
 type CommandHandler = (args: string[]) => void | Promise<void>
+type AppId = 'projects' | 'terminal'
 
 const output = $<HTMLElement>('terminal-output')
 const inputText = $<HTMLElement>('input-text')
-const secureCard = $<HTMLElement>('secure-card')
-const secureMessage = $<HTMLTextAreaElement>('secure-message')
-const resultOverlay = $<HTMLElement>('result-overlay')
-const resultContent = $<HTMLElement>('result-content')
-const resultCopy = $<HTMLButtonElement>('result-copy')
-const toast = $<HTMLElement>('toast')
 const terminalRegion = $<HTMLElement>('terminal-console')
 const workspaceTitle = $<HTMLElement>('workspace-title')
 const workspaceKicker = $<HTMLElement>('workspace-kicker')
-const projectGrid = $<HTMLElement>('project-grid')
-const projectStatus = $<HTMLElement>('project-status')
-const projectCount = $<HTMLElement>('project-count')
-const projectSort = $<HTMLElement>('project-sort')
-const projectGroups = $<HTMLElement>('project-groups')
-const themeButton = $<HTMLButtonElement>('btn-theme')
-const themeColorMeta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')
-const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-const pulseCard = document.getElementById('pulse-card')
 
 let currentInput = ''
 let history: string[] = []
 let historyIndex = 0
-let encryptedMessage = ''
-let sending = false
 let activeApp: AppId = 'projects'
-let projectsLoaded = false
-let projectCards: RepoCard[] = []
-let projectSource: ProjectSource = 'network'
-let activeProjectGroup: ProjectGroupId = 'ai'
-let previousFocus: HTMLElement | null = null
-let inertElements: HTMLElement[] = []
-let secureCardAnimationFrame: number | null = null
-
-type AppId = 'projects' | 'terminal'
-type ProjectSource = 'cache' | 'network'
-type ProjectGroupId = 'ai' | 'systems' | 'security' | 'web' | 'data' | 'tools' | 'all'
-
-type CachedProjects = {
-    cachedAt: number
-    cards: RepoCard[]
-}
-
-type ProjectGroup = {
-    id: ProjectGroupId
-    label: string
-    keywords: string[]
-}
-
-const PROJECT_GROUPS: ProjectGroup[] = [
-    {
-        id: 'ai',
-        label: 'AI',
-        keywords: [
-            'agent',
-            'ai',
-            'astrbot',
-            'chatgpt',
-            'claude',
-            'codex',
-            'dataset',
-            'gpt',
-            'inference',
-            'llm',
-            'mcp',
-            'model',
-            'ollama',
-            'openai',
-            'prompt',
-            'rag',
-            'token',
-            'train',
-        ],
-    },
-    {
-        id: 'systems',
-        label: 'Systems',
-        keywords: [
-            'adb',
-            'android',
-            'arch',
-            'bootstrap',
-            'daed',
-            'docker',
-            'kernel',
-            'linux',
-            'network',
-            'package',
-            'root',
-            'shell',
-            'sing-box',
-            'tun',
-            'vpn',
-        ],
-    },
-    {
-        id: 'security',
-        label: 'Security',
-        keywords: ['auth', 'crypto', 'encrypt', 'gpg', 'key', 'oauth', 'openpgp', 'pgp', 'security', 'ssh'],
-    },
-    {
-        id: 'web',
-        label: 'Web',
-        keywords: ['css', 'frontend', 'html', 'javascript', 'react', 'site', 'typescript', 'vite', 'web'],
-    },
-    {
-        id: 'data',
-        label: 'Data',
-        keywords: ['api', 'crawl', 'data', 'dataset', 'etl', 'fetch', 'pipeline', 'scrape'],
-    },
-    {
-        id: 'tools',
-        label: 'Tools',
-        keywords: ['automation', 'cli', 'script', 'tool', 'utility', 'workflow'],
-    },
-    {
-        id: 'all',
-        label: 'All',
-        keywords: [],
-    },
-]
-
-const PROJECT_CACHE_KEY = 'lightjunction.projectCards.v5'
-const PROJECT_CACHE_TTL_MS = 15 * 60 * 1000
-
-const drag = {
-    active: false,
-    x: 0,
-    y: 0,
-    vx: 0,
-    vy: 0,
-    startX: 0,
-    startY: 0,
-    cardX: 0,
-    cardY: 0,
-    lastX: 0,
-    lastY: 0,
-    lastT: 0,
-}
 
 function writeLine(html: string, className = ''): void {
     const line = document.createElement('div')
@@ -172,244 +35,6 @@ function writeCommand(command: string): void {
         `<span class="prompt">guest@lj</span><span class="path">:~</span>$ ${escapeHtml(command)}`,
         'term-input',
     )
-}
-
-function showToast(message: string): void {
-    toast.textContent = message
-    toast.classList.add('show')
-    window.setTimeout(() => toast.classList.remove('show'), 2400)
-}
-
-function formatNumber(value: number | null): string {
-    if (value === null) return 'unknown'
-    return new Intl.NumberFormat('en-US').format(value)
-}
-
-function formatDate(value: string | null): string {
-    if (!value) return 'not pushed'
-    const date = new Date(value)
-    return Number.isNaN(date.getTime()) ? 'unknown date' : date.toISOString().slice(0, 10)
-}
-
-type Theme = 'light' | 'dark'
-
-function currentTheme(): Theme {
-    return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
-}
-
-function applyTheme(theme: Theme): void {
-    document.documentElement.dataset.theme = theme
-    themeButton.setAttribute('aria-pressed', String(theme === 'dark'))
-    themeColorMeta?.setAttribute('content', theme === 'dark' ? '#141413' : '#FAF9F5')
-}
-
-function toggleTheme(): void {
-    const next: Theme = currentTheme() === 'dark' ? 'light' : 'dark'
-    try {
-        window.localStorage.setItem('lightjunction.theme', next)
-    } catch {
-        // Storage may be unavailable; the theme still applies for this session.
-    }
-    applyTheme(next)
-    showToast(next === 'dark' ? 'Dark theme' : 'Light theme')
-}
-
-function countUp(element: HTMLElement, target: number): void {
-    if (reduceMotionQuery.matches) {
-        element.textContent = formatNumber(target)
-        return
-    }
-    const duration = 900
-    const start = performance.now()
-    const step = (now: number): void => {
-        const progress = Math.min(1, (now - start) / duration)
-        const eased = 1 - (1 - progress) ** 3
-        element.textContent = formatNumber(Math.round(target * eased))
-        if (progress < 1) requestAnimationFrame(step)
-    }
-    requestAnimationFrame(step)
-}
-
-async function initPulse(): Promise<void> {
-    if (!pulseCard) return
-    const reposEl = pulseCard.querySelector<HTMLElement>('[data-pulse="repos"]')
-    const starsEl = pulseCard.querySelector<HTMLElement>('[data-pulse="stars"]')
-    const latestEl = pulseCard.querySelector<HTMLElement>('[data-pulse="latest"]')
-    const latestDateEl = pulseCard.querySelector<HTMLElement>('[data-pulse="latest-date"]')
-    if (!reposEl || !starsEl || !latestEl || !latestDateEl) return
-
-    try {
-        const cards = readProjectCache()?.cards ?? await fetchStaticProjectCards()
-        if (cards.length === 0) return
-        const totalStars = cards.reduce((sum, repo) => sum + repo.stargazers_count, 0)
-        const latest = cards.reduce((a, b) => {
-            const timeA = a.pushed_at ? new Date(a.pushed_at).getTime() : 0
-            const timeB = b.pushed_at ? new Date(b.pushed_at).getTime() : 0
-            return timeB > timeA ? b : a
-        })
-        countUp(reposEl, cards.length)
-        countUp(starsEl, totalStars)
-        latestEl.textContent = latest.full_name
-        latestDateEl.textContent = latest.pushed_at ? `pushed ${formatDate(latest.pushed_at)}` : ''
-    } catch {
-        // The pulse card is informational; keep placeholders when data is unavailable.
-    }
-}
-
-function readProjectCache(): CachedProjects | null {
-    try {
-        const raw = window.localStorage.getItem(PROJECT_CACHE_KEY)
-        if (!raw) return null
-
-        const parsed = JSON.parse(raw) as Partial<CachedProjects>
-        if (typeof parsed.cachedAt !== 'number' || !isRepoCardArray(parsed.cards)) return null
-        if (Date.now() - parsed.cachedAt > PROJECT_CACHE_TTL_MS) return null
-
-        return {
-            cachedAt: parsed.cachedAt,
-            cards: parsed.cards,
-        }
-    } catch {
-        return null
-    }
-}
-
-function writeProjectCache(cards: RepoCard[]): void {
-    try {
-        const cached: CachedProjects = {
-            cachedAt: Date.now(),
-            cards,
-        }
-        window.localStorage.setItem(PROJECT_CACHE_KEY, JSON.stringify(cached))
-    } catch {
-        // Cache failure should not affect the project card list; 缓存失败不应影响项目卡片列表。
-    }
-}
-
-function repoSearchText(repo: RepoCard): string {
-    return [
-        repo.full_name,
-        repo.description ?? '',
-        repo.language ?? '',
-        ...(repo.topics ?? []),
-    ].join(' ').toLowerCase()
-}
-
-function isProjectGroupId(value: string | undefined): value is ProjectGroupId {
-    return PROJECT_GROUPS.some((group) => group.id === value)
-}
-
-function repoMatchesGroup(repo: RepoCard, groupId: ProjectGroupId): boolean {
-    if (groupId === 'all') return true
-
-    const group = PROJECT_GROUPS.find((item) => item.id === groupId)
-    if (!group) return false
-
-    const searchText = repoSearchText(repo)
-    return group.keywords.some((keyword) => searchText.includes(keyword))
-}
-
-function projectGroupCount(groupId: ProjectGroupId): number {
-    return projectCards.filter((repo) => repoMatchesGroup(repo, groupId)).length
-}
-
-function renderProjectGroups(): void {
-    projectGroups.innerHTML = PROJECT_GROUPS.map((group) => {
-        const selected = group.id === activeProjectGroup
-        return `
-            <button class="project-group${selected ? ' active' : ''}" type="button" role="tab" aria-selected="${selected}" data-project-group="${group.id}">
-                ${escapeHtml(group.label)} ${projectGroupCount(group.id)}
-            </button>
-        `
-    }).join('')
-}
-
-function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
-    projectCards = cards
-    projectSource = source
-    renderProjectGroups()
-
-    const filteredCards = cards.filter((repo) => repoMatchesGroup(repo, activeProjectGroup))
-    const totalStars = filteredCards.reduce((sum, repo) => sum + repo.stargazers_count, 0)
-    const knownCommitTotal = filteredCards.reduce((sum, repo) => sum + (repo.commit_count ?? 0), 0)
-    const unknownCommits = filteredCards.filter((repo) => repo.commit_count === null).length
-    const activeGroupLabel = PROJECT_GROUPS.find((group) => group.id === activeProjectGroup)?.label ?? 'Projects'
-
-    projectCount.textContent = `${filteredCards.length} ${activeGroupLabel} projects / ${cards.length} total / ${formatNumber(totalStars)} stars`
-    projectSort.textContent = `Rank: recent activity first, then newness, stars, and commits`
-    projectStatus.textContent = source === 'cache'
-        ? 'Showing cached GitHub data while refresh is available.'
-        : `${formatNumber(knownCommitTotal)} commits counted${unknownCommits ? ` / ${unknownCommits} unknown` : ''}.`
-
-    if (filteredCards.length === 0) {
-        projectGrid.innerHTML = '<div class="empty-state">No repositories matched this group.</div>'
-        return
-    }
-
-    projectGrid.innerHTML = filteredCards.map((repo, index) => {
-        const owner = repo.full_name.split('/')[0] ?? 'Unknown'
-        const tags = [
-            owner,
-            repo.language ?? 'Unknown',
-            repo.fork ? 'Fork' : 'Source',
-            repo.archived ? 'Archived' : 'Active',
-        ]
-        const description = repo.description ?? 'No description yet.'
-        const repoUrl = escapeHtml(safeExternalUrl(repo.html_url))
-        return `
-            <div class="project-shell reveal">
-            <article class="project-card">
-                <header>
-                    <h3><a href="${repoUrl}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escapeHtml(repo.full_name)} on GitHub">${escapeHtml(repo.name)}</a></h3>
-                    <span class="project-rank">#${index + 1}</span>
-                </header>
-                <div class="project-metrics" aria-label="Repository metrics">
-                    <span>${formatNumber(repo.stargazers_count)} stars</span>
-                    <span>${formatNumber(repo.commit_count)} commits</span>
-                    <span>${formatNumber(repo.forks_count)} forks</span>
-                    <span>${formatNumber(repo.open_issues_count)} issues</span>
-                </div>
-                <p>${escapeHtml(description)}</p>
-                <div class="project-tags">
-                    ${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}
-                </div>
-                <footer>
-                    <span>pushed ${formatDate(repo.pushed_at)}</span>
-                    <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">Open</a>
-                </footer>
-            </article>
-            </div>
-        `
-    }).join('')
-
-    registerReveals(projectGrid)
-}
-
-async function loadProjectCards(force = false): Promise<void> {
-    const cache = readProjectCache()
-    if (!force && cache) {
-        renderProjectCards(cache.cards, 'cache')
-        projectsLoaded = true
-        return
-    }
-
-    projectStatus.textContent = 'Loading synced project cards from the repository...'
-    projectGrid.innerHTML = ''
-
-    try {
-        const cards = await fetchStaticProjectCards()
-        writeProjectCache(cards)
-        renderProjectCards(cards, 'network')
-        projectsLoaded = true
-    } catch (error) {
-        const message = error instanceof Error ? error.message : String(error)
-        projectStatus.textContent = `Failed to fetch GitHub projects: ${message}`
-        projectCount.textContent = 'GitHub projects unavailable'
-        if (cache) {
-            renderProjectCards(cache.cards, 'cache')
-            showToast('Using cached projects')
-        }
-    }
 }
 
 function switchApp(appId: AppId): void {
@@ -431,8 +56,8 @@ function switchApp(appId: AppId): void {
     workspaceTitle.textContent = appId === 'projects' ? 'Selected work' : 'Terminal experience'
     workspaceKicker.textContent = appId === 'projects' ? 'Library / GitHub' : 'Interactive / secure tty'
 
-    if (appId === 'projects' && !projectsLoaded) {
-        void loadProjectCards()
+    if (appId === 'projects') {
+        ensureProjectCards()
     }
     if (appId === 'terminal') {
         requestAnimationFrame(() => terminalRegion.focus())
@@ -447,191 +72,6 @@ function setInput(value: string): void {
 function resetTerminal(): void {
     output.innerHTML = ''
     boot()
-}
-
-function openSecureCard(): void {
-    const activeElement = document.activeElement
-    if (activeElement instanceof HTMLElement && !secureCard.contains(activeElement)) {
-        previousFocus = activeElement
-    }
-    secureMessage.value = ''
-    sending = false
-    secureCard.hidden = false
-    placeSecureCard()
-    startSecureCardAnimation()
-    showToast('Secure card armed')
-    secureMessage.focus()
-}
-
-function restorePreviousFocus(): void {
-    const focusTarget = previousFocus
-    previousFocus = null
-    if (focusTarget?.isConnected) {
-        focusTarget.focus()
-    }
-}
-
-function dismissSecureCard(): void {
-    if (secureCard.hidden) return
-    if (document.activeElement instanceof HTMLElement && secureCard.contains(document.activeElement)) {
-        document.activeElement.blur()
-    }
-    secureCard.hidden = true
-    stopSecureCardAnimation()
-    sending = false
-    drag.active = false
-    secureCard.classList.remove('dragging')
-    restorePreviousFocus()
-}
-
-function placeSecureCard(): void {
-    drag.x = Math.max(18, (window.innerWidth - secureCard.offsetWidth) / 2)
-    drag.y = Math.max(80, window.innerHeight - secureCard.offsetHeight - 96)
-    paintSecureCard()
-}
-
-function paintSecureCard(): void {
-    secureCard.style.transform = `translate3d(${Math.round(drag.x)}px, ${Math.round(drag.y)}px, 0)`
-}
-
-function tick(): void {
-    if (secureCard.hidden || reduceMotionQuery.matches) {
-        secureCardAnimationFrame = null
-        return
-    }
-
-    if (!secureCard.hidden && !drag.active && !sending && !reduceMotionQuery.matches) {
-        drag.vy += 0.28
-        drag.vx *= 0.985
-        drag.vy *= 0.985
-        drag.x += drag.vx
-        drag.y += drag.vy
-
-        const maxX = window.innerWidth - secureCard.offsetWidth - 12
-        const maxY = window.innerHeight - secureCard.offsetHeight - 12
-
-        if (drag.x < 12) {
-            drag.x = 12
-            drag.vx *= -0.55
-        }
-        if (drag.x > maxX) {
-            drag.x = maxX
-            drag.vx *= -0.55
-        }
-        if (drag.y > maxY) {
-            drag.y = maxY
-            drag.vy *= -0.55
-        }
-        if (drag.y < -secureCard.offsetHeight - 48) {
-            void encryptAndReveal()
-        }
-        paintSecureCard()
-    }
-
-    secureCardAnimationFrame = requestAnimationFrame(tick)
-}
-
-function startSecureCardAnimation(): void {
-    if (secureCardAnimationFrame === null && !secureCard.hidden && !reduceMotionQuery.matches) {
-        secureCardAnimationFrame = requestAnimationFrame(tick)
-    }
-}
-
-function stopSecureCardAnimation(): void {
-    if (secureCardAnimationFrame !== null) {
-        cancelAnimationFrame(secureCardAnimationFrame)
-        secureCardAnimationFrame = null
-    }
-}
-
-async function encryptAndReveal(): Promise<void> {
-    if (sending) return
-    sending = true
-
-    const text = secureMessage.value.trim()
-    if (!text) {
-        sending = false
-        drag.y = window.innerHeight - secureCard.offsetHeight - 96
-        drag.vy = 0
-        paintSecureCard()
-        showToast('Write something first')
-        return
-    }
-
-    showToast('Encrypting')
-    try {
-        const openpgp = await loadOpenPgp()
-        const publicKey = await openpgp.readKey({ armoredKey: PUBLIC_KEY })
-        encryptedMessage = await openpgp.encrypt({
-            message: await openpgp.createMessage({ text }),
-            encryptionKeys: publicKey,
-        }) as string
-
-        secureCard.hidden = true
-        stopSecureCardAnimation()
-        resultContent.textContent = encryptedMessage
-        showResultDialog()
-        try {
-            await navigator.clipboard.writeText(encryptedMessage)
-            writeLine('Message encrypted with OpenPGP and copied to clipboard.', 'success')
-            showToast('Encrypted and copied')
-        } catch {
-            writeLine('Message encrypted with OpenPGP. Clipboard access was unavailable.', 'success')
-            showToast('Encrypted; copy manually')
-        }
-    } catch (error) {
-        sending = false
-        writeLine(`Encryption failed: ${escapeHtml(error instanceof Error ? error.message : String(error))}`, 'error')
-        showToast('Encryption failed')
-    }
-}
-
-async function copyEncrypted(): Promise<void> {
-    if (!encryptedMessage) return
-    try {
-        await navigator.clipboard.writeText(encryptedMessage)
-        showToast('Copied')
-    } catch {
-        showToast('Clipboard unavailable')
-    }
-}
-
-function openGitHubIssue(): void {
-    const body = `## Encrypted Message\n\n\`\`\`\n${encryptedMessage}\n\`\`\`\n\n---\nvia lightjunction terminal`
-    const url = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=encrypted+message&body=${encodeURIComponent(body)}`
-    window.open(url, '_blank', 'noopener,noreferrer')
-}
-
-function setModalBackgroundInert(): void {
-    inertElements = []
-    for (const child of document.body.children) {
-        if (!(child instanceof HTMLElement) || child === resultOverlay || child === toast) continue
-        if (child.inert) continue
-        child.inert = true
-        inertElements.push(child)
-    }
-}
-
-function clearModalBackgroundInert(): void {
-    for (const element of inertElements) {
-        element.inert = false
-    }
-    inertElements = []
-}
-
-function showResultDialog(): void {
-    resultOverlay.classList.add('show')
-    resultOverlay.setAttribute('aria-hidden', 'false')
-    setModalBackgroundInert()
-    resultCopy.focus()
-}
-
-function closeResult(): void {
-    resultOverlay.classList.remove('show')
-    resultOverlay.setAttribute('aria-hidden', 'true')
-    encryptedMessage = ''
-    clearModalBackgroundInert()
-    restorePreviousFocus()
 }
 
 const commands: Record<string, CommandHandler> = {
@@ -746,6 +186,18 @@ const commands: Record<string, CommandHandler> = {
         `)
     },
     reboot: resetTerminal,
+    fable5: () => {
+        document.body.classList.remove('fable5-flourish')
+        void document.body.offsetWidth
+        document.body.classList.add('fable5-flourish')
+        window.setTimeout(() => document.body.classList.remove('fable5-flourish'), 1800)
+        writeLine(`
+            <pre class="fetch">Fable 5 was here.
+   (\\_/)
+   ( •ᴗ•)
+   />🦊  wandered through this terminal and left the place tidier.</pre>
+        `)
+    },
 }
 
 function appendLoading(label: string): HTMLElement {
@@ -768,6 +220,12 @@ async function execute(commandLine: string): Promise<void> {
         return
     }
     await handler(args)
+}
+
+const INTERACTIVE_SELECTOR = 'button, a, textarea, input, select, summary, [contenteditable]:not([contenteditable="false"])'
+
+function isInteractiveTarget(target: EventTarget | null): boolean {
+    return target instanceof Element && target.closest(INTERACTIVE_SELECTOR) !== null
 }
 
 function handleKeydown(event: KeyboardEvent): void {
@@ -837,114 +295,11 @@ function handleKeydown(event: KeyboardEvent): void {
     }
 }
 
-const INTERACTIVE_SELECTOR = 'button, a, textarea, input, select, summary, [contenteditable]:not([contenteditable="false"])'
-const DIALOG_FOCUSABLE_SELECTOR = 'button:not([disabled]), a[href], textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-
-function isInteractiveTarget(target: EventTarget | null): boolean {
-    return target instanceof Element && target.closest(INTERACTIVE_SELECTOR) !== null
-}
-
-function trapResultFocus(event: KeyboardEvent): void {
-    const focusable = Array.from(
-        resultOverlay.querySelectorAll<HTMLElement>(DIALOG_FOCUSABLE_SELECTOR),
-    )
-    const first = focusable[0]
-    const last = focusable[focusable.length - 1]
-    if (!first || !last) {
-        event.preventDefault()
-        return
-    }
-
-    const activeElement = document.activeElement
-    if (event.shiftKey && (activeElement === first || !resultOverlay.contains(activeElement))) {
-        event.preventDefault()
-        last.focus()
-    } else if (!event.shiftKey && (activeElement === last || !resultOverlay.contains(activeElement))) {
-        event.preventDefault()
-        first.focus()
-    }
-}
-
-function handleGlobalKeydown(event: KeyboardEvent): void {
-    if (resultOverlay.classList.contains('show')) {
-        if (event.key === 'Escape') {
-            event.preventDefault()
-            closeResult()
-        } else if (event.key === 'Tab') {
-            trapResultFocus(event)
-        }
-        return
-    }
-
-    if (event.key === 'Escape' && !secureCard.hidden) {
-        event.preventDefault()
-        dismissSecureCard()
-    }
-}
-
-function bindSecureCard(): void {
-    secureCard.addEventListener('pointerdown', (event) => {
-        if (event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLButtonElement) return
-        secureCard.setPointerCapture(event.pointerId)
-        drag.active = true
-        drag.startX = event.clientX
-        drag.startY = event.clientY
-        drag.cardX = drag.x
-        drag.cardY = drag.y
-        drag.lastX = event.clientX
-        drag.lastY = event.clientY
-        drag.lastT = performance.now()
-        drag.vx = 0
-        drag.vy = 0
-        secureCard.classList.add('dragging')
-    })
-
-    secureCard.addEventListener('pointermove', (event) => {
-        if (!drag.active) return
-        const now = performance.now()
-        const dt = Math.max(1, now - drag.lastT)
-        drag.vx = ((event.clientX - drag.lastX) / dt) * 16
-        drag.vy = ((event.clientY - drag.lastY) / dt) * 16
-        drag.x = drag.cardX + event.clientX - drag.startX
-        drag.y = drag.cardY + event.clientY - drag.startY
-        drag.lastX = event.clientX
-        drag.lastY = event.clientY
-        drag.lastT = now
-        paintSecureCard()
-    })
-
-    secureCard.addEventListener('pointerup', () => {
-        drag.active = false
-        secureCard.classList.remove('dragging')
-    })
-
-    $('encrypt-now').addEventListener('click', () => void encryptAndReveal())
-    $('secure-cancel').addEventListener('click', dismissSecureCard)
-}
-
 function bindChrome(): void {
     $('btn-reset').addEventListener('click', resetTerminal)
     $('btn-fullscreen').addEventListener('click', () => void document.documentElement.requestFullscreen?.())
-    themeButton.addEventListener('click', toggleTheme)
     $('btn-message').addEventListener('click', openSecureCard)
     $('btn-contact-message').addEventListener('click', openSecureCard)
-    $('btn-refresh-projects').addEventListener('click', () => {
-        void loadProjectCards(true)
-        showToast('Refreshing projects')
-    })
-    projectGroups.addEventListener('click', (event) => {
-        const target = event.target
-        if (!(target instanceof HTMLButtonElement)) return
-
-        const group = target.dataset.projectGroup
-        if (!isProjectGroupId(group)) return
-
-        activeProjectGroup = group
-        renderProjectCards(projectCards, projectSource)
-    })
-    $('result-copy').addEventListener('click', () => void copyEncrypted())
-    $('result-github').addEventListener('click', openGitHubIssue)
-    $('result-close').addEventListener('click', closeResult)
     document.querySelectorAll<HTMLButtonElement>('[data-app-target]').forEach((button) => {
         button.addEventListener('click', () => {
             const target = button.dataset.appTarget
@@ -953,18 +308,10 @@ function bindChrome(): void {
             }
         })
     })
-    window.addEventListener('resize', () => {
-        if (!secureCard.hidden) {
-            drag.x = Math.min(drag.x, window.innerWidth - secureCard.offsetWidth - 12)
-            drag.y = Math.min(drag.y, window.innerHeight - secureCard.offsetHeight - 12)
-            paintSecureCard()
-        }
-    })
     terminalRegion.addEventListener('keydown', handleKeydown)
     terminalRegion.addEventListener('click', (event) => {
         if (!isInteractiveTarget(event.target)) terminalRegion.focus()
     })
-    document.addEventListener('keydown', handleGlobalKeydown)
 }
 
 function boot(): void {
@@ -973,11 +320,10 @@ function boot(): void {
 }
 
 initMotion()
-applyTheme(currentTheme())
+initTheme()
 bindChrome()
-bindSecureCard()
+initProjectControls()
+initSecureCard(writeLine)
 boot()
 switchApp('projects')
-placeSecureCard()
-secureCard.hidden = true
 void initPulse()

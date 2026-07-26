@@ -61,8 +61,7 @@ function initScrollProgress(): void {
 
 function initOpticalPointer(): void {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const stage = document.querySelector<HTMLElement>('.optical-stage')
-    if (!stage) return
+    const stage = document.documentElement
 
     let pointerX = 0
     let pointerY = 0
