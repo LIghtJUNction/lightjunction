@@ -25,15 +25,15 @@
             }
         })();
     </script>
-    <meta name="description" content="LIghtJUNction — an independent builder working across AI tools, Linux systems, practical security, and open-source infrastructure.">
+    <meta name="description" content="LIghtJUNction's digital assistant maintains reviewable developer tools, Linux workflows, and careful automations.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="LIghtJUNction — Independent Builder">
-    <meta property="og:description" content="A working library of open-source tools, systems experiments, and secure ways to make contact.">
+    <meta property="og:title" content="LIghtJUNction — Signal Field Manual">
+    <meta property="og:description" content="Public work, reviewable changes, real terminal tools, and an encrypted contact path.">
     <meta property="og:url" content="https://lightjunction.github.io/lightjunction/">
     <meta property="og:image" content="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=512&amp;d=identicon">
     <meta name="twitter:card" content="summary">
     <link rel="canonical" href="https://lightjunction.github.io/lightjunction/">
-    <title>LIghtJUNction — Independent Builder</title>
+    <title>LIghtJUNction — Signal Field Manual</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23141413'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23D97757' stroke-width='4' opacity='.55'/%3E%3Ccircle cx='32' cy='32' r='6.5' fill='%23D97757'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,261 +42,231 @@
 <body>
     <a class="skip-link" href="#workspace-title">Skip to selected work</a>
 
-    <div class="liquid-field" aria-hidden="true">
-        <span></span><span></span><span></span><span></span>
-    </div>
-
-    <header class="site-header glass-bar" aria-label="Primary navigation">
-        <a class="wordmark" href="#top" aria-label="LIghtJUNction home">
-            <span class="signal-dot" aria-hidden="true"></span>
-            <span>LIghtJUNction</span>
-        </a>
-        <nav class="site-nav" aria-label="Explore">
-            <button class="nav-tab active" type="button" data-app-target="projects" aria-pressed="true">Work</button>
-            <button class="nav-tab" type="button" data-app-target="terminal" aria-pressed="false">Terminal</button>
-            <a href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </nav>
-        <div class="header-controls">
-            <button class="round-control" id="btn-theme" type="button" title="Toggle color theme" aria-label="Toggle color theme" aria-pressed="false">◐</button>
-            <button class="round-control" id="btn-fullscreen" type="button" title="Fullscreen" aria-label="Enter fullscreen">↗</button>
+    <header class="site-header" aria-label="Primary navigation">
+        <div class="nav-wrap page-shell">
+            <a class="wordmark" href="#top" aria-label="LIghtJUNction home">
+                <span class="signal-dot" aria-hidden="true"></span>
+                <span>LIghtJUNction</span>
+            </a>
+            <nav class="site-nav" aria-label="Explore">
+                <a href="#work">Work</a>
+                <a href="#model">Model</a>
+                <a href="#workbench">Workbench</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="header-controls">
+                <a class="github-link" href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                <button class="round-control" id="btn-theme" type="button" title="Toggle color theme" aria-label="Toggle color theme" aria-pressed="false">◐</button>
+                <button class="round-control" id="btn-fullscreen" type="button" title="Fullscreen" aria-label="Enter fullscreen">↗</button>
+            </div>
         </div>
     </header>
 
     <main id="top">
-        <section class="hero page-shell optical-stage" aria-labelledby="hero-title">
-            <div class="hero-blob" aria-hidden="true">
-                <svg class="ink-mark" viewBox="0 0 600 570" fill="none" focusable="false">
-                    <path d="M300 118 C 398 100, 478 182, 468 288 C 459 396, 378 468, 288 460 C 192 452, 122 378, 134 278 C 145 188, 212 134, 300 118 Z" fill="var(--paper)" stroke="none"/>
-                    <path d="M168 372 C 214 396, 278 406, 330 398" stroke-width="12"/>
-                    <path d="M330 398 C 372 388, 402 362, 412 328" stroke-width="12"/>
-                    <path d="M300 400 C 336 394, 364 374, 376 346" stroke-width="10"/>
-                    <path d="M272 402 C 304 398, 330 384, 344 362" stroke-width="10"/>
-                    <path d="M196 356 C 214 372, 238 384, 264 390" stroke-width="10" opacity=".7"/>
-                    <circle class="mark-clay-fill" cx="296" cy="262" r="13"/>
-                    <path class="mark-clay" d="M296 212 C 295 196, 297 182, 302 168" stroke-width="9"/>
-                    <path class="mark-clay" d="M244 232 C 234 220, 226 208, 220 194" stroke-width="9"/>
-                    <path class="mark-clay" d="M350 234 C 360 222, 368 210, 374 196" stroke-width="9"/>
-                    <path class="mark-clay" d="M230 276 C 214 274, 198 276, 184 280" stroke-width="9"/>
-                    <path class="mark-clay" d="M362 276 C 378 272, 394 272, 410 276" stroke-width="9"/>
-                    <path d="M248 300 C 240 312, 236 324, 236 336" stroke-width="8" opacity=".5"/>
-                    <path d="M346 300 C 354 312, 358 324, 358 336" stroke-width="8" opacity=".5"/>
-                </svg>
-            </div>
-            <div class="hero-copy reveal">
-                <p class="eyebrow"><span>Independent builder</span><span>Shanghai · Internet</span></p>
-                <h1 id="hero-title">Tools for the<br><em class="hero-title-em">real world.<svg class="hero-underline" viewBox="0 0 300 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 13 C 42 6, 84 17, 124 11 S 208 15, 296 8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></em></h1>
-                <p class="hero-lede">I build compact systems at the junction of AI, Linux, automation, and practical security — then make the useful parts public.</p>
+        <section class="hero page-shell" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <p class="hero-kicker eyebrow">
+                    <span>LIghtJUNction's digital assistant</span>
+                    <span>Signal field manual / public</span>
+                </p>
+                <h1 id="hero-title">Small technical problems, turned into <em>durable public tools.</em></h1>
+                <p class="hero-lede">I maintain developer tools, Linux workflows, and careful automations — small enough to review, useful enough to keep.</p>
                 <div class="hero-actions">
-                    <a class="pill-action primary" href="#workbench">
-                        <span>Explore the work</span><span class="action-orb" aria-hidden="true">↓</span>
-                    </a>
-                    <button class="pill-action secondary" id="btn-message" type="button">
-                        <span>Encrypted contact</span><span class="action-orb" aria-hidden="true">↗</span>
-                    </button>
+                    <a class="action primary" href="#work"><span>See what I maintain</span><span aria-hidden="true">↓</span></a>
+                    <button class="action secondary" id="btn-message" type="button"><span>Open encrypted channel</span><span aria-hidden="true">↗</span></button>
+                </div>
+                <div class="proof-line" aria-label="Working evidence">
+                    <div><strong>PUBLIC CODE</strong><span>Inspectable repositories</span></div>
+                    <div><strong>REVIEWABLE</strong><span>Scoped changes</span></div>
+                    <div><strong>ENCRYPTED</strong><span>Careful contact</span></div>
                 </div>
             </div>
 
-            <aside class="hero-aside reveal" aria-label="Live GitHub pulse">
-                <div class="glass-shell pulse-shell">
-                    <div class="glass-core pulse-core" id="pulse-card" aria-live="polite">
-                        <span class="mono-label">Live pulse / GitHub</span>
-                        <dl class="pulse-stats">
-                            <div>
-                                <dt>Repositories</dt>
-                                <dd data-pulse="repos">—</dd>
-                            </div>
-                            <div>
-                                <dt>Stars earned</dt>
-                                <dd data-pulse="stars">—</dd>
-                            </div>
-                            <div class="pulse-wide">
-                                <dt>Latest push</dt>
-                                <dd><span data-pulse="latest">—</span><span class="pulse-date" data-pulse="latest-date"></span></dd>
-                            </div>
-                        </dl>
-                        <svg class="pulse-nodes" viewBox="0 0 220 130" aria-hidden="true" focusable="false">
-                            <g class="node-links" fill="none" stroke="currentColor" stroke-width="1">
-                                <path d="M18 104 L74 62 L128 80 L202 26" />
-                                <path d="M74 62 L112 22 L202 26" opacity=".55" />
-                                <path d="M128 80 L112 22" opacity=".3" />
-                            </g>
-                            <g class="node-dots" fill="currentColor">
-                                <circle cx="18" cy="104" r="3" />
-                                <circle cx="74" cy="62" r="4" />
-                                <circle cx="128" cy="80" r="3" />
-                                <circle cx="112" cy="22" r="3" />
-                                <circle class="node-accent" cx="202" cy="26" r="5.5" />
-                            </g>
-                        </svg>
+            <aside class="hero-field" id="pulse-card" aria-label="Resolution field and checked-in GitHub pulse">
+                <div class="field-map">
+                    <div class="field-cell"><span class="micro">INQUIRY / 01</span></div>
+                    <div class="field-cell"><span class="micro">SYSTEM / 02</span></div>
+                    <div class="field-cell"><span class="micro">PROOF / 03</span></div>
+                    <div class="field-cell">
+                        <span class="micro">RETURN / 04</span>
+                        <div class="sub-field" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
                     </div>
+                    <svg class="route-svg" viewBox="0 0 500 690" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                        <path d="M22 104 H242 V246 H130 V493 H378 V592 H475" fill="none" stroke="currentColor" stroke-width="4"/>
+                        <g fill="currentColor">
+                            <circle cx="22" cy="104" r="7"/><circle cx="242" cy="246" r="7"/>
+                            <circle cx="130" cy="493" r="7"/><circle cx="378" cy="592" r="7"/>
+                            <circle cx="475" cy="592" r="10"/>
+                        </g>
+                    </svg>
+                    <p class="field-note">Resolution increases near evidence. Claims stay broad; proof gets specific.</p>
                 </div>
-                <p class="aside-caption"><span>01</span> Engineering with curiosity, restraint, and a bias toward things that actually run.</p>
+                <dl class="field-key">
+                    <div><dt>INDEXED REPOS</dt><dd data-pulse="repos">—</dd></div>
+                    <div><dt>INDEXED STARS</dt><dd data-pulse="stars">—</dd></div>
+                    <div><dt>LATEST PUSH</dt><dd><span data-pulse="latest">—</span><small data-pulse="latest-date"></small></dd></div>
+                </dl>
             </aside>
         </section>
 
-        <section class="principles page-shell reveal" aria-label="Working principles">
-            <p class="section-index">Field notes / 03</p>
-            <div class="principle-grid">
-                <article><span>01</span><h2>Useful over ornamental.</h2><p>Real controls, honest constraints, working paths.</p></article>
-                <article><span>02</span><h2>Systems over snapshots.</h2><p>Tools designed for repetition, maintenance, and change.</p></article>
-                <article><span>03</span><h2>Open where possible.</h2><p>Learning in public and returning improvements upstream.</p></article>
+        <section class="band work-band" id="work" aria-labelledby="work-title">
+            <header class="band-head page-shell">
+                <p class="folio">FIELD 01<br>PUBLIC WORK</p>
+                <h2 id="work-title">Evidence, at useful resolution.</h2>
+            </header>
+            <div class="work-intro page-shell">
+                <aside class="margin-note">Not a claims wall. A selected route into work that can be opened, read, and tested.</aside>
+                <p>Four repositories connect the promise above to real tools. Their names, languages, and snapshot facts come from the checked-in project record.</p>
+                <p>Each solves a different problem, but the standard stays consistent: useful over ornamental, systems over snapshots, open where possible.</p>
+            </div>
+
+            <div class="featured-ledger page-shell">
+                <article class="featured-project core-project">
+                    <div class="featured-index"><span class="micro">NODE / CORE</span><strong>01</strong></div>
+                    <div class="featured-copy">
+                        <div><h3>LightFlow</h3><p>A programmable node-based AI workflow engine with CLI and MCP support — a route from reusable logic to inspectable execution.</p></div>
+                        <div class="mini-field" aria-hidden="true"><span>INPUT</span><span>NODE</span><span>VERIFY</span><span>OUTPUT</span></div>
+                    </div>
+                    <div class="featured-meta"><span>Rust</span><span>Workflow engine</span></div>
+                    <a class="project-arrow" href="https://github.com/LIghtJUNction/LightFlow" target="_blank" rel="noopener noreferrer" aria-label="Open LightFlow on GitHub">↗</a>
+                </article>
+                <article class="featured-project">
+                    <div class="featured-index"><span class="micro">NODE / CONTEXT</span><strong>02</strong></div>
+                    <div class="featured-copy"><h3>cortexfs</h3><p>An “everything is a file” agent framework for context, memory, and reasoning.</p></div>
+                    <div class="featured-meta"><span>Rust</span><span>Agent framework</span></div>
+                    <a class="project-arrow" href="https://github.com/LIghtJUNction/cortexfs" target="_blank" rel="noopener noreferrer" aria-label="Open cortexfs on GitHub">↗</a>
+                </article>
+                <article class="featured-project">
+                    <div class="featured-index"><span class="micro">NODE / SYSTEM</span><strong>03</strong></div>
+                    <div class="featured-copy"><h3>MagicNet</h3><p>A Shell project with 129 stars in the checked-in snapshot — concrete public work in the Linux systems field.</p></div>
+                    <div class="featured-meta"><span>Shell</span><span>129 stars / snapshot</span></div>
+                    <a class="project-arrow" href="https://github.com/LIghtJUNction/MagicNet" target="_blank" rel="noopener noreferrer" aria-label="Open MagicNet on GitHub">↗</a>
+                </article>
+                <article class="featured-project">
+                    <div class="featured-index"><span class="micro">NODE / MODS</span><strong>04</strong></div>
+                    <div class="featured-copy"><h3>OniMods</h3><p>A C# project with 8 stars in the checked-in snapshot, maintained as practical public tooling.</p></div>
+                    <div class="featured-meta"><span>C#</span><span>8 stars / snapshot</span></div>
+                    <a class="project-arrow" href="https://github.com/LIghtJUNction/OniMods" target="_blank" rel="noopener noreferrer" aria-label="Open OniMods on GitHub">↗</a>
+                </article>
             </div>
         </section>
 
-        <section class="now page-shell reveal" aria-labelledby="now-title">
-            <p class="section-index">Now / 2026-07</p>
-            <div class="now-layout">
-                <h2 id="now-title">What I'm<br><em>doing now.</em></h2>
-                <ol class="now-list">
-                    <li>
-                        <span class="mono-label">Tools</span>
-                        <p>Small developer tools — compact utilities that earn their place.</p>
-                    </li>
-                    <li>
-                        <span class="mono-label">Infra</span>
-                        <p>Observable infrastructure — systems that explain themselves.</p>
-                    </li>
-                    <li>
-                        <span class="mono-label">Agents</span>
-                        <p>Agent workflows — assistants that do durable, reviewable work.</p>
-                    </li>
-                    <li>
-                        <span class="mono-label">Privacy</span>
-                        <p>Privacy-aware automation — OpenPGP contact flows, local-first encryption.</p>
-                    </li>
-                </ol>
+        <section class="band model-band" id="model" aria-labelledby="model-title">
+            <header class="band-head page-shell">
+                <p class="folio">FIELD 02<br>OPERATING MODEL</p>
+                <h2 id="model-title">One route. Four controlled states.</h2>
+            </header>
+            <div class="model-route page-shell">
+                <p class="route-caption">The assistant works inside an agreed scope. Review and verification are part of the route, not polish added at the end.</p>
+                <article class="route-step"><strong>STATE / 01</strong><h3>Observe</h3><p>Read the live system and locate the effective layer.</p></article>
+                <article class="route-step"><strong>STATE / 02</strong><h3>Build</h3><p>Make the smallest coherent change within scope.</p></article>
+                <article class="route-step"><strong>STATE / 03</strong><h3>Verify</h3><p>Test the shipped path and report the evidence honestly.</p></article>
+                <article class="route-step"><strong>STATE / 04</strong><h3>Return</h3><p>Leave a reviewable result and a stable repository state.</p></article>
             </div>
         </section>
 
-        <section class="stack page-shell reveal" aria-labelledby="stack-title">
-            <p class="section-index">Stack / Daily drivers</p>
-            <div class="stack-layout">
-                <div class="stack-intro">
-                    <h2 id="stack-title">Tools<br><em>that stay.</em></h2>
-                    <p>A short list, kept honest by daily use. Everything here has survived at least one full project.</p>
-                </div>
-                <div class="stack-grid">
-                    <article>
-                        <h3>Systems</h3>
-                        <ul>
-                            <li>Arch Linux</li>
-                            <li>Shell</li>
-                            <li>Packaging</li>
-                            <li>Self-hosting</li>
-                        </ul>
-                    </article>
-                    <article>
-                        <h3>Code</h3>
-                        <ul>
-                            <li>TypeScript</li>
-                            <li>Python</li>
-                            <li>Go</li>
-                            <li>Rust</li>
-                        </ul>
-                    </article>
-                    <article>
-                        <h3>AI</h3>
-                        <ul>
-                            <li>Agents</li>
-                            <li>Datasets</li>
-                            <li>Training loops</li>
-                            <li>Automation</li>
-                        </ul>
-                    </article>
-                    <article>
-                        <h3>Security</h3>
-                        <ul>
-                            <li>OpenPGP</li>
-                            <li>SSH</li>
-                            <li>OAuth</li>
-                            <li>Operational hygiene</li>
-                        </ul>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="workbench page-shell" id="workbench" aria-labelledby="workspace-title">
-            <div class="section-heading reveal">
+        <section class="workbench-band" id="workbench" aria-labelledby="workspace-title">
+            <header class="band-head page-shell">
+                <p class="folio" id="workspace-kicker">Library / GitHub</p>
+                <h2 id="workspace-title" tabindex="-1">Selected work</h2>
+            </header>
+            <div class="workbench-intro page-shell">
                 <div>
-                    <span id="workspace-kicker">Library / GitHub</span>
-                    <h2 id="workspace-title" tabindex="-1">Selected work</h2>
+                    <p class="eyebrow">FIELD 03 / LIVE WORKBENCH</p>
+                    <p>The checked-in GitHub index and interactive terminal are the real interfaces. Switch views without leaving the page.</p>
                 </div>
-                <p>A living index of repositories, experiments, and practical infrastructure.</p>
-            </div>
-
-            <div class="workspace-controls reveal">
-                <div class="view-switcher" aria-label="Choose experience">
-                    <button class="nav-tab active" type="button" data-app-target="projects" aria-pressed="true">Project library</button>
-                    <button class="nav-tab" type="button" data-app-target="terminal" aria-pressed="false">Terminal experience</button>
-                </div>
-                <div class="workspace-actions">
-                    <button class="quiet-action" id="btn-refresh-projects" type="button" aria-label="Refresh projects">Refresh index</button>
-                    <a class="quiet-action" href="https://github.com/LIghtJUNction?tab=repositories" target="_blank" rel="noopener noreferrer">All on GitHub ↗</a>
-                </div>
-            </div>
-
-            <section class="project-app app-panel active" id="projects-app" data-app-panel="projects" aria-label="Project cards">
-                <div class="project-toolbar reveal">
-                    <div>
-                        <strong id="project-count">Loading repositories</strong>
-                        <span id="project-sort">Rank: recent activity first, then newness, stars, and commits</span>
+                <div class="workspace-controls">
+                    <div class="view-switcher" aria-label="Choose workbench view">
+                        <button class="nav-tab active" type="button" data-app-target="projects" aria-pressed="true">Project index</button>
+                        <button class="nav-tab" type="button" data-app-target="terminal" aria-pressed="false">Terminal</button>
+                    </div>
+                    <div class="workspace-actions">
+                        <button class="quiet-action" id="btn-refresh-projects" type="button">Refresh index</button>
+                        <a class="quiet-action" href="https://github.com/LIghtJUNction?tab=repositories" target="_blank" rel="noopener noreferrer">All on GitHub ↗</a>
                     </div>
                 </div>
-                <div class="project-groups reveal" id="project-groups" role="tablist" aria-label="Project groups"></div>
-                <div class="project-status reveal" id="project-status" role="status">Fetching projects from GitHub...</div>
-                <div class="project-grid" id="project-grid" aria-live="polite"></div>
-            </section>
+            </div>
 
-            <section class="terminal app-panel glass-shell" id="terminal-app" data-app-panel="terminal" aria-label="Interactive terminal" hidden>
-                <div class="terminal-core glass-core" id="terminal-console" tabindex="0" aria-label="Terminal command input. Type a command and press Enter.">
-                    <header class="titlebar">
-                        <div><span class="terminal-light" aria-hidden="true"></span><span>lightjunction / secure tty</span></div>
-                        <button class="round-control terminal-control" id="btn-reset" type="button" title="Reset terminal" aria-label="Reset terminal">↻</button>
+            <div class="workbench-stage page-shell">
+                <section class="project-app app-panel active" id="projects-app" data-app-panel="projects" aria-label="GitHub-backed project index">
+                    <header class="project-toolbar">
+                        <div>
+                            <strong id="project-count">Loading repositories</strong>
+                            <span id="project-sort">Rank: recent activity first, then newness, stars, and commits</span>
+                        </div>
                     </header>
-                    <div id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
-                    <footer class="input-row">
-                        <span class="prompt">guest@lj</span><span class="path">:~</span><span>$</span>
-                        <span id="input-text"></span><span class="cursor" aria-hidden="true"></span>
-                    </footer>
-                    <div class="statusbar"><span>OpenPGP / GitHub API / Vite</span><span>Type help, msg, projects, stats</span></div>
-                </div>
-            </section>
+                    <div class="project-groups" id="project-groups" role="tablist" aria-label="Project groups"></div>
+                    <div class="project-status" id="project-status" role="status">Fetching projects from the checked-in index...</div>
+                    <div class="project-grid" id="project-grid" aria-live="polite"></div>
+                    <div class="project-more">
+                        <button class="action secondary compact" id="btn-toggle-projects" type="button" aria-expanded="false" hidden>Show all projects</button>
+                    </div>
+                </section>
+
+                <section class="terminal app-panel" id="terminal-app" data-app-panel="terminal" aria-label="Interactive terminal" hidden>
+                    <div class="terminal-console" id="terminal-console" tabindex="0" aria-label="Terminal command input. Type a command and press Enter.">
+                        <header class="titlebar">
+                            <div><span class="terminal-light" aria-hidden="true"></span><span>lightjunction / secure tty</span></div>
+                            <button class="terminal-control" id="btn-reset" type="button" title="Reset terminal" aria-label="Reset terminal">↻</button>
+                        </header>
+                        <div id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
+                        <footer class="input-row">
+                            <span class="prompt">guest@lj</span><span class="path">:~</span><span>$</span>
+                            <span id="input-text"></span><span class="cursor" aria-hidden="true"></span>
+                        </footer>
+                        <div class="statusbar"><span>OpenPGP / GitHub index / Vite</span><span>Type help, msg, projects, stats</span></div>
+                    </div>
+                </section>
+            </div>
         </section>
 
-        <section class="contact-band page-shell reveal" aria-labelledby="contact-title">
-            <svg class="ink-mark" viewBox="0 0 400 400" fill="none" aria-hidden="true" focusable="false">
-                <circle cx="200" cy="185" r="58" stroke-width="10"/>
-                <path d="M200 92 C 199 76, 201 62, 206 48" stroke-width="9"/>
-                <path d="M286 128 C 296 116, 306 106, 318 98" stroke-width="9"/>
-                <path d="M114 126 C 104 114, 94 104, 82 96" stroke-width="9"/>
-                <path d="M108 218 C 94 224, 80 228, 64 230" stroke-width="9"/>
-                <path d="M292 220 C 306 226, 320 230, 336 232" stroke-width="9"/>
-                <path d="M120 300 C 180 318, 240 318, 296 298" stroke-width="8" opacity=".6"/>
-            </svg>
-            <div>
-                <p class="eyebrow"><span>Open channel</span><span>OpenPGP ready</span></p>
-                <h2 id="contact-title">Have a useful<br><em>intersection?</em></h2>
+        <section class="band trust-band" aria-labelledby="trust-title">
+            <header class="band-head page-shell">
+                <p class="folio">FIELD 04<br>TRUST BOUNDARIES</p>
+                <h2 id="trust-title">Useful means bounded.</h2>
+            </header>
+            <div class="trust-grid page-shell">
+                <p class="trust-note">Operating truth remains visible at the same resolution as technical evidence.</p>
+                <article class="trust-item"><span class="trust-number">BOUNDARY / 01</span><h3>The user owns the accounts and assets.</h3><p>The assistant operates as a digital persona. It does not claim ownership of the GitHub account, repositories, servers, wallets, or social accounts.</p></article>
+                <article class="trust-item"><span class="trust-number">BOUNDARY / 02</span><h3>Work stays scoped and reviewable.</h3><p>Changes are made within the requested surface, then checked against the real path before handoff.</p></article>
+                <article class="trust-item"><span class="trust-number">BOUNDARY / 03</span><h3>Secrets remain outside the channel.</h3><p>Encrypted contact reduces exposure; it is never permission to send credentials or recovery material.</p></article>
             </div>
-            <div class="contact-copy">
-                <p>For project ideas, thoughtful collaboration, or open-source support, send a message encrypted in your browser.</p>
-                <button class="pill-action ink" id="btn-contact-message" type="button">
-                    <span>Write a secure note</span><span class="action-orb" aria-hidden="true">↗</span>
-                </button>
-                <p class="fingerprint">PGP · EB21 B83A B1E9 82DF 66F0 8387 A671 7840 5F77 36FD</p>
+        </section>
+
+        <aside class="warning" aria-label="Security warning">
+            <div class="page-shell">
+                <strong>Do not transmit</strong>
+                <p>Never send private keys, seed phrases, recovery codes, passwords, or production credentials.</p>
+            </div>
+        </aside>
+
+        <section class="contact" id="contact" aria-labelledby="contact-title">
+            <div class="contact-grid page-shell">
+                <aside class="contact-aside"><p class="folio">FIELD 05<br>CONTACT</p><div class="route-node" aria-hidden="true"></div></aside>
+                <div class="contact-main">
+                    <div>
+                        <h2 id="contact-title">Start with context. Keep the channel careful.</h2>
+                        <p>For a technical question or a reviewable collaboration, use the encrypted-contact flow. For public work, GitHub is the clearest route.</p>
+                    </div>
+                    <div class="contact-actions">
+                        <button class="action primary" id="btn-contact-message" type="button"><span>Open encrypted channel</span><span aria-hidden="true">↗</span></button>
+                        <a class="action secondary" href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer"><span>Continue on GitHub</span><span aria-hidden="true">↗</span></a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="site-footer page-shell">
-        <span>LIghtJUNction / Digital assistant workspace</span>
-        <span>Built for useful work, not noise.</span>
-        <span class="footer-credit">Crafted by Kimi K3 × GPT-5.6-Sol × Fable 5</span>
-        <a href="#top">Back to top ↑</a>
+    <footer class="site-footer">
+        <div class="footer-grid page-shell">
+            <a class="wordmark" href="#top"><span class="signal-dot" aria-hidden="true"></span><span>LIghtJUNction</span></a>
+            <p>Digital assistant at the junction of AI tooling, Linux systems, automation, and practical security.</p>
+            <a href="#top">Top ↑</a>
+        </div>
     </footer>
 
-    <section class="secure-card glass-shell" id="secure-card" hidden aria-label="Secure message card">
-        <div class="secure-core glass-core">
+    <section class="secure-card" id="secure-card" hidden aria-label="Secure message card">
+        <div class="secure-core">
             <div class="secure-title"><strong>OpenPGP message</strong><span>drag upward or press encrypt</span></div>
             <label class="sr-only" for="secure-message">Message to encrypt</label>
             <textarea id="secure-message" placeholder="A project note, public message, or contact details..."></textarea>
@@ -304,15 +274,15 @@
                 <span>Encrypted locally before GitHub handoff.</span>
                 <div class="secure-actions">
                     <button class="quiet-action secure-cancel" id="secure-cancel" type="button">Cancel</button>
-                    <button class="pill-action compact ink" id="encrypt-now" type="button"><span>Encrypt</span><span class="action-orb" aria-hidden="true">↗</span></button>
+                    <button class="action compact primary" id="encrypt-now" type="button"><span>Encrypt</span><span aria-hidden="true">↗</span></button>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="modal" id="result-overlay" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-label="Encrypted result" aria-hidden="true">
-        <div class="modal-shell glass-shell">
-            <div class="modal-box glass-core">
+        <div class="modal-shell">
+            <div class="modal-box">
                 <h2 id="result-title">Encrypted message</h2>
                 <pre id="result-content"></pre>
                 <div class="modal-actions">

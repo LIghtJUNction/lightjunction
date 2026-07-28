@@ -1,6 +1,7 @@
 """Structural checks for the Vite frontend."""
 
 import json
+import re
 from pathlib import Path
 
 
@@ -11,17 +12,17 @@ def test_index_keeps_styles_external() -> None:
     assert 'src="/src/terminal.ts"' in html
 
 
-def test_index_has_personal_site_metadata() -> None:
+def test_index_has_signal_field_manual_metadata() -> None:
     html = Path("index.html").read_text(encoding="utf-8")
     required = [
         '<meta name="description"',
         '<meta name="theme-color" content="#FAF9F5">',
-        '<meta property="og:title" content="LIghtJUNction — Independent Builder">',
+        '<meta property="og:title" content="LIghtJUNction — Signal Field Manual">',
         '<meta property="og:image" content="https://1.gravatar.com/avatar/',
         '?s=512&amp;d=identicon">',
         '<meta name="twitter:card" content="summary">',
         '<link rel="canonical" href="https://lightjunction.github.io/lightjunction/">',
-        "<title>LIghtJUNction — Independent Builder</title>",
+        "<title>LIghtJUNction — Signal Field Manual</title>",
     ]
     for fragment in required:
         assert fragment in html
@@ -71,6 +72,7 @@ def test_index_has_portfolio_and_real_experiences() -> None:
         'id="project-status"',
         'id="project-count"',
         'id="project-sort"',
+        'id="btn-toggle-projects"',
         'id="btn-reset"',
         'id="btn-fullscreen"',
         'id="btn-message"',
@@ -114,6 +116,20 @@ def test_project_filters_preserve_the_loaded_data_source() -> None:
     assert "renderProjectCards(projectCards, projectSource)" in projects_module
 
 
+def test_project_index_defaults_to_a_bounded_reviewable_page() -> None:
+    html = Path("index.html").read_text(encoding="utf-8")
+    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
+
+    assert 'id="btn-toggle-projects"' in html
+    assert "const PROJECT_PAGE_SIZE = 8" in projects_module
+    assert "filteredCards.slice(0, PROJECT_PAGE_SIZE)" in projects_module
+    assert "let projectsExpanded = false" in projects_module
+    assert "projectsExpanded = false" in projects_module
+    assert "projectToggle.addEventListener('click'" in projects_module
+    assert "projectToggle.setAttribute('aria-expanded'" in projects_module
+    assert "Show fewer projects" in projects_module
+
+
 def test_frontend_uses_synced_project_cards_json() -> None:
     projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
     github_module = Path("src/github.ts").read_text(encoding="utf-8")
@@ -138,7 +154,7 @@ def test_frontend_validates_external_data_and_urls() -> None:
     assert "safeExternalUrl" in dom_module
 
 
-def test_terminal_imports_styles_and_motion() -> None:
+def test_terminal_keeps_motion_without_hiding_project_index() -> None:
     entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
     projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css")
@@ -146,25 +162,58 @@ def test_terminal_imports_styles_and_motion() -> None:
     assert "import './styles.css'" in entrypoint
     assert "from './motion'" in entrypoint
     assert "initMotion()" in entrypoint
-    assert "registerReveals(projectGrid)" in projects_module
+    assert "project-shell reveal" not in projects_module
+    assert "registerReveals(projectGrid)" not in projects_module
+    assert "import { registerReveals } from './motion'" not in projects_module
     assert stylesheet.exists() and stylesheet.stat().st_size > 0
     assert motion.exists() and motion.stat().st_size > 0
 
 
-def test_liquid_glass_edition_keeps_its_identity() -> None:
+def test_signal_field_manual_labels_meet_the_twelve_pixel_floor() -> None:
+    stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
+
+    assert re.search(r"font-size:\s*(?:10|11)px", stylesheet) is None
+    assert re.search(r"font:[^;]*(?<!\d)(?:10|11)px", stylesheet) is None
+
+
+def test_project_titles_wrap_without_clipping_mobile_ledger_controls() -> None:
+    stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
+
+    assert re.search(r"\.project-card h3\s*\{[^}]*min-width:\s*0;", stylesheet)
+    assert re.search(r"\.project-card h3 a\s*\{[^}]*overflow-wrap:\s*anywhere;", stylesheet)
+    assert re.search(r"\.project-rank\s*\{[^}]*flex:\s*0 0 auto;", stylesheet)
+
+
+def test_signal_field_manual_keeps_its_identity() -> None:
     html = Path("index.html").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
 
-    assert 'class="hero-blob"' in html
-    assert 'class="ink-mark"' in html
-    assert 'class="hero-underline"' in html
-    assert 'class="liquid-field"' in html
-    assert "#FAF9F5" in stylesheet
-    assert "#141413" in stylesheet
-    assert "#D97757" in stylesheet
-    assert "backdrop-filter" in stylesheet
-    assert "--glass-bg" in stylesheet
-    assert "@supports not ((backdrop-filter: blur(1px))" in stylesheet
+    required_html = [
+        "LIghtJUNction's digital assistant",
+        "Signal field manual / public",
+        'class="hero-field"',
+        'class="route-svg"',
+        'class="featured-ledger',
+        'id="model"',
+        ">Observe<",
+        ">Build<",
+        ">Verify<",
+        ">Return<",
+        "The user owns the accounts and assets.",
+    ]
+    for fragment in required_html:
+        assert fragment in html
+
+    assert "--paper: #f4efe6" in stylesheet
+    assert "--ink: #151512" in stylesheet
+    assert "--clay: #d97757" in stylesheet
+    assert "--cactus: #c8d9d2" in stylesheet
+    assert "--heather: #d8d6e4" in stylesheet
+    assert ".field-map" in stylesheet
+    assert ".model-route" in stylesheet
+    assert '[data-theme="dark"]' in stylesheet
+    assert "@media (prefers-reduced-motion: reduce)" in stylesheet
+    assert "--glass-bg" not in stylesheet
 
 
 def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:

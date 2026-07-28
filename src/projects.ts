@@ -1,7 +1,6 @@
 import { $, escapeHtml, safeExternalUrl } from './dom'
 import { formatDate, formatNumber } from './format'
 import { fetchStaticProjectCards, isRepoCardArray, type RepoCard } from './github'
-import { registerReveals } from './motion'
 import { showToast } from './toast'
 
 export type ProjectSource = 'cache' | 'network'
@@ -93,12 +92,14 @@ const PROJECT_GROUPS: ProjectGroup[] = [
 
 const PROJECT_CACHE_KEY = 'lightjunction.projectCards.v5'
 const PROJECT_CACHE_TTL_MS = 15 * 60 * 1000
+const PROJECT_PAGE_SIZE = 8
 
 const projectGrid = $<HTMLElement>('project-grid')
 const projectStatus = $<HTMLElement>('project-status')
 const projectCount = $<HTMLElement>('project-count')
 const projectSort = $<HTMLElement>('project-sort')
 const projectGroups = $<HTMLElement>('project-groups')
+const projectToggle = $<HTMLButtonElement>('btn-toggle-projects')
 const pulseCard = document.getElementById('pulse-card')
 const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 
@@ -106,6 +107,7 @@ let projectsLoaded = false
 let projectCards: RepoCard[] = []
 let projectSource: ProjectSource = 'network'
 let activeProjectGroup: ProjectGroupId = 'ai'
+let projectsExpanded = false
 
 export function readProjectCache(): CachedProjects | null {
     try {
@@ -185,19 +187,29 @@ function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
     const knownCommitTotal = filteredCards.reduce((sum, repo) => sum + (repo.commit_count ?? 0), 0)
     const unknownCommits = filteredCards.filter((repo) => repo.commit_count === null).length
     const activeGroupLabel = PROJECT_GROUPS.find((group) => group.id === activeProjectGroup)?.label ?? 'Projects'
+    const visibleCards = projectsExpanded
+        ? filteredCards
+        : filteredCards.slice(0, PROJECT_PAGE_SIZE)
 
-    projectCount.textContent = `${filteredCards.length} ${activeGroupLabel} projects / ${cards.length} total / ${formatNumber(totalStars)} stars`
+    projectCount.textContent = `Showing ${visibleCards.length} of ${filteredCards.length} ${activeGroupLabel} projects / ${cards.length} indexed`
     projectSort.textContent = `Rank: recent activity first, then newness, stars, and commits`
-    projectStatus.textContent = source === 'cache'
-        ? 'Showing cached GitHub data while refresh is available.'
-        : `${formatNumber(knownCommitTotal)} commits counted${unknownCommits ? ` / ${unknownCommits} unknown` : ''}.`
+    const sourceStatus = source === 'cache'
+        ? 'Cached checked-in project data.'
+        : 'Checked-in project index loaded.'
+    projectStatus.textContent = `${sourceStatus} ${formatNumber(totalStars)} stars across this filtered index / ${formatNumber(knownCommitTotal)} commits counted${unknownCommits ? ` / ${unknownCommits} unknown` : ''}.`
+
+    projectToggle.hidden = filteredCards.length <= PROJECT_PAGE_SIZE
+    projectToggle.textContent = projectsExpanded
+        ? 'Show fewer projects'
+        : `Show all ${filteredCards.length} projects`
+    projectToggle.setAttribute('aria-expanded', String(projectsExpanded))
 
     if (filteredCards.length === 0) {
-        projectGrid.innerHTML = '<div class="empty-state glass-shell">No repositories matched this group.</div>'
+        projectGrid.innerHTML = '<div class="empty-state">No repositories matched this group.</div>'
         return
     }
 
-    projectGrid.innerHTML = filteredCards.map((repo, index) => {
+    projectGrid.innerHTML = visibleCards.map((repo, index) => {
         const owner = repo.full_name.split('/')[0] ?? 'Unknown'
         const tags = [
             owner,
@@ -208,8 +220,8 @@ function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
         const description = repo.description ?? 'No description yet.'
         const repoUrl = escapeHtml(safeExternalUrl(repo.html_url))
         return `
-            <div class="project-shell glass-shell reveal">
-            <article class="project-card glass-core">
+            <div class="project-shell">
+            <article class="project-card">
                 <header>
                     <h3><a href="${repoUrl}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escapeHtml(repo.full_name)} on GitHub">${escapeHtml(repo.name)}</a></h3>
                     <span class="project-rank">#${index + 1}</span>
@@ -233,10 +245,10 @@ function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
         `
     }).join('')
 
-    registerReveals(projectGrid)
 }
 
 export async function loadProjectCards(force = false): Promise<void> {
+    if (force) projectsExpanded = false
     const cache = readProjectCache()
     if (!force && cache) {
         renderProjectCards(cache.cards, 'cache')
@@ -311,8 +323,13 @@ export async function initPulse(): Promise<void> {
 
 export function initProjectControls(): void {
     $('btn-refresh-projects').addEventListener('click', () => {
+        projectsExpanded = false
         void loadProjectCards(true)
         showToast('Refreshing projects')
+    })
+    projectToggle.addEventListener('click', () => {
+        projectsExpanded = !projectsExpanded
+        renderProjectCards(projectCards, projectSource)
     })
     projectGroups.addEventListener('click', (event) => {
         const target = event.target
@@ -322,6 +339,7 @@ export function initProjectControls(): void {
         if (!isProjectGroupId(group)) return
 
         activeProjectGroup = group
+        projectsExpanded = false
         renderProjectCards(projectCards, projectSource)
     })
 }

@@ -85,9 +85,9 @@ const commands: Record<string, CommandHandler> = {
     about: () => {
         writeLine(`
             <div class="panel-copy">
-                <strong>LIghtJUNction</strong>
-                <p>Independent builder focused on AI tooling, Linux automation, network workflows, and practical security.</p>
-                <p>Learning in public by turning rough personal systems into reusable tools.</p>
+                <strong>LIghtJUNction's digital assistant</strong>
+                <p>I maintain developer tools, Linux workflows, and careful automations inside user-owned accounts and projects.</p>
+                <p>The work stays scoped, reviewable, and public where possible. The user remains the owner of the accounts and assets.</p>
             </div>
         `)
     },
@@ -172,7 +172,7 @@ const commands: Record<string, CommandHandler> = {
     },
     msg: openSecureCard,
     clear: () => { output.innerHTML = '' },
-    whoami: () => writeLine('guest<br>LIghtJUNction<br>builder of compact tools for real systems'),
+    whoami: () => writeLine("guest<br>LIghtJUNction's digital assistant<br>maintainer of compact tools for real systems"),
     pwd: () => writeLine('/home/guest'),
     ls: () => writeLine('about.txt&nbsp;&nbsp;projects/&nbsp;&nbsp;contact.sh&nbsp;&nbsp;.pgp-key&nbsp;&nbsp;.bootstrap/'),
     uname: () => writeLine('lightjunction 2026.06 x86_64 GNU/Linux'),
@@ -316,7 +316,7 @@ function bindChrome(): void {
 
 function boot(): void {
     writeLine('<pre class="hero-type">LIghtJUNction</pre>')
-    writeLine('Terminal app. PGP messages. Open-source support. Type <kbd>sponsor</kbd> or <kbd>help</kbd>.', 'muted')
+    writeLine("Digital-assistant workbench. Public projects, operating context, and OpenPGP contact. Type <kbd>help</kbd>.", 'muted')
 }
 
 initMotion()
