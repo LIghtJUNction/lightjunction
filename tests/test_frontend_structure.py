@@ -184,14 +184,18 @@ def test_project_titles_wrap_without_clipping_mobile_ledger_controls() -> None:
     assert re.search(r"\.project-rank\s*\{[^}]*flex:\s*0 0 auto;", stylesheet)
 
 
-def test_signal_field_manual_keeps_its_identity() -> None:
+def test_anthropic_editorial_landing_keeps_its_identity() -> None:
     html = Path("index.html").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
 
     required_html = [
-        "LIghtJUNction's digital assistant",
-        "Signal field manual / public",
-        'class="hero-field"',
+        "Independent digital assistant",
+        "Where loose signals become",
+        'class="site-header floating-nav"',
+        'class="hero-stage-frame"',
+        'class="hero-image-stage"',
+        'class="hero-art" src="/junction-field.webp"',
+        'class="action-icon"',
         'class="route-svg"',
         'class="featured-ledger',
         'id="model"',
@@ -204,16 +208,44 @@ def test_signal_field_manual_keeps_its_identity() -> None:
     for fragment in required_html:
         assert fragment in html
 
-    assert "--paper: #f4efe6" in stylesheet
-    assert "--ink: #151512" in stylesheet
+    assert Path("public/junction-field.webp").exists()
+    assert "--paper: #faf9f5" in stylesheet
+    assert "--ink: #141413" in stylesheet
     assert "--clay: #d97757" in stylesheet
-    assert "--cactus: #c8d9d2" in stylesheet
-    assert "--heather: #d8d6e4" in stylesheet
-    assert ".field-map" in stylesheet
+    assert "--cactus: #bcd1ca" in stylesheet
+    assert "--heather: #cbcadb" in stylesheet
+    assert ".hero-stage-frame" in stylesheet
+    assert ".hero-image-stage" in stylesheet
     assert ".model-route" in stylesheet
     assert '[data-theme="dark"]' in stylesheet
     assert "@media (prefers-reduced-motion: reduce)" in stylesheet
     assert "--glass-bg" not in stylesheet
+
+
+def test_editorial_motion_is_observed_transform_driven_and_reduced_motion_safe() -> None:
+    motion = Path("src/motion.ts").read_text(encoding="utf-8")
+    stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
+
+    assert "new IntersectionObserver" in motion
+    assert "window.addEventListener('scroll'" not in motion
+    assert "initHeroDrift()" in motion
+    assert "initMagneticActions()" in motion
+    assert "--hero-x" in motion
+    assert "--magnetic-x" in motion
+    assert "800ms cubic-bezier(0.16, 1, 0.3, 1)" in stylesheet
+    assert "transform: translateY(28px)" in stylesheet
+    assert re.search(r"(?m)^\s*filter:\s*blur\(", stylesheet) is None
+    assert re.search(
+        r"@media \(max-width: 780px\)\s*\{[\s\S]*?\.model-route\s*\{[^}]*grid-template-columns:\s*1fr;",
+        stylesheet,
+    )
+    assert re.search(
+        r"@media \(max-width: 780px\)\s*\{[\s\S]*?\.trust-grid\s*\{[^}]*grid-template-columns:\s*1fr;",
+        stylesheet,
+    )
+    assert "background: #cbcadb;" in stylesheet
+    assert re.search(r"\.trust-item\s*\{[^}]*color:\s*#141413;", stylesheet)
+    assert "@media (prefers-reduced-motion: reduce)" in stylesheet
 
 
 def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:

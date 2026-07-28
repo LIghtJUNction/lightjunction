@@ -42,6 +42,26 @@ def test_readme_hero_is_lightweight_static_svg() -> None:
     assert "https://" not in text
 
 
+def test_readme_hero_uses_editorial_palette_and_junction_metaphor() -> None:
+    text = Path("public/readme-hero.svg").read_text(encoding="utf-8")
+    required = [
+        'width="1200" height="430"',
+        'fill="#CBCADB"',
+        'fill="#FAF9F5"',
+        'stroke="#141413"',
+        'fill="#D97757"',
+        "LIghtJUNction",
+        "MANY SIGNALS. ONE USEFUL ROUTE.",
+        "<circle",
+    ]
+    for fragment in required:
+        assert fragment in text
+
+    forbidden = ["<linearGradient", "<radialGradient", "<filter", "<image"]
+    for fragment in forbidden:
+        assert fragment not in text
+
+
 def test_obsolete_profile_generation_is_removed() -> None:
     obsolete = [
         "PROFILE_ACTIONS.md",
