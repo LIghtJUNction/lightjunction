@@ -278,7 +278,7 @@ def test_live_contribution_lock_cannot_be_stolen_with_zero_ttl(tmp_path: Path) -
     lock_dir.mkdir()
     (lock_dir / "metadata").write_text(f"runId=existing\npid={os.getpid()}\n", encoding="utf-8")
     result = subprocess.run(
-        ["bash", "skills/opensource-small-pr/scripts/context.sh"],
+        ["bash", ".agents/skills/opensource-small-pr/scripts/context.sh"],
         cwd=ROOT,
         check=False,
         capture_output=True,

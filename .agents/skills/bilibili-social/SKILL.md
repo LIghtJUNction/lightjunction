@@ -60,25 +60,25 @@ Use the bundled helper script for routine operations. Avoid persisting response
 bodies that may contain private data.
 
 ```bash
-uv run skills/bilibili-social/bilibili_social.py --help
+uv run .agents/skills/bilibili-social/bilibili_social.py --help
 ```
 
 Common read-only checks:
 
 ```bash
-uv run skills/bilibili-social/bilibili_social.py nav
-uv run skills/bilibili-social/bilibili_social.py hot
-uv run skills/bilibili-social/bilibili_social.py popular --limit 10
-uv run skills/bilibili-social/bilibili_social.py comments --bvid BV1jGKd6PENj --limit 10
-uv run skills/bilibili-social/bilibili_social.py sessions --limit 10
+uv run .agents/skills/bilibili-social/bilibili_social.py nav
+uv run .agents/skills/bilibili-social/bilibili_social.py hot
+uv run .agents/skills/bilibili-social/bilibili_social.py popular --limit 10
+uv run .agents/skills/bilibili-social/bilibili_social.py comments --bvid BV1jGKd6PENj --limit 10
+uv run .agents/skills/bilibili-social/bilibili_social.py sessions --limit 10
 ```
 
 Write actions:
 
 ```bash
-uv run skills/bilibili-social/bilibili_social.py comment --bvid BV1jGKd6PENj --text '自然、贴合语境的评论'
-uv run skills/bilibili-social/bilibili_social.py dynamic --text '简短、自然的纯文字动态'
-uv run skills/bilibili-social/bilibili_social.py send-dm --receiver-id 123456 --text '简短、有上下文的私信'
+uv run .agents/skills/bilibili-social/bilibili_social.py comment --bvid BV1jGKd6PENj --text '自然、贴合语境的评论'
+uv run .agents/skills/bilibili-social/bilibili_social.py dynamic --text '简短、自然的纯文字动态'
+uv run .agents/skills/bilibili-social/bilibili_social.py send-dm --receiver-id 123456 --text '简短、有上下文的私信'
 ```
 
 The script loads `BILIBILI_COOKIE` from `.env` by default and prints JSON without
@@ -108,7 +108,7 @@ Write endpoint:
 Preferred script command:
 
 ```bash
-uv run skills/bilibili-social/bilibili_social.py comment --bvid <BV_ID> --text '<TEXT>'
+uv run .agents/skills/bilibili-social/bilibili_social.py comment --bvid <BV_ID> --text '<TEXT>'
 ```
 
 Common form fields:
@@ -132,7 +132,7 @@ Write endpoint:
 Preferred script command:
 
 ```bash
-uv run skills/bilibili-social/bilibili_social.py dynamic --text '<TEXT>'
+uv run .agents/skills/bilibili-social/bilibili_social.py dynamic --text '<TEXT>'
 ```
 
 Use this for occasional lightweight Bilibili posts. Keep dynamics short, natural,
@@ -148,8 +148,8 @@ Useful endpoints:
 Preferred script commands:
 
 ```bash
-uv run skills/bilibili-social/bilibili_social.py sessions --limit 10
-uv run skills/bilibili-social/bilibili_social.py messages --talker-id <UID> --limit 20
+uv run .agents/skills/bilibili-social/bilibili_social.py sessions --limit 10
+uv run .agents/skills/bilibili-social/bilibili_social.py messages --talker-id <UID> --limit 20
 ```
 
 When reading DMs, surface sender UID, timestamp, and a brief summary. Avoid
@@ -164,7 +164,7 @@ Write endpoint:
 Preferred script command:
 
 ```bash
-uv run skills/bilibili-social/bilibili_social.py send-dm --receiver-id <UID> --text '<TEXT>'
+uv run .agents/skills/bilibili-social/bilibili_social.py send-dm --receiver-id <UID> --text '<TEXT>'
 ```
 
 Common form fields:

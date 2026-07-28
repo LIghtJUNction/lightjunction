@@ -10,8 +10,8 @@ log() {
 
 cleanup_python_bytecode() {
     log "Clean transient Python bytecode"
-    find scripts tests skills -type f -name '*.py[co]' -delete
-    find scripts tests skills -type d -name '__pycache__' -exec rm -rf {} +
+    find scripts tests .agents/skills -type f -name '*.py[co]' -delete
+    find scripts tests .agents/skills -type d -name '__pycache__' -exec rm -rf {} +
 }
 
 trap cleanup_python_bytecode EXIT
@@ -27,10 +27,10 @@ require_command() {
 require_command uv
 
 log "Python format"
-uv run ruff format --check scripts tests skills
+uv run ruff format --check scripts tests .agents/skills
 
 log "Python lint"
-uv run ruff check scripts tests skills
+uv run ruff check scripts tests .agents/skills
 
 log "Python types"
 uv run mypy

@@ -69,7 +69,6 @@ agentmail --format json <resource> <command>
 
 ## Durable Notes
 
-- Store stable, non-secret mailbox identity notes in `AGENTS.md` or
-  `identity-assets/`.
+- Store stable, non-secret mailbox identity notes in `AGENTS.md`.
 - Store temporary drafts in `workspace/drafts/` unless the user asks to publish or
   persist them elsewhere.

@@ -58,7 +58,7 @@ workspace/**
 !workspace/**/.gitkeep
 .kimaki/
 .omo/
-skills/**/tmp/
+.agents/skills/**/tmp/
 
 # Agent iteration logs
 logs/

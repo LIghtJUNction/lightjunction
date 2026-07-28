@@ -32,8 +32,7 @@ This workflow may organize, but should not silently delete:
 
 - `workspace/inbox/`, `workspace/drafts/`, `workspace/repos/`, and any notes that
   may preserve context for future work.
-- Durable instructions in `AGENTS.md`, `skills/`, `scripts/`, `identity-assets/`,
-  or `money-assets/`.
+- Durable instructions in `AGENTS.md`, `.agents/skills/`, or `scripts/`.
 - Git worktrees, branches, commits, stashes, or user edits.
 - Uploaded files, attachments, credentials, logs with possible incident evidence,
   or anything that may contain user-provided source material.

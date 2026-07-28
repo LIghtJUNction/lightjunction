@@ -2,4 +2,4 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-exec "$ROOT_DIR/skills/opensource-small-pr/scripts/context.sh" "$@"
+exec "$ROOT_DIR/.agents/skills/opensource-small-pr/scripts/context.sh" "$@"

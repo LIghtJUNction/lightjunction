@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
 STATE_DIR="${OPEN_SOURCE_CONTRIB_STATE_DIR:-$ROOT_DIR/.kimaki}"
 LOG_PATH="$STATE_DIR/opensource-contrib-log.jsonl"
 LOCK_DIR="$STATE_DIR/opensource-contrib.lock"

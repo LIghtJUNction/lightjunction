@@ -15,7 +15,7 @@ import pytest
 
 def load_module() -> ModuleType:
     """Load the hyphenated Bilibili CLI module without executing its main function."""
-    path = Path(__file__).resolve().parents[1] / "skills/bilibili-social/bilibili_social.py"
+    path = Path(__file__).resolve().parents[1] / ".agents/skills/bilibili-social/bilibili_social.py"
     spec = importlib.util.spec_from_file_location("bilibili_social", path)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)

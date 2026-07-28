@@ -236,11 +236,13 @@ def test_editorial_motion_is_observed_transform_driven_and_reduced_motion_safe()
     assert "transform: translateY(28px)" in stylesheet
     assert re.search(r"(?m)^\s*filter:\s*blur\(", stylesheet) is None
     assert re.search(
-        r"@media \(max-width: 780px\)\s*\{[\s\S]*?\.model-route\s*\{[^}]*grid-template-columns:\s*1fr;",
+        r"@media \(max-width: 780px\)\s*\{[\s\S]*?"
+        r"\.model-route\s*\{[^}]*grid-template-columns:\s*1fr;",
         stylesheet,
     )
     assert re.search(
-        r"@media \(max-width: 780px\)\s*\{[\s\S]*?\.trust-grid\s*\{[^}]*grid-template-columns:\s*1fr;",
+        r"@media \(max-width: 780px\)\s*\{[\s\S]*?"
+        r"\.trust-grid\s*\{[^}]*grid-template-columns:\s*1fr;",
         stylesheet,
     )
     assert "background: #cbcadb;" in stylesheet

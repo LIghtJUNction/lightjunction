@@ -72,7 +72,7 @@ Good skill content answers:
 
 When creating a new skill:
 
-1. Create `skills/<kebab-case-name>/SKILL.md`.
+1. Create `.agents/skills/<kebab-case-name>/SKILL.md`.
 2. Add YAML frontmatter with `name`, `repo`, and a concise `description`.
 3. Write a short title and purpose statement.
 4. Add usage triggers, safety rules, operating steps, and verification.
@@ -108,8 +108,8 @@ If any answer is no, revise before finalizing.
 For recurring work, compress context in this order:
 
 1. Put stable identity, ownership, and top-level routing rules in `AGENTS.md`.
-2. Put reusable workflow details in `skills/<name>/SKILL.md`.
-3. Put reusable code or command orchestration in `skills/<name>/scripts/` or `scripts/`.
+2. Put reusable workflow details in `.agents/skills/<name>/SKILL.md`.
+3. Put reusable code or command orchestration in `.agents/skills/<name>/scripts/` or `scripts/`.
 4. Put run-specific logs, queues, and caches in `.kimaki/` or `workspace/`.
 5. Keep one-off outcomes and next actions in session handoffs or untracked workspace notes.
 

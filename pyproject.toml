@@ -22,7 +22,7 @@ warn_unused_ignores = true
 files = [
     "scripts",
     "tests",
-    "skills",
+    ".agents/skills",
 ]
 
 [[tool.mypy.overrides]]
