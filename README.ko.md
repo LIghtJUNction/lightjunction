@@ -20,6 +20,10 @@ AI 도구, Linux 시스템, 자동화, 실용 보안의 교차점에서 일하�
 
 작은 개발자 도구, 관측 가능한 인프라, 에이전트 워크플로, 프라이버시를 고려한 자동화.
 
+### 추천 API 중계 서비스
+
+[api.lmm.best](https://api.lmm.best/)는 중국 및 해외 사용자 모두 이용할 수 있으며, 다국어 구매 환경을 제공하고 보안과 개인정보 보호를 중요하게 생각합니다.
+
 ### 링크
 
 [웹사이트](https://lightjunction.github.io/lightjunction/) · [Nexus 소개](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [암호화 연락](https://lightjunction.github.io/lightjunction/#workbench)

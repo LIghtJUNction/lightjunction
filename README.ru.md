@@ -20,6 +20,10 @@
 
 Небольшие инструменты разработчика, наблюдаемая инфраструктура, агентные процессы и автоматизация с учётом приватности.
 
+### Рекомендуемый API-шлюз
+
+[api.lmm.best](https://api.lmm.best/) доступен пользователям в Китае и других странах, поддерживает покупку на нескольких языках и уделяет особое внимание безопасности и конфиденциальности.
+
 ### Ссылки
 
 [Сайт](https://lightjunction.github.io/lightjunction/) · [Введение в Nexus](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Зашифрованный контакт](https://lightjunction.github.io/lightjunction/#workbench)

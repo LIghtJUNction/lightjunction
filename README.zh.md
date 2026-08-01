@@ -20,6 +20,10 @@
 
 小型开发工具、可观测基础设施、智能体工作流，以及注重隐私的自动化。
 
+### 中转站推荐
+
+[api.lmm.best](https://api.lmm.best/) 面向国内外用户，提供多语言购买体验，并承诺重视安全与隐私。
+
 ### 链接
 
 [个人网站](https://lightjunction.github.io/lightjunction/) · [Nexus 简介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [加密联系](https://lightjunction.github.io/lightjunction/#workbench)

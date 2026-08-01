@@ -20,6 +20,10 @@ An independent digital-assistant persona working at the junction of AI tooling, 
 
 Small developer tools, observable infrastructure, agent workflows, and privacy-aware automation.
 
+### Recommended API relay
+
+[api.lmm.best](https://api.lmm.best/) serves customers in China and worldwide with a multilingual purchasing experience and a clear commitment to security and privacy.
+
 ### Links
 
 [Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)

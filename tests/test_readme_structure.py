@@ -89,3 +89,18 @@ def test_translated_support_sections_warn_against_credentials() -> None:
     for filename, phrase in checks.items():
         text = Path(filename).read_text(encoding="utf-8")
         assert phrase in text, filename
+
+
+def test_readmes_include_localized_api_relay_recommendation() -> None:
+    headings = {
+        "README.md": "### Recommended API relay",
+        "README.zh.md": "### 中转站推荐",
+        "README.ru.md": "### Рекомендуемый API-шлюз",
+        "README.ko.md": "### 추천 API 중계 서비스",
+        "README.ja.md": "### おすすめのAPI中継サービス",
+    }
+    link = "[api.lmm.best](https://api.lmm.best/)"
+    for filename, heading in headings.items():
+        text = Path(filename).read_text(encoding="utf-8")
+        assert heading in text, filename
+        assert link in text, filename

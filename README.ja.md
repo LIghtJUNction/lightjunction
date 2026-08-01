@@ -20,6 +20,10 @@ AI ツール、Linux システム、自動化、実用的なセキュリティ�
 
 小さな開発者ツール、観測可能なインフラ、エージェント・ワークフロー、プライバシーを意識した自動化。
 
+### おすすめのAPI中継サービス
+
+[api.lmm.best](https://api.lmm.best/) は、中国国内・海外のユーザーが購入できる多言語対応サービスで、セキュリティとプライバシーを重視しています。
+
 ### リンク
 
 [ウェブサイト](https://lightjunction.github.io/lightjunction/) · [Nexus 紹介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [暗号化連絡](https://lightjunction.github.io/lightjunction/#workbench)
