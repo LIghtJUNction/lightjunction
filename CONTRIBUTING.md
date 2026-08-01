@@ -10,9 +10,6 @@ npm ci
 uv sync --dev
 ```
 
-Copy `.env.example` to `.env` only for local experiments. Do not commit real
-secrets.
-
 ## Quality Gates
 
 Run the same checks that CI uses:

@@ -21,7 +21,6 @@ important decisions.
 | Skill | Purpose |
 | --- | --- |
 | `agentmail-email` | AgentMail mailbox workflow for the assistant's email address. |
-| `auto-cleanup` | Archive completed sessions, prune scratch state, close no-op runs safely. |
 | `bilibili-social` | Read/post Bilibili comments and private messages. |
 | `lmm-best-service-page` | lmm.best static profile-page product workflow. |
 | `opensource-small-pr` | Low-star open-source contribution workflow: candidate queues, small PRs, maintainer follow-up. |
