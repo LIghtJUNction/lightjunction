@@ -319,3 +319,11 @@ def test_typescript_uses_strict_frontend_checks() -> None:
 
     for option in required:
         assert compiler_options[option] is True
+
+
+def test_pages_workflow_uses_node_24_actions() -> None:
+    workflow = Path(".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
+
+    assert "actions/attest-build-provenance@v4" in workflow
+    assert "actions/configure-pages@v6" in workflow
+    assert "actions/deploy-pages@v5" in workflow
