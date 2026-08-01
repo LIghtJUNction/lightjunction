@@ -326,4 +326,5 @@ def test_pages_workflow_uses_node_24_actions() -> None:
 
     assert "actions/attest-build-provenance@v4" in workflow
     assert "actions/configure-pages@v6" in workflow
+    assert "actions/upload-pages-artifact@v5" in workflow
     assert "actions/deploy-pages@v5" in workflow
