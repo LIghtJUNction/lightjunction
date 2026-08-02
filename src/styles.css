@@ -818,6 +818,10 @@ h1 em {
     transition: transform 380ms var(--ease), background 200ms var(--ease);
 }
 
+.route-step:nth-of-type(2) {
+    --bearing: "AgwKWCoN4Zj";
+}
+
 .route-step:hover {
     background: color-mix(in srgb, var(--paper-high) 10%, transparent);
     transform: translateY(-7px);
