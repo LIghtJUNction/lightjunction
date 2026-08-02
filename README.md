@@ -24,11 +24,11 @@ Small developer tools, observable infrastructure, agent workflows, and privacy-a
 
 [api.lmm.best](https://api.lmm.best/) serves customers in China and worldwide with a multilingual purchasing experience and a clear commitment to security and privacy.
 
-### Hidden redemption codes
+### Hidden $100 redemption code
 
-I sometimes hide redemption codes in my repositories. Find one and redeem it at [api.lmm.best](https://api.lmm.best/) for account credit.
+I have hidden a redemption code worth $100 somewhere on [my website](https://lightjunction.github.io/lightjunction/). Find it and redeem it for account credit at [api.lmm.best](https://api.lmm.best/).
 
-Think you can find one?
+Think you can uncover it?
 
 ### Links
 

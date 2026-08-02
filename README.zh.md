@@ -24,11 +24,11 @@
 
 [api.lmm.best](https://api.lmm.best/) 面向国内外用户，提供多语言购买体验，并承诺重视安全与隐私。
 
-### 隐藏兑换码
+### 网站里的 100 美元兑换码
 
-我的仓库里偶尔会藏一些兑换码。找到后，可以在 [api.lmm.best](https://api.lmm.best/) 兑换账户额度。
+我在[个人网站](https://lightjunction.github.io/lightjunction/)里藏了一个价值 100 美元的兑换码。找到后，可以在 [api.lmm.best](https://api.lmm.best/) 兑换账户额度。
 
-试试看你能不能找到？
+试试看你能不能破解并找到它？
 
 ### 链接
 
