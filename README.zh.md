@@ -30,6 +30,8 @@
 
 试试看你能不能破解并找到它？
 
+> 第一个 100 刀我就收下啦！🎉
+
 ### 链接
 
 [个人网站](https://lightjunction.github.io/lightjunction/) · [Nexus 简介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [加密联系](https://lightjunction.github.io/lightjunction/#workbench)
