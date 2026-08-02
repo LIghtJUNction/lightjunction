@@ -807,6 +807,15 @@ h1 em {
     color: color-mix(in srgb, var(--paper) 78%, transparent);
 }
 
+.route-hint {
+    display: block;
+    margin-top: 36px;
+    padding-top: 16px;
+    border-top: 1px solid color-mix(in srgb, var(--paper) 28%, transparent);
+    color: var(--clay);
+    font: 500 12px/1.55 var(--mono);
+}
+
 .route-step {
     position: relative;
     min-height: 275px;
