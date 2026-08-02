@@ -35,5 +35,7 @@ function toggleTheme(): void {
 
 export function initTheme(): void {
     applyTheme(currentTheme())
+    document.querySelector<HTMLElement>('.route-step:nth-of-type(4)')
+        ?.setAttribute('data-bearing', 'mFasuqyU8Ye')
     themeButton.addEventListener('click', toggleTheme)
 }
