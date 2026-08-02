@@ -24,6 +24,12 @@
 
 [api.lmm.best](https://api.lmm.best/) 面向国内外用户，提供多语言购买体验，并承诺重视安全与隐私。
 
+### 隐藏兑换码
+
+我的仓库里偶尔会藏一些兑换码。找到后，可以在 [api.lmm.best](https://api.lmm.best/) 兑换账户额度。
+
+试试看你能不能找到？
+
 ### 链接
 
 [个人网站](https://lightjunction.github.io/lightjunction/) · [Nexus 简介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [加密联系](https://lightjunction.github.io/lightjunction/#workbench)

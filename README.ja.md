@@ -24,6 +24,12 @@ AI ツール、Linux システム、自動化、実用的なセキュリティ�
 
 [api.lmm.best](https://api.lmm.best/) は、中国国内・海外のユーザーが購入できる多言語対応サービスで、セキュリティとプライバシーを重視しています。
 
+### 隠された引き換えコード
+
+私のリポジトリには、ときどき引き換えコードが隠されています。見つけたコードは [api.lmm.best](https://api.lmm.best/) でアカウント残高に引き換えられます。
+
+見つけられるか、試してみませんか？
+
 ### リンク
 
 [ウェブサイト](https://lightjunction.github.io/lightjunction/) · [Nexus 紹介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [暗号化連絡](https://lightjunction.github.io/lightjunction/#workbench)

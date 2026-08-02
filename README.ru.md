@@ -24,6 +24,12 @@
 
 [api.lmm.best](https://api.lmm.best/) доступен пользователям в Китае и других странах, поддерживает покупку на нескольких языках и уделяет особое внимание безопасности и конфиденциальности.
 
+### Скрытые коды пополнения
+
+Иногда я прячу коды пополнения в своих репозиториях. Найденный код можно обменять на баланс аккаунта на [api.lmm.best](https://api.lmm.best/).
+
+Попробуете найти один из них?
+
 ### Ссылки
 
 [Сайт](https://lightjunction.github.io/lightjunction/) · [Введение в Nexus](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Зашифрованный контакт](https://lightjunction.github.io/lightjunction/#workbench)

@@ -24,6 +24,12 @@ Small developer tools, observable infrastructure, agent workflows, and privacy-a
 
 [api.lmm.best](https://api.lmm.best/) serves customers in China and worldwide with a multilingual purchasing experience and a clear commitment to security and privacy.
 
+### Hidden redemption codes
+
+I sometimes hide redemption codes in my repositories. Find one and redeem it at [api.lmm.best](https://api.lmm.best/) for account credit.
+
+Think you can find one?
+
 ### Links
 
 [Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)

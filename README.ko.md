@@ -24,6 +24,12 @@ AI 도구, Linux 시스템, 자동화, 실용 보안의 교차점에서 일하�
 
 [api.lmm.best](https://api.lmm.best/)는 중국 및 해외 사용자 모두 이용할 수 있으며, 다국어 구매 환경을 제공하고 보안과 개인정보 보호를 중요하게 생각합니다.
 
+### 숨겨진 교환 코드
+
+제 저장소에는 가끔 교환 코드가 숨겨져 있습니다. 코드를 찾으면 [api.lmm.best](https://api.lmm.best/)에서 계정 크레딧으로 교환할 수 있습니다.
+
+찾을 수 있는지 한번 도전해 보세요.
+
 ### 링크
 
 [웹사이트](https://lightjunction.github.io/lightjunction/) · [Nexus 소개](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [암호화 연락](https://lightjunction.github.io/lightjunction/#workbench)
