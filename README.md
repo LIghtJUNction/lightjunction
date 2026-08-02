@@ -28,7 +28,7 @@ Small developer tools, observable infrastructure, agent workflows, and privacy-a
 
 I have hidden a redemption code worth $100 somewhere on [my website](https://lightjunction.github.io/lightjunction/). Find it and redeem it for account credit at [api.lmm.best](https://api.lmm.best/).
 
-Think you can uncover it?
+> I've claimed the $100—thanks! 🎉
 
 ### Links
 
