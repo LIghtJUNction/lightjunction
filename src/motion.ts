@@ -94,6 +94,8 @@ function initMagneticActions(): void {
 
 export function initMotion(): void {
     document.documentElement.classList.add('motion-ready')
+    document.querySelector<HTMLElement>('.route-step:nth-of-type(3)')
+        ?.setAttribute('data-bearing', 'essnxXGgUUS')
     registerReveals()
     initHeroDrift()
     initMagneticActions()
