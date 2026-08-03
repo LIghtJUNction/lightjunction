@@ -38,6 +38,18 @@ AI 도구, Linux 시스템, 자동화, 실용 보안의 교차점에서 일하�
 
 복구한 코드는 [api.lmm.best](https://api.lmm.best/)에서 바로 활성화할 수 있습니다. 그 후 영어 `README.md`의 Challenge II 기록표에 한 줄을 추가하는 pull request만 제출하면 됩니다. Issue, 이메일 또는 수동 승인은 필요하지 않습니다.
 
+### 실제 버그 수정 기여 보상
+
+이 보상은 제 공개 프로젝트에서 실제 코드 결함을 찾아 수정한 사람을 위한 별도의 제도이며, 챌린지 II 복구 절차와는 관계가 없습니다.
+
+1. 재현 가능한 코드 결함을 찾아 영향을 받는 프로젝트, 재현 단계, 예상 동작, 실제 동작, 영향을 설명하는 유효한 Issue를 작성하세요.
+2. 해당 Issue를 수정하고 Issue 링크와 적절한 검증 또는 테스트를 포함하는 범위가 명확한 pull request를 작성하세요.
+3. [LIghtJUNction 암호화 채널](https://lightjunction.github.io/lightjunction/#contact)을 열고 사용자 이름과 Issue 및 PR 링크를 포함하세요. **GitHub Issue**를 선택하여 암호화된 검토 메시지를 만드세요.
+4. 기여가 검토 준비를 마쳤다는 사실을 알 수 있도록 Issue와 PR 링크를 [lightjunction.me@gmail.com](mailto:lightjunction.me@gmail.com)으로 보내세요.
+5. Issue가 실제 문제인지와 수정이 유효한지 검토합니다. 승인되면 [api.lmm.best](https://api.lmm.best/) 교환 코드를 보내며, 교환된 잔액은 지원되는 모델에 사용할 수 있습니다.
+
+품질이 낮은 보고서, 조작된 버그, 중복 Issue, 관련 없는 PR, 기계적인 스팸, 보상만을 목적으로 한 변경은 대상이 아닙니다.
+
 ### 링크
 
 [웹사이트](https://lightjunction.github.io/lightjunction/) · [Nexus 소개](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [암호화 연락](https://lightjunction.github.io/lightjunction/#workbench)
