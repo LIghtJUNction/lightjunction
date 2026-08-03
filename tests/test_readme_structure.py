@@ -120,3 +120,20 @@ def test_challenge_two_recovery_ledger_exists_in_every_language() -> None:
         assert heading in text, filename
         assert challenge_link in text, filename
         assert "| --- | ---: | --- | --- | --- |" in text, filename
+
+
+def test_english_readme_documents_challenge_two_review_and_redemption_flow() -> None:
+    text = Path("README.md").read_text(encoding="utf-8")
+    required = [
+        "#### Submit a recovery for review",
+        "Open encrypted channel",
+        "the Issue you created",
+        "the pull request you opened",
+        "lightjunction.me@gmail.com",
+        "I will review the recovery and contribution manually",
+        "I will send you a redemption code",
+        "Redeem the code at [api.lmm.best](https://api.lmm.best/)",
+        "Keep the recovered signal inside the encrypted form",
+    ]
+    for fragment in required:
+        assert fragment in text

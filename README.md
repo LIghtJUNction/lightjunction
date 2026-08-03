@@ -42,6 +42,16 @@ Successful solvers should submit a pull request adding their result below. Inclu
 | --- | ---: | --- | --- | --- |
 | — | — | No verified recovery yet | — | — |
 
+#### Submit a recovery for review
+
+1. Open the [LIghtJUNction website](https://lightjunction.github.io/lightjunction/#contact), choose **Open encrypted channel**, and fill in the form.
+2. In the encrypted message, include your solver handle, full elapsed time, the Issue you created, the pull request you opened, and links to both. A recovery PR must update the ledger in every maintained README language.
+3. Encrypt the message locally, use **GitHub Issue** to create the encrypted review Issue, then email [lightjunction.me@gmail.com](mailto:lightjunction.me@gmail.com) with the Issue and PR links so I know it is ready for review.
+4. I will review the recovery and contribution manually. If approved, I will send you a redemption code.
+5. Redeem the code at [api.lmm.best](https://api.lmm.best/) and use the credited balance for supported models.
+
+Keep the recovered signal inside the encrypted form. Do not place it in the email, PR, Issue title, branch name, commit message, or public discussion.
+
 ### Links
 
 [Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
