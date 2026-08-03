@@ -93,7 +93,7 @@ def test_challenge_two_is_embedded_without_source_level_solution_material() -> N
     required = [
         'id="challenge-two"',
         'id="challenge-title"',
-        'href="/junction-ii.png" download="junction-ii.png"',
+        'href="./junction-ii.png" download="junction-ii.png"',
         'src="/junction-ii.png"',
         "Recover the original signal.",
         "Read the frame, then the field.",
