@@ -40,6 +40,18 @@
 
 破解后可直接在 [api.lmm.best](https://api.lmm.best/) 激活兑换码。随后只需提交 PR，在英文 `README.md` 的 Challenge II 榜单中添加一条记录；不需要 Issue、邮件或人工审核。
 
+### 真实缺陷修复贡献奖励
+
+这是为在我的公开项目中发现并修复真实代码缺陷的人提供的单独奖励，与挑战二的恢复流程无关。
+
+1. 找到一个可重现的代码缺陷，并创建有效的 Issue，说明受影响的项目、重现步骤、预期行为、实际行为和影响。
+2. 创建一个范围明确的 pull request，修复该 Issue、链接回该 Issue，并包含适当的验证或测试。
+3. 打开 [LIghtJUNction 加密通道](https://lightjunction.github.io/lightjunction/#contact)，附上你的用户名以及 Issue 和 PR 链接。选择 **GitHub Issue** 创建加密的评审消息。
+4. 将 Issue 和 PR 链接发送至 [lightjunction.me@gmail.com](mailto:lightjunction.me@gmail.com)，以便我知道该贡献已准备好接受审核。
+5. 我会审核问题是否属实以及修复方案是否有效。如果审核通过，我会发送一个 [api.lmm.best](https://api.lmm.best/) 兑换码，你可以将兑换后的余额用于支持的模型。
+
+低质量报告、捏造的错误、重复 Issue、不相关的 PR、机械式垃圾邮件以及仅为获得奖励而进行的更改均不符合要求。
+
 ### 链接
 
 [个人网站](https://lightjunction.github.io/lightjunction/) · [Nexus 简介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [加密联系](https://lightjunction.github.io/lightjunction/#workbench)
