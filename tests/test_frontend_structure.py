@@ -1,7 +1,9 @@
 """Structural checks for the Vite frontend."""
 
+import hashlib
 import json
 import re
+import struct
 from pathlib import Path
 
 
@@ -83,6 +85,46 @@ def test_index_has_portfolio_and_real_experiences() -> None:
         assert fragment in html
 
     assert 'id="ascii-bg"' not in html
+
+
+def test_challenge_two_is_embedded_without_source_level_solution_material() -> None:
+    html = Path("index.html").read_text(encoding="utf-8")
+    artifact = Path("public/junction-ii.png")
+    required = [
+        'id="challenge-two"',
+        'id="challenge-title"',
+        'href="/junction-ii.png" download="junction-ii.png"',
+        'src="/junction-ii.png"',
+        "Recover the original signal.",
+        "Read the frame, then the field.",
+        "Recovered it? Submit a PR with the full elapsed time",
+    ]
+    for fragment in required:
+        assert fragment in html
+
+    assert artifact.exists()
+    payload = artifact.read_bytes()
+    assert payload.startswith(b"\x89PNG\r\n\x1a\n")
+    assert struct.unpack(">II", payload[16:24]) == (1600, 1200)
+
+    target_digest = "de5a097c814a80c6b12a350b4a48ce045c17f549ae867378e17ea861be514d69"
+    tracked_text = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in [
+            Path("index.html"),
+            Path("README.md"),
+            *Path("src").glob("*.ts"),
+            Path("src/styles.css"),
+        ]
+    )
+    text_candidates = re.findall(r"(?<![0-9a-f])[0-9a-f]{32}(?![0-9a-f])", tracked_text)
+    binary_candidates = re.findall(rb"(?<![0-9a-f])[0-9a-f]{32}(?![0-9a-f])", payload)
+    assert all(
+        hashlib.sha256(value.encode("ascii")).hexdigest() != target_digest
+        for value in text_candidates
+    )
+    assert all(hashlib.sha256(value).hexdigest() != target_digest for value in binary_candidates)
+    assert b"BEGIN PRIVATE KEY" not in payload
 
 
 def test_terminal_keyboard_input_is_scoped_and_keeps_native_tab() -> None:

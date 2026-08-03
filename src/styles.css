@@ -877,6 +877,119 @@ h1 em {
     color: color-mix(in srgb, var(--paper) 82%, transparent);
 }
 
+.challenge-band {
+    padding-block: clamp(96px, 11vw, 168px);
+    scroll-margin-top: 88px;
+    background: var(--heather);
+    color: #141413;
+}
+
+.challenge-band .band-head {
+    border-color: rgba(20, 20, 19, 0.42);
+}
+
+.challenge-band .band-head .folio {
+    border-color: rgba(20, 20, 19, 0.56);
+    color: rgba(20, 20, 19, 0.72);
+}
+
+.challenge-grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr);
+    align-items: stretch;
+    gap: 18px;
+}
+
+.challenge-copy,
+.challenge-artifact {
+    min-width: 0;
+    margin: 0;
+    border: 1px solid #141413;
+    border-radius: 30px;
+}
+
+.challenge-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(30px, 4vw, 58px);
+    background: #f7f3eb;
+}
+
+.challenge-copy > p:not(.eyebrow) {
+    max-width: 520px;
+    margin: 34px 0 0;
+    color: rgba(20, 20, 19, 0.72);
+    font-size: 18px;
+}
+
+.challenge-prompt {
+    display: block;
+    max-width: 540px;
+    margin-top: 34px;
+    font: 400 clamp(40px, 4.3vw, 70px)/0.92 var(--serif);
+    letter-spacing: -0.045em;
+}
+
+.challenge-clue {
+    width: 100%;
+    margin-top: auto;
+    padding-top: 52px;
+}
+
+.challenge-clue span {
+    display: block;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(20, 20, 19, 0.34);
+    font: 600 12px/1 var(--mono);
+    letter-spacing: 0.08em;
+}
+
+.challenge-clue p {
+    margin: 13px 0 0;
+    font: 500 15px/1.5 var(--mono);
+}
+
+.challenge-copy > .challenge-proof {
+    margin-top: 26px;
+    font: 500 12px/1.6 var(--mono);
+}
+
+.challenge-download {
+    margin-top: 36px;
+}
+
+.challenge-artifact {
+    overflow: hidden;
+    background: #f7f3eb;
+}
+
+.challenge-artifact a {
+    display: block;
+    overflow: hidden;
+    border-bottom: 1px solid #141413;
+}
+
+.challenge-artifact img {
+    width: 100%;
+    min-height: 560px;
+    object-fit: cover;
+    transition: transform 700ms var(--ease);
+}
+
+.challenge-artifact a:hover img {
+    transform: scale(1.018);
+}
+
+.challenge-artifact figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 15px 18px;
+    font: 600 12px/1 var(--mono);
+    letter-spacing: 0.06em;
+}
+
 .workbench-band {
     padding-block: clamp(90px, 11vw, 160px);
 }
@@ -2231,6 +2344,15 @@ kbd {
         top: 12px;
     }
 
+    .site-nav a {
+        min-width: 64px;
+        padding-inline: 10px;
+    }
+
+    .github-link {
+        display: none;
+    }
+
     .hero {
         grid-template-columns: 1fr;
         padding-top: 126px;
@@ -2262,6 +2384,14 @@ kbd {
 
     .core-project {
         min-height: 520px;
+    }
+
+    .challenge-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .challenge-artifact img {
+        min-height: 0;
     }
 }
 
@@ -2381,6 +2511,38 @@ kbd {
 
     .route-step {
         border-radius: 18px;
+    }
+
+    .challenge-band {
+        padding-top: 126px;
+    }
+
+    .challenge-copy,
+    .challenge-artifact {
+        border-radius: 20px;
+    }
+
+    .challenge-copy {
+        padding: 26px 22px;
+    }
+
+    .challenge-copy > p:not(.eyebrow) {
+        margin-top: 24px;
+        font-size: 16px;
+    }
+
+    .challenge-prompt {
+        margin-top: 28px;
+        font-size: 44px;
+    }
+
+    .challenge-clue {
+        padding-top: 44px;
+    }
+
+    .challenge-artifact figcaption {
+        flex-direction: column;
+        gap: 7px;
     }
 
     .workbench-stage {

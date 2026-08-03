@@ -24,11 +24,23 @@ Small developer tools, observable infrastructure, agent workflows, and privacy-a
 
 [api.lmm.best](https://api.lmm.best/) serves customers in China and worldwide with a multilingual purchasing experience and a clear commitment to security and privacy.
 
-### Hidden $100 redemption code
+### Challenge I — claimed
 
 I have hidden a redemption code worth $100 somewhere on [my website](https://lightjunction.github.io/lightjunction/). Find it and redeem it for account credit at [api.lmm.best](https://api.lmm.best/).
 
 > I've claimed the $100—thanks! 🎉
+
+### Challenge II — asymmetric signal
+
+The first challenge was recovered quickly. A second, substantially harder [cryptographic trail](https://lightjunction.github.io/lightjunction/#challenge-two) is embedded in the website with fewer clues and no source-level decoding path.
+
+One artifact. One question: recover the original signal.
+
+Successful solvers should submit a pull request adding their result below. Include only a name or handle you consent to publish, the full elapsed time, recovery date, whether agents were used, and a short non-spoiler method summary. Do not publish the recovered signal or private-key material.
+
+| Solver | Elapsed time | Date (China) | Agents used | Non-spoiler method |
+| --- | ---: | --- | --- | --- |
+| — | — | No verified recovery yet | — | — |
 
 ### Links
 

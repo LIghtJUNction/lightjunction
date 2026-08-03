@@ -54,7 +54,9 @@ function switchApp(appId: AppId): void {
     })
 
     workspaceTitle.textContent = appId === 'projects' ? 'Selected work' : 'Terminal experience'
-    workspaceKicker.textContent = appId === 'projects' ? 'Library / GitHub' : 'Interactive / secure tty'
+    workspaceKicker.textContent = appId === 'projects'
+        ? 'Field 04 / Library / GitHub'
+        : 'Field 04 / Interactive / secure tty'
 
     if (appId === 'projects') {
         ensureProjectCards()
