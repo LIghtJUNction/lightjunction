@@ -90,12 +90,21 @@
 
 ### Challenge II Recovery PRs
 
-- After an external solver recovers the exact Challenge II signal and the repository owner confirms the recovery, the solver must submit a pull request that appends one row to the Challenge II recovery ledger in `README.md`.
-- The same pull request must update every maintained language edition: `README.md`, `README.zh.md`, `README.ru.md`, `README.ko.md`, and `README.ja.md`. Keep the solver identity, elapsed time, date, agent-use disclosure, and method summary semantically identical across all five files; localize only the surrounding prose and table headings.
+- After an external solver recovers the exact Challenge II code, they may activate it directly at `api.lmm.best`; no Issue, email, repository-owner confirmation, or manual approval is required.
+- After activation, the solver should submit a pull request that appends one row to the canonical Challenge II recovery ledger in `README.md` only. Individual recovery PRs must not update the localized README files.
 - Record the solver name or handle they explicitly consent to publish, the measured elapsed solve time, the China-date recovery date, whether agents were used, and a concise non-spoiler method summary. Never infer or publish private identity information.
 - Measure elapsed time from the solver's first concrete inspection of the public artifact to exact plaintext recovery. Do not subtract dead ends, human checkpoints, agent waiting time, or tool setup time.
 - Do not place the recovered plaintext, private-key material, extraction coordinates, full decoder, or a reproducible end-to-end solution in the pull request, commit message, branch name, issue, or public discussion.
 - Internal construction-time black-box evaluations are not public recoveries and must not create recovery-ledger pull requests.
+
+### Code Contribution Rewards
+
+- Keep the code-contribution reward program separate from Challenge II. It rewards genuine defects found and valid fixes contributed to the owner's public projects; it is not a review step for recovered challenge codes.
+- A qualifying submission needs a reproducible, non-duplicate Issue that explains the affected project, reproduction steps, expected and actual behavior, and practical impact.
+- It also needs a focused pull request that links the Issue, fixes the actual defect, avoids unrelated changes, and includes proportionate tests or verification.
+- The contributor should use the website's encrypted channel to send their handle and the Issue/PR links, create the encrypted review Issue, and email `lightjunction.me@gmail.com` with the same public links as a review notification. The recovered challenge code or other secrets must never be included.
+- The repository owner reviews whether the report and fix are valid. If approved, the owner may send a redemption code that can be activated at `api.lmm.best` for supported-model credit.
+- Fabricated bugs, duplicate or low-effort Issues, unrelated PRs, mechanical spam, reward-driven noise, and changes that do not fix a real defect do not qualify.
 
 ## Skills
 

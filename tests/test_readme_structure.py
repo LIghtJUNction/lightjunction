@@ -106,7 +106,7 @@ def test_readmes_include_localized_api_relay_recommendation() -> None:
         assert link in text, filename
 
 
-def test_challenge_two_recovery_ledger_exists_in_every_language() -> None:
+def test_challenge_two_ledger_is_canonical_in_english_readme() -> None:
     headings = {
         "README.md": "### Challenge II — asymmetric signal",
         "README.zh.md": "### 挑战二——非对称信号",
@@ -119,21 +119,29 @@ def test_challenge_two_recovery_ledger_exists_in_every_language() -> None:
         text = Path(filename).read_text(encoding="utf-8")
         assert heading in text, filename
         assert challenge_link in text, filename
-        assert "| --- | ---: | --- | --- | --- |" in text, filename
+        if filename == "README.md":
+            assert "| --- | ---: | --- | --- | --- |" in text
+        else:
+            assert "`README.md`" in text, filename
+            assert "| --- | ---: | --- | --- | --- |" not in text, filename
 
 
-def test_english_readme_documents_challenge_two_review_and_redemption_flow() -> None:
+def test_english_readme_separates_challenge_claim_from_bug_fix_rewards() -> None:
     text = Path("README.md").read_text(encoding="utf-8")
     required = [
-        "#### Submit a recovery for review",
-        "Open encrypted channel",
-        "the Issue you created",
-        "the pull request you opened",
+        "#### Claim and record a recovery",
+        "Redeem the recovered code directly",
+        "No Issue, email, or manual approval is required",
+        "### Real bug-fix contribution rewards",
+        "find and fix real code defects",
+        "reproduction steps, expected behavior, actual behavior, and impact",
+        "focused pull request that fixes the Issue",
+        "LIghtJUNction encrypted channel",
         "lightjunction.me@gmail.com",
-        "I will review the recovery and contribution manually",
-        "I will send you a redemption code",
-        "Redeem the code at [api.lmm.best](https://api.lmm.best/)",
-        "Keep the recovered signal inside the encrypted form",
+        "I will review whether the Issue is genuine and the fix is valid",
+        "Low-quality reports, fabricated bugs, duplicate Issues",
     ]
     for fragment in required:
         assert fragment in text
+
+    assert "Submit a recovery for review" not in text

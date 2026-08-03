@@ -42,15 +42,23 @@ Successful solvers should submit a pull request adding their result below. Inclu
 | --- | ---: | --- | --- | --- |
 | — | — | No verified recovery yet | — | — |
 
-#### Submit a recovery for review
+#### Claim and record a recovery
 
-1. Open the [LIghtJUNction website](https://lightjunction.github.io/lightjunction/#contact), choose **Open encrypted channel**, and fill in the form.
-2. In the encrypted message, include your solver handle, full elapsed time, the Issue you created, the pull request you opened, and links to both. A recovery PR must update the ledger in every maintained README language.
-3. Encrypt the message locally, use **GitHub Issue** to create the encrypted review Issue, then email [lightjunction.me@gmail.com](mailto:lightjunction.me@gmail.com) with the Issue and PR links so I know it is ready for review.
-4. I will review the recovery and contribution manually. If approved, I will send you a redemption code.
-5. Redeem the code at [api.lmm.best](https://api.lmm.best/) and use the credited balance for supported models.
+1. Redeem the recovered code directly at [api.lmm.best](https://api.lmm.best/) and use the credited balance for supported models.
+2. Submit a pull request that adds one row to the Challenge II ledger in this `README.md`. No Issue, email, or manual approval is required.
+3. Do not publish the recovered code, private-key material, or a reproducible end-to-end solution in the PR, branch name, commit message, or public discussion.
 
-Keep the recovered signal inside the encrypted form. Do not place it in the email, PR, Issue title, branch name, commit message, or public discussion.
+### Real bug-fix contribution rewards
+
+This is a separate incentive for people who find and fix real code defects in my public projects. It is not part of the Challenge II recovery process.
+
+1. Find a reproducible code defect and open a valid Issue describing the affected project, reproduction steps, expected behavior, actual behavior, and impact.
+2. Open a focused pull request that fixes the Issue, links back to it, and includes appropriate verification or tests.
+3. Open the [LIghtJUNction encrypted channel](https://lightjunction.github.io/lightjunction/#contact) and include your handle plus the Issue and PR links. Use **GitHub Issue** to create the encrypted review message.
+4. Email [lightjunction.me@gmail.com](mailto:lightjunction.me@gmail.com) with the Issue and PR links so I know the contribution is ready for review.
+5. I will review whether the Issue is genuine and the fix is valid. If approved, I will send you a redemption code for [api.lmm.best](https://api.lmm.best/), where the credited balance can be used with supported models.
+
+Low-quality reports, fabricated bugs, duplicate Issues, unrelated PRs, mechanical spam, and changes made only to obtain a reward do not qualify.
 
 ### Links
 
