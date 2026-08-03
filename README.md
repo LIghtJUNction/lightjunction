@@ -158,28 +158,17 @@ Successful solvers should submit a pull request adding their result below. Inclu
 
 同一个 PR 不能重复用于领取奖励。
 
-### 4. 发送评审信息
-
-打开 LIghtJUNction 加密频道，使用 GitHub Issue 创建加密评审消息，并包含：
-
-- 你的 GitHub 用户名；
-- Issue 链接；
-- PR 链接。
-
-同时将 Issue 和 PR 链接发送至 `lightjunction.me@gmail.com`，通知贡献已经可以评审。
-
-### 5. 在系统中提交
+### 4. 在系统中提交
 
 回到“开源悬赏 → 我接受的挑战”，提交：
 
 - GitHub Issue 链接；
 - GitHub PR 链接；
-- LIghtJUNction 加密评审消息；
 - 可选的补充说明。
 
 系统会校验 Issue 和 PR 的 GitHub 仓库是否与悬赏仓库一致，并阻止重复提交同一个 PR。
 
-### 6. 等待审核和到账
+### 5. 等待审核和到账
 
 项目发布者审核通过后，奖励会直接进入贡献者的 API 余额，可用于平台支持的模型。
 
