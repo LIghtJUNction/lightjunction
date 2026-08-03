@@ -1,68 +1,8 @@
 {
   "schema_version": 1,
   "owner": "LIghtJUNction",
-  "included_orgs": [
-    "AstrBotDevs"
-  ],
+  "included_orgs": [],
   "project_cards": [
-    {
-      "id": 575865240,
-      "name": "AstrBot",
-      "full_name": "AstrBotDevs/AstrBot",
-      "html_url": "https://github.com/AstrBotDevs/AstrBot",
-      "description": "AI Agent Assistant & development framework that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨",
-      "language": "Python",
-      "topics": [
-        "agent",
-        "ai",
-        "astrbot",
-        "chatbot",
-        "chatgpt",
-        "discord",
-        "docker",
-        "gemini",
-        "gpt",
-        "llama",
-        "llm",
-        "mcp",
-        "openai",
-        "python",
-        "qq",
-        "qqbot",
-        "telegram"
-      ],
-      "stargazers_count": 38510,
-      "forks_count": 2750,
-      "open_issues_count": 1361,
-      "default_branch": "master",
-      "created_at": "2022-12-08T13:27:46Z",
-      "updated_at": "2026-08-03T09:51:01Z",
-      "pushed_at": "2026-08-03T07:12:45Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 5091,
-      "rank_score": 154736.2975923024
-    },
-    {
-      "id": 1161409654,
-      "name": "AstrBot-desktop",
-      "full_name": "AstrBotDevs/AstrBot-desktop",
-      "html_url": "https://github.com/AstrBotDevs/AstrBot-desktop",
-      "description": "The desktop edition of AstrBot, designed for fast local installation and convenient access to ChatUI and plugins.",
-      "language": "TypeScript",
-      "topics": [],
-      "stargazers_count": 716,
-      "forks_count": 31,
-      "open_issues_count": 4,
-      "default_branch": "main",
-      "created_at": "2026-02-19T04:25:10Z",
-      "updated_at": "2026-08-02T21:38:27Z",
-      "pushed_at": "2026-08-03T03:32:13Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 600,
-      "rank_score": 144237.82078675262
-    },
     {
       "id": 998453022,
       "name": "MagicNet",
@@ -73,83 +13,35 @@
       "topics": [],
       "stargazers_count": 146,
       "forks_count": 3,
-      "open_issues_count": 1,
-      "default_branch": "main",
-      "created_at": "2025-06-08T16:33:48Z",
-      "updated_at": "2026-08-03T08:02:10Z",
-      "pushed_at": "2026-08-03T05:08:48Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 302,
-      "rank_score": 130637.46394040958
-    },
-    {
-      "id": 1143820390,
-      "name": "shipyard-neo",
-      "full_name": "AstrBotDevs/shipyard-neo",
-      "html_url": "https://github.com/AstrBotDevs/shipyard-neo",
-      "description": "The Secure, Persistent Execution Platform for AI Agents",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 84,
-      "forks_count": 18,
-      "open_issues_count": 10,
-      "default_branch": "main",
-      "created_at": "2026-01-28T02:14:34Z",
-      "updated_at": "2026-07-20T04:51:51Z",
-      "pushed_at": "2026-07-28T11:07:52Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 259,
-      "rank_score": 126817.75296540867
-    },
-    {
-      "id": 868786460,
-      "name": "AstrBot_Plugins_Collection",
-      "full_name": "AstrBotDevs/AstrBot_Plugins_Collection",
-      "html_url": "https://github.com/AstrBotDevs/AstrBot_Plugins_Collection",
-      "description": "AstrBot Plugin Collections. Submit plugin: https://cloud.astrbot.app/",
-      "language": "Python",
-      "topics": [
-        "ai",
-        "astrbot",
-        "bot",
-        "plugin",
-        "qq"
-      ],
-      "stargazers_count": 106,
-      "forks_count": 68,
-      "open_issues_count": 1050,
-      "default_branch": "main",
-      "created_at": "2024-10-07T07:24:27Z",
-      "updated_at": "2026-08-01T11:21:00Z",
-      "pushed_at": "2026-07-31T12:06:06Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 6583,
-      "rank_score": 126577.8680727379
-    },
-    {
-      "id": 1156306199,
-      "name": "astrbot-launcher",
-      "full_name": "AstrBotDevs/astrbot-launcher",
-      "html_url": "https://github.com/AstrBotDevs/astrbot-launcher",
-      "description": "Desktop launcher for guided, isolated AstrBot setup and multi-instance management. / AstrBot 图形化启动器与多实例管理工具。",
-      "language": "Rust",
-      "topics": [
-        "astrbot"
-      ],
-      "stargazers_count": 1300,
-      "forks_count": 14,
       "open_issues_count": 0,
       "default_branch": "main",
-      "created_at": "2026-02-12T13:57:39Z",
-      "updated_at": "2026-08-03T05:35:24Z",
-      "pushed_at": "2026-07-14T05:04:36Z",
+      "created_at": "2025-06-08T16:33:48Z",
+      "updated_at": "2026-08-03T10:48:51Z",
+      "pushed_at": "2026-08-03T15:14:08Z",
       "archived": false,
       "fork": false,
-      "commit_count": 308,
-      "rank_score": 125608.11258560672
+      "commit_count": 306,
+      "rank_score": 130882.0845064272
+    },
+    {
+      "id": 1317888287,
+      "name": "api.lmm.best",
+      "full_name": "LIghtJUNction/api.lmm.best",
+      "html_url": "https://github.com/LIghtJUNction/api.lmm.best",
+      "description": "api.lmm.best",
+      "language": "Rust",
+      "topics": [],
+      "stargazers_count": 1,
+      "forks_count": 1,
+      "open_issues_count": 0,
+      "default_branch": "main",
+      "created_at": "2026-07-31T03:24:00Z",
+      "updated_at": "2026-08-02T09:35:53Z",
+      "pushed_at": "2026-08-03T13:51:07Z",
+      "archived": false,
+      "fork": false,
+      "commit_count": 78,
+      "rank_score": 124524.94684323133
     },
     {
       "id": 1318899983,
@@ -169,27 +61,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 879,
-      "rank_score": 124340.42592798972
-    },
-    {
-      "id": 1317888287,
-      "name": "api.lmm.best",
-      "full_name": "LIghtJUNction/api.lmm.best",
-      "html_url": "https://github.com/LIghtJUNction/api.lmm.best",
-      "description": "api.lmm.best",
-      "language": "Rust",
-      "topics": [],
-      "stargazers_count": 1,
-      "forks_count": 1,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-07-31T03:24:00Z",
-      "updated_at": "2026-08-02T09:35:53Z",
-      "pushed_at": "2026-08-02T09:35:49Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 78,
-      "rank_score": 123435.43426875307
+      "rank_score": 124082.92355766834
     },
     {
       "id": 1118717745,
@@ -209,7 +81,27 @@
       "archived": false,
       "fork": false,
       "commit_count": 291,
-      "rank_score": 122976.3429774523
+      "rank_score": 122722.79860620832
+    },
+    {
+      "id": 1275497588,
+      "name": "MagicBox",
+      "full_name": "LIghtJUNction/MagicBox",
+      "html_url": "https://github.com/LIghtJUNction/MagicBox",
+      "description": "ohhhh.",
+      "language": "Kotlin",
+      "topics": [],
+      "stargazers_count": 2,
+      "forks_count": 0,
+      "open_issues_count": 1,
+      "default_branch": "main",
+      "created_at": "2026-06-20T19:11:14Z",
+      "updated_at": "2026-07-29T06:34:16Z",
+      "pushed_at": "2026-08-03T15:00:34Z",
+      "archived": false,
+      "fork": false,
+      "commit_count": 19,
+      "rank_score": 122682.00909664742
     },
     {
       "id": 1314828895,
@@ -229,7 +121,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 14,
-      "rank_score": 122845.06232541587
+      "rank_score": 122582.28506545686
     },
     {
       "id": 1247271738,
@@ -249,7 +141,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 179,
-      "rank_score": 122242.08511172204
+      "rank_score": 121996.31360450017
     },
     {
       "id": 1317938763,
@@ -269,7 +161,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 33,
-      "rank_score": 121480.37014973894
+      "rank_score": 121223.03050293072
     },
     {
       "id": 1259316986,
@@ -293,7 +185,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 704,
-      "rank_score": 120540.91377025096
+      "rank_score": 120291.07176755142
     },
     {
       "id": 1316945358,
@@ -313,27 +205,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 2387,
-      "rank_score": 119671.076132404
-    },
-    {
-      "id": 1185044601,
-      "name": "astrbot-aur",
-      "full_name": "AstrBotDevs/astrbot-aur",
-      "html_url": "https://github.com/AstrBotDevs/astrbot-aur",
-      "description": "Astrbot-aur",
-      "language": "Shell",
-      "topics": [],
-      "stargazers_count": 5,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "master",
-      "created_at": "2026-03-18T07:21:22Z",
-      "updated_at": "2026-07-31T04:32:53Z",
-      "pushed_at": "2026-07-31T04:32:40Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 250,
-      "rank_score": 119670.61199894043
+      "rank_score": 119419.35060466826
     },
     {
       "id": 1314758830,
@@ -353,7 +225,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 60,
-      "rank_score": 119049.63359245981
+      "rank_score": 118799.2389533385
     },
     {
       "id": 1309643173,
@@ -373,7 +245,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 33,
-      "rank_score": 118996.30764436106
+      "rank_score": 118744.25991787677
     },
     {
       "id": 1281865130,
@@ -393,7 +265,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 16,
-      "rank_score": 118853.48352705249
+      "rank_score": 118605.33649457975
     },
     {
       "id": 1275978958,
@@ -413,7 +285,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 5,
-      "rank_score": 118680.16761347887
+      "rank_score": 118421.94211859292
     },
     {
       "id": 1306466073,
@@ -433,7 +305,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 45,
-      "rank_score": 118671.9582065032
+      "rank_score": 118421.01529641678
     },
     {
       "id": 1261536831,
@@ -456,27 +328,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 184,
-      "rank_score": 117237.73418072371
-    },
-    {
-      "id": 1275497588,
-      "name": "MagicBox",
-      "full_name": "LIghtJUNction/MagicBox",
-      "html_url": "https://github.com/LIghtJUNction/MagicBox",
-      "description": "ohhhh.",
-      "language": "Kotlin",
-      "topics": [],
-      "stargazers_count": 2,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-06-20T19:11:14Z",
-      "updated_at": "2026-07-29T06:34:16Z",
-      "pushed_at": "2026-07-29T06:33:28Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 19,
-      "rank_score": 116933.83968005945
+      "rank_score": 116988.94862372034
     },
     {
       "id": 1316022313,
@@ -496,27 +348,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 262,
-      "rank_score": 116826.90303583132
-    },
-    {
-      "id": 1144881573,
-      "name": "astrbot-contributors",
-      "full_name": "AstrBotDevs/astrbot-contributors",
-      "html_url": "https://github.com/AstrBotDevs/astrbot-contributors",
-      "description": "https://astrbotdevs.github.io/astrbot-contributors",
-      "language": "JavaScript",
-      "topics": [],
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-01-29T06:40:29Z",
-      "updated_at": "2026-08-03T04:20:08Z",
-      "pushed_at": "2026-08-03T04:19:26Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 188,
-      "rank_score": 116086.7174341661
+      "rank_score": 116577.49309971495
     },
     {
       "id": 1306345618,
@@ -536,7 +368,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 25,
-      "rank_score": 114929.44392440574
+      "rank_score": 114678.8355353901
     },
     {
       "id": 1272902109,
@@ -556,7 +388,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 16,
-      "rank_score": 113917.29929319277
+      "rank_score": 113672.78167093541
     },
     {
       "id": 1305536897,
@@ -576,7 +408,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 322,
-      "rank_score": 113845.44967126875
+      "rank_score": 113610.52021175761
     },
     {
       "id": 1280441147,
@@ -596,7 +428,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 29,
-      "rank_score": 113654.43459024963
+      "rank_score": 113404.75224471076
     },
     {
       "id": 866676324,
@@ -622,12 +454,12 @@
       "open_issues_count": 2,
       "default_branch": "main",
       "created_at": "2024-10-02T17:20:12Z",
-      "updated_at": "2026-08-03T03:55:03Z",
-      "pushed_at": "2026-08-03T03:54:43Z",
+      "updated_at": "2026-08-03T15:02:58Z",
+      "pushed_at": "2026-08-03T14:56:19Z",
       "archived": false,
       "fork": false,
-      "commit_count": 747,
-      "rank_score": 112931.53750028864
+      "commit_count": 752,
+      "rank_score": 113217.48039592171
     },
     {
       "id": 1263173492,
@@ -647,7 +479,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 9,
-      "rank_score": 112883.16396857222
+      "rank_score": 112639.21747462418
     },
     {
       "id": 1254097637,
@@ -667,7 +499,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 17,
-      "rank_score": 112855.97232143731
+      "rank_score": 112617.00689571485
     },
     {
       "id": 1261642868,
@@ -687,7 +519,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 35,
-      "rank_score": 112556.50870190012
+      "rank_score": 112315.925256264
     },
     {
       "id": 1273594514,
@@ -707,27 +539,27 @@
       "archived": false,
       "fork": false,
       "commit_count": 9,
-      "rank_score": 111667.3315419255
+      "rank_score": 111427.3432530206
     },
     {
-      "id": 1094019945,
-      "name": "astrbot-t2i-service",
-      "full_name": "AstrBotDevs/astrbot-t2i-service",
-      "html_url": "https://github.com/AstrBotDevs/astrbot-t2i-service",
-      "description": "AstrBot T2I Service",
-      "language": "Python",
+      "id": 1124559673,
+      "name": "MagicSingBox",
+      "full_name": "LIghtJUNction/MagicSingBox",
+      "html_url": "https://github.com/LIghtJUNction/MagicSingBox",
+      "description": "MagicNet x sing-box",
+      "language": null,
       "topics": [],
-      "stargazers_count": 30,
-      "forks_count": 16,
-      "open_issues_count": 4,
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "open_issues_count": 0,
       "default_branch": "main",
-      "created_at": "2025-11-11T06:28:16Z",
-      "updated_at": "2026-07-21T02:30:37Z",
-      "pushed_at": "2026-07-20T10:03:16Z",
+      "created_at": "2025-12-29T08:16:26Z",
+      "updated_at": "2026-08-03T14:56:09Z",
+      "pushed_at": "2026-08-03T14:52:20Z",
       "archived": false,
       "fork": false,
-      "commit_count": 56,
-      "rank_score": 110438.36556754884
+      "commit_count": 49,
+      "rank_score": 111102.47166768917
     },
     {
       "id": 1187797650,
@@ -747,7 +579,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 54,
-      "rank_score": 110149.67804626268
+      "rank_score": 109909.77854088387
     },
     {
       "id": 1273875409,
@@ -767,7 +599,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 11,
-      "rank_score": 108720.88257335624
+      "rank_score": 108480.88206389963
     },
     {
       "id": 1263299170,
@@ -787,7 +619,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 20,
-      "rank_score": 108614.24721316037
+      "rank_score": 108374.73202277484
     },
     {
       "id": 1305334230,
@@ -807,7 +639,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 15,
-      "rank_score": 106691.82173404211
+      "rank_score": 106468.30634224525
     },
     {
       "id": 1306266658,
@@ -827,47 +659,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 5,
-      "rank_score": 106619.4157839628
-    },
-    {
-      "id": 1124559673,
-      "name": "MagicSingBox",
-      "full_name": "LIghtJUNction/MagicSingBox",
-      "html_url": "https://github.com/LIghtJUNction/MagicSingBox",
-      "description": "MagicNet x sing-box",
-      "language": null,
-      "topics": [],
-      "stargazers_count": 0,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2025-12-29T08:16:26Z",
-      "updated_at": "2026-07-30T01:07:57Z",
-      "pushed_at": "2026-07-30T01:07:53Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 47,
-      "rank_score": 106166.27187120535
-    },
-    {
-      "id": 1047708189,
-      "name": "astrbot-release-harbour",
-      "full_name": "AstrBotDevs/astrbot-release-harbour",
-      "html_url": "https://github.com/AstrBotDevs/astrbot-release-harbour",
-      "description": null,
-      "language": null,
-      "topics": [],
-      "stargazers_count": 0,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2025-08-31T03:25:13Z",
-      "updated_at": "2026-08-03T09:55:07Z",
-      "pushed_at": "2026-08-03T07:14:29Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 1,
-      "rank_score": 105363.24232407406
+      "rank_score": 106394.1367571779
     },
     {
       "id": 1290575594,
@@ -887,7 +679,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 87,
-      "rank_score": 101600.34772844061
+      "rank_score": 101391.72389286176
     },
     {
       "id": 1256925534,
@@ -907,7 +699,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 8,
-      "rank_score": 100196.57429413349
+      "rank_score": 99975.58619777998
     },
     {
       "id": 1302318084,
@@ -927,7 +719,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1,
-      "rank_score": 98154.16209754559
+      "rank_score": 97939.40659768682
     },
     {
       "id": 1290577114,
@@ -947,7 +739,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 43,
-      "rank_score": 97856.99849700091
+      "rank_score": 97648.46183599075
     },
     {
       "id": 1301689821,
@@ -967,7 +759,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1,
-      "rank_score": 86109.82184579619
+      "rank_score": 85924.94559374344
     },
     {
       "id": 1265657570,
@@ -987,7 +779,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1145,
-      "rank_score": 83201.085171055
+      "rank_score": 83033.41093535964
     },
     {
       "id": 1265530765,
@@ -1007,7 +799,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 452,
-      "rank_score": 82405.37314848107
+      "rank_score": 82237.68655794767
     },
     {
       "id": 1263226742,
@@ -1027,7 +819,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 38,
-      "rank_score": 81075.80783857593
+      "rank_score": 80913.81238387835
     },
     {
       "id": 1275265945,
@@ -1047,27 +839,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 30,
-      "rank_score": 80675.4123543957
-    },
-    {
-      "id": 1233495174,
-      "name": "astrbot_sandbox_cua",
-      "full_name": "AstrBotDevs/astrbot_sandbox_cua",
-      "html_url": "https://github.com/AstrBotDevs/astrbot_sandbox_cua",
-      "description": "AstrBot CUA sandbox runtime plugin.",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 2,
-      "forks_count": 1,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-05-09T02:54:31Z",
-      "updated_at": "2026-06-26T14:37:46Z",
-      "pushed_at": "2026-06-17T03:28:44Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 76,
-      "rank_score": 79464.00493466169
+      "rank_score": 80507.29268104905
     },
     {
       "id": 1269577292,
@@ -1087,7 +859,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 2818,
-      "rank_score": 79332.47482587471
+      "rank_score": 79176.67666089635
     },
     {
       "id": 1275265946,
@@ -1107,7 +879,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 63,
-      "rank_score": 78982.39813935538
+      "rank_score": 78820.0226435486
     },
     {
       "id": 1275265947,
@@ -1127,7 +899,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 29,
-      "rank_score": 78338.4541880911
+      "rank_score": 78176.06193931798
     },
     {
       "id": 1272767726,
@@ -1147,7 +919,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 169,
-      "rank_score": 77890.70352824495
+      "rank_score": 77732.8377317078
     },
     {
       "id": 1269440878,
@@ -1167,7 +939,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1686,
-      "rank_score": 77770.86651161408
+      "rank_score": 77617.85033491671
     },
     {
       "id": 1267724950,
@@ -1187,7 +959,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 3378,
-      "rank_score": 76769.01398760577
+      "rank_score": 76619.76978061326
     },
     {
       "id": 1267814237,
@@ -1207,7 +979,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 3065,
-      "rank_score": 76747.98888940032
+      "rank_score": 76598.59757599392
     },
     {
       "id": 1269546230,
@@ -1227,7 +999,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 468,
-      "rank_score": 76522.53674130952
+      "rank_score": 76369.937102648
     },
     {
       "id": 1269582073,
@@ -1247,7 +1019,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 421,
-      "rank_score": 76470.91558173635
+      "rank_score": 76318.22679287592
     },
     {
       "id": 1269477614,
@@ -1267,7 +1039,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 263,
-      "rank_score": 76050.82872598854
+      "rank_score": 75898.18129908163
     },
     {
       "id": 1265537073,
@@ -1287,7 +1059,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 209,
-      "rank_score": 75634.02501167129
+      "rank_score": 75481.54717370393
     },
     {
       "id": 1266715620,
@@ -1307,7 +1079,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 128,
-      "rank_score": 75273.99219060305
+      "rank_score": 75121.49159121992
     },
     {
       "id": 1267677747,
@@ -1327,7 +1099,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 502,
-      "rank_score": 75121.10752669124
+      "rank_score": 74971.93668358191
     },
     {
       "id": 1266213722,
@@ -1347,7 +1119,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 96,
-      "rank_score": 75007.56801395118
+      "rank_score": 74855.07506460193
     },
     {
       "id": 1267772236,
@@ -1367,7 +1139,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 344,
-      "rank_score": 74860.0792947214
+      "rank_score": 74710.76949009439
     },
     {
       "id": 1268673896,
@@ -1387,7 +1159,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 59,
-      "rank_score": 74734.34365453248
+      "rank_score": 74581.73415516496
     },
     {
       "id": 1268738429,
@@ -1407,7 +1179,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 44,
-      "rank_score": 74495.14312074546
+      "rank_score": 74342.54157414459
     },
     {
       "id": 1272790832,
@@ -1427,7 +1199,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1,
-      "rank_score": 74136.90096092573
+      "rank_score": 73978.99201045347
     },
     {
       "id": 1269513958,
@@ -1447,27 +1219,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 17,
-      "rank_score": 73722.02849988229
-    },
-    {
-      "id": 1233513165,
-      "name": "astrbot_sandbox_shipyard_neo",
-      "full_name": "AstrBotDevs/astrbot_sandbox_shipyard_neo",
-      "html_url": "https://github.com/AstrBotDevs/astrbot_sandbox_shipyard_neo",
-      "description": "Shipyard Neo sandbox runtime provider for AstrBot",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 1,
-      "forks_count": 2,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-05-09T03:28:58Z",
-      "updated_at": "2026-06-10T17:36:43Z",
-      "pushed_at": "2026-06-10T17:34:55Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 98,
-      "rank_score": 73718.83392430635
+      "rank_score": 73569.48577441562
     },
     {
       "id": 1260014256,
@@ -1487,7 +1239,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 19,
-      "rank_score": 73530.21351298182
+      "rank_score": 73385.23899705212
     },
     {
       "id": 1268594022,
@@ -1507,7 +1259,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 23,
-      "rank_score": 73202.5113626147
+      "rank_score": 73051.77552536916
     },
     {
       "id": 1267735668,
@@ -1527,7 +1279,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 188,
-      "rank_score": 72507.02706749803
+      "rank_score": 72362.29958556636
     },
     {
       "id": 1266718457,
@@ -1547,7 +1299,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 41,
-      "rank_score": 72415.22168341161
+      "rank_score": 72267.45816665457
     },
     {
       "id": 1268719626,
@@ -1567,7 +1319,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 2,
-      "rank_score": 72190.58227165851
+      "rank_score": 72037.96843498871
     },
     {
       "id": 1260669680,
@@ -1587,7 +1339,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 5,
-      "rank_score": 72109.0084508609
+      "rank_score": 71969.61259803837
     },
     {
       "id": 1267557704,
@@ -1607,7 +1359,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 2,
-      "rank_score": 68952.18512368567
+      "rank_score": 68807.52449754976
     },
     {
       "id": 1263231992,
@@ -1630,7 +1382,7 @@
       "archived": true,
       "fork": false,
       "commit_count": 62,
-      "rank_score": 68256.30379000498
+      "rank_score": 68094.29694800352
     },
     {
       "id": 1255417378,
@@ -1650,47 +1402,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 469,
-      "rank_score": 67318.04616098176
-    },
-    {
-      "id": 1233513177,
-      "name": "astrbot_sandbox_boxlite",
-      "full_name": "AstrBotDevs/astrbot_sandbox_boxlite",
-      "html_url": "https://github.com/AstrBotDevs/astrbot_sandbox_boxlite",
-      "description": "Boxlite sandbox runtime provider for AstrBot",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 0,
-      "forks_count": 1,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-05-09T03:28:59Z",
-      "updated_at": "2026-06-02T13:33:58Z",
-      "pushed_at": "2026-06-02T13:32:35Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 62,
-      "rank_score": 65372.50931263708
-    },
-    {
-      "id": 1233513150,
-      "name": "astrbot_sandbox_shipyard",
-      "full_name": "AstrBotDevs/astrbot_sandbox_shipyard",
-      "html_url": "https://github.com/AstrBotDevs/astrbot_sandbox_shipyard",
-      "description": "Shipyard sandbox runtime provider for AstrBot",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 0,
-      "forks_count": 1,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-05-09T03:28:56Z",
-      "updated_at": "2026-06-01T09:18:55Z",
-      "pushed_at": "2026-06-01T09:18:49Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 73,
-      "rank_score": 64848.79300314551
+      "rank_score": 67187.02602988575
     },
     {
       "id": 993417468,
@@ -1710,27 +1422,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 2,
-      "rank_score": 60688.667747380096
-    },
-    {
-      "id": 1191493381,
-      "name": "FlowChat",
-      "full_name": "AstrBotDevs/FlowChat",
-      "html_url": "https://github.com/AstrBotDevs/FlowChat",
-      "description": "一个以“理解、追问、连续阅读”为核心的 AI Chatbot  |  An AI Chatbot centered on \"understanding, follow-up questioning, and continuous reading\"",
-      "language": "TypeScript",
-      "topics": [],
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2026-03-25T09:51:39Z",
-      "updated_at": "2026-05-22T11:07:49Z",
-      "pushed_at": "2026-05-22T11:07:45Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 32,
-      "rank_score": 60008.684803072225
+      "rank_score": 60545.81934619424
     },
     {
       "id": 1242876434,
@@ -1750,7 +1442,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 4,
-      "rank_score": 59198.077238897844
+      "rank_score": 59084.27226678194
     },
     {
       "id": 1242894908,
@@ -1770,7 +1462,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 2,
-      "rank_score": 58770.61137400722
+      "rank_score": 58656.79096745695
     },
     {
       "id": 952581543,
@@ -1790,7 +1482,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1595,
-      "rank_score": 57163.51509509181
+      "rank_score": 57041.33700051396
     },
     {
       "id": 1148866064,
@@ -1810,7 +1502,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1156,
-      "rank_score": 56980.135331174024
+      "rank_score": 56868.23740385772
     },
     {
       "id": 1232420824,
@@ -1830,27 +1522,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1343,
-      "rank_score": 55389.001608137725
-    },
-    {
-      "id": 1208403047,
-      "name": "builtin_commands_extension",
-      "full_name": "AstrBotDevs/builtin_commands_extension",
-      "html_url": "https://github.com/AstrBotDevs/builtin_commands_extension",
-      "description": null,
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 12,
-      "forks_count": 1,
-      "open_issues_count": 3,
-      "default_branch": "master",
-      "created_at": "2026-04-12T08:21:29Z",
-      "updated_at": "2026-07-14T08:10:02Z",
-      "pushed_at": "2026-04-12T08:21:32Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 38,
-      "rank_score": 53385.12553505392
+      "rank_score": 55287.81636147229
     },
     {
       "id": 944020068,
@@ -1870,7 +1542,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 13,
-      "rank_score": 52579.30003229633
+      "rank_score": 52466.02378193814
     },
     {
       "id": 1232798359,
@@ -1890,7 +1562,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 13,
-      "rank_score": 51707.222668290684
+      "rank_score": 51605.57937262805
     },
     {
       "id": 1226087759,
@@ -1910,7 +1582,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 240,
-      "rank_score": 50786.836061684146
+      "rank_score": 50692.893746357346
     },
     {
       "id": 1242253116,
@@ -1930,7 +1602,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 35,
-      "rank_score": 50643.66619084728
+      "rank_score": 50547.50181874503
     },
     {
       "id": 1231456137,
@@ -1950,7 +1622,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 6,
-      "rank_score": 50485.853339855035
+      "rank_score": 50385.67132708346
     },
     {
       "id": 1223848385,
@@ -1970,7 +1642,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 15,
-      "rank_score": 47805.81368680328
+      "rank_score": 47713.36957336726
     },
     {
       "id": 1218577687,
@@ -1990,30 +1662,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 50,
-      "rank_score": 47017.57879425351
-    },
-    {
-      "id": 1051991345,
-      "name": "astrbot-blog",
-      "full_name": "AstrBotDevs/astrbot-blog",
-      "html_url": "https://github.com/AstrBotDevs/astrbot-blog",
-      "description": "AstrBot Blog",
-      "language": "HTML",
-      "topics": [
-        "astrbot",
-        "blog"
-      ],
-      "stargazers_count": 2,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2025-09-07T06:53:05Z",
-      "updated_at": "2026-05-04T18:37:26Z",
-      "pushed_at": "2026-05-04T18:37:21Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 8,
-      "rank_score": 46952.82744836535
+      "rank_score": 46929.10789902433
     },
     {
       "id": 1108454911,
@@ -2033,53 +1682,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 6378,
-      "rank_score": 45633.87480028586
-    },
-    {
-      "id": 1010585221,
-      "name": "astr-plugin-reviewer",
-      "full_name": "AstrBotDevs/astr-plugin-reviewer",
-      "html_url": "https://github.com/AstrBotDevs/astr-plugin-reviewer",
-      "description": "Use AI to automate preliminary review plugin",
-      "language": "JavaScript",
-      "topics": [
-        "github-app",
-        "probot"
-      ],
-      "stargazers_count": 20,
-      "forks_count": 2,
-      "open_issues_count": 1,
-      "default_branch": "main",
-      "created_at": "2025-06-29T11:44:11Z",
-      "updated_at": "2026-06-05T16:26:27Z",
-      "pushed_at": "2026-04-02T00:52:40Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 45,
-      "rank_score": 44854.78575057529
-    },
-    {
-      "id": 1065718030,
-      "name": "shipyard",
-      "full_name": "AstrBotDevs/shipyard",
-      "html_url": "https://github.com/AstrBotDevs/shipyard",
-      "description": "⛵️ Yet another lightweight agent sandbox runtime, support python interpreter, shell, file system components, etc. 🏖️",
-      "language": "Python",
-      "topics": [
-        "agent",
-        "sandbox"
-      ],
-      "stargazers_count": 47,
-      "forks_count": 5,
-      "open_issues_count": 1,
-      "default_branch": "main",
-      "created_at": "2025-09-28T09:41:34Z",
-      "updated_at": "2026-06-19T21:37:09Z",
-      "pushed_at": "2026-02-19T04:57:51Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 86,
-      "rank_score": 41520.97435201334
+      "rank_score": 45558.35267735702
     },
     {
       "id": 1200519588,
@@ -2099,27 +1702,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 119,
-      "rank_score": 39817.31859127952
-    },
-    {
-      "id": 625614977,
-      "name": "AstrBotLauncher",
-      "full_name": "AstrBotDevs/AstrBotLauncher",
-      "html_url": "https://github.com/AstrBotDevs/AstrBotLauncher",
-      "description": null,
-      "language": "Batchfile",
-      "topics": [],
-      "stargazers_count": 125,
-      "forks_count": 7,
-      "open_issues_count": 0,
-      "default_branch": "master",
-      "created_at": "2023-04-09T16:54:24Z",
-      "updated_at": "2026-07-23T05:31:58Z",
-      "pushed_at": "2026-02-14T17:52:19Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 43,
-      "rank_score": 39232.56535400526
+      "rank_score": 39747.102278982966
     },
     {
       "id": 1130509501,
@@ -2141,27 +1724,7 @@
       "archived": true,
       "fork": false,
       "commit_count": 115,
-      "rank_score": 33909.188673293174
-    },
-    {
-      "id": 1073726103,
-      "name": ".github",
-      "full_name": "AstrBotDevs/.github",
-      "html_url": "https://github.com/AstrBotDevs/.github",
-      "description": null,
-      "language": null,
-      "topics": [],
-      "stargazers_count": 2,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2025-10-10T14:25:12Z",
-      "updated_at": "2026-03-14T06:21:26Z",
-      "pushed_at": "2026-03-14T06:21:23Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 5,
-      "rank_score": 31560.67883635648
+      "rank_score": 33827.354979143565
     },
     {
       "id": 1100407315,
@@ -2181,71 +1744,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 9,
-      "rank_score": 30711.610203370197
-    },
-    {
-      "id": 926859239,
-      "name": "astrbot_plugin_SDGen",
-      "full_name": "AstrBotDevs/astrbot_plugin_SDGen",
-      "html_url": "https://github.com/AstrBotDevs/astrbot_plugin_SDGen",
-      "description": "用于astrbot，使用Stable Diffusion WebUI的API进行图片生成的插件。",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 19,
-      "forks_count": 7,
-      "open_issues_count": 3,
-      "default_branch": "master",
-      "created_at": "2025-02-04T01:21:22Z",
-      "updated_at": "2026-07-21T15:14:23Z",
-      "pushed_at": "2026-01-09T00:23:11Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 156,
-      "rank_score": 29196.287406831474
-    },
-    {
-      "id": 970126982,
-      "name": "atri",
-      "full_name": "AstrBotDevs/atri",
-      "html_url": "https://github.com/AstrBotDevs/atri",
-      "description": "The Alkaid Project of AstrBot - Memory Layer #1",
-      "language": "Python",
-      "topics": [
-        "ai",
-        "long-term-memory",
-        "memory"
-      ],
-      "stargazers_count": 9,
-      "forks_count": 1,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2025-04-21T14:15:27Z",
-      "updated_at": "2026-05-29T01:34:37Z",
-      "pushed_at": "2026-01-24T05:53:06Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 47,
-      "rank_score": 27597.625691955167
-    },
-    {
-      "id": 1093633819,
-      "name": "astrbot-sdk",
-      "full_name": "AstrBotDevs/astrbot-sdk",
-      "html_url": "https://github.com/AstrBotDevs/astrbot-sdk",
-      "description": "TO BE DONE",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 11,
-      "forks_count": 4,
-      "open_issues_count": 1,
-      "default_branch": "main",
-      "created_at": "2025-11-10T16:23:57Z",
-      "updated_at": "2026-03-19T00:44:34Z",
-      "pushed_at": "2025-11-27T10:10:24Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 14,
-      "rank_score": 25586.224902020847
+      "rank_score": 30651.245705867375
     },
     {
       "id": 1200604721,
@@ -2265,7 +1764,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 357,
-      "rank_score": 25440.23571184727
+      "rank_score": 25408.073278183034
     },
     {
       "id": 1102345955,
@@ -2285,7 +1784,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1018755,
-      "rank_score": 24184.365018032287
+      "rank_score": 24164.730857475388
     },
     {
       "id": 1102348706,
@@ -2305,73 +1804,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1000610,
-      "rank_score": 24161.64136123466
-    },
-    {
-      "id": 1127712302,
-      "name": "astrbot-t2i-playground",
-      "full_name": "AstrBotDevs/astrbot-t2i-playground",
-      "html_url": "https://github.com/AstrBotDevs/astrbot-t2i-playground",
-      "description": null,
-      "language": "TypeScript",
-      "topics": [],
-      "stargazers_count": 2,
-      "forks_count": 1,
-      "open_issues_count": 1,
-      "default_branch": "main",
-      "created_at": "2026-01-04T12:58:47Z",
-      "updated_at": "2026-01-04T13:59:45Z",
-      "pushed_at": "2026-01-04T13:17:57Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 3,
-      "rank_score": 22863.85601089837
-    },
-    {
-      "id": 735005623,
-      "name": "AstrBot-docs",
-      "full_name": "AstrBotDevs/AstrBot-docs",
-      "html_url": "https://github.com/AstrBotDevs/AstrBot-docs",
-      "description": "AstrBot Docs. DEPRECATED. Transfered to https://github.com/AstrBotDevs/AstrBot/tree/master/docs",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 59,
-      "forks_count": 87,
-      "open_issues_count": 33,
-      "default_branch": "v4",
-      "created_at": "2023-12-23T10:25:04Z",
-      "updated_at": "2026-06-27T03:21:52Z",
-      "pushed_at": "2026-03-09T15:12:27Z",
-      "archived": true,
-      "fork": false,
-      "commit_count": 701,
-      "rank_score": 22798.44763203428
-    },
-    {
-      "id": 1024651982,
-      "name": "Astrbot_Plugins_Market",
-      "full_name": "AstrBotDevs/Astrbot_Plugins_Market",
-      "html_url": "https://github.com/AstrBotDevs/Astrbot_Plugins_Market",
-      "description": "A site for browsing and exploring AstrBot plugins.",
-      "language": "Vue",
-      "topics": [
-        "action",
-        "actions",
-        "astrbot",
-        "astrbot-plugin",
-        "community"
-      ],
-      "stargazers_count": 9,
-      "forks_count": 4,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2025-07-23T03:46:03Z",
-      "updated_at": "2026-04-07T08:41:27Z",
-      "pushed_at": "2025-10-29T16:30:36Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 18,
-      "rank_score": 21132.95650416982
+      "rank_score": 24142.0256789876
     },
     {
       "id": 1120204070,
@@ -2391,7 +1824,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 451,
-      "rank_score": 20119.47891696095
+      "rank_score": 20094.884475996434
     },
     {
       "id": 1103269244,
@@ -2411,7 +1844,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 279,
-      "rank_score": 19406.84108241667
+      "rank_score": 19381.813905571373
     },
     {
       "id": 817845854,
@@ -2431,7 +1864,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 230,
-      "rank_score": 18973.861546318934
+      "rank_score": 18955.216436852297
     },
     {
       "id": 1105353486,
@@ -2451,7 +1884,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 3,
-      "rank_score": 18735.444454762255
+      "rank_score": 18715.52340862726
     },
     {
       "id": 1121090215,
@@ -2471,7 +1904,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 337,
-      "rank_score": 18163.759884055828
+      "rank_score": 18143.498262208508
     },
     {
       "id": 1090194490,
@@ -2491,7 +1924,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 3251,
-      "rank_score": 17783.546743153835
+      "rank_score": 17766.92751385321
     },
     {
       "id": 1097401951,
@@ -2511,7 +1944,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 301,
-      "rank_score": 17729.211576543174
+      "rank_score": 17708.149844770807
     },
     {
       "id": 1123357574,
@@ -2531,7 +1964,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 10,
-      "rank_score": 17667.240140548038
+      "rank_score": 17641.181414907023
     },
     {
       "id": 969305709,
@@ -2551,27 +1984,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 91,
-      "rank_score": 17448.986771134932
-    },
-    {
-      "id": 1051042120,
-      "name": "AstrBot_Landing_Page",
-      "full_name": "AstrBotDevs/AstrBot_Landing_Page",
-      "html_url": "https://github.com/AstrBotDevs/AstrBot_Landing_Page",
-      "description": null,
-      "language": "TypeScript",
-      "topics": [],
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "master",
-      "created_at": "2025-09-05T10:55:35Z",
-      "updated_at": "2025-11-21T07:04:26Z",
-      "pushed_at": "2025-11-04T12:58:08Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 217,
-      "rank_score": 17033.42507598349
+      "rank_score": 17427.78736423424
     },
     {
       "id": 1112198455,
@@ -2591,7 +2004,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 52,
-      "rank_score": 16967.546463281607
+      "rank_score": 16945.676899960126
     },
     {
       "id": 1007647427,
@@ -2614,7 +2027,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 29069,
-      "rank_score": 16571.55175887437
+      "rank_score": 16566.094831749422
     },
     {
       "id": 994790264,
@@ -2634,7 +2047,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 7837,
-      "rank_score": 16193.772207200029
+      "rank_score": 16178.223579401765
     },
     {
       "id": 1113870174,
@@ -2654,7 +2067,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 13,
-      "rank_score": 16066.367298359346
+      "rank_score": 16044.029524257066
     },
     {
       "id": 1206274221,
@@ -2674,7 +2087,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 181,
-      "rank_score": 16011.008859347137
+      "rank_score": 16001.3055892144
     },
     {
       "id": 1113705207,
@@ -2694,7 +2107,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 23,
-      "rank_score": 15932.348561831166
+      "rank_score": 15911.474222131297
     },
     {
       "id": 1113235170,
@@ -2714,7 +2127,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 9,
-      "rank_score": 15686.820726096785
+      "rank_score": 15664.673136841773
     },
     {
       "id": 1072123637,
@@ -2734,7 +2147,7 @@
       "archived": true,
       "fork": false,
       "commit_count": 202,
-      "rank_score": 15676.56379373205
+      "rank_score": 15624.035676128573
     },
     {
       "id": 1076199063,
@@ -2754,7 +2167,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 736,
-      "rank_score": 15042.467386396285
+      "rank_score": 15028.678589586205
     },
     {
       "id": 1102347069,
@@ -2774,7 +2187,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 16,
-      "rank_score": 14713.08842616406
+      "rank_score": 14693.75334608184
     },
     {
       "id": 1076028863,
@@ -2794,7 +2207,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 443,
-      "rank_score": 14394.30323149633
+      "rank_score": 14381.047739898117
     },
     {
       "id": 1102348890,
@@ -2814,27 +2227,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 5,
-      "rank_score": 13694.934960287423
-    },
-    {
-      "id": 1004432451,
-      "name": "markitdown",
-      "full_name": "AstrBotDevs/markitdown",
-      "html_url": "https://github.com/AstrBotDevs/markitdown",
-      "description": "[Remove onnx-runtime] Python tool for converting files and office documents to Markdown.",
-      "language": null,
-      "topics": [],
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "open_issues_count": 0,
-      "default_branch": "main",
-      "created_at": "2025-06-18T16:01:10Z",
-      "updated_at": "2025-06-19T05:10:54Z",
-      "pushed_at": "2025-06-04T04:09:25Z",
-      "archived": false,
-      "fork": true,
-      "commit_count": 279,
-      "rank_score": 12345.14942733976
+      "rank_score": 13675.930834997911
     },
     {
       "id": 879308005,
@@ -2854,7 +2247,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 13,
-      "rank_score": 11869.2671671786
+      "rank_score": 11867.870940369781
     },
     {
       "id": 975046100,
@@ -2874,7 +2267,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 9689,
-      "rank_score": 11343.402743813553
+      "rank_score": 11339.657795572915
     },
     {
       "id": 804638566,
@@ -2894,7 +2287,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 1902,
-      "rank_score": 11128.382426327384
+      "rank_score": 11125.784999238564
     },
     {
       "id": 993293487,
@@ -2914,27 +2307,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 2861,
-      "rank_score": 10900.23789666876
-    },
-    {
-      "id": 927837443,
-      "name": "astrbot_plugin_cloudmusic",
-      "full_name": "AstrBotDevs/astrbot_plugin_cloudmusic",
-      "html_url": "https://github.com/AstrBotDevs/astrbot_plugin_cloudmusic",
-      "description": "网易云音乐搜索、热评",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 4,
-      "forks_count": 2,
-      "open_issues_count": 3,
-      "default_branch": "master",
-      "created_at": "2025-02-05T16:17:42Z",
-      "updated_at": "2026-07-22T11:51:58Z",
-      "pushed_at": "2025-02-06T16:46:20Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 3,
-      "rank_score": 10827.899330046981
+      "rank_score": 10895.6560978043
     },
     {
       "id": 953426806,
@@ -2954,27 +2327,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 4329,
-      "rank_score": 10521.887071271238
-    },
-    {
-      "id": 927703582,
-      "name": "astrbot_plugin_sysinfo",
-      "full_name": "AstrBotDevs/astrbot_plugin_sysinfo",
-      "html_url": "https://github.com/AstrBotDevs/astrbot_plugin_sysinfo",
-      "description": "查看系统信息",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 3,
-      "forks_count": 2,
-      "open_issues_count": 1,
-      "default_branch": "master",
-      "created_at": "2025-02-05T12:02:36Z",
-      "updated_at": "2025-02-10T12:26:19Z",
-      "pushed_at": "2025-02-05T12:25:06Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 2,
-      "rank_score": 9575.145495097968
+      "rank_score": 10517.805397118358
     },
     {
       "id": 1002604822,
@@ -2994,7 +2347,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 185,
-      "rank_score": 8915.288786533216
+      "rank_score": 8910.233133448106
     },
     {
       "id": 998815055,
@@ -3014,7 +2367,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 4,
-      "rank_score": 8884.58715445403
+      "rank_score": 8879.571694461107
     },
     {
       "id": 868531013,
@@ -3034,7 +2387,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 126,
-      "rank_score": 8669.179608266626
+      "rank_score": 8667.915237768282
     },
     {
       "id": 920664250,
@@ -3054,7 +2407,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 327,
-      "rank_score": 7719.702943649495
+      "rank_score": 7716.233459817794
     },
     {
       "id": 816900425,
@@ -3074,7 +2427,7 @@
       "archived": true,
       "fork": true,
       "commit_count": 912,
-      "rank_score": 7503.923900633377
+      "rank_score": 7490.906644818566
     },
     {
       "id": 1002594231,
@@ -3094,7 +2447,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 28,
-      "rank_score": 7364.663812966774
+      "rank_score": 7359.534937770748
     },
     {
       "id": 916675520,
@@ -3114,47 +2467,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 279,
-      "rank_score": 6971.910250360426
-    },
-    {
-      "id": 928447245,
-      "name": "qq_official_url_cleaner",
-      "full_name": "AstrBotDevs/qq_official_url_cleaner",
-      "html_url": "https://github.com/AstrBotDevs/qq_official_url_cleaner",
-      "description": "为QQ官方API屏蔽链接",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 1,
-      "forks_count": 1,
-      "open_issues_count": 1,
-      "default_branch": "master",
-      "created_at": "2025-02-06T16:52:23Z",
-      "updated_at": "2025-02-08T06:18:07Z",
-      "pushed_at": "2025-02-08T06:18:04Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 4,
-      "rank_score": 6906.476168254759
-    },
-    {
-      "id": 927818648,
-      "name": "astrbot_plugin_blacklist",
-      "full_name": "AstrBotDevs/astrbot_plugin_blacklist",
-      "html_url": "https://github.com/AstrBotDevs/astrbot_plugin_blacklist",
-      "description": "给 AstrBot 设置黑名单功能",
-      "language": "Python",
-      "topics": [],
-      "stargazers_count": 1,
-      "forks_count": 1,
-      "open_issues_count": 2,
-      "default_branch": "master",
-      "created_at": "2025-02-05T15:42:27Z",
-      "updated_at": "2025-02-07T10:10:02Z",
-      "pushed_at": "2025-02-05T16:03:04Z",
-      "archived": false,
-      "fork": false,
-      "commit_count": 4,
-      "rank_score": 6891.815191879094
+      "rank_score": 6969.859781861028
     },
     {
       "id": 996919274,
@@ -3174,7 +2487,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 13,
-      "rank_score": 6512.99758055569
+      "rank_score": 6508.215499600625
     },
     {
       "id": 868911369,
@@ -3194,7 +2507,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 101,
-      "rank_score": 5368.732616112233
+      "rank_score": 5367.462994744104
     },
     {
       "id": 930096951,
@@ -3214,7 +2527,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 14,
-      "rank_score": 5317.5109536212285
+      "rank_score": 5313.752081100136
     },
     {
       "id": 880719207,
@@ -3234,7 +2547,7 @@
       "archived": false,
       "fork": true,
       "commit_count": 72,
-      "rank_score": 5274.149773998295
+      "rank_score": 5272.620396636783
     },
     {
       "id": 1097402560,
@@ -3254,7 +2567,7 @@
       "archived": true,
       "fork": true,
       "commit_count": 103,
-      "rank_score": 3594.1979838365696
+      "rank_score": 3568.595278449018
     },
     {
       "id": 879249274,
@@ -3274,7 +2587,7 @@
       "archived": false,
       "fork": false,
       "commit_count": 7,
-      "rank_score": 3327.8625924505013
+      "rank_score": 3326.472109642207
     },
     {
       "id": 1060704364,
@@ -3294,7 +2607,7 @@
       "archived": true,
       "fork": false,
       "commit_count": 64,
-      "rank_score": -2025.342256010179
+      "rank_score": -2044.6531858632152
     },
     {
       "id": 998464427,
@@ -3314,8 +2627,8 @@
       "archived": true,
       "fork": false,
       "commit_count": 2,
-      "rank_score": -8490.836980465816
+      "rank_score": -8495.718260474818
     }
   ],
-  "generated_at": "2026-08-03T10:05:58.309179+00:00"
+  "generated_at": "2026-08-03T15:16:05.968846+00:00"
 }
