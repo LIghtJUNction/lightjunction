@@ -40,7 +40,7 @@ Successful solvers should submit a pull request adding their result below. Inclu
 
 | Solver | Elapsed time | Date (China) | Agents used | Non-spoiler method |
 | --- | ---: | --- | --- | --- |
-| — | — | No verified recovery yet | — | — |
+| 竹昔 | 约3小时 | 2026-08-04 | Yes | PNG structural steganography and field analysis, then asymmetric key recovery and OAEP decryption |
 
 #### Claim and record a recovery
 
