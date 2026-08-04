@@ -126,76 +126,37 @@ def test_challenge_two_ledger_is_canonical_in_english_readme() -> None:
             assert "| --- | ---: | --- | --- | --- |" not in text, filename
 
 
-def test_english_readme_separates_challenge_claim_from_bug_fix_rewards() -> None:
-    text = Path("README.md").read_text(encoding="utf-8")
-    required = [
-        "#### Claim and record a recovery",
-        "Redeem the recovered code directly",
-        "No Issue, email, or manual approval is required",
-        "### Real bug-fix contribution rewards",
-        "find and fix real code defects",
-        "reproduction steps, expected behavior, actual behavior, and impact",
-        "focused pull request that fixes the Issue",
-        "LIghtJUNction encrypted channel",
-        "lightjunction.me@gmail.com",
-        "I will review whether the Issue is genuine and the fix is valid",
-        "Low-quality reports, fabricated bugs, duplicate Issues",
-    ]
-    for fragment in required:
-        assert fragment in text
-
-    assert "Submit a recovery for review" not in text
-
-
-def test_translated_readmes_include_bug_fix_reward_workflow() -> None:
+def test_readmes_include_localized_open_source_bounties() -> None:
     checks: dict[str, tuple[str, str, str, list[str]]] = {
+        "README.md": (
+            "### Challenge II — asymmetric signal",
+            "### Open-source bounties",
+            "### Links",
+            ["open-source bounty tasks", "Issue and PR", "rate the result", "request arbitration"],
+        ),
         "README.zh.md": (
             "### 挑战二——非对称信号",
-            "### 真实缺陷修复贡献奖励",
+            "### 开源赏金任务",
             "### 链接",
-            [
-                "可重现的代码缺陷",
-                "预期行为、实际行为和影响",
-                "LIghtJUNction 加密通道",
-                "审核问题是否属实以及修复方案是否有效",
-                "低质量报告、捏造的错误、重复 Issue",
-            ],
+            ["开源赏金任务", "Issue 和 PR", "双方可以评分", "申请仲裁"],
         ),
         "README.ja.md": (
             "### チャレンジ II — 非対称シグナル",
-            "### 実際のバグ修正への貢献報酬",
+            "### オープンソースのバウンティ",
             "### リンク",
-            [
-                "再現可能なコード欠陥",
-                "期待される動作、実際の動作、影響",
-                "LIghtJUNction の暗号化チャネル",
-                "Issue が実在する問題を報告しているか、修正が有効か",
-                "低品質な報告、捏造されたバグ、重複 Issue",
-            ],
+            ["バウンティタスク", "Issue と PR", "結果を評価", "仲裁を申請"],
         ),
         "README.ko.md": (
             "### 챌린지 II — 비대칭 신호",
-            "### 실제 버그 수정 기여 보상",
+            "### 오픈소스 바운티",
             "### 링크",
-            [
-                "재현 가능한 코드 결함",
-                "예상 동작, 실제 동작, 영향",
-                "LIghtJUNction 암호화 채널",
-                "Issue가 실제 문제인지와 수정이 유효한지",
-                "품질이 낮은 보고서, 조작된 버그, 중복 Issue",
-            ],
+            ["바운티 작업", "Issue와 PR", "결과를 평가", "중재를 신청"],
         ),
         "README.ru.md": (
             "### Испытание II — асимметричный сигнал",
-            "### Вознаграждение за исправление реальных ошибок",
+            "### Награды за задачи в open source",
             "### Ссылки",
-            [
-                "воспроизводимый дефект кода",
-                "ожидаемого и фактического поведения",
-                "зашифрованный канал LIghtJUNction",
-                "действительно ли существует описанная проблема",
-                "Низкокачественные отчёты, выдуманные ошибки, дубликаты Issue",
-            ],
+            ["задачи с наградой", "Issue и PR", "оценить результат", "запросить арбитраж"],
         ),
     }
 
@@ -207,12 +168,8 @@ def test_translated_readmes_include_bug_fix_reward_workflow() -> None:
         assert challenge_index < reward_index < links_index, filename
 
         reward_section = text[reward_index:links_index]
-        for step in range(1, 6):
-            assert f"{step}. " in reward_section, filename
-
         for phrase in phrases:
             assert phrase in reward_section, filename
 
-        assert "https://lightjunction.github.io/lightjunction/#contact" in reward_section
-        assert "lightjunction.me@gmail.com" in reward_section
-        assert "**GitHub Issue**" in reward_section
+        assert "[api.lmm.best](https://api.lmm.best/)" in reward_section
+        assert "lightjunction.me@gmail.com" not in reward_section

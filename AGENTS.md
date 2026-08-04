@@ -95,14 +95,12 @@
 - Do not place the recovered plaintext, private-key material, extraction coordinates, full decoder, or a reproducible end-to-end solution in the pull request, commit message, branch name, issue, or public discussion.
 - Internal construction-time black-box evaluations are not public recoveries and must not create recovery-ledger pull requests.
 
-### Code Contribution Rewards
+### Open-Source Bounties
 
-- Keep the code-contribution reward program separate from Challenge II. It rewards genuine defects found and valid fixes contributed to the owner's public projects; it is not a review step for recovered challenge codes.
-- A qualifying submission needs a reproducible, non-duplicate Issue that explains the affected project, reproduction steps, expected and actual behavior, and practical impact.
-- It also needs a focused pull request that links the Issue, fixes the actual defect, avoids unrelated changes, and includes proportionate tests or verification.
-- The contributor should use the website's encrypted channel to send their handle and the Issue/PR links, create the encrypted review Issue, and email `lightjunction.me@gmail.com` with the same public links as a review notification. The recovered challenge code or other secrets must never be included.
-- The repository owner reviews whether the report and fix are valid. If approved, the owner may send a redemption code that can be activated at `api.lmm.best` for supported-model credit.
-- Fabricated bugs, duplicate or low-effort Issues, unrelated PRs, mechanical spam, reward-driven noise, and changes that do not fix a real defect do not qualify.
+- Keep open-source bounties separate from Challenge II recovery.
+- `api.lmm.best` hosts bounty tasks for real Issue/PR work on open-source projects. Rewards can be redeemed there for tokens.
+- Participants may complete published tasks or publish their own task with a target project, problem, and expected Issue/PR outcome.
+- After completion, participants may rate the result or request arbitration for a dispute.
 
 ## Skills
 
