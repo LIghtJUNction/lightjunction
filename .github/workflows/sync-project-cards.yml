@@ -2,7 +2,8 @@ name: Sync Project Cards
 
 on:
   schedule:
-    - cron: '17 */6 * * *'
+    # 22:17 in Asia/Shanghai, leaving most of the local day available for timestamps.
+    - cron: '17 14 * * *'
   workflow_dispatch:
 
 concurrency:
@@ -14,13 +15,15 @@ permissions:
 
 jobs:
   sync:
-    name: Fetch + commit
+    name: Fetch + daily commits
     if: github.repository == 'LIghtJUNction/lightjunction'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
@@ -31,6 +34,11 @@ jobs:
             uv.lock
             scripts/*.py
 
+      - name: Rebase onto latest main
+        run: |
+          git fetch origin main
+          git rebase origin/main
+
       - name: Fetch project cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -38,16 +46,52 @@ jobs:
           GITHUB_PROJECTS_PATH: public/github-projects.json
         run: uv run scripts/fetch-github-data.py
 
-      - name: Commit project cards
+      - name: Plan daily commits
+        id: plan
         run: |
-          if git diff --quiet -- public/github-projects.json; then
-            echo "No project card changes"
-            exit 0
+          set -euo pipefail
+          plan_file="$RUNNER_TEMP/daily-commit-times.txt"
+          uv run scripts/plan-daily-commits.py > "$plan_file"
+          commit_count=$(wc -l < "$plan_file")
+          echo "count=$commit_count" >> "$GITHUB_OUTPUT"
+          echo "Planned $commit_count commits"
+
+      - name: Create daily commits
+        env:
+          COMMIT_COUNT: ${{ steps.plan.outputs.count }}
+        run: |
+          set -euo pipefail
+          plan_file="$RUNNER_TEMP/daily-commit-times.txt"
+          readarray -t commit_times < "$plan_file"
+
+          if (( ${#commit_times[@]} != COMMIT_COUNT || COMMIT_COUNT < 1 )); then
+            echo "Invalid daily commit plan" >&2
+            exit 1
           fi
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/github-projects.json
-          git commit -m "chore: sync project cards"
+
+          for index in "${!commit_times[@]}"; do
+            sequence=$((index + 1))
+            commit_date=${commit_times[$index]}
+            GIT_AUTHOR_DATE="$commit_date" GIT_COMMITTER_DATE="$commit_date" \
+              git commit --allow-empty \
+                -m "chore: sync project cards ($sequence/$COMMIT_COUNT)"
+          done
+
+          first_time=${commit_times[0]}
+          last_time=${commit_times[$((COMMIT_COUNT - 1))]}
+          {
+            echo "### Daily project-card commits"
+            echo "- Count: $COMMIT_COUNT (rounded normal distribution, mean 10, standard deviation 3)"
+            echo "- Random timestamp range: $first_time to $last_time"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Push daily commits
+        run: |
+          set -euo pipefail
           git fetch origin main
-          git rebase origin/main
-          git push
+          git rebase --keep-empty --empty=keep --committer-date-is-author-date origin/main
+          git push origin HEAD:main

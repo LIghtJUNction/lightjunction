@@ -21,3 +21,4 @@ def register_script(module_name: str, filename: str) -> None:
 
 
 register_script("fetch_github_data", "fetch-github-data.py")
+register_script("plan_daily_commits", "plan-daily-commits.py")
