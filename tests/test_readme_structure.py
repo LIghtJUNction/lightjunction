@@ -106,6 +106,26 @@ def test_readmes_include_localized_api_relay_recommendation() -> None:
         assert link in text, filename
 
 
+def test_api_recommendation_is_early_and_actionable() -> None:
+    sections = {
+        "README.md": ("### Recommended API relay", "### Working principles"),
+        "README.zh.md": ("### 中转站推荐", "### 工作原则"),
+        "README.ru.md": ("### Рекомендуемый API-шлюз", "### Принципы работы"),
+        "README.ko.md": ("### 추천 API 중계 서비스", "### 작업 원칙"),
+        "README.ja.md": ("### おすすめのAPI中継サービス", "### 行動原則"),
+    }
+    action_paths = [
+        "https://api.lmm.best/sign-up",
+        "https://api.lmm.best/pricing/",
+    ]
+
+    for filename, (relay_heading, principles_heading) in sections.items():
+        text = Path(filename).read_text(encoding="utf-8")
+        assert text.index(relay_heading) < text.index(principles_heading), filename
+        for action_path in action_paths:
+            assert action_path in text, (filename, action_path)
+
+
 def test_challenge_two_ledger_is_canonical_in_english_readme() -> None:
     headings = {
         "README.md": "### Challenge II — asymmetric signal",
