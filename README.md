@@ -56,6 +56,10 @@ You can also publish your own task, such as asking for an Issue and PR that fix 
 
 After completion, participants can rate the result or request arbitration if there is a dispute.
 
+### Online script quick commands
+
+Copy-ready commands for Linux, macOS, Termux/Android, Windows/WSL, and other Unix-like environments are collected in [ONLINE-SCRIPTS.md](ONLINE-SCRIPTS.md).
+
 ### Links
 
 [Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
