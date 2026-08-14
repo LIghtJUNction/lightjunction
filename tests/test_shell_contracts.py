@@ -91,6 +91,52 @@ def test_bootstrap_dependency_pins_match_current_files() -> None:
     assert match.group(1) == sha256(ROOT / "bootstrap-linux.sh")
 
 
+def test_fetch_ssh_pub_key_exports_key_and_supports_output(tmp_path: Path) -> None:
+    fake_gpg = tmp_path / "fake-gpg"
+    gpg_log = tmp_path / "gpg.log"
+    output = tmp_path / "lightjunction.pub"
+    fake_gpg.write_text(
+        """#!/usr/bin/env bash
+set -euo pipefail
+printf '%s\\n' "$*" >> "$FAKE_GPG_LOG"
+case "$*" in
+    *--recv-keys*) exit 0 ;;
+    *--export-ssh-key*)
+        printf '%s\\n' 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExample openpgp:0x1EAD97D0'
+        ;;
+    *) exit 2 ;;
+esac
+""",
+        encoding="utf-8",
+    )
+    fake_gpg.chmod(0o755)
+
+    result = subprocess.run(
+        ["bash", "fetch-ssh-pub-key.sh", "--output", str(output)],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        env={
+            **os.environ,
+            "FAKE_GPG_LOG": str(gpg_log),
+            "GPG_PATH": str(fake_gpg),
+            "LIGHTJUNCTION_GPG_KEYSERVER": "hkps://example.invalid",
+        },
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == ""
+    assert output.read_text(encoding="utf-8") == (
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExample openpgp:0x1EAD97D0\n"
+    )
+    assert output.stat().st_mode & 0o777 == 0o644
+    log = gpg_log.read_text(encoding="utf-8")
+    assert "--keyserver hkps://example.invalid --recv-keys" in log
+    assert "EB21B83AB1E982DF66F08387A67178405F7736FD" in log
+    assert "--export-ssh-key" in log
+
+
 def test_file_write_preserves_existing_mode(tmp_path: Path) -> None:
     target = tmp_path / "mode.txt"
     target.write_text("before", encoding="utf-8")
