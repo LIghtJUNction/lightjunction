@@ -62,15 +62,16 @@
     --rule-strong: rgba(21, 21, 18, 0.62);
     --terminal: #1b1b18;
     --terminal-ink: #f3efe5;
-    --shader-night: #080c16;
-    --shader-surface: #101827;
-    --shader-surface-raised: #172236;
-    --shader-ink: #f2f7ff;
-    --shader-muted: #a8b7ca;
-    --shader-cyan: #71e6f5;
-    --shader-violet: #a980ff;
-    --shader-line: rgba(222, 240, 255, 0.18);
-    --shader-soft-line: rgba(222, 240, 255, 0.09);
+    --shader-night: #17130f;
+    --shader-surface: #211b16;
+    --shader-surface-raised: #2b241d;
+    --shader-ink: #f3eadc;
+    --shader-muted: #b7a99a;
+    --shader-accent: #d98961;
+    --shader-brass: #c7a36a;
+    --shader-plum: #9b6d72;
+    --shader-line: rgba(238, 216, 188, 0.22);
+    --shader-soft-line: rgba(238, 216, 188, 0.1);
     --serif: "Instrument Serif", Georgia, serif;
     --sans: "Manrope", "Avenir Next", ui-sans-serif, system-ui, sans-serif;
     --mono: "IBM Plex Mono", "Courier New", monospace;
@@ -2637,7 +2638,9 @@ kbd {
     overflow: hidden;
     padding-top: clamp(126px, 13vw, 176px);
     padding-bottom: clamp(78px, 8vw, 118px);
-    background: var(--shader-night);
+    background:
+        radial-gradient(circle at 88% 8%, rgba(217, 137, 97, 0.12), transparent 34%),
+        linear-gradient(180deg, #1a1511 0%, var(--shader-night) 52%, #120f0c 100%);
     color: var(--shader-ink);
 }
 
@@ -2647,7 +2650,7 @@ kbd {
     right: -11%;
     width: 62vw;
     height: 90%;
-    background: radial-gradient(circle, rgba(113, 230, 245, 0.12), transparent 64%);
+    background: radial-gradient(ellipse, rgba(199, 163, 106, 0.14), transparent 64%);
     content: "";
     pointer-events: none;
 }
@@ -2677,7 +2680,7 @@ kbd {
 }
 
 .shader-showcase .folio {
-    color: var(--shader-cyan);
+    color: var(--shader-accent);
 }
 
 .shader-showcase-heading .eyebrow {
@@ -2694,24 +2697,28 @@ kbd {
 }
 
 .shader-showcase-heading h2 em {
-    color: var(--shader-cyan);
+    color: var(--shader-accent);
     font-weight: 400;
 }
 
 .shader-gallery-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding-bottom: 3px;
+    gap: 6px;
+    padding: 5px;
+    border: 1px solid var(--shader-line);
+    border-radius: 12px;
+    background: rgba(243, 234, 220, 0.045);
+    box-shadow: inset 0 1px rgba(255, 248, 235, 0.05);
 }
 
 .shader-gallery-button {
     display: grid;
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 38px;
     place-items: center;
-    border: 1px solid var(--shader-line);
-    border-radius: 50%;
+    border: 0;
+    border-radius: 7px;
     background: transparent;
     color: var(--shader-ink);
     font: 500 20px/1 var(--mono);
@@ -2719,8 +2726,8 @@ kbd {
 }
 
 .shader-gallery-button:hover:not(:disabled) {
-    border-color: var(--shader-cyan);
-    background: var(--shader-cyan);
+    border-color: var(--shader-accent);
+    background: var(--shader-accent);
     color: var(--shader-night);
 }
 
@@ -2753,7 +2760,7 @@ kbd {
 
 .shader-gallery-hint {
     max-width: 460px !important;
-    color: var(--shader-cyan);
+    color: var(--shader-accent);
     font: 500 12px/1.45 var(--mono);
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -2762,15 +2769,15 @@ kbd {
 
 .shader-gallery-track {
     display: flex;
-    gap: 18px;
+    gap: 28px;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 4px 0 20px;
+    padding: 12px 8px 28px;
     overscroll-behavior-x: contain;
-    scrollbar-color: var(--shader-cyan) transparent;
+    scrollbar-color: var(--shader-accent) transparent;
     scrollbar-width: thin;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 0;
+    scroll-padding-inline: 8px;
     touch-action: pan-y;
     cursor: grab;
     -webkit-overflow-scrolling: touch;
@@ -2787,7 +2794,7 @@ kbd {
 .shader-gallery-track::-webkit-scrollbar-thumb {
     border: 2px solid var(--shader-night);
     border-radius: 999px;
-    background: var(--shader-cyan);
+    background: var(--shader-accent);
 }
 
 .shader-gallery-track.is-dragging {
@@ -2797,38 +2804,55 @@ kbd {
 }
 
 .shader-card {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1.32fr) minmax(270px, 0.68fr);
     flex: 0 0 min(840px, calc(100% - 160px));
     min-width: min(840px, calc(100% - 160px));
     min-height: 440px;
     overflow: hidden;
-    border: 1px solid var(--shader-line);
-    border-radius: 28px;
+    border: 1px solid rgba(238, 216, 188, 0.28);
+    border-radius: 20px;
     background: var(--shader-surface);
-    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.22);
+    box-shadow:
+        0 0 0 5px rgba(10, 8, 6, 0.72),
+        0 0 0 6px rgba(199, 163, 106, 0.14),
+        0 26px 72px rgba(0, 0, 0, 0.32);
     scroll-snap-align: start;
     scroll-snap-stop: always;
     transition: border-color 220ms var(--ease), box-shadow 220ms var(--ease);
 }
 
+.shader-card::after {
+    position: absolute;
+    z-index: 4;
+    inset: 7px;
+    border: 1px solid rgba(255, 239, 216, 0.1);
+    border-radius: 13px;
+    content: "";
+    pointer-events: none;
+}
+
 .shader-card.is-selected {
-    border-color: color-mix(in srgb, var(--shader-cyan) 48%, var(--shader-line));
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(113, 230, 245, 0.08);
+    border-color: color-mix(in srgb, var(--shader-brass) 68%, var(--shader-line));
+    box-shadow:
+        0 0 0 5px rgba(10, 8, 6, 0.84),
+        0 0 0 7px rgba(199, 163, 106, 0.28),
+        0 30px 82px rgba(0, 0, 0, 0.4);
 }
 
 .shader-card-preview {
     position: relative;
     min-height: 440px;
     overflow: hidden;
-    border-right: 1px solid var(--shader-line);
-    background: #02050d;
+    border-right: 1px solid rgba(238, 216, 188, 0.2);
+    background: #100d0b;
 }
 
 .shader-card-preview::after {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(2, 5, 13, 0.16), transparent 35%, rgba(2, 5, 13, 0.3));
+    background: linear-gradient(180deg, rgba(16, 13, 11, 0.2), transparent 35%, rgba(16, 13, 11, 0.42));
     content: "";
     pointer-events: none;
 }
@@ -2839,7 +2863,7 @@ kbd {
     width: 100%;
     height: 100%;
     min-height: 440px;
-    background: #02050d;
+    background: #100d0b;
 }
 
 .shader-canvas {
@@ -2857,11 +2881,11 @@ kbd {
 }
 
 .shader-card-live-downloaded .shader-card-preview {
-    background: radial-gradient(circle at 50% 42%, rgba(113, 230, 245, 0.11), transparent 42%), #02050d;
+    background: radial-gradient(circle at 50% 42%, rgba(199, 163, 106, 0.12), transparent 42%), #100d0b;
 }
 
 .shader-card-live-internal .shader-card-preview {
-    background: radial-gradient(circle at 50% 42%, rgba(169, 128, 255, 0.16), transparent 45%), #080812;
+    background: radial-gradient(circle at 50% 42%, rgba(155, 109, 114, 0.18), transparent 45%), #150f10;
 }
 
 .shader-preview-top,
@@ -2873,7 +2897,7 @@ kbd {
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    color: rgba(226, 246, 255, 0.78);
+    color: rgba(244, 230, 210, 0.8);
     font: 500 12px/1.35 var(--mono);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -2886,7 +2910,7 @@ kbd {
 
 .shader-preview-hud {
     bottom: 18px;
-    color: var(--shader-cyan);
+    color: var(--shader-accent);
     letter-spacing: 0.04em;
 }
 
@@ -2898,14 +2922,14 @@ kbd {
     align-content: center;
     gap: 10px;
     padding: 28px;
-    background: color-mix(in srgb, var(--shader-night) 90%, var(--shader-violet));
+    background: color-mix(in srgb, var(--shader-night) 90%, var(--shader-plum));
     color: var(--shader-ink);
     font: 500 12px/1.55 var(--mono);
     text-align: center;
 }
 
 .shader-card-fallback strong {
-    color: var(--shader-cyan);
+    color: var(--shader-accent);
     font-size: 14px;
 }
 
@@ -2914,7 +2938,9 @@ kbd {
     min-width: 0;
     flex-direction: column;
     padding: 30px 28px 26px;
-    background: linear-gradient(145deg, var(--shader-surface), var(--shader-surface-raised));
+    background:
+        linear-gradient(145deg, rgba(255, 245, 229, 0.025), transparent 45%),
+        linear-gradient(145deg, var(--shader-surface), var(--shader-surface-raised));
 }
 
 .shader-card-overline {
@@ -2929,7 +2955,7 @@ kbd {
 }
 
 .shader-card-overline span:last-child {
-    color: var(--shader-cyan);
+    color: var(--shader-accent);
 }
 
 .shader-card-body h3 {
@@ -2995,15 +3021,15 @@ kbd {
     min-height: 40px;
     padding-inline: 14px;
     border-color: var(--shader-line);
-    border-radius: 999px;
-    background: transparent;
+    border-radius: 7px;
+    background: rgba(243, 234, 220, 0.035);
     color: var(--shader-ink);
     font-size: 12px;
 }
 
 .shader-card .quiet-action:hover:not(:disabled) {
-    border-color: var(--shader-cyan);
-    background: var(--shader-cyan);
+    border-color: var(--shader-accent);
+    background: var(--shader-accent);
     color: var(--shader-night);
 }
 
@@ -3022,14 +3048,15 @@ kbd {
 .shader-card-tags span {
     padding: 6px 8px 5px;
     border: 1px solid var(--shader-soft-line);
-    border-radius: 999px;
+    border-radius: 4px;
+    background: rgba(243, 234, 220, 0.025);
     color: var(--shader-muted);
     font: 500 12px/1 var(--mono);
     letter-spacing: 0.05em;
 }
 
 .shader-card-reserved {
-    --slot-accent: var(--shader-violet);
+    --slot-accent: var(--shader-plum);
     grid-template-columns: minmax(0, 1fr) minmax(270px, 0.86fr);
 }
 
@@ -3038,23 +3065,22 @@ kbd {
 }
 
 .shader-slot-four {
-    --slot-accent: var(--shader-cyan);
+    --slot-accent: var(--shader-brass);
 }
 
 .shader-reserved-preview {
     display: grid;
     place-items: center;
     border-right-color: color-mix(in srgb, var(--slot-accent) 38%, var(--shader-line));
-    background: radial-gradient(circle at 52% 45%, color-mix(in srgb, var(--slot-accent) 23%, transparent), transparent 40%), #0a0f1d;
+    background: radial-gradient(circle at 52% 45%, color-mix(in srgb, var(--slot-accent) 23%, transparent), transparent 40%), #1b1612;
 }
 
 .shader-reserved-preview::before {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(var(--shader-soft-line) 1px, transparent 1px), linear-gradient(90deg, var(--shader-soft-line) 1px, transparent 1px);
-    background-size: 34px 34px;
+    background-image: repeating-linear-gradient(135deg, var(--shader-soft-line) 0 1px, transparent 1px 22px);
     content: "";
-    opacity: 0.45;
+    opacity: 0.3;
 }
 
 .shader-slot-glyph {
@@ -3166,9 +3192,9 @@ kbd {
 
 .shader-gallery-dots button[aria-current="true"] span {
     width: 24px;
-    border-color: var(--shader-cyan);
+    border-color: var(--shader-accent);
     border-radius: 999px;
-    background: var(--shader-cyan);
+    background: var(--shader-accent);
 }
 
 @media (max-width: 1050px) {

@@ -1,5 +1,5 @@
 // pi-lens-ignore: knip:file
-type DemoId = "2" | "3";
+type DemoId = "3";
 
 type DemoElements = {
     frame: HTMLIFrameElement;
@@ -22,14 +22,12 @@ function findDemoElements(card: HTMLElement): DemoElements | null {
 }
 
 function isDemoId(value: string | undefined): value is DemoId {
-    return value === "2" || value === "3";
+    return value === "3";
 }
 
-function fetchDemoSource(demoId: DemoId): Promise<Response> {
+function fetchDemoSource(): Promise<Response> {
     const options: RequestInit = { credentials: "same-origin" };
-    return demoId === "2"
-        ? fetch("./shader-demos/2.html.txt", options)
-        : fetch("./shader-demos/3.html.txt", options);
+    return fetch("./shader-demos/3.html.txt", options);
 }
 
 // pi-lens-ignore: large-class
@@ -37,7 +35,6 @@ export class DownloadedDemoController {
     private readonly frame: HTMLIFrameElement;
     private readonly status: HTMLElement;
     private readonly fallback: HTMLElement;
-    private readonly demoId: DemoId;
     private readonly label: string;
     private sourcePromise: Promise<string> | null = null;
     private objectUrl: string | null = null;
@@ -54,7 +51,6 @@ export class DownloadedDemoController {
         this.frame = elements.frame;
         this.status = elements.status;
         this.fallback = elements.fallback;
-        this.demoId = demoId;
         this.label = card.dataset.demoLabel || "downloaded HTML";
         elements.reloadButton?.addEventListener("click", () => this.reload());
     }
@@ -77,7 +73,7 @@ export class DownloadedDemoController {
 
     private async loadSource(): Promise<string> {
         if (!this.sourcePromise) {
-            this.sourcePromise = fetchDemoSource(this.demoId).then((response) => {
+            this.sourcePromise = fetchDemoSource().then((response) => {
                 if (!response.ok) {
                     throw new Error(`Demo source returned ${response.status}.`);
                 }
