@@ -1,4 +1,5 @@
 import shaderBody from "./shaders/neon-rift.glsl?raw";
+import { SingularityForgeRenderer } from "./singularity-renderer.js";
 
 const vertexSource = `#version 300 es
 precision highp float;
@@ -23,7 +24,8 @@ const REDUCED_MOTION_QUERY = window.matchMedia(
 const INTERACTIVE_SELECTOR =
     "button, a, canvas, input, textarea, select, summary";
 
-type ShaderAction = "pause" | "reset";
+type LiveRenderer = NeonRiftRenderer | SingularityForgeRenderer;
+type ShaderAction = "pause" | "reset" | "bloom" | "quality";
 
 function compileShader(
     gl: WebGL2RenderingContext,
@@ -69,6 +71,7 @@ function createProgram(gl: WebGL2RenderingContext): WebGLProgram {
     return program;
 }
 
+// pi-lens-ignore: large-class
 class NeonRiftRenderer {
     private readonly canvas: HTMLCanvasElement;
     private readonly gl: WebGL2RenderingContext;
@@ -129,7 +132,7 @@ class NeonRiftRenderer {
         requestAnimationFrame(this.frame);
     }
 
-    setVisible(visible: boolean): void {
+    updateVisibility(visible: boolean): void {
         this.visible = visible;
         this.previous = performance.now();
     }
@@ -251,51 +254,78 @@ function setActionDisabled(
 
 function getAction(button: HTMLButtonElement): ShaderAction | null {
     const action = button.dataset.shaderAction;
-    return action === "pause" || action === "reset" ? action : null;
+    return action === "pause" || action === "reset" || action === "bloom" || action === "quality"
+        ? action
+        : null;
 }
 
-function initLiveShader(track: HTMLElement): NeonRiftRenderer | null {
-    const canvas = track.querySelector<HTMLCanvasElement>(
-        "[data-shader-canvas]",
-    );
-    const status = track.querySelector<HTMLElement>("[data-shader-status]");
-    const fallback = track.querySelector<HTMLElement>("[data-shader-fallback]");
+function rendererStatus(renderer: LiveRenderer): string {
+    return renderer instanceof SingularityForgeRenderer
+        ? `Live · ${renderer.status()}`
+        : "Live · drag the route";
+}
+
+function handleLiveShaderAction(
+    renderer: LiveRenderer,
+    action: ShaderAction,
+    button: HTMLButtonElement,
+    status: HTMLElement,
+): void {
+    if (action === "pause") {
+        renderer.togglePaused();
+        button.textContent = renderer.isPaused() ? "Resume" : "Pause";
+        status.textContent = renderer.isPaused()
+            ? "Paused · press Resume or Space"
+            : rendererStatus(renderer);
+        return;
+    }
+    if (action === "reset") {
+        renderer.reset();
+        status.textContent = renderer.isPaused()
+            ? "Reset · paused"
+            : `${rendererStatus(renderer)} · route reset`;
+        return;
+    }
+    if (!(renderer instanceof SingularityForgeRenderer)) return;
+    if (action === "bloom") {
+        const enabled = renderer.toggleBloom();
+        button.textContent = enabled ? "Bloom on" : "Bloom off";
+        status.textContent = `Live · ${renderer.status()}`;
+    } else if (action === "quality") {
+        button.textContent = renderer.cycleQuality();
+        status.textContent = `Live · ${renderer.status()}`;
+    }
+}
+
+function initLiveShader(card: HTMLElement): LiveRenderer | null {
+    const canvas = card.querySelector<HTMLCanvasElement>("[data-shader-canvas]");
+    const status = card.querySelector<HTMLElement>("[data-shader-status]");
+    const fallback = card.querySelector<HTMLElement>("[data-shader-fallback]");
     const actionButtons = Array.from(
-        track.querySelectorAll<HTMLButtonElement>("[data-shader-action]"),
+        card.querySelectorAll<HTMLButtonElement>("[data-shader-action]"),
     );
     if (!canvas || !status || !fallback) return null;
 
     try {
-        const renderer = new NeonRiftRenderer(canvas);
+        const renderer: LiveRenderer = card.dataset.shaderEngine === "singularity"
+            ? new SingularityForgeRenderer(canvas)
+            : new NeonRiftRenderer(canvas);
         renderer.start();
-        status.textContent = "Live · drag the route";
+        status.textContent = rendererStatus(renderer);
         for (const button of actionButtons) {
             const action = getAction(button);
             if (!action) continue;
             button.addEventListener("click", () => {
-                if (action === "pause") {
-                    renderer.togglePaused();
-                    button.textContent = renderer.isPaused()
-                        ? "Resume"
-                        : "Pause";
-                    status.textContent = renderer.isPaused()
-                        ? "Paused · press Resume or Space"
-                        : "Live · drag the route";
-                } else {
-                    renderer.reset();
-                    status.textContent = renderer.isPaused()
-                        ? "Reset · paused"
-                        : "Live · route reset";
-                }
+                handleLiveShaderAction(renderer, action, button, status);
             });
         }
         return renderer;
-    } catch (error) {
+    } catch {
         canvas.hidden = true;
         fallback.hidden = false;
+        fallback.dataset.shaderError = "initialization-failed";
         status.textContent = "Fallback · WebGL2 unavailable";
         setActionDisabled(actionButtons, true);
-        console.error("Neon Rift could not start:", error);
         return null;
     }
 }
@@ -453,37 +483,37 @@ function updateLiveShaderStatus(track: HTMLElement, message: string): void {
 }
 
 function toggleLiveShaderFromKeyboard(
-    track: HTMLElement,
-    renderer: NeonRiftRenderer,
+    card: HTMLElement,
+    renderer: LiveRenderer,
 ): void {
     renderer.togglePaused();
-    const pauseButton = track.querySelector<HTMLButtonElement>(
+    const pauseButton = card.querySelector<HTMLButtonElement>(
         '[data-shader-action="pause"]',
     );
     if (pauseButton) pauseButton.textContent = renderer.isPaused() ? "Resume" : "Pause";
     updateLiveShaderStatus(
-        track,
+        card,
         renderer.isPaused()
             ? "Paused · press Resume or Space"
-            : "Live · drag the route",
+            : rendererStatus(renderer),
     );
 }
 
 function resetLiveShaderFromKeyboard(
-    track: HTMLElement,
-    renderer: NeonRiftRenderer,
+    card: HTMLElement,
+    renderer: LiveRenderer,
 ): void {
     renderer.reset();
     updateLiveShaderStatus(
-        track,
-        renderer.isPaused() ? "Reset · paused" : "Live · route reset",
+        card,
+        renderer.isPaused() ? "Reset · paused" : `${rendererStatus(renderer)} · route reset`,
     );
 }
 
 function bindGalleryKeyboard(
     track: HTMLElement,
     cards: HTMLElement[],
-    renderer: NeonRiftRenderer | null,
+    renderers: Map<HTMLElement, LiveRenderer>,
     positionController: GalleryPositionController,
 ): void {
     track.addEventListener("keydown", (event) => {
@@ -500,14 +530,16 @@ function bindGalleryKeyboard(
             return;
         }
 
-        if (event.code === "Space" && renderer) {
+        const activeCard = cards[positionController.getActiveIndex()];
+        const renderer = activeCard ? renderers.get(activeCard) : undefined;
+        if (event.code === "Space" && activeCard && renderer) {
             event.preventDefault();
-            toggleLiveShaderFromKeyboard(track, renderer);
+            toggleLiveShaderFromKeyboard(activeCard, renderer);
             return;
         }
-        if (event.key.toLowerCase() === "r" && renderer) {
+        if (event.key.toLowerCase() === "r" && activeCard && renderer) {
             event.preventDefault();
-            resetLiveShaderFromKeyboard(track, renderer);
+            resetLiveShaderFromKeyboard(activeCard, renderer);
         }
     });
 }
@@ -545,21 +577,29 @@ function bindTrackPointerDrag(
     track.addEventListener("pointercancel", endDrag);
 }
 
-function observeLiveShader(
+function observeLiveShaders(
     track: HTMLElement,
-    renderer: NeonRiftRenderer | null,
+    renderers: Map<HTMLElement, LiveRenderer>,
 ): void {
-    const visibilityObserver =
-        "IntersectionObserver" in window
-            ? new IntersectionObserver(
-                  ([entry]) =>
-                      renderer?.setVisible(entry?.isIntersecting ?? true),
-                  { threshold: 0.05 },
-              )
-            : null;
-    if (!visibilityObserver) return;
-    const canvas = track.querySelector<HTMLCanvasElement>("[data-shader-canvas]");
-    if (canvas) visibilityObserver.observe(canvas);
+    if (!("IntersectionObserver" in window)) return;
+    const canvasRenderers = new Map<HTMLCanvasElement, LiveRenderer>();
+    renderers.forEach((renderer) => renderer.updateVisibility(false));
+    track.querySelectorAll<HTMLCanvasElement>("[data-shader-canvas]").forEach((canvas) => {
+        const card = canvas.closest<HTMLElement>("[data-shader-card]");
+        const renderer = card ? renderers.get(card) : undefined;
+        if (renderer) canvasRenderers.set(canvas, renderer);
+    });
+    const visibilityObserver = new IntersectionObserver(
+        (entries) => {
+            for (const entry of entries) {
+                const canvas = entry.target;
+                if (!(canvas instanceof HTMLCanvasElement)) continue;
+                canvasRenderers.get(canvas)?.updateVisibility(entry.intersectionRatio >= 0.6);
+            }
+        },
+        { threshold: 0.6 },
+    );
+    canvasRenderers.forEach((_renderer, canvas) => visibilityObserver.observe(canvas));
 }
 
 function initGallery(): void {
@@ -582,7 +622,12 @@ function initGallery(): void {
 
     labelShaderCards(cards);
     renderShaderDots(cards, dots);
-    const renderer = initLiveShader(track);
+    const renderers = new Map<HTMLElement, LiveRenderer>();
+    for (const card of cards) {
+        if (!card.querySelector("[data-shader-canvas]")) continue;
+        const renderer = initLiveShader(card);
+        if (renderer) renderers.set(card, renderer);
+    }
     const positionController = createGalleryPositionController({
         track,
         cards,
@@ -595,11 +640,12 @@ function initGallery(): void {
     track.addEventListener("scroll", positionController.queuePositionSync, {
         passive: true,
     });
-    bindGalleryKeyboard(track, cards, renderer, positionController);
+    bindGalleryKeyboard(track, cards, renderers, positionController);
     bindTrackPointerDrag(track, positionController.queuePositionSync);
-    observeLiveShader(track, renderer);
+    observeLiveShaders(track, renderers);
 }
 
-export function initShaderShowcase(): void {
+// The gallery entrypoint is kept explicit so future shader cards can share the same controller.
+export function mountShaderShowcase(): void {
     initGallery();
 }

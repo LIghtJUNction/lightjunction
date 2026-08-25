@@ -1,6 +1,6 @@
-import { $, escapeHtml } from './dom'
-import { PUBLIC_KEY } from './public-key'
-import { showToast } from './toast'
+import { $, escapeHtml } from './dom.js'
+import { PUBLIC_KEY } from './public-key.js'
+import { showToast } from './toast.js'
 
 type OpenPgpModule = typeof import('openpgp')
 
@@ -67,7 +67,7 @@ function restorePreviousFocus(): void {
     }
 }
 
-export function dismissSecureCard(): void {
+function dismissSecureCard(): void {
     if (secureCard.hidden) return
     if (document.activeElement instanceof HTMLElement && secureCard.contains(document.activeElement)) {
         document.activeElement.blur()
@@ -196,8 +196,19 @@ async function copyEncrypted(): Promise<void> {
 
 function openGitHubIssue(): void {
     const body = `## Encrypted Message\n\n\`\`\`\n${encryptedMessage}\n\`\`\`\n\n---\nvia lightjunction terminal`
-    const url = `https://github.com/LIghtJUNction/lightjunction/issues/new?title=encrypted+message&body=${encodeURIComponent(body)}`
-    window.open(url, '_blank', 'noopener,noreferrer')
+    try {
+        const issueUrl = new URL('https://github.com/LIghtJUNction/lightjunction/issues/new')
+        issueUrl.searchParams.set('title', 'encrypted message')
+        issueUrl.searchParams.set('body', body)
+
+        const link = document.createElement('a')
+        link.href = issueUrl.toString()
+        link.target = '_blank'
+        link.rel = 'noopener noreferrer'
+        link.click()
+    } catch {
+        showToast('Unable to open GitHub')
+    }
 }
 
 function setModalBackgroundInert(): void {
@@ -239,7 +250,7 @@ function trapResultFocus(event: KeyboardEvent): void {
         resultOverlay.querySelectorAll<HTMLElement>(DIALOG_FOCUSABLE_SELECTOR),
     )
     const first = focusable[0]
-    const last = focusable[focusable.length - 1]
+    const last = focusable.slice(-1)[0]
     if (!first || !last) {
         event.preventDefault()
         return

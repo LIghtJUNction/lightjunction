@@ -32,6 +32,30 @@ def test_index_has_signal_field_manual_metadata() -> None:
     assert "App Launcher" not in html
 
 
+def test_index_has_live_shader_gallery() -> None:
+    html = Path("index.html").read_text(encoding="utf-8")
+    gallery = Path("src/shader-gallery.ts")
+    singularity_renderer = Path("src/singularity-renderer.ts")
+    singularity_source = Path("src/shaders/singularity-forge.glsl")
+
+    required = [
+        'id="shaders"',
+        'data-shader-engine="singularity"',
+        "Singularity Forge",
+        'data-shader-action="bloom"',
+        'data-shader-action="quality"',
+    ]
+    for fragment in required:
+        assert fragment in html
+
+    assert gallery.exists()
+    assert singularity_renderer.exists()
+    assert singularity_source.exists()
+    assert "mountShaderShowcase" in gallery.read_text(encoding="utf-8")
+    assert "SingularityForgeRenderer" in singularity_renderer.read_text(encoding="utf-8")
+    assert "mainImage" in singularity_source.read_text(encoding="utf-8")
+
+
 def test_index_has_accessible_terminal_landmarks() -> None:
     html = Path("index.html").read_text(encoding="utf-8")
     required = [

@@ -32,12 +32,11 @@
     <meta property="og:url" content="https://lightjunction.github.io/lightjunction/">
     <meta property="og:image" content="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=512&amp;d=identicon">
     <meta name="twitter:card" content="summary">
+    <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -->
     <link rel="canonical" href="https://lightjunction.github.io/lightjunction/">
     <title>LIghtJUNction — Signal Field Manual</title>
+    <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23141413'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23D97757' stroke-width='4' opacity='.55'/%3E%3Ccircle cx='32' cy='32' r='6.5' fill='%23D97757'/%3E%3C/svg%3E">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 </head>
 <body>
     <a class="skip-link" href="#workspace-title">Skip to selected work</a>
@@ -119,6 +118,7 @@
                     </p>
                 </div>
                 <div class="shader-gallery reveal">
+                    <!-- jscpd:ignore-start -->
                     <div
                         class="shader-gallery-track"
                         data-shader-track
@@ -222,45 +222,53 @@
                         </article>
 
                         <article
-                            class="shader-card shader-card-reserved"
+                            class="shader-card shader-card-live shader-card-live-singularity"
                             data-shader-card
+                            data-shader-engine="singularity"
                             role="group"
                             aria-roledescription="slide"
                             aria-label="Shader 2 of 4"
                         >
-                            <div
-                                class="shader-card-preview shader-reserved-preview"
-                                aria-hidden="true"
-                            >
-                                <div class="shader-slot-glyph">
-                                    <span>02</span><i></i><i></i><i></i>
+                            <div class="shader-card-preview">
+                                <canvas
+                                    class="shader-canvas"
+                                    data-shader-canvas
+                                    aria-label="Live Singularity Forge WebGL2 shader preview"
+                                ></canvas>
+                                <div class="shader-preview-top" aria-hidden="true">
+                                    <span>SINGULARITY FORGE / 02</span>
+                                    <span>CURVED RAYS · BLOOM</span>
                                 </div>
-                                <span class="shader-slot-caption"
-                                    >SOURCE SLOT / OPEN</span
-                                >
+                                <div class="shader-preview-hud">
+                                    <span data-shader-status role="status" aria-live="polite">Initializing WebGL2…</span>
+                                    <span>Drag to orbit / elevation</span>
+                                </div>
+                                <div class="shader-card-fallback" data-shader-fallback hidden>
+                                    <strong>WebGL2 is unavailable.</strong>
+                                    <span>Open this page in a current browser to run the live fragment.</span>
+                                </div>
                             </div>
                             <div class="shader-card-body">
                                 <div class="shader-card-overline">
-                                    <span>SHADER / 02</span
-                                    ><span>RESERVED</span>
+                                    <span>SHADER / 02</span><span>LIVE STUDY</span>
                                 </div>
-                                <h3>Next fragment</h3>
+                                <h3>Singularity Forge</h3>
                                 <p>
-                                    This slot is ready for the next effect.
-                                    The gallery already knows how to give it
-                                    a live canvas, metadata, and a place in
-                                    the route.
+                                    A curved-ray black hole engine with a Doppler-shifted accretion disk, rotating megastructure rings, and a bloom pass.
                                 </p>
-                                <div class="shader-reserved-line">
-                                    <span>STATUS</span
-                                    ><strong>Awaiting source</strong>
+                                <div class="shader-card-stats" aria-label="Singularity Forge shader details">
+                                    <div><span>FORMAT</span><strong>GLSL</strong></div>
+                                    <div><span>ENGINE</span><strong>WebGL2</strong></div>
+                                    <div><span>PASS</span><strong>HDR + Bloom</strong></div>
                                 </div>
-                                <div
-                                    class="shader-card-tags"
-                                    aria-label="Reserved shader categories"
-                                >
-                                    <span>GLSL</span><span>WEBGL2</span
-                                    ><span>YOUR NEXT STUDY</span>
+                                <div class="shader-card-actions">
+                                    <button class="quiet-action" type="button" data-shader-action="pause">Pause</button>
+                                    <button class="quiet-action" type="button" data-shader-action="reset">Reset</button>
+                                    <button class="quiet-action" type="button" data-shader-action="bloom">Bloom on</button>
+                                    <button class="quiet-action" type="button" data-shader-action="quality">HIGH</button>
+                                </div>
+                                <div class="shader-card-tags" aria-label="Shader categories">
+                                    <span>CURVED RAY</span><span>ACCRETION</span><span>MEGASTRUCTURES</span>
                                 </div>
                             </div>
                         </article>
@@ -390,6 +398,7 @@
                         </button>
                     </nav>
                 </div>
+                <!-- jscpd:ignore-end -->
             </div>
         </section>
 

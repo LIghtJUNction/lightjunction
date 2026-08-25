@@ -1,7 +1,7 @@
 #!/bin/bash
 # crypto.sh - GPG and OpenSSL cryptographic helpers
 
-DEFAULT_GPG_KEY="EB21B83AB1E982DF66F08387A67178405F7736FD"
+DEFAULT_GPG_KEY="EB21B83AB1E982DF66F08387A67178405F7736FD" # gitleaks:allow — public GPG fingerprint, not a secret
 DEFAULT_PRIVKEY="$HOME/.ssh/id_rsa"
 DEFAULT_PUBKEY="$HOME/.ssh/id_rsa.pub"
 RSA_V2_PREFIX='LJ-RSA-V2:'

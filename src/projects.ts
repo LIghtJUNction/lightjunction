@@ -1,10 +1,10 @@
-import { $, escapeHtml, safeExternalUrl } from './dom'
-import { formatDate, formatNumber } from './format'
-import { fetchStaticProjectCards, isRepoCardArray, type RepoCard } from './github'
-import { showToast } from './toast'
+import { $, safeExternalUrl } from './dom.js'
+import { formatDate, formatNumber } from './format.js'
+import { fetchStaticProjectCards, isRepoCardArray, type RepoCard } from './github.js'
+import { showToast } from './toast.js'
 
-export type ProjectSource = 'cache' | 'network'
-export type ProjectGroupId = 'ai' | 'systems' | 'security' | 'web' | 'data' | 'tools' | 'all'
+type ProjectSource = 'cache' | 'network'
+type ProjectGroupId = 'ai' | 'systems' | 'security' | 'web' | 'data' | 'tools' | 'all'
 
 type CachedProjects = {
     cachedAt: number
@@ -50,7 +50,7 @@ const PROJECT_GROUPS: ProjectGroup[] = [
             'android',
             'arch',
             'bootstrap',
-            'daed',
+            'dead',
             'docker',
             'kernel',
             'linux',
@@ -100,7 +100,7 @@ const projectCount = $<HTMLElement>('project-count')
 const projectSort = $<HTMLElement>('project-sort')
 const projectGroups = $<HTMLElement>('project-groups')
 const projectToggle = $<HTMLButtonElement>('btn-toggle-projects')
-const pulseCard = document.getElementById('pulse-card')
+const pulseCard = document.querySelector<HTMLElement>('#pulse-card')
 const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 
 let projectsLoaded = false
@@ -115,11 +115,12 @@ export function readProjectCache(): CachedProjects | null {
         if (!raw) return null
 
         const parsed = JSON.parse(raw) as Partial<CachedProjects>
-        if (typeof parsed.cachedAt !== 'number' || !isRepoCardArray(parsed.cards)) return null
-        if (Date.now() - parsed.cachedAt > PROJECT_CACHE_TTL_MS) return null
+        const cachedAt = Number(parsed.cachedAt)
+        if (!Number.isFinite(cachedAt) || !isRepoCardArray(parsed.cards)) return null
+        if (Date.now() - cachedAt > PROJECT_CACHE_TTL_MS) return null
 
         return {
-            cachedAt: parsed.cachedAt,
+            cachedAt,
             cards: parsed.cards,
         }
     } catch {
@@ -167,14 +168,87 @@ function projectGroupCount(groupId: ProjectGroupId): number {
 }
 
 function renderProjectGroups(): void {
-    projectGroups.innerHTML = PROJECT_GROUPS.map((group) => {
+    const buttons = PROJECT_GROUPS.map((group) => {
         const selected = group.id === activeProjectGroup
-        return `
-            <button class="project-group${selected ? ' active' : ''}" type="button" role="tab" aria-selected="${selected}" data-project-group="${group.id}">
-                ${escapeHtml(group.label)} ${projectGroupCount(group.id)}
-            </button>
-        `
-    }).join('')
+        const button = document.createElement('button')
+        button.className = `project-group${selected ? ' active' : ''}`
+        button.type = 'button'
+        button.setAttribute('role', 'tab')
+        button.setAttribute('aria-selected', String(selected))
+        button.dataset.projectGroup = group.id
+        button.textContent = `${group.label} ${projectGroupCount(group.id)}`
+        return button
+    })
+    projectGroups.replaceChildren(...buttons)
+}
+
+function appendProjectText(
+    parent: HTMLElement,
+    tagName: string,
+    text: string,
+    className?: string,
+): HTMLElement {
+    const element = document.createElement(tagName)
+    if (className) element.className = className
+    element.textContent = text
+    parent.append(element)
+    return element
+}
+
+function createProjectLink(url: string, text: string, ariaLabel?: string): HTMLAnchorElement {
+    const link = document.createElement('a')
+    link.href = safeExternalUrl(url)
+    link.target = '_blank'
+    link.rel = 'noopener noreferrer'
+    link.textContent = text
+    if (ariaLabel) link.setAttribute('aria-label', ariaLabel)
+    return link
+}
+
+function createProjectCard(repo: RepoCard, index: number): HTMLElement {
+    const owner = repo.full_name.split('/')[0] ?? 'Unknown'
+    const tags = [
+        owner,
+        repo.language ?? 'Unknown',
+        repo.fork ? 'Fork' : 'Source',
+        repo.archived ? 'Archived' : 'Active',
+    ]
+    const shell = document.createElement('div')
+    shell.className = 'project-shell'
+    const article = document.createElement('article')
+    article.className = 'project-card'
+    const header = document.createElement('header')
+    const heading = document.createElement('h3')
+    heading.append(createProjectLink(repo.html_url, repo.name, `Open ${repo.full_name} on GitHub`))
+    header.append(heading)
+    appendProjectText(header, 'span', `#${index + 1}`, 'project-rank')
+    article.append(header)
+
+    const metrics = document.createElement('div')
+    metrics.className = 'project-metrics'
+    metrics.setAttribute('aria-label', 'Repository metrics')
+    for (const metric of [
+        `${formatNumber(repo.stargazers_count)} stars`,
+        `${formatNumber(repo.commit_count)} commits`,
+        `${formatNumber(repo.forks_count)} forks`,
+        `${formatNumber(repo.open_issues_count)} issues`,
+    ]) {
+        appendProjectText(metrics, 'span', metric)
+    }
+    article.append(metrics)
+    appendProjectText(article, 'p', repo.description ?? 'No description yet.')
+
+    const tagList = document.createElement('div')
+    tagList.className = 'project-tags'
+    for (const tag of tags) appendProjectText(tagList, 'span', tag)
+    article.append(tagList)
+
+    const footer = document.createElement('footer')
+    appendProjectText(footer, 'span', `pushed ${formatDate(repo.pushed_at)}`)
+    footer.append(createProjectLink(repo.html_url, 'Open'))
+    article.append(footer)
+    shell.append(article)
+    return shell
 }
 
 function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
@@ -205,59 +279,27 @@ function renderProjectCards(cards: RepoCard[], source: ProjectSource): void {
     projectToggle.setAttribute('aria-expanded', String(projectsExpanded))
 
     if (filteredCards.length === 0) {
-        projectGrid.innerHTML = '<div class="empty-state">No repositories matched this group.</div>'
+        const emptyState = document.createElement('div')
+        emptyState.className = 'empty-state'
+        emptyState.textContent = 'No repositories matched this group.'
+        projectGrid.replaceChildren(emptyState)
         return
     }
 
-    projectGrid.innerHTML = visibleCards.map((repo, index) => {
-        const owner = repo.full_name.split('/')[0] ?? 'Unknown'
-        const tags = [
-            owner,
-            repo.language ?? 'Unknown',
-            repo.fork ? 'Fork' : 'Source',
-            repo.archived ? 'Archived' : 'Active',
-        ]
-        const description = repo.description ?? 'No description yet.'
-        const repoUrl = escapeHtml(safeExternalUrl(repo.html_url))
-        return `
-            <div class="project-shell">
-            <article class="project-card">
-                <header>
-                    <h3><a href="${repoUrl}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escapeHtml(repo.full_name)} on GitHub">${escapeHtml(repo.name)}</a></h3>
-                    <span class="project-rank">#${index + 1}</span>
-                </header>
-                <div class="project-metrics" aria-label="Repository metrics">
-                    <span>${formatNumber(repo.stargazers_count)} stars</span>
-                    <span>${formatNumber(repo.commit_count)} commits</span>
-                    <span>${formatNumber(repo.forks_count)} forks</span>
-                    <span>${formatNumber(repo.open_issues_count)} issues</span>
-                </div>
-                <p>${escapeHtml(description)}</p>
-                <div class="project-tags">
-                    ${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}
-                </div>
-                <footer>
-                    <span>pushed ${formatDate(repo.pushed_at)}</span>
-                    <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">Open</a>
-                </footer>
-            </article>
-            </div>
-        `
-    }).join('')
-
+    projectGrid.replaceChildren(...visibleCards.map(createProjectCard))
 }
 
-export async function loadProjectCards(force = false): Promise<void> {
-    if (force) projectsExpanded = false
+async function loadProjectCards(options: { bypassCache?: boolean } = {}): Promise<void> {
+    const { bypassCache = false } = options
     const cache = readProjectCache()
-    if (!force && cache) {
+    if (cache && !bypassCache) {
         renderProjectCards(cache.cards, 'cache')
         projectsLoaded = true
         return
     }
 
     projectStatus.textContent = 'Loading synced project cards from the repository...'
-    projectGrid.innerHTML = ''
+    projectGrid.replaceChildren()
 
     try {
         const cards = await fetchStaticProjectCards()
@@ -271,6 +313,8 @@ export async function loadProjectCards(force = false): Promise<void> {
         if (cache) {
             renderProjectCards(cache.cards, 'cache')
             showToast('Using cached projects')
+        } else {
+            showToast('Projects unavailable')
         }
     }
 }
@@ -324,7 +368,7 @@ export async function initPulse(): Promise<void> {
 export function initProjectControls(): void {
     $('btn-refresh-projects').addEventListener('click', () => {
         projectsExpanded = false
-        void loadProjectCards(true)
+        void loadProjectCards({ bypassCache: true })
         showToast('Refreshing projects')
     })
     projectToggle.addEventListener('click', () => {

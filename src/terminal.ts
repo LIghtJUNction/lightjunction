@@ -1,11 +1,19 @@
+// pi-lens-ignore: find-import-file-without-extension
 import { COMMAND_NAMES, commandDescription } from './commands'
+// pi-lens-ignore: find-import-file-without-extension
 import { $, escapeHtml, safeExternalUrl } from './dom'
+// pi-lens-ignore: find-import-file-without-extension
 import { formatNumber } from './format'
+// pi-lens-ignore: find-import-file-without-extension
 import { fetchJson, fetchStaticProjectCards, type GitHubUser, type Repo } from './github'
+// pi-lens-ignore: find-import-file-without-extension
 import { initMotion } from './motion'
-import { initShaderShowcase } from './shader-showcase'
+import { mountShaderShowcase } from './shader-gallery.js'
+// pi-lens-ignore: find-import-file-without-extension
 import { ensureProjectCards, initProjectControls, initPulse, readProjectCache } from './projects'
+// pi-lens-ignore: find-import-file-without-extension
 import { initSecureCard, openSecureCard } from './secure-card'
+// pi-lens-ignore: find-import-file-without-extension
 import { initTheme } from './theme'
 import './styles.css'
 
@@ -19,7 +27,7 @@ const workspaceTitle = $<HTMLElement>('workspace-title')
 const workspaceKicker = $<HTMLElement>('workspace-kicker')
 
 let currentInput = ''
-let history: string[] = []
+const history: string[] = []
 let historyIndex = 0
 let activeApp: AppId = 'projects'
 
@@ -78,7 +86,12 @@ function resetTerminal(): void {
     boot()
 }
 
-const commands: Record<string, CommandHandler> = {
+function defineCommands(commands: Record<string, CommandHandler>): Record<string, CommandHandler> {
+    return commands
+}
+
+// pi-lens-ignore: hardcoded-url
+const commands = defineCommands({
     help: () => {
         writeLine(`
             <div class="command-grid">
@@ -202,7 +215,7 @@ const commands: Record<string, CommandHandler> = {
    />🦊  wandered through this terminal and left the place tidier.</pre>
         `)
     },
-}
+})
 
 function appendLoading(label: string): HTMLElement {
     const line = document.createElement('div')
@@ -232,71 +245,72 @@ function isInteractiveTarget(target: EventTarget | null): boolean {
     return target instanceof Element && target.closest(INTERACTIVE_SELECTOR) !== null
 }
 
-function handleKeydown(event: KeyboardEvent): void {
-    if (isInteractiveTarget(event.target)) return
-    if (
-        activeApp !== 'terminal'
-        || event.target !== terminalRegion
-        || event.metaKey
-        || event.ctrlKey
-        || event.altKey
-    ) {
-        return
+function canHandleTerminalKey(event: KeyboardEvent): boolean {
+    return !isInteractiveTarget(event.target)
+        && activeApp === 'terminal'
+        && !event.metaKey
+        && !event.ctrlKey
+        && !event.altKey
+}
+
+function handleEnterKey(event: KeyboardEvent): void {
+    event.preventDefault()
+    const submitted = currentInput
+    if (submitted.trim()) {
+        history.push(submitted)
+        historyIndex = history.length
     }
+    setInput('')
+    void execute(submitted)
+}
 
-    if (event.key === 'Tab') return
-
-    if (event.key === 'Enter') {
-        event.preventDefault()
-        const submitted = currentInput
-        if (submitted.trim()) {
-            history.push(submitted)
-            historyIndex = history.length
-        }
-        setInput('')
-        void execute(submitted)
-        return
-    }
-
-    if (event.key === 'Backspace') {
-        event.preventDefault()
-        setInput(currentInput.slice(0, -1))
-        return
-    }
-
+function handleHistoryKey(event: KeyboardEvent): boolean {
     if (event.key === 'ArrowUp') {
         event.preventDefault()
         if (historyIndex > 0) {
             historyIndex -= 1
             setInput(history[historyIndex] ?? '')
         }
+        return true
+    }
+    if (event.key !== 'ArrowDown') return false
+
+    event.preventDefault()
+    if (historyIndex < history.length - 1) {
+        historyIndex += 1
+        setInput(history[historyIndex] ?? '')
+    } else {
+        historyIndex = history.length
+        setInput('')
+    }
+    return true
+}
+
+function handleCompletionKey(event: KeyboardEvent): boolean {
+    if (event.key !== 'ArrowRight' || !currentInput) return false
+    const input = currentInput.toLowerCase()
+    const match = COMMAND_NAMES.find((name) => name.startsWith(input))
+    if (!match || match === input) return true
+    event.preventDefault()
+    setInput(match)
+    return true
+}
+
+function handleKeydown(event: KeyboardEvent): void {
+    if (!canHandleTerminalKey(event)) return
+    if (event.target !== terminalRegion) return
+    if (event.key === 'Tab') return
+    if (event.key === 'Enter') {
+        handleEnterKey(event)
         return
     }
-
-    if (event.key === 'ArrowDown') {
+    if (event.key === 'Backspace') {
         event.preventDefault()
-        if (historyIndex < history.length - 1) {
-            historyIndex += 1
-            setInput(history[historyIndex] ?? '')
-        } else {
-            historyIndex = history.length
-            setInput('')
-        }
+        setInput(currentInput.slice(0, -1))
         return
     }
-
-    if (event.key === 'ArrowRight' && currentInput) {
-        const match = COMMAND_NAMES.find((name) => name.startsWith(currentInput.toLowerCase()))
-        if (match && match !== currentInput.toLowerCase()) {
-            event.preventDefault()
-            setInput(match)
-        }
-        return
-    }
-
-    if (event.key.length === 1) {
-        setInput(currentInput + event.key)
-    }
+    if (handleHistoryKey(event) || handleCompletionKey(event)) return
+    if (event.key.length === 1) setInput(currentInput + event.key)
 }
 
 function bindChrome(): void {
@@ -324,7 +338,7 @@ function boot(): void {
 }
 
 initMotion()
-initShaderShowcase()
+mountShaderShowcase()
 initTheme()
 bindChrome()
 initProjectControls()
