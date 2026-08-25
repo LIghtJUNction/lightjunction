@@ -49,6 +49,7 @@
                 <span>LIghtJUNction</span>
             </a>
             <nav class="site-nav" aria-label="Explore">
+                <a href="#shaders">Shaders</a>
                 <a href="#work">Work</a>
                 <a href="#model">Model</a>
                 <a href="#challenge-two">Challenge</a>
@@ -64,6 +65,334 @@
     </header>
 
     <main id="top">
+        <section
+            class="shader-showcase"
+            id="shaders"
+            aria-labelledby="shader-showcase-title"
+        >
+            <div class="shader-showcase-shell page-shell">
+                <header class="shader-showcase-head reveal">
+                    <p class="folio">FIELD 00<br />SHADER STUDIES</p>
+                    <div class="shader-showcase-heading">
+                        <p class="eyebrow">LIVE FRAGMENTS / WEBGL2</p>
+                        <h2 id="shader-showcase-title">
+                            A little more light <em>inside the machine.</em>
+                        </h2>
+                    </div>
+                    <div
+                        class="shader-gallery-controls"
+                        aria-label="Shader showcase controls"
+                    >
+                        <button
+                            class="shader-gallery-button"
+                            type="button"
+                            data-shader-previous
+                            aria-label="Previous shader study"
+                        >
+                            ←
+                        </button>
+                        <span
+                            class="shader-gallery-position"
+                            data-shader-position
+                            aria-live="polite"
+                            >01 / 04</span
+                        >
+                        <button
+                            class="shader-gallery-button"
+                            type="button"
+                            data-shader-next
+                            aria-label="Next shader study"
+                        >
+                            →
+                        </button>
+                    </div>
+                </header>
+                <div class="shader-showcase-note reveal">
+                    <p>
+                        Interactive experiments kept close to the code: one
+                        live route, then three honest places for what comes
+                        next.
+                    </p>
+                    <p class="shader-gallery-hint">
+                        Swipe or drag to move · use ← → when focused · touch
+                        the canvas to bend the route
+                    </p>
+                </div>
+                <div class="shader-gallery reveal">
+                    <div
+                        class="shader-gallery-track"
+                        data-shader-track
+                        tabindex="0"
+                        aria-label="Shader studies"
+                    >
+                        <article
+                            class="shader-card shader-card-live"
+                            data-shader-card
+                            role="group"
+                            aria-roledescription="slide"
+                            aria-label="Shader 1 of 4"
+                        >
+                            <div class="shader-card-preview">
+                                <canvas
+                                    class="shader-canvas"
+                                    data-shader-canvas
+                                    aria-label="Live Neon Rift WebGL2 shader preview"
+                                ></canvas>
+                                <div
+                                    class="shader-preview-top"
+                                    aria-hidden="true"
+                                >
+                                    <span>NEON RIFT / 01</span>
+                                    <span>176 STEPS · NO TEXTURES</span>
+                                </div>
+                                <div class="shader-preview-hud">
+                                    <span
+                                        data-shader-status
+                                        role="status"
+                                        aria-live="polite"
+                                        >Initializing WebGL2…</span
+                                    >
+                                    <span>Drag to scrub route</span>
+                                </div>
+                                <div
+                                    class="shader-card-fallback"
+                                    data-shader-fallback
+                                    hidden
+                                >
+                                    <strong>WebGL2 is unavailable.</strong>
+                                    <span
+                                        >Open this page in a current browser
+                                        to run the live fragment.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="shader-card-body">
+                                <div class="shader-card-overline">
+                                    <span>SHADER / 01</span
+                                    ><span>LIVE STUDY</span>
+                                </div>
+                                <h3>Neon Rift</h3>
+                                <p>
+                                    A self-contained voxel canyon with
+                                    portal rings, crystal veins, and a route
+                                    that keeps moving under the camera.
+                                </p>
+                                <div
+                                    class="shader-card-stats"
+                                    aria-label="Neon Rift shader details"
+                                >
+                                    <div>
+                                        <span>FORMAT</span
+                                        ><strong>GLSL</strong>
+                                    </div>
+                                    <div>
+                                        <span>ENGINE</span
+                                        ><strong>WebGL2</strong>
+                                    </div>
+                                    <div>
+                                        <span>INPUT</span
+                                        ><strong>Pointer</strong>
+                                    </div>
+                                </div>
+                                <div class="shader-card-actions">
+                                    <button
+                                        class="quiet-action"
+                                        type="button"
+                                        data-shader-action="pause"
+                                    >
+                                        Pause
+                                    </button>
+                                    <button
+                                        class="quiet-action"
+                                        type="button"
+                                        data-shader-action="reset"
+                                    >
+                                        Reset
+                                    </button>
+                                </div>
+                                <div
+                                    class="shader-card-tags"
+                                    aria-label="Shader categories"
+                                >
+                                    <span>VOXELS</span
+                                    ><span>VOLUMETRIC</span
+                                    ><span>PORTALS</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article
+                            class="shader-card shader-card-reserved"
+                            data-shader-card
+                            role="group"
+                            aria-roledescription="slide"
+                            aria-label="Shader 2 of 4"
+                        >
+                            <div
+                                class="shader-card-preview shader-reserved-preview"
+                                aria-hidden="true"
+                            >
+                                <div class="shader-slot-glyph">
+                                    <span>02</span><i></i><i></i><i></i>
+                                </div>
+                                <span class="shader-slot-caption"
+                                    >SOURCE SLOT / OPEN</span
+                                >
+                            </div>
+                            <div class="shader-card-body">
+                                <div class="shader-card-overline">
+                                    <span>SHADER / 02</span
+                                    ><span>RESERVED</span>
+                                </div>
+                                <h3>Next fragment</h3>
+                                <p>
+                                    This slot is ready for the next effect.
+                                    The gallery already knows how to give it
+                                    a live canvas, metadata, and a place in
+                                    the route.
+                                </p>
+                                <div class="shader-reserved-line">
+                                    <span>STATUS</span
+                                    ><strong>Awaiting source</strong>
+                                </div>
+                                <div
+                                    class="shader-card-tags"
+                                    aria-label="Reserved shader categories"
+                                >
+                                    <span>GLSL</span><span>WEBGL2</span
+                                    ><span>YOUR NEXT STUDY</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article
+                            class="shader-card shader-card-reserved shader-slot-three"
+                            data-shader-card
+                            role="group"
+                            aria-roledescription="slide"
+                            aria-label="Shader 3 of 4"
+                        >
+                            <div
+                                class="shader-card-preview shader-reserved-preview"
+                                aria-hidden="true"
+                            >
+                                <div class="shader-slot-glyph">
+                                    <span>03</span><i></i><i></i><i></i>
+                                </div>
+                                <span class="shader-slot-caption"
+                                    >SOURCE SLOT / OPEN</span
+                                >
+                            </div>
+                            <div class="shader-card-body">
+                                <div class="shader-card-overline">
+                                    <span>SHADER / 03</span
+                                    ><span>RESERVED</span>
+                                </div>
+                                <h3>Another signal</h3>
+                                <p>
+                                    Reserved for a second live study, with
+                                    the same calm frame around a very
+                                    different kind of motion.
+                                </p>
+                                <div class="shader-reserved-line">
+                                    <span>STATUS</span
+                                    ><strong>Awaiting source</strong>
+                                </div>
+                                <div
+                                    class="shader-card-tags"
+                                    aria-label="Reserved shader categories"
+                                >
+                                    <span>GLSL</span><span>REAL-TIME</span
+                                    ><span>OPEN SLOT</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article
+                            class="shader-card shader-card-reserved shader-slot-four"
+                            data-shader-card
+                            role="group"
+                            aria-label="Shader 4 of 4"
+                        >
+                            <div
+                                class="shader-card-preview shader-reserved-preview"
+                                aria-hidden="true"
+                            >
+                                <div class="shader-slot-glyph">
+                                    <span>04</span><i></i><i></i><i></i>
+                                </div>
+                                <span class="shader-slot-caption"
+                                    >SOURCE SLOT / OPEN</span
+                                >
+                            </div>
+                            <div class="shader-card-body">
+                                <div class="shader-card-overline">
+                                    <span>SHADER / 04</span
+                                    ><span>RESERVED</span>
+                                </div>
+                                <h3>Leave room for weirdness.</h3>
+                                <p>
+                                    A final placeholder keeps this
+                                    first-screen route expandable without
+                                    crowding the work that is already real.
+                                </p>
+                                <div class="shader-reserved-line">
+                                    <span>STATUS</span
+                                    ><strong>Awaiting source</strong>
+                                </div>
+                                <div
+                                    class="shader-card-tags"
+                                    aria-label="Reserved shader categories"
+                                >
+                                    <span>EXPERIMENTAL</span
+                                    ><span>WEBGL2</span
+                                    ><span>OPEN SLOT</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <nav
+                        class="shader-gallery-dots"
+                        data-shader-dots
+                        aria-label="Choose shader study"
+                    >
+                        <button
+                            type="button"
+                            data-shader-dot="0"
+                            aria-current="true"
+                            aria-label="Show Neon Rift shader study"
+                        >
+                            <span></span>
+                        </button>
+                        <button
+                            type="button"
+                            data-shader-dot="1"
+                            aria-current="false"
+                            aria-label="Show reserved shader slot 2"
+                        >
+                            <span></span>
+                        </button>
+                        <button
+                            type="button"
+                            data-shader-dot="2"
+                            aria-current="false"
+                            aria-label="Show reserved shader slot 3"
+                        >
+                            <span></span>
+                        </button>
+                        <button
+                            type="button"
+                            data-shader-dot="3"
+                            aria-current="false"
+                            aria-label="Show reserved shader slot 4"
+                        >
+                            <span></span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
         <section class="hero page-shell" aria-labelledby="hero-title">
             <div class="hero-copy reveal">
                 <p class="hero-kicker eyebrow">

@@ -14,6 +14,15 @@
     --rule-strong: rgba(21, 21, 18, 0.62);
     --terminal: #1b1b18;
     --terminal-ink: #f3efe5;
+    --shader-night: #080c16;
+    --shader-surface: #101827;
+    --shader-surface-raised: #172236;
+    --shader-ink: #f2f7ff;
+    --shader-muted: #a8b7ca;
+    --shader-cyan: #71e6f5;
+    --shader-violet: #a980ff;
+    --shader-line: rgba(222, 240, 255, 0.18);
+    --shader-soft-line: rgba(222, 240, 255, 0.09);
     --serif: "Instrument Serif", Georgia, serif;
     --sans: "Manrope", "Avenir Next", ui-sans-serif, system-ui, sans-serif;
     --mono: "IBM Plex Mono", "Courier New", monospace;
@@ -2571,5 +2580,652 @@ kbd {
     .contact-grid {
         min-height: 520px;
         border-radius: 26px;
+    }
+}
+
+/* Shader studies: an intentionally dark, tactile counterweight to the paper sections. */
+.shader-showcase {
+    position: relative;
+    overflow: hidden;
+    padding-top: clamp(126px, 13vw, 176px);
+    padding-bottom: clamp(78px, 8vw, 118px);
+    background: var(--shader-night);
+    color: var(--shader-ink);
+}
+
+.shader-showcase::before {
+    position: absolute;
+    top: -25%;
+    right: -11%;
+    width: 62vw;
+    height: 90%;
+    background: radial-gradient(circle, rgba(113, 230, 245, 0.12), transparent 64%);
+    content: "";
+    pointer-events: none;
+}
+
+.shader-showcase::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: var(--shader-line);
+    content: "";
+}
+
+.shader-showcase-shell {
+    position: relative;
+    z-index: 1;
+}
+
+.shader-showcase-head {
+    display: grid;
+    grid-template-columns: minmax(125px, 0.24fr) minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--shader-line);
+}
+
+.shader-showcase .folio {
+    color: var(--shader-cyan);
+}
+
+.shader-showcase-heading .eyebrow {
+    margin-bottom: 18px;
+    color: var(--shader-muted);
+}
+
+.shader-showcase-heading h2 {
+    max-width: 730px;
+    margin: 0;
+    color: var(--shader-ink);
+    font: 400 clamp(48px, 5.5vw, 82px) / 0.88 var(--serif);
+    letter-spacing: -0.055em;
+}
+
+.shader-showcase-heading h2 em {
+    color: var(--shader-cyan);
+    font-weight: 400;
+}
+
+.shader-gallery-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 3px;
+}
+
+.shader-gallery-button {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border: 1px solid var(--shader-line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--shader-ink);
+    font: 500 20px/1 var(--mono);
+    transition: background 180ms var(--ease), color 180ms var(--ease), opacity 180ms var(--ease);
+}
+
+.shader-gallery-button:hover:not(:disabled) {
+    border-color: var(--shader-cyan);
+    background: var(--shader-cyan);
+    color: var(--shader-night);
+}
+
+.shader-gallery-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+}
+
+.shader-gallery-position {
+    min-width: 61px;
+    color: var(--shader-muted);
+    font: 600 12px/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-align: center;
+}
+
+.shader-showcase-note {
+    display: flex;
+    justify-content: space-between;
+    gap: 28px;
+    margin: 20px 0 18px;
+    color: var(--shader-muted);
+    font-size: 13px;
+}
+
+.shader-showcase-note p {
+    max-width: 620px;
+    margin: 0;
+}
+
+.shader-gallery-hint {
+    max-width: 460px !important;
+    color: var(--shader-cyan);
+    font: 500 12px/1.45 var(--mono);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.shader-gallery-track {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 0 20px;
+    overscroll-behavior-x: contain;
+    scrollbar-color: var(--shader-cyan) transparent;
+    scrollbar-width: thin;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
+    touch-action: pan-y;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+}
+
+.shader-gallery-track::-webkit-scrollbar {
+    height: 8px;
+}
+
+.shader-gallery-track::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.shader-gallery-track::-webkit-scrollbar-thumb {
+    border: 2px solid var(--shader-night);
+    border-radius: 999px;
+    background: var(--shader-cyan);
+}
+
+.shader-gallery-track.is-dragging {
+    scroll-snap-type: none;
+    cursor: grabbing;
+    user-select: none;
+}
+
+.shader-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.32fr) minmax(270px, 0.68fr);
+    flex: 0 0 min(840px, calc(100% - 160px));
+    min-width: min(840px, calc(100% - 160px));
+    min-height: 440px;
+    overflow: hidden;
+    border: 1px solid var(--shader-line);
+    border-radius: 28px;
+    background: var(--shader-surface);
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.22);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    transition: border-color 220ms var(--ease), box-shadow 220ms var(--ease);
+}
+
+.shader-card.is-selected {
+    border-color: color-mix(in srgb, var(--shader-cyan) 48%, var(--shader-line));
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(113, 230, 245, 0.08);
+}
+
+.shader-card-preview {
+    position: relative;
+    min-height: 440px;
+    overflow: hidden;
+    border-right: 1px solid var(--shader-line);
+    background: #02050d;
+}
+
+.shader-card-preview::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(2, 5, 13, 0.16), transparent 35%, rgba(2, 5, 13, 0.3));
+    content: "";
+    pointer-events: none;
+}
+
+.shader-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 440px;
+    background: #02050d;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.shader-preview-top,
+.shader-preview-hud {
+    position: absolute;
+    right: 20px;
+    left: 20px;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    color: rgba(226, 246, 255, 0.78);
+    font: 500 12px/1.35 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
+.shader-preview-top {
+    top: 19px;
+}
+
+.shader-preview-hud {
+    bottom: 18px;
+    color: var(--shader-cyan);
+    letter-spacing: 0.04em;
+}
+
+.shader-card-fallback {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: grid;
+    align-content: center;
+    gap: 10px;
+    padding: 28px;
+    background: color-mix(in srgb, var(--shader-night) 90%, var(--shader-violet));
+    color: var(--shader-ink);
+    font: 500 12px/1.55 var(--mono);
+    text-align: center;
+}
+
+.shader-card-fallback strong {
+    color: var(--shader-cyan);
+    font-size: 14px;
+}
+
+.shader-card-body {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    padding: 30px 28px 26px;
+    background: linear-gradient(145deg, var(--shader-surface), var(--shader-surface-raised));
+}
+
+.shader-card-overline {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--shader-soft-line);
+    color: var(--shader-muted);
+    font: 600 12px/1.35 var(--mono);
+    letter-spacing: 0.08em;
+}
+
+.shader-card-overline span:last-child {
+    color: var(--shader-cyan);
+}
+
+.shader-card-body h3 {
+    max-width: 300px;
+    margin: 31px 0 17px;
+    color: var(--shader-ink);
+    font: 400 clamp(42px, 4.5vw, 65px) / 0.85 var(--serif);
+    letter-spacing: -0.045em;
+}
+
+.shader-card-body > p {
+    max-width: 360px;
+    margin-bottom: 24px;
+    color: var(--shader-muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.shader-card-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: auto 0 0;
+    border-top: 1px solid var(--shader-soft-line);
+    border-bottom: 1px solid var(--shader-soft-line);
+}
+
+.shader-card-stats div {
+    min-width: 0;
+    padding: 13px 8px 13px 0;
+}
+
+.shader-card-stats div + div {
+    padding-left: 9px;
+    border-left: 1px solid var(--shader-soft-line);
+}
+
+.shader-card-stats span,
+.shader-reserved-line span {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--shader-muted);
+    font: 500 12px/1.2 var(--mono);
+    letter-spacing: 0.06em;
+}
+
+.shader-card-stats strong,
+.shader-reserved-line strong {
+    display: block;
+    overflow: hidden;
+    color: var(--shader-ink);
+    font: 600 12px/1.25 var(--mono);
+    text-overflow: ellipsis;
+}
+
+.shader-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 17px;
+}
+
+.shader-card .quiet-action {
+    min-height: 40px;
+    padding-inline: 14px;
+    border-color: var(--shader-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--shader-ink);
+    font-size: 12px;
+}
+
+.shader-card .quiet-action:hover:not(:disabled) {
+    border-color: var(--shader-cyan);
+    background: var(--shader-cyan);
+    color: var(--shader-night);
+}
+
+.shader-card .quiet-action:disabled {
+    cursor: not-allowed;
+    opacity: 0.38;
+}
+
+.shader-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 18px;
+}
+
+.shader-card-tags span {
+    padding: 6px 8px 5px;
+    border: 1px solid var(--shader-soft-line);
+    border-radius: 999px;
+    color: var(--shader-muted);
+    font: 500 12px/1 var(--mono);
+    letter-spacing: 0.05em;
+}
+
+.shader-card-reserved {
+    --slot-accent: var(--shader-violet);
+    grid-template-columns: minmax(0, 1fr) minmax(270px, 0.86fr);
+}
+
+.shader-slot-three {
+    --slot-accent: var(--clay);
+}
+
+.shader-slot-four {
+    --slot-accent: var(--shader-cyan);
+}
+
+.shader-reserved-preview {
+    display: grid;
+    place-items: center;
+    border-right-color: color-mix(in srgb, var(--slot-accent) 38%, var(--shader-line));
+    background: radial-gradient(circle at 52% 45%, color-mix(in srgb, var(--slot-accent) 23%, transparent), transparent 40%), #0a0f1d;
+}
+
+.shader-reserved-preview::before {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(var(--shader-soft-line) 1px, transparent 1px), linear-gradient(90deg, var(--shader-soft-line) 1px, transparent 1px);
+    background-size: 34px 34px;
+    content: "";
+    opacity: 0.45;
+}
+
+.shader-slot-glyph {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 164px;
+    height: 164px;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--slot-accent) 74%, transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--slot-accent) 6%, transparent), 0 0 70px color-mix(in srgb, var(--slot-accent) 16%, transparent);
+}
+
+.shader-slot-glyph::before,
+.shader-slot-glyph::after {
+    position: absolute;
+    inset: 22px;
+    border: 1px solid color-mix(in srgb, var(--slot-accent) 36%, transparent);
+    border-radius: 50%;
+    content: "";
+}
+
+.shader-slot-glyph::after {
+    inset: 52px;
+    border-color: color-mix(in srgb, var(--slot-accent) 72%, transparent);
+}
+
+.shader-slot-glyph span {
+    color: var(--slot-accent);
+    font: 500 32px/1 var(--serif);
+}
+
+.shader-slot-glyph i {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--slot-accent);
+}
+
+.shader-slot-glyph i:nth-of-type(1) {
+    top: 10px;
+    left: 50%;
+}
+
+.shader-slot-glyph i:nth-of-type(2) {
+    right: 16px;
+    bottom: 36px;
+}
+
+.shader-slot-glyph i:nth-of-type(3) {
+    bottom: 19px;
+    left: 37px;
+}
+
+.shader-slot-caption {
+    position: absolute;
+    bottom: 19px;
+    z-index: 1;
+    color: color-mix(in srgb, var(--slot-accent) 82%, var(--shader-ink));
+    font: 500 12px/1 var(--mono);
+    letter-spacing: 0.1em;
+}
+
+.shader-card-reserved .shader-card-overline span:last-child {
+    color: var(--slot-accent);
+}
+
+.shader-reserved-line {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    margin: auto 0 0;
+    padding: 14px 0;
+    border-top: 1px solid var(--shader-soft-line);
+    border-bottom: 1px solid var(--shader-soft-line);
+}
+
+.shader-reserved-line strong {
+    color: var(--slot-accent);
+    text-align: right;
+}
+
+.shader-gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    padding-top: 4px;
+}
+
+.shader-gallery-dots button {
+    display: grid;
+    width: 30px;
+    height: 26px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.shader-gallery-dots button span {
+    display: block;
+    width: 7px;
+    height: 7px;
+    border: 1px solid var(--shader-muted);
+    border-radius: 50%;
+    transition: width 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+}
+
+.shader-gallery-dots button[aria-current="true"] span {
+    width: 24px;
+    border-color: var(--shader-cyan);
+    border-radius: 999px;
+    background: var(--shader-cyan);
+}
+
+@media (max-width: 1050px) {
+    .shader-showcase-head {
+        grid-template-columns: 105px minmax(0, 1fr) auto;
+        gap: 20px;
+    }
+
+    .shader-card {
+        flex-basis: min(780px, calc(100% - 82px));
+        min-width: min(780px, calc(100% - 82px));
+    }
+}
+
+@media (max-width: 900px) {
+    .shader-showcase-head {
+        grid-template-columns: 82px minmax(0, 1fr);
+    }
+
+    .shader-gallery-controls {
+        grid-column: 2;
+        justify-self: start;
+        padding-bottom: 0;
+    }
+
+    .shader-showcase-note {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .shader-gallery-hint {
+        max-width: none !important;
+        text-align: left;
+    }
+}
+
+@media (max-width: 780px) {
+    .shader-showcase {
+        padding-top: 108px;
+        padding-bottom: 72px;
+    }
+
+    .shader-showcase-head {
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 16px;
+        padding-bottom: 19px;
+    }
+
+    .shader-showcase-heading .eyebrow {
+        margin-bottom: 15px;
+        font-size: 12px;
+    }
+
+    .shader-showcase-heading h2 {
+        font-size: clamp(45px, 13vw, 64px);
+    }
+
+    .shader-gallery-position {
+        min-width: 52px;
+        font-size: 12px;
+    }
+
+    .shader-gallery-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .shader-showcase-note {
+        margin-top: 17px;
+        font-size: 14px;
+    }
+
+    .shader-gallery-track {
+        gap: 12px;
+        padding-bottom: 14px;
+    }
+
+    .shader-card,
+    .shader-card-reserved {
+        grid-template-columns: 1fr;
+        flex-basis: calc(100% - 18px);
+        min-width: calc(100% - 18px);
+        min-height: 0;
+        border-radius: 22px;
+    }
+
+    .shader-card-preview,
+    .shader-canvas {
+        min-height: 300px;
+    }
+
+    .shader-card-preview {
+        border-right: 0;
+        border-bottom: 1px solid var(--shader-line);
+    }
+
+    .shader-card-body {
+        min-height: 352px;
+        padding: 24px 20px 21px;
+    }
+
+    .shader-card-body h3 {
+        margin-top: 25px;
+    }
+
+    .shader-preview-top,
+    .shader-preview-hud {
+        right: 14px;
+        left: 14px;
+        font-size: 12px;
+    }
+
+    .shader-preview-top span:last-child {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .shader-gallery-track {
+        scroll-behavior: auto;
+    }
+
+    .shader-gallery-dots button span,
+    .shader-card,
+    .shader-gallery-button {
+        transition: none;
     }
 }

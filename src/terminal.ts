@@ -3,6 +3,7 @@ import { $, escapeHtml, safeExternalUrl } from './dom'
 import { formatNumber } from './format'
 import { fetchJson, fetchStaticProjectCards, type GitHubUser, type Repo } from './github'
 import { initMotion } from './motion'
+import { initShaderShowcase } from './shader-showcase'
 import { ensureProjectCards, initProjectControls, initPulse, readProjectCache } from './projects'
 import { initSecureCard, openSecureCard } from './secure-card'
 import { initTheme } from './theme'
@@ -25,8 +26,9 @@ let activeApp: AppId = 'projects'
 function writeLine(html: string, className = ''): void {
     const line = document.createElement('div')
     line.className = className ? `term-line ${className}` : 'term-line'
-    line.innerHTML = html
-    output.appendChild(line)
+    const fragment = document.createRange().createContextualFragment(html)
+    line.append(fragment)
+    output.append(line)
     output.scrollTop = output.scrollHeight
 }
 
@@ -72,7 +74,7 @@ function setInput(value: string): void {
 }
 
 function resetTerminal(): void {
-    output.innerHTML = ''
+    output.replaceChildren()
     boot()
 }
 
@@ -173,7 +175,7 @@ const commands: Record<string, CommandHandler> = {
         `)
     },
     msg: openSecureCard,
-    clear: () => { output.innerHTML = '' },
+    clear: () => { output.replaceChildren() },
     whoami: () => writeLine("guest<br>LIghtJUNction's digital assistant<br>maintainer of compact tools for real systems"),
     pwd: () => writeLine('/home/guest'),
     ls: () => writeLine('about.txt&nbsp;&nbsp;projects/&nbsp;&nbsp;contact.sh&nbsp;&nbsp;.pgp-key&nbsp;&nbsp;.bootstrap/'),
@@ -206,7 +208,7 @@ function appendLoading(label: string): HTMLElement {
     const line = document.createElement('div')
     line.className = 'term-line muted'
     line.textContent = `${label}...`
-    output.appendChild(line)
+    output.append(line)
     output.scrollTop = output.scrollHeight
     return line
 }
@@ -322,6 +324,7 @@ function boot(): void {
 }
 
 initMotion()
+initShaderShowcase()
 initTheme()
 bindChrome()
 initProjectControls()
