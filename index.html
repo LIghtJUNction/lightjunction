@@ -94,7 +94,7 @@
                             class="shader-gallery-position"
                             data-shader-position
                             aria-live="polite"
-                            >01 / 04</span
+                            >01 / 06</span
                         >
                         <button
                             class="shader-gallery-button"
@@ -108,13 +108,13 @@
                 </header>
                 <div class="shader-showcase-note reveal">
                     <p>
-                        Interactive experiments kept close to the code: one
-                        live route, then three honest places for what comes
-                        next.
+                        Four live surfaces kept close to their source: Neon
+                        Rift plus every handoff in Downloads/html, with two
+                        honest places left for what comes next.
                     </p>
                     <p class="shader-gallery-hint">
-                        Swipe or drag to move · use ← → when focused · touch
-                        the canvas to bend the route
+                        Swipe or drag to move · use ← → when focused · enter
+                        a preview to interact
                     </p>
                 </div>
                 <div class="shader-gallery reveal">
@@ -130,7 +130,7 @@
                             data-shader-card
                             role="group"
                             aria-roledescription="slide"
-                            aria-label="Shader 1 of 4"
+                            aria-label="Shader 1 of 6"
                         >
                             <div class="shader-card-preview">
                                 <canvas
@@ -225,9 +225,10 @@
                             class="shader-card shader-card-live shader-card-live-singularity"
                             data-shader-card
                             data-shader-engine="singularity"
+                            data-shader-source="./shader-demos/1.html.txt"
                             role="group"
                             aria-roledescription="slide"
-                            aria-label="Shader 2 of 4"
+                            aria-label="Shader 2 of 6"
                         >
                             <div class="shader-card-preview">
                                 <canvas
@@ -274,44 +275,137 @@
                         </article>
 
                         <article
+                            class="shader-card shader-card-live shader-card-live-downloaded"
+                            data-shader-card
+                            data-demo-id="2"
+                            data-demo-label="2.HTML"
+                            role="group"
+                            aria-roledescription="slide"
+                            aria-label="Shader 3 of 6"
+                        >
+                            <div class="shader-card-preview">
+                                <iframe
+                                    class="shader-demo-frame"
+                                    data-shader-demo-frame
+                                    title="Singularity Forge source 2 interactive preview"
+                                    loading="lazy"
+                                    sandbox="allow-scripts"
+                                    referrerpolicy="no-referrer"
+                                    hidden
+                                ></iframe>
+                                <div class="shader-preview-top" aria-hidden="true">
+                                    <span>SINGULARITY FORGE / 03</span>
+                                    <span>EXACT SOURCE · 2.HTML</span>
+                                </div>
+                                <div class="shader-preview-hud">
+                                    <span data-demo-status role="status" aria-live="polite">Waiting to enter view…</span>
+                                    <span>Click preview · drag to orbit</span>
+                                </div>
+                                <div class="shader-card-fallback" data-demo-fallback hidden>
+                                    <strong>Preview could not load.</strong>
+                                    <span>The exact downloaded source is still preserved with the site.</span>
+                                </div>
+                            </div>
+                            <div class="shader-card-body">
+                                <div class="shader-card-overline">
+                                    <span>SHADER / 03</span><span>2.HTML · LIVE</span>
+                                </div>
+                                <h3>Singularity Forge · Mirror</h3>
+                                <p>
+                                    The second downloaded handoff is byte-for-byte identical to 1.html. It remains here as its own sandboxed live source instead of being silently dropped.
+                                </p>
+                                <div class="shader-card-stats" aria-label="Downloaded shader details">
+                                    <div><span>FORMAT</span><strong>HTML</strong></div>
+                                    <div><span>ENGINE</span><strong>WebGL2</strong></div>
+                                    <div><span>SOURCE</span><strong>2.HTML</strong></div>
+                                </div>
+                                <div class="shader-card-actions">
+                                    <button class="quiet-action" type="button" data-demo-reload>Reload preview</button>
+                                </div>
+                                <div class="shader-card-tags" aria-label="Shader categories">
+                                    <span>CURVED RAY</span><span>EXACT HANDOFF</span><span>SANDBOXED</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article
+                            class="shader-card shader-card-live shader-card-live-downloaded shader-card-live-internal"
+                            data-shader-card
+                            data-demo-id="3"
+                            data-demo-label="3.HTML"
+                            role="group"
+                            aria-roledescription="slide"
+                            aria-label="Shader 4 of 6"
+                        >
+                            <div class="shader-card-preview">
+                                <iframe
+                                    class="shader-demo-frame"
+                                    data-shader-demo-frame
+                                    title="Internal Beyond source 3 interactive preview"
+                                    loading="lazy"
+                                    sandbox="allow-scripts"
+                                    referrerpolicy="no-referrer"
+                                    hidden
+                                ></iframe>
+                                <div class="shader-preview-top" aria-hidden="true">
+                                    <span>INTERNAL BEYOND / 04</span>
+                                    <span>EXACT SOURCE · 3.HTML</span>
+                                </div>
+                                <div class="shader-preview-hud">
+                                    <span data-demo-status role="status" aria-live="polite">Waiting to enter view…</span>
+                                    <span>Click preview to enter</span>
+                                </div>
+                                <div class="shader-card-fallback" data-demo-fallback hidden>
+                                    <strong>Preview could not load.</strong>
+                                    <span>The exact downloaded source is still preserved with the site.</span>
+                                </div>
+                            </div>
+                            <div class="shader-card-body">
+                                <div class="shader-card-overline">
+                                    <span>SHADER / 04</span><span>3.HTML · LIVE</span>
+                                </div>
+                                <h3>Internal Beyond</h3>
+                                <p>
+                                    A full-surface atmospheric experiment with layered canvas motion, glass drawing, memory constellations, and an interactive welcome world.
+                                </p>
+                                <div class="shader-card-stats" aria-label="Internal Beyond details">
+                                    <div><span>FORMAT</span><strong>HTML</strong></div>
+                                    <div><span>ENGINE</span><strong>Canvas</strong></div>
+                                    <div><span>SOURCE</span><strong>3.HTML</strong></div>
+                                </div>
+                                <div class="shader-card-actions">
+                                    <button class="quiet-action" type="button" data-demo-reload>Reload preview</button>
+                                </div>
+                                <div class="shader-card-tags" aria-label="Demo categories">
+                                    <span>ATMOSPHERIC</span><span>INTERACTIVE</span><span>SANDBOXED</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article
                             class="shader-card shader-card-reserved shader-slot-three"
                             data-shader-card
                             role="group"
                             aria-roledescription="slide"
-                            aria-label="Shader 3 of 4"
+                            aria-label="Shader 5 of 6"
                         >
-                            <div
-                                class="shader-card-preview shader-reserved-preview"
-                                aria-hidden="true"
-                            >
+                            <div class="shader-card-preview shader-reserved-preview" aria-hidden="true">
                                 <div class="shader-slot-glyph">
-                                    <span>03</span><i></i><i></i><i></i>
+                                    <span>05</span><i></i><i></i><i></i>
                                 </div>
-                                <span class="shader-slot-caption"
-                                    >SOURCE SLOT / OPEN</span
-                                >
+                                <span class="shader-slot-caption">SOURCE SLOT / OPEN</span>
                             </div>
                             <div class="shader-card-body">
                                 <div class="shader-card-overline">
-                                    <span>SHADER / 03</span
-                                    ><span>RESERVED</span>
+                                    <span>SHADER / 05</span><span>RESERVED</span>
                                 </div>
                                 <h3>Another signal</h3>
-                                <p>
-                                    Reserved for a second live study, with
-                                    the same calm frame around a very
-                                    different kind of motion.
-                                </p>
+                                <p>Reserved for the next source dropped into Downloads/html.</p>
                                 <div class="shader-reserved-line">
-                                    <span>STATUS</span
-                                    ><strong>Awaiting source</strong>
+                                    <span>STATUS</span><strong>Awaiting source</strong>
                                 </div>
-                                <div
-                                    class="shader-card-tags"
-                                    aria-label="Reserved shader categories"
-                                >
-                                    <span>GLSL</span><span>REAL-TIME</span
-                                    ><span>OPEN SLOT</span>
+                                <div class="shader-card-tags" aria-label="Reserved shader categories">
+                                    <span>GLSL</span><span>REAL-TIME</span><span>OPEN SLOT</span>
                                 </div>
                             </div>
                         </article>
@@ -320,41 +414,26 @@
                             class="shader-card shader-card-reserved shader-slot-four"
                             data-shader-card
                             role="group"
-                            aria-label="Shader 4 of 4"
+                            aria-roledescription="slide"
+                            aria-label="Shader 6 of 6"
                         >
-                            <div
-                                class="shader-card-preview shader-reserved-preview"
-                                aria-hidden="true"
-                            >
+                            <div class="shader-card-preview shader-reserved-preview" aria-hidden="true">
                                 <div class="shader-slot-glyph">
-                                    <span>04</span><i></i><i></i><i></i>
+                                    <span>06</span><i></i><i></i><i></i>
                                 </div>
-                                <span class="shader-slot-caption"
-                                    >SOURCE SLOT / OPEN</span
-                                >
+                                <span class="shader-slot-caption">SOURCE SLOT / OPEN</span>
                             </div>
                             <div class="shader-card-body">
                                 <div class="shader-card-overline">
-                                    <span>SHADER / 04</span
-                                    ><span>RESERVED</span>
+                                    <span>SHADER / 06</span><span>RESERVED</span>
                                 </div>
                                 <h3>Leave room for weirdness.</h3>
-                                <p>
-                                    A final placeholder keeps this
-                                    first-screen route expandable without
-                                    crowding the work that is already real.
-                                </p>
+                                <p>A final placeholder keeps this first-screen route expandable without crowding the work that is already real.</p>
                                 <div class="shader-reserved-line">
-                                    <span>STATUS</span
-                                    ><strong>Awaiting source</strong>
+                                    <span>STATUS</span><strong>Awaiting source</strong>
                                 </div>
-                                <div
-                                    class="shader-card-tags"
-                                    aria-label="Reserved shader categories"
-                                >
-                                    <span>EXPERIMENTAL</span
-                                    ><span>WEBGL2</span
-                                    ><span>OPEN SLOT</span>
+                                <div class="shader-card-tags" aria-label="Reserved shader categories">
+                                    <span>EXPERIMENTAL</span><span>WEBGL2</span><span>OPEN SLOT</span>
                                 </div>
                             </div>
                         </article>
@@ -376,7 +455,7 @@
                             type="button"
                             data-shader-dot="1"
                             aria-current="false"
-                            aria-label="Show reserved shader slot 2"
+                            aria-label="Show Singularity Forge source 1"
                         >
                             <span></span>
                         </button>
@@ -384,7 +463,7 @@
                             type="button"
                             data-shader-dot="2"
                             aria-current="false"
-                            aria-label="Show reserved shader slot 3"
+                            aria-label="Show Singularity Forge source 2"
                         >
                             <span></span>
                         </button>
@@ -392,7 +471,23 @@
                             type="button"
                             data-shader-dot="3"
                             aria-current="false"
-                            aria-label="Show reserved shader slot 4"
+                            aria-label="Show Internal Beyond source 3"
+                        >
+                            <span></span>
+                        </button>
+                        <button
+                            type="button"
+                            data-shader-dot="4"
+                            aria-current="false"
+                            aria-label="Show reserved shader slot 5"
+                        >
+                            <span></span>
+                        </button>
+                        <button
+                            type="button"
+                            data-shader-dot="5"
+                            aria-current="false"
+                            aria-label="Show reserved shader slot 6"
                         >
                             <span></span>
                         </button>

@@ -1,3 +1,5 @@
+// pi-lens-ignore: find-import-file-without-extension
+import { DownloadedDemoController } from "./downloaded-demo";
 import shaderBody from "./shaders/neon-rift.glsl?raw";
 import { SingularityForgeRenderer } from "./singularity-renderer.js";
 
@@ -25,6 +27,7 @@ const INTERACTIVE_SELECTOR =
     "button, a, canvas, input, textarea, select, summary";
 
 type LiveRenderer = NeonRiftRenderer | SingularityForgeRenderer;
+type VisibilityController = LiveRenderer | DownloadedDemoController;
 type ShaderAction = "pause" | "reset" | "bloom" | "quality";
 
 function compileShader(
@@ -577,29 +580,50 @@ function bindTrackPointerDrag(
     track.addEventListener("pointercancel", endDrag);
 }
 
-function observeLiveShaders(
-    track: HTMLElement,
+function initDownloadedDemos(
+    cards: HTMLElement[],
+): Map<HTMLElement, DownloadedDemoController> {
+    const demos = new Map<HTMLElement, DownloadedDemoController>();
+    for (const card of cards) {
+        if (!card.dataset.demoId) continue;
+        try {
+            demos.set(card, new DownloadedDemoController(card));
+        } catch {
+            const fallback = card.querySelector<HTMLElement>("[data-demo-fallback]");
+            const status = card.querySelector<HTMLElement>("[data-demo-status]");
+            if (fallback) fallback.hidden = false;
+            if (status) status.textContent = "Fallback · invalid demo card";
+        }
+    }
+    return demos;
+}
+
+function observeShaderPreviews(
     renderers: Map<HTMLElement, LiveRenderer>,
+    demos: Map<HTMLElement, DownloadedDemoController>,
 ): void {
-    if (!("IntersectionObserver" in window)) return;
-    const canvasRenderers = new Map<HTMLCanvasElement, LiveRenderer>();
-    renderers.forEach((renderer) => renderer.updateVisibility(false));
-    track.querySelectorAll<HTMLCanvasElement>("[data-shader-canvas]").forEach((canvas) => {
-        const card = canvas.closest<HTMLElement>("[data-shader-card]");
-        const renderer = card ? renderers.get(card) : undefined;
-        if (renderer) canvasRenderers.set(canvas, renderer);
-    });
+    const targets = new Map<Element, VisibilityController>();
+    for (const [card, renderer] of renderers) {
+        const canvas = card.querySelector<HTMLCanvasElement>("[data-shader-canvas]");
+        if (canvas) targets.set(canvas, renderer);
+    }
+    for (const [card, demo] of demos) targets.set(card, demo);
+
+    if (!("IntersectionObserver" in window)) {
+        for (const controller of targets.values()) controller.updateVisibility(true);
+        return;
+    }
+    for (const controller of targets.values()) controller.updateVisibility(false);
+
     const visibilityObserver = new IntersectionObserver(
         (entries) => {
             for (const entry of entries) {
-                const canvas = entry.target;
-                if (!(canvas instanceof HTMLCanvasElement)) continue;
-                canvasRenderers.get(canvas)?.updateVisibility(entry.intersectionRatio >= 0.6);
+                targets.get(entry.target)?.updateVisibility(entry.intersectionRatio >= 0.6);
             }
         },
         { threshold: 0.6 },
     );
-    canvasRenderers.forEach((_renderer, canvas) => visibilityObserver.observe(canvas));
+    for (const target of targets.keys()) visibilityObserver.observe(target);
 }
 
 function initGallery(): void {
@@ -628,6 +652,7 @@ function initGallery(): void {
         const renderer = initLiveShader(card);
         if (renderer) renderers.set(card, renderer);
     }
+    const demos = initDownloadedDemos(cards);
     const positionController = createGalleryPositionController({
         track,
         cards,
@@ -642,7 +667,7 @@ function initGallery(): void {
     });
     bindGalleryKeyboard(track, cards, renderers, positionController);
     bindTrackPointerDrag(track, positionController.queuePositionSync);
-    observeLiveShaders(track, renderers);
+    observeShaderPreviews(renderers, demos);
 }
 
 // The gallery entrypoint is kept explicit so future shader cards can share the same controller.

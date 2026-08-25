@@ -37,6 +37,8 @@ def test_index_has_live_shader_gallery() -> None:
     gallery = Path("src/shader-gallery.ts")
     singularity_renderer = Path("src/singularity-renderer.ts")
     singularity_source = Path("src/shaders/singularity-forge.glsl")
+    downloaded_controller = Path("src/downloaded-demo.ts")
+    downloaded_sources = [Path(f"public/shader-demos/{index}.html.txt") for index in range(1, 4)]
 
     required = [
         'id="shaders"',
@@ -44,6 +46,11 @@ def test_index_has_live_shader_gallery() -> None:
         "Singularity Forge",
         'data-shader-action="bloom"',
         'data-shader-action="quality"',
+        'data-demo-id="2"',
+        'data-demo-id="3"',
+        'sandbox="allow-scripts"',
+        "Internal Beyond",
+        ">01 / 06</span",
     ]
     for fragment in required:
         assert fragment in html
@@ -51,8 +58,15 @@ def test_index_has_live_shader_gallery() -> None:
     assert gallery.exists()
     assert singularity_renderer.exists()
     assert singularity_source.exists()
+    assert downloaded_controller.exists()
+    assert all(source.exists() for source in downloaded_sources)
+    assert downloaded_sources[0].read_bytes() == downloaded_sources[1].read_bytes()
+    assert "<title>Internal Beyond</title>" in downloaded_sources[2].read_text(
+        encoding="utf-8",
+    )
     assert "mountShaderShowcase" in gallery.read_text(encoding="utf-8")
     assert "SingularityForgeRenderer" in singularity_renderer.read_text(encoding="utf-8")
+    assert "DownloadedDemoController" in downloaded_controller.read_text(encoding="utf-8")
     assert "mainImage" in singularity_source.read_text(encoding="utf-8")
 
 
