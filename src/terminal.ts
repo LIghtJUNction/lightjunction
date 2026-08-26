@@ -16,6 +16,7 @@ import { initSecureCard, openSecureCard } from './secure-card'
 // pi-lens-ignore: find-import-file-without-extension
 import { initTheme } from './theme'
 import './styles.css'
+import './editorial-layer.css'
 
 type CommandHandler = (args: string[]) => void | Promise<void>
 type AppId = 'projects' | 'terminal'

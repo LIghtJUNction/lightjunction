@@ -1,5 +1,3 @@
-// pi-lens-ignore: find-import-file-without-extension
-import { DownloadedDemoController } from "./downloaded-demo";
 import shaderBody from "./shaders/neon-rift.glsl?raw";
 import { SingularityForgeRenderer } from "./singularity-renderer.js";
 
@@ -27,7 +25,7 @@ const INTERACTIVE_SELECTOR =
     "button, a, canvas, input, textarea, select, summary";
 
 type LiveRenderer = NeonRiftRenderer | SingularityForgeRenderer;
-type VisibilityController = LiveRenderer | DownloadedDemoController;
+type VisibilityController = LiveRenderer;
 type ShaderAction = "pause" | "reset" | "bloom" | "quality";
 
 function compileShader(
@@ -257,7 +255,10 @@ function setActionDisabled(
 
 function getAction(button: HTMLButtonElement): ShaderAction | null {
     const action = button.dataset.shaderAction;
-    return action === "pause" || action === "reset" || action === "bloom" || action === "quality"
+    return action === "pause" ||
+        action === "reset" ||
+        action === "bloom" ||
+        action === "quality"
         ? action
         : null;
 }
@@ -301,7 +302,9 @@ function handleLiveShaderAction(
 }
 
 function initLiveShader(card: HTMLElement): LiveRenderer | null {
-    const canvas = card.querySelector<HTMLCanvasElement>("[data-shader-canvas]");
+    const canvas = card.querySelector<HTMLCanvasElement>(
+        "[data-shader-canvas]",
+    );
     const status = card.querySelector<HTMLElement>("[data-shader-status]");
     const fallback = card.querySelector<HTMLElement>("[data-shader-fallback]");
     const actionButtons = Array.from(
@@ -310,9 +313,10 @@ function initLiveShader(card: HTMLElement): LiveRenderer | null {
     if (!canvas || !status || !fallback) return null;
 
     try {
-        const renderer: LiveRenderer = card.dataset.shaderEngine === "singularity"
-            ? new SingularityForgeRenderer(canvas)
-            : new NeonRiftRenderer(canvas);
+        const renderer: LiveRenderer =
+            card.dataset.shaderEngine === "singularity"
+                ? new SingularityForgeRenderer(canvas)
+                : new NeonRiftRenderer(canvas);
         renderer.start();
         status.textContent = rendererStatus(renderer);
         for (const button of actionButtons) {
@@ -493,7 +497,8 @@ function toggleLiveShaderFromKeyboard(
     const pauseButton = card.querySelector<HTMLButtonElement>(
         '[data-shader-action="pause"]',
     );
-    if (pauseButton) pauseButton.textContent = renderer.isPaused() ? "Resume" : "Pause";
+    if (pauseButton)
+        pauseButton.textContent = renderer.isPaused() ? "Resume" : "Pause";
     updateLiveShaderStatus(
         card,
         renderer.isPaused()
@@ -509,7 +514,9 @@ function resetLiveShaderFromKeyboard(
     renderer.reset();
     updateLiveShaderStatus(
         card,
-        renderer.isPaused() ? "Reset · paused" : `${rendererStatus(renderer)} · route reset`,
+        renderer.isPaused()
+            ? "Reset · paused"
+            : `${rendererStatus(renderer)} · route reset`,
     );
 }
 
@@ -523,8 +530,10 @@ function bindGalleryKeyboard(
         if (event.target !== track) return;
 
         let targetIndex: number | null = null;
-        if (event.key === "ArrowLeft") targetIndex = positionController.getActiveIndex() - 1;
-        if (event.key === "ArrowRight") targetIndex = positionController.getActiveIndex() + 1;
+        if (event.key === "ArrowLeft")
+            targetIndex = positionController.getActiveIndex() - 1;
+        if (event.key === "ArrowRight")
+            targetIndex = positionController.getActiveIndex() + 1;
         if (event.key === "Home") targetIndex = 0;
         if (event.key === "End") targetIndex = cards.length - 1;
         if (targetIndex !== null) {
@@ -580,45 +589,31 @@ function bindTrackPointerDrag(
     track.addEventListener("pointercancel", endDrag);
 }
 
-function initDownloadedDemos(
-    cards: HTMLElement[],
-): Map<HTMLElement, DownloadedDemoController> {
-    const demos = new Map<HTMLElement, DownloadedDemoController>();
-    for (const card of cards) {
-        if (!card.dataset.demoId) continue;
-        try {
-            demos.set(card, new DownloadedDemoController(card));
-        } catch {
-            const fallback = card.querySelector<HTMLElement>("[data-demo-fallback]");
-            const status = card.querySelector<HTMLElement>("[data-demo-status]");
-            if (fallback) fallback.hidden = false;
-            if (status) status.textContent = "Fallback · invalid demo card";
-        }
-    }
-    return demos;
-}
-
 function observeShaderPreviews(
     renderers: Map<HTMLElement, LiveRenderer>,
-    demos: Map<HTMLElement, DownloadedDemoController>,
 ): void {
     const targets = new Map<Element, VisibilityController>();
     for (const [card, renderer] of renderers) {
-        const canvas = card.querySelector<HTMLCanvasElement>("[data-shader-canvas]");
+        const canvas = card.querySelector<HTMLCanvasElement>(
+            "[data-shader-canvas]",
+        );
         if (canvas) targets.set(canvas, renderer);
     }
-    for (const [card, demo] of demos) targets.set(card, demo);
 
     if (!("IntersectionObserver" in window)) {
-        for (const controller of targets.values()) controller.updateVisibility(true);
+        for (const controller of targets.values())
+            controller.updateVisibility(true);
         return;
     }
-    for (const controller of targets.values()) controller.updateVisibility(false);
+    for (const controller of targets.values())
+        controller.updateVisibility(false);
 
     const visibilityObserver = new IntersectionObserver(
         (entries) => {
             for (const entry of entries) {
-                targets.get(entry.target)?.updateVisibility(entry.intersectionRatio >= 0.6);
+                targets
+                    .get(entry.target)
+                    ?.updateVisibility(entry.intersectionRatio >= 0.6);
             }
         },
         { threshold: 0.6 },
@@ -652,7 +647,6 @@ function initGallery(): void {
         const renderer = initLiveShader(card);
         if (renderer) renderers.set(card, renderer);
     }
-    const demos = initDownloadedDemos(cards);
     const positionController = createGalleryPositionController({
         track,
         cards,
@@ -667,7 +661,7 @@ function initGallery(): void {
     });
     bindGalleryKeyboard(track, cards, renderers, positionController);
     bindTrackPointerDrag(track, positionController.queuePositionSync);
-    observeShaderPreviews(renderers, demos);
+    observeShaderPreviews(renderers);
 }
 
 // The gallery entrypoint is kept explicit so future shader cards can share the same controller.

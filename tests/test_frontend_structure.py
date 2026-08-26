@@ -7,24 +7,33 @@ import struct
 from pathlib import Path
 
 
-def test_index_keeps_styles_external() -> None:
+def read_html() -> str:
     html = Path("index.html").read_text(encoding="utf-8")
+    html = re.sub(r"\s+", " ", html)
+    html = re.sub(r"\s*/>", ">", html)
+    html = re.sub(r"\s+>", ">", html)
+    html = re.sub(r">\s+", ">", html)
+    return re.sub(r"\s+<", "<", html)
+
+
+def test_index_keeps_styles_external() -> None:
+    html = read_html()
     assert "<style>" not in html
     assert "</style>" not in html
     assert 'src="/src/terminal.ts"' in html
 
 
 def test_index_has_signal_field_manual_metadata() -> None:
-    html = Path("index.html").read_text(encoding="utf-8")
+    html = read_html()
     required = [
         '<meta name="description"',
-        '<meta name="theme-color" content="#FAF9F5">',
-        '<meta property="og:title" content="LIghtJUNction — Signal Field Manual">',
+        '<meta name="theme-color" content="#F5F0E8">',
+        '<meta property="og:title" content="LIghtJUNction — Independent digital assistant">',
         '<meta property="og:image" content="https://1.gravatar.com/avatar/',
         '?s=512&amp;d=identicon">',
         '<meta name="twitter:card" content="summary">',
         '<link rel="canonical" href="https://lightjunction.github.io/lightjunction/">',
-        "<title>LIghtJUNction — Signal Field Manual</title>",
+        "<title>LIghtJUNction — Independent digital assistant</title>",
     ]
     for fragment in required:
         assert fragment in html
@@ -33,16 +42,12 @@ def test_index_has_signal_field_manual_metadata() -> None:
 
 
 def test_index_has_live_shader_gallery() -> None:
-    html = Path("index.html").read_text(encoding="utf-8")
+    html = read_html()
     gallery = Path("src/shader-gallery.ts")
     singularity_renderer = Path("src/singularity-renderer.ts")
     singularity_source = Path("src/shaders/singularity-forge.glsl")
-    downloaded_controller = Path("src/downloaded-demo.ts")
     styles = Path("src/styles.css").read_text(encoding="utf-8")
-    downloaded_sources = [
-        Path("public/shader-demos/1.html.txt"),
-        Path("public/shader-demos/3.html.txt"),
-    ]
+    downloaded_source = Path("public/shader-demos/1.html.txt")
 
     required = [
         'id="shaders"',
@@ -50,10 +55,7 @@ def test_index_has_live_shader_gallery() -> None:
         "Singularity Forge",
         'data-shader-action="bloom"',
         'data-shader-action="quality"',
-        'data-demo-id="3"',
-        'sandbox="allow-scripts"',
-        "Internal Beyond",
-        ">01 / 05</span",
+        ">01 / 04</span",
     ]
     for fragment in required:
         assert fragment in html
@@ -61,15 +63,18 @@ def test_index_has_live_shader_gallery() -> None:
     assert gallery.exists()
     assert singularity_renderer.exists()
     assert singularity_source.exists()
-    assert downloaded_controller.exists()
-    assert all(source.exists() for source in downloaded_sources)
+    assert downloaded_source.exists()
     assert not Path("public/shader-demos/2.html.txt").exists()
-    assert "<title>Internal Beyond</title>" in downloaded_sources[1].read_text(
-        encoding="utf-8",
-    )
+    assert not Path("src/downloaded-demo.ts").exists()
+    assert html.count("data-shader-card") == 4
+    assert html.count("data-shader-canvas") == 2
+    assert 'data-demo-id="3"' not in html
+    assert "data-shader-demo-frame" not in html
+    assert "Internal Beyond" not in html
+    assert "data-demo-reload" not in html
     assert "mountShaderShowcase" in gallery.read_text(encoding="utf-8")
     assert "SingularityForgeRenderer" in singularity_renderer.read_text(encoding="utf-8")
-    assert "DownloadedDemoController" in downloaded_controller.read_text(encoding="utf-8")
+    assert "DownloadedDemoController" not in gallery.read_text(encoding="utf-8")
     assert "mainImage" in singularity_source.read_text(encoding="utf-8")
     assert "--shader-brass" in styles
     assert "--shader-cyan" not in styles
@@ -77,7 +82,7 @@ def test_index_has_live_shader_gallery() -> None:
 
 
 def test_index_has_accessible_terminal_landmarks() -> None:
-    html = Path("index.html").read_text(encoding="utf-8")
+    html = read_html()
     required = [
         'class="skip-link" href="#workspace-title"',
         'id="terminal-output" role="log" aria-live="polite"',
@@ -90,7 +95,7 @@ def test_index_has_accessible_terminal_landmarks() -> None:
 
 
 def test_index_has_portfolio_and_real_experiences() -> None:
-    html = Path("index.html").read_text(encoding="utf-8")
+    html = read_html()
     required = [
         'id="hero-title"',
         'id="workbench"',
@@ -132,7 +137,7 @@ def test_index_has_portfolio_and_real_experiences() -> None:
 
 
 def test_challenge_two_is_embedded_without_source_level_solution_material() -> None:
-    html = Path("index.html").read_text(encoding="utf-8")
+    html = read_html()
     artifact = Path("public/junction-ii.png")
     required = [
         'id="challenge-two"',
@@ -203,7 +208,7 @@ def test_project_filters_preserve_the_loaded_data_source() -> None:
 
 
 def test_project_index_defaults_to_a_bounded_reviewable_page() -> None:
-    html = Path("index.html").read_text(encoding="utf-8")
+    html = read_html()
     projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
 
     assert 'id="btn-toggle-projects"' in html
@@ -246,6 +251,7 @@ def test_terminal_keeps_motion_without_hiding_project_index() -> None:
     stylesheet = Path("src/styles.css")
     motion = Path("src/motion.ts")
     assert "import './styles.css'" in entrypoint
+    assert "import './editorial-layer.css'" in entrypoint
     assert "from './motion'" in entrypoint
     assert "initMotion()" in entrypoint
     assert "project-shell reveal" not in projects_module
@@ -271,7 +277,7 @@ def test_project_titles_wrap_without_clipping_mobile_ledger_controls() -> None:
 
 
 def test_anthropic_editorial_landing_keeps_its_identity() -> None:
-    html = Path("index.html").read_text(encoding="utf-8")
+    html = read_html()
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
 
     required_html = [
@@ -311,6 +317,7 @@ def test_anthropic_editorial_landing_keeps_its_identity() -> None:
 def test_editorial_motion_is_observed_transform_driven_and_reduced_motion_safe() -> None:
     motion = Path("src/motion.ts").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
+    editorial = Path("src/editorial-layer.css").read_text(encoding="utf-8")
 
     assert "new IntersectionObserver" in motion
     assert "window.addEventListener('scroll'" not in motion
@@ -320,6 +327,8 @@ def test_editorial_motion_is_observed_transform_driven_and_reduced_motion_safe()
     assert "--magnetic-x" in motion
     assert "800ms cubic-bezier(0.16, 1, 0.3, 1)" in stylesheet
     assert "transform: translateY(28px)" in stylesheet
+    assert "--clay: #ed682b" in editorial
+    assert "background-image:" in editorial
     assert re.search(r"(?m)^\s*filter:\s*blur\(", stylesheet) is None
     assert re.search(
         r"@media \(max-width: 780px\)\s*\{[\s\S]*?"
