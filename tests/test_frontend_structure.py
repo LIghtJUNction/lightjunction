@@ -16,6 +16,10 @@ def read_html() -> str:
     return re.sub(r"\s+<", "<", html)
 
 
+def read_source(path: str) -> str:
+    return Path(path).read_text(encoding="utf-8").replace('"', "'")
+
+
 def test_index_keeps_styles_external() -> None:
     html = read_html()
     assert "<style>" not in html
@@ -28,12 +32,12 @@ def test_index_has_signal_field_manual_metadata() -> None:
     required = [
         '<meta name="description"',
         '<meta name="theme-color" content="#F5F0E8">',
-        '<meta property="og:title" content="LIghtJUNction — Independent digital assistant">',
+        '<meta property="og:title" content="LIghtJUNction | Independent digital assistant">',
         '<meta property="og:image" content="https://1.gravatar.com/avatar/',
         '?s=512&amp;d=identicon">',
         '<meta name="twitter:card" content="summary">',
         '<link rel="canonical" href="https://lightjunction.github.io/lightjunction/">',
-        "<title>LIghtJUNction — Independent digital assistant</title>",
+        "<title>LIghtJUNction | Independent digital assistant</title>",
     ]
     for fragment in required:
         assert fragment in html
@@ -146,7 +150,7 @@ def test_challenge_two_is_embedded_without_source_level_solution_material() -> N
         'src="/junction-ii.png"',
         "Recover the original signal.",
         "Read the frame, then the field.",
-        "Recovered it? Submit a PR with the full elapsed time",
+        "If you recover it, submit a PR with the full elapsed time",
     ]
     for fragment in required:
         assert fragment in html
@@ -177,7 +181,7 @@ def test_challenge_two_is_embedded_without_source_level_solution_material() -> N
 
 
 def test_terminal_keyboard_input_is_scoped_and_keeps_native_tab() -> None:
-    entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
+    entrypoint = read_source("src/terminal.ts")
     assert "terminalRegion.addEventListener('keydown', handleKeydown)" in entrypoint
     assert "document.addEventListener('keydown', handleKeydown)" not in entrypoint
     assert "if (event.key === 'Tab') return" in entrypoint
@@ -186,7 +190,7 @@ def test_terminal_keyboard_input_is_scoped_and_keeps_native_tab() -> None:
 
 
 def test_contact_flows_restore_focus_and_isolate_modal() -> None:
-    secure_card = Path("src/secure-card.ts").read_text(encoding="utf-8")
+    secure_card = read_source("src/secure-card.ts")
     required = [
         "dismissSecureCard",
         "restorePreviousFocus",
@@ -201,7 +205,7 @@ def test_contact_flows_restore_focus_and_isolate_modal() -> None:
 
 
 def test_project_filters_preserve_the_loaded_data_source() -> None:
-    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
+    projects_module = read_source("src/projects.ts")
     assert "let projectSource: ProjectSource" in projects_module
     assert "projectSource = source" in projects_module
     assert "renderProjectCards(projectCards, projectSource)" in projects_module
@@ -209,7 +213,7 @@ def test_project_filters_preserve_the_loaded_data_source() -> None:
 
 def test_project_index_defaults_to_a_bounded_reviewable_page() -> None:
     html = read_html()
-    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
+    projects_module = read_source("src/projects.ts")
 
     assert 'id="btn-toggle-projects"' in html
     assert "const PROJECT_PAGE_SIZE = 8" in projects_module
@@ -222,7 +226,7 @@ def test_project_index_defaults_to_a_bounded_reviewable_page() -> None:
 
 
 def test_frontend_uses_synced_project_cards_json() -> None:
-    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
+    projects_module = read_source("src/projects.ts")
     github_module = Path("src/github.ts").read_text(encoding="utf-8")
     synced_json = Path("public/github-projects.json")
 
@@ -232,8 +236,8 @@ def test_frontend_uses_synced_project_cards_json() -> None:
 
 
 def test_frontend_validates_external_data_and_urls() -> None:
-    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
-    secure_card = Path("src/secure-card.ts").read_text(encoding="utf-8")
+    projects_module = read_source("src/projects.ts")
+    secure_card = read_source("src/secure-card.ts")
     github_module = Path("src/github.ts").read_text(encoding="utf-8")
     dom_module = Path("src/dom.ts").read_text(encoding="utf-8")
 
@@ -246,8 +250,8 @@ def test_frontend_validates_external_data_and_urls() -> None:
 
 
 def test_terminal_keeps_motion_without_hiding_project_index() -> None:
-    entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
-    projects_module = Path("src/projects.ts").read_text(encoding="utf-8")
+    entrypoint = read_source("src/terminal.ts")
+    projects_module = read_source("src/projects.ts")
     stylesheet = Path("src/styles.css")
     motion = Path("src/motion.ts")
     assert "import './styles.css'" in entrypoint
@@ -282,7 +286,7 @@ def test_anthropic_editorial_landing_keeps_its_identity() -> None:
 
     required_html = [
         "Independent digital assistant",
-        "Where loose signals become",
+        "I build tools for",
         'class="site-header floating-nav"',
         'class="hero-stage-frame"',
         'class="hero-image-stage"',
@@ -346,7 +350,7 @@ def test_editorial_motion_is_observed_transform_driven_and_reduced_motion_safe()
 
 
 def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
-    entrypoint = Path("src/terminal.ts").read_text(encoding="utf-8")
+    entrypoint = read_source("src/terminal.ts")
     modules = [
         "src/commands.ts",
         "src/dom.ts",
