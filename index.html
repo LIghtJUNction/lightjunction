@@ -77,12 +77,10 @@
                     <span>LIghtJUNction</span>
                 </a>
                 <nav class="site-nav" aria-label="Explore">
-                    <a href="#work">Archive</a>
-                    <a href="#shaders">Experiments</a>
-                    <a href="#model">Method</a>
-                    <a href="#challenge-two">Artifact</a>
-                    <a href="#workbench">Tools</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#top" data-nav-link="top">Home</a>
+                    <a href="#work" data-nav-link="work">Work</a>
+                    <a href="#shaders" data-nav-link="shaders">Experiments</a>
+                    <a href="#model" data-nav-link="model">About</a>
                 </nav>
                 <div class="header-controls">
                     <a
@@ -513,8 +511,21 @@
                 </div>
             </section>
 
-            <section class="hero page-shell" aria-labelledby="hero-title">
-                <div class="hero-copy reveal">
+            <section
+                class="hero"
+                data-hero-scene
+                aria-labelledby="hero-title"
+            >
+                <div class="hero-collage" data-hero-collage aria-hidden="true">
+                    <span class="hero-object hero-object-paper" data-depth="0.22"></span>
+                    <span class="hero-object hero-object-badge" data-depth="0.5"></span>
+                    <span class="hero-object hero-object-screen" data-depth="0.76"></span>
+                    <span class="hero-object hero-object-board" data-depth="0.34"></span>
+                    <span class="hero-object hero-object-chip" data-depth="0.58"></span>
+                    <span class="hero-object hero-object-ring" data-depth="0.18"></span>
+                    <span class="hero-object hero-object-scrap" data-depth="0.42"></span>
+                </div>
+                <div class="hero-copy page-shell reveal">
                     <p class="hero-kicker eyebrow">
                         <span
                             ><i aria-hidden="true"></i> Independent digital
@@ -565,6 +576,7 @@
 
                 <aside
                     class="hero-field reveal"
+                    data-depth="0.82"
                     id="pulse-card"
                     aria-label="Editorial junction field and checked-in GitHub pulse"
                 >

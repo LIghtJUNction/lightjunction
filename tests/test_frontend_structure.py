@@ -356,6 +356,7 @@ def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
         "src/dom.ts",
         "src/format.ts",
         "src/github.ts",
+        "src/hero-motion.ts",
         "src/motion.ts",
         "src/projects.ts",
         "src/public-key.ts",
@@ -371,6 +372,7 @@ def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
         "./commands",
         "./dom",
         "./format",
+        "./hero-motion",
         "./projects",
         "./secure-card",
         "./theme",
@@ -382,6 +384,22 @@ def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
     assert "initAsciiBackground" not in entrypoint
     assert not Path("src/visuals.ts").exists()
     assert "const PUBLIC_KEY =" not in entrypoint
+
+
+def test_editorial_hero_has_depth_motion_and_scroll_nav() -> None:
+    html = read_html()
+    motion = read_source("src/hero-motion.ts")
+    editorial = Path("src/editorial-layer.css").read_text(encoding="utf-8")
+
+    assert 'data-hero-scene' in html
+    assert 'data-hero-collage' in html
+    assert html.count('data-depth=') >= 7
+    assert 'data-nav-link="top"' in html
+    assert "pointermove" in motion
+    assert "IntersectionObserver" in motion
+    assert "--motion-x" in motion
+    assert "@keyframes hero-drift-paper" in editorial
+    assert "prefers-reduced-motion" in editorial
 
 
 def test_repository_keeps_formatting_standards() -> None:

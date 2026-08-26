@@ -12,6 +12,7 @@ import {
     type Repo,
 } from "./github";
 // pi-lens-ignore: find-import-file-without-extension
+import { initHeroMotion } from "./hero-motion";
 import { initMotion } from "./motion";
 import { mountShaderShowcase } from "./shader-gallery.js";
 // pi-lens-ignore: find-import-file-without-extension
@@ -407,6 +408,7 @@ function boot(): void {
     );
 }
 
+initHeroMotion();
 initMotion();
 mountShaderShowcase();
 initTheme();
