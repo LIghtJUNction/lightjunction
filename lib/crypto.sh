@@ -23,7 +23,10 @@ gpg_decrypt() {
 rsa_encrypt() {
     local text="${1:?Usage: rsa_encrypt <text> [pubkey_path]}"
     local pubkey="${2:-$DEFAULT_PUBKEY}" encoded
-    [[ -f "$pubkey" ]] || { printf 'Error: pubkey not found: %s\n' "$pubkey" >&2; return 1; }
+    [[ -f "$pubkey" ]] || {
+        printf 'Error: pubkey not found: %s\n' "$pubkey" >&2
+        return 1
+    }
     encoded="$(printf '%s' "$text" | openssl pkeyutl -encrypt -pubin -inkey "$pubkey" \
         -pkeyopt rsa_padding_mode:oaep \
         -pkeyopt rsa_oaep_md:sha256 \
@@ -34,7 +37,10 @@ rsa_encrypt() {
 rsa_decrypt() {
     local envelope="${1:?Usage: rsa_decrypt <ciphertext> [privkey_path]}"
     local privkey="${2:-$DEFAULT_PRIVKEY}" encoded padding digest_options=()
-    [[ -f "$privkey" ]] || { printf 'Error: privkey not found: %s\n' "$privkey" >&2; return 1; }
+    [[ -f "$privkey" ]] || {
+        printf 'Error: privkey not found: %s\n' "$privkey" >&2
+        return 1
+    }
 
     if [[ "$envelope" == "$RSA_V2_PREFIX"* ]]; then
         encoded="${envelope#"$RSA_V2_PREFIX"}"
@@ -52,7 +58,10 @@ rsa_decrypt() {
 rsa_sign() {
     local message="${1:?Usage: rsa_sign <message> [privkey_path]}"
     local privkey="${2:-$DEFAULT_PRIVKEY}"
-    [[ -f "$privkey" ]] || { printf 'Error: privkey not found: %s\n' "$privkey" >&2; return 1; }
+    [[ -f "$privkey" ]] || {
+        printf 'Error: privkey not found: %s\n' "$privkey" >&2
+        return 1
+    }
     printf '%s' "$message" | openssl dgst -sha512 -sign "$privkey" | openssl base64 -A
 }
 
@@ -60,9 +69,12 @@ rsa_verify() {
     local message="${1:?Usage: rsa_verify <message> <signature> <pubkey_path>}"
     local signature="${2:?Usage: rsa_verify <message> <signature> <pubkey_path>}"
     local pubkey="${3:?Usage: rsa_verify <message> <signature> <pubkey_path>}" tmp status=0
-    [[ -f "$pubkey" ]] || { printf 'Error: pubkey not found: %s\n' "$pubkey" >&2; return 1; }
+    [[ -f "$pubkey" ]] || {
+        printf 'Error: pubkey not found: %s\n' "$pubkey" >&2
+        return 1
+    }
     tmp="$(mktemp)" || return 1
-    printf '%s' "$signature" | openssl base64 -d -A > "$tmp"
+    printf '%s' "$signature" | openssl base64 -d -A >"$tmp"
     printf '%s' "$message" | openssl dgst -sha512 -verify "$pubkey" -signature "$tmp" || status=$?
     rm -f -- "$tmp"
     return "$status"
@@ -103,7 +115,11 @@ aes_decrypt() {
 
 hash() {
     local text="${1:?Usage: hash <text> [sha256|sha512|md5]}" algorithm="${2:-sha256}"
-    case "$algorithm" in sha256|sha512|md5) ;; *) printf 'Unsupported hash: %s\n' "$algorithm" >&2; return 2 ;; esac
+    case "$algorithm" in sha256 | sha512 | md5) ;; *)
+        printf 'Unsupported hash: %s\n' "$algorithm" >&2
+        return 2
+        ;;
+    esac
     printf '%s' "$text" | openssl dgst "-$algorithm" | awk '{print $2}'
 }
 
