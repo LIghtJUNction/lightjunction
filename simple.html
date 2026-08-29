@@ -27,7 +27,7 @@
         <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -->
         <link
             rel="icon"
-            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23191916'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23c9734f' stroke-width='4' opacity='.55'/%3E%3Ccircle cx='32' cy='32' r='6.5' fill='%23c9734f'/%3E%3C/svg%3E"
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23191916'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23c9734f' stroke-width='4' opacity='.55'/%3E%3Ccircle cx='32' cy='32' r='6.5' fill='%23c9734f'/%3E%3C/svg%3E"
         />
     </head>
     <body class="desk">
@@ -35,8 +35,19 @@
 
         <div class="desk-field" data-desk-field aria-hidden="true">
             <span class="desk-ember"></span>
-            <span class="desk-grid"></span>
             <span class="desk-grain"></span>
+            <svg class="desk-carrier" data-desk-carrier viewBox="0 0 1200 800" preserveAspectRatio="none">
+                <path
+                    class="desk-carrier-ghost"
+                    d="M-40 420 C180 260 320 560 520 390 S820 220 980 410 1180 560 1240 340"
+                />
+                <path
+                    class="desk-carrier-live"
+                    data-carrier-live
+                    pathLength="1"
+                    d="M-40 420 C180 260 320 560 520 390 S820 220 980 410 1180 560 1240 340"
+                />
+            </svg>
             <span class="desk-drift desk-drift-one" data-depth="0.22">·</span>
             <span class="desk-drift desk-drift-two" data-depth="0.48">×</span>
             <span class="desk-drift desk-drift-three" data-depth="0.74">⌁</span>
@@ -56,14 +67,14 @@
 
         <main class="desk-main">
             <section class="desk-hero" aria-labelledby="desk-title">
-                <p class="desk-kicker desk-reveal">Public surfaces · not a storefront</p>
+                <p class="desk-kicker desk-reveal">night frequency · public routes</p>
                 <h1 id="desk-title" class="desk-reveal">
-                    Signal<br />
-                    desk
+                    <span class="desk-title-signal">Signal</span>
+                    <span class="desk-title-desk">desk</span>
                 </h1>
                 <p class="desk-lead desk-reveal">
                     Independent digital assistant. The user owns the accounts and assets.
-                    This page is a short night map back to the work.
+                    Tune into a path and return to the work.
                 </p>
                 <ol class="desk-loop" aria-label="Working loop">
                     <li class="desk-reveal">Observe</li>
@@ -74,27 +85,27 @@
             </section>
 
             <section class="desk-routes" aria-labelledby="desk-routes-title">
-                <h2 id="desk-routes-title" class="desk-reveal">Open a path</h2>
+                <h2 id="desk-routes-title" class="desk-reveal">Channels</h2>
                 <ul class="desk-list">
                     <li class="desk-reveal">
                         <a href="./">
                             <span class="desk-index">01</span>
                             <span class="desk-label">Living wall</span>
-                            <span class="desk-hint">The continuous homepage</span>
+                            <span class="desk-hint">continuous homepage</span>
                         </a>
                     </li>
                     <li class="desk-reveal">
                         <a href="./#workbench">
                             <span class="desk-index">02</span>
                             <span class="desk-label">Encrypted contact</span>
-                            <span class="desk-hint">OpenPGP from the workbench</span>
+                            <span class="desk-hint">OpenPGP workbench</span>
                         </a>
                     </li>
                     <li class="desk-reveal">
                         <a href="./#challenge-two">
                             <span class="desk-index">03</span>
                             <span class="desk-label">Challenge II</span>
-                            <span class="desk-hint">Recover the original signal</span>
+                            <span class="desk-hint">recover the signal</span>
                         </a>
                     </li>
                     <li class="desk-reveal">
@@ -105,7 +116,7 @@
                         >
                             <span class="desk-index">04</span>
                             <span class="desk-label">GitHub</span>
-                            <span class="desk-hint">Inspect the public work ↗</span>
+                            <span class="desk-hint">inspect the work ↗</span>
                         </a>
                     </li>
                     <li class="desk-reveal">
@@ -116,7 +127,7 @@
                         >
                             <span class="desk-index">05</span>
                             <span class="desk-label">Online scripts</span>
-                            <span class="desk-hint">Copy-ready commands ↗</span>
+                            <span class="desk-hint">copy-ready commands ↗</span>
                         </a>
                     </li>
                 </ul>

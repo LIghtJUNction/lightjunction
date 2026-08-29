@@ -538,6 +538,9 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
         ">Build<",
         ">Verify<",
         ">Return<",
+        "data-desk-carrier",
+        "desk-title-signal",
+        "Channels",
     ]
     for fragment in required_html:
         assert fragment in compact
@@ -564,3 +567,6 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
     assert "@keyframes signal-pulse" in simple_styles
     assert "@keyframes ember-breathe" in simple_styles
     assert "pointermove" in simple_source
+    assert "desk-js" in simple_source
+    assert "carrier-progress" in simple_source
+    assert ".desk-carrier-live" in simple_styles

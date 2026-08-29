@@ -1,5 +1,13 @@
 @font-face {
     font-family: "Instrument Serif";
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/instrument-serif-400-italic-latin.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Instrument Serif";
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -30,7 +38,7 @@
     --desk-muted: #918d85;
     --desk-ember: #c9734f;
     --desk-ember-soft: #8b5b46;
-    --desk-line: rgba(232, 227, 217, 0.18);
+    --desk-line: rgba(232, 227, 217, 0.16);
     --desk-serif: "Instrument Serif", Georgia, serif;
     --desk-sans: "Manrope", "Segoe UI", sans-serif;
     --desk-mono: "IBM Plex Mono", ui-monospace, monospace;
@@ -59,9 +67,7 @@ body.desk {
     min-height: 100vh;
     overflow-x: hidden;
     color: var(--desk-ink);
-    background:
-        radial-gradient(ellipse 80% 50% at 12% 0%, rgba(201, 115, 79, 0.14), transparent 55%),
-        linear-gradient(180deg, var(--desk-wall) 0%, var(--desk-void) 42%, var(--desk-void) 100%);
+    background: var(--desk-wall);
     font-family: var(--desk-sans);
     font-size: 18px;
     line-height: 1.5;
@@ -105,67 +111,81 @@ a {
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background:
-        radial-gradient(ellipse 70% 55% at 18% 22%, rgba(201, 115, 79, 0.2), transparent 58%),
-        radial-gradient(ellipse 50% 40% at 88% 78%, rgba(145, 141, 133, 0.1), transparent 62%),
-        transparent;
+    overflow: hidden;
 }
 
 .desk-ember {
     position: absolute;
-    top: 8%;
-    left: 6%;
-    width: min(42vw, 340px);
-    height: min(42vw, 340px);
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(201, 115, 79, 0.26), transparent 68%);
-    transform: translate(calc(var(--field-x, 0) * 18px), calc(var(--field-y, 0) * 12px));
-    animation: ember-breathe 7.5s ease-in-out infinite;
+    top: 12%;
+    left: -6%;
+    width: min(46vw, 380px);
+    height: min(46vw, 380px);
+    background: radial-gradient(circle, rgba(201, 115, 79, 0.16), transparent 68%);
+    transform: translate(calc(var(--field-x, 0) * 16px), calc(var(--field-y, 0) * 10px));
+    animation: ember-breathe 8s ease-in-out infinite;
 }
 
-.desk-grid,
 .desk-grain {
     position: absolute;
     inset: 0;
-}
-
-.desk-grid {
-    background-image: url("/field-grid.svg");
-    background-size: 96px 96px;
-    opacity: 0.55;
-    mix-blend-mode: screen;
-    transform: translate(calc(var(--field-x, 0) * -10px), calc(var(--field-y, 0) * -7px));
-}
-
-.desk-grain {
     background-image: url("/paper-grain.svg");
     background-size: 180px 180px;
-    opacity: 0.42;
+    opacity: 0.35;
     mix-blend-mode: overlay;
-    animation: grain-shift 18s linear infinite;
+    animation: grain-shift 20s linear infinite;
+}
+
+.desk-carrier {
+    position: absolute;
+    inset: 8% -4% 18%;
+    width: 108%;
+    height: 74%;
+    opacity: 0.9;
+    transform: translate(calc(var(--field-x, 0) * -12px), calc(var(--field-y, 0) * 8px));
+}
+
+.desk-carrier-ghost,
+.desk-carrier-live {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.desk-carrier-ghost {
+    stroke: rgba(232, 227, 217, 0.12);
+    stroke-width: 1.25;
+}
+
+.desk-carrier-live {
+    stroke: var(--desk-ember);
+    stroke-width: 1.8;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--carrier-progress, 0.72));
+    filter: drop-shadow(0 0 10px rgba(201, 115, 79, 0.22));
 }
 
 .desk-drift {
     position: absolute;
     color: var(--desk-ember);
     font-family: var(--desk-mono);
-    font-size: 22px;
-    opacity: 0.55;
+    font-size: 18px;
+    opacity: 0.45;
     transform: translate(var(--motion-x, 0), var(--motion-y, 0));
 }
 
 .desk-drift-one {
     top: 18%;
-    right: 16%;
+    right: 14%;
 }
 
 .desk-drift-two {
     top: 62%;
-    left: 12%;
+    left: 11%;
+    color: var(--desk-muted);
 }
 
 .desk-drift-three {
-    bottom: 14%;
+    bottom: 16%;
     right: 22%;
 }
 
@@ -195,11 +215,10 @@ a {
 }
 
 .desk-signal {
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
+    width: 10px;
+    height: 10px;
     background: var(--desk-ember);
-    box-shadow: 0 0 0 0 rgba(201, 115, 79, 0.45);
+    box-shadow: 0 0 0 0 rgba(201, 115, 79, 0.4);
     animation: signal-pulse 2.8s ease-out infinite;
 }
 
@@ -213,12 +232,13 @@ a {
 
 .desk-nav a {
     text-decoration: none;
-    opacity: 0.72;
+    opacity: 0.7;
 }
 
 .desk-nav a[aria-current="page"],
 .desk-nav a:hover {
     opacity: 1;
+    color: var(--desk-ember);
 }
 
 .desk-main {
@@ -248,31 +268,43 @@ a {
 }
 
 .desk-hero h1 {
+    display: grid;
     margin: 0;
+    line-height: 0.84;
+}
+
+.desk-title-signal {
+    color: var(--desk-ember);
     font-family: var(--desk-serif);
-    font-size: clamp(64px, 12vw, 148px);
+    font-style: italic;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
     font-weight: 400;
-    line-height: 0.86;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
+}
+
+.desk-title-desk {
+    font-size: clamp(4.4rem, 13vw, 9.5rem);
+    font-weight: 680;
+    letter-spacing: -0.07em;
 }
 
 .desk-lead {
-    max-width: 34rem;
-    margin: 28px 0 0;
+    max-width: 32rem;
+    margin: 26px 0 0;
     color: var(--desk-muted);
-    font-size: clamp(17px, 2vw, 21px);
+    font-size: clamp(17px, 2vw, 20px);
 }
 
 .desk-loop {
     display: flex;
     flex-wrap: wrap;
     gap: 10px 22px;
-    margin: 36px 0 0;
+    margin: 34px 0 0;
     padding: 0;
     list-style: none;
-    color: var(--desk-ember);
+    color: var(--desk-ink);
     font-size: 12px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 }
 
@@ -284,7 +316,7 @@ a {
     content: "→";
     position: absolute;
     right: -18px;
-    color: var(--desk-muted);
+    color: var(--desk-ember);
 }
 
 .desk-routes h2 {
@@ -303,12 +335,31 @@ a {
 }
 
 .desk-list a {
+    position: relative;
     display: grid;
-    grid-template-columns: 2.4rem minmax(0, 1fr);
+    grid-template-columns: 2.6rem minmax(0, 1fr);
     column-gap: 14px;
-    padding: 16px 0 15px;
+    padding: 17px 0 16px 10px;
     border-bottom: 1px solid var(--desk-line);
     text-decoration: none;
+}
+
+.desk-list a::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    bottom: 18px;
+    left: 0;
+    width: 2px;
+    background: var(--desk-ember);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 180ms ease;
+}
+
+.desk-list a:hover::before,
+.desk-list a:focus-visible::before {
+    transform: scaleY(1);
 }
 
 .desk-list a:hover .desk-label,
@@ -326,7 +377,7 @@ a {
 
 .desk-label {
     font-family: var(--desk-serif);
-    font-size: 24px;
+    font-size: 23px;
     letter-spacing: -0.02em;
 }
 
@@ -351,41 +402,42 @@ a {
 }
 
 .desk-footer a:hover {
-    color: var(--desk-ink);
+    color: var(--desk-ember);
 }
 
 .desk-reveal {
-    opacity: 0;
-    transform: translateY(18px);
-    transition:
-        opacity 620ms ease,
-        transform 620ms ease;
+    opacity: 1;
+    transform: none;
+}
+
+html.desk-js .desk-reveal {
+    transform: translateY(14px);
+    transition: transform 620ms ease;
     transition-delay: var(--desk-delay, 0ms);
 }
 
-.desk-reveal.is-visible {
-    opacity: 1;
+html.desk-js .desk-reveal.is-visible {
     transform: none;
 }
 
 @keyframes ember-breathe {
     0%,
     100% {
-        opacity: 0.72;
-        transform: translate(calc(var(--field-x, 0) * 18px), calc(var(--field-y, 0) * 12px)) scale(1);
+        opacity: 0.65;
+        transform: translate(calc(var(--field-x, 0) * 16px), calc(var(--field-y, 0) * 10px)) scale(1);
     }
     50% {
-        opacity: 1;
-        transform: translate(calc(var(--field-x, 0) * 18px), calc(var(--field-y, 0) * 12px)) scale(1.08);
+        opacity: 0.95;
+        transform: translate(calc(var(--field-x, 0) * 16px), calc(var(--field-y, 0) * 10px)) scale(1.05);
     }
 }
 
 @keyframes signal-pulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(201, 115, 79, 0.5);
+        box-shadow: 0 0 0 0 rgba(201, 115, 79, 0.45);
     }
     70% {
-        box-shadow: 0 0 0 12px rgba(201, 115, 79, 0);
+        box-shadow: 0 0 0 11px rgba(201, 115, 79, 0);
     }
     100% {
         box-shadow: 0 0 0 0 rgba(201, 115, 79, 0);
@@ -408,12 +460,17 @@ a {
         padding-top: 56px;
     }
 
-    .desk-hero h1 {
-        font-size: clamp(56px, 18vw, 96px);
+    .desk-title-desk {
+        font-size: clamp(3.6rem, 18vw, 6.4rem);
     }
 
     .desk-loop li:not(:last-child)::after {
         display: none;
+    }
+
+    .desk-carrier {
+        inset: 22% -8% 30%;
+        opacity: 0.55;
     }
 }
 
@@ -442,10 +499,18 @@ a {
     .desk-ember,
     .desk-signal,
     .desk-grain,
-    .desk-reveal {
+    html.desk-js .desk-reveal,
+    .desk-list a::before {
         animation: none;
         transition: none;
-        opacity: 1;
+    }
+
+    html.desk-js .desk-reveal {
         transform: none;
+    }
+
+    .desk-carrier-live {
+        stroke-dashoffset: 0;
+        filter: none;
     }
 }
