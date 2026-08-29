@@ -484,3 +484,48 @@ def test_pages_workflow_uses_node_24_actions() -> None:
     assert "actions/configure-pages@v6" in workflow
     assert "actions/upload-pages-artifact@v5" in workflow
     assert "actions/deploy-pages@v5" in workflow
+
+
+def test_signal_desk_page_is_standalone_and_linked() -> None:
+    html = Path("simple.html").read_text(encoding="utf-8")
+    compact = re.sub(r"\s+", " ", html)
+    simple_source = Path("src/simple.ts").read_text(encoding="utf-8")
+    simple_styles = Path("src/simple.css").read_text(encoding="utf-8")
+    vite_config = Path("vite.config.ts").read_text(encoding="utf-8")
+    index = read_html()
+
+    required_html = [
+        'src="/src/simple.ts"',
+        "Signal desk",
+        'class="desk-field"',
+        'data-desk-field',
+        'id="desk-title"',
+        'href="./simple.html"',
+        'href="./#challenge-two"',
+        'href="./#workbench"',
+        ">Observe<",
+        ">Build<",
+        ">Verify<",
+        ">Return<",
+    ]
+    for fragment in required_html:
+        assert fragment in compact
+
+    assert "<style>" not in html
+    assert "pricing" not in html.lower()
+    assert "App Launcher" not in html
+    assert Path("src/simple.ts").exists()
+    assert Path("src/simple.css").exists()
+    assert "simple.html" in vite_config
+    assert 'href="./simple.html"' in index
+    assert "import './simple.css'" in simple_source.replace('"', "'")
+    assert "prefers-reduced-motion" in simple_source
+    assert "prefers-reduced-motion" in simple_styles
+    assert "font-family: var(--desk-serif)" in simple_styles
+    assert "--desk-serif:" in simple_styles
+    assert "Inter" not in simple_styles
+    assert "Roboto" not in simple_styles
+    assert "Arial" not in simple_styles
+    assert "@keyframes signal-pulse" in simple_styles
+    assert "@keyframes ember-breathe" in simple_styles
+    assert "pointermove" in simple_source
