@@ -148,6 +148,7 @@ const projectCount = $<HTMLElement>("project-count");
 const projectSort = $<HTMLElement>("project-sort");
 const projectGroups = $<HTMLElement>("project-groups");
 const projectToggle = $<HTMLButtonElement>("btn-toggle-projects");
+const projectRefresh = $<HTMLButtonElement>("btn-refresh-projects");
 const pulseCard = document.querySelector<HTMLElement>("#pulse-card");
 const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -375,6 +376,8 @@ async function loadProjectCards(
         return;
     }
 
+    projectGrid.setAttribute("aria-busy", "true");
+    projectRefresh.disabled = true;
     projectStatus.textContent =
         "Loading synced project cards from the repository...";
     projectGrid.replaceChildren();
@@ -386,14 +389,17 @@ async function loadProjectCards(
         projectsLoaded = true;
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        projectStatus.textContent = `Failed to fetch GitHub projects: ${message}`;
+        projectStatus.textContent = `Failed to fetch GitHub projects: ${message}. Use refresh to retry.`;
         projectCount.textContent = "GitHub projects unavailable";
         if (cache) {
             renderProjectCards(cache.cards, "cache");
             showToast("Using cached projects");
         } else {
-            showToast("Projects unavailable");
+            showToast("Projects unavailable — refresh to retry");
         }
+    } finally {
+        projectGrid.setAttribute("aria-busy", "false");
+        projectRefresh.disabled = false;
     }
 }
 
@@ -458,7 +464,7 @@ export async function initPulse(): Promise<void> {
 }
 
 export function initProjectControls(): void {
-    $("btn-refresh-projects").addEventListener("click", () => {
+    projectRefresh.addEventListener("click", () => {
         projectsExpanded = false;
         void loadProjectCards({ bypassCache: true });
         showToast("Refreshing projects");

@@ -1,3 +1,4 @@
+import { initAsciiJunctions } from "./ascii-junction.js";
 import { initLetterSwarms } from "./letter-swarm.js";
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
@@ -88,9 +89,11 @@ function populateStars(container: HTMLElement): void {
 }
 
 function revealImmediately(): void {
-    document.querySelectorAll<HTMLElement>(".story-reveal").forEach((element) => {
-        element.classList.add("is-visible");
-    });
+    document
+        .querySelectorAll<HTMLElement>(".story-reveal")
+        .forEach((element) => {
+            element.classList.add("is-visible");
+        });
     document.querySelectorAll<SVGElement>("[data-draw]").forEach((element) => {
         element.classList.add("is-drawn");
     });
@@ -111,7 +114,9 @@ function observeStoryMarks(): void {
                 if (!entry.isIntersecting) return;
                 const element = entry.target as HTMLElement | SVGElement;
                 element.classList.add(
-                    element.hasAttribute("data-draw") ? "is-drawn" : "is-visible",
+                    element.hasAttribute("data-draw")
+                        ? "is-drawn"
+                        : "is-visible",
                 );
                 observer.unobserve(element);
             });
@@ -123,54 +128,74 @@ function observeStoryMarks(): void {
     );
 
     document
-        .querySelectorAll<HTMLElement | SVGElement>(".story-reveal, [data-draw]")
+        .querySelectorAll<HTMLElement | SVGElement>(
+            ".story-reveal, [data-draw]",
+        )
         .forEach((element) => observer.observe(element));
 }
 
 function initResponsiveFields(): void {
     if (window.matchMedia(REDUCED_MOTION_QUERY).matches) return;
 
-    document.querySelectorAll<HTMLElement>("[data-responsive-field]").forEach((field) => {
-        const panel = field.closest<HTMLElement>(".wall-panel");
-        if (!panel) return;
+    document
+        .querySelectorAll<HTMLElement>("[data-responsive-field]")
+        .forEach((field) => {
+            const panel = field.closest<HTMLElement>(".wall-panel");
+            if (!panel) return;
 
-        panel.addEventListener("pointermove", (event) => {
-            const bounds = panel.getBoundingClientRect();
-            setNumberVariable(field, "--field-x", ((event.clientX - bounds.left) / bounds.width - 0.5) * 2);
-            setNumberVariable(field, "--field-y", ((event.clientY - bounds.top) / bounds.height - 0.5) * 2);
+            panel.addEventListener("pointermove", (event) => {
+                const bounds = panel.getBoundingClientRect();
+                setNumberVariable(
+                    field,
+                    "--field-x",
+                    ((event.clientX - bounds.left) / bounds.width - 0.5) * 2,
+                );
+                setNumberVariable(
+                    field,
+                    "--field-y",
+                    ((event.clientY - bounds.top) / bounds.height - 0.5) * 2,
+                );
+            });
+            panel.addEventListener("pointerleave", () => {
+                setNumberVariable(field, "--field-x", 0);
+                setNumberVariable(field, "--field-y", 0);
+            });
         });
-        panel.addEventListener("pointerleave", () => {
-            setNumberVariable(field, "--field-x", 0);
-            setNumberVariable(field, "--field-y", 0);
-        });
-    });
 }
 
 function initPaperTilt(): void {
     if (window.matchMedia(REDUCED_MOTION_QUERY).matches) return;
 
-    document.querySelectorAll<HTMLElement>("[data-paper-tilt]").forEach((paper) => {
-        paper.addEventListener("pointermove", (event) => {
-            const bounds = paper.getBoundingClientRect();
-            const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 9;
-            const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 9;
-            paper.style.setProperty("--paper-x", `${x.toFixed(2)}px`);
-            paper.style.setProperty("--paper-y", `${y.toFixed(2)}px`);
+    document
+        .querySelectorAll<HTMLElement>("[data-paper-tilt]")
+        .forEach((paper) => {
+            paper.addEventListener("pointermove", (event) => {
+                const bounds = paper.getBoundingClientRect();
+                const x =
+                    ((event.clientX - bounds.left) / bounds.width - 0.5) * 9;
+                const y =
+                    ((event.clientY - bounds.top) / bounds.height - 0.5) * 9;
+                paper.style.setProperty("--paper-x", `${x.toFixed(2)}px`);
+                paper.style.setProperty("--paper-y", `${y.toFixed(2)}px`);
+            });
+            paper.addEventListener("pointerleave", () => {
+                paper.style.setProperty("--paper-x", "0px");
+                paper.style.setProperty("--paper-y", "0px");
+            });
         });
-        paper.addEventListener("pointerleave", () => {
-            paper.style.setProperty("--paper-x", "0px");
-            paper.style.setProperty("--paper-y", "0px");
-        });
-    });
 }
 
 function initToneObserver(): void {
-    const night = document.querySelector<HTMLElement>("[data-story-tone='night']");
+    const night = document.querySelector<HTMLElement>(
+        "[data-story-tone='night']",
+    );
     if (!night || !("IntersectionObserver" in window)) return;
 
     const observer = new IntersectionObserver(
         ([entry]) => {
-            document.body.dataset.storyTone = entry?.isIntersecting ? "night" : "paper";
+            document.body.dataset.storyTone = entry?.isIntersecting
+                ? "night"
+                : "paper";
         },
         { rootMargin: "-22% 0px -62%", threshold: 0 },
     );
@@ -185,28 +210,51 @@ function initScrollDynamics(): void {
     let frame: number | null = null;
 
     const update = () => {
-        const range = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const range = Math.max(
+            1,
+            document.documentElement.scrollHeight - window.innerHeight,
+        );
         const progress = clamp(window.scrollY / range, 0, 1);
-        document.documentElement.style.setProperty("--story-progress", progress.toFixed(4));
+        document.documentElement.style.setProperty(
+            "--story-progress",
+            progress.toFixed(4),
+        );
 
         if (opening) {
             const bounds = opening.getBoundingClientRect();
-            const openingRange = Math.max(1, bounds.height - window.innerHeight * 0.55);
+            const openingRange = Math.max(
+                1,
+                bounds.height - window.innerHeight * 0.55,
+            );
             const openingProgress = clamp(-bounds.top / openingRange, 0, 1);
-            opening.style.setProperty("--opening-progress", openingProgress.toFixed(4));
+            opening.style.setProperty(
+                "--opening-progress",
+                openingProgress.toFixed(4),
+            );
         }
 
         if (!window.matchMedia(REDUCED_MOTION_QUERY).matches) {
             depthElements.forEach((element) => {
                 const bounds = element.getBoundingClientRect();
-                if (bounds.bottom < -200 || bounds.top > window.innerHeight + 200) return;
-                const depth = Number.parseFloat(element.dataset.scrollDepth ?? "0");
+                if (
+                    bounds.bottom < -200 ||
+                    bounds.top > window.innerHeight + 200
+                )
+                    return;
+                const depth = Number.parseFloat(
+                    element.dataset.scrollDepth ?? "0",
+                );
                 const offset = clamp(
-                    (window.innerHeight / 2 - (bounds.top + bounds.height / 2)) * depth,
+                    (window.innerHeight / 2 -
+                        (bounds.top + bounds.height / 2)) *
+                        depth,
                     -28,
                     28,
                 );
-                element.style.setProperty("--scroll-shift", `${offset.toFixed(2)}px`);
+                element.style.setProperty(
+                    "--scroll-shift",
+                    `${offset.toFixed(2)}px`,
+                );
             });
         }
         frame = null;
@@ -223,8 +271,13 @@ function initScrollDynamics(): void {
 }
 
 export function initStoryWall(): void {
-    document.querySelectorAll<HTMLElement>("[data-flock]").forEach(populateFlock);
-    document.querySelectorAll<HTMLElement>("[data-stars]").forEach(populateStars);
+    initAsciiJunctions();
+    document
+        .querySelectorAll<HTMLElement>("[data-flock]")
+        .forEach(populateFlock);
+    document
+        .querySelectorAll<HTMLElement>("[data-stars]")
+        .forEach(populateStars);
     initLetterSwarms();
     observeStoryMarks();
     initResponsiveFields();

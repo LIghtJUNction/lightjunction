@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-29T11:03:30Z",
+  "title": "Design System: LIghtJUNction",
+  "extensions": {
+    "colorMeta": {
+      "outer-void": {
+        "role": "neutral",
+        "displayName": "Outer Void",
+        "canonical": "#080908",
+        "tonalRamp": ["#050605", "#080908", "#121311", "#242520", "#44463f", "#74766e", "#b4b5af", "#f0f1ed"]
+      },
+      "obsidian-wall": {
+        "role": "neutral",
+        "displayName": "Obsidian Wall",
+        "canonical": "#191916",
+        "tonalRamp": ["#080908", "#111210", "#191916", "#2b2c27", "#4c4d46", "#7c7d75", "#b8b9b2", "#f0f1ed"]
+      },
+      "bone-ink": {
+        "role": "neutral",
+        "displayName": "Bone Ink",
+        "canonical": "#e8e3d9",
+        "tonalRamp": ["#292723", "#4b4841", "#716d64", "#98938a", "#bbb6ac", "#d4cfc5", "#e8e3d9", "#f8f5ee"]
+      },
+      "oxidized-signal": {
+        "role": "primary",
+        "displayName": "Oxidized Signal",
+        "canonical": "#c9734f",
+        "tonalRamp": ["#3a1b11", "#63301f", "#8b4931", "#ad6042", "#c9734f", "#de977a", "#efc2ad", "#faeee8"]
+      }
+    },
+    "typographyMeta": {
+      "identity": {
+        "displayName": "Identity",
+        "purpose": "The LIghtJUNction name in the opening field."
+      },
+      "display": {
+        "displayName": "Chapter Display",
+        "purpose": "Short chapter propositions and major operating boundaries."
+      },
+      "body": {
+        "displayName": "Reading",
+        "purpose": "Explanatory prose and recovery guidance."
+      },
+      "evidence": {
+        "displayName": "Moving Evidence",
+        "purpose": "ASCII fields, status, controls, commands, values, and timestamps."
+      }
+    },
+    "shadows": [
+      {
+        "name": "instrument-offset",
+        "value": "1rem 1rem 0 rgba(201, 115, 79, 0.72)",
+        "purpose": "Only for a real light instrument or protected artifact lifted from the wall."
+      }
+    ],
+    "motion": [
+      {
+        "name": "route-flow",
+        "value": "requestAnimationFrame + deterministic seeded particles",
+        "purpose": "Move ASCII evidence through the opening junction without random drift."
+      },
+      {
+        "name": "reduced-motion-settle",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Render complete settled route and portrait states immediately."
+      }
+    ],
+    "breakpoints": [
+      { "name": "compact", "value": "420px" },
+      { "name": "mobile", "value": "720px" },
+      { "name": "tablet", "value": "980px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Action Link",
+      "kind": "button",
+      "refersTo": "action-link",
+      "description": "Low-chrome primary and secondary actions on the wall.",
+      "html": "<button class=\"ds-action\">inspect the work <span aria-hidden=\"true\">↓</span></button>",
+      "css": ".ds-action{min-height:2.9rem;padding:.2rem 0;border:0;border-bottom:1px solid currentColor;color:#e8e3d9;background:transparent;font:500 .71rem/1.2 'IBM Plex Mono',monospace}.ds-action:hover{color:#c9734f}.ds-action:focus-visible{outline:2px solid #ef8a61;outline-offset:5px}"
+    },
+    {
+      "name": "Square Instrument Control",
+      "kind": "button",
+      "refersTo": "icon-control",
+      "description": "Theme, fullscreen, and gallery controls.",
+      "html": "<button class=\"ds-control\" aria-label=\"Toggle theme\">◐</button>",
+      "css": ".ds-control{display:grid;place-items:center;width:2.55rem;height:2.55rem;border:1px solid rgba(232,227,217,.16);border-radius:0;color:#e8e3d9;background:transparent;font:500 .82rem/1 'IBM Plex Mono',monospace}.ds-control:hover{border-color:#c9734f;color:#080908;background:#c9734f}.ds-control:focus-visible{outline:2px solid #ef8a61;outline-offset:5px}"
+    },
+    {
+      "name": "Project Evidence Row",
+      "kind": "custom",
+      "refersTo": "instrument-sheet",
+      "description": "A ruled repository row inside the light inspection sheet.",
+      "html": "<article class=\"ds-project\"><h3>api.lmm.best</h3><p>Inspect working evidence, not a marketing card.</p><a href=\"#\">Open</a></article>",
+      "css": ".ds-project{display:grid;grid-template-columns:1fr 2fr auto;gap:1.2rem;padding:1.4rem 0 1.7rem;border-top:1px solid rgba(23,23,19,.38);color:#171713;background:#e8e3d9}.ds-project h3,.ds-project p{margin:0}.ds-project h3{font:650 1.7rem/1 Manrope,Arial,sans-serif}.ds-project p{color:#66635d}.ds-project a{color:#171713}.ds-project a:hover{color:#9d4f32}.ds-project a:focus-visible{outline:2px solid #9d4f32;outline-offset:4px}"
+    },
+    {
+      "name": "ASCII Junction",
+      "kind": "custom",
+      "refersTo": "action-link",
+      "description": "A deterministic route field that converges, reacts, and settles.",
+      "html": "<canvas class=\"ds-ascii\" role=\"img\" aria-label=\"ASCII routes converging at a junction\"></canvas>",
+      "css": ".ds-ascii{display:block;width:100%;height:20rem;color:#e8e3d9;background:#191916;cursor:crosshair;touch-action:pan-y}.ds-ascii:focus-visible{outline:2px solid #ef8a61;outline-offset:5px}"
+    },
+    {
+      "name": "Secure Message Field",
+      "kind": "input",
+      "refersTo": "instrument-sheet",
+      "description": "Protected message input inside the secure contact layer.",
+      "html": "<textarea class=\"ds-message\" placeholder=\"Write the message locally…\"></textarea>",
+      "css": ".ds-message{width:100%;min-height:12rem;padding:1rem;border:1px solid rgba(232,227,217,.16);border-radius:0;color:#e8e3d9;background:#080908;caret-color:#c9734f;font:450 1rem/1.6 Manrope,Arial,sans-serif}.ds-message:focus-visible{outline:2px solid #ef8a61;outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Living Junction Trace",
+    "overview": "LIghtJUNction is rendered as one continuous obsidian wall crossed by an oxidized signal. ASCII routes, repository evidence, live shaders, and operating boundaries all belong to the same trace; motion explains causality rather than decorating a portfolio.",
+    "keyCharacteristics": [
+      "One continuous wall instead of alternating page templates.",
+      "Deterministic ASCII motion as moving evidence, not decoration.",
+      "One oxidized signal accent with large areas of low-chroma material.",
+      "Open composition around real instruments rather than ornamental cards.",
+      "Visible recovery, reduced-motion, keyboard, and ownership boundaries."
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Oxidized Signal identifies active causality; it is not a section background, decorative gradient, or general-purpose brand fill.", "section": "colors" },
+      { "name": "The Evidence Test", "body": "Monospace must name a state, action, coordinate, value, or source. If it does none of those, use Manrope.", "section": "typography" },
+      { "name": "The Instrument Exception", "body": "A surface may lift only when it contains a real tool, artifact, or protected interaction. Narrative copy never becomes a raised card.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do preserve one continuous material and route across the whole public page.",
+      "Do let real state, evidence, and visitor input drive motion.",
+      "Do leave large quiet intervals between dense technical scenes.",
+      "Do keep content and recovery paths visible before animation finishes.",
+      "Do keep reduced-motion output stable and complete."
+    ],
+    "donts": [
+      "Don't reintroduce cream-serif editorial templates, black-blue Swiss portfolios, Matrix rain, card walls, or section-by-section theme swaps.",
+      "Don't use Oxidized Signal as wallpaper or gradient text.",
+      "Don't turn prose into cards, badges, or decorative technical labels.",
+      "Don't copy Fable assets, source, drawings, prose, dimensions, or scene order.",
+      "Don't expose or weaken Challenge II while changing presentation."
+    ]
+  }
+}
