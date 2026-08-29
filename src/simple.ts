@@ -66,15 +66,17 @@ function initDeskField(): void {
         { passive: true },
     );
 
-    window.addEventListener(
-        "blur",
-        () => {
-            targetX = 0;
-            targetY = 0;
-            schedule();
-        },
-        { passive: true },
-    );
+    window.addEventListener("blur", () => {
+        targetX = 0;
+        targetY = 0;
+        schedule();
+    });
+
+    document.documentElement.addEventListener("mouseleave", () => {
+        targetX = 0;
+        targetY = 0;
+        schedule();
+    });
 
     schedule();
 }

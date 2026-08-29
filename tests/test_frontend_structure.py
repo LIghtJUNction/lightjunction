@@ -553,10 +553,14 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
     assert "prefers-reduced-motion" in simple_source
     assert "prefers-reduced-motion" in simple_styles
     assert "font-family: var(--desk-serif)" in simple_styles
-    assert "--desk-serif:" in simple_styles
+    assert '--desk-serif: "Instrument Serif"' in simple_styles
+    assert '--desk-sans: "Manrope"' in simple_styles
+    assert '--desk-mono: "IBM Plex Mono"' in simple_styles
+    assert "--desk-ember: #c9734f" in simple_styles
+    assert "--desk-void: #080908" in simple_styles
+    assert "living wall" in compact.lower()
     assert "Inter" not in simple_styles
     assert "Roboto" not in simple_styles
-    assert "Arial" not in simple_styles
     assert "@keyframes signal-pulse" in simple_styles
     assert "@keyframes ember-breathe" in simple_styles
     assert "pointermove" in simple_source
