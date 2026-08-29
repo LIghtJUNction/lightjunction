@@ -541,6 +541,8 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
         "data-desk-carrier",
         "desk-title-signal",
         "Channels",
+        "data-desk-swarm",
+        'class="desk-swarm"',
     ]
     for fragment in required_html:
         assert fragment in compact
@@ -550,9 +552,11 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
     assert "App Launcher" not in html
     assert Path("src/simple.ts").exists()
     assert Path("src/simple.css").exists()
+    assert Path("src/desk-swarm.ts").exists()
     assert "simple.html" in vite_config
     assert 'href="./simple.html"' in index
     assert "import './simple.css'" in simple_source.replace('"', "'")
+    assert "initDeskSwarm" in simple_source
     assert "prefers-reduced-motion" in simple_source
     assert "prefers-reduced-motion" in simple_styles
     assert "font-family: var(--desk-serif)" in simple_styles
@@ -576,3 +580,14 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
     assert "initLoopPulse" in simple_source
     assert "initChannelTune" in simple_source
     assert "desk-carrier-pulse" in simple_styles
+
+    swarm = Path("src/desk-swarm.ts").read_text(encoding="utf-8")
+    assert "class DeskSwarm" in swarm
+    assert "createParticles" in swarm
+    assert "wavePoint" in swarm
+    assert "prefers-reduced-motion: reduce" in swarm
+    assert "Math.random" not in swarm
+    assert "ResizeObserver" in swarm
+    assert "IntersectionObserver" in swarm
+    assert "--desk-swarm-accent" in simple_styles
+    assert ".desk-swarm" in simple_styles

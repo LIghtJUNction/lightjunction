@@ -1,4 +1,5 @@
 import "./simple.css";
+import { initDeskSwarm } from "./desk-swarm";
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const LOOP_TICK_MS = 1400;
@@ -48,7 +49,6 @@ function initDeskField(): void {
     const field = document.querySelector<HTMLElement>("[data-desk-field]");
     if (!field || prefersReducedMotion()) return;
 
-    const drifts = Array.from(field.querySelectorAll<HTMLElement>("[data-depth]"));
     const live = field.querySelector<SVGPathElement>("[data-carrier-live]");
     const ghost = field.querySelector<SVGPathElement>("[data-carrier-ghost]");
     const pulse = field.querySelector<SVGPathElement>("[data-carrier-pulse]");
@@ -81,20 +81,6 @@ function initDeskField(): void {
             "--carrier-pulse",
             (0.18 + ((elapsed * 0.22 + pointerX * 0.1) % 1)).toFixed(3),
         );
-
-        for (const drift of drifts) {
-            const depth = Number(drift.dataset.depth ?? 0.4);
-            const bobX = Math.sin(elapsed * (0.7 + depth) + depth * 4) * 10 * depth;
-            const bobY = Math.cos(elapsed * (0.9 + depth) + depth * 2) * 12 * depth;
-            drift.style.setProperty(
-                "--motion-x",
-                `${pointerX * depth * 30 + bobX}px`,
-            );
-            drift.style.setProperty(
-                "--motion-y",
-                `${pointerY * depth * 24 + bobY}px`,
-            );
-        }
     };
 
     window.addEventListener(
@@ -157,6 +143,7 @@ function initChannelTune(): void {
 }
 
 revealDesk();
+initDeskSwarm();
 initDeskField();
 initLoopPulse();
 initChannelTune();

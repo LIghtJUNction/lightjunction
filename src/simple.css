@@ -43,6 +43,8 @@
     --desk-sans: "Manrope", "Segoe UI", sans-serif;
     --desk-mono: "IBM Plex Mono", ui-monospace, monospace;
     --desk-focus: #c9734f;
+    --desk-swarm-ink: #c8c2b8;
+    --desk-swarm-accent: #c9734f;
 }
 
 *,
@@ -135,12 +137,21 @@ a {
     animation: grain-shift 20s linear infinite;
 }
 
+.desk-swarm {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    opacity: 0.92;
+}
+
 .desk-carrier {
     position: absolute;
     inset: 8% -4% 18%;
     width: 108%;
     height: 74%;
-    opacity: 0.9;
+    opacity: 0.55;
     transform: translate(calc(var(--field-x, 0) * -12px), calc(var(--field-y, 0) * 8px));
 }
 
@@ -171,31 +182,6 @@ a {
     stroke-dashoffset: calc(1 - var(--carrier-pulse, 0.2));
     opacity: 0.9;
     filter: drop-shadow(0 0 8px rgba(240, 176, 137, 0.45));
-}
-
-.desk-drift {
-    position: absolute;
-    color: var(--desk-ember);
-    font-family: var(--desk-mono);
-    font-size: 18px;
-    opacity: 0.45;
-    transform: translate(var(--motion-x, 0), var(--motion-y, 0));
-}
-
-.desk-drift-one {
-    top: 18%;
-    right: 14%;
-}
-
-.desk-drift-two {
-    top: 62%;
-    left: 11%;
-    color: var(--desk-muted);
-}
-
-.desk-drift-three {
-    bottom: 16%;
-    right: 22%;
 }
 
 .desk-header,
