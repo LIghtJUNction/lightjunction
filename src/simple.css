@@ -486,6 +486,11 @@ a {
 }
 
 .desk-reveal {
+    opacity: 1;
+    transform: none;
+}
+
+html.desk-js .desk-reveal {
     opacity: 0;
     transform: translateY(14px);
     transition:
@@ -494,7 +499,7 @@ a {
     transition-delay: var(--desk-delay, 0ms);
 }
 
-.desk-reveal.is-visible {
+html.desk-js .desk-reveal.is-visible {
     opacity: 1;
     transform: none;
 }
@@ -585,7 +590,7 @@ a {
     .desk-ember,
     .desk-signal,
     .desk-grain,
-    .desk-reveal,
+    html.desk-js .desk-reveal,
     .desk-nav a::after,
     .desk-arrow,
     .desk-list a {
@@ -593,7 +598,7 @@ a {
         transition: none;
     }
 
-    .desk-reveal {
+    html.desk-js .desk-reveal {
         opacity: 1;
         transform: none;
     }

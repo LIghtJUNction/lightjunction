@@ -570,3 +570,5 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
     assert "IntersectionObserver" in simple_source
     assert "Intl.DateTimeFormat" in simple_source
     assert "initDesk()" in simple_source
+    assert "desk-js" in simple_source
+    assert "html.desk-js .desk-reveal" in simple_styles

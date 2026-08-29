@@ -24,14 +24,40 @@ function setCssNumber(element: HTMLElement, name: string, value: number, digits 
     element.style.setProperty(name, value.toFixed(digits));
 }
 
+function showMark(mark: HTMLElement, index: number, animated: boolean): void {
+    if (animated) {
+        mark.style.setProperty(
+            "--desk-delay",
+            `${REVEAL_BASE_DELAY_MS + index * REVEAL_STAGGER_MS}ms`,
+        );
+    } else {
+        mark.style.removeProperty("--desk-delay");
+    }
+    mark.classList.add("is-visible");
+}
+
 function revealDesk(reducedMotion: boolean): void {
     const marks = Array.from(document.querySelectorAll<HTMLElement>(".desk-reveal"));
     if (marks.length === 0) return;
 
-    if (reducedMotion) {
-        for (const mark of marks) mark.classList.add("is-visible");
+    if (reducedMotion || typeof IntersectionObserver !== "function") {
+        marks.forEach((mark, index) => showMark(mark, index, false));
         return;
     }
+
+    // Progressive enhancement: only hide once JS can restore visibility.
+    document.documentElement.classList.add("desk-js");
+
+    const revealVisible = (): void => {
+        const viewportBottom = window.innerHeight * 0.96;
+        marks.forEach((mark, index) => {
+            if (mark.classList.contains("is-visible")) return;
+            const rect = mark.getBoundingClientRect();
+            if (rect.top < viewportBottom && rect.bottom > 0) {
+                showMark(mark, index, true);
+            }
+        });
+    };
 
     const observer = new IntersectionObserver(
         (entries) => {
@@ -39,18 +65,20 @@ function revealDesk(reducedMotion: boolean): void {
                 if (!entry.isIntersecting) continue;
                 const mark = entry.target as HTMLElement;
                 const index = marks.indexOf(mark);
-                mark.style.setProperty(
-                    "--desk-delay",
-                    `${REVEAL_BASE_DELAY_MS + Math.max(0, index) * REVEAL_STAGGER_MS}ms`,
-                );
-                mark.classList.add("is-visible");
+                showMark(mark, Math.max(0, index), true);
                 observer.unobserve(mark);
             }
         },
-        { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+        { threshold: 0.05, rootMargin: "0px 0px -4% 0px" },
     );
 
     for (const mark of marks) observer.observe(mark);
+
+    // Headless browsers and some first paints skip IO callbacks; force in-view reveals.
+    requestAnimationFrame(() => {
+        revealVisible();
+        window.setTimeout(revealVisible, 120);
+    });
 }
 
 function initDeskClock(): void {
@@ -150,10 +178,9 @@ function initDesk(): void {
 
     const syncMotionPreference = (): void => {
         if (!prefersReducedMotion(motionQuery)) return;
-        for (const mark of document.querySelectorAll<HTMLElement>(".desk-reveal")) {
-            mark.classList.add("is-visible");
-            mark.style.removeProperty("--desk-delay");
-        }
+        document.querySelectorAll<HTMLElement>(".desk-reveal").forEach((mark, index) => {
+            showMark(mark, index, false);
+        });
     };
 
     if (typeof motionQuery.addEventListener === "function") {
