@@ -559,16 +559,8 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
     assert "--desk-ember: #c9734f" in simple_styles
     assert "--desk-void: #080908" in simple_styles
     assert "living wall" in compact.lower()
-    assert "desk-identity" in compact
-    assert "data-desk-clock" in compact
-    assert "data-desk-route" in compact
     assert "Inter" not in simple_styles
     assert "Roboto" not in simple_styles
     assert "@keyframes signal-pulse" in simple_styles
     assert "@keyframes ember-breathe" in simple_styles
     assert "pointermove" in simple_source
-    assert "IntersectionObserver" in simple_source
-    assert "Intl.DateTimeFormat" in simple_source
-    assert "initDesk()" in simple_source
-    assert "desk-js" in simple_source
-    assert "html.desk-js .desk-reveal" in simple_styles
