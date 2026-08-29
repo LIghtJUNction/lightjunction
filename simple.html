@@ -39,11 +39,18 @@
             <svg class="desk-carrier" data-desk-carrier viewBox="0 0 1200 800" preserveAspectRatio="none">
                 <path
                     class="desk-carrier-ghost"
+                    data-carrier-ghost
                     d="M-40 420 C180 260 320 560 520 390 S820 220 980 410 1180 560 1240 340"
                 />
                 <path
                     class="desk-carrier-live"
                     data-carrier-live
+                    pathLength="1"
+                    d="M-40 420 C180 260 320 560 520 390 S820 220 980 410 1180 560 1240 340"
+                />
+                <path
+                    class="desk-carrier-pulse"
+                    data-carrier-pulse
                     pathLength="1"
                     d="M-40 420 C180 260 320 560 520 390 S820 220 980 410 1180 560 1240 340"
                 />
@@ -77,16 +84,16 @@
                     Tune into a path and return to the work.
                 </p>
                 <ol class="desk-loop" aria-label="Working loop">
-                    <li class="desk-reveal">Observe</li>
-                    <li class="desk-reveal">Build</li>
-                    <li class="desk-reveal">Verify</li>
-                    <li class="desk-reveal">Return</li>
+                    <li class="desk-reveal" data-loop-step>Observe</li>
+                    <li class="desk-reveal" data-loop-step>Build</li>
+                    <li class="desk-reveal" data-loop-step>Verify</li>
+                    <li class="desk-reveal" data-loop-step>Return</li>
                 </ol>
             </section>
 
             <section class="desk-routes" aria-labelledby="desk-routes-title">
                 <h2 id="desk-routes-title" class="desk-reveal">Channels</h2>
-                <ul class="desk-list">
+                <ul class="desk-list" data-desk-channels>
                     <li class="desk-reveal">
                         <a href="./">
                             <span class="desk-index">01</span>

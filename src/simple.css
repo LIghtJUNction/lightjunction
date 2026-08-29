@@ -164,6 +164,15 @@ a {
     filter: drop-shadow(0 0 10px rgba(201, 115, 79, 0.22));
 }
 
+.desk-carrier-pulse {
+    stroke: #f0b089;
+    stroke-width: 3;
+    stroke-dasharray: 0.08 0.92;
+    stroke-dashoffset: calc(1 - var(--carrier-pulse, 0.2));
+    opacity: 0.9;
+    filter: drop-shadow(0 0 8px rgba(240, 176, 137, 0.45));
+}
+
 .desk-drift {
     position: absolute;
     color: var(--desk-ember);
@@ -274,18 +283,22 @@ a {
 }
 
 .desk-title-signal {
+    display: inline-block;
     color: var(--desk-ember);
     font-family: var(--desk-serif);
     font-style: italic;
     font-size: clamp(2.4rem, 6vw, 4.2rem);
     font-weight: 400;
     letter-spacing: -0.03em;
+    animation: signal-sway 5.5s ease-in-out infinite;
 }
 
 .desk-title-desk {
+    display: inline-block;
     font-size: clamp(4.4rem, 13vw, 9.5rem);
     font-weight: 680;
     letter-spacing: -0.07em;
+    animation: desk-breathe 6.5s ease-in-out infinite;
 }
 
 .desk-lead {
@@ -310,6 +323,13 @@ a {
 
 .desk-loop li {
     position: relative;
+    color: var(--desk-muted);
+    transition: color 220ms ease, transform 220ms ease;
+}
+
+.desk-loop li.is-live {
+    color: var(--desk-ember);
+    transform: translateY(-1px);
 }
 
 .desk-loop li:not(:last-child)::after {
@@ -317,6 +337,7 @@ a {
     position: absolute;
     right: -18px;
     color: var(--desk-ember);
+    opacity: 0.55;
 }
 
 .desk-routes h2 {
@@ -342,6 +363,10 @@ a {
     padding: 17px 0 16px 10px;
     border-bottom: 1px solid var(--desk-line);
     text-decoration: none;
+    transition:
+        transform 220ms ease,
+        background-color 220ms ease,
+        padding-left 220ms ease;
 }
 
 .desk-list a::before {
@@ -357,13 +382,23 @@ a {
     transition: transform 180ms ease;
 }
 
+.desk-list a.is-tuning::before,
 .desk-list a:hover::before,
 .desk-list a:focus-visible::before {
     transform: scaleY(1);
 }
 
+.desk-list a.is-tuning,
+.desk-list a:hover,
+.desk-list a:focus-visible {
+    padding-left: 16px;
+    background: rgba(232, 227, 217, 0.03);
+    transform: translateX(4px);
+}
+
 .desk-list a:hover .desk-label,
-.desk-list a:focus-visible .desk-label {
+.desk-list a:focus-visible .desk-label,
+.desk-list a.is-tuning .desk-label {
     color: var(--desk-ember);
 }
 
@@ -453,6 +488,28 @@ html.desk-js .desk-reveal.is-visible {
     }
 }
 
+@keyframes signal-sway {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-0.4deg);
+    }
+    50% {
+        transform: translateY(-4px) rotate(0.6deg);
+    }
+}
+
+@keyframes desk-breathe {
+    0%,
+    100% {
+        letter-spacing: -0.07em;
+        transform: translateY(0);
+    }
+    50% {
+        letter-spacing: -0.055em;
+        transform: translateY(-2px);
+    }
+}
+
 @media (max-width: 860px) {
     .desk-main {
         grid-template-columns: 1fr;
@@ -499,8 +556,12 @@ html.desk-js .desk-reveal.is-visible {
     .desk-ember,
     .desk-signal,
     .desk-grain,
+    .desk-title-signal,
+    .desk-title-desk,
     html.desk-js .desk-reveal,
-    .desk-list a::before {
+    .desk-list a,
+    .desk-list a::before,
+    .desk-loop li {
         animation: none;
         transition: none;
     }
@@ -509,8 +570,13 @@ html.desk-js .desk-reveal.is-visible {
         transform: none;
     }
 
-    .desk-carrier-live {
+    .desk-carrier-live,
+    .desk-carrier-pulse {
         stroke-dashoffset: 0;
         filter: none;
+    }
+
+    .desk-carrier-pulse {
+        opacity: 0;
     }
 }

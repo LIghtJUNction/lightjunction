@@ -570,3 +570,9 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
     assert "desk-js" in simple_source
     assert "carrier-progress" in simple_source
     assert ".desk-carrier-live" in simple_styles
+    assert "buildCarrierPath" in simple_source
+    assert "data-loop-step" in compact
+    assert "data-desk-channels" in compact
+    assert "initLoopPulse" in simple_source
+    assert "initChannelTune" in simple_source
+    assert "desk-carrier-pulse" in simple_styles
