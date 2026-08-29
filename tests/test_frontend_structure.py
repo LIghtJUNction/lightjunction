@@ -333,7 +333,7 @@ def test_letter_swarm_forms_reacts_and_settles_without_random_drift() -> None:
     swarm = Path("src/letter-swarm.ts").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
 
-    assert 'data-letter-swarm' in html
+    assert "data-letter-swarm" in html
     assert 'class="letter-swarm"' in html
     assert "insidePortrait" in swarm
     assert "createParticles" in swarm
@@ -498,7 +498,7 @@ def test_signal_desk_page_is_standalone_and_linked() -> None:
         'src="/src/simple.ts"',
         "Signal desk",
         'class="desk-field"',
-        'data-desk-field',
+        "data-desk-field",
         'id="desk-title"',
         'href="./simple.html"',
         'href="./#challenge-two"',
