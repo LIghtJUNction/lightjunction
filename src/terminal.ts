@@ -16,6 +16,8 @@ import { initHeroMotion } from "./hero-motion";
 import { initMotion } from "./motion";
 import { mountShaderShowcase } from "./shader-gallery.js";
 // pi-lens-ignore: find-import-file-without-extension
+import { initStoryWall } from "./story-wall";
+// pi-lens-ignore: find-import-file-without-extension
 import {
     ensureProjectCards,
     initProjectControls,
@@ -408,6 +410,7 @@ function boot(): void {
     );
 }
 
+initStoryWall();
 initHeroMotion();
 initMotion();
 mountShaderShowcase();

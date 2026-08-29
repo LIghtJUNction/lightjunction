@@ -39,7 +39,8 @@ function initScrollNav(): void {
                 .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
             if (!visible) return;
             const active = links.find(
-                (link) => byId.get(link.dataset.navLink ?? "") === visible.target,
+                (link) =>
+                    byId.get(link.dataset.navLink ?? "") === visible.target,
             );
             if (active) setCurrentNav(links, active);
         },
@@ -118,7 +119,9 @@ export function initHeroMotion(): void {
         schedule();
     };
 
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointermove", handlePointerMove, {
+        passive: true,
+    });
     window.addEventListener("blur", resetPointer, { passive: true });
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule, { passive: true });

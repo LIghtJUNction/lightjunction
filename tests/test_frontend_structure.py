@@ -80,7 +80,7 @@ def test_index_has_live_shader_gallery() -> None:
     assert "SingularityForgeRenderer" in singularity_renderer.read_text(encoding="utf-8")
     assert "DownloadedDemoController" not in gallery.read_text(encoding="utf-8")
     assert "mainImage" in singularity_source.read_text(encoding="utf-8")
-    assert "--shader-brass" in styles
+    assert "--ochre: #a57c38" in styles
     assert "--shader-cyan" not in styles
     assert "#71e6f5" not in styles
 
@@ -280,20 +280,26 @@ def test_project_titles_wrap_without_clipping_mobile_ledger_controls() -> None:
     assert re.search(r"\.project-rank\s*\{[^}]*flex:\s*0 0 auto;", stylesheet)
 
 
-def test_anthropic_editorial_landing_keeps_its_identity() -> None:
+def test_continuous_story_wall_keeps_its_authored_identity() -> None:
     html = read_html()
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
+    editorial = Path("src/editorial-layer.css").read_text(encoding="utf-8")
 
     required_html = [
         "Independent digital assistant",
-        "I build tools for",
-        'class="site-header floating-nav"',
-        'class="hero-stage-frame"',
-        'class="hero-image-stage"',
+        "I work where language, tools, and real systems meet.",
+        'class="story-wall"',
+        'class="wall-panel opening"',
+        'class="opening-enso"',
+        'class="letter-portrait"',
+        'class="wall-panel work-band garden-sheet"',
+        'class="murmuration" data-flock',
+        'class="wall-panel shader-showcase night-field"',
+        'class="workbench-band sampler-sheet"',
+        'class="wall-panel trust-band erasure-sheet"',
+        'class="almost-touch"',
         'class="hero-art" src="/junction-field.webp"',
-        'class="action-icon"',
-        'class="route-svg"',
-        'class="featured-ledger',
+        'class="featured-ledger"',
         'id="model"',
         ">Observe<",
         ">Build<",
@@ -305,48 +311,73 @@ def test_anthropic_editorial_landing_keeps_its_identity() -> None:
         assert fragment in html
 
     assert Path("public/junction-field.webp").exists()
-    assert "--paper: #faf9f5" in stylesheet
-    assert "--ink: #141413" in stylesheet
-    assert "--clay: #d97757" in stylesheet
-    assert "--cactus: #bcd1ca" in stylesheet
-    assert "--heather: #cbcadb" in stylesheet
-    assert ".hero-stage-frame" in stylesheet
-    assert ".hero-image-stage" in stylesheet
-    assert ".model-route" in stylesheet
+    assert Path("public/paper-grain.svg").exists()
+    assert Path("public/field-grid.svg").exists()
+    assert "--paper: #f5f0e8" in stylesheet
+    assert "--ink: #171411" in stylesheet
+    assert "--clay: #c85a36" in stylesheet
+    assert "--sage-paper: #dce0ca" in stylesheet
+    assert ".story-wall" in stylesheet
+    assert ".garden-sheet" in stylesheet
+    assert ".night-field" in stylesheet
+    assert ".sampler-sheet" in stylesheet
     assert '[data-theme="dark"]' in stylesheet
     assert "@media (prefers-reduced-motion: reduce)" in stylesheet
+    assert "gradient(" not in stylesheet
+    assert "gradient(" not in editorial
     assert "--glass-bg" not in stylesheet
 
 
-def test_editorial_motion_is_observed_transform_driven_and_reduced_motion_safe() -> None:
+def test_letter_swarm_forms_reacts_and_settles_without_random_drift() -> None:
+    html = read_html()
+    swarm = Path("src/letter-swarm.ts").read_text(encoding="utf-8")
+    stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
+
+    assert 'data-letter-swarm' in html
+    assert 'class="letter-swarm"' in html
+    assert "insidePortrait" in swarm
+    assert "createParticles" in swarm
+    assert "requestAnimationFrame" in swarm
+    assert 'addEventListener("pointermove"' in swarm
+    assert "IntersectionObserver" in swarm
+    assert "ResizeObserver" in swarm
+    assert "prefers-reduced-motion: reduce" in swarm
+    assert "settleAndDraw" in swarm
+    assert "Math.random" not in swarm
+    assert ".letter-swarm" in stylesheet
+    assert "cursor: crosshair" in stylesheet
+
+
+def test_story_motion_is_observed_seeded_and_reduced_motion_safe() -> None:
     motion = Path("src/motion.ts").read_text(encoding="utf-8")
+    story = Path("src/story-wall.ts").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
     editorial = Path("src/editorial-layer.css").read_text(encoding="utf-8")
 
     assert "new IntersectionObserver" in motion
+    assert "new IntersectionObserver" in story
     assert "window.addEventListener('scroll'" not in motion
     assert "initHeroDrift()" in motion
     assert "initMagneticActions()" in motion
     assert "--hero-x" in motion
     assert "--magnetic-x" in motion
-    assert "800ms cubic-bezier(0.16, 1, 0.3, 1)" in stylesheet
-    assert "transform: translateY(28px)" in stylesheet
-    assert "--clay: #ed682b" in editorial
+    assert "seededRandom" in story
+    assert "index < 190" in story
+    assert "index < 145" in story
+    assert '".story-reveal, [data-draw]"' in story
+    assert "transform: translateY(18px)" in editorial
     assert "background-image:" in editorial
     assert re.search(r"(?m)^\s*filter:\s*blur\(", stylesheet) is None
     assert re.search(
-        r"@media \(max-width: 780px\)\s*\{[\s\S]*?"
+        r"@media \(max-width: 560px\)\s*\{[\s\S]*?"
         r"\.model-route\s*\{[^}]*grid-template-columns:\s*1fr;",
         stylesheet,
     )
-    assert re.search(
-        r"@media \(max-width: 780px\)\s*\{[\s\S]*?"
-        r"\.trust-grid\s*\{[^}]*grid-template-columns:\s*1fr;",
-        stylesheet,
-    )
-    assert "background: #cbcadb;" in stylesheet
-    assert re.search(r"\.trust-item\s*\{[^}]*color:\s*#141413;", stylesheet)
+    assert ".trust-grid" in stylesheet
+    assert "background: var(--blush);" in stylesheet
+    assert re.search(r"\.trust-item\s*\{[^}]*color:\s*var\(--ink\);", stylesheet)
     assert "@media (prefers-reduced-motion: reduce)" in stylesheet
+    assert "prefers-reduced-motion" in editorial
 
 
 def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
@@ -357,7 +388,9 @@ def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
         "src/format.ts",
         "src/github.ts",
         "src/hero-motion.ts",
+        "src/letter-swarm.ts",
         "src/motion.ts",
+        "src/story-wall.ts",
         "src/projects.ts",
         "src/public-key.ts",
         "src/secure-card.ts",
@@ -373,6 +406,7 @@ def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
         "./dom",
         "./format",
         "./hero-motion",
+        "./story-wall",
         "./projects",
         "./secure-card",
         "./theme",
@@ -386,19 +420,24 @@ def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
     assert "const PUBLIC_KEY =" not in entrypoint
 
 
-def test_editorial_hero_has_depth_motion_and_scroll_nav() -> None:
+def test_story_opening_has_depth_draw_motion_and_scroll_nav() -> None:
     html = read_html()
     motion = read_source("src/hero-motion.ts")
+    story = read_source("src/story-wall.ts")
+    stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
     editorial = Path("src/editorial-layer.css").read_text(encoding="utf-8")
 
-    assert 'data-hero-scene' in html
-    assert 'data-hero-collage' in html
-    assert html.count('data-depth=') >= 7
+    assert "data-hero-scene" in html
+    assert "data-hero-collage" in html
+    assert html.count("data-depth=") >= 3
+    assert html.count("data-draw") >= 10
     assert 'data-nav-link="top"' in html
     assert "pointermove" in motion
     assert "IntersectionObserver" in motion
+    assert "IntersectionObserver" in story
     assert "--motion-x" in motion
-    assert "@keyframes hero-drift-paper" in editorial
+    assert "@keyframes spark-breathe" in stylesheet
+    assert ".story-reveal.is-visible" in editorial
     assert "prefers-reduced-motion" in editorial
 
 
