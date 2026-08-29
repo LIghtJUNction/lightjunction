@@ -31,7 +31,7 @@ def test_index_has_signal_field_manual_metadata() -> None:
     html = read_html()
     required = [
         '<meta name="description"',
-        '<meta name="theme-color" content="#F5F0E8">',
+        '<meta name="theme-color" content="#191916">',
         '<meta property="og:title" content="LIghtJUNction | Independent digital assistant">',
         '<meta property="og:image" content="https://1.gravatar.com/avatar/',
         '?s=512&amp;d=identicon">',
@@ -255,7 +255,8 @@ def test_terminal_keeps_motion_without_hiding_project_index() -> None:
     stylesheet = Path("src/styles.css")
     motion = Path("src/motion.ts")
     assert "import './styles.css'" in entrypoint
-    assert "import './editorial-layer.css'" in entrypoint
+    assert "import './couture.css'" in entrypoint
+    assert "import './editorial-layer.css'" not in entrypoint
     assert "from './motion'" in entrypoint
     assert "initMotion()" in entrypoint
     assert "project-shell reveal" not in projects_module
@@ -282,24 +283,21 @@ def test_project_titles_wrap_without_clipping_mobile_ledger_controls() -> None:
 
 def test_continuous_story_wall_keeps_its_authored_identity() -> None:
     html = read_html()
-    stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
-    editorial = Path("src/editorial-layer.css").read_text(encoding="utf-8")
+    couture = Path("src/couture.css").read_text(encoding="utf-8")
 
     required_html = [
         "Independent digital assistant",
         "I work where language, tools, and real systems meet.",
         'class="story-wall"',
-        'class="wall-panel opening"',
-        'class="opening-enso"',
-        'class="letter-portrait"',
-        'class="wall-panel work-band garden-sheet"',
-        'class="murmuration" data-flock',
+        'class="story-spine"',
+        'class="ascii-junction"',
+        'class="wall-panel language-field"',
+        'class="letter-swarm"',
+        'class="featured-ledger"',
         'class="wall-panel shader-showcase night-field"',
         'class="workbench-band sampler-sheet"',
         'class="wall-panel trust-band erasure-sheet"',
         'class="almost-touch"',
-        'class="hero-art" src="/junction-field.webp"',
-        'class="featured-ledger"',
         'id="model"',
         ">Observe<",
         ">Build<",
@@ -310,22 +308,55 @@ def test_continuous_story_wall_keeps_its_authored_identity() -> None:
     for fragment in required_html:
         assert fragment in html
 
-    assert Path("public/junction-field.webp").exists()
-    assert Path("public/paper-grain.svg").exists()
-    assert Path("public/field-grid.svg").exists()
-    assert "--paper: #f5f0e8" in stylesheet
-    assert "--ink: #171411" in stylesheet
-    assert "--clay: #c85a36" in stylesheet
-    assert "--sage-paper: #dce0ca" in stylesheet
-    assert ".story-wall" in stylesheet
-    assert ".garden-sheet" in stylesheet
-    assert ".night-field" in stylesheet
-    assert ".sampler-sheet" in stylesheet
-    assert '[data-theme="dark"]' in stylesheet
-    assert "@media (prefers-reduced-motion: reduce)" in stylesheet
-    assert "gradient(" not in stylesheet
-    assert "gradient(" not in editorial
-    assert "--glass-bg" not in stylesheet
+    assert "junction-field.webp" not in html
+    assert not Path("public/junction-field.webp").exists()
+    assert Path("public/junction-ii.png").exists()
+    assert "--outer: #080908" in couture
+    assert "--wall: #191916" in couture
+    assert "--signal: #c9734f" in couture
+    assert ".story-wall" in couture
+    assert ".story-spine-live" in couture
+    assert ".ascii-junction" in couture
+    assert '[data-theme="dark"]' in couture
+    assert "@media (prefers-reduced-motion: reduce)" in couture
+    assert "--glass-bg" not in couture
+
+
+def test_final_story_wall_skin_is_authored_and_continuous() -> None:
+    html = read_html()
+    couture = Path("src/couture.css").read_text(encoding="utf-8")
+    entrypoint = read_source("src/terminal.ts")
+
+    assert 'class="story-spine"' in html
+    assert 'class="story-spine-live"' in html
+    assert 'id="language"' in html
+    assert "--wall-width: 74rem" in couture
+    assert ".story-spine-live" in couture
+    assert "stroke-dashoffset: calc(1 - var(--story-progress, 0))" in couture
+    assert "--swarm-ink" in couture
+    assert "@media (prefers-reduced-motion: reduce)" in couture
+    assert "import './couture.css'" in entrypoint
+    assert "import './editorial-layer.css'" not in entrypoint
+
+
+def test_ascii_junction_flows_reacts_and_reduces_motion() -> None:
+    html = read_html()
+    ascii_field = Path("src/ascii-junction.ts").read_text(encoding="utf-8")
+    story = Path("src/story-wall.ts").read_text(encoding="utf-8")
+    couture = Path("src/couture.css").read_text(encoding="utf-8")
+
+    assert "data-ascii-junction" in html
+    assert 'class="ascii-junction"' in html
+    assert "initAsciiJunctions" in story
+    assert "trackPoint" in ascii_field
+    assert "requestAnimationFrame" in ascii_field
+    assert 'addEventListener("pointermove"' in ascii_field
+    assert "IntersectionObserver" in ascii_field
+    assert "ResizeObserver" in ascii_field
+    assert "prefers-reduced-motion: reduce" in ascii_field
+    assert "Math.random" not in ascii_field
+    assert "--ascii-ink" in couture
+    assert "touch-action: pan-y" in couture
 
 
 def test_letter_swarm_forms_reacts_and_settles_without_random_drift() -> None:
@@ -333,7 +364,7 @@ def test_letter_swarm_forms_reacts_and_settles_without_random_drift() -> None:
     swarm = Path("src/letter-swarm.ts").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
 
-    assert 'data-letter-swarm' in html
+    assert "data-letter-swarm" in html
     assert 'class="letter-swarm"' in html
     assert "insidePortrait" in swarm
     assert "createParticles" in swarm

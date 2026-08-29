@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-08-29T11:03:30Z",
+  "shippingRasters": [
+    {
+      "path": "public/junction-ii.png",
+      "origin": "first-party repository artifact",
+      "introducedBy": "897fb1e",
+      "license": "repository-owned",
+      "usage": "Protected public Challenge II artifact and download target",
+      "notes": "No external imagery or reference asset is embedded. Construction details remain intentionally undocumented under the repository's Challenge II integrity rules."
+    }
+  ],
+  "removedRasters": [
+    {
+      "path": "public/junction-field.webp",
+      "reason": "Obsolete decorative illustration was removed from markup and the public build during the authored-wall redesign."
+    }
+  ],
+  "externalReferenceAssetsCopied": false
+}
