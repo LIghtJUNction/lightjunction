@@ -515,3 +515,17 @@ def test_pages_workflow_uses_node_24_actions() -> None:
     assert "actions/configure-pages@v6" in workflow
     assert "actions/upload-pages-artifact@v5" in workflow
     assert "actions/deploy-pages@v5" in workflow
+
+
+def test_pages_deploys_after_successful_project_card_sync() -> None:
+    workflow = Path(".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
+
+    assert re.search(
+        r"workflow_run:\s+workflows: \[Sync Project Cards\]\s+"
+        r"types: \[completed\]\s+branches: \[main\]",
+        workflow,
+    )
+    assert (
+        "if: github.event_name != 'workflow_run' || "
+        "github.event.workflow_run.conclusion == 'success'"
+    ) in workflow
