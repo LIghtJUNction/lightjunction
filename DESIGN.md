@@ -26,7 +26,7 @@ The opening pairs a two-line identity with an original photograph-like sculpture
 
 The language portrait is a framed interactive exhibit beside three operating notes and actual project data. Selected projects form a ruled exhibition checklist, with large names and compact descriptions. The ASCII junction moves to the process chapter, immediately above the four existing steps.
 
-Challenge II keeps its original public surface and asset. The live shader gallery occupies a dark film strip with visible controls, readable fallback states, and horizontal scroll snapping. The archive combines project filters, repository details, and the terminal in one working area.
+Challenge II keeps its original public surface and asset. The four live shader studies occupy a dark film strip with visible controls, readable fallback states, and horizontal scroll snapping. Floating Ink adds warm-paper marbling with a local pointer vortex; Iridescent Fold adds an analytic pleated surface with spectral color and pointer-driven light. Both are original, texture-free material studies that share a bounded single-pass renderer. Paused or offscreen single-pass studies stop requesting animation frames; a paused image still responds to pointer and reset input. Reduced motion starts all studies paused. The archive combines project filters, repository details, and the terminal in one working area.
 
 Principles use a quiet two-column spread. The closing page changes to acid green, with a large serif invitation and the existing contact actions.
 
@@ -34,7 +34,7 @@ Principles use a quiet two-column spread. The closing page changes to acid green
 
 At 760px, the navigation becomes a second, fully visible row. Opening content stacks in reading order, and the artwork shifts to a narrower right-aligned figure. Portrait, selected work, challenge, principles, and shader descriptions become single-column layouts. Repository cards stack below 680px. No essential navigation item disappears.
 
-The map uses a compact mobile control strip and a horizontally scrollable destination dock. Single-pointer dragging coexists with browser pinch zoom. Short viewports omit the opening artwork and secondary descriptions. Interactive controls have at least 44px targets. The gallery track is positioned so its cards and controller share an `offsetLeft` reference; trailing space lets the final narrow study align correctly. The skip-link target accounts for the sticky header.
+The map uses a compact mobile control strip and a horizontally scrollable destination dock. Single-pointer dragging coexists with browser pinch zoom. Short viewports omit the opening artwork and secondary descriptions. Interactive controls have at least 44px targets. The gallery track is positioned so its cards and controller share an `offsetLeft` reference; trailing space lets the final study align correctly. The skip-link target accounts for the sticky header.
 
 ## Motion and accessibility
 
@@ -65,7 +65,7 @@ Existing self-hosted fonts retain their license files. The Challenge II image an
 - `src/exhibit.ts`: original-section mounting, focus, modal isolation and history.
 - `src/expedition.css`: map, controls, exhibit and mobile layouts.
 
-The map introduces no runtime dependency. Happy DOM is a development dependency for DOM interaction tests. `npm run check` runs TypeScript checks, route and interaction tests, and the production build. DOM tests cover input, original-node preservation, direct links, reduced motion, modal history, contact encryption and its cancellation; canvas calls and geometry are stubbed, so they do not verify browser rendering or visual composition.
+The map introduces no runtime dependency. Happy DOM is a development dependency for DOM interaction tests. `npm run check` runs TypeScript checks, route, interaction and shader-controller tests, and the production build. DOM tests cover input, original-node preservation, direct links, reduced motion, modal history, contact encryption and its cancellation; canvas calls and geometry are stubbed, so they do not verify browser rendering or visual composition.
 
 ## Interaction references
 

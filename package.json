@@ -13,8 +13,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run test:exploration && npm run build",
-    "test:exploration": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/expedition-*.test.mjs"
+    "check": "npm run typecheck && npm run test:exploration && npm run test:shaders && npm run build",
+    "test:exploration": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/expedition-*.test.mjs",
+    "test:shaders": "node --test --test-timeout=30000 tests/shader-gallery.test.mjs"
   },
   "dependencies": {
     "openpgp": "^6.3.1"

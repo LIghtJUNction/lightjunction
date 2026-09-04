@@ -192,8 +192,7 @@ body.exploring {
 .exhibit-content .opening-description { margin-top: 1.5rem; }
 .exhibit-content .letter-swarm { height: clamp(20rem, 35vw, 29rem); }
 .exhibit-content .shader-card { flex-basis: 86%; }
-.exhibit-content .shader-card-reserved { flex-basis: 45%; }
-.exhibit-content .shader-gallery-track::after { flex-basis: calc(55% - 1.5rem); }
+.exhibit-content .shader-gallery-track::after { flex-basis: calc(14% - 1.5rem); }
 .exhibit-content .shader-showcase-head h2 { font-size: clamp(3.5rem, 6vw, 6rem); }
 .exhibit-content .shader-card-preview { aspect-ratio: 16/9; }
 .exhibit-content .contact-main h2 { font-size: clamp(3.5rem, 7vw, 7rem); }
@@ -239,8 +238,7 @@ body.exploring {
     #exhibit-title { font-size: .8125rem; }
     #exhibit-close { font-size: .8125rem; gap: .5rem; }
     .exhibit-content .shader-card { flex-basis: 94%; }
-    .exhibit-content .shader-card-reserved { flex-basis: 70%; }
-    .exhibit-content .shader-gallery-track::after { flex-basis: calc(30% - 1.5rem); }
+    .exhibit-content .shader-gallery-track::after { flex-basis: calc(6% - 1.5rem); }
     .exhibit-content .shader-card-preview { aspect-ratio: 4/5; }
 }
 @media (max-height: 600px) {

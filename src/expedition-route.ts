@@ -7,7 +7,7 @@ export const STOPS: readonly Stop[] = [
     { id: 'work', x: 2040, y: 240, title: 'The workshop', note: 'LightFlow, cortexfs, MagicNet, OniMods. Things being made.', action: 'Explore the projects' },
     { id: 'model', x: 2230, y: 1250, title: 'Follow the thread', note: 'Observe. Build. Verify. Return. A practice in motion.', action: 'Follow the process' },
     { id: 'challenge-two', x: 1170, y: 1670, title: 'A closed signal', note: 'One public artifact. An unanswered question.', action: 'Enter Challenge II' },
-    { id: 'shaders', x: -40, y: 1300, title: 'After hours', note: 'Two live worlds of light. Drag inside and change the view.', action: 'Enter the live studies' },
+    { id: 'shaders', x: -40, y: 1300, title: 'After hours', note: 'Four live studies. Travel through light, stir ink, and bend a fold.', action: 'Enter the live studies' },
     { id: 'workbench', x: -1180, y: 740, title: 'The archive', note: 'Browse the repositories, or try a command in the terminal.', action: 'Open the workbench' },
     { id: 'contact', x: -1080, y: -360, title: 'Leave a trace', note: 'Bring a question, a project, or one useful unfinished thing.', action: 'Start a conversation' },
 ];

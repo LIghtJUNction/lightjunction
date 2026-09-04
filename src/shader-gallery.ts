@@ -1,4 +1,6 @@
-import shaderBody from "./shaders/neon-rift.glsl?raw";
+import neonRift from "./shaders/neon-rift.glsl?raw";
+import floatingInk from "./shaders/floating-ink.glsl?raw";
+import iridescentFold from "./shaders/iridescent-fold.glsl?raw";
 import { SingularityForgeRenderer } from "./singularity-renderer.js";
 
 const vertexSource = `#version 300 es
@@ -7,7 +9,7 @@ const vec2 POSITIONS[3] = vec2[3](vec2(-1.0,-1.0), vec2(3.0,-1.0), vec2(-1.0,3.0
 void main() { gl_Position = vec4(POSITIONS[gl_VertexID], 0.0, 1.0); }
 `;
 
-const fragmentSource = `#version 300 es
+const fragmentSource = (shaderBody: string): string => `#version 300 es
 precision highp float;
 uniform vec3 iResolution;
 uniform float iTime;
@@ -24,7 +26,13 @@ const REDUCED_MOTION_QUERY = window.matchMedia(
 const INTERACTIVE_SELECTOR =
     "button, a, canvas, input, textarea, select, summary";
 
-type LiveRenderer = NeonRiftRenderer | SingularityForgeRenderer;
+const FRAGMENT_STUDIES = {
+    neon: { source: neonRift, hint: "drag the route" },
+    ink: { source: floatingInk, hint: "drag to stir the ink" },
+    fold: { source: iridescentFold, hint: "drag to bend the light" },
+};
+type FragmentStudy = (typeof FRAGMENT_STUDIES)[keyof typeof FRAGMENT_STUDIES];
+type LiveRenderer = FragmentStudyRenderer | SingularityForgeRenderer;
 type VisibilityController = LiveRenderer;
 type ShaderAction = "pause" | "reset" | "bloom" | "quality";
 
@@ -47,7 +55,7 @@ function compileShader(
     return shader;
 }
 
-function createProgram(gl: WebGL2RenderingContext): WebGLProgram {
+function createProgram(gl: WebGL2RenderingContext, body: string): WebGLProgram {
     const program = gl.createProgram();
     if (!program) throw new Error("Unable to create the WebGL program.");
 
@@ -55,7 +63,7 @@ function createProgram(gl: WebGL2RenderingContext): WebGLProgram {
     const fragmentShader = compileShader(
         gl,
         gl.FRAGMENT_SHADER,
-        fragmentSource,
+        fragmentSource(body),
     );
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
@@ -73,7 +81,7 @@ function createProgram(gl: WebGL2RenderingContext): WebGLProgram {
 }
 
 // pi-lens-ignore: large-class
-class NeonRiftRenderer {
+class FragmentStudyRenderer {
     private readonly canvas: HTMLCanvasElement;
     private readonly gl: WebGL2RenderingContext;
     private readonly program: WebGLProgram;
@@ -86,10 +94,12 @@ class NeonRiftRenderer {
     private mouseX = 0;
     private mouseY = 0;
     private mouseDown = false;
-    private visible = true;
+    private pointerId: number | null = null;
+    private visible = false;
+    private animationFrame: number | null = null;
     private paused = false;
 
-    constructor(canvas: HTMLCanvasElement) {
+    constructor(canvas: HTMLCanvasElement, private readonly study: FragmentStudy) {
         const gl = canvas.getContext("webgl2", {
             antialias: false,
             alpha: false,
@@ -97,7 +107,7 @@ class NeonRiftRenderer {
         });
         if (!gl) throw new Error("WebGL2 is required for this shader.");
 
-        const program = createProgram(gl);
+        const program = createProgram(gl, study.source);
         const resolutionLocation = gl.getUniformLocation(
             program,
             "iResolution",
@@ -124,18 +134,24 @@ class NeonRiftRenderer {
         this.canvas.addEventListener("pointermove", this.handlePointerMove);
         this.canvas.addEventListener("pointerup", this.handlePointerUp);
         this.canvas.addEventListener("pointercancel", this.handlePointerCancel);
+        this.canvas.addEventListener("lostpointercapture", this.handlePointerCancel);
         this.resizeObserver?.observe(this.canvas);
         window.addEventListener("resize", this.resize);
+        document.addEventListener("visibilitychange", this.requestDraw);
     }
 
     start(): void {
         this.resize();
-        requestAnimationFrame(this.frame);
     }
 
     updateVisibility(visible: boolean): void {
         this.visible = visible;
         this.previous = performance.now();
+        this.requestDraw();
+    }
+
+    status(): string {
+        return this.study.hint;
     }
 
     isPaused(): boolean {
@@ -145,11 +161,18 @@ class NeonRiftRenderer {
     togglePaused(): void {
         this.paused = !this.paused;
         this.previous = performance.now();
+        this.requestDraw();
     }
 
     reset(): void {
         this.elapsed = 0;
+        this.mouseDown = false;
+        if (this.pointerId !== null && this.canvas.hasPointerCapture(this.pointerId)) {
+            this.canvas.releasePointerCapture(this.pointerId);
+        }
+        this.pointerId = null;
         this.previous = performance.now();
+        this.requestDraw();
     }
 
     private resize = (): void => {
@@ -172,6 +195,7 @@ class NeonRiftRenderer {
         this.canvas.width = width;
         this.canvas.height = height;
         this.gl.viewport(0, 0, width, height);
+        this.requestDraw();
     };
 
     private updatePointer(event: PointerEvent): void {
@@ -182,30 +206,50 @@ class NeonRiftRenderer {
         this.mouseY =
             ((bounds.bottom - event.clientY) / Math.max(1, bounds.height)) *
             this.canvas.height;
+        this.requestDraw();
     }
 
     private handlePointerDown = (event: PointerEvent): void => {
+        if (!event.isPrimary || event.button !== 0 || this.pointerId !== null) return;
+        this.pointerId = event.pointerId;
         this.mouseDown = true;
         this.updatePointer(event);
         this.canvas.setPointerCapture(event.pointerId);
     };
 
     private handlePointerMove = (event: PointerEvent): void => {
-        if (this.mouseDown) this.updatePointer(event);
+        if (this.mouseDown && event.pointerId === this.pointerId) this.updatePointer(event);
     };
 
     private handlePointerUp = (event: PointerEvent): void => {
+        if (event.pointerId !== this.pointerId) return;
+        this.pointerId = null;
         this.mouseDown = false;
+        this.requestDraw();
         if (this.canvas.hasPointerCapture(event.pointerId)) {
             this.canvas.releasePointerCapture(event.pointerId);
         }
     };
 
-    private handlePointerCancel = (): void => {
+    private handlePointerCancel = (event: PointerEvent): void => {
+        if (event.pointerId !== this.pointerId) return;
+        this.pointerId = null;
         this.mouseDown = false;
+        this.requestDraw();
+    };
+
+    private requestDraw = (): void => {
+        if (!this.visible || document.hidden) {
+            if (this.animationFrame !== null) cancelAnimationFrame(this.animationFrame);
+            this.animationFrame = null;
+            return;
+        }
+        if (this.animationFrame === null) this.animationFrame = requestAnimationFrame(this.frame);
     };
 
     private frame = (now: number): void => {
+        this.animationFrame = null;
+        if (!this.visible || document.hidden) return;
         const delta = Math.min((now - this.previous) * 0.001, 0.1);
         this.previous = now;
         if (!this.paused) this.elapsed += delta;
@@ -229,7 +273,7 @@ class NeonRiftRenderer {
             this.gl.drawArrays(this.gl.TRIANGLES, 0, 3);
         }
 
-        requestAnimationFrame(this.frame);
+        if (!this.paused) this.requestDraw();
     };
 }
 
@@ -264,9 +308,7 @@ function getAction(button: HTMLButtonElement): ShaderAction | null {
 }
 
 function rendererStatus(renderer: LiveRenderer): string {
-    return renderer instanceof SingularityForgeRenderer
-        ? `Live · ${renderer.status()}`
-        : "Live · drag the route";
+    return `Live · ${renderer.status()}`;
 }
 
 function handleLiveShaderAction(
@@ -287,7 +329,7 @@ function handleLiveShaderAction(
         renderer.reset();
         status.textContent = renderer.isPaused()
             ? "Reset · paused"
-            : `${rendererStatus(renderer)} · route reset`;
+            : `${rendererStatus(renderer)} · reset`;
         return;
     }
     if (!(renderer instanceof SingularityForgeRenderer)) return;
@@ -313,10 +355,14 @@ function initLiveShader(card: HTMLElement): LiveRenderer | null {
     if (!canvas || !status || !fallback) return null;
 
     try {
-        const renderer: LiveRenderer =
-            card.dataset.shaderEngine === "singularity"
-                ? new SingularityForgeRenderer(canvas)
-                : new NeonRiftRenderer(canvas);
+        const engine = card.dataset.shaderEngine ?? "neon";
+        const study = Object.prototype.hasOwnProperty.call(FRAGMENT_STUDIES, engine)
+            ? FRAGMENT_STUDIES[engine as keyof typeof FRAGMENT_STUDIES]
+            : null;
+        if (engine !== "singularity" && !study) throw new Error("Unknown shader study.");
+        const renderer: LiveRenderer = engine === "singularity"
+            ? new SingularityForgeRenderer(canvas)
+            : new FragmentStudyRenderer(canvas, study!);
         renderer.start();
         status.textContent = rendererStatus(renderer);
         for (const button of actionButtons) {
@@ -326,6 +372,14 @@ function initLiveShader(card: HTMLElement): LiveRenderer | null {
                 handleLiveShaderAction(renderer, action, button, status);
             });
         }
+        const pauseButton = actionButtons.find(button => getAction(button) === "pause");
+        const applyMotionPreference = () => {
+            if (pauseButton && renderer.isPaused() !== REDUCED_MOTION_QUERY.matches) {
+                handleLiveShaderAction(renderer, "pause", pauseButton, status);
+            }
+        };
+        applyMotionPreference();
+        REDUCED_MOTION_QUERY.addEventListener("change", applyMotionPreference);
         return renderer;
     } catch {
         canvas.hidden = true;
@@ -516,7 +570,7 @@ function resetLiveShaderFromKeyboard(
         card,
         renderer.isPaused()
             ? "Reset · paused"
-            : `${rendererStatus(renderer)} · route reset`,
+            : `${rendererStatus(renderer)} · reset`,
     );
 }
 

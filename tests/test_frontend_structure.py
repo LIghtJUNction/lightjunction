@@ -57,6 +57,10 @@ def test_index_has_live_shader_gallery() -> None:
         'id="shaders"',
         'data-shader-engine="singularity"',
         "Singularity Forge",
+        'data-shader-engine="ink"',
+        'data-shader-engine="fold"',
+        "Floating Ink",
+        "Iridescent Fold",
         'data-shader-action="bloom"',
         'data-shader-action="quality"',
         ">01 / 04</span",
@@ -71,7 +75,7 @@ def test_index_has_live_shader_gallery() -> None:
     assert not Path("public/shader-demos/2.html.txt").exists()
     assert not Path("src/downloaded-demo.ts").exists()
     assert html.count("data-shader-card") == 4
-    assert html.count("data-shader-canvas") == 2
+    assert html.count("data-shader-canvas") == 4
     assert 'data-demo-id="3"' not in html
     assert "data-shader-demo-frame" not in html
     assert "Internal Beyond" not in html

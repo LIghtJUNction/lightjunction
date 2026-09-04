@@ -653,7 +653,7 @@
 }
 .shader-gallery-track::after {
     content: "";
-    flex: 0 0 calc(65% - 1.5rem);
+    flex: 0 0 calc(22% - 1.5rem);
 }
 .shader-card {
     flex: 0 0 78%;
@@ -725,25 +725,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-}
-.shader-card-reserved {
-    flex-basis: 35%;
-}
-.shader-reserved-preview {
-    display: grid;
-    place-items: center;
-    aspect-ratio: 1;
-    border-bottom: 1px solid #424a3a;
-}
-.shader-reserved-preview span {
-    font: 400 7rem/1 var(--serif);
-    color: #a9aea0;
-}
-.shader-reserved-preview i {
-    display: none;
-}
-.shader-card-reserved .shader-card-body {
-    grid-template-columns: 1fr;
 }
 .shader-gallery-dots {
     display: flex;
@@ -1098,11 +1079,8 @@
     .shader-card {
         flex-basis: 94%;
     }
-    .shader-card-reserved {
-        flex-basis: 70%;
-    }
     .shader-gallery-track::after {
-        flex-basis: calc(30% - 1.5rem);
+        flex-basis: calc(6% - 1.5rem);
     }
     .shader-card-preview {
         aspect-ratio: 4/5;
