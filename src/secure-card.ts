@@ -26,6 +26,7 @@ const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 let log: SecureLog = () => {};
 let encryptedMessage = "";
 let sending = false;
+let encryptionAttempt = 0;
 let previousFocus: HTMLElement | null = null;
 let inertElements: HTMLElement[] = [];
 let secureCardAnimationFrame: number | null = null;
@@ -46,6 +47,7 @@ const drag = {
 };
 
 export function openSecureCard(): void {
+    encryptionAttempt += 1;
     const activeElement = document.activeElement;
     if (
         activeElement instanceof HTMLElement &&
@@ -56,6 +58,7 @@ export function openSecureCard(): void {
     secureMessage.value = "";
     sending = false;
     secureCard.hidden = false;
+    setModalBackgroundInert(secureCard);
     placeSecureCard();
     startSecureCardAnimation();
     showToast("Secure card armed");
@@ -72,6 +75,7 @@ function restorePreviousFocus(): void {
 
 function dismissSecureCard(): void {
     if (secureCard.hidden) return;
+    encryptionAttempt += 1;
     if (
         document.activeElement instanceof HTMLElement &&
         secureCard.contains(document.activeElement)
@@ -83,6 +87,7 @@ function dismissSecureCard(): void {
     sending = false;
     drag.active = false;
     secureCard.classList.remove("dragging");
+    clearModalBackgroundInert();
     restorePreviousFocus();
 }
 
@@ -168,13 +173,16 @@ async function encryptAndReveal(): Promise<void> {
     }
 
     showToast("Encrypting");
+    const attempt = ++encryptionAttempt;
     try {
         const openpgp = await loadOpenPgp();
         const publicKey = await openpgp.readKey({ armoredKey: PUBLIC_KEY });
-        encryptedMessage = (await openpgp.encrypt({
+        const ciphertext = (await openpgp.encrypt({
             message: await openpgp.createMessage({ text }),
             encryptionKeys: publicKey,
         })) as string;
+        if (attempt !== encryptionAttempt || secureCard.hidden) return;
+        encryptedMessage = ciphertext;
 
         secureCard.hidden = true;
         stopSecureCardAnimation();
@@ -195,6 +203,7 @@ async function encryptAndReveal(): Promise<void> {
             showToast("Encrypted; copy manually");
         }
     } catch (error) {
+        if (attempt !== encryptionAttempt || secureCard.hidden) return;
         sending = false;
         log(
             `Encryption failed: ${escapeHtml(error instanceof Error ? error.message : String(error))}`,
@@ -233,12 +242,13 @@ function openGitHubIssue(): void {
     }
 }
 
-function setModalBackgroundInert(): void {
+function setModalBackgroundInert(activeDialog: HTMLElement = resultOverlay): void {
+    clearModalBackgroundInert();
     inertElements = [];
     for (const child of document.body.children) {
         if (
             !(child instanceof HTMLElement) ||
-            child === resultOverlay ||
+            child === activeDialog ||
             child === toast
         )
             continue;
@@ -263,6 +273,7 @@ function showResultDialog(): void {
 }
 
 function closeResult(): void {
+    encryptionAttempt += 1;
     resultOverlay.classList.remove("show");
     resultOverlay.setAttribute("aria-hidden", "true");
     encryptedMessage = "";
@@ -273,9 +284,9 @@ function closeResult(): void {
 const DIALOG_FOCUSABLE_SELECTOR =
     'button:not([disabled]), a[href], textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-function trapResultFocus(event: KeyboardEvent): void {
+function trapResultFocus(event: KeyboardEvent, dialog = resultOverlay): void {
     const focusable = Array.from(
-        resultOverlay.querySelectorAll<HTMLElement>(DIALOG_FOCUSABLE_SELECTOR),
+        dialog.querySelectorAll<HTMLElement>(DIALOG_FOCUSABLE_SELECTOR),
     );
     const first = focusable[0];
     const last = focusable.slice(-1)[0];
@@ -287,13 +298,13 @@ function trapResultFocus(event: KeyboardEvent): void {
     const activeElement = document.activeElement;
     if (
         event.shiftKey &&
-        (activeElement === first || !resultOverlay.contains(activeElement))
+        (activeElement === first || !dialog.contains(activeElement))
     ) {
         event.preventDefault();
         last.focus();
     } else if (
         !event.shiftKey &&
-        (activeElement === last || !resultOverlay.contains(activeElement))
+        (activeElement === last || !dialog.contains(activeElement))
     ) {
         event.preventDefault();
         first.focus();
@@ -311,9 +322,13 @@ function handleGlobalKeydown(event: KeyboardEvent): void {
         return;
     }
 
-    if (event.key === "Escape" && !secureCard.hidden) {
-        event.preventDefault();
-        dismissSecureCard();
+    if (!secureCard.hidden) {
+        if (event.key === "Escape") {
+            event.preventDefault();
+            dismissSecureCard();
+        } else if (event.key === "Tab") {
+            trapResultFocus(event, secureCard);
+        }
     }
 }
 
@@ -379,4 +394,11 @@ export function initSecureCard(logger: SecureLog): void {
     $("result-github").addEventListener("click", openGitHubIssue);
     $("result-close").addEventListener("click", closeResult);
     document.addEventListener("keydown", handleGlobalKeydown);
+    // Dismiss the inner modal before a containing exhibit follows browser history.
+    const dismissOnNavigation = () => {
+        if (resultOverlay.classList.contains("show")) closeResult();
+        else dismissSecureCard();
+    };
+    window.addEventListener("popstate", dismissOnNavigation, { capture: true });
+    window.addEventListener("hashchange", dismissOnNavigation, { capture: true });
 }

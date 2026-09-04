@@ -30,6 +30,7 @@ import { initSecureCard, openSecureCard } from "./secure-card";
 import { initTheme } from "./theme";
 import "./styles.css";
 import "./couture.css";
+import { initExpedition } from "./expedition.js";
 
 type CommandHandler = (args: string[]) => void | Promise<void>;
 type AppId = "projects" | "terminal";
@@ -421,3 +422,5 @@ initSecureCard(writeLine);
 boot();
 switchApp("projects");
 void initPulse();
+
+initExpedition();

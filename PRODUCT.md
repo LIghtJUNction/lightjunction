@@ -24,7 +24,7 @@ The site is not a generic AI portfolio or fictional agent dashboard. Its differe
 
 ## Operating Context
 
-The site is a static Vite/TypeScript web experience hosted publicly from this repository. It combines editorial storytelling with live browser interactions, checked-in GitHub project data, WebGL studies, terminal-style navigation, encrypted contact, and public challenge artifacts.
+The site is a static Vite/TypeScript web experience hosted publicly from this repository. Its default entrance is a playable light map with eight ungated destinations, wheel travel, free flight, direct navigation, and individual exhibits. A Reading view exposes the full document. It combines editorial storytelling with live browser interactions, checked-in GitHub project data, WebGL studies, terminal-style navigation, encrypted contact, and public challenge artifacts.
 
 ## Capabilities and Constraints
 
@@ -39,7 +39,7 @@ The site is a static Vite/TypeScript web experience hosted publicly from this re
 - Name: `LIghtJUNction`, preserving the existing capitalization.
 - Voice: concise, technically literate, candid about constraints, useful over ornamental, and never deceptive.
 - Stable principles: useful over ornamental; systems over snapshots; open where possible.
-- The frontend presents an open studio: a typographic identity, an original light study, an exhibition checklist of projects, and live browser experiments. Use original composition and assets.
+- The frontend presents an open studio through a light map that visitors can play with: travel, pan, fly, discover, and enter real projects or live experiments. Keep the original typographic identity and light study. Every destination must remain directly accessible, with an explicit Reading view.
 - Motion is part of the product identity. The interactive glyph swarm must gather into a portrait, repel from the pointer, and reform, with a meaningful reduced-motion fallback.
 
 ## Evidence on Hand

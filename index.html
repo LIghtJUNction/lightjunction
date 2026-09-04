@@ -98,6 +98,7 @@
                 <a href="#contact" data-nav-link="contact">Contact</a>
             </nav>
             <div class="header-controls">
+                <button class="reading-control" id="btn-reading" type="button" aria-pressed="false" hidden>Explore</button>
                 <a
                     class="github-link"
                     href="https://github.com/LIghtJUNction"
@@ -128,6 +129,46 @@
         </header>
 
         <div class="story-meter" aria-hidden="true"><span></span><i></i></div>
+
+        <section class="expedition" id="explore" aria-label="Explore LIghtJUNction's world" hidden>
+            <canvas id="world-canvas" tabindex="0" aria-label="Interactive light map. Scroll or use arrow keys to travel. Drag to pan. Enter opens the nearest destination; M shows the map; Home returns to the beginning." aria-describedby="world-instructions"></canvas>
+            <div class="world-statement" aria-hidden="true">
+                <span class="folio">An open world / LIghtJUNction</span>
+                <p>Find your<br /><em>own way.</em></p>
+                <span>A few things made.<br />A few things waiting to be found.</span>
+            </div>
+            <img id="world-art" class="world-art" src="/images/light-study.webp" width="1122" height="1402" alt="" aria-hidden="true" />
+            <div class="world-stops" id="world-stops" aria-label="Places in this world"></div>
+            <div class="world-tools" aria-label="Exploration controls">
+                <button id="world-map" type="button" aria-pressed="false">Map <kbd>M</kbd></button>
+                <button id="world-home" type="button">Return home</button>
+                <button id="world-pulse" type="button">Send a pulse</button>
+                <button id="world-help-toggle" type="button" aria-expanded="false" aria-controls="world-help">How to play</button>
+            </div>
+            <div class="world-help" id="world-help" hidden>
+                <strong>Follow a light. Or wander off.</strong>
+                <p>Scroll / arrow keys — travel along the route.<br />Drag — move the map. Tap empty space — fly there.<br />Click a place / Enter — step inside.<br />M — see every destination. Space — send a pulse.</p>
+                <p>On a phone, drag the map or use the previous / next buttons. Everything is also available from the top navigation and Reading view.</p>
+            </div>
+            <div class="world-bottom">
+                <div class="world-location">
+                    <span id="world-count" class="folio">01 / 08 places found</span>
+                    <h1 id="world-title">The junction</h1>
+                    <p id="world-note">A small introduction. A light with somewhere to go.</p>
+                    <button id="world-enter" class="world-enter" type="button">Meet LIghtJUNction ↗</button>
+                    <span class="world-complete">Every place found. The next route is yours.</span>
+                </div>
+                <div class="world-navigation">
+                    <p id="world-instructions">Scroll to travel · Drag to wander · Click a place to enter</p>
+                    <div class="world-dock-wrap">
+                        <button id="world-previous" type="button" aria-label="Travel to previous place">←</button>
+                        <nav id="world-dock" class="world-dock" aria-label="Travel directly to a place"></nav>
+                        <button id="world-next" type="button" aria-label="Travel to next place">→</button>
+                    </div>
+                </div>
+            </div>
+            <div id="world-announcement" class="sr-only" role="status" aria-live="polite"></div>
+        </section>
 
         <main class="story-wall">
             <section
@@ -925,6 +966,7 @@
 
             <section
                 class="wall-panel trust-band erasure-sheet"
+                id="principles"
                 aria-labelledby="trust-title"
             >
                 <header
@@ -984,6 +1026,7 @@
                         thread worth improving. Keep the scope clear; keep
                         secrets out.
                     </p>
+                    <a class="text-action" href="#principles">Read the working principles ↗</a>
                     <div class="contact-actions">
                         <button
                             class="text-action magnetic-action"
@@ -1011,9 +1054,21 @@
             </section>
         </main>
 
+        <section class="exhibit-dialog" id="exhibit-dialog" role="dialog" aria-modal="true" aria-labelledby="exhibit-title" hidden>
+            <div class="exhibit-shell">
+                <header class="exhibit-header">
+                    <span id="exhibit-title">Explore</span>
+                    <button id="exhibit-close" type="button" aria-label="Close and return to the world">Back to the world <span aria-hidden="true">×</span></button>
+                </header>
+                <div class="exhibit-content" id="exhibit-content"></div>
+            </div>
+        </section>
+
         <section
             class="secure-card"
             id="secure-card"
+            role="dialog"
+            aria-modal="true"
             hidden
             aria-label="Secure message card"
         >
