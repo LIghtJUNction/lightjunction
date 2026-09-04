@@ -82,11 +82,11 @@ function switchApp(appId: AppId): void {
         });
 
     workspaceTitle.textContent =
-        appId === "projects" ? "Selected work" : "Terminal experience";
+        appId === "projects" ? "An open body of work." : "Inside the terminal.";
     workspaceKicker.textContent =
         appId === "projects"
-            ? "Field 04 / Library / GitHub"
-            : "Field 04 / Interactive / secure tty";
+            ? "06 / The archive"
+            : "06 / Interactive terminal";
 
     if (appId === "projects") {
         ensureProjectCards();

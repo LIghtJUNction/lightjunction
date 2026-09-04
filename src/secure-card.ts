@@ -88,7 +88,8 @@ function dismissSecureCard(): void {
 
 function placeSecureCard(): void {
     drag.x = Math.max(18, (window.innerWidth - secureCard.offsetWidth) / 2);
-    drag.y = Math.max(80, window.innerHeight - secureCard.offsetHeight - 96);
+    const availableY = window.innerHeight - secureCard.offsetHeight - 12;
+    drag.y = Math.max(12, Math.min(availableY, Math.max(80, availableY - 84)));
     drag.vx = 0;
     drag.vy = 0;
     paintSecureCard();

@@ -31,7 +31,7 @@ def test_index_has_signal_field_manual_metadata() -> None:
     html = read_html()
     required = [
         '<meta name="description"',
-        '<meta name="theme-color" content="#191916">',
+        '<meta name="theme-color" content="#f1f2ed">',
         '<meta property="og:title" content="LIghtJUNction | Independent digital assistant">',
         '<meta property="og:image" content="https://1.gravatar.com/avatar/',
         '?s=512&amp;d=identicon">',
@@ -80,7 +80,6 @@ def test_index_has_live_shader_gallery() -> None:
     assert "SingularityForgeRenderer" in singularity_renderer.read_text(encoding="utf-8")
     assert "DownloadedDemoController" not in gallery.read_text(encoding="utf-8")
     assert "mainImage" in singularity_source.read_text(encoding="utf-8")
-    assert "--ochre: #a57c38" in styles
     assert "--shader-cyan" not in styles
     assert "#71e6f5" not in styles
 
@@ -281,62 +280,37 @@ def test_project_titles_wrap_without_clipping_mobile_ledger_controls() -> None:
     assert re.search(r"\.project-rank\s*\{[^}]*flex:\s*0 0 auto;", stylesheet)
 
 
-def test_continuous_story_wall_keeps_its_authored_identity() -> None:
+def test_studio_keeps_identity_navigation_and_responsive_themes() -> None:
     html = read_html()
     couture = Path("src/couture.css").read_text(encoding="utf-8")
-
-    required_html = [
+    for content in [
         "Independent digital assistant",
         "I work where language, tools, and real systems meet.",
-        'class="story-wall"',
-        'class="story-spine"',
-        'class="ascii-junction"',
-        'class="wall-panel language-field"',
-        'class="letter-swarm"',
-        'class="featured-ledger"',
-        'class="wall-panel shader-showcase night-field"',
-        'class="workbench-band sampler-sheet"',
-        'class="wall-panel trust-band erasure-sheet"',
-        'class="almost-touch"',
-        'id="model"',
-        ">Observe<",
-        ">Build<",
-        ">Verify<",
-        ">Return<",
         "The user owns the accounts and assets.",
-    ]
-    for fragment in required_html:
-        assert fragment in html
-
-    assert "junction-field.webp" not in html
-    assert not Path("public/junction-field.webp").exists()
-    assert Path("public/junction-ii.png").exists()
-    assert "--outer: #080908" in couture
-    assert "--wall: #191916" in couture
-    assert "--signal: #c9734f" in couture
-    assert ".story-wall" in couture
-    assert ".story-spine-live" in couture
-    assert ".ascii-junction" in couture
+        'id="model"',
+        "data-hero-scene",
+        "data-hero-collage",
+        'data-nav-link="top"',
+        'data-nav-link="work"',
+        'data-nav-link="shaders"',
+        'data-nav-link="workbench"',
+        'data-nav-link="contact"',
+    ]:
+        assert content in html
     assert '[data-theme="dark"]' in couture
+    assert "@media (max-width: 760px)" in couture
     assert "@media (prefers-reduced-motion: reduce)" in couture
-    assert "--glass-bg" not in couture
-
-
-def test_final_story_wall_skin_is_authored_and_continuous() -> None:
-    html = read_html()
-    couture = Path("src/couture.css").read_text(encoding="utf-8")
-    entrypoint = read_source("src/terminal.ts")
-
-    assert 'class="story-spine"' in html
-    assert 'class="story-spine-live"' in html
-    assert 'id="language"' in html
-    assert "--wall-width: 74rem" in couture
-    assert ".story-spine-live" in couture
-    assert "stroke-dashoffset: calc(1 - var(--story-progress, 0))" in couture
     assert "--swarm-ink" in couture
-    assert "@media (prefers-reduced-motion: reduce)" in couture
-    assert "import './couture.css'" in entrypoint
-    assert "import './editorial-layer.css'" not in entrypoint
+    assert "--ascii-ink" in couture
+
+
+def test_studio_art_is_local_and_sized_before_loading() -> None:
+    html = read_html()
+    assert 'src="/images/light-study.webp" width="1122" height="1402"' in html
+    assert 'fetchpriority="high"' in html
+    assert Path("public/images/light-study.webp").is_file()
+    assert "<noscript>" in html
+    assert 'href="https://github.com/LIghtJUNction?tab=repositories"' in html
 
 
 def test_ascii_junction_flows_reacts_and_reduces_motion() -> None:
@@ -362,7 +336,7 @@ def test_ascii_junction_flows_reacts_and_reduces_motion() -> None:
 def test_letter_swarm_forms_reacts_and_settles_without_random_drift() -> None:
     html = read_html()
     swarm = Path("src/letter-swarm.ts").read_text(encoding="utf-8")
-    stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
+    stylesheet = Path("src/couture.css").read_text(encoding="utf-8")
 
     assert "data-letter-swarm" in html
     assert 'class="letter-swarm"' in html
@@ -379,36 +353,32 @@ def test_letter_swarm_forms_reacts_and_settles_without_random_drift() -> None:
     assert "cursor: crosshair" in stylesheet
 
 
-def test_story_motion_is_observed_seeded_and_reduced_motion_safe() -> None:
+def test_story_motion_keeps_content_visible_and_honors_reduced_motion() -> None:
     motion = Path("src/motion.ts").read_text(encoding="utf-8")
     story = Path("src/story-wall.ts").read_text(encoding="utf-8")
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
-    editorial = Path("src/editorial-layer.css").read_text(encoding="utf-8")
+    couture = Path("src/couture.css").read_text(encoding="utf-8")
 
     assert "new IntersectionObserver" in motion
     assert "new IntersectionObserver" in story
-    assert "window.addEventListener('scroll'" not in motion
     assert "initHeroDrift()" in motion
     assert "initMagneticActions()" in motion
-    assert "--hero-x" in motion
-    assert "--magnetic-x" in motion
-    assert "seededRandom" in story
-    assert "index < 190" in story
-    assert "index < 145" in story
-    assert '".story-reveal, [data-draw]"' in story
-    assert "transform: translateY(18px)" in editorial
-    assert "background-image:" in editorial
-    assert re.search(r"(?m)^\s*filter:\s*blur\(", stylesheet) is None
-    assert re.search(
-        r"@media \(max-width: 560px\)\s*\{[\s\S]*?"
-        r"\.model-route\s*\{[^}]*grid-template-columns:\s*1fr;",
-        stylesheet,
-    )
-    assert ".trust-grid" in stylesheet
-    assert "background: var(--blush);" in stylesheet
-    assert re.search(r"\.trust-item\s*\{[^}]*color:\s*var\(--ink\);", stylesheet)
+    assert "initLetterSwarms()" in story
+    assert "initAsciiJunctions()" in story
+    assert re.search(r"\.story-reveal\s*\{\s*opacity:\s*1;", stylesheet)
     assert "@media (prefers-reduced-motion: reduce)" in stylesheet
-    assert "prefers-reduced-motion" in editorial
+    assert "touch-action: pan-y" in couture
+    assert "scroll-snap-type: x mandatory" in couture
+
+
+def test_secure_card_layout_matches_its_translation_controller() -> None:
+    stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
+    card = re.search(r"\.secure-card\s*\{([^}]+)\}", stylesheet)
+    assert card is not None
+    assert "position: fixed" in card.group(1)
+    assert "width: min(760px, calc(100vw - 2rem))" in card.group(1)
+    assert "inset: 0" not in card.group(1)
+    assert "overflow-y: auto" in stylesheet
 
 
 def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
@@ -451,25 +421,21 @@ def test_terminal_entrypoint_stays_modular_without_random_visuals() -> None:
     assert "const PUBLIC_KEY =" not in entrypoint
 
 
-def test_story_opening_has_depth_draw_motion_and_scroll_nav() -> None:
+def test_story_opening_keeps_pointer_motion_and_scroll_nav() -> None:
     html = read_html()
     motion = read_source("src/hero-motion.ts")
     story = read_source("src/story-wall.ts")
     stylesheet = Path("src/styles.css").read_text(encoding="utf-8")
-    editorial = Path("src/editorial-layer.css").read_text(encoding="utf-8")
 
     assert "data-hero-scene" in html
     assert "data-hero-collage" in html
     assert html.count("data-depth=") >= 3
-    assert html.count("data-draw") >= 10
     assert 'data-nav-link="top"' in html
     assert "pointermove" in motion
     assert "IntersectionObserver" in motion
     assert "IntersectionObserver" in story
     assert "--motion-x" in motion
-    assert "@keyframes spark-breathe" in stylesheet
-    assert ".story-reveal.is-visible" in editorial
-    assert "prefers-reduced-motion" in editorial
+    assert "prefers-reduced-motion" in stylesheet
 
 
 def test_repository_keeps_formatting_standards() -> None:

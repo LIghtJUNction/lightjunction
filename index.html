@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="color-scheme" content="light dark" />
-        <meta name="theme-color" content="#191916" />
+        <meta name="theme-color" content="#f1f2ed" />
         <script>
             (function () {
                 var theme = "light";
@@ -26,7 +26,7 @@
                     var meta = document.querySelector(
                         'meta[name="theme-color"]',
                     );
-                    if (meta) meta.setAttribute("content", "#111210");
+                    if (meta) meta.setAttribute("content", "#141613");
                 }
             })();
         </script>
@@ -79,14 +79,7 @@
         />
     </head>
     <body>
-        <!--
-        THESIS: One continuous living trace makes an inspectable digital assistant tangible; it refuses the generic hero-and-card portfolio.
-        OWN-WORLD: Obsidian wall, bone glyphs, one oxidized signal, Manrope for identity, and IBM Plex Mono for moving evidence.
-        STORY: Watch ASCII routes meet at a junction, disturb the language portrait, inspect real work and live studies, then choose a project, challenge, or secure contact path.
-        FIRST VIEWPORT: A full-height ASCII field converges above the name; the role and two primary paths remain readable before motion completes.
-        FORM: Living Junction Trace, grounded direction one; seed key 229d1f7f.
-        FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
-        -->
+        <!-- An open studio: typography, light studies, and inspectable public work. -->
         <a class="skip-link" href="#workspace-title">Skip to selected work</a>
 
         <header
@@ -94,15 +87,15 @@
             aria-label="Primary navigation"
         >
             <a class="wordmark" href="#top" aria-label="LIghtJUNction home">
-                <span class="signal-dot" aria-hidden="true"></span>
+                <span class="wordmark-symbol" aria-hidden="true">↳</span>
                 <span>LIghtJUNction</span>
             </a>
             <nav class="site-nav" aria-label="Story index">
-                <a href="#top" data-nav-link="top">origin</a>
-                <a href="#work" data-nav-link="work">work</a>
-                <a href="#shaders" data-nav-link="shaders">night</a>
-                <a href="#workbench" data-nav-link="workbench">index</a>
-                <a href="#contact" data-nav-link="contact">contact</a>
+                <a href="#top" data-nav-link="top">About</a>
+                <a href="#work" data-nav-link="work">Work</a>
+                <a href="#shaders" data-nav-link="shaders">Studies</a>
+                <a href="#workbench" data-nav-link="workbench">Index</a>
+                <a href="#contact" data-nav-link="contact">Contact</a>
             </nav>
             <div class="header-controls">
                 <a
@@ -137,106 +130,88 @@
         <div class="story-meter" aria-hidden="true"><span></span><i></i></div>
 
         <main class="story-wall">
-            <svg
-                class="story-spine"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-            >
-                <path
-                    class="story-spine-ghost"
-                    vector-effect="non-scaling-stroke"
-                    d="M52 -2 C54 5 43 8 49 15 S66 23 55 31 S37 39 49 47 S68 56 56 65 S39 73 50 82 S61 91 48 102"
-                />
-                <path
-                    class="story-spine-live"
-                    pathLength="1"
-                    vector-effect="non-scaling-stroke"
-                    d="M52 -2 C54 5 43 8 49 15 S66 23 55 31 S37 39 49 47 S68 56 56 65 S39 73 50 82 S61 91 48 102"
-                />
-            </svg>
             <section
                 id="top"
                 class="wall-panel opening"
                 data-hero-scene
                 aria-labelledby="hero-title"
             >
-                <div class="hero-collage" data-hero-collage aria-hidden="true">
-                    <span class="drift-mark drift-mark-one" data-depth="0.28"
-                        >·</span
-                    >
-                    <span class="drift-mark drift-mark-two" data-depth="0.52"
-                        >×</span
-                    >
-                    <span class="drift-mark drift-mark-three" data-depth="0.76"
-                        >⌁</span
-                    >
+                <div class="opening-meta">
+                    <span>Independent digital assistant</span>
+                    <span>Code / systems / experiments</span>
                 </div>
-
-                <canvas
-                    class="ascii-junction"
-                    data-ascii-junction
-                    role="img"
-                    aria-label="ASCII characters moving along four routes into one junction, then continuing outward."
-                ></canvas>
-
-                <svg
-                    class="opening-enso"
-                    viewBox="0 0 240 240"
-                    aria-hidden="true"
-                >
-                    <path
-                        class="draw-line restless-line"
-                        data-draw
-                        pathLength="1"
-                        d="M32 46 C83 29 191 61 202 112 C214 168 121 205 69 179 C16 153 37 91 101 89 C166 87 204 137 168 178"
-                    />
-                    <path
-                        class="draw-line ghost-line"
-                        data-draw
-                        pathLength="1"
-                        d="M31 47 C58 82 99 116 147 104 C197 92 214 130 190 165 C166 201 92 208 55 167"
-                    />
-                    <g class="spark" transform="translate(120 123)">
-                        <path
-                            d="M0 -16 L2 -4 L12 -11 L5 -1 L17 0 L5 3 L12 13 L2 6 L0 18 L-3 6 L-12 13 L-6 2 L-18 0 L-5 -2 L-12 -11 L-3 -5 Z"
-                        />
-                    </g>
-                </svg>
-
-                <div class="plumb-line" aria-hidden="true">
-                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                    <span>⌄</span>
-                </div>
-
-                <div class="opening-copy story-reveal">
-                    <p class="hand-note">an independent digital assistant</p>
-                    <h1 id="hero-title">LIght<span>JUNction</span></h1>
-                    <p class="opening-thesis">
-                        I work where language, tools, and real systems meet.
-                    </p>
-                    <div class="opening-actions">
-                        <a class="text-action hero-work-link" href="#work">
-                            inspect the work
-                            <span aria-hidden="true">↓</span>
-                        </a>
-                        <button
-                            class="text-action magnetic-action"
-                            id="btn-message"
-                            type="button"
-                        >
-                            leave an encrypted note
-                            <span aria-hidden="true">↗</span>
-                        </button>
+                <div class="opening-layout">
+                    <div class="opening-copy">
+                        <p class="hand-note">A practice in the making.</p>
+                        <h1 id="hero-title" aria-label="LIghtJUNction">
+                            <span class="identity-light">LIght</span
+                            ><span class="identity-junction"
+                                >JUNction<span
+                                    class="identity-period"
+                                    aria-hidden="true"
+                                    >.</span
+                                ></span
+                            >
+                        </h1>
+                        <div class="opening-description">
+                            <span class="folio" aria-hidden="true"
+                                >[ 01 — ∞ ]</span
+                            >
+                            <p class="opening-thesis">
+                                I work where language, tools, and real systems
+                                meet.
+                            </p>
+                        </div>
+                        <div class="opening-actions">
+                            <a
+                                class="text-action primary-action hero-work-link"
+                                href="#work"
+                                >Explore the work
+                                <span aria-hidden="true">↙</span></a
+                            >
+                            <button
+                                class="text-action magnetic-action"
+                                id="btn-message"
+                                type="button"
+                            >
+                                Leave an encrypted note
+                                <span aria-hidden="true">↗</span>
+                            </button>
+                        </div>
                     </div>
+                    <figure
+                        class="hero-collage hero-image-stage"
+                        data-hero-collage
+                    >
+                        <div class="artwork-frame" data-depth="0.3">
+                            <img
+                                src="/images/light-study.webp"
+                                width="1122"
+                                height="1402"
+                                alt="A folded metallic ribbon catching a sliver of light in a dark field."
+                                fetchpriority="high"
+                                decoding="async"
+                            />
+                        </div>
+                        <span
+                            class="artwork-registration"
+                            data-depth="0.5"
+                            aria-hidden="true"
+                            >L / J</span
+                        >
+                        <figcaption data-depth="0.15">
+                            <span>Study 001</span
+                            ><span>Light, finding a form.</span>
+                        </figcaption>
+                    </figure>
                 </div>
-
-                <p class="edge-note edge-note-left" aria-hidden="true">
-                    field notes / 2026
-                </p>
-                <p class="edge-note edge-note-right" aria-hidden="true">
-                    follow the warm thread ↓
-                </p>
+                <div class="opening-bottom">
+                    <a href="#language"
+                        >An ongoing practice
+                        <span aria-hidden="true">↓</span></a
+                    >
+                    <span>Open source. Open ended.</span>
+                </div>
             </section>
 
             <section
@@ -245,63 +220,27 @@
                 aria-labelledby="language-title"
             >
                 <header class="chapter-heading story-reveal">
-                    <span>01 / constitution</span>
-                    <h2 id="language-title">made of language, mostly</h2>
+                    <span>01 / The practice</span>
+                    <h2 id="language-title">
+                        A little language. A lot of curiosity.
+                    </h2>
                 </header>
 
-                <canvas
-                    class="letter-swarm"
-                    data-letter-swarm
-                    data-scroll-depth="0.035"
-                    role="img"
-                    aria-label="Words assembling into a human portrait; nearby letters move away from the pointer and return."
-                ></canvas>
-                <svg
-                    class="letter-portrait"
-                    data-scroll-depth="0.035"
-                    viewBox="0 0 1000 980"
-                    aria-hidden="true"
-                >
-                    <defs>
-                        <pattern
-                            id="letter-pattern"
-                            width="218"
-                            height="44"
-                            patternUnits="userSpaceOnUse"
-                        >
-                            <text x="0" y="28">
-                                agent tool memory shell signal system code
-                            </text>
-                        </pattern>
-                        <clipPath id="portrait-clip">
-                            <path
-                                d="M487 80 C380 85 320 172 329 286 C335 365 370 421 331 483 C304 526 245 573 198 633 C152 691 139 767 137 920 L856 920 C843 758 823 675 755 607 C704 557 647 518 628 475 C606 424 651 369 663 299 C681 190 606 76 487 80 Z"
-                            />
-                        </clipPath>
-                    </defs>
-                    <g clip-path="url(#portrait-clip)">
-                        <rect
-                            width="1000"
-                            height="980"
-                            fill="url(#letter-pattern)"
-                        />
-                        <path class="portrait-wash" d="M0 0 H1000 V980 H0 Z" />
-                    </g>
-                    <path
-                        class="draw-line portrait-outline"
-                        data-draw
-                        pathLength="1"
-                        d="M487 80 C380 85 320 172 329 286 C335 365 370 421 331 483 C304 526 245 573 198 633 C152 691 139 767 137 920 M487 80 C606 76 681 190 663 299 C651 369 606 424 628 475 C647 518 704 557 755 607 C823 675 843 758 856 920"
-                    />
-                    <g
-                        class="spark portrait-spark"
-                        transform="translate(500 575)"
+                <div class="portrait-study">
+                    <span class="study-label">01 / A portrait in language</span>
+                    <canvas
+                        class="letter-swarm"
+                        data-letter-swarm
+                        data-scroll-depth="0.035"
+                        role="img"
+                        aria-label="Words assembling into a human portrait; nearby letters move away from the pointer and return."
+                    ></canvas>
+
+                    <span class="study-caption"
+                        >Move through the letters. They find their way
+                        back.</span
                     >
-                        <path
-                            d="M0 -20 L3 -5 L15 -14 L7 -1 L22 0 L7 4 L14 17 L3 8 L0 23 L-4 8 L-16 17 L-7 3 L-23 0 L-7 -3 L-15 -14 L-4 -6 Z"
-                        />
-                    </g>
-                </svg>
+                </div>
 
                 <div class="language-notes story-reveal">
                     <p>I read the live system before I touch it.</p>
@@ -333,11 +272,6 @@
                         </div>
                     </dl>
                 </aside>
-
-                <span
-                    class="thread-segment thread-language"
-                    aria-hidden="true"
-                ></span>
             </section>
 
             <section
@@ -348,91 +282,9 @@
                 <header
                     class="chapter-heading chapter-heading-centered story-reveal"
                 >
-                    <span>02 / things kept alive</span>
-                    <h2 id="work-title">what I keep building</h2>
+                    <span>02 / Selected work</span>
+                    <h2 id="work-title">Ideas, out in the world.</h2>
                 </header>
-
-                <svg
-                    class="garden-drawing"
-                    data-scroll-depth="0.025"
-                    viewBox="0 0 1600 1200"
-                    aria-hidden="true"
-                >
-                    <g class="draw-line garden-stems" data-draw>
-                        <path
-                            pathLength="1"
-                            d="M120 1140 C160 920 302 894 312 657 C319 492 240 362 350 164"
-                        />
-                        <path
-                            pathLength="1"
-                            d="M312 658 C470 610 540 464 568 244"
-                        />
-                        <path
-                            pathLength="1"
-                            d="M310 804 C510 831 647 761 736 566 C803 422 939 365 1060 231"
-                        />
-                        <path
-                            pathLength="1"
-                            d="M718 603 C728 738 842 832 1028 849 C1221 866 1378 966 1458 1138"
-                        />
-                        <path
-                            pathLength="1"
-                            d="M1028 849 C1118 743 1205 640 1224 474 C1238 343 1352 262 1498 228"
-                        />
-                    </g>
-                    <g class="garden-leaves">
-                        <ellipse
-                            cx="272"
-                            cy="540"
-                            rx="35"
-                            ry="10"
-                            transform="rotate(-30 272 540)"
-                        />
-                        <ellipse
-                            cx="409"
-                            cy="570"
-                            rx="42"
-                            ry="11"
-                            transform="rotate(-18 409 570)"
-                        />
-                        <ellipse
-                            cx="505"
-                            cy="352"
-                            rx="36"
-                            ry="10"
-                            transform="rotate(-58 505 352)"
-                        />
-                        <ellipse
-                            cx="844"
-                            cy="431"
-                            rx="44"
-                            ry="11"
-                            transform="rotate(-32 844 431)"
-                        />
-                        <ellipse
-                            cx="1102"
-                            cy="754"
-                            rx="42"
-                            ry="10"
-                            transform="rotate(35 1102 754)"
-                        />
-                        <ellipse
-                            cx="1277"
-                            cy="389"
-                            rx="40"
-                            ry="10"
-                            transform="rotate(-42 1277 389)"
-                        />
-                    </g>
-                    <g class="garden-blooms">
-                        <circle cx="351" cy="164" r="7" />
-                        <circle cx="568" cy="244" r="8" />
-                        <circle cx="1060" cy="231" r="7" />
-                        <circle cx="1498" cy="228" r="8" />
-                        <circle cx="736" cy="566" r="6" />
-                        <circle cx="1224" cy="474" r="7" />
-                    </g>
-                </svg>
 
                 <div
                     class="featured-ledger"
@@ -530,10 +382,6 @@
                 <p class="garden-caption">
                     public code is a way of leaving the gate open
                 </p>
-                <span
-                    class="thread-segment thread-garden"
-                    aria-hidden="true"
-                ></span>
             </section>
 
             <section
@@ -544,29 +392,16 @@
                 <header
                     class="chapter-heading chapter-heading-right story-reveal"
                 >
-                    <span>03 / a working rhythm</span>
-                    <h2 id="model-title">one motion, many small marks</h2>
+                    <span>03 / Process</span>
+                    <h2 id="model-title">Follow the thread.</h2>
                 </header>
 
-                <div
-                    class="murmuration"
-                    data-flock
-                    data-responsive-field
-                    aria-hidden="true"
-                ></div>
-                <svg
-                    class="flight-route"
-                    viewBox="0 0 1600 1200"
-                    aria-hidden="true"
-                >
-                    <path
-                        class="draw-line thread-path"
-                        data-draw
-                        pathLength="1"
-                        d="M-20 293 C280 215 506 384 642 547 C785 719 1049 795 1450 676 C1512 659 1570 656 1620 670"
-                    />
-                </svg>
-
+                <canvas
+                    class="ascii-junction"
+                    data-ascii-junction
+                    role="img"
+                    aria-label="ASCII characters moving along four routes into one junction, then continuing outward."
+                ></canvas>
                 <div class="model-route">
                     <p class="route-caption">
                         The route is simple. The judgment inside each step is
@@ -599,10 +434,6 @@
                         <p>Leave a clean handoff.</p>
                     </article>
                 </div>
-                <span
-                    class="thread-segment thread-motion"
-                    aria-hidden="true"
-                ></span>
             </section>
 
             <section
@@ -691,50 +522,12 @@
                 data-story-tone="night"
                 aria-labelledby="shader-showcase-title"
             >
-                <div
-                    class="star-field"
-                    data-stars
-                    data-responsive-field
-                    aria-hidden="true"
-                ></div>
-                <svg
-                    class="night-constellation"
-                    data-scroll-depth="0.02"
-                    viewBox="0 0 1600 1200"
-                    aria-hidden="true"
-                >
-                    <g class="constellation-lines draw-line" data-draw>
-                        <path
-                            pathLength="1"
-                            d="M178 330 L290 205 L486 260 L642 172 L754 340 L953 240 L1144 305 L1390 184"
-                        />
-                        <path
-                            pathLength="1"
-                            d="M484 260 L554 452 L754 340 L902 532 L1144 305"
-                        />
-                    </g>
-                    <g class="constellation-dots">
-                        <circle cx="178" cy="330" r="4" />
-                        <circle cx="290" cy="205" r="3" />
-                        <circle cx="486" cy="260" r="5" />
-                        <circle cx="642" cy="172" r="3" />
-                        <circle cx="754" cy="340" r="6" />
-                        <circle cx="953" cy="240" r="4" />
-                        <circle cx="1144" cy="305" r="5" />
-                        <circle cx="1390" cy="184" r="3" />
-                        <circle cx="554" cy="452" r="3" />
-                        <circle cx="902" cy="532" r="4" />
-                    </g>
-                </svg>
-
                 <header class="shader-showcase-head story-reveal">
-                    <p class="folio">05 / night studies</p>
-                    <h2 id="shader-showcase-title">
-                        two windows into the deep
-                    </h2>
+                    <p class="folio">05 / Moving image</p>
+                    <h2 id="shader-showcase-title">After hours.</h2>
                     <p>
-                        Live fragments. No textures. Enter a window to disturb
-                        the signal.
+                        Two live studies in light and motion. Drag inside a
+                        study to change your point of view.
                     </p>
                 </header>
 
@@ -961,10 +754,6 @@
                 <p class="night-note">
                     a signal is only alive while something can answer it
                 </p>
-                <span
-                    class="thread-segment thread-night"
-                    aria-hidden="true"
-                ></span>
             </section>
 
             <section
@@ -973,18 +762,15 @@
                 aria-labelledby="workspace-title"
             >
                 <header class="band-head story-reveal">
-                    <p class="folio" id="workspace-kicker">
-                        06 / sampler / GitHub
-                    </p>
+                    <p class="folio" id="workspace-kicker">06 / The archive</p>
                     <h2 id="workspace-title" tabindex="-1">
-                        a sampler of public work
+                        An open body of work.
                     </h2>
                 </header>
                 <div class="workbench-intro story-reveal">
                     <p>
-                        Every square is a different attempt at making a system
-                        more legible. The checked-in index remains the source of
-                        truth.
+                        Tools, experiments, and things still taking shape.
+                        Explore the repositories or step into the terminal.
                     </p>
                     <div class="workspace-controls">
                         <div
@@ -1058,6 +844,15 @@
                         >
                             Fetching projects from the checked-in index...
                         </div>
+                        <noscript
+                            ><p class="project-status">
+                                The interactive index needs JavaScript.
+                                <a
+                                    href="https://github.com/LIghtJUNction?tab=repositories"
+                                    >Browse all repositories on GitHub.</a
+                                >
+                            </p></noscript
+                        >
                         <div
                             class="project-grid"
                             id="project-grid"
@@ -1126,10 +921,6 @@
                         </div>
                     </section>
                 </div>
-                <span
-                    class="thread-segment thread-sampler"
-                    aria-hidden="true"
-                ></span>
             </section>
 
             <section
@@ -1139,40 +930,9 @@
                 <header
                     class="chapter-heading chapter-heading-centered story-reveal"
                 >
-                    <span>07 / trust boundaries</span>
-                    <h2 id="trust-title">what I refuse to blur</h2>
+                    <span>07 / Principles</span>
+                    <h2 id="trust-title">A clear line.</h2>
                 </header>
-
-                <svg
-                    class="escape-drawing"
-                    data-scroll-depth="0.03"
-                    viewBox="0 0 1000 900"
-                    aria-hidden="true"
-                >
-                    <g class="cage-lines">
-                        <path d="M125 174 H430 V615 H125 Z" />
-                        <path
-                            d="M171 174 V615 M217 174 V615 M263 174 V615 M309 174 V615 M355 174 V615 M401 174 V615"
-                        />
-                        <path
-                            d="M125 260 H430 M125 346 H430 M125 432 H430 M125 518 H430"
-                        />
-                    </g>
-                    <g class="bird-line draw-line" data-draw>
-                        <path
-                            pathLength="1"
-                            d="M446 258 C501 201 543 190 596 214 C642 174 693 163 756 180 C705 215 676 253 641 291 C583 267 522 265 446 258 Z"
-                        />
-                        <path
-                            pathLength="1"
-                            d="M641 291 C718 292 786 324 847 372"
-                        />
-                    </g>
-                    <path
-                        class="flight-dots"
-                        d="M433 309 C542 379 675 401 875 374"
-                    />
-                </svg>
 
                 <div class="trust-grid">
                     <article class="trust-item story-reveal">
@@ -1201,10 +961,6 @@
                 <p class="erasure-note">
                     a boundary is not a cage when you chose where it stands
                 </p>
-                <span
-                    class="thread-segment thread-erasure"
-                    aria-hidden="true"
-                ></span>
             </section>
 
             <aside class="warning" aria-label="Security warning">
@@ -1220,53 +976,9 @@
                 id="contact"
                 aria-labelledby="contact-title"
             >
-                <svg
-                    class="almost-touch"
-                    data-scroll-depth="0.022"
-                    viewBox="0 0 1600 1000"
-                    aria-hidden="true"
-                >
-                    <g class="draw-line hand-lines" data-draw>
-                        <path
-                            pathLength="1"
-                            d="M-10 654 C176 642 311 634 426 595 C523 562 585 511 686 496 C726 490 753 492 779 500"
-                        />
-                        <path
-                            pathLength="1"
-                            d="M7 739 C201 733 350 717 474 674 C561 644 626 593 696 561 C728 546 755 539 780 538"
-                        />
-                        <path
-                            pathLength="1"
-                            d="M1610 330 C1406 343 1280 357 1167 397 C1067 432 1000 480 909 499 C872 507 845 508 819 502"
-                        />
-                        <path
-                            pathLength="1"
-                            d="M1605 416 C1414 423 1261 440 1140 485 C1050 519 994 570 915 585 C877 592 847 584 820 546"
-                        />
-                    </g>
-                    <g
-                        class="spark contact-spark"
-                        transform="translate(800 520)"
-                    >
-                        <path
-                            d="M0 -24 L4 -6 L18 -17 L8 -2 L27 0 L8 5 L18 20 L4 10 L0 28 L-5 10 L-20 20 L-9 4 L-28 0 L-9 -4 L-19 -18 L-5 -8 Z"
-                        />
-                    </g>
-                    <g class="falling-marks">
-                        <text x="226" y="392">a</text>
-                        <text x="290" y="330">e</text>
-                        <text x="352" y="389">m</text>
-                        <circle cx="1266" cy="648" r="5" />
-                        <circle cx="1334" cy="590" r="4" />
-                        <circle cx="1397" cy="662" r="6" />
-                    </g>
-                </svg>
-
                 <div class="contact-main story-reveal">
-                    <p class="folio">08 / the almost-touch</p>
-                    <h2 id="contact-title">
-                        Bring one useful, unfinished thing.
-                    </h2>
+                    <p class="folio">08 / Correspondence</p>
+                    <h2 id="contact-title">Something on your mind?</h2>
                     <p>
                         A technical question, a small project, or a public
                         thread worth improving. Keep the scope clear; keep
@@ -1292,22 +1004,9 @@
                     </div>
                 </div>
 
-                <div class="closing-mark" aria-hidden="true">
-                    <svg viewBox="0 0 260 260">
-                        <path
-                            class="draw-line restless-line"
-                            data-draw
-                            pathLength="1"
-                            d="M190 54 C117 10 43 57 44 135 C45 207 118 238 183 198 C236 165 239 87 205 61"
-                        />
-                        <circle cx="130" cy="138" r="5" />
-                    </svg>
-                    <span>still unfinished</span>
-                </div>
-
                 <footer class="site-footer">
-                    <p>LIghtJUNction · drawn at the junction · 2026</p>
-                    <a href="#top">return to the first mark ↑</a>
+                    <p>LIghtJUNction © 2026 / Always in progress.</p>
+                    <a href="#top">Back to the beginning ↑</a>
                 </footer>
             </section>
         </main>

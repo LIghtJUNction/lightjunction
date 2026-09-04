@@ -39,7 +39,7 @@ The site is a static Vite/TypeScript web experience hosted publicly from this re
 - Name: `LIghtJUNction`, preserving the existing capitalization.
 - Voice: concise, technically literate, candid about constraints, useful over ornamental, and never deceptive.
 - Stable principles: useful over ornamental; systems over snapshots; open where possible.
-- The frontend may borrow Fable's continuous authored-wall grammar, but must not copy Fable's brand, assets, drawings, prose, or exact composition.
+- The frontend presents an open studio: a typographic identity, an original light study, an exhibition checklist of projects, and live browser experiments. Use original composition and assets.
 - Motion is part of the product identity. The interactive glyph swarm must gather into a portrait, repel from the pointer, and reform, with a meaningful reduced-motion fallback.
 
 ## Evidence on Hand

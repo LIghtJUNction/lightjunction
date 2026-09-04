@@ -5,8 +5,8 @@ export type Theme = 'light' | 'dark'
 
 const THEME_STORAGE_KEY = 'lightjunction.theme'
 const THEME_COLORS: Record<Theme, string> = {
-    light: '#FAF9F5',
-    dark: '#141413',
+    light: '#f1f2ed',
+    dark: '#141613',
 }
 
 const themeButton = $<HTMLButtonElement>('btn-theme')
