@@ -130,7 +130,7 @@ actual="$(openssl dgst -sha256 "$work/fetch.sh" | awk '{print $2}')"
 mkdir -p "$gpg_home" "$HOME/.ssh" "$HOME/.local/share/lightjunction" "$HOME/.local/bin"
 chmod 700 "$gpg_home" "$HOME/.ssh"
 # Fetch must succeed before changing agent/shell configuration or installing timers.
-LIGHTJUNCTION_SSH_PUB_KEY_OUTPUT= bash "$work/fetch.sh" --output "$HOME/.ssh/lightjunction-openpgp.pub"
+LIGHTJUNCTION_SSH_PUB_KEY_OUTPUT='' bash "$work/fetch.sh" --output "$HOME/.ssh/lightjunction-openpgp.pub"
 write_block "$agent_conf" gpg-agent "$agent_settings"
 agent_changed="$block_changed"
 install -m 700 "$work/fetch.sh" "$HOME/.local/share/lightjunction/fetch-ssh-pub-key.sh"
