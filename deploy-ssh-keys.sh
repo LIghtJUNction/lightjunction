@@ -11,7 +11,9 @@ FIRST_PARTY_RAW_BASE="https://raw.githubusercontent.com/LIghtJUNction/lightjunct
 COMMON_LIB_SHA256="${LIGHTJUNCTION_COMMON_LIB_SHA256:-}"
 BOOTSTRAP_LIB_SHA256="${LIGHTJUNCTION_BOOTSTRAP_LIB_SHA256:-}"
 OS_LIB_SHA256="${LIGHTJUNCTION_OS_LIB_SHA256:-}"
+FETCH_SHA256="${LIGHTJUNCTION_FETCH_SHA256:-}"
 if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
+    : "${FETCH_SHA256:=9a60df3d12975f83dea3d8260238aaf4b7bb91bc21dba033573147b5e625bebc}"
     : "${COMMON_LIB_SHA256:=ca059ee1633358864db21c2af98ad150823634ba44378fc6fa51fd302ac4cd86}"
     : "${BOOTSTRAP_LIB_SHA256:=ddda9419f326510a438ba6236e8f7f772e4cde1ae7511d71852f99ae8bea8e90}"
     : "${OS_LIB_SHA256:=5c60bf433dfc6160dee5f8034bafd113b6fd322bb8e58273f474a0393c24f67f}"
@@ -58,6 +60,22 @@ find_gpg() {
     command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null || true
 }
 
+# Embed a verified helper at installation time; periodic jobs download data only.
+download_fetch_script() (
+    set -euo pipefail
+    [[ "$FETCH_SHA256" =~ ^[0-9a-f]{64}$ ]] || {
+        printf 'Required LIGHTJUNCTION_FETCH_SHA256 is missing or invalid\n' >&2; exit 1;
+    }
+    tmp="$(mktemp)"
+    trap 'rm -f -- "$tmp"' EXIT
+    trap 'exit 130' HUP INT TERM
+    curl -fsSL --proto '=https' --proto-redir '=https' --connect-timeout 10 \
+        --max-time 120 "$REMOTE_BASE_URL/fetch-ssh-pub-key.sh" -o "$tmp"
+    actual="$(openssl dgst -sha256 "$tmp" | awk '{print $2}')"
+    [[ "$actual" == "$FETCH_SHA256" ]] || { printf 'Public-key helper SHA256 mismatch\n' >&2; exit 1; }
+    cat "$tmp"
+)
+
 write_sync_script() {
     local path="${1:?}"
     cat >"$path" <<EOF
@@ -68,8 +86,10 @@ KEY_ID="$KEY_ID"
 GPG_PATH="\${GPG_PATH:-\$(command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null || true)}"
 [[ -n "\$GPG_PATH" ]] || { printf 'GPG not found\n' >&2; exit 1; }
 mkdir -p "\$HOME/.ssh"
-"\$GPG_PATH" --keyserver hkps://keyserver.ubuntu.com --recv-keys "\$KEY_ID" >/dev/null 2>&1
-key="\$("\$GPG_PATH" --export-ssh-key "\$KEY_ID")"
+# Run the embedded helper in a subshell so its cleanup traps stay isolated.
+key="\$(
+$FETCH_SCRIPT_BODY
+)"
 [[ "\$key" == ssh-* ]] || { printf 'GPG did not export a valid SSH public key\n' >&2; exit 1; }
 authorized_keys="\$HOME/.ssh/authorized_keys"
 tmp="\$(mktemp "\$HOME/.ssh/authorized_keys.XXXXXX")"
@@ -184,6 +204,7 @@ main() {
         die "GPG not found"
     fi
     ok "GPG: $GPG_PATH"
+    FETCH_SCRIPT_BODY="$(download_fetch_script)"
 
     if [[ -d "/data/data/com.termux/files/home" ]]; then
         install_termux
