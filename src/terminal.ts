@@ -30,6 +30,7 @@ import { initSecureCard, openSecureCard } from "./secure-card";
 import { initTheme } from "./theme";
 import "./styles.css";
 import "./couture.css";
+import { initExpedition } from "./expedition.js";
 
 type CommandHandler = (args: string[]) => void | Promise<void>;
 type AppId = "projects" | "terminal";
@@ -82,11 +83,11 @@ function switchApp(appId: AppId): void {
         });
 
     workspaceTitle.textContent =
-        appId === "projects" ? "Selected work" : "Terminal experience";
+        appId === "projects" ? "An open body of work." : "Inside the terminal.";
     workspaceKicker.textContent =
         appId === "projects"
-            ? "Field 04 / Library / GitHub"
-            : "Field 04 / Interactive / secure tty";
+            ? "06 / The archive"
+            : "06 / Interactive terminal";
 
     if (appId === "projects") {
         ensureProjectCards();
@@ -421,3 +422,5 @@ initSecureCard(writeLine);
 boot();
 switchApp("projects");
 void initPulse();
+
+initExpedition();

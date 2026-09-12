@@ -18,5 +18,5 @@ require_command() {
 
 require_command npm
 
-log "Frontend typecheck + build"
+log "Frontend typecheck + interaction tests + build"
 npm run check

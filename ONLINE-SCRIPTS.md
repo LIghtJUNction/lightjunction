@@ -11,8 +11,52 @@ These scripts can install packages, change system configuration, or modify SSH a
 | `bootstrap-linux.sh` | General Linux bootstrap with optional modules | Linux |
 | `bootstrap-linux-daed.sh` | Linux bootstrap with the `network-daed` module enabled by default | Linux |
 | `bootstrap-macbook.sh` | macOS developer-tool and desktop bootstrap | macOS |
+| `setup-gpg-agent.sh` | Configure a YubiKey client, restore public keys, and install user-level sync | Linux, macOS, Termux/WSL with working smartcard access |
 | `deploy-ssh-keys.sh` | Import the GPG key, update `authorized_keys`, and enable periodic sync | Linux with systemd, Termux |
 | `fetch-ssh-pub-key.sh` | Fetch and print or save the SSH public key derived from GPG | Bash + GPG environments |
+
+## YubiKey client: agent and public keys
+
+Use this on the computer where you plug in the YubiKey. Run as your own user, without `sudo`:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/setup-gpg-agent.sh | bash
+```
+
+Requires GnuPG (including `gpgconf`, `gpg-connect-agent` and a working smartcard backend), pinentry, curl and openssl. On Arch Linux, the relevant packages are `gnupg pinentry curl openssl`. The script does not install packages or alter PC/SC, USB permissions or SELinux. Android and WSL still require working access to the physical card; missing hardware is reported without discarding the installed configuration.
+
+The setup imports the **public** certificate from `https://github.com/LIghtJUNction.gpg`, checks the primary fingerprint `EB21B83AB1E982DF66F08387A67178405F7736FD`, and retains all its public subkeys. Other certificates returned by GitHub are excluded; private-key input is rejected. It saves the SSH authentication public key as `~/.ssh/lightjunction-openpgp.pub`. Neither the primary private key nor a private-key backup is downloaded or required.
+
+Agent configuration and shell integration are managed in marked blocks, with existing content and symlink-based dotfiles preserved. Repeating setup replaces its own blocks instead of appending duplicates. The first replaced version is saved alongside the file as `.lightjunction.bak`. Bash, Zsh (including `ZDOTDIR`) and Fish are supported. A missing pinentry setting is filled automatically; an explicit existing setting is preserved. To select another executable, pass `--pinentry /path/to/pinentry-curses`.
+
+Open a new terminal after setup. To use it immediately in the current Bash/Zsh terminal:
+
+```bash
+. "${XDG_CONFIG_HOME:-$HOME/.config}/lightjunction/gpg-agent.sh"
+```
+
+For Fish, source `~/.config/fish/conf.d/lightjunction-gpg.fish` (or its location under `XDG_CONFIG_HOME`). The environment sets `GPG_TTY`, starts the agent when needed, and obtains `SSH_AUTH_SOCK` from `gpgconf`; an incoming SSH-forwarded agent is preserved. An executed child script cannot export these variables back into its parent terminal.
+
+Check public-key/card availability without creating a commit:
+
+```bash
+gpg --card-status
+ssh-add -L
+```
+
+Run public-key synchronization again at any time:
+
+```bash
+~/.local/bin/lightjunction-key-sync
+```
+
+When a systemd user session is available, setup enables `lightjunction-key-sync.timer` twice daily. It runs the locally installed, SHA256-checked helper, downloading public-key data only. It uses the same `GNUPGHOME` and source settings as setup. On macOS, Termux, or a session without user systemd, use the manual command. `--no-sync` skips timer configuration for this run; it does not disable a timer previously installed. Disable that timer explicitly with `systemctl --user disable --now lightjunction-key-sync.timer`.
+
+Existing cache settings are retained. A new agent configuration uses one-hour idle and eight-hour maximum passphrase-cache TTLs, including the SSH cache. **These are agent cache settings, not a guarantee that a hardware PIN stays verified for eight hours.** Card removal/reset and card policy may require another PIN. The script never changes PINs, touch/UIF, KDF, `forcesig`, ownertrust, Git identity/signing defaults, or `authorized_keys`.
+
+Use `deploy-ssh-keys.sh` only on a **server that should accept this identity**. That separate script updates the managed `authorized_keys` block and keeps its existing systemd/Termux deployment behavior. Its generated sync helper now uses the same GitHub certificate download and fingerprint check. Rerun deployment once to update already-installed old helpers. Downloads or validation failures leave the existing authorized key file intact.
+
+`LIGHTJUNCTION_GPG_URL` overrides the HTTPS certificate URL without changing the expected fingerprint. Explicitly setting `LIGHTJUNCTION_GPG_KEYSERVER` retains the legacy keyserver workflow. A custom `LIGHTJUNCTION_RAW_BASE` for script dependencies requires a matching `LIGHTJUNCTION_FETCH_SHA256` (and the existing library hashes for server deployment).
 
 ## Shared URLs
 

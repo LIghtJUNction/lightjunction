@@ -13,12 +13,15 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run build"
+    "check": "npm run typecheck && npm run test:exploration && npm run test:shaders && npm run build",
+    "test:exploration": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/expedition-*.test.mjs",
+    "test:shaders": "node --test --test-timeout=30000 tests/shader-gallery.test.mjs"
   },
   "dependencies": {
     "openpgp": "^6.3.1"
   },
   "devDependencies": {
+    "happy-dom": "^20.14.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.16"
   }
