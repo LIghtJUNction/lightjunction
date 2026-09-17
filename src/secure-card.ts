@@ -1,5 +1,5 @@
 import { $, escapeHtml } from "./dom.js";
-import { PUBLIC_KEY } from "./public-key.js";
+import { AGE_RECIPIENT, PUBLIC_KEY } from "./public-key.js";
 import { showToast } from "./toast.js";
 
 type OpenPgpModule = typeof import("openpgp");
@@ -175,14 +175,20 @@ async function encryptAndReveal(): Promise<void> {
     showToast("Encrypting");
     const attempt = ++encryptionAttempt;
     try {
-        const openpgp = await loadOpenPgp();
+        const [openpgp, { encryptAge }] = await Promise.all([
+            loadOpenPgp(),
+            import("./age-crypto.js"),
+        ]);
         const publicKey = await openpgp.readKey({ armoredKey: PUBLIC_KEY });
-        const ciphertext = (await openpgp.encrypt({
-            message: await openpgp.createMessage({ text }),
-            encryptionKeys: publicKey,
-        })) as string;
+        const [pgpCiphertext, ageCiphertext] = await Promise.all([
+            openpgp.encrypt({
+                message: await openpgp.createMessage({ text }),
+                encryptionKeys: publicKey,
+            }) as Promise<string>,
+            encryptAge(AGE_RECIPIENT, text),
+        ]);
         if (attempt !== encryptionAttempt || secureCard.hidden) return;
-        encryptedMessage = ciphertext;
+        encryptedMessage = `${pgpCiphertext.trim()}\n\n${ageCiphertext.trim()}\n`;
 
         secureCard.hidden = true;
         stopSecureCardAnimation();
@@ -191,13 +197,13 @@ async function encryptAndReveal(): Promise<void> {
         try {
             await navigator.clipboard.writeText(encryptedMessage);
             log(
-                "Message encrypted with OpenPGP and copied to clipboard.",
+                "Message encrypted with OpenPGP and age (YubiKey), and copied to clipboard.",
                 "success",
             );
             showToast("Encrypted and copied");
         } catch {
             log(
-                "Message encrypted with OpenPGP. Clipboard access was unavailable.",
+                "Message encrypted with OpenPGP and age (YubiKey). Clipboard access was unavailable.",
                 "success",
             );
             showToast("Encrypted; copy manually");
@@ -224,7 +230,7 @@ async function copyEncrypted(): Promise<void> {
 }
 
 function openGitHubIssue(): void {
-    const body = `## Encrypted Message\n\n\`\`\`\n${encryptedMessage}\n\`\`\`\n\n---\nvia lightjunction terminal`;
+    const body = `## Encrypted Message (Dual-Encrypted: GPG + age YubiKey)\n\n\`\`\`\n${encryptedMessage}\n\`\`\`\n\n---\nvia lightjunction terminal`;
     try {
         const issueUrl = new URL(
             "https://github.com/LIghtJUNction/lightjunction/issues/new",

@@ -13,6 +13,7 @@ Instead, contact me via:
 
 - **Email**: lightjunction.me@gmail.com
 - **GPG Key**: `EB21B83AB1E982DF66F08387A67178405F7736FD`
+- **age (YubiKey)**: `age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n`
 
 Please include as much detail as possible. I aim to respond within 48 hours.
 

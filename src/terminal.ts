@@ -220,6 +220,7 @@ const commands = defineCommands({
                 <a href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer">github.com/LIghtJUNction</a>
                 <a href="mailto:lightjunction.me@gmail.com">lightjunction.me@gmail.com</a>
                 <code>PGP EB21B83AB1E982DF66F08387A67178405F7736FD</code>
+                <code>age age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n</code>
             </div>
         `);
     },
@@ -244,7 +245,7 @@ const commands = defineCommands({
     pwd: () => writeLine("/home/guest"),
     ls: () =>
         writeLine(
-            "about.txt&nbsp;&nbsp;projects/&nbsp;&nbsp;contact.sh&nbsp;&nbsp;.pgp-key&nbsp;&nbsp;.bootstrap/",
+            "about.txt&nbsp;&nbsp;projects/&nbsp;&nbsp;contact.sh&nbsp;&nbsp;.pgp-key&nbsp;&nbsp;.age-key&nbsp;&nbsp;.bootstrap/",
         ),
     uname: () => writeLine("lightjunction 2026.06 x86_64 GNU/Linux"),
     fastfetch: () => {
