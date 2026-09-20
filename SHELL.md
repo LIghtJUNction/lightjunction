@@ -1,100 +1,74 @@
 # Bash helpers
 
-Use Bash, including Termux's Bash. These files are not POSIX `sh` scripts.
-Run checked-out entrypoints with `bash script.sh`; this also avoids relying on
-Android having `/bin/bash` or `/usr/bin/env` at desktop Linux paths.
-
-## Import a library
+Use Bash, not POSIX `sh`. Local files and online scripts use the same loader.
 
 ```bash
 source ./basic.sh
-import "$LIBRARY_URL" "$REVIEWED_SHA256"
+import lib/common.sh
+import lib/os.sh
 ```
 
-The original repository-relative API still works:
+Online:
 
 ```bash
-import lib/str.sh main lightjunction LIghtJUNction \
-    https://raw.githubusercontent.com "$REVIEWED_SHA256"
+BASE=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main
+source <(curl -fsSL "$BASE/basic.sh")
+import lib/os.sh
+import https://example.org/library.sh
 ```
 
-The checksum must be a trusted, lowercase SHA256 digest of the exact file.
-Use a reviewed commit URL for reproducible imports. Downloading a digest from
-an untrusted location alongside the script does not establish authenticity.
+`import` uses process substitution, loads in the current shell and deduplicates
+successful imports. No checksum, temporary script file or cleanup trap is needed.
+The original five repository arguments still work; omit the old sixth hash argument.
 
-Imports fetch the complete text, verify its digest, then source it in the
-current shell with process substitution:
+`lj_fetch path-or-url` prints a local file when available, otherwise downloads it.
+`run_script path-or-url [args...]` runs an executable in a separate Bash process,
+so its shell options, traps and `exit` do not affect the caller.
+
+The loader waits for the download process and returns download/source errors.
+This is streaming execution, not a transaction: a partial response may have
+already executed before a network failure is reported. Use trusted sources.
+
+## Sources and revisions
+
+`LIGHTJUNCTION_RAW_BASE` overrides the repository URL. `LIGHTJUNCTION_REF` selects
+a branch, tag or commit when no custom base is supplied. Set it before loading
+an entrypoint or `basic.sh`; dependencies use the same selected base.
 
 ```bash
-source <(printf '%s' "$content")
+export LIGHTJUNCTION_REF="<commit-sha>"
+BASE="https://raw.githubusercontent.com/LIghtJUNction/lightjunction/$LIGHTJUNCTION_REF"
+bash <(curl -fsSL "$BASE/bootstrap-linux.sh") --help
 ```
 
-There are no temporary script files or cleanup traps. The buffer deliberately
-preserves trailing newlines. A failed download cannot execute a partial script;
-a failed import is not cached. Successful imports are cached by URL and digest.
-Sourced libraries can define functions and globals but do not consume stdin.
-This loader is for small text libraries, not binary files or large downloads.
+Checked-out scripts prefer their own directory, not the caller's working
+directory. `LIGHTJUNCTION_ROOT` can explicitly select a local checkout.
 
-A bare `source <(curl ...)` is shorter, but its exit status does not by itself
-report the asynchronous curl process's failure. It can also run a partial
-response before that failure is known. The buffer and digest check are kept for
-that reason. Imported code remains trusted code, not a sandbox or transaction.
+## Shared behavior
 
-## Helper conventions
+`lib/common.sh` provides command checks, private temporary files and data hashes.
+Data hash functions are utilities, not mandatory script-verification steps.
+`lib/bootstrap.sh` provides logging, prompts, temporary-directory cleanup and
+managed configuration blocks. The block writer preserves symlinks and modes,
+keeps a first backup, rejects malformed markers and does not rewrite unchanged files.
 
-Libraries can be sourced directly from `lib/`. They do not install packages.
-Errors return nonzero instead of terminating the caller or changing global
-shell options. Use `set -euo pipefail` in executable entrypoints as appropriate;
-functions expected to fail belong in an explicit `if` or `||` check.
+Termux paths honor `TMPDIR`, then `$PREFIX/tmp`, then `/tmp`. Invoke entrypoints
+with `bash script.sh`; installed sync helpers use the actual Bash path. The Linux
+bootstrap supports Termux shell packages without sudo; systemd, desktop and
+btrfs modules are rejected before installation there.
 
-Array helpers accept values as separate arguments. `arr_contains` takes the
-needle first. Numeric reductions use Bash integers and reject expressions.
-Empty sorts/slices print nothing; empty minimum, maximum and average fail.
-`arr_filter` treats status 1 as rejection and propagates other callback errors.
-
-String splitting and replacement use literal strings, not shell patterns.
-Padding leaves existing spaces untouched. Length and padding follow the
-caller's locale, so use a UTF-8 locale for character counts. `str_rand` is for
-non-secret labels; use `openssl rand` for credentials.
-
-Network helpers share timeout options. File downloads replace their target only
-after success; POST data is literal, including a leading `@`. DNS lookup needs
-`getent` or `nslookup`; `net_github_latest` needs `jq` for JSON parsing.
-
-## Behavior changes
-
-- `env.sh` preserves the caller's locale and shell options. Set `STRICT_MODE=1`
-  before sourcing it to explicitly enable strict mode. Any nonempty `NO_COLOR`
-  disables color. Non-terminal output contains no cursor-control sequences.
-- Logging prints literal messages to stderr. It no longer rewrites prior lines
-  or exports wrappers without their dependencies. Source `log.sh` in a child
-  shell that needs it.
-- `file_temp [suffix]` **creates** a private file; callers remove it when done.
-  It honors `TMPDIR`, then `$PREFIX/tmp`, then `/tmp`. `file_write` rejects
-  symlinks and directories rather than silently replacing them.
-- `os_sleep` uses native `sleep`, not Python or Perl. Termux detection uses its
-  environment as well as the reported platform; `os_tmpdir` respects explicit
-  temporary-directory settings before defaults.
-- Review helpers require a terminal or explicit `--confirm`. Prompt helpers
-  read `/dev/tty`, keep passwords local, and do not merge command output streams.
-
-SSH deployment retains its pinned GPG identity, managed-key block validation
-and embedded sync helper. Public-key downloads and script verification remain
-separate. Existing installed helpers are not changed until deployment is rerun.
+GPG public-certificate fingerprint validation is unchanged. Installed key-sync
+helpers contain local code; scheduled runs download public-key data only.
 
 ## Checks
 
 ```bash
 bash scripts/check-shell.sh
-uv run pytest tests/test_shell_helpers.py tests/test_shell_contracts.py
-bash scripts/check.sh
+uv run pytest tests/test_shell_loader.py tests/test_shell_helpers.py tests/test_shell_contracts.py tests/test_yubikey_setup.py
 ```
 
-The check entrypoints share `scripts/lib/check-common.sh`. Shell checks use
-Git's NUL-delimited tracked-file list, so add new scripts before running them.
-Python checks do not delete existing bytecode caches on exit.
+Tests use isolated homes, mocked installers and temporary GPG keys. They do not
+install host packages or prove compatibility with physical Android/macOS devices.
 
-Regression tests use isolated Bash subprocesses, temporary paths and mock
-commands; they do not run installers or change live SSH access. Termux path
-handling and platform detection are simulated. Passing these tests is not a
-claim of testing on an Android device, a smartcard, or macOS's bundled Bash.
+References: [Bash process substitution](https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html),
+[Termux execution environment](https://github.com/termux/termux-packages/wiki/Termux-execution-environment).

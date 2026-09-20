@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import os
 import shutil
 import subprocess
@@ -44,7 +43,7 @@ def sandbox(tmp_path: Path) -> tuple[Path, dict[str, str]]:
         MOCK_LOG=str(tmp_path / "calls"),
         MOCK_LISTING=str(listing),
         MOCK_PAYLOAD=str(payload),
-        MOCK_FETCH=str(ROOT / "fetch-ssh-pub-key.sh"),
+        MOCK_ROOT=str(ROOT),
         MOCK_SSH_KEY=SSH_KEY,
     )
     executable(
@@ -53,12 +52,15 @@ def sandbox(tmp_path: Path) -> tuple[Path, dict[str, str]]:
 output=''; source_file="$MOCK_PAYLOAD"
 while (($#)); do
     case "$1" in
-        *fetch-ssh-pub-key.sh) source_file="$MOCK_FETCH"; shift ;;
+        https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/*)
+            relative="${1#https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/}"
+            source_file="$MOCK_ROOT/$relative"
+            shift ;;
         -o) output="$2"; shift 2 ;;
         *) shift ;;
     esac
 done
-cp "$source_file" "$output"
+if [[ -n "$output" ]]; then cp "$source_file" "$output"; else cat "$source_file"; fi
 exit "${MOCK_CURL_STATUS:-0}"
 """,
     )
@@ -235,14 +237,12 @@ def test_setup_rejects_malformed_blocks(sandbox: tuple[Path, dict[str, str]]) ->
     assert not (home / ".bashrc").exists()
 
 
-def test_setup_checksum_rejects_helper(sandbox: tuple[Path, dict[str, str]]) -> None:
+def test_setup_does_not_require_a_script_checksum(sandbox: tuple[Path, dict[str, str]]) -> None:
     home, env = sandbox
-    env["LIGHTJUNCTION_FETCH_SHA256"] = "0" * 64
+    env["LIGHTJUNCTION_FETCH_SHA256"] = "obsolete-value-is-ignored"
     result = run("setup-gpg-agent.sh", env, "--no-sync")
-    assert result.returncode != 0
-    assert "SHA256 mismatch" in result.stderr
-    assert not (home / ".gnupg/gpg-agent.conf").exists()
-    assert "--import" not in Path(env["MOCK_LOG"]).read_text()
+    assert result.returncode == 0, result.stderr
+    assert (home / ".gnupg/gpg-agent.conf").exists()
 
 
 def test_setup_stdin_entrypoint_and_user_timer(sandbox: tuple[Path, dict[str, str]]) -> None:
@@ -292,9 +292,10 @@ def test_shell_environment_keeps_forwarded_agent(
     assert result.returncode == 0 and result.stdout == expected, result.stderr
 
 
-def test_fetch_pin_matches_current_source() -> None:
-    digest = hashlib.sha256((ROOT / "fetch-ssh-pub-key.sh").read_bytes()).hexdigest()
-    assert f"FETCH_SHA256:={digest}" in (ROOT / "setup-gpg-agent.sh").read_text()
+def test_fetch_is_standalone_and_keeps_identity_validation() -> None:
+    source = (ROOT / "fetch-ssh-pub-key.sh").read_text()
+    assert KEY in source and "fingerprint mismatch" in source
+    assert "source <(" not in source
 
 
 @pytest.mark.skipif(shutil.which("gpg") is None, reason="GnuPG unavailable")
@@ -354,7 +355,6 @@ def test_real_gpg_imports_only_expected_public_certificate(
         assert imported.count("\npub:") + imported.startswith("pub:") == 1
         assert "Fixture One" in imported and "Fixture Two" not in imported
         assert len([line for line in imported.splitlines() if line.startswith("sub:")]) == 2
-        # A private-key payload must be rejected before importing into the real home.
         Path(env["MOCK_PAYLOAD"]).write_text(gpg("--armor", "--export-secret-keys", fingerprint))
         result = run(str(script), env)
         assert result.returncode != 0, "secret key input was not rejected"
@@ -368,30 +368,30 @@ def test_real_gpg_imports_only_expected_public_certificate(
 
 
 @pytest.mark.parametrize("malformed", [False, True])
-def test_server_sync_embeds_verified_fetch_and_preserves_unmanaged_keys(
+def test_server_sync_embeds_local_helper_and_preserves_unmanaged_keys(
     sandbox: tuple[Path, dict[str, str]], tmp_path: Path, malformed: bool
 ) -> None:
     home, env = sandbox
     deploy = (ROOT / "deploy-ssh-keys.sh").read_text()
-    function = deploy.split("write_sync_script() {", 1)[1].split("\ninstall_termux()", 1)[0]
+    definitions = tmp_path / "deploy-definitions.sh"
+    definitions.write_text(deploy.rsplit('\nmain "$@"', 1)[0])
     generated = tmp_path / "sync.sh"
     result = subprocess.run(
         [
             "bash",
             "-c",
-            'KEY_ID="$1"; FETCH_SCRIPT_BODY="$(cat "$2")";\n'
-            + "write_sync_script() {"
-            + function
-            + '\nwrite_sync_script "$3"',
+            'LIGHTJUNCTION_ROOT="$1"; source "$2"; GPG_PATH="$(command -v gpg)"; '
+            'FETCH_SCRIPT_BODY="$(lj_fetch fetch-ssh-pub-key.sh)"; write_sync_script "$3"',
             "bash",
-            KEY,
-            str(ROOT / "fetch-ssh-pub-key.sh"),
+            str(ROOT),
+            str(definitions),
             str(generated),
         ],
         env=env,
         check=False,
         text=True,
         capture_output=True,
+        timeout=30,
     )
     assert result.returncode == 0, result.stderr
     assert "https://github.com/LIghtJUNction.gpg" in generated.read_text()
@@ -407,10 +407,12 @@ def test_server_sync_embeds_verified_fetch_and_preserves_unmanaged_keys(
         assert authorized.read_text() == original
     else:
         assert result.returncode == 0, result.stderr
+        before = authorized.stat().st_mtime_ns
         assert run(str(generated), env).returncode == 0
+        assert authorized.stat().st_mtime_ns == before
         content = authorized.read_text()
         assert content.startswith(original)
         assert content.count("# >>> lightjunction managed key >>>") == 1
         assert SSH_KEY in content
-    digest = hashlib.sha256((ROOT / "fetch-ssh-pub-key.sh").read_bytes()).hexdigest()
-    assert f"FETCH_SHA256:={digest}" in deploy
+        assert authorized.stat().st_mode & 0o777 == 0o600
+    assert "raw.githubusercontent.com" not in generated.read_text()

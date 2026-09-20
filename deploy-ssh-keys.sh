@@ -1,190 +1,111 @@
 #!/usr/bin/env bash
-# Deploy the pinned GPG identity's SSH public key; sync jobs download data only.
-
 set -euo pipefail
 
-KEY_ID="EB21B83AB1E982DF66F08387A67178405F7736FD"
-REMOTE_BASE_URL="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
-FIRST_PARTY_RAW_BASE="https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main"
-COMMON_LIB_SHA256="${LIGHTJUNCTION_COMMON_LIB_SHA256:-}"
-BOOTSTRAP_LIB_SHA256="${LIGHTJUNCTION_BOOTSTRAP_LIB_SHA256:-}"
-OS_LIB_SHA256="${LIGHTJUNCTION_OS_LIB_SHA256:-}"
-FETCH_SHA256="${LIGHTJUNCTION_FETCH_SHA256:-}"
-if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
-    : "${FETCH_SHA256:=9a60df3d12975f83dea3d8260238aaf4b7bb91bc21dba033573147b5e625bebc}"
-    : "${COMMON_LIB_SHA256:=ca059ee1633358864db21c2af98ad150823634ba44378fc6fa51fd302ac4cd86}"
-    : "${BOOTSTRAP_LIB_SHA256:=ddda9419f326510a438ba6236e8f7f772e4cde1ae7511d71852f99ae8bea8e90}"
-    : "${OS_LIB_SHA256:=ec5ff88f044b0bc1cc13a13581df179eb0cc8684cd35674804912a424aad10ca}"
-fi
-
-# REPLY belongs to the caller. Buffer before verification so partial downloads never run.
-fetch_verified() {
-    local file="${1:?}" expected="${2:-}" actual
-    [[ "$expected" =~ ^[0-9a-f]{64}$ ]] || {
-        printf 'Required SHA256 is missing or invalid: %s\n' "$file" >&2
-        return 1
-    }
-    REPLY="$(curl -fsSL --proto '=https' --proto-redir '=https' \
-        --connect-timeout 10 --max-time 120 -- "$REMOTE_BASE_URL/$file" && printf '.')" || return
-    REPLY="${REPLY%.}"
-    actual="$(openssl dgst -sha256 <(printf '%s' "$REPLY"))" || return
-    [[ "${actual##* }" == "$expected" ]] || {
-        printf 'SHA256 mismatch for %s\n' "$file" >&2
-        return 1
-    }
-}
-
-import() {
-    local REPLY
-    fetch_verified "$@" || return
+BASE="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/${LIGHTJUNCTION_REF:-main}}"
+LOCAL_ROOT="${LIGHTJUNCTION_ROOT:-$(dirname -- "${BASH_SOURCE[0]:-}")}"
+if [[ -f "$LOCAL_ROOT/basic.sh" ]]; then
+    # shellcheck source=basic.sh
+    source "$LOCAL_ROOT/basic.sh"
+else
     # shellcheck source=/dev/null
-    source <(printf '%s' "$REPLY")
-}
+    source <(curl -fsSL --connect-timeout 10 --max-time 120 -- "$BASE/basic.sh")
+    wait "$!"
+fi
+[[ ${__BASIC_SH_LOADED:-} == 1 ]] || { printf 'Could not load basic.sh\n' >&2; exit 1; }
 
-import lib/common.sh "$COMMON_LIB_SHA256"
-import lib/bootstrap.sh "$BOOTSTRAP_LIB_SHA256"
-import lib/os.sh "$OS_LIB_SHA256"
-
-find_gpg() {
-    command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null || true
-}
-
-download_fetch_script() {
-    local REPLY
-    fetch_verified fetch-ssh-pub-key.sh "$FETCH_SHA256" || return
-    printf '%s' "$REPLY"
-}
+import lib/bootstrap.sh
+import lib/os.sh
 
 write_sync_script() {
     local path="${1:?}"
-    cat >"$path" <<EOF
-#!/usr/bin/env bash
-set -euo pipefail
-
-KEY_ID="$KEY_ID"
-GPG_PATH="\${GPG_PATH:-\$(command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null || true)}"
-[[ -n "\$GPG_PATH" ]] || { printf 'GPG not found\n' >&2; exit 1; }
-mkdir -p "\$HOME/.ssh"
-# Run the embedded helper in a subshell so its cleanup traps stay isolated.
-key="\$(
-$FETCH_SCRIPT_BODY
-)"
-[[ "\$key" == ssh-* ]] || { printf 'GPG did not export a valid SSH public key\n' >&2; exit 1; }
-authorized_keys="\$HOME/.ssh/authorized_keys"
-tmp="\$(mktemp "\$HOME/.ssh/authorized_keys.XXXXXX")"
-cleanup() { rm -f -- "\$tmp"; }
-trap cleanup EXIT
-trap 'exit 130' HUP INT TERM
+    {
+        printf '#!%s\nset -euo pipefail\n' "$(command -v bash)"
+        printf 'export GNUPGHOME=%q\n' "${GNUPGHOME:-$HOME/.gnupg}"
+        printf 'export GPG_PATH=%q\n' "$GPG_PATH"
+        printf 'export LIGHTJUNCTION_GPG_URL=%q\n' "${LIGHTJUNCTION_GPG_URL:-https://github.com/LIghtJUNction.gpg}"
+        printf 'export LIGHTJUNCTION_GPG_KEYSERVER=%q\n' "${LIGHTJUNCTION_GPG_KEYSERVER:-}"
+        printf 'unset LIGHTJUNCTION_SSH_PUB_KEY_OUTPUT\n'
+        # Reuse the same block writer locally; scheduled sync fetches keys, not code.
+        declare -f warn strip_managed_block validate_managed_markers append_managed_block
+        printf 'key="$(\n%s\n)"\n' "$FETCH_SCRIPT_BODY"
+        cat <<'SYNC'
+[[ "$key" == ssh-* && "$key" != *$'\n'* ]] || { printf 'Invalid SSH public key\n' >&2; exit 1; }
+mkdir -p "$HOME/.ssh"
+authorized_keys="$HOME/.ssh/authorized_keys"
 begin='# >>> lightjunction managed key >>>'
 end='# <<< lightjunction managed key <<<'
-if [[ -f "\$authorized_keys" ]]; then
-    if ! awk -v begin="\$begin" -v end="\$end" '
-        \$0 == begin {
-            if (inside || seen_begin) exit 1
-            inside = 1
-            seen_begin = 1
-            next
-        }
-        \$0 == end {
-            if (!inside || seen_end) exit 1
-            inside = 0
-            seen_end = 1
-            next
-        }
-        END { if (inside || seen_begin != seen_end) exit 1 }
-    ' "\$authorized_keys"; then
-        printf 'Malformed lightjunction managed key markers; refusing to modify authorized_keys.\n' >&2
-        exit 1
-    fi
-    awk -v begin="\$begin" -v end="\$end" '
-        \$0 == begin { skip = 1; next }
-        \$0 == end { skip = 0; next }
-        !skip { print }
-    ' "\$authorized_keys" > "\$tmp"
-fi
-{
-    printf '%s\n' "\$begin"
-    printf '%s\n' "\$key"
-    printf '%s\n' "\$end"
-} >> "\$tmp"
-chmod 600 "\$tmp"
-if [[ -f "\$authorized_keys" ]]; then
-    cp -p -- "\$authorized_keys" "\${authorized_keys}.bak"
-fi
-mv -f -- "\$tmp" "\$authorized_keys"
-trap - EXIT HUP INT TERM
-chmod 700 "\$HOME/.ssh"
-EOF
+validate_managed_markers "$authorized_keys" "$begin" "$end" || {
+    printf 'Malformed lightjunction managed key markers; authorized_keys left unchanged.\n' >&2
+    exit 1
 }
-
-install_termux() {
-    info "Termux detected"
-    local sync_script="$HOME/.termux/bin/sync-ssh-keys.sh"
-    os_ensure_dir "$(dirname "$sync_script")"
-    os_ensure_dir "$HOME/.ssh"
-    write_sync_script "$sync_script"
-    chmod +x "$sync_script"
-    bash "$sync_script"
-    ok "SSH key deployed to ~/.ssh/authorized_keys"
+append_managed_block "$authorized_keys" "$begin" "$end" "$key"
+chmod 700 "$HOME/.ssh"
+chmod 600 "$authorized_keys"
+SYNC
+    } >"$path"
 }
-
 install_systemd() {
-    info "Linux (systemd) detected"
     require_sudo
-    os_ensure_dir "$HOME/.ssh"
-    local tmp sync_script="/usr/local/bin/sync-ssh-keys.sh"
-    tmp="$(mktemp)"
-    write_sync_script "$tmp"
-    "${SUDO[@]}" install -m 0755 "$tmp" "$sync_script"
-    rm -f "$tmp"
-    bash "$sync_script"
-
-    "${SUDO[@]}" tee /etc/systemd/system/ssh-key-sync.service >/dev/null <<EOF
+    local work script=/usr/local/bin/sync-ssh-keys.sh user
+    work="$(make_tmp_dir)"
+    user="$(id -un)"
+    write_sync_script "$work/sync"
+    "${SUDO[@]}" install -m 0755 "$work/sync" "$script"
+    bash "$script"
+    # Quotes protect spaces in HOME. Percent signs are escaped for systemd specifiers.
+    local home_escaped="${HOME//\\/\\\\}"
+    home_escaped="${home_escaped//\"/\\\"}"
+    home_escaped="${home_escaped//%/%%}"
+    "${SUDO[@]}" tee /etc/systemd/system/ssh-key-sync.service >/dev/null <<SERVICE
 [Unit]
 Description=GPG SSH Key Sync
 After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=$sync_script
-Environment=HOME=$HOME
-User=$USER
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-    "${SUDO[@]}" tee /etc/systemd/system/ssh-key-sync.timer >/dev/null <<'EOF'
+ExecStart=$script
+Environment="HOME=$home_escaped"
+User=$user
+SERVICE
+    "${SUDO[@]}" tee /etc/systemd/system/ssh-key-sync.timer >/dev/null <<'TIMER'
 [Unit]
 Description=GPG SSH Key Sync Timer
 
 [Timer]
-OnBootSec=2min
-OnUnitActiveSec=12h
+OnCalendar=*-*-* 00,12:00:00
 Persistent=true
 
 [Install]
 WantedBy=timers.target
-EOF
-
+TIMER
     "${SUDO[@]}" systemctl daemon-reload
     "${SUDO[@]}" systemctl enable --now ssh-key-sync.timer
-    ok "Systemd timer enabled (syncs every 12h)"
 }
-
 main() {
-    GPG_PATH="${GPG_PATH:-$(find_gpg)}"
-    [[ -n "$GPG_PATH" ]] || die "GPG not found"
-    ok "GPG: $GPG_PATH"
-    FETCH_SCRIPT_BODY="$(download_fetch_script)"
+    case "${1:-}" in
+        -h|--help) printf '%s\n' 'Usage: bash deploy-ssh-keys.sh' 'Deploy SSH access for the lightjunction GPG identity. Termux: manual sync; Linux: systemd timer.'; return ;;
+        '') ;;
+        *) die "Unexpected argument: $1" ;;
+    esac
+    [[ -z ${SUDO_USER:-} ]] || die 'Run as the target account without sudo; privilege escalation is handled internally.'
+    GPG_PATH="${GPG_PATH:-$(command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null || true)}"
+    [[ -n "$GPG_PATH" ]] || die 'GPG not found.'
+    # Decide platform before downloads or filesystem changes.
+    os_is android || [[ -d /run/systemd/system ]] || die 'Requires Termux or a running systemd instance.'
+    FETCH_SCRIPT_BODY="$(lj_fetch fetch-ssh-pub-key.sh)"
+    [[ -n "$FETCH_SCRIPT_BODY" ]] || die 'Public-key helper is empty.'
+    init_tmp_dirs
+    trap cleanup_tmp_dirs EXIT
     if os_is android; then
-        install_termux
-    elif [[ -d /run/systemd/system ]]; then
-        install_systemd
+        local script="$HOME/.termux/bin/sync-ssh-keys.sh" work
+        mkdir -p -- "$(dirname -- "$script")"
+        work="$(make_tmp_dir)"
+        write_sync_script "$work/sync"
+        install -m 0700 "$work/sync" "$script"
+        bash "$script"
+        log "Manual sync: $script"
     else
-        die "Unsupported environment"
+        install_systemd
     fi
-    ok "Done!"
 }
-
 main "$@"

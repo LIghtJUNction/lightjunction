@@ -1,39 +1,39 @@
 #!/usr/bin/env bash
-# Configure this user's YubiKey OpenPGP client; never modify card policy or SSH grants.
 set -euo pipefail
 
-BASE="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
-FETCH_SHA256="${LIGHTJUNCTION_FETCH_SHA256:-}"
-if [[ "$BASE" == https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main ]]; then
-    : "${FETCH_SHA256:=9a60df3d12975f83dea3d8260238aaf4b7bb91bc21dba033573147b5e625bebc}"
+BASE="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/${LIGHTJUNCTION_REF:-main}}"
+LOCAL_ROOT="${LIGHTJUNCTION_ROOT:-$(dirname -- "${BASH_SOURCE[0]:-}")}"
+if [[ -f "$LOCAL_ROOT/basic.sh" ]]; then
+    # shellcheck source=basic.sh
+    source "$LOCAL_ROOT/basic.sh"
+else
+    # shellcheck source=/dev/null
+    source <(curl -fsSL --connect-timeout 10 --max-time 120 -- "$BASE/basic.sh")
+    wait "$!"
 fi
+[[ ${__BASIC_SH_LOADED:-} == 1 ]] || { printf 'Could not load basic.sh\n' >&2; exit 1; }
+
+import lib/common.sh
+import lib/bootstrap.sh
+
 sync_enabled=1
 pinentry=''
 work=''
-config_tmp=''
-block_changed=0
-die() { printf '%s\n' "$*" >&2; exit 1; }
 note() { printf '%s\n' "$*" >&2; }
-cleanup() {
-    [[ -z "$work" ]] || rm -rf -- "$work"
-    [[ -z "$config_tmp" ]] || rm -f -- "$config_tmp"
-}
+cleanup() { if [[ -n "$work" ]]; then rm -rf -- "$work"; fi; }
 trap cleanup EXIT
 trap 'exit 130' HUP INT TERM
 
 while (($#)); do
     case "$1" in
         -h|--help)
-            cat <<'EOF'
+            cat <<'HELP'
 Usage: setup-gpg-agent.sh [--no-sync] [--pinentry PROGRAM]
-
-Configure GnuPG, Bash/Zsh/Fish integration and the OpenPGP SSH agent for this user.
-Import/update LIghtJUNction's public certificate from GitHub. Install a local
-key-sync command; enable a twice-daily user timer when systemd --user is available.
---no-sync leaves timer configuration alone. Existing PIN, touch, KDF, Git identity,
-ownertrust, scdaemon settings and authorized_keys are never changed.
-Run without sudo. Requires GnuPG, pinentry, curl and openssl.
-EOF
+Configure this user's GnuPG and Bash/Zsh/Fish SSH agent environment.
+Install a local public-key sync command and, where available, a systemd user timer.
+Run without sudo. Requires GnuPG, pinentry and curl.
+--no-sync leaves an existing timer alone. Card policy and authorized_keys are unchanged.
+HELP
             exit 0 ;;
         --no-sync) sync_enabled=0; shift ;;
         --pinentry)
@@ -43,53 +43,13 @@ EOF
     esac
 done
 [[ -z "${SUDO_USER:-}" ]] || die 'Run as your normal user, without sudo.'
-[[ "$BASE" == https://* ]] || die 'Script source must use HTTPS'
-[[ "$FETCH_SHA256" =~ ^[0-9a-f]{64}$ ]] || die 'A required LIGHTJUNCTION_FETCH_SHA256 is missing or invalid'
-for program in gpg gpgconf gpg-connect-agent curl openssl; do
-    command -v "$program" >/dev/null || die "Missing $program; install GnuPG, pinentry, curl and openssl."
-done
+lj_require gpg gpgconf gpg-connect-agent curl
 
-# Remove our previous block, while rejecting damaged or duplicate boundaries.
 strip_block() {
-    local file="$1" name="$2"
-    [[ -f "$file" ]] || return 0
-    awk -v begin="# >>> lightjunction $name >>>" -v end="# <<< lightjunction $name <<<" '
-        $0 == begin { if (inside || seen++) bad = 1; inside = 1; next }
-        $0 == end { if (!inside || closed++) bad = 1; inside = 0; next }
-        !inside { print }
-        END { if (bad || inside || seen != closed) exit 1 }
-    ' "$file"
+    strip_managed_block "$1" "# >>> lightjunction $2 >>>" "# <<< lightjunction $2 <<<"
 }
-
 write_block() {
-    local file="$1" name="$2" body="$3" link depth=0 tmp
-    block_changed=0
-    # Keep symlink-based dotfile setups intact, including relative symlinks.
-    while [[ -L "$file" ]]; do
-        ((depth += 1)); ((depth <= 40)) || die "Symlink loop: $file"
-        link="$(readlink "$file")"
-        if [[ "$link" == /* ]]; then file="$link"; else file="$(dirname "$file")/$link"; fi
-    done
-    [[ ! -e "$file" || -f "$file" ]] || die "Not a regular file: $file"
-    mkdir -p "$(dirname "$file")"
-    tmp="$(mktemp "$(dirname "$file")/.lightjunction-config.XXXXXX")"
-    config_tmp="$tmp"
-    if [[ -f "$file" ]]; then cp -p -- "$file" "$tmp"; else chmod 600 "$tmp"; fi
-    if ! strip_block "$file" "$name" >"$tmp"; then
-        rm -f -- "$tmp"
-        die "Malformed lightjunction $name markers in $file; file left unchanged."
-    fi
-    printf '# >>> lightjunction %s >>>\n%s\n# <<< lightjunction %s <<<\n' "$name" "$body" "$name" >>"$tmp"
-    if [[ -f "$file" ]] && cmp -s "$tmp" "$file"; then
-        rm -f -- "$tmp"
-    else
-        if [[ -f "$file" && ! -e "${file}.lightjunction.bak" ]]; then
-            cp -p -- "$file" "${file}.lightjunction.bak"
-        fi
-        mv -f -- "$tmp" "$file"
-        block_changed=1
-    fi
-    config_tmp=''
+    append_managed_block "$1" "# >>> lightjunction $2 >>>" "# <<< lightjunction $2 <<<" "$3" .lightjunction.bak
 }
 
 config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
@@ -108,56 +68,41 @@ elif ! grep -Eq '^[[:space:]]*pinentry-program[[:space:]]' <<<"$existing"; then
 fi
 agent_settings='enable-ssh-support'
 [[ -z "$pinentry" ]] || agent_settings+=$'\n'"pinentry-program $pinentry"
-# Preserve an existing cache policy. These TTLs are not card PIN-session timers.
 if ! grep -Eq '^[[:space:]]*(default|max)-cache-ttl' <<<"$existing"; then
     agent_settings+=$'\ndefault-cache-ttl 3600\nmax-cache-ttl 28800\ndefault-cache-ttl-ssh 3600\nmax-cache-ttl-ssh 28800'
 fi
 
-work="$(mktemp -d)"
-source_file="${BASH_SOURCE[0]:-}"
-local_fetch=''
-if [[ -n "$source_file" && -f "$source_file" ]]; then
-    local_fetch="$(cd "$(dirname "$source_file")" && pwd)/fetch-ssh-pub-key.sh"
-fi
-if [[ -n "$local_fetch" && -f "$local_fetch" ]]; then
-    cp -- "$local_fetch" "$work/fetch.sh"
-else
-    curl -fsSL --proto '=https' --proto-redir '=https' --connect-timeout 10 \
-        --max-time 120 "$BASE/fetch-ssh-pub-key.sh" -o "$work/fetch.sh"
-fi
-actual="$(openssl dgst -sha256 "$work/fetch.sh" | awk '{print $2}')"
-[[ "$actual" == "$FETCH_SHA256" ]] || die 'Public-key helper SHA256 mismatch; nothing executed.'
+work="$(lj_tmpdir)"
+lj_fetch fetch-ssh-pub-key.sh >"$work/fetch.sh"
+[[ -s "$work/fetch.sh" ]] || die 'Public-key helper is empty.'
 mkdir -p "$gpg_home" "$HOME/.ssh" "$HOME/.local/share/lightjunction" "$HOME/.local/bin"
 chmod 700 "$gpg_home" "$HOME/.ssh"
-# Fetch must succeed before changing agent/shell configuration or installing timers.
 LIGHTJUNCTION_SSH_PUB_KEY_OUTPUT='' bash "$work/fetch.sh" --output "$HOME/.ssh/lightjunction-openpgp.pub"
+# Public-key download must succeed before changing agent or shell configuration.
+agent_before=''
+if [[ -f "$agent_conf" ]]; then agent_before="$(cat "$agent_conf")"; fi
 write_block "$agent_conf" gpg-agent "$agent_settings"
-agent_changed="$block_changed"
 install -m 700 "$work/fetch.sh" "$HOME/.local/share/lightjunction/fetch-ssh-pub-key.sh"
-
-# Store fixed, shell-quoted paths/environment so the user timer uses the same keyring.
 {
-    printf '#!/usr/bin/env bash\nset -euo pipefail\n'
+    printf '#!%s\nset -euo pipefail\n' "$(command -v bash)"
     printf 'export GNUPGHOME=%q\n' "$gpg_home"
     printf 'export GPG_PATH=%q\n' "${GPG_PATH:-$(command -v gpg)}"
     printf 'export LIGHTJUNCTION_GPG_URL=%q\n' "${LIGHTJUNCTION_GPG_URL:-https://github.com/LIghtJUNction.gpg}"
     printf 'export LIGHTJUNCTION_GPG_KEYSERVER=%q\n' "${LIGHTJUNCTION_GPG_KEYSERVER:-}"
     printf 'unset LIGHTJUNCTION_SSH_PUB_KEY_OUTPUT\n'
-    printf 'exec bash %q --output %q\n' "$HOME/.local/share/lightjunction/fetch-ssh-pub-key.sh" "$HOME/.ssh/lightjunction-openpgp.pub"
+    printf 'exec %q %q --output %q\n' "$(command -v bash)" "$HOME/.local/share/lightjunction/fetch-ssh-pub-key.sh" "$HOME/.ssh/lightjunction-openpgp.pub"
 } >"$work/sync"
 install -m 700 "$work/sync" "$HOME/.local/bin/lightjunction-key-sync"
 
-# This file is sourced in a terminal; a downloaded Bash child cannot change its parent.
 {
     printf 'export GNUPGHOME=%q\n' "$gpg_home"
-    cat <<'EOF'
+    cat <<'ENV'
 if command -v gpgconf >/dev/null 2>&1; then
     gpgconf --launch gpg-agent >/dev/null 2>&1 || true
     if _lj_gpg_tty=$(tty 2>/dev/null); then
         export GPG_TTY="$_lj_gpg_tty"
         gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1 || true
     fi
-    # Keep an incoming forwarded SSH agent; use our local agent otherwise.
     if [ -z "${SSH_CONNECTION:-}" ] || [ -z "${SSH_AUTH_SOCK:-}" ]; then
         if _lj_gpg_socket=$(gpgconf --list-dirs agent-ssh-socket); then
             export SSH_AUTH_SOCK="$_lj_gpg_socket"
@@ -165,7 +110,7 @@ if command -v gpgconf >/dev/null 2>&1; then
     fi
     unset _lj_gpg_tty _lj_gpg_socket
 fi
-EOF
+ENV
 } >"$work/env"
 env_path="$config_home/lightjunction/gpg-agent.sh"
 write_block "$env_path" environment "$(cat "$work/env")"
@@ -175,10 +120,9 @@ if [[ "${SHELL:-}" == */zsh || -f "${ZDOTDIR:-$HOME}/.zshrc" ]] || command -v zs
     write_block "${ZDOTDIR:-$HOME}/.zshrc" gpg-agent "$source_line"
 fi
 if [[ "${SHELL:-}" == */fish || -d "$config_home/fish" ]] || command -v fish >/dev/null; then
-    # Fish has its own syntax and reads conf.d automatically.
     fish_home="${gpg_home//\\/\\\\}"
     fish_home="${fish_home//\'/\\\'}"
-    fish_body="set -gx GNUPGHOME '$fish_home'"$'\n'"$(cat <<'EOF'
+    fish_body="set -gx GNUPGHOME '$fish_home'"$'\n'"$(cat <<'FISH'
 if status is-interactive; and type -q gpgconf
     gpgconf --launch gpg-agent >/dev/null 2>&1
     set -l current_tty (tty 2>/dev/null)
@@ -190,12 +134,12 @@ if status is-interactive; and type -q gpgconf
         set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     end
 end
-EOF
+FISH
 )"
     write_block "$config_home/fish/conf.d/lightjunction-gpg.fish" gpg-agent "$fish_body"
 fi
 
-if ((agent_changed)); then gpgconf --reload gpg-agent; fi
+if [[ "$agent_before" != "$(cat "$agent_conf")" ]]; then gpgconf --reload gpg-agent; fi
 gpgconf --launch gpg-agent
 if ! gpg --batch --card-status >/dev/null 2>&1; then
     note 'Public keys/config installed. Card not detected: connect YubiKey and run gpg --card-status.'
@@ -224,10 +168,5 @@ WantedBy=timers.target'
 else
     note 'Timer configuration skipped. Manual sync: ~/.local/bin/lightjunction-key-sync'
 fi
-note 'Ready. Open a new terminal to load the agent environment, or source it in this terminal:'
-if [[ "${SHELL:-}" == */fish ]]; then
-    note "source $config_home/fish/conf.d/lightjunction-gpg.fish"
-else
-    note "$source_line"
-fi
-note 'Check: gpg --card-status; ssh-add -L. Card PIN/touch policy and authorized_keys are unchanged.'
+note 'Open a new terminal, or load the agent environment now:'
+if [[ "${SHELL:-}" == */fish ]]; then note "source $config_home/fish/conf.d/lightjunction-gpg.fish"; else note "$source_line"; fi

@@ -1,71 +1,74 @@
 #!/usr/bin/env bash
-# Source once, then import a URL + SHA256, or use the legacy repository arguments.
+# Shared local/remote loader. Use import path or import URL.
 
-[[ -n "${__BASIC_SH_LOADED:-}" ]] && return 0
-__BASIC_SH_LOADED=1
+[[ ${__BASIC_SH_LOADED:-} == 1 ]] && return 0
+LIGHTJUNCTION_RAW_BASE="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/${LIGHTJUNCTION_REF:-main}}"
+LIGHTJUNCTION_ROOT="${LIGHTJUNCTION_ROOT:-}"
+if [[ -z "$LIGHTJUNCTION_ROOT" && -f "${BASH_SOURCE[0]}" ]]; then
+    LIGHTJUNCTION_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+fi
 __IMPORTED_FILES=()
 
-verify_sha256() {
-    local file="${1:?}" expected="${2:?}" actual
-    actual="$(openssl dgst -sha256 "$file")" || return
-    actual="${actual##* }"
-    [[ "$actual" == "$expected" ]] && return 0
-    printf 'import: SHA256 mismatch for %s\n' "$file" >&2
-    printf '  expected: %s\n  actual:   %s\n' "$expected" "$actual" >&2
-    return 1
+# Also used when an installer needs to save a helper for later offline execution.
+lj_fetch() {
+    local file="${1:?Usage: lj_fetch path-or-url}"
+    case "$file" in
+        http://*|https://*) ;;
+        *)
+            if [[ -n "$LIGHTJUNCTION_ROOT" && -f "$LIGHTJUNCTION_ROOT/$file" ]]; then
+                cat -- "$LIGHTJUNCTION_ROOT/$file"
+                return
+            fi
+            file="${LIGHTJUNCTION_RAW_BASE%/}/$file"
+            ;;
+    esac
+    curl -fsSL --connect-timeout 10 --max-time 120 -- "$file"
 }
 
-require_remote_integrity() {
-    local url="${1:?}" expected="${2:-}"
-    if [[ -z "$expected" ]]; then
-        printf 'import: refusing URL without required SHA256: %s\n' "$url" >&2
-        return 1
-    fi
-    [[ "$expected" =~ ^[0-9a-f]{64}$ ]] || {
-        printf 'import: expected a lowercase SHA256 digest\n' >&2
-        return 2
-    }
+# Capture the producer PID before a sourced library can start a nested import.
+_lj_consume() {
+    local producer=$! status=0
+    # shellcheck source=/dev/null
+    "$@" || status=$?
+    wait "$producer" || return
+    return "$status"
 }
 
 import() {
-    local file="${1:?}" url sha256 imported content
-    case "$file" in
-        https://*|http://*) url="$file"; sha256="${2:-}" ;;
-        *) url="${5:-https://raw.githubusercontent.com}/${4:-lightjunction}/${3:-lightjunction}/${2:-main}/$file"
-           sha256="${6:-}" ;;
-    esac
-    require_remote_integrity "$url" "$sha256" || return
-    for imported in "${__IMPORTED_FILES[@]}"; do
-        [[ "$imported" == "$url $sha256" ]] && return 0
+    local file="${1:?Usage: import path-or-url}" key imported
+    # Keep the original five repository arguments, without the old checksum argument.
+    if (($# > 1)); then
+        file="${5:-https://raw.githubusercontent.com}/${4:-LIghtJUNction}/${3:-lightjunction}/${2:-main}/$file"
+    fi
+    key="$LIGHTJUNCTION_ROOT|$LIGHTJUNCTION_RAW_BASE|$file"
+    for imported in ${__IMPORTED_FILES[@]+"${__IMPORTED_FILES[@]}"}; do
+        [[ "$imported" == "$key" ]] && return 0
     done
-    # The sentinel preserves trailing newlines; a failed/partial download is never sourced.
-    content="$(curl -fsSL --connect-timeout 10 --max-time 120 -- "$url" && printf '.')" || return
-    content="${content%.}"
-    verify_sha256 <(printf '%s' "$content") "$sha256" || return
-    # shellcheck source=/dev/null
-    source <(printf '%s' "$content") || return
-    __IMPORTED_FILES+=("$url $sha256")
+    _lj_consume source <(lj_fetch "$file") || return
+    __IMPORTED_FILES+=("$key")
+}
+
+run_script() {
+    local file="${1:?Usage: run_script path-or-url [args...]}"
+    shift
+    export LIGHTJUNCTION_ROOT LIGHTJUNCTION_RAW_BASE
+    _lj_consume bash <(lj_fetch "$file") "$@"
 }
 
 hook() {
-    local func_name="${1:?}" declaration body
-    func_name="${func_name%%::*}"
-    func_name="${func_name%()}"
-    [[ "$func_name" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] || {
-        printf 'hook: invalid function name: %s\n' "$func_name" >&2
-        return 2
-    }
-    declaration="$(declare -f -- "$func_name")" || {
-        printf "hook: function '%s' not found\n" "$func_name" >&2
-        return 1
-    }
+    local name="${1:?}" declaration body
+    name="${name%%::*}"
+    name="${name%()}"
+    [[ "$name" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] || return 2
+    declaration="$(declare -f -- "$name")" || return 1
     body="$(cat)" || return
-    # Copy the original body, not a call back into the function being replaced.
-    if ! declare -F -- "self_$func_name" >/dev/null; then
+    if ! declare -F -- "self_$name" >/dev/null; then
         eval "self_$declaration" || return
     fi
-    eval "$func_name() {
-        local self=self_$func_name
+    eval "$name() {
+        local self=self_$name
 $body
     }"
 }
+
+__BASIC_SH_LOADED=1

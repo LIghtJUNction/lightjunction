@@ -10,7 +10,7 @@ work=''
 output_tmp=''
 
 usage() {
-    cat <<'EOF'
+    cat <<'HELP'
 Usage: fetch-ssh-pub-key.sh [--output PATH]
 
 Import/update the public OpenPGP certificate from GitHub, check its primary
@@ -20,7 +20,7 @@ YubiKey is needed. --output PATH atomically saves the SSH public key instead.
 LIGHTJUNCTION_GPG_URL       HTTPS certificate URL (default: GitHub .gpg)
 LIGHTJUNCTION_GPG_KEYSERVER Explicitly use a keyserver instead (legacy mode)
 GNUPGHOME                  Destination GnuPG home (default: GnuPG's default)
-EOF
+HELP
 }
 
 die() { printf '%s\n' "$*" >&2; exit 1; }
@@ -62,7 +62,7 @@ if [[ -n "$KEYSERVER" ]]; then
 else
     [[ "$KEY_URL" == https://* ]] || die 'GPG public key URL must use HTTPS'
     command -v curl >/dev/null || die 'curl not found'
-    work="$(mktemp -d)"
+    work="$(mktemp -d "${TMPDIR:-${PREFIX:-}/tmp}/lightjunction-gpg.XXXXXX")"
     mkdir -m 700 "$work/gnupg"
     curl -fsSL --proto '=https' --proto-redir '=https' --connect-timeout 10 \
         --max-time 60 --retry 2 "$KEY_URL" -o "$work/download.gpg" \

@@ -1,10 +1,11 @@
-"""Offline regression tests for the small Bash helper APIs."""
+"""Offline regression tests for the small Bash helper APIs.
+
+Import and installer tests live in test_shell_loader.py and test_yubikey_setup.py.
+"""
 
 from __future__ import annotations
 
-import hashlib
 import os
-import re
 import subprocess
 from pathlib import Path
 
@@ -24,84 +25,6 @@ def bash(script: str, *args: str, stdin: str = "") -> subprocess.CompletedProces
         timeout=15,
         env={**os.environ, "LC_ALL": "C.UTF-8"},
     )
-
-
-@pytest.mark.parametrize("legacy", [False, True])
-def test_import_preserves_bytes_stdin_and_cache(legacy: bool) -> None:
-    payload = "IMPORTED=ok\nremote_fn() { printf remote; }\n\n"
-    digest = hashlib.sha256(payload.encode()).hexdigest()
-    result = bash(
-        r"""
-        set -euo pipefail
-        payload="$1"
-        curl() { printf '%s' "$payload"; }
-        mktemp() { return 99; }
-        source basic.sh
-        if [[ "$3" == legacy ]]; then
-            import fixture.sh main lightjunction lightjunction https://example.invalid "$2"
-        else
-            import https://example.invalid/fixture.sh "$2"
-        fi
-        [[ "$IMPORTED" == ok && "$(remote_fn)" == remote ]]
-        source basic.sh
-        [[ ${#__IMPORTED_FILES[@]} == 1 ]]
-        curl() { return 99; }
-        if [[ "$3" == legacy ]]; then
-            import fixture.sh main lightjunction lightjunction https://example.invalid "$2"
-        else
-            import https://example.invalid/fixture.sh "$2"
-        fi
-        IFS= read -r input
-        printf '%s' "$input"
-        """,
-        payload,
-        digest,
-        "legacy" if legacy else "url",
-        stdin="stdin was not consumed\n",
-    )
-    assert result.returncode == 0, result.stderr
-    assert result.stdout == "stdin was not consumed"
-
-
-@pytest.mark.parametrize("failure", ["missing", "invalid", "mismatch", "download", "source"])
-def test_import_failure_never_caches(failure: str) -> None:
-    payload = "printf executed; return 17\n" if failure == "source" else "printf executed\n"
-    digest = hashlib.sha256(payload.encode()).hexdigest()
-    result = bash(
-        r"""
-        set -euo pipefail
-        payload="$1" digest="$2" failure="$3"
-        curl() {
-            [[ "$failure" != missing && "$failure" != invalid ]] || return 99
-            printf '%s' "$payload"
-            [[ "$failure" != download ]] || return 23
-        }
-        case "$failure" in
-            missing) digest='' ;;
-            invalid) digest=invalid ;;
-            mismatch) digest="$(printf '%064d' 0)" ;;
-        esac
-        source basic.sh
-        if import https://example.invalid/library "$digest"; then exit 98; else status=$?; fi
-        [[ ${#__IMPORTED_FILES[@]} == 0 ]]
-        printf 'status=%s' "$status" >&2
-        """,
-        payload,
-        digest,
-        failure,
-    )
-    assert result.returncode == 0, result.stderr
-    assert result.stdout == ("executed" if failure == "source" else "")
-    expected_status = {"missing": 1, "invalid": 2, "mismatch": 1, "download": 23, "source": 17}
-    assert f"status={expected_status[failure]}" in result.stderr
-
-
-def test_hash_mismatch_does_not_delete_caller_file(tmp_path: Path) -> None:
-    target = tmp_path / "input"
-    target.write_text("keep", encoding="utf-8")
-    result = bash('source basic.sh; verify_sha256 "$1" "$(printf %064d 0)"', str(target))
-    assert result.returncode == 1
-    assert target.read_text(encoding="utf-8") == "keep"
 
 
 def test_hook_copies_original_and_rejects_invalid_names() -> None:
@@ -373,37 +296,5 @@ def test_rsa_verification_without_tempfile_and_pipeline_failures(tmp_path: Path)
         [[ "$SHELLOPTS" != *pipefail* ]]
         """,
         str(tmp_path),
-    )
-    assert result.returncode == 0, result.stderr
-
-
-def test_deploy_pin_and_verified_fetch(tmp_path: Path) -> None:
-    source = (ROOT / "deploy-ssh-keys.sh").read_text(encoding="utf-8")
-    match = re.search(r"OS_LIB_SHA256:=([a-f0-9]{64})", source)
-    assert match is not None
-    assert match.group(1) == hashlib.sha256((ROOT / "lib/os.sh").read_bytes()).hexdigest()
-    # Test definitions only, never the installer or a real SSH configuration.
-    definitions = tmp_path / "loader.sh"
-    definitions.write_text(source.split('\nimport lib/common.sh "')[0], encoding="utf-8")
-    payload = "DEPLOY_IMPORTED=yes\n\n"
-    digest = hashlib.sha256(payload.encode()).hexdigest()
-    result = bash(
-        r"""
-        set -euo pipefail
-        source "$1"
-        payload="$2"
-        curl() { printf '%s' "$payload"; }
-        mktemp() { return 99; }
-        trap ':' EXIT
-        before="$(trap -p EXIT)"
-        import fixture "$3"
-        [[ "$DEPLOY_IMPORTED" == yes && "$(trap -p EXIT)" == "$before" ]]
-        curl() { printf 'DEPLOY_IMPORTED=bad'; return 23; }
-        if import fixture "$3"; then exit 98; fi
-        [[ "$DEPLOY_IMPORTED" == yes ]]
-        """,
-        str(definitions),
-        payload,
-        digest,
     )
     assert result.returncode == 0, result.stderr
