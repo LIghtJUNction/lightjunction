@@ -187,7 +187,9 @@ def test_readmes_include_localized_open_source_bounties() -> None:
         links_index = text.index(links)
         assert challenge_index < reward_index < links_index, filename
 
-        reward_section = text[reward_index:links_index]
+        # Contact and other peer sections may appear before Links.
+        # Check only the bounty section, not every section that follows it.
+        reward_section = text[reward_index:links_index].split("\n### ", 1)[0]
         for phrase in phrases:
             assert phrase in reward_section, filename
 
