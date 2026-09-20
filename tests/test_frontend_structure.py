@@ -4,6 +4,7 @@ import hashlib
 import json
 import re
 import struct
+import subprocess
 from pathlib import Path
 
 
@@ -452,12 +453,43 @@ def test_repository_keeps_formatting_standards() -> None:
     assert "dist/** linguist-generated=true" in gitattributes
 
 
-def test_quality_gate_cleans_python_bytecode() -> None:
-    check_script = Path("scripts/check-python.sh").read_text(encoding="utf-8")
+def test_quality_gate_preserves_existing_python_bytecode(tmp_path: Path) -> None:
+    for relative in ("scripts/check-python.sh", "scripts/lib/check-common.sh"):
+        target = tmp_path / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(Path(relative).read_bytes())
 
-    assert "Clean transient Python bytecode" in check_script
-    assert "__pycache__" in check_script
-    assert "*.py[co]" in check_script
+    caches = []
+    for directory in ("scripts", "tests", ".agents/skills"):
+        cache = tmp_path / directory / "__pycache__" / "keep.pyc"
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_bytes(b"existing bytecode")
+        caches.append(cache)
+
+    for expected_status in (0, 23):
+        result = subprocess.run(
+            [
+                "bash",
+                "-c",
+                r"""
+                status="$2"
+                uv() {
+                    bash -c '[[ "${PYTHONDONTWRITEBYTECODE:-}" == 1 ]]' || return 97
+                    return "$status"
+                }
+                source "$1"
+                """,
+                "bash",
+                str(tmp_path / "scripts/check-python.sh"),
+                str(expected_status),
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=10,
+        )
+        assert result.returncode == expected_status, result.stderr
+        assert all(cache.read_bytes() == b"existing bytecode" for cache in caches)
 
 
 def test_typescript_uses_strict_frontend_checks() -> None:
