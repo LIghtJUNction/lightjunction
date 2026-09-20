@@ -48,6 +48,26 @@
 
 任务完成后，双方可以评分；如有争议，也可以申请仲裁。
 
+### 加密联系
+
+LIghtJUNction 的 age 公钥（YubiKey）：
+
+```text
+age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n
+```
+
+[公钥文件](public/age-recipients.txt) · [从网站下载](https://lightjunction.github.io/lightjunction/age-recipients.txt)
+
+安装 [age](https://github.com/FiloSottile/age) 和 [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey)，确保插件在 `PATH` 中。将公钥文件保存为 `age-recipients.txt`，在本地加密：
+
+```sh
+age -R age-recipients.txt -o message.txt.age message.txt
+```
+
+将生成的 `message.txt.age` 作为附件发到 `lightjunction.me@gmail.com`。加密不需要我的 YubiKey。这是可以公开的加密公钥，不是私钥，也不是解密用的 identity 文件。
+
+网站终端的 `contact` 命令支持复制和下载公钥。原有网页留言功能继续支持 OpenPGP 和 age。
+
 ### 链接
 
 [个人网站](https://lightjunction.github.io/lightjunction/) · [Nexus 简介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [加密联系](https://lightjunction.github.io/lightjunction/#workbench)
