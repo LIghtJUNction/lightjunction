@@ -33,7 +33,8 @@ ensure_xcode_cli_tools() {
     local clt_dir=/Library/Developer/CommandLineTools
     if [[ -e "$clt_dir" ]]; then
         [[ ${BOOTSTRAP_REPAIR_CLT:-0} == 1 ]] || die "Inspect $clt_dir first; BOOTSTRAP_REPAIR_CLT=1 moves it to a backup."
-        local backup="${clt_dir}.backup.$(date +%Y%m%d%H%M%S)"
+        local backup
+        backup="${clt_dir}.backup.$(date +%Y%m%d%H%M%S)"
         [[ ! -e "$backup" ]] || die "Backup already exists: $backup"
         sudo mv -- "$clt_dir" "$backup"
         sudo xcode-select --reset
