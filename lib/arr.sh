@@ -1,144 +1,101 @@
-#!/bin/bash
-# arr.sh - Array and associative array utilities
-# Usage: source arr.sh
-#
-# Functions:
-#   arr_join delim "${arr[@]}"         - Join array elements with delimiter
-#   arr_contains "${arr[@]}" needle    - Returns 0 if element exists
-#   arr_map "func" "${arr[@]}"         - Apply function to each element
-#   arr_filter "func" "${arr[@]}"      - Keep elements where func returns 0
-#   arr_sort "${arr[@]}"               - Sort and print one per line
-#   arr_unique "${arr[@]}"             - Remove duplicates
-#   arr_slice start len "${arr[@]}"    - Extract slice
-#   arr_reverse "${arr[@]}"            - Reverse array
-#   arr_sum "${nums[@]}"              - Sum numeric array
-#   arr_avg "${nums[@]}"              - Average of numeric array
-#   arr_max "${nums[@]}"               - Maximum value
-#   arr_min "${nums[@]}"               - Minimum value
-#   arr_first "${arr[@]}"              - Print first element
-#   arr_last "${arr[@]}"               - Print last element
-#   arr_size "${arr[@]}"               - Print array size
+#!/usr/bin/env bash
+# Array helpers. arr_contains takes the needle first; numeric helpers use integers.
 
 [[ -n "${__arr_sh_loaded:-}" ]] && return 0
 __arr_sh_loaded=1
 
-if [[ -n "${BASH_SOURCE[0]:-}" && "${BASH_SOURCE[0]}" != "bash" && "${BASH_SOURCE[0]}" != "-" && -f "${BASH_SOURCE[0]%/*}/common.sh" ]]; then
-    # shellcheck source=lib/common.sh
-    source "${BASH_SOURCE[0]%/*}/common.sh"
-elif [[ -f "lib/common.sh" ]]; then
-    # shellcheck source=lib/common.sh
-    source "lib/common.sh"
-fi
-
 arr_join() {
-    local delim="${1:?}" && shift
-    local IFS="$delim"
-    printf '%s' "$*"
+    local delimiter="${1?}" separator='' element
+    shift
+    for element do
+        printf '%s%s' "$separator" "$element"
+        separator="$delimiter"
+    done
 }
 
 arr_contains() {
-    local needle="${1:?}" && shift
-    local e
-    for e in "$@"; do
-        [[ "$e" == "$needle" ]] && return 0
+    local needle="${1?}" element
+    shift
+    for element do
+        [[ "$element" == "$needle" ]] && return 0
     done
     return 1
 }
 
+_arr_callback() {
+    [[ "${1:-}" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] && declare -F -- "$1" >/dev/null
+}
+
 arr_map() {
-    local func="${1:?}" && shift
-    lj_require_function "$func" || return 1
-    local e
-    for e in "$@"; do
-        "$func" "$e"
+    local callback="${1:?}" element
+    shift
+    _arr_callback "$callback" || return 2
+    for element do
+        "$callback" "$element" || return
     done
 }
 
 arr_filter() {
-    local func="${1:?}" && shift
-    lj_require_function "$func" || return 1
-    local e
-    for e in "$@"; do
-        if "$func" "$e"; then
-            printf '%s\n' "$e"
+    local callback="${1:?}" element status
+    shift
+    _arr_callback "$callback" || return 2
+    for element do
+        if "$callback" "$element"; then
+            printf '%s\n' "$element"
+        else
+            status=$?
+            ((status == 1)) || return "$status"
         fi
     done
 }
 
-arr_sort() {
-    printf '%s\n' "$@" | sort
-}
-
-arr_unique() {
-    printf '%s\n' "$@" | sort -u
-}
+arr_sort() { (($# == 0)) || printf '%s\n' "$@" | sort; }
+arr_unique() { (($# == 0)) || printf '%s\n' "$@" | sort -u; }
 
 arr_slice() {
-    local start="${1:?}" len="${2:-}" count=0
-    shift 2 || true
-    if [[ -z "$len" ]]; then
-        len=$(($# - start))
-    fi
-    for e in "$@"; do
-        if ((count >= start && count < start + len)); then
-            printf '%s\n' "$e"
-        fi
-        ((count += 1))
-    done
+    local start="${1:?}" length="${2:-}" values
+    [[ "$start" =~ ^[0-9]+$ && ( -z "$length" || "$length" =~ ^[0-9]+$ ) ]] || return 2
+    shift 2 || return 2
+    values=("$@")
+    start=$((10#$start))
+    length=${length:-${#values[@]}}
+    length=$((10#$length))
+    ((start < ${#values[@]} && length > 0)) || return 0
+    printf '%s\n' "${values[@]:start:length}"
 }
 
 arr_reverse() {
-    local arr=("$@")
-    local i
-    for ((i = ${#arr[@]} - 1; i >= 0; i--)); do
-        printf '%s\n' "${arr[$i]}"
+    local values=("$@") i
+    for ((i = ${#values[@]} - 1; i >= 0; i--)); do
+        printf '%s\n' "${values[i]}"
     done
 }
 
-arr_sum() {
-    local total=0 e
-    for e in "$@"; do
-        ((total += e))
+_arr_reduce() {
+    local operation="$1" value result=0 first=1 count sign
+    shift
+    count=$#
+    ((count > 0)) || [[ "$operation" == sum ]] || return 1
+    for value do
+        [[ "$value" =~ ^-?[0-9]+$ ]] || return 2
+        sign=1
+        if [[ "$value" == -* ]]; then sign=-1; value="${value#-}"; fi
+        value=$((sign * 10#$value))
+        case "$operation" in
+            sum|avg) result=$((result + value)) ;;
+            max) if ((first || value > result)); then result=$value; fi ;;
+            min) if ((first || value < result)); then result=$value; fi ;;
+        esac
+        first=0
     done
-    printf '%s\n' "$total"
+    if [[ "$operation" == avg ]]; then result=$((result / count)); fi
+    printf '%s\n' "$result"
 }
 
-arr_avg() {
-    local sum=0 count=$# e
-    for e in "$@"; do
-        ((sum += e))
-    done
-    if ((count > 0)); then
-        printf '%s\n' $((sum / count))
-    fi
-}
-
-arr_max() {
-    (($# > 0)) || return 1
-    local max="$1" e
-    for e in "$@"; do
-        [[ "$e" -gt "$max" ]] && max="$e"
-    done
-    printf '%s\n' "$max"
-}
-
-arr_min() {
-    (($# > 0)) || return 1
-    local min="$1" e
-    for e in "$@"; do
-        [[ "$e" -lt "$min" ]] && min="$e"
-    done
-    printf '%s\n' "$min"
-}
-
-arr_first() {
-    printf '%s\n' "${1?}"
-}
-
-arr_last() {
-    printf '%s\n' "${@: -1}"
-}
-
-arr_size() {
-    printf '%d\n' "$#"
-}
+arr_sum() { _arr_reduce sum "$@"; }
+arr_avg() { _arr_reduce avg "$@"; }
+arr_max() { _arr_reduce max "$@"; }
+arr_min() { _arr_reduce min "$@"; }
+arr_first() { (($# > 0)) || return 1; printf '%s\n' "$1"; }
+arr_last() { (($# > 0)) || return 1; printf '%s\n' "${@: -1}"; }
+arr_size() { printf '%d\n' "$#"; }

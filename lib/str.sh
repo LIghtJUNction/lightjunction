@@ -1,125 +1,84 @@
-#!/bin/bash
-# str.sh - String manipulation utilities
-# Usage: source str.sh
-#
-# Functions:
-#   str_trim "string"                  - Trim leading/trailing whitespace
-#   str_split delim "string"           - Print split parts, one per line
-#   str_contains haystack needle       - Returns 0 if substring found
-#   str_starts_with string prefix      - Returns 0 if string starts with prefix
-#   str_ends_with string suffix        - Returns 0 if string ends with suffix
-#   str_replace string from to          - Replace first occurrence
-#   str_replace_all string from to     - Replace all occurrences
-#   str_repeat char count              - Print char count times
-#   str_pad_left string width [char]    - Left-pad with spaces or char
-#   str_pad_right string width [char]   - Right-pad with spaces or char
-#   str_length "string"                 - Print character length
-#   str_upper "string"                  - Convert to uppercase
-#   str_lower "string"                 - Convert to lowercase
-#   str_hash "string"                  - Print MD5 hash
-#   str_sha256 "string"                - Print SHA256 hash
-#   str_uuid                           - Generate random UUID v4
-#   str_rand [len]                     - Generate random alphanumeric string
+#!/usr/bin/env bash
+# String helpers: literal delimiters/replacements; lengths follow the caller's locale.
 
-# Deduplication guard
 [[ -n "${__str_sh_loaded:-}" ]] && return 0
 __str_sh_loaded=1
 
 str_trim() {
-    local s="${1:?}"
-    printf '%s' "$s" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+    local value="${1?}"
+    value="${value#"${value%%[![:space:]]*}"}"
+    value="${value%"${value##*[![:space:]]}"}"
+    printf '%s' "$value"
 }
 
 str_split() {
-    local delim="${1:?}" && shift
-    local s="$*"
-    [[ -z "$s" ]] && return
-    while [[ "$s" == *"$delim"* ]]; do
-        printf '%s\n' "${s%%"$delim"*}"
-        s="${s#*"$delim"}"
+    local delimiter="${1:?}" value="${2-}"
+    while [[ "$value" == *"$delimiter"* ]]; do
+        printf '%s\n' "${value%%"$delimiter"*}"
+        value="${value#*"$delimiter"}"
     done
-    printf '%s\n' "$s"
+    printf '%s\n' "$value"
 }
 
-str_contains() {
-    [[ "${1:?}" == *"${2:?}"* ]]
+str_contains() { [[ "${1?}" == *"${2?}"* ]]; }
+str_starts_with() { [[ "${1?}" == "${2?}"* ]]; }
+str_ends_with() { [[ "${1?}" == *"${2?}" ]]; }
+
+_str_replace() {
+    local all="$1" value="${2?}" from="${3:?}" to="${4?}"
+    while [[ "$value" == *"$from"* ]]; do
+        printf '%s%s' "${value%%"$from"*}" "$to"
+        value="${value#*"$from"}"
+        [[ "$all" == 1 ]] || break
+    done
+    printf '%s' "$value"
 }
 
-str_starts_with() {
-    [[ "${1:?}" == "${2:?}"* ]]
-}
-
-str_ends_with() {
-    [[ "${1:?}" == *"${2:?}" ]]
-}
-
-str_replace() {
-    local s="${1:?}" from="${2:?}" to="${3:?}"
-    printf '%s' "${s/$from/$to}"
-}
-
-str_replace_all() {
-    local s="${1:?}" from="${2:?}" to="${3:?}"
-    printf '%s' "${s//$from/$to}"
-}
+str_replace() { _str_replace 0 "$@"; }
+str_replace_all() { _str_replace 1 "$@"; }
 
 str_repeat() {
-    local char="${1:?}" count="${2:?}"
-    printf '%*s' "$count" '' | tr ' ' "$char"
+    local value="${1?}" count="${2:?}" i
+    [[ "$count" =~ ^[0-9]+$ ]] || return 2
+    for ((i = 0; i < 10#$count; i++)); do printf '%s' "$value"; done
 }
 
-str_pad_left() {
-    local s="${1:?}" width="${2:?}" char="${3:- }"
-    printf '%*s' "$width" "$s" | tr ' ' "$char"
+_str_pad() {
+    local side="$1" value="${2?}" width="${3:?}" character="${4- }" count
+    [[ "$width" =~ ^[0-9]+$ && ${#character} == 1 ]] || return 2
+    count=$((10#$width - ${#value}))
+    if [[ "$side" == right ]]; then printf '%s' "$value"; fi
+    if ((count > 0)); then str_repeat "$character" "$count"; fi
+    if [[ "$side" == left ]]; then printf '%s' "$value"; fi
 }
 
-str_pad_right() {
-    local s="${1:?}" width="${2:?}" char="${3:- }"
-    printf '%-*s' "$width" "$s" | tr ' ' "$char"
+str_pad_left() { _str_pad left "$@"; }
+str_pad_right() { _str_pad right "$@"; }
+str_length() { local value="${1?}"; printf '%s' "${#value}"; }
+str_upper() { printf '%s' "${1?}" | tr '[:lower:]' '[:upper:]'; }
+str_lower() { printf '%s' "${1?}" | tr '[:upper:]' '[:lower:]'; }
+
+_str_digest() {
+    local algorithm="$1" value="${2?}" digest
+    digest="$(printf '%s' "$value" | openssl dgst "-$algorithm")" || return
+    printf '%s\n' "${digest##* }"
 }
 
-str_length() {
-    printf '%s' "${1:?}" | wc -c | tr -d ' '
-}
-
-str_upper() {
-    printf '%s' "${1:?}" | tr '[:lower:]' '[:upper:]'
-}
-
-str_lower() {
-    printf '%s' "${1:?}" | tr '[:upper:]' '[:lower:]'
-}
-
-str_hash() {
-    printf '%s' "${1:?}" | md5sum | cut -d' ' -f1
-}
-
-str_sha256() {
-    printf '%s' "${1:?}" | sha256sum | cut -d' ' -f1
-}
+str_hash() { _str_digest md5 "$@"; }
+str_sha256() { _str_digest sha256 "$@"; }
 
 str_uuid() {
-    # Use /dev/urandom via openssl for cryptographic randomness
-    local hex
-    hex=$(openssl rand -hex 16)
-    local variant
+    local hex variant
+    hex="$(openssl rand -hex 16)" || return
     variant="$(printf '%x' "$((16#${hex:16:1} & 3 | 8))")"
-    printf '%s-%s-%s-%s-%s\n' \
-        "${hex:0:8}" \
-        "${hex:8:4}" \
-        "4${hex:13:3}" \
-        "${variant}${hex:17:3}" \
-        "${hex:20:12}"
+    printf '%s-%s-4%s-%s%s-%s\n' "${hex:0:8}" "${hex:8:4}" "${hex:13:3}" "$variant" "${hex:17:3}" "${hex:20:12}"
 }
 
+# Non-secret labels only. Use openssl rand directly for tokens or credentials.
 str_rand() {
-    local len="${1:-32}"
-    local chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    local result='' i c idx
-    for ((i = 0; i < len; i++)); do
-        idx=$((RANDOM % ${#chars}))
-        c="${chars:$idx:1}"
-        result+="$c"
+    local length="${1:-32}" alphabet='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' i
+    [[ "$length" =~ ^[0-9]+$ ]] || return 2
+    for ((i = 0; i < 10#$length; i++)); do
+        printf '%s' "${alphabet:RANDOM % ${#alphabet}:1}"
     done
-    printf '%s' "$result"
 }

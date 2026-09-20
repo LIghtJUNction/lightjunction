@@ -1,44 +1,28 @@
-#!/bin/bash
-# log.sh - Logging utilities (err, warn, ok, info, debug, line)
-# Usage: import log.sh
+#!/usr/bin/env bash
+# Literal messages on stderr. Works with or without env.sh.
 
-# Deduplication guard (must be first)
 [[ -n "${__LOG_SH_LOADED:-}" ]] && return 0
 __LOG_SH_LOADED=1
 
-_LAST_MSG=""
-_LAST_LVL=""
-_REPEAT_CNT=0
-_msg() {
-    local lvl=$1 col=$2 msg=$3
-    local now
-    now=$(date +%H:%M:%S)
-    if [[ "$msg" == "$_LAST_MSG" && "$lvl" == "$_LAST_LVL" ]]; then
-        ((_REPEAT_CNT += 1))
-        if [[ "$NON_INTERACTIVE" -eq 0 && -n "$C_UP" ]]; then
-            printf "${C_UP}${C_CLEAR_LINE}${C_DIM}%s${C_RESET} ${col}%-5s${C_RESET} %b ${C_DIM}(x%d)${C_RESET}\n" \
-                "$now" "$lvl" "$msg" "$((_REPEAT_CNT + 1))" >&2
-            return
-        fi
-    else
-        _REPEAT_CNT=0
-    fi
-    local display_lvl=$lvl
-    if [[ "$lvl" == "$_LAST_LVL" && $_REPEAT_CNT -eq 0 ]]; then
-        display_lvl="     "
-    fi
-    printf "${C_DIM}%s${C_RESET} ${col}%-5s${C_RESET} %b\n" "$now" "$display_lvl" "$msg" >&2
-    _LAST_MSG="$msg"
-    _LAST_LVL="$lvl"
+_log() {
+    local minimum="$1" level="$2" color="$3" configured="${LOG_LEVEL:-3}"
+    shift 3
+    [[ "$configured" =~ ^[0-4]$ ]] || return 2
+    ((configured >= minimum)) || return 0
+    printf '%b%s%b %b%-5s%b %s\n' "${C_DIM:-}" "$(date +%H:%M:%S)" "${C_RESET:-}" \
+        "$color" "$level" "${C_RESET:-}" "$*" >&2
 }
 
-err()   { if [[ ${LOG_LEVEL:-3} -ge 1 ]]; then _msg "ERR"   "$C_RED"    "$1"; else return 0; fi; }
-warn()  { if [[ ${LOG_LEVEL:-3} -ge 2 ]]; then _msg "WARN"  "$C_YELLOW" "$1"; else return 0; fi; }
-ok()    { if [[ ${LOG_LEVEL:-3} -ge 3 ]]; then _msg "OK"    "$C_GREEN"  "$1"; else return 0; fi; }
-info()  { if [[ ${LOG_LEVEL:-3} -ge 3 ]]; then _msg "INFO"  "$C_BLUE"   "$1"; else return 0; fi; }
-debug() { if [[ ${LOG_LEVEL:-3} -ge 4 ]]; then _msg "DEBUG" "$C_PURPLE" "$1"; else return 0; fi; }
+err() { _log 1 ERR "${C_RED:-}" "$@"; }
+warn() { _log 2 WARN "${C_YELLOW:-}" "$@"; }
+ok() { _log 3 OK "${C_GREEN:-}" "$@"; }
+info() { _log 3 INFO "${C_BLUE:-}" "$@"; }
+debug() { _log 4 DEBUG "${C_PURPLE:-}" "$@"; }
+
 line() {
-    printf "${C_DIM}%*s${C_RESET}\n" "${WIDTH:-80}" '' | tr ' ' "${S_DIVIDER:--}" >&2
+    local width="${WIDTH:-80}" divider="${S_DIVIDER:--}" i
+    [[ "$width" =~ ^[0-9]+$ ]] || return 2
+    printf '%b' "${C_DIM:-}" >&2
+    for ((i = 0; i < 10#$width; i++)); do printf '%s' "${divider:0:1}" >&2; done
+    printf '%b\n' "${C_RESET:-}" >&2
 }
-
-export -f err warn ok info debug line

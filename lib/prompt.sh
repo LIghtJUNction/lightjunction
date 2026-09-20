@@ -1,170 +1,114 @@
-#!/bin/bash
-# prompt.sh - Interactive prompt utilities
-# Usage: source prompt.sh
-#
-# Functions:
-#   prompt_yesno "message" [default]     - Returns 0=yes, 1=no
-#   prompt_choice "msg" opt1 opt2...    - Print selected choice
-#   prompt_input "label" [default]       - Read user input
-#   prompt_password "label"              - Read password (no echo)
-#   prompt_menu "label" 1:opt 2:opt...  - Numbered menu selection
-#   prompt_spinner "msg" cmd [args...]  - Show spinner while running
-#   prompt_progress current total "label" - Render progress bar
-#   prompt_confirm "message"             - Confirm prompt
+#!/usr/bin/env bash
+# Prompts read /dev/tty, never the script's stdin. Callers keep REPLY local.
 
 [[ -n "${__prompt_sh_loaded:-}" ]] && return 0
 __prompt_sh_loaded=1
 
-prompt_yesno() {
-    local msg="${1:?}" default="${2:-}"
-    if [[ "${NON_INTERACTIVE:-0}" -eq 1 ]]; then
-        case "$default" in
-            y|Y|yes)  return 0 ;;
-            n|N|no)   return 1 ;;
-            *)        return 1 ;;
-        esac
+_prompt_read() {
+    if [[ "${1:-}" == secret ]]; then
+        IFS= read -r -s REPLY 2>/dev/null </dev/tty
+    else
+        IFS= read -r REPLY 2>/dev/null </dev/tty
     fi
-    local prompt="$msg"
-    case "$default" in
-        y|Y|yes) prompt+=" [Y/n]: " ;;
-        n|N|no)  prompt+=" [y/N]: " ;;
-        *)       prompt+=" [y/n]: " ;;
-    esac
+}
+
+prompt_yesno() {
+    local message="${1:?}" default="${2:-n}" REPLY
+    if [[ "${NON_INTERACTIVE:-0}" == 1 ]]; then
+        [[ "$default" == y || "$default" == Y || "$default" == yes ]]
+        return
+    fi
     while true; do
-        printf '%s' "$prompt" >&2
-        read -r answer </dev/tty 2>/dev/null || { echo "tty read failed" >&2; return 1; }
-        answer=${answer:-$default}
-        case "$answer" in
-            y|Y|yes) return 0 ;;
-            n|N|no) return 1 ;;
-            *) echo "Please answer y or n" >&2 ;;
+        printf '%s [y/n, default %s]: ' "$message" "$default" >&2
+        _prompt_read || return 1
+        case "${REPLY:-$default}" in
+            y|Y|yes|YES) return 0 ;;
+            n|N|no|NO) return 1 ;;
+            *) printf 'Please answer y or n.\n' >&2 ;;
         esac
     done
 }
 
 prompt_choice() {
-    local msg="${1:?}" && shift
-    local opts=("$@")
-    if [[ "${NON_INTERACTIVE:-0}" -eq 1 ]]; then
-        printf '%s\n' "${opts[0]}"
-        return
+    local message="${1:?}" REPLY='' count i=1 option
+    shift
+    count=$#
+    ((count > 0)) || return 2
+    if [[ "${NON_INTERACTIVE:-0}" != 1 ]]; then
+        printf '%s\n' "$message" >&2
+        for option do printf '  %s) %s\n' "$i" "$option" >&2; i=$((i + 1)); done
+        printf '> ' >&2
+        _prompt_read || return 1
     fi
-    local i=1 opt
-    echo "$msg" >&2
-    for opt in "${opts[@]}"; do
-        echo "  $i) $opt" >&2
-        ((i += 1))
-    done
-    printf '> ' >&2
-    local choice
-    read -r choice </dev/tty 2>/dev/null
-    if [[ -z "$choice" ]] || [[ "$choice" -lt 1 ]] || [[ "$choice" -gt ${#opts[@]} ]]; then
-        printf '%s\n' "${opts[0]}"
+    if [[ "$REPLY" =~ ^[1-9][0-9]*$ && ${#REPLY} -le ${#count} ]] && ((REPLY <= count)); then
+        printf '%s\n' "${!REPLY}"
     else
-        printf '%s\n' "${opts[$((choice - 1))]}"
+        printf '%s\n' "$1"
     fi
 }
 
 prompt_input() {
-    local label="${1:?}" default="${2:-}"
-    if [[ "${NON_INTERACTIVE:-0}" -eq 1 ]]; then
-        printf '%s\n' "$default"
-        return
-    fi
-    if [[ -n "$default" ]]; then
+    local label="${1:?}" default="${2:-}" REPLY=''
+    if [[ "${NON_INTERACTIVE:-0}" != 1 ]]; then
         printf '%s [%s]: ' "$label" "$default" >&2
-    else
-        printf '%s: ' "$label" >&2
+        _prompt_read || return 1
     fi
-    local answer
-    read -r answer </dev/tty 2>/dev/null
-    printf '%s\n' "${answer:-$default}"
+    printf '%s\n' "${REPLY:-$default}"
 }
 
 prompt_password() {
-    local label="${1:-Password}"
-    if [[ "${NON_INTERACTIVE:-0}" -eq 1 ]]; then
-        return 1
-    fi
-    printf '%s: ' "$label" >&2
-    # shellcheck disable=SC2034
-    read -r -s answer </dev/tty 2>/dev/null
-    echo >&2
-    printf '%s\n' "$answer"
+    local REPLY=''
+    [[ "${NON_INTERACTIVE:-0}" != 1 ]] || return 1
+    printf '%s: ' "${1:-Password}" >&2
+    if ! _prompt_read secret; then printf '\n' >&2; return 1; fi
+    printf '\n' >&2
+    printf '%s\n' "$REPLY"
 }
 
 prompt_menu() {
-    local msg="${1:?}" && shift
-    local entries=("$@")
-    if [[ "${NON_INTERACTIVE:-0}" -eq 1 ]]; then
-        echo "${entries[0]}" | cut -d: -f2
-        return
+    local message="${1:?}" REPLY='' entry
+    shift
+    (($# > 0)) || return 2
+    if [[ "${NON_INTERACTIVE:-0}" != 1 ]]; then
+        printf '%s\n' "$message" >&2
+        for entry do printf '  %s) %s\n' "${entry%%:*}" "${entry#*:}" >&2; done
+        printf '> ' >&2
+        _prompt_read || return 1
+        for entry do
+            if [[ "$REPLY" == "${entry%%:*}" ]]; then printf '%s\n' "${entry#*:}"; return 0; fi
+        done
     fi
-    local i=1 entry key val
-    echo "$msg" >&2
-    for entry in "${entries[@]}"; do
-        key="${entry%%:*}"
-        val="${entry#*:}"
-        echo "  $key) $val" >&2
-    done
-    printf '> ' >&2
-    local choice
-    read -r choice </dev/tty 2>/dev/null
-    for entry in "${entries[@]}"; do
-        key="${entry%%:*}"
-        val="${entry#*:}"
-        if [[ "$choice" == "$key" ]]; then
-            printf '%s\n' "$val"
-            return 0
-        fi
-    done
-    printf '%s\n' "${entries[0]}" | cut -d: -f2
+    printf '%s\n' "${1#*:}"
 }
 
 prompt_spinner() {
-    local msg="${1:?}" && shift
-    if [[ "${NON_INTERACTIVE:-0}" -eq 1 ]]; then
-        "$@" 2>&1
-        return $?
-    fi
-    local chars='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
-    "$@" &
-    local pid=$!
-    local i=0
-    printf ' %s ' "$msg" >&2
+    local message="${1:?}" pid i=0 status=0 chars='|/-\\'
+    shift
+    (($# > 0)) || return 2
+    if [[ "${NON_INTERACTIVE:-0}" == 1 || ! -t 2 ]]; then "$@"; return; fi
+    "$@" <&0 &
+    pid=$!
     while kill -0 "$pid" 2>/dev/null; do
-        printf '\b\b%s\b ' "${chars:$i:1}" >&2
-        i=$(( (i + 1) % ${#chars} ))
+        printf '\r%s %s' "$message" "${chars:i++ % ${#chars}:1}" >&2
         sleep 0.1
     done
-    printf '\b\b  \b\b\n' >&2
-    local status=0
     wait "$pid" || status=$?
+    printf '\r\033[2K' >&2
     return "$status"
 }
 
 prompt_progress() {
-    local current="${1:?}" total="${2:?}" label="${3:-}"
-    ((total > 0)) || { echo "prompt_progress: total must be greater than zero" >&2; return 2; }
-    local width=40
-    local percent=$((current * 100 / total))
-    local filled=$((width * current / total))
-    local empty=$((width - filled))
-    local bar
-    bar=$(printf '%*s' "$filled" '' | tr ' ' '█')
-    bar+=$(printf '%*s' "$empty" '' | tr ' ' '░')
-    printf '\r%s [%s] %3d%% ' "$label" "$bar" "$percent" >&2
-    ((current >= total)) && echo >&2
+    local current="${1:?}" total="${2:?}" label="${3:-}" filled bar empty
+    [[ "$current" =~ ^[0-9]+$ && "$total" =~ ^[1-9][0-9]*$ ]] || return 2
+    current=$((10#$current))
+    ((current <= total)) || current=$total
+    filled=$((40 * current / total))
+    printf -v bar '%*s' "$filled" ''
+    printf -v empty '%*s' "$((40 - filled))" ''
+    if [[ -t 2 && "${NON_INTERACTIVE:-0}" != 1 ]]; then printf '\r' >&2; fi
+    printf '%s [%s%s] %3d%%' "$label" "${bar// /#}" "${empty// /-}" "$((100 * current / total))" >&2
+    if ((current == total)) || [[ ! -t 2 || "${NON_INTERACTIVE:-0}" == 1 ]]; then printf '\n' >&2; fi
+    return 0
 }
 
-prompt_confirm() {
-    local msg="${1:?}"
-    if [[ "${NON_INTERACTIVE:-0}" -eq 1 ]]; then
-        echo "$msg" >&2
-        return 1
-    fi
-    prompt_yesno "$msg" || {
-        echo "Cancelled." >&2
-        return 1
-    }
-}
+prompt_confirm() { prompt_yesno "${1:?}" n; }

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-# deploy-ssh-keys.sh - Deploy SSH public key from GPG
-# Usage:
-#   curl -sSL https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/deploy-ssh-keys.sh | bash
+# Deploy the pinned GPG identity's SSH public key; sync jobs download data only.
 
 set -euo pipefail
 
@@ -16,40 +14,31 @@ if [[ "$REMOTE_BASE_URL" == "$FIRST_PARTY_RAW_BASE" ]]; then
     : "${FETCH_SHA256:=9a60df3d12975f83dea3d8260238aaf4b7bb91bc21dba033573147b5e625bebc}"
     : "${COMMON_LIB_SHA256:=ca059ee1633358864db21c2af98ad150823634ba44378fc6fa51fd302ac4cd86}"
     : "${BOOTSTRAP_LIB_SHA256:=ddda9419f326510a438ba6236e8f7f772e4cde1ae7511d71852f99ae8bea8e90}"
-    : "${OS_LIB_SHA256:=5c60bf433dfc6160dee5f8034bafd113b6fd322bb8e58273f474a0393c24f67f}"
+    : "${OS_LIB_SHA256:=ec5ff88f044b0bc1cc13a13581df179eb0cc8684cd35674804912a424aad10ca}"
 fi
 
-# ==================== BOOTSTRAP ====================
-__IMPORTED_FILES=()
+# REPLY belongs to the caller. Buffer before verification so partial downloads never run.
+fetch_verified() {
+    local file="${1:?}" expected="${2:-}" actual
+    [[ "$expected" =~ ^[0-9a-f]{64}$ ]] || {
+        printf 'Required SHA256 is missing or invalid: %s\n' "$file" >&2
+        return 1
+    }
+    REPLY="$(curl -fsSL --proto '=https' --proto-redir '=https' \
+        --connect-timeout 10 --max-time 120 -- "$REMOTE_BASE_URL/$file" && printf '.')" || return
+    REPLY="${REPLY%.}"
+    actual="$(openssl dgst -sha256 <(printf '%s' "$REPLY"))" || return
+    [[ "${actual##* }" == "$expected" ]] || {
+        printf 'SHA256 mismatch for %s\n' "$file" >&2
+        return 1
+    }
+}
 
 import() {
-    local file="${1:?}" sha256="${2:-}" url
-    url="$REMOTE_BASE_URL/$file"
-    local imported
-    for imported in "${__IMPORTED_FILES[@]}"; do
-        [[ "$imported" == "$url" ]] && return 0
-    done
-    [[ -n "$sha256" ]] || {
-        printf 'import: refusing script without required SHA256: %s\n' "$url" >&2
-        exit 1
-    }
-    local tmp; tmp=$(mktemp) || exit 1
-    trap 'rm -f -- "$tmp"' EXIT
-    trap 'exit 130' HUP INT TERM
-    curl -fsSL --connect-timeout 10 --max-time 120 "$url" -o "$tmp" || { rm -f "$tmp"; exit 1; }
-    local actual
-    actual=$(openssl dgst -sha256 "$tmp" | awk '{print $2}')
-    if [[ "$actual" != "$sha256" ]]; then
-        printf 'import: SHA256 mismatch for %s\n' "$file" >&2
-        rm -f "$tmp"; exit 1
-    fi
-    local status
+    local REPLY
+    fetch_verified "$@" || return
     # shellcheck source=/dev/null
-    if source "$tmp"; then status=0; else status=$?; fi
-    rm -f -- "$tmp"
-    trap - EXIT HUP INT TERM
-    ((status == 0)) || exit "$status"
-    __IMPORTED_FILES+=("$url")
+    source <(printf '%s' "$REPLY")
 }
 
 import lib/common.sh "$COMMON_LIB_SHA256"
@@ -60,21 +49,11 @@ find_gpg() {
     command -v gpg 2>/dev/null || command -v gpg2 2>/dev/null || true
 }
 
-# Embed a verified helper at installation time; periodic jobs download data only.
-download_fetch_script() (
-    set -euo pipefail
-    [[ "$FETCH_SHA256" =~ ^[0-9a-f]{64}$ ]] || {
-        printf 'Required LIGHTJUNCTION_FETCH_SHA256 is missing or invalid\n' >&2; exit 1;
-    }
-    tmp="$(mktemp)"
-    trap 'rm -f -- "$tmp"' EXIT
-    trap 'exit 130' HUP INT TERM
-    curl -fsSL --proto '=https' --proto-redir '=https' --connect-timeout 10 \
-        --max-time 120 "$REMOTE_BASE_URL/fetch-ssh-pub-key.sh" -o "$tmp"
-    actual="$(openssl dgst -sha256 "$tmp" | awk '{print $2}')"
-    [[ "$actual" == "$FETCH_SHA256" ]] || { printf 'Public-key helper SHA256 mismatch\n' >&2; exit 1; }
-    cat "$tmp"
-)
+download_fetch_script() {
+    local REPLY
+    fetch_verified fetch-ssh-pub-key.sh "$FETCH_SHA256" || return
+    printf '%s' "$REPLY"
+}
 
 write_sync_script() {
     local path="${1:?}"
@@ -140,11 +119,9 @@ EOF
 
 install_termux() {
     info "Termux detected"
-
     local sync_script="$HOME/.termux/bin/sync-ssh-keys.sh"
     os_ensure_dir "$(dirname "$sync_script")"
     os_ensure_dir "$HOME/.ssh"
-
     write_sync_script "$sync_script"
     chmod +x "$sync_script"
     bash "$sync_script"
@@ -154,17 +131,15 @@ install_termux() {
 install_systemd() {
     info "Linux (systemd) detected"
     require_sudo
-
     os_ensure_dir "$HOME/.ssh"
-
     local tmp sync_script="/usr/local/bin/sync-ssh-keys.sh"
     tmp="$(mktemp)"
     write_sync_script "$tmp"
-    sudo install -m 0755 "$tmp" "$sync_script"
+    "${SUDO[@]}" install -m 0755 "$tmp" "$sync_script"
     rm -f "$tmp"
     bash "$sync_script"
 
-    sudo tee /etc/systemd/system/ssh-key-sync.service >/dev/null <<EOF
+    "${SUDO[@]}" tee /etc/systemd/system/ssh-key-sync.service >/dev/null <<EOF
 [Unit]
 Description=GPG SSH Key Sync
 After=network-online.target
@@ -179,7 +154,7 @@ User=$USER
 WantedBy=multi-user.target
 EOF
 
-    sudo tee /etc/systemd/system/ssh-key-sync.timer >/dev/null <<'EOF'
+    "${SUDO[@]}" tee /etc/systemd/system/ssh-key-sync.timer >/dev/null <<'EOF'
 [Unit]
 Description=GPG SSH Key Sync Timer
 
@@ -192,28 +167,23 @@ Persistent=true
 WantedBy=timers.target
 EOF
 
-    sudo systemctl daemon-reload
-    sudo systemctl enable --now ssh-key-sync.timer
+    "${SUDO[@]}" systemctl daemon-reload
+    "${SUDO[@]}" systemctl enable --now ssh-key-sync.timer
     ok "Systemd timer enabled (syncs every 12h)"
 }
 
-# ==================== MAIN ====================
 main() {
     GPG_PATH="${GPG_PATH:-$(find_gpg)}"
-    if [[ -z "$GPG_PATH" ]]; then
-        die "GPG not found"
-    fi
+    [[ -n "$GPG_PATH" ]] || die "GPG not found"
     ok "GPG: $GPG_PATH"
     FETCH_SCRIPT_BODY="$(download_fetch_script)"
-
-    if [[ -d "/data/data/com.termux/files/home" ]]; then
+    if os_is android; then
         install_termux
-    elif [[ -d "/run/systemd/system" ]]; then
+    elif [[ -d /run/systemd/system ]]; then
         install_systemd
     else
         die "Unsupported environment"
     fi
-
     ok "Done!"
 }
 

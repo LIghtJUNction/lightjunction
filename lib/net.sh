@@ -1,123 +1,98 @@
-#!/bin/bash
-# net.sh - Network utilities
-# Usage: source net.sh
-#
-# Functions:
-#   net_check host [port]              - Returns 0 if host:port is reachable
-#   net_download url [output]         - Download with curl, show progress
-#   net_http_get url                    - GET request, print body
-#   net_http_post url [data]            - POST request, print body
-#   net_http_status url                 - Print HTTP status code
-#   net_is_online                       - Returns 0 if internet is reachable
-#   net_public_ip                       - Print public IP address
-#   net_dns_lookup hostname             - Resolve hostname to IP
-#   net_wait_for host port [timeout]   - Retry until reachable
-#   net_github_latest user repo         - Print latest release tag
+#!/usr/bin/env bash
+# Network helpers. Download-to-file replaces the target only after curl succeeds.
 
 [[ -n "${__net_sh_loaded:-}" ]] && return 0
 __net_sh_loaded=1
-
 NET_CONNECT_TIMEOUT="${NET_CONNECT_TIMEOUT:-10}"
 NET_MAX_TIME="${NET_MAX_TIME:-120}"
 
-net_check() {
-    local host="${1:?}" port="${2:-80}"
-    if command -v nc >/dev/null 2>&1; then
-        nc -z -w5 "$host" "$port" >/dev/null 2>&1
-    elif command -v timeout >/dev/null 2>&1; then
-        timeout 5 bash -c 'exec 3<>"/dev/tcp/$1/$2"' bash "$host" "$port" 2>/dev/null
-    else
-        curl -s --connect-timeout 5 --max-time 10 "http://$host:$port" >/dev/null 2>&1
-    fi
-}
-
-net_download() {
-    local url="${1:?}" output="${2:-}"
+_net_curl() {
+    local url="${1:?}"
     local opts=(-fsSL --connect-timeout "$NET_CONNECT_TIMEOUT" --max-time "$NET_MAX_TIME")
-    if [[ -t 1 ]] && [[ "${NON_INTERACTIVE:-0}" -eq 0 ]]; then
+    shift
+    [[ "$url" != -* ]] || return 2
+    if [[ "${NET_PROGRESS:-0}" == 1 && -t 1 && "${NON_INTERACTIVE:-0}" == 0 ]]; then
         opts[0]=-#fsSL
     fi
-    if [[ -n "$output" ]]; then
-        local directory tmp
-        directory="$(dirname -- "$output")"
-        mkdir -p -- "$directory"
-        tmp="$(mktemp "$directory/.net-download.XXXXXX")" || return 1
-        if ! curl "${opts[@]}" -o "$tmp" "$url"; then
-            rm -f -- "$tmp"
-            return 1
-        fi
-        if ! mv -f -- "$tmp" "$output"; then
-            rm -f -- "$tmp"
-            return 1
-        fi
+    curl "${opts[@]}" "$@" "$url"
+}
+
+net_check() {
+    local host="${1:?}" port="${2:-80}" timeout="${3:-5}"
+    if command -v timeout >/dev/null 2>&1; then
+        timeout "$timeout" bash -c 'exec 3<>"/dev/tcp/$1/$2"' bash "$host" "$port" 2>/dev/null
+    elif command -v nc >/dev/null 2>&1; then
+        nc -z -w "$timeout" "$host" "$port" >/dev/null 2>&1
     else
-        curl "${opts[@]}" "$url"
+        curl -s --connect-timeout "$timeout" --max-time "$timeout" -- "http://$host:$port" >/dev/null 2>&1
     fi
 }
 
-net_http_get() {
-    local url="${1:?}"
-    curl -fsSL --connect-timeout "$NET_CONNECT_TIMEOUT" --max-time "$NET_MAX_TIME" "$url"
-}
+net_download() (
+    local url="${1:?}" output="${2:-}" directory tmp
+    if [[ -z "$output" ]]; then NET_PROGRESS=1 _net_curl "$url"; return; fi
+    directory="$(dirname -- "$output")" || return
+    mkdir -p -- "$directory" || return
+    [[ ! -d "$output" ]] || return 2
+    tmp="$(mktemp "$directory/.net-download.XXXXXX")" || return
+    trap 'rm -f -- "$tmp"' EXIT
+    NET_PROGRESS=1 _net_curl "$url" -o "$tmp" || return
+    mv -f -- "$tmp" "$output"
+)
 
-net_http_post() {
-    local url="${1:?}" data="${2:-}"
-    if [[ "$url" =~ ^http:// ]]; then
-        echo "net_http_post: WARNING — URL uses unencrypted HTTP: $url" >&2
-    fi
-    curl -fsSL --connect-timeout "$NET_CONNECT_TIMEOUT" --max-time "$NET_MAX_TIME" -X POST -d "$data" "$url"
-}
-
-net_http_status() {
-    local url="${1:?}"
-    curl -s --connect-timeout "$NET_CONNECT_TIMEOUT" --max-time "$NET_MAX_TIME" -o /dev/null -w '%{http_code}' "$url"
-}
-
-net_is_online() {
-    net_check 8.8.8.8 53 || net_check 1.1.1.1 443
-}
+net_http_get() { _net_curl "${1:?}"; }
+net_http_post() { _net_curl "${1:?}" --data-raw "${2:-}"; }
+net_http_status() { _net_curl "${1:?}" --no-fail --no-location -o /dev/null -w '%{http_code}'; }
+net_is_online() { net_check 1.1.1.1 443 || net_check 8.8.8.8 53; }
 
 net_public_ip() {
-    local ips=(
-        "https://api.ipify.org"
-        "https://icanhazip.com"
-        "https://ifconfig.me/ip"
-        "https://checkip.amazonaws.com"
-    )
-    local ip result
-    for ip in "${ips[@]}"; do
-        result=$(curl -fsSL --connect-timeout 5 --max-time 10 "$ip" 2>/dev/null) && printf '%s' "$result" && return 0
+    local url result
+    for url in https://api.ipify.org https://icanhazip.com https://ifconfig.me/ip https://checkip.amazonaws.com; do
+        if result="$(NET_CONNECT_TIMEOUT=5 NET_MAX_TIME=10 net_http_get "$url" 2>/dev/null)" && [[ -n "$result" ]]; then
+            printf '%s' "$result"
+            return 0
+        fi
     done
-    echo "offline"
+    printf 'offline\n'
     return 1
 }
 
 net_dns_lookup() {
-    local hostname="${1:?}"
+    local hostname="${1:?}" result
     if command -v getent >/dev/null 2>&1; then
-        getent hosts "$hostname" | awk '{print $2; exit}'
+        result="$(getent hosts "$hostname")" || return
+        printf '%s\n' "$result" | awk 'NF {print $1; found=1; exit} END {exit !found}'
     elif command -v nslookup >/dev/null 2>&1; then
-        nslookup "$hostname" | awk '/^Address: / {print $2; exit}'
+        result="$(nslookup "$hostname")" || return
+        printf '%s\n' "$result" | awk '
+            /^Name:/ {answer=1}
+            answer && /^Address([[:space:]][0-9]+)?:[[:space:]]/ {
+                sub(/^[^:]*:[[:space:]]*/, ""); print; found=1; exit
+            }
+            END {exit !found}'
     else
-        ping -c1 -W1 "$hostname" 2>/dev/null | grep -oP '\(\K[^)]+' | head -1
+        printf 'net_dns_lookup: install getent or nslookup\n' >&2
+        return 127
     fi
 }
 
 net_wait_for() {
-    local host="${1:?}" port="${2:?}" timeout="${3:-30}"
-    local elapsed=0 interval=1
-    while ! net_check "$host" "$port"; do
-        os_sleep "$interval" 2>/dev/null || sleep "$interval"
-        elapsed=$((elapsed + interval))
-        if ((elapsed >= timeout)); then
-            return 1
-        fi
+    local host="${1:?}" port="${2:?}" duration="${3:-30}" deadline remaining
+    [[ "$duration" =~ ^[1-9][0-9]*$ ]] || return 2
+    deadline=$((SECONDS + duration))
+    while ((SECONDS < deadline)); do
+        remaining=$((deadline - SECONDS))
+        ((remaining <= 5)) || remaining=5
+        if net_check "$host" "$port" "$remaining"; then return 0; fi
+        ((SECONDS < deadline)) || break
+        sleep 1
     done
-    return 0
+    return 1
 }
 
 net_github_latest() {
-    local user="${1:?}" repo="${2:?}"
-    local url="https://api.github.com/repos/$user/$repo/releases/latest"
-    net_http_get "$url" | grep '"tag_name"' | head -1 | grep -oP '"[^"]*"' | tr -d '"'
+    local user="${1:?}" repo="${2:?}" response
+    command -v jq >/dev/null 2>&1 || { printf 'net_github_latest: jq is required\n' >&2; return 127; }
+    response="$(net_http_get "https://api.github.com/repos/$user/$repo/releases/latest")" || return
+    jq -er '.tag_name | select(type == "string" and length > 0)' <<<"$response"
 }
