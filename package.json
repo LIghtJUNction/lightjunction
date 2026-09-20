@@ -2,7 +2,7 @@
   "name": "lightjunction-terminal",
   "version": "1.0.0",
   "private": true,
-  "description": "LIghtJUNction terminal homepage with OpenPGP contact flow",
+  "description": "LIghtJUNction terminal homepage with OpenPGP and age contact flow",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run test:crypto && npm run test:exploration && npm run test:shaders && npm run build",
-    "test:crypto": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/age-crypto.test.mjs",
+    "test:crypto": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/age-crypto.test.mjs tests/public-key.test.mjs",
     "test:exploration": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/expedition-*.test.mjs",
     "test:shaders": "node --test --test-timeout=30000 tests/shader-gallery.test.mjs"
   },
