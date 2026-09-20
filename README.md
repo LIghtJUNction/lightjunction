@@ -60,6 +60,26 @@ After completion, participants can rate the result or request arbitration if the
 
 Copy-ready commands for Linux, macOS, Termux/Android, Windows/WSL, and other Unix-like environments are collected in [ONLINE-SCRIPTS.md](ONLINE-SCRIPTS.md).
 
+### Encrypted contact
+
+LIghtJUNction's age public key (YubiKey):
+
+```text
+age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n
+```
+
+[Public recipient file](public/age-recipients.txt) · [Download from the website](https://lightjunction.github.io/lightjunction/age-recipients.txt)
+
+Install [age](https://github.com/FiloSottile/age) and [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey), with the plugin on your `PATH`. Save the recipient file as `age-recipients.txt`, then encrypt locally:
+
+```sh
+age -R age-recipients.txt -o message.txt.age message.txt
+```
+
+Send `message.txt.age` as an attachment to `lightjunction.me@gmail.com`. You do not need my YubiKey to encrypt a file. This recipient is public; it is not a private key or an identity file.
+
+The website's `contact` command also offers copying and downloading the public key. The existing browser message form supports both OpenPGP and age.
+
 ### Links
 
 [Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
