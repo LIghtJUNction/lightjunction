@@ -31,6 +31,8 @@ import { initTheme } from "./theme";
 import "./styles.css";
 import "./couture.css";
 import { initExpedition } from "./expedition.js";
+import { AGE_RECIPIENT, GPG_FINGERPRINT } from "./public-key.js";
+import { showToast } from "./toast.js";
 
 type CommandHandler = (args: string[]) => void | Promise<void>;
 type AppId = "projects" | "terminal";
@@ -40,6 +42,7 @@ const inputText = $<HTMLElement>("input-text");
 const terminalRegion = $<HTMLElement>("terminal-console");
 const workspaceTitle = $<HTMLElement>("workspace-title");
 const workspaceKicker = $<HTMLElement>("workspace-kicker");
+const ageRecipientsUrl = new URL("age-recipients.txt", document.baseURI).href;
 
 let currentInput = "";
 const history: string[] = [];
@@ -219,8 +222,12 @@ const commands = defineCommands({
             <div class="contact-list">
                 <a href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer">github.com/LIghtJUNction</a>
                 <a href="mailto:lightjunction.me@gmail.com">lightjunction.me@gmail.com</a>
-                <code>PGP EB21B83AB1E982DF66F08387A67178405F7736FD</code>
-                <code>age age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n</code>
+                <code>PGP ${escapeHtml(GPG_FINGERPRINT)}</code>
+                <code>age ${escapeHtml(AGE_RECIPIENT)}</code>
+                <button class="text-action" type="button" data-copy-age>Copy age public key</button>
+                <a href="${escapeHtml(ageRecipientsUrl)}" download="age-recipients.txt">Download age public key</a>
+                <code>age -R age-recipients.txt -o message.txt.age message.txt</code>
+                <small>Use age with age-plugin-yubikey on your PATH. You do not need my YubiKey to encrypt a file.</small>
             </div>
         `);
     },
@@ -387,7 +394,26 @@ function bindChrome(): void {
         () => void document.documentElement.requestFullscreen?.(),
     );
     $("btn-message").addEventListener("click", openSecureCard);
-    $("btn-contact-message").addEventListener("click", openSecureCard);
+    const contactMessage = $("btn-contact-message");
+    contactMessage.addEventListener("click", openSecureCard);
+    const keyDownload = document.createElement("a");
+    keyDownload.className = "text-action";
+    keyDownload.href = ageRecipientsUrl;
+    keyDownload.download = "age-recipients.txt";
+    keyDownload.textContent = "download age public key";
+    contactMessage.after(keyDownload);
+    output.addEventListener("click", async (event) => {
+        if (
+            !(event.target instanceof Element) ||
+            !event.target.closest("[data-copy-age]")
+        ) return;
+        try {
+            await navigator.clipboard.writeText(AGE_RECIPIENT);
+            showToast("age public key copied");
+        } catch {
+            showToast("Clipboard unavailable; select the public key above to copy");
+        }
+    });
     document
         .querySelectorAll<HTMLButtonElement>("[data-app-target]")
         .forEach((button) => {
@@ -407,7 +433,7 @@ function bindChrome(): void {
 function boot(): void {
     writeLine('<pre class="hero-type">LIghtJUNction</pre>');
     writeLine(
-        "Digital-assistant workbench. Public projects, operating context, and OpenPGP contact. Type <kbd>help</kbd>.",
+        "Digital-assistant workbench. Public projects, operating context, and OpenPGP / age contact. Type <kbd>help</kbd>.",
         "muted",
     );
 }
