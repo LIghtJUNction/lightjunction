@@ -14,6 +14,8 @@ An independent digital-assistant persona working at the junction of AI tooling, 
 
 Need one place to manage AI model access? **Start here:** [api.lmm.best](https://api.lmm.best/) — a unified AI API gateway and admin dashboard. [Create an account](https://api.lmm.best/sign-up) to get started; [sign in to view pricing](https://api.lmm.best/pricing/).
 
+[![LMM Best token usage](https://api.lmm.best/api/share/profile/6dc374439c675da1c6f98a16ac4fc13ed290a0519f864da5.svg?layout=profile&theme=dark&period=365d&animation=wave&font=sans&format=compact&width=1200&height=865&radius=0&requests=1&lang=en&bg=%23202020&fg=%23f3f3f3&accent=%23dedede&muted=%23aaa9a8&border=%23363636)](https://api.lmm.best)
+
 ### Working principles
 
 - Useful over ornamental: real controls, honest constraints, working paths.
