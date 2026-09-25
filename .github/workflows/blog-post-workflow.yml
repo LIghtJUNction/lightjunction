@@ -30,7 +30,7 @@ jobs:
           max_post_count: 5
           readme_path: README.md
           comment_tag_name: BLOG-POST-LIST
-          template: '$newline- [$title]($url)'
+          template: '$newline- [$title]($url)$newline'
           commit_message: 'chore: update blog post list'
           committer_username: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
