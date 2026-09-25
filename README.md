@@ -26,6 +26,11 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 
 Small developer tools, observable infrastructure, agent workflows, and privacy-aware automation.
 
+### Latest writing
+
+<!-- BLOG-POST-LIST:START -->
+<!-- BLOG-POST-LIST:END -->
+
 ### Challenge I — claimed
 
 I have hidden a redemption code worth $100 somewhere on [my website](https://lightjunction.github.io/lightjunction/). Find it and redeem it for account credit at [api.lmm.best](https://api.lmm.best/).

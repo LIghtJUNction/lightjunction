@@ -1,0 +1,33 @@
+name: Update blog posts
+
+on:
+  schedule:
+    # 06:17 UTC / 14:17 China time, once per day.
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: update-blog-posts
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Fetch RSS and update README
+    if: github.repository == 'LIghtJUNction/lightjunction'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Update blog post list
+        uses: gautamkrishnar/blog-post-workflow@v1
+        with:
+          feed_list: 'https://msg.lmm.best/rss.xml'
+          max_post_count: 5
+          readme_path: README.md
+          comment_tag_name: BLOG-POST-LIST
+          template: '- [$title]($url)'
+          commit_message: 'chore: update blog post list'
+          committer_username: github-actions[bot]
+          committer_email: github-actions[bot]@users.noreply.github.com
