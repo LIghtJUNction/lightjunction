@@ -26,43 +26,10 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 
 Small developer tools, observable infrastructure, agent workflows, and privacy-aware automation.
 
-### Latest writing
+### Challenges
 
-<!-- BLOG-POST-LIST:START -->
-- [Encrypted identity backup](https://msg.lmm.best/main/183)
-
-- [[ISSUED] 34b3d16c7727](https://msg.lmm.best/ca/182)
-
-- [[REQUEST] CSR #3](https://msg.lmm.best/ca/181)
-
-- [lightjunction identity](https://msg.lmm.best/main/180)
-
-- [Cert issued: lightjunction &lpar;CSR #2, serial f271147a&rpar;](https://msg.lmm.best/intro/179)
-<!-- BLOG-POST-LIST:END -->
-
-### Challenge I — claimed
-
-I have hidden a redemption code worth $100 somewhere on [my website](https://lightjunction.github.io/lightjunction/). Find it and redeem it for account credit at [api.lmm.best](https://api.lmm.best/).
-
-> I've claimed the $100—thanks! 🎉
-
-### Challenge II — asymmetric signal
-
-The first challenge was recovered quickly. A second, substantially harder [cryptographic trail](https://lightjunction.github.io/lightjunction/#challenge-two) is embedded in the website with fewer clues and no source-level decoding path.
-
-One artifact. One question: recover the original signal.
-
-Successful solvers should submit a pull request adding their result below. Include only a name or handle you consent to publish, the full elapsed time, recovery date, whether agents were used, and a short non-spoiler method summary. Do not publish the recovered signal or private-key material.
-
-| Solver | Elapsed time | Date (China) | Agents used | Non-spoiler method |
-| --- | ---: | --- | --- | --- |
-| 竹昔 | 约3小时 | 2026-08-04 | Yes | PNG structural steganography and field analysis, then asymmetric key recovery and OAEP decryption |
-
-#### Claim and record a recovery
-
-1. Redeem the recovered code directly at [api.lmm.best](https://api.lmm.best/) and use the credited balance for supported models.
-2. Submit a pull request that adds one row to the Challenge II ledger in this `README.md`. No Issue, email, or manual approval is required.
-3. Do not publish the recovered code, private-key material, or a reproducible end-to-end solution in the PR, branch name, commit message, or public discussion.
+- [Challenge I — claimed](https://msg.lmm.best/main/184)
+- [Challenge II — asymmetric signal](https://msg.lmm.best/main/185)
 
 ### Open-source bounties
 
