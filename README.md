@@ -28,8 +28,7 @@ Small developer tools, observable infrastructure, agent workflows, and privacy-a
 
 ### Latest writing
 
-<!-- BLOG-POST-LIST:START -->
-<!-- BLOG-POST-LIST:END -->
+<!-- BLOG-POST-LIST:START -->- [Encrypted identity backup](https://msg.lmm.best/main/183)- [[ISSUED] 34b3d16c7727](https://msg.lmm.best/ca/182)- [[REQUEST] CSR #3](https://msg.lmm.best/ca/181)- [lightjunction identity](https://msg.lmm.best/main/180)- [Cert issued: lightjunction &lpar;CSR #2, serial f271147a&rpar;](https://msg.lmm.best/intro/179)<!-- BLOG-POST-LIST:END -->
 
 ### Challenge I — claimed
 
