@@ -1,6 +1,7 @@
 """Structural checks for the stable profile README files."""
 
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 README_FILES = [
     Path("README.md"),
@@ -32,34 +33,52 @@ def test_readmes_start_with_one_stable_hero() -> None:
             assert old_panel not in text, path
 
 
-def test_readme_hero_is_lightweight_static_svg() -> None:
+def test_readme_hero_is_lightweight_self_contained_svg() -> None:
     hero = Path("public/readme-hero.svg")
     text = hero.read_text(encoding="utf-8")
-    assert hero.stat().st_size < 15_000
+    # The animated bitmap has 170 independent pixels, rather than a static text node.
+    assert hero.stat().st_size < 32 * 1024
     assert "<script" not in text
     assert "<animate" not in text
     assert "http://" not in text.replace('xmlns="http://www.w3.org/2000/svg"', "")
     assert "https://" not in text
 
+    root = ET.fromstring(text)
+    namespace = {"svg": "http://www.w3.org/2000/svg"}
+    assert root.tag == "{http://www.w3.org/2000/svg}svg"
+    assert root.get("viewBox") == "0 0 1200 430"
+    assert root.get("role") == "img"
+    assert root.get("aria-labelledby") == "title desc"
+    assert root.findtext("svg:title", namespaces=namespace) == "LIghtJUNction"
+    assert root.findtext("svg:desc", namespaces=namespace)
 
-def test_readme_hero_uses_editorial_palette_and_junction_metaphor() -> None:
+
+def test_readme_hero_uses_looping_pixel_tokens() -> None:
     text = Path("public/readme-hero.svg").read_text(encoding="utf-8")
     required = [
         'width="1200" height="430"',
-        'fill="#CBCADB"',
-        'fill="#FAF9F5"',
-        'stroke="#141413"',
-        'fill="#D97757"',
-        "LIghtJUNction",
-        "MANY SIGNALS. ONE USEFUL ROUTE.",
-        "<circle",
+        "@keyframes scatter",
+        "animation: scatter 14s cubic-bezier(.42,0,.22,1) infinite;",
+        "0%,18%,82%,100% { transform: translate(0,0) scale(1); opacity: 1; }",
+        "@media (prefers-reduced-motion: reduce)",
+        ".p,.echo,.seed { animation: none; }",
     ]
     for fragment in required:
         assert fragment in text
 
-    forbidden = ["<linearGradient", "<radialGradient", "<filter", "<image"]
+    # Vector gradients are allowed; raster stand-ins, fonts and costly filters are not.
+    forbidden = ["<filter", "<image", "<text", "<foreignObject", "@font-face"]
     for fragment in forbidden:
         assert fragment not in text
+
+    root = ET.fromstring(text)
+    pixels = [
+        node
+        for node in root.iter("{http://www.w3.org/2000/svg}rect")
+        if "p" in node.get("class", "").split()
+    ]
+    assert len(pixels) == 170
+    assert all(node.get("width") == node.get("height") == "9" for node in pixels)
 
 
 def test_obsolete_profile_generation_is_removed() -> None:
