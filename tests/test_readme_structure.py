@@ -70,6 +70,7 @@ def test_obsolete_profile_generation_is_removed() -> None:
         "public/profile-pulse.svg",
         "public/profile-projects.svg",
         "public/profile-actions.svg",
+        "PROFILE_ACTIONS.md",
         "scripts/update_profile_pulse.py",
         "scripts/generate-readme-ascii-flame.py",
         ".github/workflows/refresh-profile-pulse.yml",
@@ -126,9 +127,19 @@ def test_api_recommendation_is_early_and_actionable() -> None:
             assert action_path in text, (filename, action_path)
 
 
-def test_challenge_two_ledger_is_canonical_in_english_readme() -> None:
+def test_challenge_links_keep_canonical_board_and_localized_entrypoints() -> None:
+    # The English challenges moved to the board in 6dd7a912, before TOKEN DRIFT.
+    # Keep exact destinations protected instead of requiring the removed ledger.
+    english = Path("README.md").read_text(encoding="utf-8")
+    section = english.split("### Challenges\n", 1)[1].split("\n### ", 1)[0]
+    for link in (
+        "[Challenge I — claimed](https://msg.lmm.best/main/184)",
+        "[Challenge II — asymmetric signal](https://msg.lmm.best/main/185)",
+    ):
+        assert section.count(link) == 1, link
+    assert "| --- | ---: | --- | --- | --- |" not in english
+
     headings = {
-        "README.md": "### Challenge II — asymmetric signal",
         "README.zh.md": "### 挑战二——非对称信号",
         "README.ru.md": "### Испытание II — асимметричный сигнал",
         "README.ko.md": "### 챌린지 II — 비대칭 신호",
@@ -139,17 +150,14 @@ def test_challenge_two_ledger_is_canonical_in_english_readme() -> None:
         text = Path(filename).read_text(encoding="utf-8")
         assert heading in text, filename
         assert challenge_link in text, filename
-        if filename == "README.md":
-            assert "| --- | ---: | --- | --- | --- |" in text
-        else:
-            assert "`README.md`" in text, filename
-            assert "| --- | ---: | --- | --- | --- |" not in text, filename
+        assert "`README.md`" in text, filename
+        assert "| --- | ---: | --- | --- | --- |" not in text, filename
 
 
 def test_readmes_include_localized_open_source_bounties() -> None:
     checks: dict[str, tuple[str, str, str, list[str]]] = {
         "README.md": (
-            "### Challenge II — asymmetric signal",
+            "### Challenges",
             "### Open-source bounties",
             "### Links",
             ["open-source bounty tasks", "Issue and PR", "rate the result", "request arbitration"],
