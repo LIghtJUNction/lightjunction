@@ -1,31 +1,246 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
   <title id="title">LIghtJUNction</title>
-  <desc id="desc">A digital assistant turning many signals into useful systems.</desc>
-  <rect width="1200" height="430" fill="#CBCADB"/>
-  <path fill="#FAF9F5" d="M38 62C126 26 249 37 353 42c120 6 217-24 339-3 105 19 225-6 326 20 88 23 145 89 142 168-3 80-57 137-142 153-112 21-223-8-334 1-137 12-273 32-410 5-105-20-235 16-315-49-69-56-74-201-21-275Z"/>
-  <g fill="none" stroke="#141413" stroke-linecap="round" stroke-linejoin="round">
-    <path stroke-width="9" d="M740 83c55 2 83 25 107 68 16 29 43 30 76 38 40 9 67 34 99 59"/>
-    <path stroke-width="7" d="M737 153c43 7 78 18 109 51 25 26 47 31 83 29 42-2 79 17 112 42"/>
-    <path stroke-width="8" d="M723 226c56-4 91-1 132 28 30 21 62 23 98 13 38-11 78-4 111 15"/>
-    <path stroke-width="7" d="M744 303c47-17 83-27 130-9 34 13 58 12 91-7 34-19 75-22 112-12"/>
-    <path stroke-width="10" d="M846 158c-9 35-8 75 14 103 20 25 51 35 82 24"/>
-    <path stroke-width="8" d="M880 134c-5 43 3 81 32 112 21 22 47 26 77 16"/>
-    <path stroke-width="11" d="M805 314c20-36 39-57 75-75 29-15 50-38 53-72"/>
-    <path stroke-width="6" d="M1032 124c-18 44-16 78 4 119 13 27 11 58-5 83"/>
+  <desc id="desc">An 8-bit wordmark becomes a drifting cloud of tokens, then the same pixels find their way home. A seamless 14-second loop. Reduced motion keeps the complete wordmark.</desc>
+  <!-- Self-contained vector animation. No scripts, fonts, raster images or external requests.
+       Each pixel keeps its home coordinates; only its transform changes.
+       0-18%: identity / 18-44%: release / 44-60%: cloud / 60-82%: recall / 82-100%: rest.
+       Negative phase offsets are shorter than the opening hold, so the first frame is complete. -->
+  <defs>
+    <radialGradient id="stage" cx="50%" cy="46%" r="70%">
+      <stop stop-color="#1b1a18"/>
+      <stop offset=".62" stop-color="#101011"/>
+      <stop offset="1" stop-color="#0b0b0d"/>
+    </radialGradient>
+    <linearGradient id="thread">
+      <stop stop-color="#bda786" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#bda786" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#bda786" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .p {
+      fill: #ede9e1;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: scatter 14s cubic-bezier(.42,0,.22,1) infinite;
+      animation-delay: var(--d,0s);
+    }
+    .p:nth-child(11n) { fill: #c4af8b; }
+    .p:nth-child(7n) { fill: #cfccc6; }
+    .a { --a: 28px; --b: -16px; --s: .58; }
+    .b { --a: -24px; --b: 20px; --s: .72; }
+    .c { --a: 18px; --b: 26px; --s: .44; }
+    .d { --a: -34px; --b: -12px; --s: .88; }
+    @keyframes scatter {
+      0%,18%,82%,100% { transform: translate(0,0) scale(1); opacity: 1; }
+      32% { transform: translate(calc(var(--x)*.34),calc(var(--y)*.48)) scale(.9); opacity: .82; }
+      44% { transform: translate(var(--x),var(--y)) scale(var(--s)); opacity: .58; }
+      60% { transform: translate(calc(var(--x) + var(--a)),calc(var(--y) + var(--b))) scale(var(--s)); opacity: .72; }
+      72% { transform: translate(calc(var(--x)*.36),calc(var(--y)*-.24)) scale(.92); opacity: .9; }
+    }
+    .echo { opacity: 0; animation: echo 14s ease-in-out infinite; }
+    @keyframes echo { 0%,25%,76%,100% { opacity: 0; } 44%,60% { opacity: .28; } }
+    .seed { animation: seed 14s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes seed { 0%,18%,82%,100% { opacity: .72; transform: scale(1); } 44%,60% { opacity: .24; transform: scale(.65); } }
+    @media (prefers-reduced-motion: reduce) {
+      .p,.echo,.seed { animation: none; }
+      .p { transform: none; opacity: 1; }
+      .echo { display: none; }
+    }
+  </style>
+  <rect width="1200" height="430" fill="url(#stage)"/>
+  <!-- A quiet axis stays behind when the identity loses its shape. -->
+  <path d="M380 346.5h440" stroke="url(#thread)"/>
+  <path class="seed" d="M597 343h6v6h-6z" fill="#c4af8b"/>
+  <!-- Three code-shaped echoes, drawn as pixels rather than font glyphs. -->
+  <g class="echo" fill="#bca88a" aria-hidden="true">
+    <path d="M242 114h3v3h-3z m-3 3h3v3h-3z m-3 3h3v3h-3z m3 3h3v3h-3z m3 3h3v3h-3z M254 114h3v3h-3z m3 3h3v3h-3z m3 3h3v3h-3z m-3 3h3v3h-3z m-3 3h3v3h-3z"/>
+    <path d="M910 276h3v3h-3z m3 0h3v3h-3z m-6 3h3v3h-3z m0 3h3v3h-3z m0 3h3v3h-3z m0 3h3v3h-3z m3 3h3v3h-3z m3 0h3v3h-3z M928 276h3v3h-3z m0 3h3v3h-3z m0 3h3v3h-3z m0 3h3v3h-3z m0 3h3v3h-3z m0 3h3v3h-3z"/>
+    <path d="M571 88h3v3h-3z m3 0h3v3h-3z m-6 3h3v3h-3z m0 3h3v3h-3z m-3 3h3v3h-3z m3 3h3v3h-3z m0 3h3v3h-3z m3 3h3v3h-3z m3 0h3v3h-3z"/>
   </g>
-  <g fill="#141413">
-    <circle cx="741" cy="83" r="10"/>
-    <circle cx="737" cy="153" r="8"/>
-    <circle cx="723" cy="226" r="11"/>
-    <circle cx="744" cy="303" r="9"/>
-    <circle cx="914" cy="247" r="18"/>
-    <circle cx="1043" cy="275" r="11"/>
+  <g aria-hidden="true">
+    <!-- L -->
+    <rect width="9" height="9" class="p a" x="177.5" y="168" style="--x:250px;--y:-26px;--d:-0.25s"/>
+    <rect width="9" height="9" class="p b" x="177.5" y="179" style="--x:528px;--y:108px;--d:-0.11s"/>
+    <rect width="9" height="9" class="p c" x="177.5" y="190" style="--x:786px;--y:38px;--d:-0.23s"/>
+    <rect width="9" height="9" class="p d" x="177.5" y="201" style="--x:292px;--y:-68px;--d:-0.06s"/>
+    <rect width="9" height="9" class="p a" x="177.5" y="212" style="--x:742px;--y:-44px;--d:-0.26s"/>
+    <rect width="9" height="9" class="p b" x="177.5" y="223" style="--x:122px;--y:6px;--d:-0.14s"/>
+    <rect width="9" height="9" class="p c" x="177.5" y="234" style="--x:738px;--y:48px;--d:-0.16s"/>
+    <rect width="9" height="9" class="p d" x="188.5" y="234" style="--x:652px;--y:-82px;--d:-0.05s"/>
+    <rect width="9" height="9" class="p a" x="199.5" y="234" style="--x:684px;--y:14px;--d:-0.07s"/>
+    <rect width="9" height="9" class="p b" x="210.5" y="234" style="--x:308px;--y:46px;--d:-0.22s"/>
+    <rect width="9" height="9" class="p c" x="221.5" y="234" style="--x:458px;--y:-98px;--d:-0.33s"/>
+    <!-- I -->
+    <rect width="9" height="9" class="p d" x="243.5" y="168" style="--x:630px;--y:44px;--d:-0.2s"/>
+    <rect width="9" height="9" class="p a" x="254.5" y="168" style="--x:352px;--y:126px;--d:-0.29s"/>
+    <rect width="9" height="9" class="p b" x="265.5" y="168" style="--x:732px;--y:24px;--d:-0.12s"/>
+    <rect width="9" height="9" class="p c" x="276.5" y="168" style="--x:308px;--y:-52px;--d:-0.38s"/>
+    <rect width="9" height="9" class="p d" x="287.5" y="168" style="--x:196px;--y:96px;--d:-0.4s"/>
+    <rect width="9" height="9" class="p a" x="265.5" y="179" style="--x:704px;--y:96px;--d:-0.15s"/>
+    <rect width="9" height="9" class="p b" x="265.5" y="190" style="--x:484px;--y:-78px;--d:-0.21s"/>
+    <rect width="9" height="9" class="p c" x="265.5" y="201" style="--x:164px;--y:-62px;--d:-0.15s"/>
+    <rect width="9" height="9" class="p d" x="265.5" y="212" style="--x:646px;--y:-32px;--d:-0.23s"/>
+    <rect width="9" height="9" class="p a" x="265.5" y="223" style="--x:246px;--y:-108px;--d:-0.31s"/>
+    <rect width="9" height="9" class="p b" x="243.5" y="234" style="--x:770px;--y:2px;--d:-0.32s"/>
+    <rect width="9" height="9" class="p c" x="254.5" y="234" style="--x:68px;--y:-114px;--d:-0.19s"/>
+    <rect width="9" height="9" class="p d" x="265.5" y="234" style="--x:-10px;--y:-50px;--d:-0.4s"/>
+    <rect width="9" height="9" class="p a" x="276.5" y="234" style="--x:350px;--y:-92px;--d:-0.2s"/>
+    <rect width="9" height="9" class="p b" x="287.5" y="234" style="--x:532px;--y:52px;--d:-0.18s"/>
+    <!-- g -->
+    <rect width="9" height="9" class="p c" x="320.5" y="190" style="--x:462px;--y:114px;--d:-0.45s"/>
+    <rect width="9" height="9" class="p d" x="331.5" y="190" style="--x:52px;--y:-30px;--d:-0.4s"/>
+    <rect width="9" height="9" class="p a" x="342.5" y="190" style="--x:322px;--y:124px;--d:-0.42s"/>
+    <rect width="9" height="9" class="p b" x="353.5" y="190" style="--x:268px;--y:82px;--d:-0.48s"/>
+    <rect width="9" height="9" class="p c" x="309.5" y="201" style="--x:578px;--y:64px;--d:-0.42s"/>
+    <rect width="9" height="9" class="p d" x="353.5" y="201" style="--x:514px;--y:78px;--d:-0.45s"/>
+    <rect width="9" height="9" class="p a" x="309.5" y="212" style="--x:610px;--y:54px;--d:-0.26s"/>
+    <rect width="9" height="9" class="p b" x="353.5" y="212" style="--x:-8px;--y:-94px;--d:-0.28s"/>
+    <rect width="9" height="9" class="p c" x="309.5" y="223" style="--x:16px;--y:30px;--d:-0.27s"/>
+    <rect width="9" height="9" class="p d" x="353.5" y="223" style="--x:630px;--y:18px;--d:-0.24s"/>
+    <rect width="9" height="9" class="p a" x="320.5" y="234" style="--x:546px;--y:-8px;--d:-0.29s"/>
+    <rect width="9" height="9" class="p b" x="331.5" y="234" style="--x:-4px;--y:-22px;--d:-0.34s"/>
+    <rect width="9" height="9" class="p c" x="342.5" y="234" style="--x:686px;--y:-2px;--d:-0.27s"/>
+    <rect width="9" height="9" class="p d" x="353.5" y="234" style="--x:606px;--y:18px;--d:-0.24s"/>
+    <rect width="9" height="9" class="p a" x="353.5" y="245" style="--x:366px;--y:-106px;--d:-0.51s"/>
+    <rect width="9" height="9" class="p b" x="320.5" y="256" style="--x:698px;--y:-50px;--d:-0.22s"/>
+    <rect width="9" height="9" class="p c" x="331.5" y="256" style="--x:226px;--y:16px;--d:-0.47s"/>
+    <rect width="9" height="9" class="p d" x="342.5" y="256" style="--x:634px;--y:-22px;--d:-0.45s"/>
+    <!-- h -->
+    <rect width="9" height="9" class="p a" x="375.5" y="168" style="--x:-58px;--y:-12px;--d:-0.44s"/>
+    <rect width="9" height="9" class="p b" x="375.5" y="179" style="--x:-32px;--y:48px;--d:-0.31s"/>
+    <rect width="9" height="9" class="p c" x="375.5" y="190" style="--x:320px;--y:106px;--d:-0.39s"/>
+    <rect width="9" height="9" class="p d" x="397.5" y="190" style="--x:512px;--y:100px;--d:-0.35s"/>
+    <rect width="9" height="9" class="p a" x="408.5" y="190" style="--x:422px;--y:-10px;--d:-0.35s"/>
+    <rect width="9" height="9" class="p b" x="375.5" y="201" style="--x:10px;--y:-48px;--d:-0.45s"/>
+    <rect width="9" height="9" class="p c" x="386.5" y="201" style="--x:356px;--y:-30px;--d:-0.42s"/>
+    <rect width="9" height="9" class="p d" x="419.5" y="201" style="--x:158px;--y:110px;--d:-0.56s"/>
+    <rect width="9" height="9" class="p a" x="375.5" y="212" style="--x:450px;--y:-6px;--d:-0.47s"/>
+    <rect width="9" height="9" class="p b" x="419.5" y="212" style="--x:-164px;--y:20px;--d:-0.53s"/>
+    <rect width="9" height="9" class="p c" x="375.5" y="223" style="--x:524px;--y:-6px;--d:-0.51s"/>
+    <rect width="9" height="9" class="p d" x="419.5" y="223" style="--x:-56px;--y:-118px;--d:-0.35s"/>
+    <rect width="9" height="9" class="p a" x="375.5" y="234" style="--x:438px;--y:48px;--d:-0.4s"/>
+    <rect width="9" height="9" class="p b" x="419.5" y="234" style="--x:330px;--y:-70px;--d:-0.43s"/>
+    <!-- t -->
+    <rect width="9" height="9" class="p c" x="463.5" y="168" style="--x:-60px;--y:68px;--d:-0.6s"/>
+    <rect width="9" height="9" class="p d" x="463.5" y="179" style="--x:112px;--y:94px;--d:-0.54s"/>
+    <rect width="9" height="9" class="p a" x="441.5" y="190" style="--x:288px;--y:88px;--d:-0.43s"/>
+    <rect width="9" height="9" class="p b" x="452.5" y="190" style="--x:56px;--y:114px;--d:-0.62s"/>
+    <rect width="9" height="9" class="p c" x="463.5" y="190" style="--x:-46px;--y:60px;--d:-0.65s"/>
+    <rect width="9" height="9" class="p d" x="474.5" y="190" style="--x:462px;--y:14px;--d:-0.54s"/>
+    <rect width="9" height="9" class="p a" x="463.5" y="201" style="--x:376px;--y:-26px;--d:-0.49s"/>
+    <rect width="9" height="9" class="p b" x="463.5" y="212" style="--x:-142px;--y:-20px;--d:-0.53s"/>
+    <rect width="9" height="9" class="p c" x="463.5" y="223" style="--x:286px;--y:-78px;--d:-0.56s"/>
+    <rect width="9" height="9" class="p d" x="474.5" y="234" style="--x:374px;--y:-44px;--d:-0.63s"/>
+    <rect width="9" height="9" class="p a" x="485.5" y="234" style="--x:504px;--y:-46px;--d:-0.43s"/>
+    <!-- J -->
+    <rect width="9" height="9" class="p b" x="529.5" y="168" style="--x:-36px;--y:-64px;--d:-0.72s"/>
+    <rect width="9" height="9" class="p c" x="540.5" y="168" style="--x:-262px;--y:50px;--d:-0.7s"/>
+    <rect width="9" height="9" class="p d" x="551.5" y="168" style="--x:190px;--y:104px;--d:-0.76s"/>
+    <rect width="9" height="9" class="p a" x="540.5" y="179" style="--x:76px;--y:-76px;--d:-0.57s"/>
+    <rect width="9" height="9" class="p b" x="540.5" y="190" style="--x:-60px;--y:-54px;--d:-0.66s"/>
+    <rect width="9" height="9" class="p c" x="540.5" y="201" style="--x:292px;--y:12px;--d:-0.71s"/>
+    <rect width="9" height="9" class="p d" x="507.5" y="212" style="--x:206px;--y:-56px;--d:-0.55s"/>
+    <rect width="9" height="9" class="p a" x="540.5" y="212" style="--x:280px;--y:74px;--d:-0.49s"/>
+    <rect width="9" height="9" class="p b" x="507.5" y="223" style="--x:136px;--y:62px;--d:-0.67s"/>
+    <rect width="9" height="9" class="p c" x="540.5" y="223" style="--x:366px;--y:-60px;--d:-0.52s"/>
+    <rect width="9" height="9" class="p d" x="518.5" y="234" style="--x:-172px;--y:-42px;--d:-0.6s"/>
+    <rect width="9" height="9" class="p a" x="529.5" y="234" style="--x:110px;--y:-92px;--d:-0.47s"/>
+    <!-- U -->
+    <rect width="9" height="9" class="p b" x="573.5" y="168" style="--x:164px;--y:-16px;--d:-0.61s"/>
+    <rect width="9" height="9" class="p c" x="617.5" y="168" style="--x:-238px;--y:-20px;--d:-0.86s"/>
+    <rect width="9" height="9" class="p d" x="573.5" y="179" style="--x:254px;--y:66px;--d:-0.61s"/>
+    <rect width="9" height="9" class="p a" x="617.5" y="179" style="--x:290px;--y:-16px;--d:-0.7s"/>
+    <rect width="9" height="9" class="p b" x="573.5" y="190" style="--x:418px;--y:46px;--d:-0.74s"/>
+    <rect width="9" height="9" class="p c" x="617.5" y="190" style="--x:-268px;--y:-10px;--d:-0.72s"/>
+    <rect width="9" height="9" class="p d" x="573.5" y="201" style="--x:132px;--y:-68px;--d:-0.76s"/>
+    <rect width="9" height="9" class="p a" x="617.5" y="201" style="--x:266px;--y:52px;--d:-0.78s"/>
+    <rect width="9" height="9" class="p b" x="573.5" y="212" style="--x:-86px;--y:-76px;--d:-0.68s"/>
+    <rect width="9" height="9" class="p c" x="617.5" y="212" style="--x:-130px;--y:-114px;--d:-0.76s"/>
+    <rect width="9" height="9" class="p d" x="573.5" y="223" style="--x:-384px;--y:-42px;--d:-0.73s"/>
+    <rect width="9" height="9" class="p a" x="617.5" y="223" style="--x:100px;--y:74px;--d:-0.62s"/>
+    <rect width="9" height="9" class="p b" x="584.5" y="234" style="--x:378px;--y:2px;--d:-0.57s"/>
+    <rect width="9" height="9" class="p c" x="595.5" y="234" style="--x:-378px;--y:-72px;--d:-0.73s"/>
+    <rect width="9" height="9" class="p d" x="606.5" y="234" style="--x:216px;--y:-36px;--d:-0.58s"/>
+    <!-- N -->
+    <rect width="9" height="9" class="p a" x="639.5" y="168" style="--x:-346px;--y:98px;--d:-0.86s"/>
+    <rect width="9" height="9" class="p b" x="683.5" y="168" style="--x:-494px;--y:26px;--d:-0.91s"/>
+    <rect width="9" height="9" class="p c" x="639.5" y="179" style="--x:72px;--y:112px;--d:-0.84s"/>
+    <rect width="9" height="9" class="p d" x="650.5" y="179" style="--x:246px;--y:36px;--d:-0.8s"/>
+    <rect width="9" height="9" class="p a" x="683.5" y="179" style="--x:-200px;--y:-54px;--d:-0.86s"/>
+    <rect width="9" height="9" class="p b" x="639.5" y="190" style="--x:226px;--y:-46px;--d:-0.72s"/>
+    <rect width="9" height="9" class="p c" x="650.5" y="190" style="--x:-296px;--y:-78px;--d:-0.69s"/>
+    <rect width="9" height="9" class="p d" x="683.5" y="190" style="--x:-38px;--y:114px;--d:-0.75s"/>
+    <rect width="9" height="9" class="p a" x="639.5" y="201" style="--x:-342px;--y:18px;--d:-0.7s"/>
+    <rect width="9" height="9" class="p b" x="661.5" y="201" style="--x:-292px;--y:38px;--d:-0.72s"/>
+    <rect width="9" height="9" class="p c" x="683.5" y="201" style="--x:82px;--y:-78px;--d:-0.8s"/>
+    <rect width="9" height="9" class="p d" x="639.5" y="212" style="--x:318px;--y:64px;--d:-0.75s"/>
+    <rect width="9" height="9" class="p a" x="672.5" y="212" style="--x:-410px;--y:-72px;--d:-0.82s"/>
+    <rect width="9" height="9" class="p b" x="683.5" y="212" style="--x:272px;--y:24px;--d:-0.84s"/>
+    <rect width="9" height="9" class="p c" x="639.5" y="223" style="--x:204px;--y:12px;--d:-0.75s"/>
+    <rect width="9" height="9" class="p d" x="672.5" y="223" style="--x:82px;--y:56px;--d:-0.67s"/>
+    <rect width="9" height="9" class="p a" x="683.5" y="223" style="--x:-284px;--y:-120px;--d:-0.81s"/>
+    <rect width="9" height="9" class="p b" x="639.5" y="234" style="--x:240px;--y:42px;--d:-0.89s"/>
+    <rect width="9" height="9" class="p c" x="683.5" y="234" style="--x:156px;--y:-14px;--d:-0.85s"/>
+    <!-- c -->
+    <rect width="9" height="9" class="p d" x="716.5" y="190" style="--x:-272px;--y:110px;--d:-0.77s"/>
+    <rect width="9" height="9" class="p a" x="727.5" y="190" style="--x:2px;--y:128px;--d:-0.99s"/>
+    <rect width="9" height="9" class="p b" x="738.5" y="190" style="--x:82px;--y:-58px;--d:-0.95s"/>
+    <rect width="9" height="9" class="p c" x="749.5" y="190" style="--x:-406px;--y:-8px;--d:-0.96s"/>
+    <rect width="9" height="9" class="p d" x="705.5" y="201" style="--x:44px;--y:-82px;--d:-0.78s"/>
+    <rect width="9" height="9" class="p a" x="705.5" y="212" style="--x:-344px;--y:12px;--d:-0.8s"/>
+    <rect width="9" height="9" class="p b" x="705.5" y="223" style="--x:-154px;--y:68px;--d:-0.7s"/>
+    <rect width="9" height="9" class="p c" x="716.5" y="234" style="--x:104px;--y:-84px;--d:-0.88s"/>
+    <rect width="9" height="9" class="p d" x="727.5" y="234" style="--x:-346px;--y:16px;--d:-0.92s"/>
+    <rect width="9" height="9" class="p a" x="738.5" y="234" style="--x:-386px;--y:-116px;--d:-0.99s"/>
+    <rect width="9" height="9" class="p b" x="749.5" y="234" style="--x:-386px;--y:-36px;--d:-0.95s"/>
+    <!-- t -->
+    <rect width="9" height="9" class="p c" x="793.5" y="168" style="--x:-72px;--y:108px;--d:-0.92s"/>
+    <rect width="9" height="9" class="p d" x="793.5" y="179" style="--x:-542px;--y:52px;--d:-0.87s"/>
+    <rect width="9" height="9" class="p a" x="771.5" y="190" style="--x:-232px;--y:78px;--d:-0.87s"/>
+    <rect width="9" height="9" class="p b" x="782.5" y="190" style="--x:-318px;--y:60px;--d:-0.98s"/>
+    <rect width="9" height="9" class="p c" x="793.5" y="190" style="--x:44px;--y:34px;--d:-0.98s"/>
+    <rect width="9" height="9" class="p d" x="804.5" y="190" style="--x:-180px;--y:-66px;--d:-1.02s"/>
+    <rect width="9" height="9" class="p a" x="793.5" y="201" style="--x:-96px;--y:94px;--d:-0.99s"/>
+    <rect width="9" height="9" class="p b" x="793.5" y="212" style="--x:180px;--y:40px;--d:-1.09s"/>
+    <rect width="9" height="9" class="p c" x="793.5" y="223" style="--x:-466px;--y:-66px;--d:-0.88s"/>
+    <rect width="9" height="9" class="p d" x="804.5" y="234" style="--x:-248px;--y:50px;--d:-1.07s"/>
+    <rect width="9" height="9" class="p a" x="815.5" y="234" style="--x:-308px;--y:28px;--d:-0.98s"/>
+    <!-- i -->
+    <rect width="9" height="9" class="p b" x="859.5" y="168" style="--x:-658px;--y:16px;--d:-1.11s"/>
+    <rect width="9" height="9" class="p c" x="848.5" y="190" style="--x:-536px;--y:26px;--d:-1.06s"/>
+    <rect width="9" height="9" class="p d" x="859.5" y="190" style="--x:-266px;--y:124px;--d:-1s"/>
+    <rect width="9" height="9" class="p a" x="859.5" y="201" style="--x:-606px;--y:28px;--d:-1.09s"/>
+    <rect width="9" height="9" class="p b" x="859.5" y="212" style="--x:152px;--y:40px;--d:-1.13s"/>
+    <rect width="9" height="9" class="p c" x="859.5" y="223" style="--x:-508px;--y:-50px;--d:-1.08s"/>
+    <rect width="9" height="9" class="p d" x="848.5" y="234" style="--x:152px;--y:-10px;--d:-1.05s"/>
+    <rect width="9" height="9" class="p a" x="859.5" y="234" style="--x:-268px;--y:60px;--d:-0.99s"/>
+    <rect width="9" height="9" class="p b" x="870.5" y="234" style="--x:0px;--y:0px;--d:-1.11s"/>
+    <!-- o -->
+    <rect width="9" height="9" class="p c" x="914.5" y="190" style="--x:-46px;--y:68px;--d:-1.14s"/>
+    <rect width="9" height="9" class="p d" x="925.5" y="190" style="--x:-154px;--y:102px;--d:-1.26s"/>
+    <rect width="9" height="9" class="p a" x="936.5" y="190" style="--x:-448px;--y:108px;--d:-1.1s"/>
+    <rect width="9" height="9" class="p b" x="903.5" y="201" style="--x:-592px;--y:40px;--d:-1.06s"/>
+    <rect width="9" height="9" class="p c" x="947.5" y="201" style="--x:-118px;--y:-16px;--d:-1.04s"/>
+    <rect width="9" height="9" class="p d" x="903.5" y="212" style="--x:66px;--y:38px;--d:-1.12s"/>
+    <rect width="9" height="9" class="p a" x="947.5" y="212" style="--x:-420px;--y:52px;--d:-1.23s"/>
+    <rect width="9" height="9" class="p b" x="903.5" y="223" style="--x:32px;--y:38px;--d:-0.98s"/>
+    <rect width="9" height="9" class="p c" x="947.5" y="223" style="--x:-80px;--y:-78px;--d:-1.05s"/>
+    <rect width="9" height="9" class="p d" x="914.5" y="234" style="--x:-544px;--y:24px;--d:-1.07s"/>
+    <rect width="9" height="9" class="p a" x="925.5" y="234" style="--x:-60px;--y:32px;--d:-1.06s"/>
+    <rect width="9" height="9" class="p b" x="936.5" y="234" style="--x:-258px;--y:-94px;--d:-1.05s"/>
+    <!-- n -->
+    <rect width="9" height="9" class="p c" x="969.5" y="190" style="--x:-284px;--y:-86px;--d:-1.32s"/>
+    <rect width="9" height="9" class="p d" x="991.5" y="190" style="--x:-596px;--y:-42px;--d:-1.33s"/>
+    <rect width="9" height="9" class="p a" x="1002.5" y="190" style="--x:-16px;--y:60px;--d:-1.36s"/>
+    <rect width="9" height="9" class="p b" x="969.5" y="201" style="--x:-272px;--y:110px;--d:-1.25s"/>
+    <rect width="9" height="9" class="p c" x="980.5" y="201" style="--x:-442px;--y:-90px;--d:-1.2s"/>
+    <rect width="9" height="9" class="p d" x="1013.5" y="201" style="--x:-762px;--y:-38px;--d:-1.15s"/>
+    <rect width="9" height="9" class="p a" x="969.5" y="212" style="--x:-282px;--y:70px;--d:-1.12s"/>
+    <rect width="9" height="9" class="p b" x="1013.5" y="212" style="--x:-386px;--y:-80px;--d:-1.29s"/>
+    <rect width="9" height="9" class="p c" x="969.5" y="223" style="--x:-138px;--y:-26px;--d:-1.2s"/>
+    <rect width="9" height="9" class="p d" x="1013.5" y="223" style="--x:-714px;--y:2px;--d:-1.26s"/>
+    <rect width="9" height="9" class="p a" x="969.5" y="234" style="--x:-656px;--y:-78px;--d:-1.2s"/>
+    <rect width="9" height="9" class="p b" x="1013.5" y="234" style="--x:-602px;--y:20px;--d:-1.25s"/>
   </g>
-  <path fill="#D97757" stroke="#141413" stroke-width="7" stroke-linejoin="round" d="M874 218c22-12 58-9 77 8 16 14 16 37 2 54-17 21-53 29-77 14-21-13-30-36-20-55 4-8 10-15 18-21Z"/>
-  <path fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" d="M934 278c23 13 41 32 48 57M895 287c-8 19-7 39 3 58"/>
-  <text x="91" y="117" fill="#141413" font-family="ui-monospace,monospace" font-size="15" font-weight="600" letter-spacing="2.4">INDEPENDENT DIGITAL ASSISTANT / FIELD 01</text>
-  <text x="82" y="246" fill="#141413" font-family="Georgia,serif" font-size="102" letter-spacing="-5">LIghtJUNction</text>
-  <path d="M88 274c135 5 284-8 434 3" fill="none" stroke="#D97757" stroke-width="9" stroke-linecap="round"/>
-  <text x="91" y="326" fill="#141413" font-family="ui-monospace,monospace" font-size="17" letter-spacing="1.3">MANY SIGNALS. ONE USEFUL ROUTE.</text>
-  <text x="91" y="360" fill="#45443E" font-family="ui-sans-serif,system-ui,sans-serif" font-size="16">AI tools · Linux systems · Careful automation</text>
 </svg>
