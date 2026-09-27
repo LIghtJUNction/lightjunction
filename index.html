@@ -2,60 +2,56 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#e8ecde" />
-  <meta name="description" content="TOKEN DRIFT — LIghtJUNction 的像素 3D 云海。自由漂流，或挑战随机构筑、敌群与 Boss 的肉鸽战斗。" />
-  <meta property="og:title" content="TOKEN DRIFT / LIghtJUNction" />
-  <meta property="og:description" content="A tiny voxel voyage through the token clouds. Explore, or build a roguelike run." />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#ebede0" />
+  <meta name="description" content="TOKEN FRONTIER：无尽肉鸽 × RTS × 塔防。建设防线、指挥小队，在像素 token 云海中守住 LIghtJUNction。" />
+  <meta property="og:title" content="TOKEN FRONTIER / LIghtJUNction" />
+  <meta property="og:description" content="Build a little. Hold a little longer. An endless voxel frontier." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://lightjunction.github.io/lightjunction/" />
-  <link rel="canonical" href="https://lightjunction.github.io/lightjunction/" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23e8ecde' d='M0 0h32v32H0z'/%3E%3Cpath fill='%23d77851' d='M12 4h8v8h8v8h-8v8h-8v-8H4v-8h8z'/%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="/src/token-drift/style.css" />
-  <title>TOKEN DRIFT / LIghtJUNction</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23465e50' d='M12 0h8v12h12v8H20v12h-8V20H0v-8h12z'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/src/token-drift/frontier.css" />
+  <title>TOKEN FRONTIER / LIghtJUNction</title>
 </head>
 <body>
-  <a class="skip-link" href="./archive.html#work">跳过游戏，查看作品</a>
-  <main id="token-drift" data-phase="ready">
-    <canvas id="voxel-world" aria-label="像素空岛游戏。使用方向键或 WASD 移动，空格冲刺，E 发动引力脉冲，Escape 暂停。" tabindex="0"></canvas>
-    <canvas id="world-labels" aria-hidden="true"></canvas>
-    <div class="paper-grain" aria-hidden="true"></div>
-    <header class="topbar">
-      <a class="brand" href="./"><span class="brand-pixel" aria-hidden="true">✣</span><span>LIghtJUNction<span class="brand-caption">SMALL WORLDS, OPEN ENDS.</span></span></a>
-      <span class="edition">INTERACTIVE EXPERIMENT <b>001</b></span>
-      <nav aria-label="游戏与网站导航">
-        <button id="sound-toggle" type="button" aria-pressed="false" title="开启或关闭 8-bit 音效">音效 <span>OFF</span></button>
-        <button id="pause-button" type="button" hidden>暂停 <kbd>ESC</kbd></button>
-        <a href="./archive.html">作品与联系 <span aria-hidden="true">↗</span></a>
-      </nav>
-    </header>
-    <section id="intro" class="intro" aria-labelledby="game-title">
-      <p class="eyebrow"><span class="status-square"></span> A LITTLE LOST. A LITTLE ALIVE.</p>
-      <h1 id="game-title"><span class="sr-only">TOKEN DRIFT</span><span id="pixel-title" aria-hidden="true">TOKEN<br />DRIFT</span><span class="title-dot" aria-hidden="true">_</span></h1>
-      <p class="intro-copy">在 token 云里，<br />找一条回家的路。</p>
-      <p class="intro-detail">自由漂流，或者来一局肉鸽战斗。<br />随机进化，击败噪声，带自己回家。</p>
-      <div class="intro-actions"><a class="primary" href="./rogue.html">肉鸽战斗 <span>↗</span></a><button id="start-button" class="text-button" type="button">云海漫游</button><button id="help-button" class="text-button" type="button">怎么玩 <span>?</span></button></div>
-      <p class="best-line">PERSONAL BEST <span id="intro-best">000000</span><span class="no-account">无需登录 · 本机记录</span></p>
-    </section>
-    <section id="hud" class="hud" hidden aria-label="游戏状态">
-      <div class="mission"><p class="eyebrow">NEXT JUNCTION <span id="beacon-count">0 / 3</span></p><h2 id="objective-name">语法花园</h2><p id="objective-detail">收集 12 TK，靠近信标自动充能</p><div class="mission-progress"><i id="mission-fill"></i></div></div>
-      <div class="telemetry"><span class="metric"><small>TOKENS</small><b id="token-count">00</b></span><span class="metric"><small>SCORE</small><b id="score">000000</b></span><span class="metric shield"><small>SHIELD</small><b id="shield" aria-label="3 格护盾">◆◆◆</b></span></div>
-      <div id="combo" class="combo" hidden><b id="combo-number">×2</b><span>TOKEN FLOW</span><i id="combo-fill"></i></div>
-      <div class="minimap-wrap"><canvas id="minimap" width="160" height="160" aria-label="群岛小地图，圆点表示飞船，菱形表示信标"></canvas><span>THE ARCHIPELAGO</span></div>
-      <div class="abilities"><button id="dash-button" type="button"><kbd>SPACE</kbd><span>冲刺</span><i id="dash-fill"></i></button><button id="pulse-button" type="button"><kbd>E</kbd><span>引力脉冲</span><i id="pulse-fill"></i></button></div>
-      <div id="joystick" class="joystick" role="group" aria-label="触控方向摇杆"><span class="joystick-label">MOVE</span><div id="joystick-knob"></div></div>
-    </section>
-    <p id="announcement" class="announcement" role="status" aria-live="polite"></p>
-    <section id="result" class="result" hidden aria-labelledby="result-title">
-      <p id="result-kicker" class="eyebrow">SIGNAL RESTORED</p><h2 id="result-title">欢迎回家。</h2><p id="result-copy"></p>
-      <div id="result-stats" class="result-stats"></div><button id="restart-button" class="primary" type="button">再漂流一次 <span>↗</span></button><a href="./archive.html#work">去看看这些世界背后的作品 ↗</a>
-    </section>
-    <section id="pause-panel" class="pause-panel" hidden aria-labelledby="pause-title"><p class="eyebrow">TAKE A BREATH</p><h2 id="pause-title">云海等你。</h2><p>游戏已暂停，计时与移动都已停止。</p><button id="resume-button" class="primary" type="button">继续漂流 ↗</button><button id="pause-help" class="text-button" type="button">查看操作说明</button></section>
-    <section id="fallback" class="fallback" hidden><h2>暂时无法启航</h2><p id="fallback-reason"></p><a class="primary" href="./archive.html">浏览作品与联系 ↗</a><button type="button" id="reload-button">重新加载</button></section>
-    <footer class="bottom-bar"><span>8-BIT SPIRIT. THREE-DIMENSIONAL SOUL.</span><span class="desktop-hint">WASD / 方向键移动 <b>·</b> SPACE 冲刺 <b>·</b> E 引力脉冲</span><button id="pixel-toggle" type="button" title="切换像素颗粒大小">PIXELS <span>×2</span></button></footer>
-    <dialog id="help-dialog" aria-labelledby="help-title"><button id="close-help" class="dialog-close" type="button" aria-label="关闭操作说明">×</button><p class="eyebrow">FIELD NOTES / 001</p><h2 id="help-title">把碎片连成一条路。</h2><p>驾驶白色小飞船靠近金色 token，就会自动拾取。连续拾取可以将得分倍率叠到 <strong>×8</strong>。</p><div class="help-controls"><p><kbd>W A S D</kbd><kbd>↑ ← ↓ →</kbd> 移动 / 手机上拖动左下摇杆</p><p><kbd>SPACE</kbd> 冲刺 / 短暂无敌，可撞碎红色噪声块</p><p><kbd>E</kbd> 引力脉冲 / 拉来附近的 token，击散噪声</p><p><kbd>ESC</kbd> 暂停 / 切到其他页面也会自动暂停</p></div><p>三座信标分别需要 <strong>12 / 18 / 24 TK</strong>。带够 token 靠近即可点亮，并恢复一格护盾。全部点亮后，返回起点的归航港。</p><p class="help-note">红色噪声会损坏护盾。护盾耗尽就重新出发。没有时间限制，不会连接模型、消费额度或上传游戏记录。</p><button id="help-done" class="primary" type="button">明白了 ↗</button></dialog>
-  </main>
-  <noscript><p class="noscript">游戏需要 JavaScript。<a href="./archive.html">直接查看原网站与作品 ↗</a></p></noscript>
-  <script type="module" src="/src/token-drift/app.mjs"></script>
+<a class="skip-link" href="./archive.html#work">跳过游戏，浏览作品</a>
+<main id="token-drift" data-phase="ready">
+  <canvas id="voxel-world" data-scene tabindex="0" aria-label="3D 无尽防线。WASD 移动旗舰，F 全选小队，右键移动，T 进攻移动，1 至 5 建塔，空格冲刺，E 脉冲，Esc 暂停。"></canvas>
+  <canvas id="world-labels" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">✣</span> LIghtJUNction <small>THE TOKEN FRONTIER</small></a>
+    <nav aria-label="全站导航"><a href="./rogue.html" aria-current="page">无尽防线</a><a href="./archive.html#work">档案馆</a><a href="./archive.html#contact">通讯</a><button id="sound-toggle" aria-pressed="false" type="button">音效 OFF</button><button id="pause-button" type="button" hidden>暂停</button></nav>
+  </header>
+  <section id="intro" class="intro" aria-labelledby="game-title">
+    <p class="eyebrow"><span></span> EXPERIMENT 002 / NO FINAL WAVE</p>
+    <h1 id="game-title">TOKEN<br><em>FRONTIER<span>_</span></em></h1>
+    <p class="intro-lead">建一条防线。<br>让这座小世界，多亮一会。</p>
+    <p class="intro-detail">无尽肉鸽 · 即时指挥 · 塔防<br>你驾驶旗舰，也指挥整支队伍。</p>
+    <div id="start" class="intro-actions"><button id="start-button" class="primary" type="button">建立防线 <span>↗</span></button><button id="help-button" class="quiet" type="button">操作手册</button></div>
+    <p class="best">LONGEST STAND <b id="intro-best">00</b> WAVES <span>本机记录 · 无需登录</span></p>
+    <a class="archive-entry" href="./archive.html">进入档案馆、作品与通讯室 ↗</a>
+  </section>
+  <section id="hud" class="hud" aria-label="指挥界面" hidden>
+    <div class="situation"><span class="eyebrow">ENDLESS DEFENSE</span><div><strong id="wave">00</strong><span>WAVE<br><small id="stage-label">整备</small></span></div><button id="next-wave" type="button">提前迎敌 ↗</button></div>
+    <div class="telemetry"><div><small>可用 TOKEN</small><strong id="resources">220</strong></div><div class="base-meter"><small>基地核心 <span id="base-hp">800 / 800</span></small><div class="meter"><i id="base-fill"></i></div></div><div><small>SCORE</small><b id="score">000000</b></div></div>
+    <div class="pilot"><span id="player-hp">100 HP</span><span id="level">LV 1</span><div class="meter"><i id="xp-fill"></i></div></div>
+    <div class="mini"><canvas id="minimap" width="140" height="140" aria-label="战术小地图，点击可移动镜头"></canvas><button id="camera-mode" type="button">镜头：战术</button></div>
+    <div class="drawer" data-drawer="build" hidden><p class="eyebrow">BUILD / 建造防线</p><div id="build-options" class="options"></div><p class="drawer-note">点击建筑，再点地面；绿色可建。上限 20 座。</p></div>
+    <div class="drawer" data-drawer="army" hidden><p class="eyebrow">SQUAD / <span id="army-count">0 / 24</span></p><div id="unit-options" class="options"></div><p id="queue">生产队列空闲</p><button id="cancel-recruit" class="quiet" type="button">撤销队尾 · 全额退款</button></div>
+    <div class="drawer command-drawer" data-drawer="command" hidden><p class="eyebrow">COMMAND / 已选 <span id="selection-count">0</span></p><h2 id="selection-title">指挥核心</h2><p id="selection-detail"></p><div class="orders"><button data-order="move" type="button">移动 G</button><button data-order="attack" type="button">进攻 T</button><button data-order="hold" type="button">驻守 H</button><button data-order="rally" type="button">集结点</button></div><div class="service"><button id="repair-target" type="button">修复基地 · 25 TK</button><button id="upgrade-tower" type="button" hidden>升级</button><button id="sell-tower" type="button" hidden>回收 · 返还 55%</button></div></div>
+    <div class="dock"><button data-tab="build" aria-expanded="false" type="button">建造 <kbd>1–5</kbd></button><button data-tab="army" aria-expanded="false" type="button">小队</button><button data-tab="command" aria-expanded="false" type="button">指令</button><button id="select-all" type="button">全选 <kbd>F</kbd></button></div>
+    <div class="abilities"><button id="dash-button" type="button"><kbd>SPACE</kbd>冲刺<i id="dash-fill"></i></button><button id="pulse-button" type="button"><kbd>E</kbd>脉冲<i id="pulse-fill"></i></button></div>
+    <div id="joystick" class="joystick" role="group" aria-label="拖动摇杆移动旗舰"><div id="joystick-knob"></div></div>
+  </section>
+  <p id="announcement" class="announcement" role="status" aria-live="polite"></p>
+  <div class="mode"><span id="mode-hint"></span><button id="cancel-mode" type="button" hidden>取消 ×</button></div>
+  <section id="paused" class="panel" aria-labelledby="pause-title" hidden><p class="eyebrow">SIMULATION PAUSED</p><h2 id="pause-title">暂时停火。</h2><p>计时、敌人、生产与收入均已暂停。</p><button id="resume-button" class="primary" type="button">继续指挥 ↗</button><button id="pause-help" class="quiet" type="button">操作手册</button><a href="./archive.html">离开本局，进入档案馆 ↗</a></section>
+  <section id="result" class="panel" aria-labelledby="result-title" hidden><p class="eyebrow">ANOTHER FRONTIER AWAITS</p><h2 id="result-title">防线失守</h2><p id="result-stats"></p><button id="restart" class="primary" type="button">重建防线 ↗</button><a href="./archive.html">前往档案馆 ↗</a></section>
+  <section id="fallback" class="panel" hidden><h2>场景未能启动</h2><p id="fallback-reason"></p><a class="primary" href="./archive.html">浏览档案馆 ↗</a><button id="reload-button" type="button">重新加载</button></section>
+  <dialog id="upgrade" aria-modal="true" aria-labelledby="upgrade-title"><p class="eyebrow">RECOMPILE / 战斗已暂停</p><h2 id="upgrade-title">下一段，怎么写？</h2><p>选择一项强化；本局持续生效。按 1 / 2 / 3 快速选择。</p><div id="choices"></div><button id="reroll" type="button">重抽</button></dialog>
+  <dialog id="help-dialog" aria-labelledby="help-title"><button id="close-help" class="close" aria-label="关闭操作手册" type="button">×</button><p class="eyebrow">FIELD MANUAL / 002</p><h2 id="help-title">守住基地，没有最后一波。</h2><p>每波敌人从四个裂隙进入。清空这一波后获得 TK，并有 12 秒整备时间。每 5 波出现一个更强的 NULL 核心，击败后继续下一轮。</p><h3>旗舰与肉鸽</h3><p>WASD / 方向键移动，自动瞄准开火。空格冲刺，E 释放脉冲。捡经验后暂停三选一。旗舰损毁会让基地失去 40 点生命，8 秒后重生；基地被摧毁才会结束。</p><h3>建塔与生产</h3><p>打开「建造」选择建筑，再点地面放置。点击已建建筑可升级、修复或回收。「小队」中训练单位，单位会前往集结点。矿机提供持续收入，修复中继保养附近友军。单位与敌人悬浮移动，建筑不会封路；这是火力布防，不是堵路迷宫。</p><h3>指挥</h3><p>点击 / 框选单位，Shift 加选，F 全选。右键或 G 指定移动，T 进攻移动，H 原地驻守。进攻移动会停下迎敌。手机使用「全选」和「指令」，再点击目的地；左下摇杆驾驶旗舰。</p><p>滚轮缩放，中键或按住 Q 拖动平移；点小地图跳转镜头。Esc 暂停或取消建造。隐藏标签页会自动暂停。本局不跨刷新保存；只有最高波数与分数保存在本机，不调用模型，也不消耗 API 额度。</p></dialog>
+  <footer class="bottom-bar"><span>SMALL WORLD. ENDLESS POSSIBILITIES.</span><span class="desktop-hint">WASD 驾驶 · F 小队 · 右键移动 · T 进攻 · ESC 暂停</span><button id="pixel-toggle" type="button">PIXELS ×2</button></footer>
+</main>
+<noscript><p class="no-script">游戏需要 JavaScript。<a href="./archive.html">直接浏览作品与联系 ↗</a></p></noscript>
+<script type="module" src="/src/token-drift/frontier-app.mjs"></script>
 </body>
 </html>

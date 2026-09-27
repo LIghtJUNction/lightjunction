@@ -2,14 +2,14 @@ export type Point = { x: number; y: number };
 export type Stop = Point & { id: string; title: string; note: string; action: string };
 
 export const STOPS: readonly Stop[] = [
-    { id: 'top', x: 0, y: 0, title: 'The junction', note: 'A small introduction. A light with somewhere to go.', action: 'Meet LIghtJUNction' },
-    { id: 'language', x: 1000, y: -460, title: 'Made of language', note: 'Disturb the portrait. Watch the letters find their way back.', action: 'Touch the portrait' },
-    { id: 'work', x: 2040, y: 240, title: 'The workshop', note: 'LightFlow, cortexfs, MagicNet, OniMods. Things being made.', action: 'Explore the projects' },
-    { id: 'model', x: 2230, y: 1250, title: 'Follow the thread', note: 'Observe. Build. Verify. Return. A practice in motion.', action: 'Follow the process' },
-    { id: 'challenge-two', x: 1170, y: 1670, title: 'A closed signal', note: 'One public artifact. An unanswered question.', action: 'Enter Challenge II' },
-    { id: 'shaders', x: -40, y: 1300, title: 'After hours', note: 'Four live studies. Travel through light, stir ink, and bend a fold.', action: 'Enter the live studies' },
-    { id: 'workbench', x: -1180, y: 740, title: 'The archive', note: 'Browse the repositories, or try a command in the terminal.', action: 'Open the workbench' },
-    { id: 'contact', x: -1080, y: -360, title: 'Leave a trace', note: 'Bring a question, a project, or one useful unfinished thing.', action: 'Start a conversation' },
+    { id: 'top', x: 0, y: 0, title: '基地档案馆', note: '防线之外，是这些小世界背后的代码与作者。所有内容直接可见。', action: '认识 LIghtJUNction' },
+    { id: 'language', x: 1000, y: -460, title: 'Token 标本室', note: '拨动文字肖像，观察碎片如何散开，再重新汇聚。', action: '触碰文字肖像' },
+    { id: 'work', x: 2040, y: 240, title: '项目工坊', note: 'LightFlow、cortexfs、MagicNet、OniMods。打开真实项目，不需要完成游戏。', action: '浏览项目档案' },
+    { id: 'model', x: 2230, y: 1250, title: '建造日志', note: '观察、实现、验证、再修改。这些世界是怎么搭起来的。', action: '查看工作流程' },
+    { id: 'challenge-two', x: 1170, y: 1670, title: '封存信号', note: '公开的密码学挑战。原始材料与线索保持完整。', action: '进入 Challenge II' },
+    { id: 'shaders', x: -40, y: 1300, title: '光影研究室', note: '四个可以触碰的实时实验：光、墨水与折叠。', action: '进入实时研究' },
+    { id: 'workbench', x: -1180, y: 740, title: '代码与终端', note: '浏览仓库，或在终端中输入指令。真实项目与游戏装备分开陈列。', action: '打开交互工作台' },
+    { id: 'contact', x: -1080, y: -360, title: '通讯室', note: '一段问题、一项合作，或者一个尚未完成的想法。加密仍在本机进行。', action: '打开通讯频道' },
 ];
 
 export const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value));

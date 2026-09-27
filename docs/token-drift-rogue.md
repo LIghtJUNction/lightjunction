@@ -1,28 +1,33 @@
-# TOKEN DRIFT: Rogue Run
+# TOKEN FRONTIER — endless defense
 
-The homepage offers **肉鸽战斗** (`rogue.html`) and the unchanged **云海漫游** mode. Portfolio, contact, cryptographic challenges and their deep links remain in `archive.html`.
+`index.html` and the existing `rogue.html` URL now launch the same endless game. There is no extraction or final wave. A run ends only when the base reaches zero HP. Every fifth wave contains another NULL boss; killing it never ends the run. The previous finite simulation modules remain solely for compatibility tests, not as active website entrypoints.
 
-## Run loop
+## Play loop
 
-Move while the main gun automatically targets nearby enemies. Collect XP, pause for a random three-choice upgrade, survive five 30-second waves, defeat the two-phase NULL boss, then return to the home island. A new run generates a fresh seed and clears all upgrades. Only best score and wins are stored locally; there is no account, network leaderboard, purchased item or API usage.
+Build during the 12-second preparation window, command squads, fight as the flagship, collect experience, and choose one of three random upgrades. Clear the entire wave before the next preparation period. Enemies continue to scale with wave number. Flagship destruction costs the base 40 HP and triggers an eight-second respawn rather than immediately ending the run.
 
-Six ordinary enemy behaviours: chase, fast chase, heavy armour, aimed ranged fire, telegraphed locked-direction charge, and splitting on death. Elite tanks appear in waves 3 and 5 and drop upgrade chests. NULL combines aimed spreads, telegraphed radial volleys, summons and a half-health rage phase.
+The local best-wave/score record is shared with the archive; it is not a saved run. Refreshing or leaving the page starts a new run. TK is fictional game currency, never API credit. No account, model calls or payments are involved.
 
-Fifteen capped upgrades include damage, attack speed, multishot, piercing, critical hits, orbiting blades, chain lightning, area bombardment, kill healing, armour, regeneration, hull capacity, movement speed, magnet radius and dash cooldown. Pickups include XP, tokens, healing, temporary invulnerability, temporary double fire rate, XP vacuum, an area bomb and upgrade chests.
+## Tower defense and RTS
 
-Optional exploration remains useful: tokens activate the three island beacons for healing and an upgrade. Twelve ordered flight gates refresh dash and grant score. Gate and bullet collisions use swept segments.
+Five buildings: pulse turret, slowing node, area mortar, repair relay and token mine. Place snapped buildings inside the defense perimeter; overlapping buildings, base obstruction, insufficient funds and population caps are rejected before spending. Towers have three levels, paid repairs and one-time 55% invested-cost recycling. Flying units pass over structures: this is perimeter defense, not maze-building/path-blocking tower defense.
 
-## Code boundaries
+Three squad types: ranged scout, area siege unit and healing drone. The production queue reserves population and supports a full refund for the last queued item. Units obey move, attack-move and hold orders, maintain spaced destinations and can rally to a player-selected location. Enemies attack the base and nearby allies; sappers prioritize mines. The flagship retains automatic weapons, dash and a bullet-clearing pulse.
 
-- `rogue-world.mjs`: seeded, DOM-free simulation, AI, projectiles, upgrades and storage helpers.
-- `rogue-renderer.mjs`: procedural voxel meshes, an orbit camera, WebGL2 instancing and a software 3D fallback.
-- `rogue-app.mjs`: fixed-step loop, keyboard/touch controls, audio and modal UI.
-- `flight.mjs`: pure camera and gate math.
+Seven ordinary enemy behaviours plus a recurring two-phase boss, periodic elites and split-on-death enemies. Eighteen capped upgrades cover individual weapons, survival, industry, allied firepower and base logistics. Experience, healing, shielding, haste, area bombs, vacuum pickups and upgrade chests remain functional.
 
-Entity limits: 90 live enemies, 220 projectiles (at most 150 hostile), 180 drops and 80 short-lived effects. Pauses, upgrade choices and terminal states freeze simulation. Health and ammunition cannot tick underneath an upgrade choice. Experience exceeding one level is retained for subsequent choices.
+Controls: WASD/arrows move the flagship; Space dashes; E pulses; 1–5 select buildings; F selects all squads; G moves, T attack-moves and H holds. Click/drag to select, Shift adds selection, right-click moves. Middle-drag or Q-drag pans the camera; wheel zooms. Touch uses a joystick, visible command buttons and tap destinations. Selecting a build/target command closes its drawer so short screens remain usable. Native upgrade/help dialogs and pause freeze the simulation. Hidden tabs pause automatically.
 
-## Validation
+## The rest of the website
 
-Run `npm ci` and `npm run check`. `npm run test:game` includes the existing exploration tests and the new roguelike tests. The new tests cover seeds, collision tunnelling, all enemy behaviours and upgrades, loot, caps, boss-spawn retry, pause, queued levels, repeat rewards, extraction, restart and browser entrypoints.
+`archive.html` is no longer visually separate from the game. A shared Vite HTML pre-transform (`scripts/frontier-archive.mjs`) updates the original archive shell in both dev and production, while leaving the original articles, public challenge artifacts, secure composer and contact handlers intact. `src/frontier-archive.css` reskins the project workshop, live studies, terminal, correspondence, expedition map and exhibit overlays. The existing expedition destinations use the new archive/workshop/laboratory vocabulary, with their IDs, coordinates and direct links preserved.
 
-Local Chromium interaction checks covered desktop, mobile two-finger move/orbit, touch upgrades, pause, help, victory, defeat, restart, landscape and reduced motion, with no JavaScript exceptions. These local browser checks exercised the software renderer; hardware WebGL rendering was not verified in that environment. Three deterministic movement/upgrade bots completed full runs without modifying starting health or damage. Those bots are a progression smoke test, not a claim that difficulty is fully balanced.
+The archive header links back to the game and shows the same local defense record. Its building/unit/enemy/upgrade codex imports the live game definitions rather than a duplicated catalogue. All articles and encrypted contact remain directly accessible without playing, paying or completing a challenge. Light/dark themes and reduced-motion support remain available.
+
+## Boundaries and validation
+
+Simulation: `frontier-world.mjs`. Procedural WebGL2/software 3D: `frontier-renderer.mjs`. Keyboard, pointer, touch and UI: `frontier-app.mjs`. Enemy/projectile/drop/effect/tower/unit caps bound long runs. Boss spawning retries at capacity. Swept projectile collisions prevent tunnelling. Spending and rewards reject replay in invalid states.
+
+Run `npm run check` for the complete repository gate. New tests use the existing `tests/token-drift*.test.mjs` glob. They cover the endless loop, recurring bosses, economy, construction, repairs, queue refunds, unit orders, tower effects, enemy behaviours, upgrade pauses, storage denial, site entrypoints and archive preservation. The real archive-template test requires the full checkout (and runs in CI).
+
+Local browser interaction checks use the actual application modules in an offline harness. Desktop, portrait and short-landscape checks include build placement, recruiting, orders, upgrades, pause, defeat and restart. The software 3D path was exercised; hardware WebGL was not available in that environment. Three ordinary-cost deterministic defense bots ran for 600 simulation seconds to waves 12–13 with two bosses each. This verifies progression, not final difficulty balance.
