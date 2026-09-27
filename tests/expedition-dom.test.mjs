@@ -96,11 +96,11 @@ test('wheel travels, browser zoom is preserved, and keyboard movement works', as
     assert.equal(wheel({ metaKey: true }).defaultPrevented, false);
     for (let index = 0; index < 5; index++) assert.equal(wheel({}).defaultPrevented, true);
     step();
-    assert.equal(get('world-title').textContent, 'Made of language');
+    assert.equal(get('world-title').textContent, 'Token 标本室');
     key(canvas, 'Home'); step();
-    assert.equal(get('world-title').textContent, 'The junction');
+    assert.equal(get('world-title').textContent, '基地档案馆');
     for (let index = 0; index < 6; index++) key(canvas, 'ArrowRight');
-    step(); assert.equal(get('world-title').textContent, 'Made of language');
+    step(); assert.equal(get('world-title').textContent, 'Token 标本室');
     assert.equal(key(get('secure-message'), 'ArrowRight').defaultPrevented, false);
 }));
 
@@ -120,7 +120,7 @@ test('exhibits keep original nodes, restore focus, and preserve reading access',
     assert.ok(original.parentElement === main);
     assert.equal(get('explore').inert, false);
     assert.ok(document.activeElement === button);
-    assert.equal(get('world-title').textContent, 'The junction');
+    assert.equal(get('world-title').textContent, '基地档案馆');
     const ids = [...document.querySelectorAll('[id]')].map(element => element.id);
     assert.equal(new Set(ids).size, ids.length);
     get('btn-reading').click();
@@ -137,11 +137,11 @@ test('direct links, map and rapid destination buttons work without completing th
     assert.ok(get('challenge-two').parentElement === get('exhibit-content'));
     key(get('exhibit-close'), 'Escape'); step();
     get('world-next').click(); get('world-next').click(); step();
-    assert.equal(get('world-title').textContent, 'The workshop');
+    assert.equal(get('world-title').textContent, '项目工坊');
     get('world-map').click(); step();
     assert.equal(get('world-map').getAttribute('aria-pressed'), 'true');
     document.querySelectorAll('#world-dock button')[7].click(); step();
-    assert.equal(get('world-title').textContent, 'Leave a trace');
+    assert.equal(get('world-title').textContent, '通讯室');
     assert.equal(get('world-map').getAttribute('aria-pressed'), 'false');
     navigate('#model');
     assert.ok(get('model').parentElement === get('exhibit-content'));
@@ -185,7 +185,7 @@ test('reduced motion settles after input and a canceled drag leaves navigation u
     canvas.dispatchEvent(new window.PointerEvent('pointercancel', { pointerId: 1 }));
     assert.equal(get('explore').classList.contains('is-dragging'), false);
     get('world-next').click(); step();
-    assert.equal(get('world-title').textContent, 'Made of language');
+    assert.equal(get('world-title').textContent, 'Token 标本室');
     assert.equal(env.frames.size, 0);
 }));
 
@@ -199,9 +199,9 @@ test('without a canvas context the full original document stays available', asyn
 test('rapid relative travel preserves direction across the opposite side of the map', async () => using({}, env => {
     for (let index = 0; index < 4; index++) env.get('world-next').click();
     env.step(5);
-    assert.equal(env.get('world-title').textContent, 'Made of language');
+    assert.equal(env.get('world-title').textContent, 'Token 标本室');
     env.step();
-    assert.equal(env.get('world-title').textContent, 'A closed signal');
+    assert.equal(env.get('world-title').textContent, '封存信号');
 }));
 
 test('theme changes redraw the settled map under reduced motion', async () => using({ reduced: true }, async env => {
@@ -220,15 +220,15 @@ test('free flight rejoins the route near the player for wheel and next-place inp
         const stop = document.querySelectorAll('#world-stops button')[2];
         const [x, y] = stop.style.transform.match(/translate\(([-\d.]+)px, ([-\d.]+)px/).slice(1).map(Number);
         for (const type of ['pointerdown', 'pointerup']) get('world-canvas').dispatchEvent(new window.PointerEvent(type, { pointerId: 1, isPrimary: true, button: 0, clientX: x, clientY: y }));
-        step(); assert.equal(get('world-title').textContent, 'The workshop');
+        step(); assert.equal(get('world-title').textContent, '项目工坊');
     };
     flyToWorkshop();
     get('world-canvas').dispatchEvent(new window.WheelEvent('wheel', { deltaY: 1, cancelable: true }));
-    step(); assert.equal(get('world-title').textContent, 'The workshop');
+    step(); assert.equal(get('world-title').textContent, '项目工坊');
     get('world-home').click(); step();
     flyToWorkshop();
     get('world-next').click(); step();
-    assert.equal(get('world-title').textContent, 'Follow the thread');
+    assert.equal(get('world-title').textContent, '建造日志');
 }));
 
 test('encrypted result stays isolated and browser history closes it before the exhibit', async () => using({}, async env => {
