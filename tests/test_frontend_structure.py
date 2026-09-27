@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 def read_html() -> str:
-    html = Path("index.html").read_text(encoding="utf-8")
+    html = Path("archive.html").read_text(encoding="utf-8")
     html = re.sub(r"\s+", " ", html)
     html = re.sub(r"\s*/>", ">", html)
     html = re.sub(r"\s+>", ">", html)
@@ -169,8 +169,10 @@ def test_challenge_two_is_embedded_without_source_level_solution_material() -> N
         path.read_text(encoding="utf-8")
         for path in [
             Path("index.html"),
+            Path("archive.html"),
             Path("README.md"),
             *Path("src").glob("*.ts"),
+            *Path("src/token-drift").glob("*.mjs"),
             Path("src/styles.css"),
         ]
     )

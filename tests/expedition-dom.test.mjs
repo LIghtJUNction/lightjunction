@@ -8,7 +8,7 @@ import { build } from 'vite';
 import { Window } from 'happy-dom';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const html = (await readFile(join(root, 'index.html'), 'utf8')).replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
+const html = (await readFile(join(root, 'archive.html'), 'utf8')).replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
 let directory;
 let serial = 0;
 before(async () => {

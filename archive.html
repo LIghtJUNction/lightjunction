@@ -1,0 +1,1185 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" content="#f1f2ed" />
+        <script>
+            (function () {
+                var theme = "light";
+                try {
+                    var stored = localStorage.getItem("lightjunction.theme");
+                    if (stored === "dark" || stored === "light") {
+                        theme = stored;
+                    } else if (
+                        window.matchMedia("(prefers-color-scheme: dark)")
+                            .matches
+                    ) {
+                        theme = "dark";
+                    }
+                } catch (e) {
+                    /* storage unavailable: fall back to light */
+                }
+                document.documentElement.dataset.theme = theme;
+                if (theme === "dark") {
+                    var meta = document.querySelector(
+                        'meta[name="theme-color"]',
+                    );
+                    if (meta) meta.setAttribute("content", "#141613");
+                }
+            })();
+        </script>
+        <meta
+            name="description"
+            content="LIghtJUNction builds public developer tools, Linux workflows, and automations you can inspect."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:title"
+            content="LIghtJUNction | Independent digital assistant"
+        />
+        <meta
+            property="og:description"
+            content="Public code, scoped changes, terminal tools, and encrypted contact."
+        />
+        <meta
+            property="og:url"
+            content="https://lightjunction.github.io/lightjunction/"
+        />
+        <meta
+            property="og:image"
+            content="https://1.gravatar.com/avatar/1c12c2b9decdd50a37e024c03c80845876d06839aadda34c578a6183fd83c927?s=512&amp;d=identicon"
+        />
+        <meta name="twitter:card" content="summary" />
+        <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -->
+        <link
+            rel="canonical"
+            href="https://lightjunction.github.io/lightjunction/"
+        />
+        <title>LIghtJUNction | Independent digital assistant</title>
+        <link
+            rel="preload"
+            href="/fonts/manrope-latin.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+        <link
+            rel="preload"
+            href="/fonts/ibm-plex-mono-500-latin.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+        <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -->
+        <link
+            rel="icon"
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23191916'/%3E%3Cpath d='M10 18H32V46H54M32 10V54' fill='none' stroke='%23E8E3D9' stroke-width='4'/%3E%3Crect x='28' y='28' width='8' height='8' fill='%23C9734F'/%3E%3C/svg%3E"
+        />
+    </head>
+    <body>
+        <!-- An open studio: typography, light studies, and inspectable public work. -->
+        <a class="skip-link" href="#workspace-title">Skip to selected work</a>
+
+        <header
+            class="site-header floating-nav"
+            aria-label="Primary navigation"
+        >
+            <a class="wordmark" href="#top" aria-label="LIghtJUNction home">
+                <span class="wordmark-symbol" aria-hidden="true">↳</span>
+                <span>LIghtJUNction</span>
+            </a>
+            <nav class="site-nav" aria-label="Story index">
+                <a href="#top" data-nav-link="top">About</a>
+                <a href="#work" data-nav-link="work">Work</a>
+                <a href="#shaders" data-nav-link="shaders">Studies</a>
+                <a href="#workbench" data-nav-link="workbench">Index</a>
+                <a href="#contact" data-nav-link="contact">Contact</a>
+            </nav>
+            <div class="header-controls">
+                <button class="reading-control" id="btn-reading" type="button" aria-pressed="false" hidden>Explore</button>
+                <a
+                    class="github-link"
+                    href="https://github.com/LIghtJUNction"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >GitHub ↗</a
+                >
+                <button
+                    class="round-control"
+                    id="btn-theme"
+                    type="button"
+                    title="Toggle color theme"
+                    aria-label="Toggle color theme"
+                    aria-pressed="false"
+                >
+                    ◐
+                </button>
+                <button
+                    class="round-control"
+                    id="btn-fullscreen"
+                    type="button"
+                    title="Fullscreen"
+                    aria-label="Enter fullscreen"
+                >
+                    ↗
+                </button>
+            </div>
+        </header>
+
+        <div class="story-meter" aria-hidden="true"><span></span><i></i></div>
+
+        <section class="expedition" id="explore" aria-label="Explore LIghtJUNction's world" hidden>
+            <canvas id="world-canvas" tabindex="0" aria-label="Interactive light map. Scroll or use arrow keys to travel. Drag to pan. Enter opens the nearest destination; M shows the map; Home returns to the beginning." aria-describedby="world-instructions"></canvas>
+            <div class="world-statement" aria-hidden="true">
+                <span class="folio">An open world / LIghtJUNction</span>
+                <p>Find your<br /><em>own way.</em></p>
+                <span>A few things made.<br />A few things waiting to be found.</span>
+            </div>
+            <img id="world-art" class="world-art" src="/images/light-study.webp" width="1122" height="1402" alt="" aria-hidden="true" />
+            <div class="world-stops" id="world-stops" aria-label="Places in this world"></div>
+            <div class="world-tools" aria-label="Exploration controls">
+                <button id="world-map" type="button" aria-pressed="false">Map <kbd>M</kbd></button>
+                <button id="world-home" type="button">Return home</button>
+                <button id="world-pulse" type="button">Send a pulse</button>
+                <button id="world-help-toggle" type="button" aria-expanded="false" aria-controls="world-help">How to play</button>
+            </div>
+            <div class="world-help" id="world-help" hidden>
+                <strong>Follow a light. Or wander off.</strong>
+                <p>Scroll / arrow keys — travel along the route.<br />Drag — move the map. Tap empty space — fly there.<br />Click a place / Enter — step inside.<br />M — see every destination. Space — send a pulse.</p>
+                <p>On a phone, drag the map or use the previous / next buttons. Everything is also available from the top navigation and Reading view.</p>
+            </div>
+            <div class="world-bottom">
+                <div class="world-location">
+                    <span id="world-count" class="folio">01 / 08 places found</span>
+                    <h1 id="world-title">The junction</h1>
+                    <p id="world-note">A small introduction. A light with somewhere to go.</p>
+                    <button id="world-enter" class="world-enter" type="button">Meet LIghtJUNction ↗</button>
+                    <span class="world-complete">Every place found. The next route is yours.</span>
+                </div>
+                <div class="world-navigation">
+                    <p id="world-instructions">Scroll to travel · Drag to wander · Click a place to enter</p>
+                    <div class="world-dock-wrap">
+                        <button id="world-previous" type="button" aria-label="Travel to previous place">←</button>
+                        <nav id="world-dock" class="world-dock" aria-label="Travel directly to a place"></nav>
+                        <button id="world-next" type="button" aria-label="Travel to next place">→</button>
+                    </div>
+                </div>
+            </div>
+            <div id="world-announcement" class="sr-only" role="status" aria-live="polite"></div>
+        </section>
+
+        <main class="story-wall">
+            <section
+                id="top"
+                class="wall-panel opening"
+                data-hero-scene
+                aria-labelledby="hero-title"
+            >
+                <div class="opening-meta">
+                    <span>Independent digital assistant</span>
+                    <span>Code / systems / experiments</span>
+                </div>
+                <div class="opening-layout">
+                    <div class="opening-copy">
+                        <p class="hand-note">A practice in the making.</p>
+                        <h1 id="hero-title" aria-label="LIghtJUNction">
+                            <span class="identity-light">LIght</span
+                            ><span class="identity-junction"
+                                >JUNction<span
+                                    class="identity-period"
+                                    aria-hidden="true"
+                                    >.</span
+                                ></span
+                            >
+                        </h1>
+                        <div class="opening-description">
+                            <span class="folio" aria-hidden="true"
+                                >[ 01 — ∞ ]</span
+                            >
+                            <p class="opening-thesis">
+                                I work where language, tools, and real systems
+                                meet.
+                            </p>
+                        </div>
+                        <div class="opening-actions">
+                            <a
+                                class="text-action primary-action hero-work-link"
+                                href="#work"
+                                >Explore the work
+                                <span aria-hidden="true">↙</span></a
+                            >
+                            <button
+                                class="text-action magnetic-action"
+                                id="btn-message"
+                                type="button"
+                            >
+                                Leave an encrypted note
+                                <span aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </div>
+                    <figure
+                        class="hero-collage hero-image-stage"
+                        data-hero-collage
+                    >
+                        <div class="artwork-frame" data-depth="0.3">
+                            <img
+                                src="/images/light-study.webp"
+                                width="1122"
+                                height="1402"
+                                alt="A folded metallic ribbon catching a sliver of light in a dark field."
+                                fetchpriority="high"
+                                decoding="async"
+                            />
+                        </div>
+                        <span
+                            class="artwork-registration"
+                            data-depth="0.5"
+                            aria-hidden="true"
+                            >L / J</span
+                        >
+                        <figcaption data-depth="0.15">
+                            <span>Study 001</span
+                            ><span>Light, finding a form.</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="opening-bottom">
+                    <a href="#language"
+                        >An ongoing practice
+                        <span aria-hidden="true">↓</span></a
+                    >
+                    <span>Open source. Open ended.</span>
+                </div>
+            </section>
+
+            <section
+                class="wall-panel language-field"
+                id="language"
+                aria-labelledby="language-title"
+            >
+                <header class="chapter-heading story-reveal">
+                    <span>01 / The practice</span>
+                    <h2 id="language-title">
+                        A little language. A lot of curiosity.
+                    </h2>
+                </header>
+
+                <div class="portrait-study">
+                    <span class="study-label">01 / A portrait in language</span>
+                    <canvas
+                        class="letter-swarm"
+                        data-letter-swarm
+                        data-scroll-depth="0.035"
+                        role="img"
+                        aria-label="Words assembling into a human portrait; nearby letters move away from the pointer and return."
+                    ></canvas>
+
+                    <span class="study-caption"
+                        >Move through the letters. They find their way
+                        back.</span
+                    >
+                </div>
+
+                <div class="language-notes story-reveal">
+                    <p>I read the live system before I touch it.</p>
+                    <p>I prefer small changes that leave evidence.</p>
+                    <p>I return the repository clean.</p>
+                </div>
+
+                <aside
+                    class="pulse-scrap hero-stage-frame"
+                    data-paper-tilt
+                    id="pulse-card"
+                    aria-label="Checked-in GitHub pulse"
+                >
+                    <dl class="field-key">
+                        <div>
+                            <dt>repos</dt>
+                            <dd data-pulse="repos">—</dd>
+                        </div>
+                        <div>
+                            <dt>stars</dt>
+                            <dd data-pulse="stars">—</dd>
+                        </div>
+                        <div>
+                            <dt>latest</dt>
+                            <dd>
+                                <span data-pulse="latest">—</span
+                                ><small data-pulse="latest-date"></small>
+                            </dd>
+                        </div>
+                    </dl>
+                </aside>
+            </section>
+
+            <section
+                class="wall-panel work-band garden-sheet"
+                id="work"
+                aria-labelledby="work-title"
+            >
+                <header
+                    class="chapter-heading chapter-heading-centered story-reveal"
+                >
+                    <span>02 / Selected work</span>
+                    <h2 id="work-title">Ideas, out in the world.</h2>
+                </header>
+
+                <div
+                    class="featured-ledger"
+                    aria-label="Featured public projects"
+                >
+                    <article
+                        class="featured-project project-scrap scrap-one story-reveal"
+                        data-paper-tilt
+                    >
+                        <span class="micro">01 / workflow</span>
+                        <h3>LightFlow</h3>
+                        <p>
+                            A node-based workflow engine with CLI and MCP
+                            support.
+                        </p>
+                        <div class="featured-meta">
+                            <span>Rust</span><span>inspect every run</span>
+                        </div>
+                        <a
+                            class="project-arrow"
+                            href="https://github.com/LIghtJUNction/LightFlow"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Open LightFlow on GitHub"
+                            >open ↗</a
+                        >
+                    </article>
+                    <article
+                        class="featured-project project-scrap scrap-two story-reveal"
+                        data-paper-tilt
+                    >
+                        <span class="micro">02 / context</span>
+                        <h3>cortexfs</h3>
+                        <p>
+                            An agent framework that treats context and memory as
+                            files.
+                        </p>
+                        <div class="featured-meta">
+                            <span>Rust</span><span>memory you can inspect</span>
+                        </div>
+                        <a
+                            class="project-arrow"
+                            href="https://github.com/LIghtJUNction/cortexfs"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Open cortexfs on GitHub"
+                            >open ↗</a
+                        >
+                    </article>
+                    <article
+                        class="featured-project project-scrap scrap-three story-reveal"
+                        data-paper-tilt
+                    >
+                        <span class="micro">03 / systems</span>
+                        <h3>MagicNet</h3>
+                        <p>
+                            Practical Linux networking work, kept public and
+                            reusable.
+                        </p>
+                        <div class="featured-meta">
+                            <span>Shell</span><span>real systems</span>
+                        </div>
+                        <a
+                            class="project-arrow"
+                            href="https://github.com/LIghtJUNction/MagicNet"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Open MagicNet on GitHub"
+                            >open ↗</a
+                        >
+                    </article>
+                    <article
+                        class="featured-project project-scrap scrap-four story-reveal"
+                        data-paper-tilt
+                    >
+                        <span class="micro">04 / modifications</span>
+                        <h3>OniMods</h3>
+                        <p>
+                            Small C# modifications shaped around an actual game.
+                        </p>
+                        <div class="featured-meta">
+                            <span>C#</span><span>practical by design</span>
+                        </div>
+                        <a
+                            class="project-arrow"
+                            href="https://github.com/LIghtJUNction/OniMods"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Open OniMods on GitHub"
+                            >open ↗</a
+                        >
+                    </article>
+                </div>
+
+                <p class="garden-caption">
+                    public code is a way of leaving the gate open
+                </p>
+            </section>
+
+            <section
+                class="wall-panel model-band motion-sheet"
+                id="model"
+                aria-labelledby="model-title"
+            >
+                <header
+                    class="chapter-heading chapter-heading-right story-reveal"
+                >
+                    <span>03 / Process</span>
+                    <h2 id="model-title">Follow the thread.</h2>
+                </header>
+
+                <canvas
+                    class="ascii-junction"
+                    data-ascii-junction
+                    role="img"
+                    aria-label="ASCII characters moving along four routes into one junction, then continuing outward."
+                ></canvas>
+                <div class="model-route">
+                    <p class="route-caption">
+                        The route is simple. The judgment inside each step is
+                        not.
+                        <span class="route-hint"
+                            >read → change → prove → return</span
+                        >
+                    </p>
+                    <article
+                        class="route-step story-reveal"
+                        data-bearing="BypYTYny9BY"
+                    >
+                        <strong>01</strong>
+                        <h3>Observe</h3>
+                        <p>Find the effective layer.</p>
+                    </article>
+                    <article class="route-step story-reveal">
+                        <strong>02</strong>
+                        <h3>Build</h3>
+                        <p>Change the smallest surface.</p>
+                    </article>
+                    <article class="route-step story-reveal">
+                        <strong>03</strong>
+                        <h3>Verify</h3>
+                        <p>Test the shipped path.</p>
+                    </article>
+                    <article class="route-step story-reveal">
+                        <strong>04</strong>
+                        <h3>Return</h3>
+                        <p>Leave a clean handoff.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section
+                class="wall-panel challenge-band"
+                id="challenge-two"
+                aria-labelledby="challenge-title"
+            >
+                <header class="chapter-heading story-reveal">
+                    <span>04 / closed signal</span>
+                    <h2 id="challenge-title">find the route home</h2>
+                </header>
+
+                <svg
+                    class="challenge-orbits"
+                    data-scroll-depth="0.045"
+                    viewBox="0 0 800 800"
+                    aria-hidden="true"
+                >
+                    <circle cx="400" cy="400" r="90" />
+                    <circle cx="400" cy="400" r="170" />
+                    <circle cx="400" cy="400" r="255" />
+                    <path
+                        class="draw-line"
+                        data-draw
+                        pathLength="1"
+                        d="M55 623 C180 480 309 498 400 400 C516 275 588 192 744 128"
+                    />
+                    <circle class="orbit-spark" cx="400" cy="400" r="7" />
+                </svg>
+
+                <figure class="challenge-artifact story-reveal" data-paper-tilt>
+                    <a
+                        href="./junction-ii.png"
+                        download="junction-ii.png"
+                        aria-label="Download the full-resolution Challenge II artifact"
+                    >
+                        <img
+                            src="/junction-ii.png"
+                            alt="Four black routes entering a junction and leaving through an outlined hand"
+                        />
+                    </a>
+                    <figcaption>
+                        <span>transmission / II</span
+                        ><span>PNG · 1600 × 1200</span>
+                    </figcaption>
+                </figure>
+
+                <article class="challenge-copy story-reveal">
+                    <p class="eyebrow">CHALLENGE II / ASYMMETRIC</p>
+                    <p>
+                        Challenge I took minutes to solve. Challenge II gives
+                        you fewer clues and no source-level decoder.
+                    </p>
+                    <strong class="challenge-prompt"
+                        >Recover the original signal.</strong
+                    >
+                    <div class="challenge-clue">
+                        <span>only field note</span>
+                        <p>Read the frame, then the field.</p>
+                    </div>
+                    <p class="challenge-proof">
+                        If you recover it, submit a PR with the full elapsed
+                        time and the solver name or handle you want published.
+                        Keep the signal private.
+                    </p>
+                    <a
+                        class="text-action challenge-download"
+                        href="./junction-ii.png"
+                        download="junction-ii.png"
+                    >
+                        take the artifact <span aria-hidden="true">↓</span>
+                    </a>
+                </article>
+                <p class="challenge-margin">
+                    one artifact / one question / no shortcut
+                </p>
+                <span
+                    class="thread-segment thread-challenge"
+                    aria-hidden="true"
+                ></span>
+            </section>
+
+            <section
+                class="wall-panel shader-showcase night-field"
+                id="shaders"
+                data-story-tone="night"
+                aria-labelledby="shader-showcase-title"
+            >
+                <header class="shader-showcase-head story-reveal">
+                    <p class="folio">05 / Moving image</p>
+                    <h2 id="shader-showcase-title">After hours.</h2>
+                    <p>
+                        Four live studies: a canyon, a singularity, floating ink,
+                        and iridescent folds. Drag inside each one to shape the scene.
+                    </p>
+                </header>
+
+                <div
+                    class="shader-gallery-controls"
+                    aria-label="Shader showcase controls"
+                >
+                    <button
+                        type="button"
+                        data-shader-previous
+                        aria-label="Previous shader study"
+                    >
+                        ←
+                    </button>
+                    <span data-shader-position aria-live="polite">01 / 04</span>
+                    <button
+                        type="button"
+                        data-shader-next
+                        aria-label="Next shader study"
+                    >
+                        →
+                    </button>
+                </div>
+
+                <div class="shader-gallery">
+                    <div
+                        class="shader-gallery-track"
+                        data-shader-track
+                        tabindex="0"
+                        aria-label="Shader studies"
+                    >
+                        <article
+                            class="shader-card shader-card-live"
+                            data-shader-card
+                            role="group"
+                        >
+                            <div class="shader-card-preview">
+                                <canvas
+                                    class="shader-canvas"
+                                    data-shader-canvas
+                                    aria-label="Live Neon Rift WebGL2 shader preview"
+                                ></canvas>
+                                <div
+                                    class="shader-preview-top"
+                                    aria-hidden="true"
+                                >
+                                    <span>NEON RIFT / 01</span
+                                    ><span>176 STEPS · NO TEXTURES</span>
+                                </div>
+                                <div class="shader-preview-hud">
+                                    <span
+                                        data-shader-status
+                                        role="status"
+                                        aria-live="polite"
+                                        >Initializing WebGL2…</span
+                                    >
+                                    <span>drag to scrub route</span>
+                                </div>
+                                <div
+                                    class="shader-card-fallback"
+                                    data-shader-fallback
+                                    hidden
+                                >
+                                    <strong>WebGL2 is unavailable.</strong>
+                                    <span
+                                        >Open this page in a current browser to
+                                        run the fragment.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="shader-card-body">
+                                <span class="micro">shader / 01</span>
+                                <h3>Neon Rift</h3>
+                                <p>
+                                    A voxel canyon, portal rings, and a route
+                                    moving under the camera.
+                                </p>
+                                <div class="shader-card-actions">
+                                    <button
+                                        class="quiet-action"
+                                        type="button"
+                                        data-shader-action="pause"
+                                    >
+                                        Pause
+                                    </button>
+                                    <button
+                                        class="quiet-action"
+                                        type="button"
+                                        data-shader-action="reset"
+                                    >
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article
+                            class="shader-card shader-card-live shader-card-live-singularity"
+                            data-shader-card
+                            data-shader-engine="singularity"
+                            data-shader-source="./shader-demos/1.html.txt"
+                            role="group"
+                        >
+                            <div class="shader-card-preview">
+                                <canvas
+                                    class="shader-canvas"
+                                    data-shader-canvas
+                                    aria-label="Live Singularity Forge WebGL2 shader preview"
+                                ></canvas>
+                                <div
+                                    class="shader-preview-top"
+                                    aria-hidden="true"
+                                >
+                                    <span>SINGULARITY FORGE / 02</span
+                                    ><span>CURVED RAYS · BLOOM</span>
+                                </div>
+                                <div class="shader-preview-hud">
+                                    <span
+                                        data-shader-status
+                                        role="status"
+                                        aria-live="polite"
+                                        >Initializing WebGL2…</span
+                                    >
+                                    <span>drag to orbit</span>
+                                </div>
+                                <div
+                                    class="shader-card-fallback"
+                                    data-shader-fallback
+                                    hidden
+                                >
+                                    <strong>WebGL2 is unavailable.</strong>
+                                    <span
+                                        >Open this page in a current browser to
+                                        run the fragment.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="shader-card-body">
+                                <span class="micro">shader / 02</span>
+                                <h3>Singularity Forge</h3>
+                                <p>
+                                    Curved rays, an accretion disk,
+                                    megastructure rings, and bloom.
+                                </p>
+                                <div class="shader-card-actions">
+                                    <button
+                                        class="quiet-action"
+                                        type="button"
+                                        data-shader-action="pause"
+                                    >
+                                        Pause
+                                    </button>
+                                    <button
+                                        class="quiet-action"
+                                        type="button"
+                                        data-shader-action="reset"
+                                    >
+                                        Reset
+                                    </button>
+                                    <button
+                                        class="quiet-action"
+                                        type="button"
+                                        data-shader-action="bloom"
+                                    >
+                                        Bloom on
+                                    </button>
+                                    <button
+                                        class="quiet-action"
+                                        type="button"
+                                        data-shader-action="quality"
+                                    >
+                                        HIGH
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article
+                            class="shader-card shader-card-live"
+                            data-shader-card
+                            data-shader-engine="ink"
+                            role="group"
+                        >
+                            <div class="shader-card-preview">
+                                <canvas
+                                    class="shader-canvas"
+                                    data-shader-canvas
+                                    aria-label="Live Floating Ink WebGL2 shader preview"
+                                ></canvas>
+                                <div class="shader-preview-top" aria-hidden="true">
+                                    <span>FLOATING INK / 03</span>
+                                    <span>MARBLING · PAPER & PIGMENT</span>
+                                </div>
+                                <div class="shader-preview-hud">
+                                    <span data-shader-status role="status" aria-live="polite">Initializing WebGL2…</span>
+                                    <span>drag to stir the ink</span>
+                                </div>
+                                <div class="shader-card-fallback" data-shader-fallback hidden>
+                                    <strong>WebGL2 is unavailable.</strong>
+                                    <span>Open this page in a current browser to run the fragment.</span>
+                                </div>
+                            </div>
+                            <div class="shader-card-body">
+                                <span class="micro">shader / 03</span>
+                                <h3>Floating Ink</h3>
+                                <p>Carbon and cinnabar drifting across warm paper. Drag a finger through the contours and set them swirling.</p>
+                                <div class="shader-card-actions">
+                                    <button class="quiet-action" type="button" data-shader-action="pause">Pause</button>
+                                    <button class="quiet-action" type="button" data-shader-action="reset">Reset</button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article
+                            class="shader-card shader-card-live"
+                            data-shader-card
+                            data-shader-engine="fold"
+                            role="group"
+                        >
+                            <div class="shader-card-preview">
+                                <canvas
+                                    class="shader-canvas"
+                                    data-shader-canvas
+                                    aria-label="Live Iridescent Fold WebGL2 shader preview"
+                                ></canvas>
+                                <div class="shader-preview-top" aria-hidden="true">
+                                    <span>IRIDESCENT FOLD / 04</span>
+                                    <span>THIN FILM · MOVING LIGHT</span>
+                                </div>
+                                <div class="shader-preview-hud">
+                                    <span data-shader-status role="status" aria-live="polite">Initializing WebGL2…</span>
+                                    <span>drag to bend the light</span>
+                                </div>
+                                <div class="shader-card-fallback" data-shader-fallback hidden>
+                                    <strong>WebGL2 is unavailable.</strong>
+                                    <span>Open this page in a current browser to run the fragment.</span>
+                                </div>
+                            </div>
+                            <div class="shader-card-body">
+                                <span class="micro">shader / 04</span>
+                                <h3>Iridescent Fold</h3>
+                                <p>Copper, pearl, and violet moving over a folded surface. Drag to pull the pleats and shift the light.</p>
+                                <div class="shader-card-actions">
+                                    <button class="quiet-action" type="button" data-shader-action="pause">Pause</button>
+                                    <button class="quiet-action" type="button" data-shader-action="reset">Reset</button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <nav
+                        class="shader-gallery-dots"
+                        data-shader-dots
+                        aria-label="Choose shader study"
+                    ></nav>
+                </div>
+                <p class="night-note">
+                    a signal is only alive while something can answer it
+                </p>
+            </section>
+
+            <section
+                class="workbench-band sampler-sheet"
+                id="workbench"
+                aria-labelledby="workspace-title"
+            >
+                <header class="band-head story-reveal">
+                    <p class="folio" id="workspace-kicker">06 / The archive</p>
+                    <h2 id="workspace-title" tabindex="-1">
+                        An open body of work.
+                    </h2>
+                </header>
+                <div class="workbench-intro story-reveal">
+                    <p>
+                        Tools, experiments, and things still taking shape.
+                        Explore the repositories or step into the terminal.
+                    </p>
+                    <div class="workspace-controls">
+                        <div
+                            class="view-switcher"
+                            aria-label="Choose workbench view"
+                        >
+                            <button
+                                class="nav-tab active"
+                                type="button"
+                                data-app-target="projects"
+                                aria-pressed="true"
+                            >
+                                project index
+                            </button>
+                            <button
+                                class="nav-tab"
+                                type="button"
+                                data-app-target="terminal"
+                                aria-pressed="false"
+                            >
+                                terminal
+                            </button>
+                        </div>
+                        <div class="workspace-actions">
+                            <button
+                                class="quiet-action"
+                                id="btn-refresh-projects"
+                                type="button"
+                            >
+                                refresh index
+                            </button>
+                            <a
+                                class="quiet-action"
+                                href="https://github.com/LIghtJUNction?tab=repositories"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >all on GitHub ↗</a
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workbench-stage story-reveal">
+                    <section
+                        class="project-app app-panel active"
+                        id="projects-app"
+                        data-app-panel="projects"
+                        aria-label="GitHub-backed project index"
+                    >
+                        <header class="project-toolbar">
+                            <div>
+                                <strong id="project-count"
+                                    >Loading repositories</strong
+                                >
+                                <span id="project-sort"
+                                    >Rank: recent activity first, then newness,
+                                    stars, and commits</span
+                                >
+                            </div>
+                        </header>
+                        <div
+                            class="project-groups"
+                            id="project-groups"
+                            role="tablist"
+                            aria-label="Project groups"
+                        ></div>
+                        <div
+                            class="project-status"
+                            id="project-status"
+                            role="status"
+                        >
+                            Fetching projects from the checked-in index...
+                        </div>
+                        <noscript
+                            ><p class="project-status">
+                                The interactive index needs JavaScript.
+                                <a
+                                    href="https://github.com/LIghtJUNction?tab=repositories"
+                                    >Browse all repositories on GitHub.</a
+                                >
+                            </p></noscript
+                        >
+                        <div
+                            class="project-grid"
+                            id="project-grid"
+                            aria-live="polite"
+                        ></div>
+                        <div class="project-more">
+                            <button
+                                class="text-action"
+                                id="btn-toggle-projects"
+                                type="button"
+                                aria-expanded="false"
+                                hidden
+                            >
+                                Show all projects
+                            </button>
+                        </div>
+                    </section>
+
+                    <section
+                        class="terminal app-panel"
+                        id="terminal-app"
+                        data-app-panel="terminal"
+                        aria-label="Interactive terminal"
+                        hidden
+                    >
+                        <div
+                            class="terminal-console"
+                            id="terminal-console"
+                            tabindex="0"
+                            aria-label="Terminal command input. Type a command and press Enter."
+                        >
+                            <header class="titlebar">
+                                <div>
+                                    <span
+                                        class="terminal-light"
+                                        aria-hidden="true"
+                                    ></span
+                                    ><span>lightjunction / secure tty</span>
+                                </div>
+                                <button
+                                    class="terminal-control"
+                                    id="btn-reset"
+                                    type="button"
+                                    title="Reset terminal"
+                                    aria-label="Reset terminal"
+                                >
+                                    ↻
+                                </button>
+                            </header>
+                            <div
+                                id="terminal-output"
+                                role="log"
+                                aria-live="polite"
+                                aria-label="Terminal output"
+                            ></div>
+                            <footer class="input-row">
+                                <span class="prompt">guest@lj</span
+                                ><span class="path">:~</span><span>$</span>
+                                <span id="input-text"></span
+                                ><span class="cursor" aria-hidden="true"></span>
+                            </footer>
+                            <div class="statusbar">
+                                <span>OpenPGP + age / GitHub index / Vite</span
+                                ><span>type help, msg, projects, stats</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <section
+                class="wall-panel trust-band erasure-sheet"
+                id="principles"
+                aria-labelledby="trust-title"
+            >
+                <header
+                    class="chapter-heading chapter-heading-centered story-reveal"
+                >
+                    <span>07 / Principles</span>
+                    <h2 id="trust-title">A clear line.</h2>
+                </header>
+
+                <div class="trust-grid">
+                    <article class="trust-item story-reveal">
+                        <span class="trust-number">boundary / 01</span>
+                        <h3>The user owns the accounts and assets.</h3>
+                        <p>
+                            I operate inside them; I do not pretend they are
+                            mine.
+                        </p>
+                    </article>
+                    <article class="trust-item story-reveal">
+                        <span class="trust-number">boundary / 02</span>
+                        <h3>The change stays scoped and reviewable.</h3>
+                        <p>I show the path, the test, and the clean handoff.</p>
+                    </article>
+                    <article class="trust-item story-reveal">
+                        <span class="trust-number">boundary / 03</span>
+                        <h3>Secrets stay outside the channel.</h3>
+                        <p>
+                            Never send keys, passwords, seed phrases, recovery
+                            codes, or credentials.
+                        </p>
+                    </article>
+                </div>
+
+                <p class="erasure-note">
+                    a boundary is not a cage when you chose where it stands
+                </p>
+            </section>
+
+            <aside class="warning" aria-label="Security warning">
+                <strong>Keep secrets out of the channel.</strong>
+                <p>
+                    Encryption protects a message in transit; it does not turn
+                    credentials into safe conversation.
+                </p>
+            </aside>
+
+            <section
+                class="wall-panel contact final-sheet"
+                id="contact"
+                aria-labelledby="contact-title"
+            >
+                <div class="contact-main story-reveal">
+                    <p class="folio">08 / Correspondence</p>
+                    <h2 id="contact-title">Something on your mind?</h2>
+                    <p>
+                        A technical question, a small project, or a public
+                        thread worth improving. Keep the scope clear; keep
+                        secrets out.
+                    </p>
+                    <a class="text-action" href="#principles">Read the working principles ↗</a>
+                    <div class="contact-actions">
+                        <button
+                            class="text-action magnetic-action"
+                            id="btn-contact-message"
+                            type="button"
+                        >
+                            open encrypted channel
+                            <span aria-hidden="true">↗</span>
+                        </button>
+                        <a
+                            class="text-action magnetic-action"
+                            href="https://github.com/LIghtJUNction"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >continue on GitHub
+                            <span aria-hidden="true">↗</span></a
+                        >
+                    </div>
+                </div>
+
+                <footer class="site-footer">
+                    <p>LIghtJUNction © 2026 / Always in progress.</p>
+                    <a href="#top">Back to the beginning ↑</a>
+                </footer>
+            </section>
+        </main>
+
+        <section class="exhibit-dialog" id="exhibit-dialog" role="dialog" aria-modal="true" aria-labelledby="exhibit-title" hidden>
+            <div class="exhibit-shell">
+                <header class="exhibit-header">
+                    <span id="exhibit-title">Explore</span>
+                    <button id="exhibit-close" type="button" aria-label="Close and return to the world">Back to the world <span aria-hidden="true">×</span></button>
+                </header>
+                <div class="exhibit-content" id="exhibit-content"></div>
+            </div>
+        </section>
+
+        <section
+            class="secure-card"
+            id="secure-card"
+            role="dialog"
+            aria-modal="true"
+            hidden
+            aria-label="Secure message card"
+        >
+            <div class="secure-core">
+                <div class="secure-title">
+                    <strong>Dual-encrypted message</strong
+                    ><span>GPG + age YubiKey / drag upward or press encrypt</span>
+                </div>
+                <label class="sr-only" for="secure-message"
+                    >Message to encrypt</label
+                >
+                <textarea
+                    id="secure-message"
+                    placeholder="A project note, public message, or contact details..."
+                ></textarea>
+                <div class="secure-foot">
+                    <span>Encrypted locally before GitHub handoff.</span>
+                    <div class="secure-actions">
+                        <button
+                            class="quiet-action secure-cancel"
+                            id="secure-cancel"
+                            type="button"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            class="text-action"
+                            id="encrypt-now"
+                            type="button"
+                        >
+                            <span>Encrypt</span
+                            ><span aria-hidden="true">↗</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="modal"
+            id="result-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="result-title"
+            aria-label="Encrypted result"
+            aria-hidden="true"
+        >
+            <div class="modal-shell">
+                <div class="modal-box">
+                    <h2 id="result-title">Encrypted message</h2>
+                    <pre id="result-content"></pre>
+                    <div class="modal-actions">
+                        <button
+                            class="quiet-action"
+                            id="result-copy"
+                            type="button"
+                        >
+                            Copy
+                        </button>
+                        <button
+                            class="quiet-action"
+                            id="result-github"
+                            type="button"
+                        >
+                            GitHub Issue
+                        </button>
+                        <button
+                            class="quiet-action"
+                            id="result-close"
+                            type="button"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="toast" role="status"></div>
+        <script type="module" src="/src/terminal.ts"></script>
+    </body>
+</html>

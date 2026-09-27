@@ -13,10 +13,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run test:crypto && npm run test:exploration && npm run test:shaders && npm run build",
+    "check": "npm run typecheck && npm run test:game && npm run test:crypto && npm run test:exploration && npm run test:shaders && npm run build",
     "test:crypto": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/age-crypto.test.mjs tests/public-key.test.mjs",
     "test:exploration": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/expedition-*.test.mjs",
-    "test:shaders": "node --test --test-timeout=30000 tests/shader-gallery.test.mjs"
+    "test:shaders": "node --test --test-timeout=30000 tests/shader-gallery.test.mjs",
+    "test:game": "node --test --test-timeout=30000 tests/token-drift.test.mjs"
   },
   "dependencies": {
     "@noble/ciphers": "^2.4.0",

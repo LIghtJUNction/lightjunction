@@ -6,6 +6,12 @@ export default defineConfig({
     build: {
         outDir: 'dist',
         emptyOutDir: true,
+        rolldownOptions: {
+            input: {
+                game: 'index.html',
+                archive: 'archive.html',
+            },
+        },
     },
     server: {
         port: 3000,
