@@ -130,10 +130,10 @@ test('screen-relative movement remains orthogonal across camera angles', () => {
     zoomCamera(c, 500); assert.equal(c.zoom, 1.6); });
 test('twelve gates use directional swept crossing and reward each only once', () => { const w = run(), g = w.circuit.gates[0], p = d => ({ x: g.x + g.nx * d, z: g.z + g.nz * d }); assert.equal(createCircuit(ISLANDS).gates.length, 12); assert.ok(crossedGate(p(-5), p(5), g)); assert.equal(crossedGate(p(5), p(-5), g), false); Object.assign(w.player, p(1)); advanceCircuit(w, p(-1), .05); assert.equal(w.circuit.next, 1); const score = w.score; advanceCircuit(w, p(-1), .05); assert.equal(w.score, score); });
 
-test('battle entry is built alongside the preserved homepage and archive', async () => {
+test('battle entry is built alongside the overworld and preserved archive', async () => {
     const {readFile} = await import('node:fs/promises');
     const read = file => readFile(new URL(`../${file}`, import.meta.url), 'utf8');
-    const html = await read('rogue.html'), index = await read('index.html'), config = await read('vite.config.ts');
+    const html = await read('rogue.html'), index = await read('frontier.html'), config = await read('vite.config.ts');
     const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
     assert.equal(ids.length, new Set(ids).size);
     for (const id of ['battle-world','start','upgrade','choices','reroll','paused','result','restart','fallback','joystick']) assert.ok(ids.includes(id));

@@ -91,7 +91,7 @@ test('missing, corrupt, denied and malicious storage values are safe',()=>{
   saveRecord(storage,{best:10,wins:0},w);assert.deepEqual(readRecord(storage),{best:50,wins:1});
 });
 test('game entry is local, accessible, and points to the preserved archive',async()=>{
-  const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
+  const html=await readFile(new URL('../frontier.html',import.meta.url),'utf8');
   const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length);
   for(const id of ['voxel-world','start-button','pause-button','resume-button','joystick','dash-button','pulse-button','help-dialog','fallback'])assert.ok(ids.includes(id));
   assert.ok(html.includes('./archive.html'));assert.ok(html.includes('<noscript>'));assert.ok(html.includes('aria-live="polite"'));

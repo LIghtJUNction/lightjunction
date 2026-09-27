@@ -1,57 +1,46 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#ebede0" />
-  <meta name="description" content="TOKEN FRONTIER：无尽肉鸽 × RTS × 塔防。建设防线、指挥小队，在像素 token 云海中守住 LIghtJUNction。" />
-  <meta property="og:title" content="TOKEN FRONTIER / LIghtJUNction" />
-  <meta property="og:description" content="Build a little. Hold a little longer. An endless voxel frontier." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ece9df" />
+  <meta name="description" content="整个 LIghtJUNction 是一座可探索的像素世界。驾驶光点，修复开源船坞，进入光影实验室，在通讯站发送加密信号，或穿过传送门守住无尽边境。" />
+  <meta property="og:title" content="THE JUNCTION / 一座可以玩的个人网站" />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23465e50' d='M12 0h8v12h12v8H20v12h-8V20H0v-8h12z'/%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="/src/token-drift/frontier.css" />
-  <title>TOKEN FRONTIER / LIghtJUNction</title>
+  <meta property="og:description" content="No pages. Just places. 项目、记忆、实验与通讯，都在同一个世界里。" />
+  <link rel="canonical" href="https://lightjunction.github.io/lightjunction/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23374840' d='M12 0h8v12h12v8H20v12h-8V20H0v-8h12z'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/src/junction/world.css" />
+  <title>THE JUNCTION / LIghtJUNction</title>
 </head>
-<body>
-<a class="skip-link" href="./archive.html#work">跳过游戏，浏览作品</a>
-<main id="token-drift" data-phase="ready">
-  <canvas id="voxel-world" data-scene tabindex="0" aria-label="3D 无尽防线。WASD 移动旗舰，F 全选小队，右键移动，T 进攻移动，1 至 5 建塔，空格冲刺，E 脉冲，Esc 暂停。"></canvas>
-  <canvas id="world-labels" aria-hidden="true"></canvas>
-  <header class="topbar">
-    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">✣</span> LIghtJUNction <small>THE TOKEN FRONTIER</small></a>
-    <nav aria-label="全站导航"><a href="./rogue.html" aria-current="page">无尽防线</a><a href="./archive.html#work">档案馆</a><a href="./archive.html#contact">通讯</a><button id="sound-toggle" aria-pressed="false" type="button">音效 OFF</button><button id="pause-button" type="button" hidden>暂停</button></nav>
-  </header>
-  <section id="intro" class="intro" aria-labelledby="game-title">
-    <p class="eyebrow"><span></span> EXPERIMENT 002 / NO FINAL WAVE</p>
-    <h1 id="game-title">TOKEN<br><em>FRONTIER<span>_</span></em></h1>
-    <p class="intro-lead">建一条防线。<br>让这座小世界，多亮一会。</p>
-    <p class="intro-detail">无尽肉鸽 · 即时指挥 · 塔防<br>你驾驶旗舰，也指挥整支队伍。</p>
-    <div id="start" class="intro-actions"><button id="start-button" class="primary" type="button">建立防线 <span>↗</span></button><button id="help-button" class="quiet" type="button">操作手册</button></div>
-    <p class="best">LONGEST STAND <b id="intro-best">00</b> WAVES <span>本机记录 · 无需登录</span></p>
-    <a class="archive-entry" href="./archive.html">进入档案馆、作品与通讯室 ↗</a>
-  </section>
-  <section id="hud" class="hud" aria-label="指挥界面" hidden>
-    <div class="situation"><span class="eyebrow">ENDLESS DEFENSE</span><div><strong id="wave">00</strong><span>WAVE<br><small id="stage-label">整备</small></span></div><button id="next-wave" type="button">提前迎敌 ↗</button></div>
-    <div class="telemetry"><div><small>可用 TOKEN</small><strong id="resources">220</strong></div><div class="base-meter"><small>基地核心 <span id="base-hp">800 / 800</span></small><div class="meter"><i id="base-fill"></i></div></div><div><small>SCORE</small><b id="score">000000</b></div></div>
-    <div class="pilot"><span id="player-hp">100 HP</span><span id="level">LV 1</span><div class="meter"><i id="xp-fill"></i></div></div>
-    <div class="mini"><canvas id="minimap" width="140" height="140" aria-label="战术小地图，点击可移动镜头"></canvas><button id="camera-mode" type="button">镜头：战术</button></div>
-    <div class="drawer" data-drawer="build" hidden><p class="eyebrow">BUILD / 建造防线</p><div id="build-options" class="options"></div><p class="drawer-note">点击建筑，再点地面；绿色可建。上限 20 座。</p></div>
-    <div class="drawer" data-drawer="army" hidden><p class="eyebrow">SQUAD / <span id="army-count">0 / 24</span></p><div id="unit-options" class="options"></div><p id="queue">生产队列空闲</p><button id="cancel-recruit" class="quiet" type="button">撤销队尾 · 全额退款</button></div>
-    <div class="drawer command-drawer" data-drawer="command" hidden><p class="eyebrow">COMMAND / 已选 <span id="selection-count">0</span></p><h2 id="selection-title">指挥核心</h2><p id="selection-detail"></p><div class="orders"><button data-order="move" type="button">移动 G</button><button data-order="attack" type="button">进攻 T</button><button data-order="hold" type="button">驻守 H</button><button data-order="rally" type="button">集结点</button></div><div class="service"><button id="repair-target" type="button">修复基地 · 25 TK</button><button id="upgrade-tower" type="button" hidden>升级</button><button id="sell-tower" type="button" hidden>回收 · 返还 55%</button></div></div>
-    <div class="dock"><button data-tab="build" aria-expanded="false" type="button">建造 <kbd>1–5</kbd></button><button data-tab="army" aria-expanded="false" type="button">小队</button><button data-tab="command" aria-expanded="false" type="button">指令</button><button id="select-all" type="button">全选 <kbd>F</kbd></button></div>
-    <div class="abilities"><button id="dash-button" type="button"><kbd>SPACE</kbd>冲刺<i id="dash-fill"></i></button><button id="pulse-button" type="button"><kbd>E</kbd>脉冲<i id="pulse-fill"></i></button></div>
-    <div id="joystick" class="joystick" role="group" aria-label="拖动摇杆移动旗舰"><div id="joystick-knob"></div></div>
-  </section>
-  <p id="announcement" class="announcement" role="status" aria-live="polite"></p>
-  <div class="mode"><span id="mode-hint"></span><button id="cancel-mode" type="button" hidden>取消 ×</button></div>
-  <section id="paused" class="panel" aria-labelledby="pause-title" hidden><p class="eyebrow">SIMULATION PAUSED</p><h2 id="pause-title">暂时停火。</h2><p>计时、敌人、生产与收入均已暂停。</p><button id="resume-button" class="primary" type="button">继续指挥 ↗</button><button id="pause-help" class="quiet" type="button">操作手册</button><a href="./archive.html">离开本局，进入档案馆 ↗</a></section>
-  <section id="result" class="panel" aria-labelledby="result-title" hidden><p class="eyebrow">ANOTHER FRONTIER AWAITS</p><h2 id="result-title">防线失守</h2><p id="result-stats"></p><button id="restart" class="primary" type="button">重建防线 ↗</button><a href="./archive.html">前往档案馆 ↗</a></section>
-  <section id="fallback" class="panel" hidden><h2>场景未能启动</h2><p id="fallback-reason"></p><a class="primary" href="./archive.html">浏览档案馆 ↗</a><button id="reload-button" type="button">重新加载</button></section>
-  <dialog id="upgrade" aria-modal="true" aria-labelledby="upgrade-title"><p class="eyebrow">RECOMPILE / 战斗已暂停</p><h2 id="upgrade-title">下一段，怎么写？</h2><p>选择一项强化；本局持续生效。按 1 / 2 / 3 快速选择。</p><div id="choices"></div><button id="reroll" type="button">重抽</button></dialog>
-  <dialog id="help-dialog" aria-labelledby="help-title"><button id="close-help" class="close" aria-label="关闭操作手册" type="button">×</button><p class="eyebrow">FIELD MANUAL / 002</p><h2 id="help-title">守住基地，没有最后一波。</h2><p>每波敌人从四个裂隙进入。清空这一波后获得 TK，并有 12 秒整备时间。每 5 波出现一个更强的 NULL 核心，击败后继续下一轮。</p><h3>旗舰与肉鸽</h3><p>WASD / 方向键移动，自动瞄准开火。空格冲刺，E 释放脉冲。捡经验后暂停三选一。旗舰损毁会让基地失去 40 点生命，8 秒后重生；基地被摧毁才会结束。</p><h3>建塔与生产</h3><p>打开「建造」选择建筑，再点地面放置。点击已建建筑可升级、修复或回收。「小队」中训练单位，单位会前往集结点。矿机提供持续收入，修复中继保养附近友军。单位与敌人悬浮移动，建筑不会封路；这是火力布防，不是堵路迷宫。</p><h3>指挥</h3><p>点击 / 框选单位，Shift 加选，F 全选。右键或 G 指定移动，T 进攻移动，H 原地驻守。进攻移动会停下迎敌。手机使用「全选」和「指令」，再点击目的地；左下摇杆驾驶旗舰。</p><p>滚轮缩放，中键或按住 Q 拖动平移；点小地图跳转镜头。Esc 暂停或取消建造。隐藏标签页会自动暂停。本局不跨刷新保存；只有最高波数与分数保存在本机，不调用模型，也不消耗 API 额度。</p></dialog>
-  <footer class="bottom-bar"><span>SMALL WORLD. ENDLESS POSSIBILITIES.</span><span class="desktop-hint">WASD 驾驶 · F 小队 · 右键移动 · T 进攻 · ESC 暂停</span><button id="pixel-toggle" type="button">PIXELS ×2</button></footer>
-</main>
-<noscript><p class="no-script">游戏需要 JavaScript。<a href="./archive.html">直接浏览作品与联系 ↗</a></p></noscript>
-<script type="module" src="/src/token-drift/frontier-app.mjs"></script>
+<body class="junction-world">
+  <a class="skip-game" href="#work">直接进入项目船坞</a>
+  <main id="junction" aria-label="LIghtJUNction 可探索世界">
+    <canvas id="junction-scene" tabindex="0" aria-label="像素立体世界。方向键或 WASD 驾驶，点击地面移动，E 进入最近设施，空格扫描，M 打开地图。也可以用下方目的地按钮直接抵达。"></canvas>
+    <div id="station-labels" aria-label="场景中的设施"></div>
+    <header class="world-header">
+      <a class="world-brand" href="#home" aria-label="返回交汇点"><i aria-hidden="true">✣</i><span>LIghtJUNction<small>AN OPEN WORLD / 001</small></span></a>
+      <div class="world-counters"><span><b id="shard-count">00</b> <small>碎片</small></span><span><b id="place-count">0/8</b> <small>已到访</small></span><button id="settings-button" type="button" aria-label="设置与操作说明">☷</button></div>
+    </header>
+    <div class="mission-hud"><span class="micro">SIDE QUEST / 支线任务</span><p id="quest-text">去开源船坞，接通第一条线路。</p><div class="mission-track"><i id="quest-progress"></i></div></div>
+    <div id="arrival" class="arrival" aria-hidden="true"><span>YOU ARE HERE</span><h1>交汇点</h1><p>从一个光点，走进整个世界。</p></div>
+    <div class="world-prompt"><button id="interact-button" type="button"><kbd>E</kbd><span>探索交汇点</span><b aria-hidden="true">↗</b></button><p id="travel-hint">点击地面出发 · 空格扫描附近碎片</p></div>
+    <button id="map-button" class="map-button" type="button" aria-label="打开全世界地图"><span class="mini-compass" aria-hidden="true">✣</span><span>世界地图 <kbd>M</kbd></span></button>
+    <nav id="world-dock" class="world-dock" aria-label="快速传送到任何设施，不需要通关"></nav>
+    <div id="flight-stick" class="flight-stick" role="group" aria-label="触屏驾驶摇杆"><span></span></div>
+    <button id="scan-button" class="scan-button" type="button" aria-label="扫描附近碎片">扫描 <kbd>SPACE</kbd></button>
+    <footer class="world-footer"><span id="save-status">本机存档 · 无需登录</span><span>WASD 移动 / E 交互 / M 地图</span><button id="pixels-button" type="button">PIXELS ×2</button></footer>
+    <div id="world-status" class="world-status" role="status" aria-live="polite"></div>
+  </main>
+  <dialog id="station-dialog" aria-labelledby="station-title">
+    <header class="station-heading"><div><span id="station-kicker" class="micro"></span><h2 id="station-title"></h2></div><button id="station-close" type="button" aria-label="关闭设施，回到世界">返回世界 <span>×</span></button></header>
+    <div id="station-content"></div>
+  </dialog>
+  <dialog id="map-dialog" aria-labelledby="map-title"><header class="station-heading"><div><span class="micro">FAST TRAVEL / 无需解锁</span><h2 id="map-title">你想去哪里？</h2></div><button id="map-close" type="button" aria-label="关闭地图">×</button></header><div id="map-places"></div><p class="map-note">探索进度只是纪念。所有项目、作品、实验和联系入口始终开放。</p></dialog>
+  <dialog id="settings-dialog" aria-labelledby="settings-title"><header class="station-heading"><div><span class="micro">SYSTEM / LOCAL ONLY</span><h2 id="settings-title">航行设置</h2></div><button id="settings-close" type="button" aria-label="关闭设置">×</button></header><div class="settings-body"><label><input id="motion-setting" type="checkbox" /> 减少动态效果</label><label><input id="sound-setting" type="checkbox" /> 开启合成音效</label><p>方向键 / WASD 驾驶，Shift 加速，E 进入设施，空格扫描，M 查看地图，Esc 返回。手机拖动左下摇杆；也可以直接点击地面和设施。</p><p>进度只保存在当前浏览器。碎片不是平台额度，不会产生任何费用。不需要收集或通关才能查看内容。</p><button id="reset-save" type="button">重置本机探索进度</button><p id="reset-note" role="status"></p></div></dialog>
+  <div id="startup-fallback" hidden><h2>世界没有正常启动</h2><p>仍然可以直接打开这些入口；不会要求你先运行游戏。</p><a href="https://github.com/LIghtJUNction">公开项目与联系</a><a href="./frontier.html">无尽防线</a><a href="./junction-ii.png" download>Challenge II 原始遗物</a></div>
+  <!-- JUNCTION_ARTIFACTS -->
+  <noscript><section class="no-script"><h1>LIghtJUNction</h1><p>可探索世界需要 JavaScript。公开资料与原始文件不受游戏进度限制。</p><a href="https://github.com/LIghtJUNction">公开项目 / 联系</a><a href="https://github.com/LIghtJUNction/LightFlow">LightFlow</a><a href="https://github.com/LIghtJUNction/cortexfs">cortexfs</a><a href="https://github.com/LIghtJUNction/MagicNet">MagicNet</a><a href="https://github.com/LIghtJUNction/OniMods">OniMods</a><a href="./junction-ii.png" download>Challenge II 原始遗物</a><a href="./age-recipients.txt">age 收件人</a></section></noscript>
+  <script type="module" src="/src/junction/app.mjs"></script>
 </body>
 </html>
