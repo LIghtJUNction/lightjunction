@@ -9,6 +9,7 @@ export default defineConfig({
         rolldownOptions: {
             input: {
                 game: 'index.html',
+                rogue: 'rogue.html',
                 archive: 'archive.html',
             },
         },

@@ -17,7 +17,7 @@
     "test:crypto": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/age-crypto.test.mjs tests/public-key.test.mjs",
     "test:exploration": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/expedition-*.test.mjs",
     "test:shaders": "node --test --test-timeout=30000 tests/shader-gallery.test.mjs",
-    "test:game": "node --test --test-timeout=30000 tests/token-drift.test.mjs"
+    "test:game": "node --test --test-timeout=30000 tests/token-drift*.test.mjs"
   },
   "dependencies": {
     "@noble/ciphers": "^2.4.0",
