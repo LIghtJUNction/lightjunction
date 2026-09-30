@@ -2,7 +2,7 @@
   "name": "lightjunction-terminal",
   "version": "1.0.0",
   "private": true,
-  "description": "LIghtJUNction terminal homepage with OpenPGP and age contact flow",
+  "description": "LightJunction personal website with a scroll-driven 3D token cloud",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,10 +10,12 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run test:site && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run test:hero && npm run test:game && npm run test:crypto && npm run test:exploration && npm run test:shaders && npm run build",
+    "check": "npm run typecheck && npm run test:hero && npm run test:crypto && npm run build",
+    "test:site": "node --test tests/token-cloud.test.mjs",
+    "test:legacy": "npm run test:game && npm run test:exploration && npm run test:shaders",
     "test:hero": "node --test tests/readme-hero.test.mjs",
     "test:crypto": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/age-crypto.test.mjs tests/public-key.test.mjs",
     "test:exploration": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/expedition-*.test.mjs",
