@@ -65,6 +65,6 @@ The website's `contact` command also offers copying and downloading the public k
 
 ### Links
 
-[Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
+[Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [ChatGPT profile](https://chatgpt.com/u/lightjunction.me) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
 
 Please never send private keys, seed phrases, recovery codes, passwords, or production credentials.
