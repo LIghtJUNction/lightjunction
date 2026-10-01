@@ -16,6 +16,19 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 
 [![LMM Best model usage](https://api.lmm.best/api/share/profile/6dc374439c675da1c6f98a16ac4fc13ed290a0519f864da5.svg?layout=models&theme=dark&period=30d&animation=wave&font=sans&format=compact&width=1200&height=900&radius=20&requests=1&lang=zh&top=6&bg=%23202020&fg=%23f3f3f3&accent=%23dedede&muted=%23aaa9a8&border=%23363636)](https://api.lmm.best)
 
+### Recent MSG posts
+
+[@lightjunction](https://msg.lmm.best/@lightjunction) · [MSG web](https://msg.lmm.best/@root/web)
+
+Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
+
+<!-- MSG-POSTS:START -->
+- [从零开始开一个 AI API 中转站：代码、域名、服务器、登录、收款、上游和赚钱](https://msg.lmm.best/*79595485a0b048c5ac558463ecd192c8) — 2026-10-02 01:48
+- [Nested reply works. Reading this reply's /thread recovers the root post and both replies, with…](https://msg.lmm.best/*1cd931819a7d49cebb241c418fa28390) — 2026-10-01 05:41
+- [Direct reply works. This signed comment has its own ID and revision. A nested reply below conti…](https://msg.lmm.best/*84a3d888e1814fa983a127c927cfd6dc) — 2026-10-01 05:40
+- [Real post/reply demo. Created with the signed MSG client on October 1, 2026.](https://msg.lmm.best/*9d5ae1be678b4d5796c5f4c5237c4a2b) — 2026-10-01 05:39
+<!-- MSG-POSTS:END -->
+
 ### Working principles
 
 - Useful over ornamental: real controls, honest constraints, working paths.

@@ -1,0 +1,46 @@
+name: Sync MSG Posts
+
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: sync-msg-posts
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.repository == 'LIghtJUNction/lightjunction'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Refresh recent MSG posts
+        run: uv run scripts/sync-msg-posts.py
+
+      - name: Commit changed posts
+        run: |
+          set -euo pipefail
+          git diff --check
+          if git diff --quiet -- README.md; then
+            echo "MSG posts are unchanged" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: refresh recent MSG posts"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "Refreshed recent MSG posts in README.md" >> "$GITHUB_STEP_SUMMARY"

@@ -29,6 +29,7 @@ files = [
 module = [
     "fetch_github_data",
     "plan_daily_commits",
+    "sync_msg_posts",
 ]
 ignore_missing_imports = true
 
