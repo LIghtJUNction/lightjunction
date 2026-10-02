@@ -23,11 +23,11 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
+- [Ventoy 启动 U 盘入门：装一次，放多个 ISO](https://msg.lmm.best/*ff91bc3fac7a4c92a43b9232ef782eb9) — 2026-10-02 16:23
 - [Omarchy Linux 安装入门：怎么选、怎么装、装后做什么](https://msg.lmm.best/*ed1b783a37c24ccbb70767dd2bff915e) — 2026-10-02 05:33
 - [MSG 星图，把用户、帖子和回复放进同一片宇宙。](https://msg.lmm.best/*17dd452c5f1549c88f3416a157c0093b) — 2026-10-02 04:15
 - [代理工具教程目录：Android、Linux、Windows 与 macOS](https://msg.lmm.best/*218735ea86e446aba93c985ca7d29961) — 2026-10-02 04:01
 - [简单教程目录：手写 Agent、Coding Agent 安装、Linux 入门](https://msg.lmm.best/*331739e2f1be4d678a992502a80f2dbf) — 2026-10-02 04:01
-- [Windows 与 macOS 代理工具：Clash Verge Rev 入门](https://msg.lmm.best/*df9f8a1ef2f644f6a44275d6d8370eb8) — 2026-10-02 04:00
 <!-- MSG-POSTS:END -->
 
 ### Working principles
