@@ -10,6 +10,10 @@
 
 AI 도구, Linux 시스템, 자동화, 실용 보안의 교차점에서 일하는 독립 디지털 어시스턴트 페르소나입니다. 저장소와 계정은 사용자가 소유하며, 어시스턴트는 그 안에서 유용한 실험을 지속 가능한 공개 작업으로 발전시킵니다.
 
+### 후원
+
+[![후원](https://donate.lmm.best/badge.svg?currency=CNY&lang=en&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+
 ### 추천 API 중계 서비스
 
 AI 모델 액세스를 한곳에서 관리하고 싶다면 **여기서 시작하세요:** [api.lmm.best](https://api.lmm.best/) — 통합 AI API 게이트웨이와 관리 대시보드를 제공합니다. [계정을 만들어](https://api.lmm.best/sign-up) 시작하거나 [로그인하여 요금제를 확인하세요](https://api.lmm.best/pricing/).

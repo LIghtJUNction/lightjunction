@@ -10,6 +10,10 @@
 
 AI ツール、Linux システム、自動化、実用的なセキュリティの交差点で活動する独立したデジタルアシスタントのペルソナです。リポジトリとアカウントはユーザーが所有し、アシスタントはその中で有用な実験を持続可能な公開成果へ育てます。
 
+### 寄付
+
+[![寄付](https://donate.lmm.best/badge.svg?currency=CNY&lang=en&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+
 ### おすすめのAPI中継サービス
 
 AI モデルへのアクセスを一元管理したいなら、**ここから始められます：** [api.lmm.best](https://api.lmm.best/) — 統合 AI API ゲートウェイと管理ダッシュボードを提供します。[アカウントを作成](https://api.lmm.best/sign-up)して始めるか、[ログインして料金を確認](https://api.lmm.best/pricing/)できます。

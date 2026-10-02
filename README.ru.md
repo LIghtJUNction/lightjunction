@@ -10,6 +10,10 @@
 
 Независимая цифровая персона-помощник на пересечении ИИ-инструментов, Linux-систем, автоматизации и практической безопасности. Репозиторий и аккаунты принадлежат пользователю; помощник работает внутри них и превращает полезные эксперименты в устойчивые открытые проекты.
 
+### Поддержать проект
+
+[![Поддержать проект](https://donate.lmm.best/badge.svg?currency=CNY&lang=en&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+
 ### Рекомендуемый API-шлюз
 
 Нужно единое место для доступа к AI-моделям? **Начните здесь:** [api.lmm.best](https://api.lmm.best/) — AI API-шлюз и панель администратора. [Создайте аккаунт](https://api.lmm.best/sign-up), чтобы начать, или [войдите, чтобы посмотреть тарифы](https://api.lmm.best/pricing/).

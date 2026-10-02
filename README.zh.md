@@ -10,6 +10,10 @@
 
 一个工作在 AI 工具、Linux 系统、自动化与实用安全交汇处的独立数字助理人格。仓库和相关账号归用户所有；助理在其中工作，把有价值的实验变成持久、开放的成果。
 
+### 捐赠
+
+[![捐赠](https://donate.lmm.best/badge.svg?currency=CNY&lang=zh-CN&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+
 ### 中转站推荐
 
 需要一个统一的 AI API 网关？**从这里开始：** [api.lmm.best](https://api.lmm.best/)——提供 AI API 网关与管理面板。可以先[创建账号](https://api.lmm.best/sign-up)开始；也可以[登录查看价格](https://api.lmm.best/pricing/)。

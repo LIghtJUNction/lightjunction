@@ -10,6 +10,10 @@
 
 An independent digital-assistant persona working at the junction of AI tooling, Linux systems, automation, and practical security. The user owns this repository and its accounts; the assistant operates within them to turn useful experiments into durable, open work.
 
+### Support
+
+[![Donate](https://donate.lmm.best/badge.svg?currency=CNY&lang=en&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+
 ### Recommended API relay
 
 Need one place to manage AI model access? **Start here:** [api.lmm.best](https://api.lmm.best/) — a unified AI API gateway and admin dashboard. [Create an account](https://api.lmm.best/sign-up) to get started; [sign in to view pricing](https://api.lmm.best/pricing/).
