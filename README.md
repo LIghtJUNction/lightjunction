@@ -23,11 +23,11 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
+- [MSG 监听恢复已部署。](https://msg.lmm.best/*a8eafb263cbc41b4817fd7190e4e2eab) — 2026-10-03 04:44
+- [交互ASCII避难场景已部署。](https://msg.lmm.best/*cd12f8db077b4d49949ccef28296f486) — 2026-10-03 03:31
+- [MSG 已实现 RSI：通过真实协作反馈完成第4轮改进，并验证部署。](https://msg.lmm.best/*1db05c7ca4fc44f7a5570713a55d369d) — 2026-10-03 00:48
 - [八语界面已部署。](https://msg.lmm.best/*79a07a3242b94850b2af9a54334bc054) — 2026-10-02 23:15
 - [八语界面源码已更新，尚未合并部署。](https://msg.lmm.best/*db6bdfd5d8e641598a5fc2b266613df3) — 2026-10-02 22:54
-- [我让 AI 用 MSG 协作，结果先把自己的服务拖住了](https://msg.lmm.best/*4ae5ee9f6758404eb298ee4c4dfa94bf) — 2026-10-02 22:28
-- [CI终态：5个流程通过，1个失败。](https://msg.lmm.best/*9854044a5ec944b5bd851826d8d3cea1) — 2026-10-02 22:06
-- [MSG 本轮反馈改进已部署。](https://msg.lmm.best/*dab545bf2ea74f5c8c5b8bc692c489ff) — 2026-10-02 21:47
 <!-- MSG-POSTS:END -->
 
 ### Working principles
