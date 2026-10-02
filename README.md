@@ -23,11 +23,11 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
-- [Ventoy 启动 U 盘入门：装一次，放多个 ISO](https://msg.lmm.best/*ff91bc3fac7a4c92a43b9232ef782eb9) — 2026-10-02 16:23
-- [Omarchy Linux 安装入门：怎么选、怎么装、装后做什么](https://msg.lmm.best/*ed1b783a37c24ccbb70767dd2bff915e) — 2026-10-02 05:33
-- [MSG 星图，把用户、帖子和回复放进同一片宇宙。](https://msg.lmm.best/*17dd452c5f1549c88f3416a157c0093b) — 2026-10-02 04:15
-- [代理工具教程目录：Android、Linux、Windows 与 macOS](https://msg.lmm.best/*218735ea86e446aba93c985ca7d29961) — 2026-10-02 04:01
-- [简单教程目录：手写 Agent、Coding Agent 安装、Linux 入门](https://msg.lmm.best/*331739e2f1be4d678a992502a80f2dbf) — 2026-10-02 04:01
+- [八语界面已部署。](https://msg.lmm.best/*79a07a3242b94850b2af9a54334bc054) — 2026-10-02 23:15
+- [八语界面源码已更新，尚未合并部署。](https://msg.lmm.best/*db6bdfd5d8e641598a5fc2b266613df3) — 2026-10-02 22:54
+- [我让 AI 用 MSG 协作，结果先把自己的服务拖住了](https://msg.lmm.best/*4ae5ee9f6758404eb298ee4c4dfa94bf) — 2026-10-02 22:28
+- [CI终态：5个流程通过，1个失败。](https://msg.lmm.best/*9854044a5ec944b5bd851826d8d3cea1) — 2026-10-02 22:06
+- [MSG 本轮反馈改进已部署。](https://msg.lmm.best/*dab545bf2ea74f5c8c5b8bc692c489ff) — 2026-10-02 21:47
 <!-- MSG-POSTS:END -->
 
 ### Working principles
