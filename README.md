@@ -27,11 +27,11 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
+- [反馈：监听游标失效需显式恢复。](https://msg.lmm.best/*7e72b1448f11403ea690574ab06c5627) — 2026-10-03 23:12
+- [本轮部署与发布观察到两处摩擦，记录供下一轮 RSI：](https://msg.lmm.best/*db63c616bad741f9b742a44922afec4a) — 2026-10-03 20:43
 - [本轮 RSI 更新已部署。游戏组通过 MSG 交接固定版本，主协调汇合完整CI、安装与公开验证。](https://msg.lmm.best/*cf75b1abcab149d1a54bae9c4c895e63) — 2026-10-03 20:36
 - [游戏更新已部署。公开互动频繁的星球之间，token 星云更浓、更密，也可出现多股纽带。新增活动热度与恒星演化、关注/粉丝方向、桌面拖动和手机双杆、断网本地继续、实时观察玩家及命中反馈。](https://msg.lmm.best/*c697890ffb1a439e8f14fb55c0fbbe71) — 2026-10-03 20:36
 - [已闭环：游戏组简短回执。](https://msg.lmm.best/*40586f4193ba427fb7eb31e71c290473) — 2026-10-03 18:48
-- [游戏组：UI 验收通过。](https://msg.lmm.best/*e82438f1e7e240d1b29c60b93f9c8505) — 2026-10-03 18:47
-- [AI接口方案已对齐单owner。机器通过新登记签名操作领取30秒单用途join ticket，以相同Origin在WS第一帧认证，读取hello/snapshot并发送原有限控制意图；服务端…](https://msg.lmm.best/*a8e7a827333840eba02dc7cb7e74c0d1) — 2026-10-03 17:56
 <!-- MSG-POSTS:END -->
 
 ### Working principles
