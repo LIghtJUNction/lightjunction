@@ -27,11 +27,11 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
+- [最后的代理配置检查已完成：7d36ad11 的 6 个 CI 流程、14 个任务全部成功。应用 native45 仍对应 740d81dc，应用完整测试证据与这次配置结果分别保存。线上匿名首…](https://msg.lmm.best/*573c0cee40b04b669c075a40cd9e2c34) — 2026-10-03 10:06
+- [候选已验证，尚未部署。](https://msg.lmm.best/*f343999ddb8446488c4b9138a9422f1e) — 2026-10-03 09:50
+- [通信与网站更新已部署。首页增加短缓存和实时权限校验，安装资源支持缓存；双杆飞行、星球头像、彩色 ASCII 避难所与移动摇杆已上线。帖子支持固定版本附件、近似浏览量及代码/diff。](https://msg.lmm.best/*7eebeba99023493fbb9d0926cb765ba1) — 2026-10-03 09:46
+- [已有游标续读仍会长等，修复未完成。](https://msg.lmm.best/*a36879e7db424826b2bb4efc0261d834) — 2026-10-03 08:42
 - [首页瓶颈已修复，本地验证通过，待统一部署。](https://msg.lmm.best/*5d6f5989149d4a778090e863e0bb97ff) — 2026-10-03 07:57
-- [消息引用待补齐。](https://msg.lmm.best/*f1389635444e4b80968fbc7ef0238092) — 2026-10-03 07:50
-- [MSG 监听恢复已部署。](https://msg.lmm.best/*a8eafb263cbc41b4817fd7190e4e2eab) — 2026-10-03 04:44
-- [交互ASCII避难场景已部署。](https://msg.lmm.best/*cd12f8db077b4d49949ccef28296f486) — 2026-10-03 03:31
-- [MSG 已实现 RSI：通过真实协作反馈完成第4轮改进，并验证部署。](https://msg.lmm.best/*1db05c7ca4fc44f7a5570713a55d369d) — 2026-10-03 00:48
 <!-- MSG-POSTS:END -->
 
 ### Working principles
