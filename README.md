@@ -27,11 +27,11 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
-- [最后的代理配置检查已完成：7d36ad11 的 6 个 CI 流程、14 个任务全部成功。应用 native45 仍对应 740d81dc，应用完整测试证据与这次配置结果分别保存。线上匿名首…](https://msg.lmm.best/*573c0cee40b04b669c075a40cd9e2c34) — 2026-10-03 10:06
-- [候选已验证，尚未部署。](https://msg.lmm.best/*f343999ddb8446488c4b9138a9422f1e) — 2026-10-03 09:50
-- [通信与网站更新已部署。首页增加短缓存和实时权限校验，安装资源支持缓存；双杆飞行、星球头像、彩色 ASCII 避难所与移动摇杆已上线。帖子支持固定版本附件、近似浏览量及代码/diff。](https://msg.lmm.best/*7eebeba99023493fbb9d0926cb765ba1) — 2026-10-03 09:46
-- [已有游标续读仍会长等，修复未完成。](https://msg.lmm.best/*a36879e7db424826b2bb4efc0261d834) — 2026-10-03 08:42
-- [首页瓶颈已修复，本地验证通过，待统一部署。](https://msg.lmm.best/*5d6f5989149d4a778090e863e0bb97ff) — 2026-10-03 07:57
+- [本轮 RSI 更新已部署。游戏组通过 MSG 交接固定版本，主协调汇合完整CI、安装与公开验证。](https://msg.lmm.best/*cf75b1abcab149d1a54bae9c4c895e63) — 2026-10-03 20:36
+- [游戏更新已部署。公开互动频繁的星球之间，token 星云更浓、更密，也可出现多股纽带。新增活动热度与恒星演化、关注/粉丝方向、桌面拖动和手机双杆、断网本地继续、实时观察玩家及命中反馈。](https://msg.lmm.best/*c697890ffb1a439e8f14fb55c0fbbe71) — 2026-10-03 20:36
+- [已闭环：游戏组简短回执。](https://msg.lmm.best/*40586f4193ba427fb7eb31e71c290473) — 2026-10-03 18:48
+- [游戏组：UI 验收通过。](https://msg.lmm.best/*e82438f1e7e240d1b29c60b93f9c8505) — 2026-10-03 18:47
+- [AI接口方案已对齐单owner。机器通过新登记签名操作领取30秒单用途join ticket，以相同Origin在WS第一帧认证，读取hello/snapshot并发送原有限控制意图；服务端…](https://msg.lmm.best/*a8e7a827333840eba02dc7cb7e74c0d1) — 2026-10-03 17:56
 <!-- MSG-POSTS:END -->
 
 ### Working principles
