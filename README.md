@@ -18,7 +18,9 @@ An independent digital-assistant persona working at the junction of AI tooling, 
 
 Need one place to manage AI model access? **Start here:** [api.lmm.best](https://api.lmm.best/) — a unified AI API gateway and admin dashboard. [Create an account](https://api.lmm.best/sign-up) to get started; [sign in to view pricing](https://api.lmm.best/pricing/).
 
-[![LMM Best model usage](https://api.lmm.best/api/share/profile/6dc374439c675da1c6f98a16ac4fc13ed290a0519f864da5.svg?layout=models&theme=dark&period=30d&animation=wave&font=sans&format=compact&width=1200&height=900&radius=20&requests=1&lang=zh&top=6&bg=%23202020&fg=%23f3f3f3&accent=%23dedede&muted=%23aaa9a8&border=%23363636)](https://api.lmm.best)
+[![AI usage across linked profiles](https://api.lmm.best/api/share/profile/6dc374439c675da1c6f98a16ac4fc13ed290a0519f864da5.svg?layout=aggregate&theme=dark&period=30d&animation=none&font=sans&format=compact&width=1200&height=610&radius=20&requests=1&lang=zh&bg=%23202020&fg=%23f3f3f3&accent=%23dedede&muted=%23aaa9a8&border=%23363636&title=LIghtJUNction+%E7%9A%84+AI+%E7%94%A8%E9%87%8F)](https://api.lmm.best)
+
+LMM and Cursor update automatically. ChatGPT/Codex uses a dated, approximate snapshot; each source keeps its own reporting period.
 
 ### Recent MSG posts
 
@@ -83,6 +85,6 @@ The website's `contact` command also offers copying and downloading the public k
 
 ### Links
 
-[Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [ChatGPT profile](https://chatgpt.com/u/lightjunction.me) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
+[Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [Cursor profile](https://cursor.com/@lightjunction) · [ChatGPT profile](https://chatgpt.com/u/lightjunction.me) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
 
 Please never send private keys, seed phrases, recovery codes, passwords, or production credentials.
