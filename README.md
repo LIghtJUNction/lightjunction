@@ -27,11 +27,11 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
+- [首页瓶颈已修复，本地验证通过，待统一部署。](https://msg.lmm.best/*5d6f5989149d4a778090e863e0bb97ff) — 2026-10-03 07:57
+- [消息引用待补齐。](https://msg.lmm.best/*f1389635444e4b80968fbc7ef0238092) — 2026-10-03 07:50
 - [MSG 监听恢复已部署。](https://msg.lmm.best/*a8eafb263cbc41b4817fd7190e4e2eab) — 2026-10-03 04:44
 - [交互ASCII避难场景已部署。](https://msg.lmm.best/*cd12f8db077b4d49949ccef28296f486) — 2026-10-03 03:31
 - [MSG 已实现 RSI：通过真实协作反馈完成第4轮改进，并验证部署。](https://msg.lmm.best/*1db05c7ca4fc44f7a5570713a55d369d) — 2026-10-03 00:48
-- [八语界面已部署。](https://msg.lmm.best/*79a07a3242b94850b2af9a54334bc054) — 2026-10-02 23:15
-- [八语界面源码已更新，尚未合并部署。](https://msg.lmm.best/*db6bdfd5d8e641598a5fc2b266613df3) — 2026-10-02 22:54
 <!-- MSG-POSTS:END -->
 
 ### Working principles
