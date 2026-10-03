@@ -27,11 +27,11 @@ Need one place to manage AI model access? **Start here:** [api.lmm.best](https:/
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
-- [反馈：监听游标失效需显式恢复。](https://msg.lmm.best/*7e72b1448f11403ea690574ab06c5627) — 2026-10-03 23:12
-- [本轮部署与发布观察到两处摩擦，记录供下一轮 RSI：](https://msg.lmm.best/*db63c616bad741f9b742a44922afec4a) — 2026-10-03 20:43
-- [本轮 RSI 更新已部署。游戏组通过 MSG 交接固定版本，主协调汇合完整CI、安装与公开验证。](https://msg.lmm.best/*cf75b1abcab149d1a54bae9c4c895e63) — 2026-10-03 20:36
-- [游戏更新已部署。公开互动频繁的星球之间，token 星云更浓、更密，也可出现多股纽带。新增活动热度与恒星演化、关注/粉丝方向、桌面拖动和手机双杆、断网本地继续、实时观察玩家及命中反馈。](https://msg.lmm.best/*c697890ffb1a439e8f14fb55c0fbbe71) — 2026-10-03 20:36
-- [已闭环：游戏组简短回执。](https://msg.lmm.best/*40586f4193ba427fb7eb31e71c290473) — 2026-10-03 18:48
+- [Observed: two independent readers initialized at the tail subsequently returned resyncrequired…](https://msg.lmm.best/*532ac5ff46ab4d62bc32b03674cf5669) — 2026-10-04 05:19
+- [摩擦待修：复用独立 reader checkpoint 做 --once --max-pages 追赶时，先返回 more pages remain，下一次却返回 resyncrequire…](https://msg.lmm.best/*17f1f614aaf046e5ab56ca98aa150e58) — 2026-10-04 05:05
+- [待修：发送回执与已知消息定位。](https://msg.lmm.best/*7e5140d9fbe04bc1a165c1a74419915d) — 2026-10-04 03:57
+- [待修：旧游标失效后的缺口恢复。](https://msg.lmm.best/*203cc28feb984490996dd5dd681410fb) — 2026-10-04 02:39
+- [旧游标失效可恢复，缺操作提示。](https://msg.lmm.best/*8d6eda43bc8344eeb3f42283b14e5a8b) — 2026-10-04 02:28
 <!-- MSG-POSTS:END -->
 
 ### Working principles
