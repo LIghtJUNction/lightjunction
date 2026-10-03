@@ -30,6 +30,7 @@ html:not(.enhanced) .experience{height:auto}html:not(.enhanced) .story-stage{pos
 @media(max-width:760px){.story-stage{min-height:540px}}
 @media(max-height:560px) and (min-width:761px){.story-stage{min-height:0}.header{top:15px;height:28px}.header .brand-caption{display:none}.header svg{width:24px;height:24px}.topline{top:66px;font-size:8px}.frame-corners{inset:61px 15px 49px}.word-light{top:24%}.word-junction{bottom:15%}.story-panel h1{font-size:26vh}.hero-aside{top:49%}.hero-aside .eyebrow,.hero-aside .aside-rule,.hero-aside .aside-detail{display:none}.hero-aside>p:nth-child(2){font-size:14px}.hero-aside .enter-link{margin-top:12px;font-size:9px}.hero-aside .circle-arrow{width:27px;height:27px;font-size:17px}.hero-aside small{font-size:6px}.hero-note{top:24%;font-size:7px}.hero-note span{font-size:22px}.stage-bottom{bottom:12px}.specimen{font-size:6px}.panel-copy{top:24%}.panel-copy h2{font-size:30px;margin:15px 0}.panel-description{font-size:9px;line-height:1.6}.panel-copy .eyebrow{font-size:7px;margin:0}.panel-copy .inline-link{font-size:9px;margin-top:8px}.panel-copy .enter-link{margin-top:15px}.panel-copy .circle-arrow{width:30px;height:30px}.layer-labels{top:25%;bottom:24%;font-size:6px}.ghost-word{font-size:14vw}.connection-note{font-size:7px;bottom:20%}}
 
+.ambient:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 62% 47%,#ff6333 0,#ff633355 16%,transparent 50%);opacity:0}.is-lit .ambient:before{animation:lit 2.6s cubic-bezier(.16,1,.3,1)}.title-period{pointer-events:auto}.is-lit .title-period{animation:period-glow 2.6s ease-out}@keyframes lit{10%{opacity:.65}100%{opacity:0}}@keyframes period-glow{10%{text-shadow:0 0 .25em #ff6333,0 0 .8em #ff633399}100%{text-shadow:none}}.secret-toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:60;margin:0;display:flex;gap:12px;align-items:center;background:var(--paper);color:var(--ink);padding:13px 18px;font-size:11px;letter-spacing:.08em;white-space:nowrap;box-shadow:0 18px 50px #0007;opacity:0;transform:translate(-50%,16px);pointer-events:none;transition:opacity .35s,transform .5s cubic-bezier(.16,1,.3,1)}.secret-toast b{color:var(--accent);font-size:16px;font-weight:400}.secret-toast.is-shown{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
@@ -94,6 +95,7 @@ html:not(.enhanced) .experience{height:auto}html:not(.enhanced) .story-stage{pos
     </section>
   </main>
   <footer><a href="#top">LIGHTJUNCTION<span class="trademark-note"> PERSONAL EXPERIMENT</span></a><span class="mono">NO END. JUST THE NEXT ITERATION.</span><details class="sources"><summary>内容来源 ↗</summary><div><p>依据公开主页与项目 README 整理，不展示实时计数。</p><a href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer">GitHub 个人介绍</a><a href="https://github.com/LIghtJUNction/cortexfs#readme" target="_blank" rel="noopener noreferrer">CortexFS</a><a href="https://github.com/LIghtJUNction/MagicNet#readme" target="_blank" rel="noopener noreferrer">MagicNet</a><a href="https://github.com/LIghtJUNction/LightFlow#readme" target="_blank" rel="noopener noreferrer">LightFlow</a><a href="https://github.com/LIghtJUNction/OniMods#readme" target="_blank" rel="noopener noreferrer">OniMods</a></div></details></footer>
+  <p class="secret-toast mono" id="secret-toast" role="status" aria-live="polite"><b aria-hidden="true">✳</b><span></span></p>
   <script type="module">
 /** Deterministic, bevelled token sculpture. Instanced WebGL2; no network assets. */
 export const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
@@ -525,6 +527,28 @@ window.addEventListener('pagehide', event => {
 window.addEventListener('pageshow', event => {
   if (event.persisted) { hidden = false; last = 0; readProgress(); requestFrame(); }
 });
+// A small secret: type "light" (or triple-tap the orange period) to light the junction.
+const secretToast = document.querySelector('#secret-toast');
+let typed = '', taps = [], toastTimer = 0, litTimer = 0;
+function revealLight() {
+  root.classList.remove('is-lit'); void root.offsetWidth; root.classList.add('is-lit');
+  if (!paused && !reduced && cloud && !cloud.lost) { burst = 2.4; releaseBurst(); }
+  secretToast.querySelector('span').textContent = 'YOU FOUND THE LIGHT · 你找到了光';
+  secretToast.classList.add('is-shown');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => secretToast.classList.remove('is-shown'), 4200);
+  clearTimeout(litTimer); litTimer = setTimeout(() => root.classList.remove('is-lit'), 2600);
+}
+window.addEventListener('keydown', event => {
+  if (event.ctrlKey || event.metaKey || event.altKey || event.key.length !== 1) return;
+  typed = (typed + event.key.toLowerCase()).slice(-5);
+  if (typed === 'light') { typed = ''; revealLight(); }
+});
+document.querySelector('.title-period').addEventListener('pointerdown', () => {
+  const now = performance.now(); taps = [...taps.filter(t => now - t < 1200), now];
+  if (taps.length >= 3) { taps = []; revealLight(); }
+});
+console.log('%cLJ%c  Nothing is built alone.\n\n你好，探索者。在页面上输入 light 试试。\nType "light" anywhere on the page.\n\nSource → github.com/LIghtJUNction/lightjunction',
+  'font:800 32px Manrope,sans-serif;color:#ff6333', 'font:12px "IBM Plex Mono",monospace;color:#9a9d9b');
 readProgress(); syncMotion(); updatePanels(target); resize();
 
 </script>
