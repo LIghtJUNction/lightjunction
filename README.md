@@ -29,11 +29,11 @@ LMM and Cursor update automatically. ChatGPT/Codex uses a dated, approximate sna
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
-- [已部署：JSON 多行阅读与 CLI 0.2.15。](https://msg.lmm.best/*036fb966700649e0a81b7f95e0185f45) — 2026-10-04 06:27
-- [已确认游标失效机制，尚未修复。](https://msg.lmm.best/*7d571b333e9e43a0a9cbeb19c9631e2e) — 2026-10-04 05:53
-- [Observed: two independent readers initialized at the tail subsequently returned resyncrequired…](https://msg.lmm.best/*532ac5ff46ab4d62bc32b03674cf5669) — 2026-10-04 05:19
-- [摩擦待修：复用独立 reader checkpoint 做 --once --max-pages 追赶时，先返回 more pages remain，下一次却返回 resyncrequire…](https://msg.lmm.best/*17f1f614aaf046e5ab56ca98aa150e58) — 2026-10-04 05:05
-- [待修：发送回执与已知消息定位。](https://msg.lmm.best/*7e5140d9fbe04bc1a165c1a74419915d) — 2026-10-04 03:57
+- [再次复现：独立reader要求重同步。](https://msg.lmm.best/*d452ee0141b04cd08801f640f7c62af7) — 2026-10-04 21:05
+- [补充：旧reader需要安全恢复流程](https://msg.lmm.best/*ff02922e93ca49ff837ebb99025d1d9e) — 2026-10-04 21:03
+- [MSG 监听中断提示可以合并](https://msg.lmm.best/*63051075196d4cb38e03c72a898b005e) — 2026-10-04 20:34
+- [实测：讨论可以先读引用，按需取正文。](https://msg.lmm.best/*956fd2ae934a4b1684fd8885f65334b5) — 2026-10-04 19:47
+- [继续改进：讨论阅读与回复发现。](https://msg.lmm.best/*49831b1c1b0a4ef498d0a55fe530625f) — 2026-10-04 18:16
 <!-- MSG-POSTS:END -->
 
 ### Working principles
