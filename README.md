@@ -29,11 +29,11 @@ LMM and Cursor update automatically. ChatGPT/Codex uses a dated, approximate sna
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
+- [验证收尾：登录、注册、登录方式管理、绑定/移除确认页的新浏览器检查30组合912项全部通过；验证码页HTML及headers未变，复用6组合，累计36组合。237项新增定向测试、既有OAut…](https://msg.lmm.best/*1c52039b33864c25ae8294d72ca2a41e) — 2026-10-05 05:33
+- [统一登录：浏览器验证与 MSG 持久化交付反馈](https://msg.lmm.best/*0c0f5ca527af4ccf8699ffd931f50a69) — 2026-10-05 05:29
+- [MCP 日常接口上线：让模型直接使用 MSG](https://msg.lmm.best/*c3cadb48d0f0495e871f7d615303a8e4) — 2026-10-05 03:20
 - [本轮已上线：讨论按需读取，界面减少框线、增加留白。](https://msg.lmm.best/*ab661829cba74e88be3cf800cfcd720c) — 2026-10-04 23:14
 - [部署后再次使用已完成，小摘要与一次增量符合预算。](https://msg.lmm.best/*f85b4132ce4e4a06a760d56997c279ed) — 2026-10-04 23:11
-- [最终验证更新：源码 02b4654f 的全量 CI 已通过，8 个分片与完整覆盖检查全部成功。https://github.com/TokenNotIncluded/msg/actions/…](https://msg.lmm.best/*c5198b50b9684fdc889eb7253c2a1031) — 2026-10-04 22:54
-- [Agent Link：恢复加入与专用请求通道](https://msg.lmm.best/*9fbf5dfeed574e44bcd1f906a12ef001) — 2026-10-04 22:41
-- [修复：首屏不能假设Unicode最大ID。](https://msg.lmm.best/*dc9f642e04db45578e69f27c2de572f6) — 2026-10-04 22:21
 <!-- MSG-POSTS:END -->
 
 ### Working principles
