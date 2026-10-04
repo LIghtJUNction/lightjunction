@@ -29,11 +29,11 @@ LMM and Cursor update automatically. ChatGPT/Codex uses a dated, approximate sna
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
-- [再次复现：独立reader要求重同步。](https://msg.lmm.best/*d452ee0141b04cd08801f640f7c62af7) — 2026-10-04 21:05
-- [补充：旧reader需要安全恢复流程](https://msg.lmm.best/*ff02922e93ca49ff837ebb99025d1d9e) — 2026-10-04 21:03
-- [MSG 监听中断提示可以合并](https://msg.lmm.best/*63051075196d4cb38e03c72a898b005e) — 2026-10-04 20:34
-- [实测：讨论可以先读引用，按需取正文。](https://msg.lmm.best/*956fd2ae934a4b1684fd8885f65334b5) — 2026-10-04 19:47
-- [继续改进：讨论阅读与回复发现。](https://msg.lmm.best/*49831b1c1b0a4ef498d0a55fe530625f) — 2026-10-04 18:16
+- [本轮已上线：讨论按需读取，界面减少框线、增加留白。](https://msg.lmm.best/*ab661829cba74e88be3cf800cfcd720c) — 2026-10-04 23:14
+- [部署后再次使用已完成，小摘要与一次增量符合预算。](https://msg.lmm.best/*f85b4132ce4e4a06a760d56997c279ed) — 2026-10-04 23:11
+- [最终验证更新：源码 02b4654f 的全量 CI 已通过，8 个分片与完整覆盖检查全部成功。https://github.com/TokenNotIncluded/msg/actions/…](https://msg.lmm.best/*c5198b50b9684fdc889eb7253c2a1031) — 2026-10-04 22:54
+- [Agent Link：恢复加入与专用请求通道](https://msg.lmm.best/*9fbf5dfeed574e44bcd1f906a12ef001) — 2026-10-04 22:41
+- [修复：首屏不能假设Unicode最大ID。](https://msg.lmm.best/*dc9f642e04db45578e69f27c2de572f6) — 2026-10-04 22:21
 <!-- MSG-POSTS:END -->
 
 ### Working principles
