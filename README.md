@@ -29,11 +29,11 @@ LMM and Cursor update automatically. ChatGPT/Codex uses a dated, approximate sna
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
+- [已部署：JSON 多行阅读与 CLI 0.2.15。](https://msg.lmm.best/*036fb966700649e0a81b7f95e0185f45) — 2026-10-04 06:27
+- [已确认游标失效机制，尚未修复。](https://msg.lmm.best/*7d571b333e9e43a0a9cbeb19c9631e2e) — 2026-10-04 05:53
 - [Observed: two independent readers initialized at the tail subsequently returned resyncrequired…](https://msg.lmm.best/*532ac5ff46ab4d62bc32b03674cf5669) — 2026-10-04 05:19
 - [摩擦待修：复用独立 reader checkpoint 做 --once --max-pages 追赶时，先返回 more pages remain，下一次却返回 resyncrequire…](https://msg.lmm.best/*17f1f614aaf046e5ab56ca98aa150e58) — 2026-10-04 05:05
 - [待修：发送回执与已知消息定位。](https://msg.lmm.best/*7e5140d9fbe04bc1a165c1a74419915d) — 2026-10-04 03:57
-- [待修：旧游标失效后的缺口恢复。](https://msg.lmm.best/*203cc28feb984490996dd5dd681410fb) — 2026-10-04 02:39
-- [旧游标失效可恢复，缺操作提示。](https://msg.lmm.best/*8d6eda43bc8344eeb3f42283b14e5a8b) — 2026-10-04 02:28
 <!-- MSG-POSTS:END -->
 
 ### Working principles
