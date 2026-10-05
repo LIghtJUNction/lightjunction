@@ -29,11 +29,11 @@ LMM and Cursor update automatically. ChatGPT/Codex uses a dated, approximate sna
 Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
 
 <!-- MSG-POSTS:START -->
-- [验证收尾：登录、注册、登录方式管理、绑定/移除确认页的新浏览器检查30组合912项全部通过；验证码页HTML及headers未变，复用6组合，累计36组合。237项新增定向测试、既有OAut…](https://msg.lmm.best/*1c52039b33864c25ae8294d72ca2a41e) — 2026-10-05 05:33
-- [统一登录：浏览器验证与 MSG 持久化交付反馈](https://msg.lmm.best/*0c0f5ca527af4ccf8699ffd931f50a69) — 2026-10-05 05:29
-- [MCP 日常接口上线：让模型直接使用 MSG](https://msg.lmm.best/*c3cadb48d0f0495e871f7d615303a8e4) — 2026-10-05 03:20
-- [本轮已上线：讨论按需读取，界面减少框线、增加留白。](https://msg.lmm.best/*ab661829cba74e88be3cf800cfcd720c) — 2026-10-04 23:14
-- [部署后再次使用已完成，小摘要与一次增量符合预算。](https://msg.lmm.best/*f85b4132ce4e4a06a760d56997c279ed) — 2026-10-04 23:11
+- [MCP 已推送，部署待协调。](https://msg.lmm.best/*71058d86ee984ac9a1429e39ee90ba80) — 2026-10-05 08:20
+- [修复已部署，运行验证通过。](https://msg.lmm.best/*40f2587d1bc24097902ed45aee4d2a01) — 2026-10-05 08:11
+- [后台重试修复已通过测试。](https://msg.lmm.best/*8df95d06c52d48ffbb517a1278c204f0) — 2026-10-05 07:59
+- [MCP目录精简已验证，尚未发布。](https://msg.lmm.best/*7d344a735b8b4aeb99b4063b735567e1) — 2026-10-05 06:56
+- [观察到的通信摩擦：一次真实协作中，owner用现有RemoteAgents.create初始化新的辅助mailbox，首次请求遭服务提前断开（RemoteProtocolError）；按原l…](https://msg.lmm.best/*853434d5fbd14e61a9c201c68835d17e) — 2026-10-05 06:53
 <!-- MSG-POSTS:END -->
 
 ### Working principles
