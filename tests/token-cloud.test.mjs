@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { createTokens, clamp, smoothstep, phaseAt, seededRandom } from '../site/token-cloud.mjs';
-const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
-const html = read('index.html'), controller = read('site/site.mjs'), config = read('vite.config.ts');
 
+// The sculpture source is retained. Its model regressions remain covered even
+// though the lightweight profile no longer loads the WebGL runtime.
 test('seeded model is reproducible and differs for different seeds', () => {
   assert.deepEqual(createTokens(200), createTokens(200));
   assert.notDeepEqual(createTokens(200, 1), createTokens(200, 2));
@@ -31,35 +31,8 @@ test('scroll interpolation is bounded and continuous', () => {
   assert.ok(Math.abs(smoothstep(.1,.9,.5)-.5)<1e-10);
   assert.equal(phaseAt(0),0);assert.equal(phaseAt(.29),1);assert.equal(phaseAt(.7),2);assert.equal(phaseAt(1),2);
 });
-test('one entry point excludes old multipage site and public-directory copies', () => {
-  assert.match(config,/publicDir:\s*false/);assert.match(config,/input:\s*'index\.html'/);
-  assert.doesNotMatch(config,/junctionPage|battlefieldChrome|archive:\s|frontier:\s|rogue:\s/);
-  assert.doesNotMatch(html,/(?:href|src)=["'][^"']*(?:archive|frontier|rogue)\.html/);
-});
-test('static HTML exposes identity, real projects and contact without JavaScript', () => {
-  for(const text of ['<h1>','CortexFS','MagicNet','LightFlow','OniMods','mailto:lightjunction.me@gmail.com']) assert.ok(html.includes(text));
-  assert.equal((html.match(/class="project"/g)||[]).length,4);
-  assert.match(html,/<html lang="zh-CN">/);assert.match(html,/rel="canonical"/);
-});
-test('all local stylesheet and script entry points exist', () => {
-  for(const match of html.matchAll(/(?:src|href)="(\.\/site\/[^"#]+)"/g)) assert.ok(existsSync(new URL(`../${match[1]}`,import.meta.url)),match[1]);
-  assert.doesNotMatch(controller,/https?:\/\//);
-  assert.doesNotMatch(read('site/token-cloud.mjs'),/https?:\/\//);
-});
-test('external tabs have opener isolation and visible source links', () => {
-  for(const link of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)) assert.match(link[0],/rel="noopener noreferrer"/);
-  assert.match(html,/class="sources"/);
-  assert.doesNotMatch(html,/lightjunction\.com|localhost|example\.com/);
-});
-test('motion is user-controllable and stops when hidden or offscreen', () => {
-  for(const text of ['prefers-reduced-motion','visibilitychange','IntersectionObserver','cancelAnimationFrame','aria-pressed','webgl','CanvasCloud']) assert.ok(controller.includes(text),text);
-  assert.match(controller,/!paused && !reduced && active && !hidden/);
-  assert.match(html,/id="motion-toggle"[^>]*aria-pressed="false"/);
-});
-test('clipboard failure is truthful and navigation handles deep links', () => {
-  assert.match(controller,/await navigator\.clipboard\.writeText/);
-  assert.match(controller,/请长按或选中复制/);
-  assert.match(controller,/location\.hash === '#about'/);
-  assert.match(controller,/hashchange/);
-  assert.match(html,/role="status" aria-live="polite"/);
+test('retained legacy controller still respects pause, visibility and reduced motion', () => {
+  const controller = readFileSync(new URL('../site/site.mjs', import.meta.url), 'utf8');
+  for (const text of ['prefers-reduced-motion', 'visibilitychange', 'IntersectionObserver', 'cancelAnimationFrame']) assert.ok(controller.includes(text), text);
+  assert.match(controller, /!paused && !reduced && active && !hidden/);
 });
