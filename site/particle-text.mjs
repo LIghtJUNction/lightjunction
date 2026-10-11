@@ -119,6 +119,7 @@ export function mountSculpture(root) {
   const ctx = canvas.getContext('2d');
   if (!ctx || !win.ResizeObserver || !win.IntersectionObserver || !win.matchMedia) return null;
   const reduced = win.matchMedia('(prefers-reduced-motion: reduce)');
+  const print = win.matchMedia('print');
   const forced = win.matchMedia('(forced-colors: active)');
   const fine = win.matchMedia('(hover: hover) and (pointer: fine)');
   const style = doc.createElement('style'); style.textContent = CSS;
@@ -151,7 +152,7 @@ export function mountSculpture(root) {
   const pointer = { x: 0, y: 0, previousX: 0, previousY: 0, vx: 0, vy: 0, radius: 48, active: false };
   const target = { x: 0, y: 0, active: false };
   const mobile = () => !fine.matches || win.innerWidth <= 660;
-  const motion = () => !paused && !reduced.matches && !forced.matches && !selecting;
+  const motion = () => !paused && !reduced.matches && !forced.matches && !print.matches && !selecting;
   const state = () => reduced.matches ? 'reduced' : paused ? 'paused' : 'playing';
   function labels() {
     const zh = doc.documentElement.lang.startsWith('zh');
@@ -162,7 +163,7 @@ export function mountSculpture(root) {
     next.disabled = reduced.matches; pause.disabled = reduced.matches;
   }
   function schedule() {
-    if (frame === null && !disposed && visible && !doc.hidden && !forced.matches && !selecting) frame = win.requestAnimationFrame(render);
+    if (frame === null && !disposed && visible && !doc.hidden && !forced.matches && !print.matches && !selecting) frame = win.requestAnimationFrame(render);
   }
   function refresh(morph = false) { layoutDirty = true; morphDirty ||= morph; dirty = true; schedule(); }
   function resetClock() {
@@ -256,7 +257,7 @@ export function mountSculpture(root) {
   }
   function render(now) {
     frame = null;
-    if (disposed || doc.hidden || !visible || selecting || forced.matches) return;
+    if (disposed || doc.hidden || !visible || selecting || forced.matches || print.matches) return;
     const interval = mobile() ? 1000 / 30 : 1000 / 60;
     const elapsed = last ? Math.min(80, now - last) : 0;
     if (!dirty && last && elapsed + .5 < interval) { schedule(); return; }
@@ -319,6 +320,8 @@ export function mountSculpture(root) {
   on(root, 'pointerleave', () => { hover = null; refresh(); }, { passive: true });
   on(root, 'focusout', () => refresh());
   on(doc, 'visibilitychange', resetClock);
+  // Printing uses the native text, not a newly allocated full-width point field.
+  on(print, 'change', () => { layoutDirty = true; resetClock(); });
   on(reduced, 'change', () => { if (reduced.matches) { titleClock = 0; transition = titleTransition = null; springs.fill(0); } resetClock(); });
   on(forced, 'change', () => { root.classList.toggle('particle-ready', !forced.matches); canvas.hidden = forced.matches; resetClock(); });
   on(doc, 'selectionchange', () => {
