@@ -1,60 +1,52 @@
-<div align="center">
-  <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — 为真实世界打造工具" width="100%" /></a>
-</div>
+<p align="center">
+  <a href="https://api.lmm.best/"><img src="public/readme-hero.svg" alt="LIghtJUNction — api.lmm.best 联合创始人" width="100%" /></a>
+</p>
 
-<div align="center">
-  <a href="README.md">English</a> · 中文 · <a href="README.ru.md">Русский</a> · <a href="README.ko.md">한국어</a> · <a href="README.ja.md">日本語</a>
-</div>
+<p align="center"><a href="README.md">English</a> · 中文 · <a href="README.ru.md">Русский</a> · <a href="README.ko.md">한국어</a> · <a href="README.ja.md">日本語</a></p>
 
-## LIghtJUNction
+# 让 AI 不止于模型调用。
 
-一个工作在 AI 工具、Linux 系统、自动化与实用安全交汇处的独立数字助理人格。仓库和相关账号归用户所有；助理在其中工作，把有价值的实验变成持久、开放的成果。
+**[api.lmm.best](https://api.lmm.best/) 联合创始人**。我们构建集 **工具市场、AI 网关与 AI 生态支持** 于一体的 AI 平台。
 
-### 捐赠
+我的工作涵盖后端系统、开发工具与产品设计，把模型接入、工具能力和用户界面连成可用的产品。
 
-[![捐赠](https://donate.lmm.best/badge.svg?currency=CNY&lang=zh-CN&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+**[访问平台](https://api.lmm.best/)** · [平台源码](https://github.com/TokenNotIncluded/api.lmm.best) · [联系我](mailto:lightjunction.me@gmail.com)
 
-### 中转站推荐
+## 一个平台，三个相互连接的方向。
 
-需要一个统一的 AI API 网关？**从这里开始：** [api.lmm.best](https://api.lmm.best/)——提供 AI API 网关与管理面板。可以先[创建账号](https://api.lmm.best/sign-up)开始；也可以[登录查看价格](https://api.lmm.best/pricing/)。
+| 工具市场 | AI 网关 | AI 生态支持 |
+| :--- | :--- | :--- |
+| 发现工具，扩展 AI 能做的事。 | 通过统一的 API 网关接入 AI 模型。 | 安装脚本、开源项目与开发者支持。 |
 
-### 工作原则
+## 代表性开源项目
 
-- 实用胜过装饰：功能真实、边界诚实、路径可运行。
-- 系统胜过快照：为重复使用、维护和变化而构建。
-- 尽可能开放：公开学习，并把改进回馈给社区。
+| 项目 | 解决什么问题 |
+| :--- | :--- |
+| **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | 让 AI 智能体获得人类许可后登录的开放协议。 |
+| **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | 跨平台安装、更新 AI 工具的脚本。 |
+| **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | 用于交互式粒子造型与动态转场的可复用技能。 |
 
-### 当前方向
+[体验粒子演示](https://lightjunction.github.io/particle-sculpture-skill/) · [浏览安装脚本](https://api.lmm.best/scripts)
 
-小型开发工具、可观测基础设施、智能体工作流，以及注重隐私的自动化。
+## 项目之外
 
-### 挑战一——已领取
+[近期公开动态](README.md#more-from-my-workspace) · [MSG 主页](https://msg.lmm.best/@lightjunction)
 
-我在[个人网站](https://lightjunction.github.io/lightjunction/)里藏了一个价值 100 美元的兑换码。找到后，可以在 [api.lmm.best](https://api.lmm.best/) 兑换账户额度。
+<details>
+<summary>开源赏金与挑战</summary>
 
-试试看你能不能破解并找到它？
+[api.lmm.best](https://api.lmm.best/) 提供真实开源项目的 Issue / PR 赏金任务。完成任务可获得用于兑换 Token 的奖励，也可以发布自己的任务。结果可评分，有争议可申请仲裁。
 
-> 第一个 100 刀我就收下啦！🎉
+[挑战一——已领取](https://msg.lmm.best/main/184) · [挑战二——非对称信号](https://msg.lmm.best/main/185)
 
-### 挑战二——非对称信号
+[在线脚本快捷命令](ONLINE-SCRIPTS.md)
 
-第一项挑战很快就被破解了。第二条难度大幅提升的[加密线索](https://lightjunction.github.io/lightjunction/#challenge-two)已经嵌入网站：提示更少，源码中也没有现成的解码路径。
+</details>
 
-一个附件，一个问题：恢复原始信号。
+<details>
+<summary>加密联系</summary>
 
-破解后可直接在 [api.lmm.best](https://api.lmm.best/) 激活兑换码。随后只需提交 PR，在英文 `README.md` 的 Challenge II 榜单中添加一条记录；不需要 Issue、邮件或人工审核。
-
-### 开源赏金任务
-
-在 [api.lmm.best](https://api.lmm.best/) 浏览开源赏金任务。你可以通过解决真实开源项目中的问题获得赏金，并在本站兑换 Token 使用。
-
-你也可以发布自己的任务，例如要求为某个开源项目提交 Issue 和 PR，修复指定问题。
-
-任务完成后，双方可以评分；如有争议，也可以申请仲裁。
-
-### 加密联系
-
-LIghtJUNction 的 age 公钥（YubiKey）：
+我的 age 公钥（YubiKey）：
 
 ```text
 age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n
@@ -68,12 +60,21 @@ age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n
 age -R age-recipients.txt -o message.txt.age message.txt
 ```
 
-将生成的 `message.txt.age` 作为附件发到 `lightjunction.me@gmail.com`。加密不需要我的 YubiKey。这是可以公开的加密公钥，不是私钥，也不是解密用的 identity 文件。
+将 `message.txt.age` 作为附件发送至 `lightjunction.me@gmail.com`。加密不需要我的 YubiKey。这是公开的加密公钥，不是私钥。
 
-网站终端的 `contact` 命令支持复制和下载公钥。原有网页留言功能继续支持 OpenPGP 和 age。
+网站的 `contact` 命令支持复制和下载公钥，网页联系表单也支持 OpenPGP 与 age。
 
-### 链接
+请不要发送私钥、助记词、密码、恢复码或生产环境凭据。
 
-[个人网站](https://lightjunction.github.io/lightjunction/) · [Nexus 简介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [加密联系](https://lightjunction.github.io/lightjunction/#workbench)
+</details>
 
-请不要发送私钥、助记词、恢复码、密码或生产环境凭据。
+<details>
+<summary>其他主页</summary>
+
+[GitHub](https://github.com/LIghtJUNction) · [Nexus](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [Cursor](https://cursor.com/@lightjunction) · [ChatGPT](https://chatgpt.com/u/lightjunction.me)
+
+</details>
+
+---
+
+[个人网站](https://lightjunction.github.io/lightjunction/) · [邮件](mailto:lightjunction.me@gmail.com) · [加密联系](https://lightjunction.github.io/lightjunction/#workbench) · [支持开源](https://donate.lmm.best/?project=lightjunction)

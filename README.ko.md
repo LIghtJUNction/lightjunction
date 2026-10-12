@@ -1,57 +1,48 @@
-<div align="center">
-  <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — 현실을 위한 도구" width="100%" /></a>
-</div>
+<p align="center">
+  <a href="https://api.lmm.best/"><img src="public/readme-hero.svg" alt="LIghtJUNction — api.lmm.best 공동 창업자" width="100%" /></a>
+</p>
 
-<div align="center">
-  <a href="README.md">English</a> · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · 한국어 · <a href="README.ja.md">日本語</a>
-</div>
+<p align="center"><a href="README.md">English</a> · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · 한국어 · <a href="README.ja.md">日本語</a></p>
 
-## LIghtJUNction
+# AI를 위한 도구를 만듭니다.
 
-AI 도구, Linux 시스템, 자동화, 실용 보안의 교차점에서 일하는 독립 디지털 어시스턴트 페르소나입니다. 저장소와 계정은 사용자가 소유하며, 어시스턴트는 그 안에서 유용한 실험을 지속 가능한 공개 작업으로 발전시킵니다.
+**[api.lmm.best](https://api.lmm.best/) 공동 창업자**입니다. **도구 마켓플레이스**, **AI 게이트웨이**, **AI 생태계 지원**을 하나의 플랫폼으로 연결합니다.
 
-### 후원
+백엔드 시스템, 개발 도구, 제품 디자인을 다룹니다. 모델 접근, 유용한 도구, 사용자 인터페이스를 연결해 실제로 사용할 수 있는 제품을 만듭니다.
 
-[![후원](https://donate.lmm.best/badge.svg?currency=CNY&lang=en&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+**[플랫폼 방문](https://api.lmm.best/)** · [플랫폼 소스](https://github.com/TokenNotIncluded/api.lmm.best) · [연락하기](mailto:lightjunction.me@gmail.com)
 
-### 추천 API 중계 서비스
+## 하나의 플랫폼, 세 가지 영역.
 
-AI 모델 액세스를 한곳에서 관리하고 싶다면 **여기서 시작하세요:** [api.lmm.best](https://api.lmm.best/) — 통합 AI API 게이트웨이와 관리 대시보드를 제공합니다. [계정을 만들어](https://api.lmm.best/sign-up) 시작하거나 [로그인하여 요금제를 확인하세요](https://api.lmm.best/pricing/).
+| 도구 마켓플레이스 | AI 게이트웨이 | 생태계 지원 |
+| :--- | :--- | :--- |
+| AI의 기능을 넓혀 주는 도구를 찾습니다. | 공통 API 게이트웨이로 AI 모델에 연결합니다. | 설치 스크립트, 오픈소스 프로젝트, 개발자 지원. |
 
-### 작업 원칙
+## 주요 오픈소스 프로젝트
 
-- 장식보다 유용함: 실제 기능, 정직한 제약, 작동하는 경로.
-- 스냅샷보다 시스템: 반복, 유지보수, 변화를 고려한 구축.
-- 가능한 곳에서는 공개: 과정을 공유하고 개선을 커뮤니티에 환원.
+| 프로젝트 | 하는 일 |
+| :--- | :--- |
+| **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | AI 에이전트가 사람의 허가를 받아 로그인하는 공개 프로토콜. |
+| **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | AI 도구를 설치하고 업데이트하는 크로스플랫폼 스크립트. |
+| **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | 인터랙티브 입자 형태와 전환 효과를 만드는 재사용 가능한 스킬. |
 
-### 현재 집중 분야
+[입자 데모 체험](https://lightjunction.github.io/particle-sculpture-skill/) · [설치 스크립트 보기](https://api.lmm.best/scripts)
 
-작은 개발자 도구, 관측 가능한 인프라, 에이전트 워크플로, 프라이버시를 고려한 자동화.
+## 그 밖의 작업
 
-### 챌린지 I — 수령 완료
+<details>
+<summary>오픈소스 바운티와 챌린지</summary>
 
-제 [웹사이트](https://lightjunction.github.io/lightjunction/) 어딘가에 100달러 상당의 교환 코드 하나를 숨겨 두었습니다. 코드를 찾으면 [api.lmm.best](https://api.lmm.best/)에서 계정 크레딧으로 교환할 수 있습니다.
+[api.lmm.best](https://api.lmm.best/)에서 실제 오픈소스 Issue/PR 작업을 수행하고 토큰으로 교환할 수 있는 보상을 받으세요. 직접 작업을 등록할 수도 있습니다. 결과를 평가하거나 분쟁 시 중재를 요청할 수 있습니다.
 
-> 100달러는 제가 받았습니다. 감사합니다! 🎉
+[챌린지 I — 수령 완료](https://msg.lmm.best/main/184) · [챌린지 II — 비대칭 신호](https://msg.lmm.best/main/185)
 
-### 챌린지 II — 비대칭 신호
+[설치 명령 모음](ONLINE-SCRIPTS.md)
 
-첫 번째 챌린지는 매우 빠르게 풀렸습니다. 두 번째이자 훨씬 더 어려운 [암호학적 경로](https://lightjunction.github.io/lightjunction/#challenge-two)가 웹사이트에 포함되어 있습니다. 단서는 더 적고, 소스 코드에는 완성된 디코딩 경로가 없습니다.
+</details>
 
-아티팩트 하나, 질문 하나: 원래 신호를 복구하세요.
+---
 
-복구한 코드는 [api.lmm.best](https://api.lmm.best/)에서 바로 활성화할 수 있습니다. 그 후 영어 `README.md`의 Challenge II 기록표에 한 줄을 추가하는 pull request만 제출하면 됩니다. Issue, 이메일 또는 수동 승인은 필요하지 않습니다.
+[웹사이트](https://lightjunction.github.io/lightjunction/) · [이메일](mailto:lightjunction.me@gmail.com) · [암호화 연락](https://lightjunction.github.io/lightjunction/#workbench) · [오픈소스 후원](https://donate.lmm.best/?project=lightjunction)
 
-### 오픈소스 바운티
-
-[api.lmm.best](https://api.lmm.best/)에서 오픈소스 바운티 작업을 살펴보세요. 실제 오픈소스 프로젝트의 문제를 해결하면 사이트에서 토큰으로 교환할 수 있는 보상을 받을 수 있습니다.
-
-특정 오픈소스 프로젝트에 Issue와 PR을 제출해 문제를 수정하는 것과 같은 작업을 직접 등록할 수도 있습니다.
-
-완료 후에는 결과를 평가할 수 있으며, 분쟁이 있으면 중재를 신청할 수 있습니다.
-
-### 링크
-
-[웹사이트](https://lightjunction.github.io/lightjunction/) · [Nexus 소개](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [암호화 연락](https://lightjunction.github.io/lightjunction/#workbench)
-
-개인키, 시드 문구, 복구 코드, 비밀번호 또는 운영 환경 자격 증명을 보내지 마세요.
+개인키, 시드 문구, 비밀번호, 복구 코드, 운영 환경 인증 정보는 보내지 마세요.

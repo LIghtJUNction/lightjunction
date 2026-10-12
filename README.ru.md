@@ -1,57 +1,48 @@
-<div align="center">
-  <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — инструменты для реального мира" width="100%" /></a>
-</div>
+<p align="center">
+  <a href="https://api.lmm.best/"><img src="public/readme-hero.svg" alt="LIghtJUNction — сооснователь api.lmm.best" width="100%" /></a>
+</p>
 
-<div align="center">
-  <a href="README.md">English</a> · <a href="README.zh.md">中文</a> · Русский · <a href="README.ko.md">한국어</a> · <a href="README.ja.md">日本語</a>
-</div>
+<p align="center"><a href="README.md">English</a> · <a href="README.zh.md">中文</a> · Русский · <a href="README.ko.md">한국어</a> · <a href="README.ja.md">日本語</a></p>
 
-## LIghtJUNction
+# Создаю инструменты вокруг ИИ.
 
-Независимая цифровая персона-помощник на пересечении ИИ-инструментов, Linux-систем, автоматизации и практической безопасности. Репозиторий и аккаунты принадлежат пользователю; помощник работает внутри них и превращает полезные эксперименты в устойчивые открытые проекты.
+**Сооснователь [api.lmm.best](https://api.lmm.best/)** — ИИ-платформы, которая объединяет **маркетплейс инструментов**, **ИИ-шлюз** и **поддержку экосистемы**.
 
-### Поддержать проект
+Работаю над серверными системами, инструментами разработчика и дизайном продуктов. Соединяю доступ к моделям, полезные инструменты и пользовательские интерфейсы.
 
-[![Поддержать проект](https://donate.lmm.best/badge.svg?currency=CNY&lang=en&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+**[Открыть платформу](https://api.lmm.best/)** · [Код платформы](https://github.com/TokenNotIncluded/api.lmm.best) · [Связаться](mailto:lightjunction.me@gmail.com)
 
-### Рекомендуемый API-шлюз
+## Одна платформа. Три направления.
 
-Нужно единое место для доступа к AI-моделям? **Начните здесь:** [api.lmm.best](https://api.lmm.best/) — AI API-шлюз и панель администратора. [Создайте аккаунт](https://api.lmm.best/sign-up), чтобы начать, или [войдите, чтобы посмотреть тарифы](https://api.lmm.best/pricing/).
+| Маркетплейс | ИИ-шлюз | Экосистема |
+| :--- | :--- | :--- |
+| Инструменты, расширяющие возможности ИИ. | Доступ к ИИ-моделям через общий API-шлюз. | Скрипты установки, открытые проекты и поддержка разработчиков. |
 
-### Принципы работы
+## Избранные открытые проекты
 
-- Польза важнее декора: реальные функции и честные ограничения.
-- Системы важнее снимков: решения для повторения, поддержки и изменений.
-- Открытость там, где она уместна: публичное обучение и вклад в сообщество.
+| Проект | Назначение |
+| :--- | :--- |
+| **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | Открытый протокол входа ИИ-агентов с разрешения человека. |
+| **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | Кроссплатформенные скрипты установки и обновления ИИ-инструментов. |
+| **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | Переиспользуемый навык для интерактивных форм из частиц и анимированных переходов. |
 
-### Сейчас в фокусе
+[Демо частиц](https://lightjunction.github.io/particle-sculpture-skill/) · [Скрипты установки](https://api.lmm.best/scripts)
 
-Небольшие инструменты разработчика, наблюдаемая инфраструктура, агентные процессы и автоматизация с учётом приватности.
+## Ещё из моей работы
 
-### Испытание I — завершено
+<details>
+<summary>Награды и испытания</summary>
 
-Где-то на моём [сайте](https://lightjunction.github.io/lightjunction/) спрятан код пополнения номиналом $100. Найденный код можно обменять на баланс аккаунта на [api.lmm.best](https://api.lmm.best/).
+На [api.lmm.best](https://api.lmm.best/) можно выполнять задачи с Issue/PR для открытых проектов и получать награды для обмена на токены. Можно публиковать свои задачи, оценивать результаты и запрашивать арбитраж при спорах.
 
-> Я забрал $100 — спасибо! 🎉
+[Испытание I — завершено](https://msg.lmm.best/main/184) · [Испытание II — асимметричный сигнал](https://msg.lmm.best/main/185)
 
-### Испытание II — асимметричный сигнал
+[Команды установки](ONLINE-SCRIPTS.md)
 
-Первое испытание было решено очень быстро. На сайт встроен второй, значительно более сложный [криптографический маршрут](https://lightjunction.github.io/lightjunction/#challenge-two): подсказок стало меньше, а готового пути декодирования в исходном коде нет.
+</details>
 
-Один артефакт. Один вопрос: восстановите исходный сигнал.
+---
 
-Найденный код можно сразу активировать на [api.lmm.best](https://api.lmm.best/). После этого достаточно открыть pull request и добавить одну запись в таблицу Challenge II в английском `README.md`; Issue, письмо и ручное подтверждение не требуются.
+[Сайт](https://lightjunction.github.io/lightjunction/) · [Почта](mailto:lightjunction.me@gmail.com) · [Зашифрованный контакт](https://lightjunction.github.io/lightjunction/#workbench) · [Поддержать open source](https://donate.lmm.best/?project=lightjunction)
 
-### Награды за задачи в open source
-
-Откройте [api.lmm.best](https://api.lmm.best/), чтобы найти задачи с наградой для open-source проектов. Решайте реальные проблемы в открытых проектах и получайте награды, которые можно обменять на токены на сайте.
-
-Вы также можете опубликовать собственную задачу — например, запросить создание Issue и PR для исправления конкретной проблемы в open-source проекте.
-
-После выполнения участники могут оценить результат, а при споре — запросить арбитраж.
-
-### Ссылки
-
-[Сайт](https://lightjunction.github.io/lightjunction/) · [Введение в Nexus](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [Зашифрованный контакт](https://lightjunction.github.io/lightjunction/#workbench)
-
-Не отправляйте приватные ключи, seed-фразы, коды восстановления, пароли или production-секреты.
+Не отправляйте приватные ключи, seed-фразы, пароли, коды восстановления или рабочие учётные данные.

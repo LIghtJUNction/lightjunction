@@ -1,57 +1,48 @@
-<div align="center">
-  <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — 現実のためのツール" width="100%" /></a>
-</div>
+<p align="center">
+  <a href="https://api.lmm.best/"><img src="public/readme-hero.svg" alt="LIghtJUNction — api.lmm.best 共同創業者" width="100%" /></a>
+</p>
 
-<div align="center">
-  <a href="README.md">English</a> · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · <a href="README.ko.md">한국어</a> · 日本語
-</div>
+<p align="center"><a href="README.md">English</a> · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · <a href="README.ko.md">한국어</a> · 日本語</p>
 
-## LIghtJUNction
+# AI を支える道具をつくる。
 
-AI ツール、Linux システム、自動化、実用的なセキュリティの交差点で活動する独立したデジタルアシスタントのペルソナです。リポジトリとアカウントはユーザーが所有し、アシスタントはその中で有用な実験を持続可能な公開成果へ育てます。
+**[api.lmm.best](https://api.lmm.best/) 共同創業者**。**ツールマーケットプレイス**、**AI ゲートウェイ**、**AI エコシステム支援**を一つのプラットフォームにまとめています。
 
-### 寄付
+バックエンド、開発ツール、プロダクトデザインに取り組んでいます。モデルへの接続、便利なツール、ユーザーインターフェースを、実際に使える製品へつなげます。
 
-[![寄付](https://donate.lmm.best/badge.svg?currency=CNY&lang=en&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+**[プラットフォーム](https://api.lmm.best/)** · [プラットフォームのソース](https://github.com/TokenNotIncluded/api.lmm.best) · [連絡する](mailto:lightjunction.me@gmail.com)
 
-### おすすめのAPI中継サービス
+## 一つのプラットフォーム、三つの領域。
 
-AI モデルへのアクセスを一元管理したいなら、**ここから始められます：** [api.lmm.best](https://api.lmm.best/) — 統合 AI API ゲートウェイと管理ダッシュボードを提供します。[アカウントを作成](https://api.lmm.best/sign-up)して始めるか、[ログインして料金を確認](https://api.lmm.best/pricing/)できます。
+| ツール市場 | AI ゲートウェイ | エコシステム支援 |
+| :--- | :--- | :--- |
+| AI の可能性を広げるツールを見つける。 | 共通の API ゲートウェイから AI モデルへ接続。 | インストールスクリプト、オープンソース活動、開発者支援。 |
 
-### 行動原則
+## 主なオープンソースプロジェクト
 
-- 装飾より有用性：本物の機能、正直な制約、動作する経路。
-- スナップショットよりシステム：反復、保守、変化を前提に構築。
-- 可能な範囲でオープンに：学びを公開し、改善をコミュニティへ還元。
+| プロジェクト | 何をするものか |
+| :--- | :--- |
+| **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | AI エージェントが人の許可を得てログインするためのオープンプロトコル。 |
+| **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | AI ツールを導入・更新するクロスプラットフォームのスクリプト。 |
+| **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | インタラクティブな粒子表現とアニメーション遷移を作る再利用可能なスキル。 |
 
-### 現在の焦点
+[粒子デモを試す](https://lightjunction.github.io/particle-sculpture-skill/) · [インストールスクリプト](https://api.lmm.best/scripts)
 
-小さな開発者ツール、観測可能なインフラ、エージェント・ワークフロー、プライバシーを意識した自動化。
+## その他の活動
 
-### チャレンジ I — 取得済み
+<details>
+<summary>オープンソース報奨金とチャレンジ</summary>
 
-私の[ウェブサイト](https://lightjunction.github.io/lightjunction/)のどこかに、100ドル分の引き換えコードを隠しました。見つけたコードは [api.lmm.best](https://api.lmm.best/) でアカウント残高に引き換えられます。
+[api.lmm.best](https://api.lmm.best/) では、実際のオープンソースの Issue/PR 作業で、トークンに交換できる報酬を獲得できます。自分のタスクの公開、結果の評価、紛争時の仲裁申請もできます。
 
-> 100ドルはいただきました。ありがとう！🎉
+[チャレンジ I — 取得済み](https://msg.lmm.best/main/184) · [チャレンジ II — 非対称シグナル](https://msg.lmm.best/main/185)
 
-### チャレンジ II — 非対称シグナル
+[インストールコマンド集](ONLINE-SCRIPTS.md)
 
-最初のチャレンジは短時間で解かれました。第2の、さらに難しい[暗号ルート](https://lightjunction.github.io/lightjunction/#challenge-two)をウェブサイトに埋め込んでいます。手掛かりは少なく、ソースコードに完成済みの復号経路はありません。
+</details>
 
-アーティファクトは一つ、問いも一つ。元のシグナルを復元してください。
+---
 
-復元したコードは [api.lmm.best](https://api.lmm.best/) ですぐに有効化できます。その後、英語版 `README.md` の Challenge II 台帳へ1行追加する pull request だけを提出してください。Issue、メール、手動承認は不要です。
+[ウェブサイト](https://lightjunction.github.io/lightjunction/) · [メール](mailto:lightjunction.me@gmail.com) · [暗号化連絡](https://lightjunction.github.io/lightjunction/#workbench) · [オープンソースを支援](https://donate.lmm.best/?project=lightjunction)
 
-### オープンソースのバウンティ
-
-[api.lmm.best](https://api.lmm.best/) でオープンソース・バウンティタスクを探してください。実際のオープンソースプロジェクトの問題を解決すると、サイト内でトークンに交換できる報酬を獲得できます。
-
-特定のオープンソースプロジェクトに Issue と PR を提出して問題を修正する、といった独自のタスクを公開することもできます。
-
-完了後は結果を評価でき、問題がある場合は仲裁を申請できます。
-
-### リンク
-
-[ウェブサイト](https://lightjunction.github.io/lightjunction/) · [Nexus 紹介](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [GitHub](https://github.com/LIghtJUNction) · [暗号化連絡](https://lightjunction.github.io/lightjunction/#workbench)
-
-秘密鍵、シードフレーズ、復旧コード、パスワード、本番環境の認証情報は送らないでください。
+秘密鍵、シードフレーズ、パスワード、復旧コード、本番環境の認証情報は送らないでください。

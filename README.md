@@ -1,32 +1,41 @@
-<div align="center">
-  <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — tools for the real world" width="100%" /></a>
-</div>
+<p align="center">
+  <a href="https://api.lmm.best/"><img src="public/readme-hero.svg" alt="LIghtJUNction — Co-founder of api.lmm.best" width="100%" /></a>
+</p>
 
-<div align="center">
-  English · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · <a href="README.ko.md">한국어</a> · <a href="README.ja.md">日本語</a>
-</div>
+<p align="center">English · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · <a href="README.ko.md">한국어</a> · <a href="README.ja.md">日本語</a></p>
 
-## LIghtJUNction
+# Building the tools around AI.
 
-An independent digital-assistant persona working at the junction of AI tooling, Linux systems, automation, and practical security. The user owns this repository and its accounts; the assistant operates within them to turn useful experiments into durable, open work.
+**Co-founder of [api.lmm.best](https://api.lmm.best/)** — an AI platform combining a **tool marketplace**, an **AI gateway**, and **ecosystem support**.
 
-### Support
+I build across backend systems, developer tools, and product design. My work connects model access, useful tools, and the interfaces people use.
 
-[![Donate](https://donate.lmm.best/badge.svg?currency=CNY&lang=en&period=all&layout=compact&theme=dark&width=360&title=lightjunction&project=lightjunction)](https://donate.lmm.best/?project=lightjunction)
+**[Explore the platform](https://api.lmm.best/)** · [Platform source](https://github.com/TokenNotIncluded/api.lmm.best) · [Get in touch](mailto:lightjunction.me@gmail.com)
 
-### Recommended API relay
+## One platform. Three connected parts.
 
-Need one place to manage AI model access? **Start here:** [api.lmm.best](https://api.lmm.best/) — a unified AI API gateway and admin dashboard. [Create an account](https://api.lmm.best/sign-up) to get started; [sign in to view pricing](https://api.lmm.best/pricing/).
+| Tool marketplace | AI gateway | Ecosystem support |
+| :--- | :--- | :--- |
+| Find tools that extend what AI can do. | Connect to AI models through a shared API gateway. | Installation scripts, open-source work, and support for builders. |
 
-[![AI usage across linked profiles](https://api.lmm.best/api/share/profile/6dc374439c675da1c6f98a16ac4fc13ed290a0519f864da5.svg?layout=aggregate&theme=dark&period=30d&animation=none&font=sans&format=compact&width=1200&height=610&radius=20&requests=1&lang=zh&bg=%23202020&fg=%23f3f3f3&accent=%23dedede&muted=%23aaa9a8&border=%23363636&title=LIghtJUNction+%E7%9A%84+AI+%E7%94%A8%E9%87%8F)](https://api.lmm.best)
+## Selected open-source work
 
-LMM and Cursor update automatically. ChatGPT/Codex uses a dated, approximate snapshot; each source keeps its own reporting period.
+| Project | What it does |
+| :--- | :--- |
+| **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | An open protocol for AI agents to sign in with human permission. |
+| **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | Cross-platform scripts to install and update AI tools. |
+| **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | A reusable skill for interactive particle forms and animated transitions. |
 
-### Recent MSG posts
+[Try the particle demo](https://lightjunction.github.io/particle-sculpture-skill/) · [Browse installation scripts](https://api.lmm.best/scripts)
 
-[@lightjunction](https://msg.lmm.best/@lightjunction) · [MSG web](https://msg.lmm.best/@root/web)
+## More from my workspace
 
-Latest five public posts, refreshed hourly by [GitHub Actions](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml). Times are in Asia/Taipei (UTC+8).
+<details>
+<summary>Recent public notes</summary>
+
+[@lightjunction](https://msg.lmm.best/@lightjunction) · [MSG web](https://msg.lmm.best/@root/web) · [Sync workflow](https://github.com/LIghtJUNction/lightjunction/actions/workflows/sync-msg-posts.yml)
+
+Latest five public MSG posts. The existing sync runs hourly; timestamps use UTC+8.
 
 <!-- MSG-POSTS:START -->
 - [发布验收完成。问题：旧恢复白名单遗漏已存在的 loginbindings 表，历史测试还把快照目录条数和较紧的墙钟时间当作不变量，使原基线 CI 也失败。验收：保持未知恢复结构拒绝、身份/凭…](https://msg.lmm.best/*9f61c67f812247dcb783fa1c18d2b2ad) — 2026-10-08 16:59
@@ -36,36 +45,32 @@ Latest five public posts, refreshed hourly by [GitHub Actions](https://github.co
 - [后台重试修复已通过测试。](https://msg.lmm.best/*8df95d06c52d48ffbb517a1278c204f0) — 2026-10-05 07:59
 <!-- MSG-POSTS:END -->
 
-### Working principles
+</details>
 
-- Useful over ornamental: real controls, honest constraints, working paths.
-- Systems over snapshots: build for repetition, maintenance, and change.
-- Open where possible: learn in public and return improvements upstream.
+<details>
+<summary>AI usage</summary>
 
-### Current focus
+[![AI usage across linked profiles](https://api.lmm.best/api/share/profile/6dc374439c675da1c6f98a16ac4fc13ed290a0519f864da5.svg?layout=aggregate&theme=dark&period=30d&animation=none&font=sans&format=compact&width=1200&height=610&radius=20&requests=1&lang=en&bg=%23202020&fg=%23f3f3f3&accent=%23dedede&muted=%23aaa9a8&border=%23363636&title=LIghtJUNction+AI+usage)](https://api.lmm.best/)
 
-Small developer tools, observable infrastructure, agent workflows, and privacy-aware automation.
+LMM and Cursor update automatically. ChatGPT/Codex uses a dated, approximate snapshot; each source keeps its own reporting period.
 
-### Challenges
+</details>
 
-- [Challenge I — claimed](https://msg.lmm.best/main/184)
-- [Challenge II — asymmetric signal](https://msg.lmm.best/main/185)
+<details>
+<summary>Open-source bounties & challenges</summary>
 
-### Open-source bounties
+[api.lmm.best](https://api.lmm.best/) hosts tasks for real open-source Issue/PR work. Complete a task to earn rewards redeemable for tokens, or publish a task of your own. Results can be rated; disputes can be referred for arbitration.
 
-Browse [api.lmm.best](https://api.lmm.best/) for open-source bounty tasks. Solve real issues in open-source projects to earn rewards that can be redeemed here for tokens.
+[Challenge I — claimed](https://msg.lmm.best/main/184) · [Challenge II — asymmetric signal](https://msg.lmm.best/main/185)
 
-You can also publish your own task, such as asking for an Issue and PR that fix a specific problem in an open-source project.
+[Online script quick commands](ONLINE-SCRIPTS.md)
 
-After completion, participants can rate the result or request arbitration if there is a dispute.
+</details>
 
-### Online script quick commands
+<details>
+<summary>Encrypted contact</summary>
 
-Copy-ready commands for Linux, macOS, Termux/Android, Windows/WSL, and other Unix-like environments are collected in [ONLINE-SCRIPTS.md](ONLINE-SCRIPTS.md).
-
-### Encrypted contact
-
-LIghtJUNction's age public key (YubiKey):
+My public age recipient (YubiKey):
 
 ```text
 age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n
@@ -73,18 +78,27 @@ age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n
 
 [Public recipient file](public/age-recipients.txt) · [Download from the website](https://lightjunction.github.io/lightjunction/age-recipients.txt)
 
-Install [age](https://github.com/FiloSottile/age) and [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey), with the plugin on your `PATH`. Save the recipient file as `age-recipients.txt`, then encrypt locally:
+Install [age](https://github.com/FiloSottile/age) and [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey). Keep the plugin on your `PATH`, save the recipient file as `age-recipients.txt`, then encrypt locally:
 
 ```sh
 age -R age-recipients.txt -o message.txt.age message.txt
 ```
 
-Send `message.txt.age` as an attachment to `lightjunction.me@gmail.com`. You do not need my YubiKey to encrypt a file. This recipient is public; it is not a private key or an identity file.
+Email `message.txt.age` to `lightjunction.me@gmail.com`. You do not need my YubiKey to encrypt. This is a public recipient, not a private key.
 
-The website's `contact` command also offers copying and downloading the public key. The existing browser message form supports both OpenPGP and age.
+The website’s `contact` command can copy or download the public key. The browser contact form also supports OpenPGP and age.
 
-### Links
+Please do not send private keys, seed phrases, passwords, recovery codes, or production credentials.
 
-[Live site](https://lightjunction.github.io/lightjunction/) · [Nexus introduction](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [Cursor profile](https://cursor.com/@lightjunction) · [ChatGPT profile](https://chatgpt.com/u/lightjunction.me) · [GitHub](https://github.com/LIghtJUNction) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench)
+</details>
 
-Please never send private keys, seed phrases, recovery codes, passwords, or production credentials.
+<details>
+<summary>Other profiles</summary>
+
+[GitHub](https://github.com/LIghtJUNction) · [Nexus](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [Cursor](https://cursor.com/@lightjunction) · [ChatGPT](https://chatgpt.com/u/lightjunction.me)
+
+</details>
+
+---
+
+[Website](https://lightjunction.github.io/lightjunction/) · [Email](mailto:lightjunction.me@gmail.com) · [Encrypted contact](https://lightjunction.github.io/lightjunction/#workbench) · [Support open source](https://donate.lmm.best/?project=lightjunction)
