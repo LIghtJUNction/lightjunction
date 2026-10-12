@@ -1,5 +1,6 @@
-"""Structural checks for the stable profile README files."""
+"""Structural checks for the founder profile and its supporting links."""
 
+import re
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -23,62 +24,62 @@ OLD_PANELS = [
 def test_readmes_start_with_one_stable_hero() -> None:
     for path in README_FILES:
         text = path.read_text(encoding="utf-8")
-        leading_lines = text.splitlines()[:8]
-        assert '<div align="center">' in leading_lines, path
+        hero = ET.fromstring(text.split("\n\n", 1)[0])
+        assert hero.tag in {"p", "div"} and hero.get("align") == "center", path
+        image = hero.find("a/img")
+        assert image is not None, path
+        assert image.get("src") == "public/readme-hero.svg", path
+        assert image.get("width") == "100%" and image.get("alt"), path
         assert text.count("public/readme-hero.svg") == 1, path
-        assert "?" not in next(line for line in text.splitlines() if "readme-hero.svg" in line), (
-            path
-        )
         for old_panel in OLD_PANELS:
             assert old_panel not in text, path
+        for other in README_FILES:
+            if other != path:
+                assert f'href="{other.name}"' in text.split("\n# ", 1)[0], path
 
 
 def test_readme_hero_is_lightweight_self_contained_svg() -> None:
     hero = Path("public/readme-hero.svg")
     text = hero.read_text(encoding="utf-8")
-    # The animated bitmap has 170 independent pixels, rather than a static text node.
     assert hero.stat().st_size < 32 * 1024
-    assert "<script" not in text
-    assert "<animate" not in text
     assert "http://" not in text.replace('xmlns="http://www.w3.org/2000/svg"', "")
     assert "https://" not in text
-
     root = ET.fromstring(text)
     namespace = {"svg": "http://www.w3.org/2000/svg"}
     assert root.tag == "{http://www.w3.org/2000/svg}svg"
-    assert root.get("viewBox") == "0 0 1200 430"
+    assert root.get("viewBox") == "0 0 1200 460"
     assert root.get("role") == "img"
     assert root.get("aria-labelledby") == "title desc"
-    assert root.findtext("svg:title", namespaces=namespace) == "LIghtJUNction"
-    assert root.findtext("svg:desc", namespaces=namespace)
+    title = root.find("svg:title", namespace)
+    desc = root.find("svg:desc", namespace)
+    assert title is not None and title.get("id") == "title"
+    assert title.text == "LIghtJUNction — Co-founder of api.lmm.best"
+    assert desc is not None and desc.get("id") == "desc" and desc.text
 
 
 def test_readme_hero_uses_looping_pixel_tokens() -> None:
     text = Path("public/readme-hero.svg").read_text(encoding="utf-8")
     required = [
-        'width="1200" height="430"',
-        "@keyframes scatter",
-        "animation: scatter 14s cubic-bezier(.42,0,.22,1) infinite;",
-        "0%,18%,82%,100% { transform: translate(0,0) scale(1); opacity: 1; }",
+        "@keyframes flow",
+        "animation: flow 16s cubic-bezier(.45,0,.2,1) infinite;",
+        "0%,22%,82%,100% { transform: translate(0,0) scale(1); opacity: 1; }",
         "@media (prefers-reduced-motion: reduce)",
-        ".p,.echo,.seed { animation: none; }",
+        ".p,.cloud,.signal { animation: none; }",
     ]
     for fragment in required:
         assert fragment in text
-
-    # Vector gradients are allowed; raster stand-ins, fonts and costly filters are not.
-    forbidden = ["<filter", "<image", "<text", "<foreignObject", "@font-face"]
+    # System-font captions are allowed; the animated wordmark remains vector pixels.
+    forbidden = ["<script", "<animate", "<filter", "<image", "<foreignObject", "@font-face"]
     for fragment in forbidden:
         assert fragment not in text
-
     root = ET.fromstring(text)
     pixels = [
         node
         for node in root.iter("{http://www.w3.org/2000/svg}rect")
         if "p" in node.get("class", "").split()
     ]
-    assert len(pixels) == 170
-    assert all(node.get("width") == node.get("height") == "9" for node in pixels)
+    assert len(pixels) == 172
+    assert all(node.get("width") == node.get("height") == "10" for node in pixels)
 
 
 def test_obsolete_profile_generation_is_removed() -> None:
@@ -89,7 +90,6 @@ def test_obsolete_profile_generation_is_removed() -> None:
         "public/profile-pulse.svg",
         "public/profile-projects.svg",
         "public/profile-actions.svg",
-        "PROFILE_ACTIONS.md",
         "scripts/update_profile_pulse.py",
         "scripts/generate-readme-ascii-flame.py",
         ".github/workflows/refresh-profile-pulse.yml",
@@ -101,124 +101,97 @@ def test_obsolete_profile_generation_is_removed() -> None:
 
 def test_translated_support_sections_warn_against_credentials() -> None:
     checks = {
+        "README.md": "Please do not send private keys",
         "README.zh.md": "请不要发送私钥",
         "README.ru.md": "Не отправляйте приватные ключи",
         "README.ko.md": "개인키",
         "README.ja.md": "秘密鍵",
     }
     for filename, phrase in checks.items():
-        text = Path(filename).read_text(encoding="utf-8")
-        assert phrase in text, filename
+        assert phrase in Path(filename).read_text(encoding="utf-8"), filename
 
 
-def test_readmes_include_localized_api_relay_recommendation() -> None:
-    headings = {
-        "README.md": "### Recommended API relay",
-        "README.zh.md": "### 中转站推荐",
-        "README.ru.md": "### Рекомендуемый API-шлюз",
-        "README.ko.md": "### 추천 API 중계 서비스",
-        "README.ja.md": "### おすすめのAPI中継サービス",
+def test_readmes_present_localized_founder_identity_and_platform() -> None:
+    checks = {
+        "README.md": ["Co-founder", "tool marketplace", "AI gateway", "ecosystem support"],
+        "README.zh.md": ["联合创始人", "工具市场", "AI 网关", "AI 生态支持"],
+        "README.ru.md": ["Сооснователь", "маркетплейс инструментов", "ИИ-шлюз", "экосистемы"],
+        "README.ko.md": ["공동 창업자", "도구 마켓플레이스", "AI 게이트웨이", "AI 생태계 지원"],
+        "README.ja.md": [
+            "共同創業者",
+            "ツールマーケットプレイス",
+            "AI ゲートウェイ",
+            "AI エコシステム支援",
+        ],
     }
-    link = "[api.lmm.best](https://api.lmm.best/)"
-    for filename, heading in headings.items():
-        text = Path(filename).read_text(encoding="utf-8")
-        assert heading in text, filename
-        assert link in text, filename
+    for filename, phrases in checks.items():
+        intro = Path(filename).read_text(encoding="utf-8").split("\n## ", 1)[0]
+        for phrase in phrases:
+            assert phrase in intro, (filename, phrase)
+        assert "[api.lmm.best](https://api.lmm.best/)" in intro, filename
 
 
-def test_api_recommendation_is_early_and_actionable() -> None:
-    sections = {
-        "README.md": ("### Recommended API relay", "### Working principles"),
-        "README.zh.md": ("### 中转站推荐", "### 工作原则"),
-        "README.ru.md": ("### Рекомендуемый API-шлюз", "### Принципы работы"),
-        "README.ko.md": ("### 추천 API 중계 서비스", "### 작업 원칙"),
-        "README.ja.md": ("### おすすめのAPI中継サービス", "### 行動原則"),
-    }
-    action_paths = [
-        "https://api.lmm.best/sign-up",
-        "https://api.lmm.best/pricing/",
-    ]
-
-    for filename, (relay_heading, principles_heading) in sections.items():
-        text = Path(filename).read_text(encoding="utf-8")
-        assert text.index(relay_heading) < text.index(principles_heading), filename
-        for action_path in action_paths:
-            assert action_path in text, (filename, action_path)
+def test_platform_is_early_and_actionable_with_selected_work_before_details() -> None:
+    for path in README_FILES:
+        text = path.read_text(encoding="utf-8")
+        intro = text.split("\n## ", 1)[0]
+        assert "https://github.com/TokenNotIncluded/api.lmm.best" in intro, path
+        assert "mailto:lightjunction.me@gmail.com" in intro, path
+        visible = text.split("<details>", 1)[0]
+        for project in (
+            "LIghtJUNction/humangrant",
+            "TokenNotIncluded/lmm-scripts",
+            "LIghtJUNction/particle-sculpture-skill",
+        ):
+            assert f"https://github.com/{project}" in visible, path
+        assert "https://api.lmm.best/scripts" in visible, path
+        assert text.count("<details>") == text.count("</details>") > 0, path
+        assert text.count("<summary>") == text.count("<details>"), path
 
 
-def test_challenge_links_keep_canonical_board_and_localized_entrypoints() -> None:
-    # The English challenges moved to the board in 6dd7a912, before TOKEN DRIFT.
-    # Keep exact destinations protected instead of requiring the removed ledger.
-    english = Path("README.md").read_text(encoding="utf-8")
-    section = english.split("### Challenges\n", 1)[1].split("\n### ", 1)[0]
-    for link in (
-        "[Challenge I — claimed](https://msg.lmm.best/main/184)",
-        "[Challenge II — asymmetric signal](https://msg.lmm.best/main/185)",
-    ):
-        assert section.count(link) == 1, link
-    assert "| --- | ---: | --- | --- | --- |" not in english
-
-    headings = {
-        "README.zh.md": "### 挑战二——非对称信号",
-        "README.ru.md": "### Испытание II — асимметричный сигнал",
-        "README.ko.md": "### 챌린지 II — 비대칭 신호",
-        "README.ja.md": "### チャレンジ II — 非対称シグナル",
-    }
-    challenge_link = "https://lightjunction.github.io/lightjunction/#challenge-two"
-    for filename, heading in headings.items():
-        text = Path(filename).read_text(encoding="utf-8")
-        assert heading in text, filename
-        assert challenge_link in text, filename
-        assert "`README.md`" in text, filename
-        assert "| --- | ---: | --- | --- | --- |" not in text, filename
+def test_challenge_links_keep_canonical_board_entrypoints_in_every_locale() -> None:
+    # Both challenge destinations survive the layout change, now in every locale.
+    for path in README_FILES:
+        text = path.read_text(encoding="utf-8")
+        for link in ("https://msg.lmm.best/main/184", "https://msg.lmm.best/main/185"):
+            assert text.count(link) == 1, (path, link)
+        assert "| --- | ---: | --- | --- | --- |" not in text, path
 
 
 def test_readmes_include_localized_open_source_bounties() -> None:
-    checks: dict[str, tuple[str, str, str, list[str]]] = {
-        "README.md": (
-            "### Challenges",
-            "### Open-source bounties",
-            "### Links",
-            ["open-source bounty tasks", "Issue and PR", "rate the result", "request arbitration"],
-        ),
-        "README.zh.md": (
-            "### 挑战二——非对称信号",
-            "### 开源赏金任务",
-            "### 链接",
-            ["开源赏金任务", "Issue 和 PR", "双方可以评分", "申请仲裁"],
-        ),
-        "README.ja.md": (
-            "### チャレンジ II — 非対称シグナル",
-            "### オープンソースのバウンティ",
-            "### リンク",
-            ["バウンティタスク", "Issue と PR", "結果を評価", "仲裁を申請"],
-        ),
-        "README.ko.md": (
-            "### 챌린지 II — 비대칭 신호",
-            "### 오픈소스 바운티",
-            "### 링크",
-            ["바운티 작업", "Issue와 PR", "결과를 평가", "중재를 신청"],
-        ),
-        "README.ru.md": (
-            "### Испытание II — асимметричный сигнал",
-            "### Награды за задачи в open source",
-            "### Ссылки",
-            ["задачи с наградой", "Issue и PR", "оценить результат", "запросить арбитраж"],
-        ),
+    checks = {
+        "README.md": ["open-source", "Issue/PR", "rated", "arbitration", "tokens"],
+        "README.zh.md": ["开源", "Issue / PR", "评分", "仲裁", "Token"],
+        "README.ru.md": ["Issue/PR", "награды", "оценивать", "арбитраж", "токены"],
+        "README.ko.md": ["오픈소스", "Issue/PR", "평가", "중재", "토큰"],
+        "README.ja.md": ["オープンソース", "Issue/PR", "評価", "仲裁", "トークン"],
     }
-
-    for filename, (challenge, reward, links, phrases) in checks.items():
+    for filename, phrases in checks.items():
         text = Path(filename).read_text(encoding="utf-8")
-        challenge_index = text.index(challenge)
-        reward_index = text.index(reward)
-        links_index = text.index(links)
-        assert challenge_index < reward_index < links_index, filename
-
-        # Contact and other peer sections may appear before Links.
-        # Check only the bounty section, not every section that follows it.
-        reward_section = text[reward_index:links_index].split("\n### ", 1)[0]
+        blocks = re.findall(r"<details>\s*<summary>.*?</summary>(.*?)</details>", text, re.S)
+        rewards = [block for block in blocks if "https://msg.lmm.best/main/184" in block]
+        assert len(rewards) == 1, filename
         for phrase in phrases:
-            assert phrase in reward_section, filename
+            assert phrase in rewards[0], (filename, phrase)
+        assert "[api.lmm.best](https://api.lmm.best/)" in rewards[0], filename
+        assert "lightjunction.me@gmail.com" not in rewards[0], filename
 
-        assert "[api.lmm.best](https://api.lmm.best/)" in reward_section
-        assert "lightjunction.me@gmail.com" not in reward_section
+
+def test_msg_sync_markers_and_usage_disclaimer_survive_folding() -> None:
+    text = Path("README.md").read_text(encoding="utf-8")
+    start, end = "<!-- MSG-POSTS:START -->", "<!-- MSG-POSTS:END -->"
+    assert text.count(start) == text.count(end) == 1
+    assert text.index(start) < text.index(end)
+    posts = text.split(start)[1].split(end)[0]
+    assert sum(line.startswith("- [") for line in posts.splitlines()) <= 5
+    assert "ChatGPT/Codex uses a dated, approximate snapshot" in text
+    assert "each source keeps its own reporting period" in text
+
+
+def test_english_and_chinese_keep_the_public_encryption_recipient() -> None:
+    recipient = "age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n"
+    for filename in ("README.md", "README.zh.md"):
+        text = Path(filename).read_text(encoding="utf-8")
+        assert recipient in text, filename
+        assert "age -R age-recipients.txt -o message.txt.age message.txt" in text, filename
+        assert "public/age-recipients.txt" in text, filename
