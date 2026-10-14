@@ -112,3 +112,13 @@
 - Use `.agents/skills/user-project-maintenance/SKILL.md` when triaging or fixing the owner's own repositories, GitHub notifications, issue comments, release visibility, artifacts, or workflow failures.
 - Use `.agents/skills/lmm-best-service-page/SKILL.md` when designing, selling, or deploying customer personal static websites under `lmm.best/<username>`. Keep this separate from the `lightjunction` profile site; do not turn the profile site into a pricing/service page unless explicitly asked.
 - Use `.agents/skills/share-file-handoff/SKILL.md` when delivering files, creating `share.lmm.best` download links, DMing finished work products, or maintaining the `share-lmm-best.service` copyparty file handoff system.
+
+## AUL licensing and agent feedback
+
+This project adopts the [Agent Upstream License (AUL) 1.0-draft.1](LICENSE) only for original material that the relevant rights holder can license. See [LICENSING.md](LICENSING.md) before changing licensing or attribution. Previously released MIT versions remain usable under MIT. Fonts and the particle typography modules retain their separate OFL/AGPL licenses.
+
+Read the maintainer's upstream election in `UPSTREAM.toml`. This original repository is independent and points to itself, so do not manufacture self-addressed issues or pull requests to satisfy AUL. A downstream fork must follow its own authorized choice; copying a parent's independent file does not by itself elect independence for the new fork.
+
+For any fork that actually follows an external upstream, report confirmed upstream bugs with evidence and submit retained improvements as reviewable PRs or accepted equivalent patches. Check for existing submissions and honor security and anti-spam practices. Submit only with appropriate publication permissions, credentials, tools and a verified safe destination; otherwise record the specific blocker and provide the patch locally. Never publish secrets, user records, authentication material, or non-public source. Do not elect independence without authorization from the project owner.
+
+The AUL rules do not override the repository's existing controls over branches, publication, or scheduled work. User-approved workflow restrictions and project safety instructions remain in force.

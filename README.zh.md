@@ -22,6 +22,7 @@
 
 | 项目 | 解决什么问题 |
 | :--- | :--- |
+| **[AUL](https://github.com/LIghtJUNction/AUL)** | 为 AI Agent 编写的上游回馈许可证，支持独立分叉。 |
 | **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | 让 AI 智能体获得人类许可后登录的开放协议。 |
 | **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | 跨平台安装、更新 AI 工具的脚本。 |
 | **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | 用于交互式粒子造型与动态转场的可复用技能。 |
@@ -74,6 +75,10 @@ age -R age-recipients.txt -o message.txt.age message.txt
 [GitHub](https://github.com/LIghtJUNction) · [Nexus](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [Cursor](https://cursor.com/@lightjunction) · [ChatGPT](https://chatgpt.com/u/lightjunction.me)
 
 </details>
+
+## 许可证
+
+可授权的原创材料采用 [AUL 1.0-draft.1](LICENSE)。已有 MIT 授权与第三方 AGPL/OFL 材料保持原条款。详见 [LICENSING.md](LICENSING.md) 和 [UPSTREAM.toml](UPSTREAM.toml)。AUL 是自定义草案，未经 OSI 批准。
 
 ---
 

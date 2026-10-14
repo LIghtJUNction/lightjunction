@@ -35,3 +35,7 @@ scripts/check-frontend.sh   # npm run check (typecheck + build)
   files.
 - Treat README dynamic sections as generated output unless the change is about
   the renderer itself.
+
+## Licensing and upstream feedback
+
+Read [LICENSE](LICENSE), [LICENSING.md](LICENSING.md) and [UPSTREAM.toml](UPSTREAM.toml) before submitting. New contributors may submit only code they have rights to license. For a fork following an external upstream, AUL asks for confirmed upstream issues and retained changes to be reported upstream, with no duplicate reports or disclosure of secrets. AUL does not grant access or publication authority.

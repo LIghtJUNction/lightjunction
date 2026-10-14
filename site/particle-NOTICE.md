@@ -17,7 +17,7 @@ Upstream origin: TokenNotIncluded/api.lmm.best, revision
 Its source notices include Copyright (C) 2026 LIghtJUNction and
 Copyright (C) 2023-2026 QuantumNous.
 
-These adapted modules retain AGPL-3.0-or-later, not the repository's MIT header.
+These adapted modules retain AGPL-3.0-or-later, not the repository's AUL license.
 The complete upstream license is available at:
 https://github.com/LIghtJUNction/particle-sculpture-skill/blob/main/LICENSE
 https://www.gnu.org/licenses/agpl-3.0.html

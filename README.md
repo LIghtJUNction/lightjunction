@@ -22,6 +22,7 @@ I build across backend systems, developer tools, and product design. My work con
 
 | Project | What it does |
 | :--- | :--- |
+| **[AUL](https://github.com/LIghtJUNction/AUL)** | Agent-readable upstream feedback license: report confirmed issues, propose improvements, or elect independence. |
 | **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | An open protocol for AI agents to sign in with human permission. |
 | **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | Cross-platform scripts to install and update AI tools. |
 | **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | A reusable skill for interactive particle forms and animated transitions. |
@@ -98,6 +99,10 @@ Please do not send private keys, seed phrases, passwords, recovery codes, or pro
 [GitHub](https://github.com/LIghtJUNction) · [Nexus](https://lightjunction-nexus.lightjunction-me.chatgpt.site/) · [Cursor](https://cursor.com/@lightjunction) · [ChatGPT](https://chatgpt.com/u/lightjunction.me)
 
 </details>
+
+## Licensing
+
+Original material covered by [AUL 1.0-draft.1](LICENSE); previous MIT releases and third-party AGPL/OFL assets keep their existing terms. See [LICENSING.md](LICENSING.md) and [UPSTREAM.toml](UPSTREAM.toml). AUL is a custom draft, not an OSI-approved license.
 
 ---
 

@@ -1,0 +1,7 @@
+# Owner-authorized designation of this original repository as its own upstream.
+# A new fork must not treat copied independence as its own election.
+schema_version = 1
+license = "LicenseRef-AUL-1.0-draft.1"
+repository = "https://github.com/LIghtJUNction/lightjunction"
+mode = "independent"
+upstream = "https://github.com/LIghtJUNction/lightjunction"
