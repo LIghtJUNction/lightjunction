@@ -1,48 +1,44 @@
 <p align="center">
-  <a href="https://api.lmm.best/"><img src="public/readme-hero.svg" alt="LIghtJUNction — сооснователь api.lmm.best" width="100%" /></a>
+  <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — простота, красота, открытость, свобода, шифрование" width="100%" /></a>
 </p>
 
-<p align="center"><a href="README.md">English</a> · <a href="README.zh.md">中文</a> · Русский · <a href="README.ko.md">한국어</a> · <a href="README.ja.md">日本語</a></p>
+[English](README.md) · [中文](README.zh.md) · Русский · [한국어](README.ko.md) · [日本語](README.ja.md)
 
-# Создаю инструменты вокруг ИИ.
+# LIghtJUNction
 
-**Сооснователь [api.lmm.best](https://api.lmm.best/)** — ИИ-платформы, которая объединяет **маркетплейс инструментов**, **ИИ-шлюз** и **поддержку экосистемы**.
+**Простота · Красота · Открытость · Свобода · Шифрование.**
 
-Работаю над серверными системами, инструментами разработчика и дизайном продуктов. Соединяю доступ к моделям, полезные инструменты и пользовательские интерфейсы.
+Сооснователь [api.lmm.best](https://api.lmm.best/). Небольшие инструменты для ИИ, Linux и сетей.
+Здесь работает и мой цифровой помощник; аккаунты и активы принадлежат мне.
 
-**[Открыть платформу](https://api.lmm.best/)** · [Код платформы](https://github.com/TokenNotIncluded/api.lmm.best) · [Связаться](mailto:lightjunction.me@gmail.com)
+## Код
 
-## Одна платформа. Три направления.
+- [HumanGrant](https://github.com/LIghtJUNction/humangrant) — разрешения человека для ИИ-агентов.
+- [LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts) — установка и обновление ИИ-инструментов.
+- [MagicNet](https://github.com/LIghtJUNction/MagicNet) — сетевые инструменты для Android с root.
+- [AUL](https://github.com/LIghtJUNction/AUL) — экспериментальная лицензия с обратной связью upstream.
 
-| Маркетплейс | ИИ-шлюз | Экосистема |
-| :--- | :--- | :--- |
-| Инструменты, расширяющие возможности ИИ. | Доступ к ИИ-моделям через общий API-шлюз. | Скрипты установки, открытые проекты и поддержка разработчиков. |
+[Все проекты](https://github.com/LIghtJUNction?tab=repositories) · [Код платформы](https://github.com/TokenNotIncluded/api.lmm.best) · [Команды](ONLINE-SCRIPTS.md) · [Участие](CONTRIBUTING.md)
 
-## Избранные открытые проекты
+## Зашифрованная связь
 
-| Проект | Назначение |
-| :--- | :--- |
-| **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | Открытый протокол входа ИИ-агентов с разрешения человека. |
-| **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | Кроссплатформенные скрипты установки и обновления ИИ-инструментов. |
-| **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | Переиспользуемый навык для интерактивных форм из частиц и анимированных переходов. |
+[Публичный получатель age](public/age-recipients.txt) · [Публичный ключ OpenPGP](pubkey.asc)
 
-[Демо частиц](https://lightjunction.github.io/particle-sculpture-skill/) · [Скрипты установки](https://api.lmm.best/scripts)
+Установите [age](https://github.com/FiloSottile/age) и [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey), скачайте файл получателя и зашифруйте сообщение локально:
 
-## Ещё из моей работы
+```sh
+age -R age-recipients.txt -o message.txt.age message.txt
+```
 
-<details>
-<summary>Награды и испытания</summary>
+Отправьте `message.txt.age` на **lightjunction.me@gmail.com**. YubiKey нужен только получателю для расшифровки.
+Не отправляйте приватные ключи, пароли или коды восстановления.
 
-На [api.lmm.best](https://api.lmm.best/) можно выполнять задачи с Issue/PR для открытых проектов и получать награды для обмена на токены. Можно публиковать свои задачи, оценивать результаты и запрашивать арбитраж при спорах.
+## Ссылки
+
+[Сайт](https://lightjunction.github.io/lightjunction/) · [Заметки](https://msg.lmm.best/@lightjunction) · [Награды за открытые проекты](https://api.lmm.best/) · [Поддержать](https://donate.lmm.best/?project=lightjunction)
 
 [Испытание I — завершено](https://msg.lmm.best/main/184) · [Испытание II — асимметричный сигнал](https://msg.lmm.best/main/185)
 
-[Команды установки](ONLINE-SCRIPTS.md)
+## Лицензия
 
-</details>
-
----
-
-[Сайт](https://lightjunction.github.io/lightjunction/) · [Почта](mailto:lightjunction.me@gmail.com) · [Зашифрованный контакт](https://lightjunction.github.io/lightjunction/#workbench) · [Поддержать open source](https://donate.lmm.best/?project=lightjunction)
-
-Не отправляйте приватные ключи, seed-фразы, пароли, коды восстановления или рабочие учётные данные.
+Оригинальные материалы используют [AUL 1.0-draft.1](LICENSE), нестандартный проект лицензии без одобрения OSI. Прежние разрешения MIT и условия третьих сторон остаются в силе; см. [LICENSING.md](LICENSING.md).

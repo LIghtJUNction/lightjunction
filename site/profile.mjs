@@ -85,10 +85,3 @@ export function initProfile(root, browser) {
 }
 
 if (typeof document !== 'undefined') initProfile(document, window);
-
-// Keep profile navigation independent: a failed effect must never hide the text.
-if (typeof document !== 'undefined') {
-  import('./particle-text.mjs')
-    .then(({ mountSculpture }) => mountSculpture(document.querySelector('.page')))
-    .catch(error => console.warn('Particle text unavailable; using the HTML profile.', error));
-}

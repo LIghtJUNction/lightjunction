@@ -101,6 +101,6 @@ test('the original profile markup keeps semantic text, links, and translations',
   assert.match(html, /<h1 id="intro-title" data-en="I'm LightJunction"/);
   assert.match(html, /mailto:lightjunction\.me@gmail\.com/);
   assert.match(html, /id="language-toggle"/);
-  assert.match(html, /data-zh="小而有用的软件"/);
+  assert.match(html, /data-en="Encrypted contact" data-zh="加密联系"/);
   assert.doesNotMatch(html, /particle-ready|<canvas/);
 });

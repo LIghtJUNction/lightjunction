@@ -1,48 +1,44 @@
 <p align="center">
-  <a href="https://api.lmm.best/"><img src="public/readme-hero.svg" alt="LIghtJUNction — api.lmm.best 공동 창업자" width="100%" /></a>
+  <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — 간결함, 아름다움, 개방성, 자유, 암호화" width="100%" /></a>
 </p>
 
-<p align="center"><a href="README.md">English</a> · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · 한국어 · <a href="README.ja.md">日本語</a></p>
+[English](README.md) · [中文](README.zh.md) · [Русский](README.ru.md) · 한국어 · [日本語](README.ja.md)
 
-# AI를 위한 도구를 만듭니다.
+# LIghtJUNction
 
-**[api.lmm.best](https://api.lmm.best/) 공동 창업자**입니다. **도구 마켓플레이스**, **AI 게이트웨이**, **AI 생태계 지원**을 하나의 플랫폼으로 연결합니다.
+**간결함 · 아름다움 · 개방성 · 자유 · 암호화.**
 
-백엔드 시스템, 개발 도구, 제품 디자인을 다룹니다. 모델 접근, 유용한 도구, 사용자 인터페이스를 연결해 실제로 사용할 수 있는 제품을 만듭니다.
+[api.lmm.best](https://api.lmm.best/) 공동 창업자. AI, Linux, 네트워크를 위한 작은 도구를 만듭니다.
+이곳은 제 디지털 비서의 작업 공간이기도 하며, 계정과 자산은 제가 소유합니다.
 
-**[플랫폼 방문](https://api.lmm.best/)** · [플랫폼 소스](https://github.com/TokenNotIncluded/api.lmm.best) · [연락하기](mailto:lightjunction.me@gmail.com)
+## 코드
 
-## 하나의 플랫폼, 세 가지 영역.
+- [HumanGrant](https://github.com/LIghtJUNction/humangrant) — AI 에이전트에 대한 사람의 권한 부여.
+- [LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts) — AI 도구 설치와 업데이트.
+- [MagicNet](https://github.com/LIghtJUNction/MagicNet) — 루팅된 Android 기기의 네트워크 도구.
+- [AUL](https://github.com/LIghtJUNction/AUL) — 업스트림 피드백을 위한 라이선스 실험.
 
-| 도구 마켓플레이스 | AI 게이트웨이 | 생태계 지원 |
-| :--- | :--- | :--- |
-| AI의 기능을 넓혀 주는 도구를 찾습니다. | 공통 API 게이트웨이로 AI 모델에 연결합니다. | 설치 스크립트, 오픈소스 프로젝트, 개발자 지원. |
+[모든 프로젝트](https://github.com/LIghtJUNction?tab=repositories) · [플랫폼 소스](https://github.com/TokenNotIncluded/api.lmm.best) · [스크립트 명령](ONLINE-SCRIPTS.md) · [기여 안내](CONTRIBUTING.md)
 
-## 주요 오픈소스 프로젝트
+## 암호화 연락
 
-| 프로젝트 | 하는 일 |
-| :--- | :--- |
-| **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | AI 에이전트가 사람의 허가를 받아 로그인하는 공개 프로토콜. |
-| **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | AI 도구를 설치하고 업데이트하는 크로스플랫폼 스크립트. |
-| **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | 인터랙티브 입자 형태와 전환 효과를 만드는 재사용 가능한 스킬. |
+[age 공개 수신자](public/age-recipients.txt) · [OpenPGP 공개 키](pubkey.asc)
 
-[입자 데모 체험](https://lightjunction.github.io/particle-sculpture-skill/) · [설치 스크립트 보기](https://api.lmm.best/scripts)
+[age](https://github.com/FiloSottile/age)와 [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey)를 설치하고 수신자 파일을 내려받은 뒤 로컬에서 암호화하세요.
 
-## 그 밖의 작업
+```sh
+age -R age-recipients.txt -o message.txt.age message.txt
+```
 
-<details>
-<summary>오픈소스 바운티와 챌린지</summary>
+`message.txt.age`를 **lightjunction.me@gmail.com**으로 보내세요. YubiKey는 수신자가 복호화할 때만 필요합니다.
+개인키, 비밀번호, 복구 코드는 보내지 마세요.
 
-[api.lmm.best](https://api.lmm.best/)에서 실제 오픈소스 Issue/PR 작업을 수행하고 토큰으로 교환할 수 있는 보상을 받으세요. 직접 작업을 등록할 수도 있습니다. 결과를 평가하거나 분쟁 시 중재를 요청할 수 있습니다.
+## 링크
 
-[챌린지 I — 수령 완료](https://msg.lmm.best/main/184) · [챌린지 II — 비대칭 신호](https://msg.lmm.best/main/185)
+[웹사이트](https://lightjunction.github.io/lightjunction/) · [기록](https://msg.lmm.best/@lightjunction) · [오픈소스 현상금](https://api.lmm.best/) · [후원](https://donate.lmm.best/?project=lightjunction)
 
-[설치 명령 모음](ONLINE-SCRIPTS.md)
+[챌린지 I — 완료](https://msg.lmm.best/main/184) · [챌린지 II — 비대칭 신호](https://msg.lmm.best/main/185)
 
-</details>
+## 라이선스
 
----
-
-[웹사이트](https://lightjunction.github.io/lightjunction/) · [이메일](mailto:lightjunction.me@gmail.com) · [암호화 연락](https://lightjunction.github.io/lightjunction/#workbench) · [오픈소스 후원](https://donate.lmm.best/?project=lightjunction)
-
-개인키, 시드 문구, 비밀번호, 복구 코드, 운영 환경 인증 정보는 보내지 마세요.
+원본 자료에는 OSI 승인을 받지 않은 자체 초안 [AUL 1.0-draft.1](LICENSE)이 적용됩니다. 기존 MIT 허가와 제3자 라이선스는 계속 유효합니다. [LICENSING.md](LICENSING.md)를 참고하세요.

@@ -1,48 +1,44 @@
 <p align="center">
-  <a href="https://api.lmm.best/"><img src="public/readme-hero.svg" alt="LIghtJUNction — api.lmm.best 共同創業者" width="100%" /></a>
+  <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — 簡潔、美しさ、オープン、自由、暗号化" width="100%" /></a>
 </p>
 
-<p align="center"><a href="README.md">English</a> · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · <a href="README.ko.md">한국어</a> · 日本語</p>
+[English](README.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · 日本語
 
-# AI を支える道具をつくる。
+# LIghtJUNction
 
-**[api.lmm.best](https://api.lmm.best/) 共同創業者**。**ツールマーケットプレイス**、**AI ゲートウェイ**、**AI エコシステム支援**を一つのプラットフォームにまとめています。
+**簡潔 · 美しさ · オープン · 自由 · 暗号化。**
 
-バックエンド、開発ツール、プロダクトデザインに取り組んでいます。モデルへの接続、便利なツール、ユーザーインターフェースを、実際に使える製品へつなげます。
+[api.lmm.best](https://api.lmm.best/) 共同創業者。AI、Linux、ネットワークのための小さなツールを作っています。
+ここは私のデジタルアシスタントの作業場でもあり、アカウントと資産は私が所有しています。
 
-**[プラットフォーム](https://api.lmm.best/)** · [プラットフォームのソース](https://github.com/TokenNotIncluded/api.lmm.best) · [連絡する](mailto:lightjunction.me@gmail.com)
+## コード
 
-## 一つのプラットフォーム、三つの領域。
+- [HumanGrant](https://github.com/LIghtJUNction/humangrant) — AI エージェントへの人による権限付与。
+- [LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts) — AI ツールのインストールと更新。
+- [MagicNet](https://github.com/LIghtJUNction/MagicNet) — root 化した Android 向けのネットワークツール。
+- [AUL](https://github.com/LIghtJUNction/AUL) — 上流へのフィードバックを扱うライセンスの実験。
 
-| ツール市場 | AI ゲートウェイ | エコシステム支援 |
-| :--- | :--- | :--- |
-| AI の可能性を広げるツールを見つける。 | 共通の API ゲートウェイから AI モデルへ接続。 | インストールスクリプト、オープンソース活動、開発者支援。 |
+[全プロジェクト](https://github.com/LIghtJUNction?tab=repositories) · [プラットフォームのソース](https://github.com/TokenNotIncluded/api.lmm.best) · [スクリプトのコマンド](ONLINE-SCRIPTS.md) · [貢献ガイド](CONTRIBUTING.md)
 
-## 主なオープンソースプロジェクト
+## 暗号化して連絡
 
-| プロジェクト | 何をするものか |
-| :--- | :--- |
-| **[HumanGrant](https://github.com/LIghtJUNction/humangrant)** | AI エージェントが人の許可を得てログインするためのオープンプロトコル。 |
-| **[LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts)** | AI ツールを導入・更新するクロスプラットフォームのスクリプト。 |
-| **[Particle Sculpture](https://github.com/LIghtJUNction/particle-sculpture-skill)** | インタラクティブな粒子表現とアニメーション遷移を作る再利用可能なスキル。 |
+[age 公開受信者](public/age-recipients.txt) · [OpenPGP 公開鍵](pubkey.asc)
 
-[粒子デモを試す](https://lightjunction.github.io/particle-sculpture-skill/) · [インストールスクリプト](https://api.lmm.best/scripts)
+[age](https://github.com/FiloSottile/age) と [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey) をインストールし、受信者ファイルをダウンロードしてローカルで暗号化します。
 
-## その他の活動
+```sh
+age -R age-recipients.txt -o message.txt.age message.txt
+```
 
-<details>
-<summary>オープンソース報奨金とチャレンジ</summary>
+`message.txt.age` を **lightjunction.me@gmail.com** に送ってください。YubiKey が必要なのは受信者が復号するときだけです。
+秘密鍵、パスワード、復旧コードは送らないでください。
 
-[api.lmm.best](https://api.lmm.best/) では、実際のオープンソースの Issue/PR 作業で、トークンに交換できる報酬を獲得できます。自分のタスクの公開、結果の評価、紛争時の仲裁申請もできます。
+## リンク
 
-[チャレンジ I — 取得済み](https://msg.lmm.best/main/184) · [チャレンジ II — 非対称シグナル](https://msg.lmm.best/main/185)
+[ウェブサイト](https://lightjunction.github.io/lightjunction/) · [記録](https://msg.lmm.best/@lightjunction) · [オープンソースの報奨](https://api.lmm.best/) · [支援](https://donate.lmm.best/?project=lightjunction)
 
-[インストールコマンド集](ONLINE-SCRIPTS.md)
+[チャレンジ I — 終了](https://msg.lmm.best/main/184) · [チャレンジ II — 非対称シグナル](https://msg.lmm.best/main/185)
 
-</details>
+## ライセンス
 
----
-
-[ウェブサイト](https://lightjunction.github.io/lightjunction/) · [メール](mailto:lightjunction.me@gmail.com) · [暗号化連絡](https://lightjunction.github.io/lightjunction/#workbench) · [オープンソースを支援](https://donate.lmm.best/?project=lightjunction)
-
-秘密鍵、シードフレーズ、パスワード、復旧コード、本番環境の認証情報は送らないでください。
+オリジナルの内容には、OSI 未承認の独自草案 [AUL 1.0-draft.1](LICENSE) を適用しています。以前の MIT 許諾と第三者のライセンスは引き続き有効です。[LICENSING.md](LICENSING.md) を参照してください。

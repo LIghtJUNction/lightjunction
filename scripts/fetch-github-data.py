@@ -5,7 +5,7 @@
 #   "requests>=2.32.0",
 # ]
 # ///
-"""Generate the ranked GitHub project-card JSON consumed by the website."""
+"""Manually refresh the ranked project-card snapshot for the archived portfolio."""
 
 from __future__ import annotations
 

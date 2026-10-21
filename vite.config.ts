@@ -7,12 +7,13 @@ export default defineConfig({
     base: '/lightjunction/',
     publicDir: false,
     plugins: [{
-        name: 'public-contact-keys',
+        name: 'public-downloads',
         generateBundle() {
-            // Preserve published contact downloads without copying old sites.
+            // Keep public keys and the original challenge available verbatim.
             for (const [fileName, sourcePath] of [
                 ['pubkey.asc', './pubkey.asc'],
                 ['age-recipients.txt', './public/age-recipients.txt'],
+                ['junction-ii.png', './public/junction-ii.png'],
             ]) {
                 this.emitFile({
                     type: 'asset', fileName,

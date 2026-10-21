@@ -96,5 +96,5 @@ test('game entry is local, accessible, and points to the preserved archive',asyn
   for(const id of ['voxel-world','start-button','pause-button','resume-button','joystick','dash-button','pulse-button','help-dialog','fallback'])assert.ok(ids.includes(id));
   assert.ok(html.includes('./archive.html'));assert.ok(html.includes('<noscript>'));assert.ok(html.includes('aria-live="polite"'));
   assert.ok(!/<script[^>]*src="https?:/.test(html));
-  const config=await readFile(new URL('../vite.config.ts',import.meta.url),'utf8');assert.ok(config.includes("archive: 'archive.html'"));
+  assert.ok((await readFile(new URL('../archive.html',import.meta.url),'utf8')).includes('/src/terminal.ts'));
 });

@@ -1,5 +1,9 @@
 # TOKEN DRIFT
 
+Historical experiment. The published site now uses the [static profile](profile-redesign.md).
+Run `npm run test:legacy` for the retained game sources. The original deployment
+and browser observations below describe that earlier version.
+
 A small, playable voxel world at the site's front door. The courier gathers a cloud of tokens, restores three beacons, and returns home. The original portfolio, terminal, encrypted contact flow and Challenge II remain in `archive.html`; its initial contents are an exact copy of the previous homepage. Existing fragment links are forwarded to that archive. No challenge assets or cryptographic construction are changed.
 
 ## Play

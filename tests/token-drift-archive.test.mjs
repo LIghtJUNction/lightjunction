@@ -29,13 +29,8 @@ test('battle return navigation changes without modifying simulation mounts',()=>
   const html=battlefieldChrome(game);assert.ok(html.includes('href="./#home"'));assert.ok(html.includes('href="./#contact"'));
   assert.equal(html.slice(html.indexOf('<canvas')),game.slice(game.indexOf('<canvas')));
 });
-test('both website addresses build the same world, and combat has its own stable address',()=>{
-  const config=read('vite.config.ts');for(const marker of ["order: 'pre'","file === 'index.html' || file === 'archive.html'",'junctionPage(shell, archive)',"frontier: 'frontier.html'","archive: 'archive.html'"])assert.ok(config.includes(marker),marker);
-  const html=read('index.html');for(const id of ['junction-scene','world-dock','station-dialog','map-dialog','settings-dialog','startup-fallback'])assert.ok(html.includes(`id="${id}"`));
-  assert.ok(html.includes('<noscript>'));assert.ok(!html.includes('frontier-app.mjs'));assert.ok(!html.includes('story-wall'));
-});
-test('real protected source survives the shipped transform exactly',()=>{
-  const original=read('archive.html'),html=junctionPage(read('index.html'),original);
+test('real protected source survives the retained transform exactly',()=>{
+  const original=read('archive.html'),html=junctionPage(shell,original);
   for(const id of ['model','challenge-two','shaders','secure-card','result-overlay'])assert.equal(extractSection(html,id),extractSection(original,id));
   const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length);
   for(const marker of ['secure-message','encrypt-now','result-copy','result-github','result-close','data-shader-engine="singularity"','data-shader-engine="ink"','data-shader-engine="fold"','./junction-ii.png'])assert.ok(html.includes(marker),marker);

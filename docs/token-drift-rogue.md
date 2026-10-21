@@ -1,5 +1,9 @@
 # TOKEN FRONTIER — endless defense
 
+Historical experiment. The published site now uses the [static profile](profile-redesign.md).
+Run `npm run test:legacy` for the retained game sources. The deployment details
+below describe the original experiment.
+
 `index.html` and the existing `rogue.html` URL now launch the same endless game. There is no extraction or final wave. A run ends only when the base reaches zero HP. Every fifth wave contains another NULL boss; killing it never ends the run. The previous finite simulation modules remain solely for compatibility tests, not as active website entrypoints.
 
 ## Play loop

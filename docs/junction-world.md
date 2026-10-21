@@ -1,5 +1,9 @@
 # THE JUNCTION — the website is the world
 
+Historical experiment. The published site now uses the [static profile](profile-redesign.md).
+The retained simulation and transform are checked with `npm run test:legacy`;
+the build and deployment descriptions below describe the original experiment.
+
 The index and the previous `archive.html` URL now mount one navigable overworld,
 not a combat landing page followed by a scrolling portfolio. Projects, identity,
 shaders, the command console, encrypted contact, and Challenge II are facilities

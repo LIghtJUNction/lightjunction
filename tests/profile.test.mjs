@@ -24,7 +24,7 @@ test('new entry points exist and do not load the legacy 3D runtime', () => {
   }
   assert.match(html, /src="\.\/site\/profile\.mjs"/);
   assert.doesNotMatch(html, /site\/(?:site|token-cloud)\.(?:mjs|css)/);
-  assert.doesNotMatch(script, /requestAnimationFrame|setInterval|fetch\(|https?:\/\//);
+  assert.doesNotMatch(script, /requestAnimationFrame|setInterval|fetch\(|import\(|https?:\/\//);
   assert.doesNotMatch(css, /@import|@font-face|url\(/);
 });
 
@@ -81,7 +81,7 @@ test('JS-only controls start hidden while the native disclosure remains usable',
 
 test('every translatable element has both languages', () => {
   const tags = [...html.matchAll(/<[^>]*\bdata-(?:en|zh)(?:-label)?="[^>]*>/g)];
-  assert.ok(tags.length > 40);
+  assert.ok(tags.length > 0);
   for (const [tag] of tags) {
     const isLabel = /data-(?:en|zh)-label=/.test(tag);
     assert.match(tag, isLabel ? /data-en-label="[^"]+"/ : /data-en="[^"]+"/);

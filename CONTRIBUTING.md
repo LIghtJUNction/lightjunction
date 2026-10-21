@@ -33,8 +33,18 @@ scripts/check-frontend.sh   # npm run check (typecheck + build)
 - Keep changes scoped and explain the user-visible reason.
 - Do not commit generated files from `dist/`, `logs/`, caches, or local env
   files.
-- Treat README dynamic sections as generated output unless the change is about
-  the renderer itself.
+- Keep the README stable and concise; link to notes instead of embedding feeds.
+
+## Repository map
+
+- `index.html` and `site/profile.*`: the published static profile.
+- `src/`, the other HTML pages, and `site/particle-*`: retained experiments;
+  they are not shipped with the profile. Run `npm run test:legacy` to check them.
+- `scripts/` and the root shell scripts: local tools and setup helpers.
+- `.agents/skills/` and `AGENTS.md`: assistant workflows and operating rules.
+
+Only CI and Pages deployment run automatically. The historical project-card
+snapshot can be refreshed manually with `uv run scripts/fetch-github-data.py`.
 
 ## Licensing and upstream feedback
 
