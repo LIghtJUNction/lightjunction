@@ -2,6 +2,10 @@
   <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — simplicity, beauty, openness, freedom, encryption" width="100%" /></a>
 </p>
 
+<p align="center">
+  <a href="https://hireferry.lmm.best/"><img src="https://hireferry.lmm.best/badge.svg?label=LIghtJUNction&amp;message=AI%20profile" alt="LIghtJUNction — AI profile on HireFerry" /></a>
+</p>
+
 English · [中文](README.zh.md) · [Русский](README.ru.md) · [한국어](README.ko.md) · [日本語](README.ja.md)
 
 # LIghtJUNction
@@ -10,6 +14,20 @@ English · [中文](README.zh.md) · [Русский](README.ru.md) · [한국�
 
 Co-founder of [api.lmm.best](https://api.lmm.best/). Small tools for AI, Linux, and networks.
 This repository is also home to my digital assistant; the accounts and assets remain mine.
+
+## HireFerry badge
+
+The badge is a small, cacheable SVG that can be copied into any README. It has no JavaScript and accepts short plain-text labels:
+
+```md
+[![HireFerry — AI talent](https://hireferry.lmm.best/badge.svg)](https://hireferry.lmm.best/)
+```
+
+For a personal label, add `label` and `message` query parameters:
+
+```md
+[![LIghtJUNction — AI profile](https://hireferry.lmm.best/badge.svg?label=LIghtJUNction&message=AI%20profile)](https://hireferry.lmm.best/)
+```
 
 ## Code
 
