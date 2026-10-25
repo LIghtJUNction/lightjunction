@@ -14,6 +14,7 @@
 ## Код
 
 - [HumanGrant](https://github.com/LIghtJUNction/humangrant) — разрешения человека для ИИ-агентов.
+- [Stream Check](https://github.com/LIghtJUNction/Inspiration) — локальное сравнение потоков Chat Completions для поиска потерянных вызовов инструментов. [Пример](https://lightjunction.github.io/Inspiration/?example=gateway).
 - [LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts) — установка и обновление ИИ-инструментов.
 - [MagicNet](https://github.com/LIghtJUNction/MagicNet) — сетевые инструменты для Android с root.
 - [AUL](https://github.com/LIghtJUNction/AUL) — экспериментальная лицензия с обратной связью upstream.

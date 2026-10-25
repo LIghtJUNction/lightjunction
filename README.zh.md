@@ -14,6 +14,7 @@
 ## 代码
 
 - [HumanGrant](https://github.com/LIghtJUNction/humangrant) — 让 AI Agent 获得人的授权。
+- [Stream Check](https://github.com/LIghtJUNction/Inspiration) — 在本机对比 Chat Completions 流记录，检查丢失的工具调用。[运行示例](https://lightjunction.github.io/Inspiration/?example=gateway)。
 - [LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts) — 安装和更新 AI 工具。
 - [MagicNet](https://github.com/LIghtJUNction/MagicNet) — Android root 设备的网络工具。
 - [AUL](https://github.com/LIghtJUNction/AUL) — 一项关于上游反馈的许可证实验。

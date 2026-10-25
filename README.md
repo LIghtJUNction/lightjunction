@@ -32,6 +32,7 @@ For a personal label, add `label` and `message` query parameters:
 ## Code
 
 - [HumanGrant](https://github.com/LIghtJUNction/humangrant) — human permission for AI agents.
+- [Stream Check](https://github.com/LIghtJUNction/Inspiration) — find lost tool calls by comparing captured Chat Completions streams locally. [Try it](https://lightjunction.github.io/Inspiration/?example=gateway).
 - [LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts) — install and update AI tools.
 - [MagicNet](https://github.com/LIghtJUNction/MagicNet) — networking tools for rooted Android.
 - [AUL](https://github.com/LIghtJUNction/AUL) — an upstream-feedback license experiment.

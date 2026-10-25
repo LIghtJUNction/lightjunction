@@ -14,6 +14,7 @@
 ## 코드
 
 - [HumanGrant](https://github.com/LIghtJUNction/humangrant) — AI 에이전트에 대한 사람의 권한 부여.
+- [Stream Check](https://github.com/LIghtJUNction/Inspiration) — Chat Completions 스트림 기록을 로컬에서 비교해 누락된 도구 호출을 찾습니다. [예제 실행](https://lightjunction.github.io/Inspiration/?example=gateway).
 - [LMM Scripts](https://github.com/TokenNotIncluded/lmm-scripts) — AI 도구 설치와 업데이트.
 - [MagicNet](https://github.com/LIghtJUNction/MagicNet) — 루팅된 Android 기기의 네트워크 도구.
 - [AUL](https://github.com/LIghtJUNction/AUL) — 업스트림 피드백을 위한 라이선스 실험.
