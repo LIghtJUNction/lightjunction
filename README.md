@@ -15,6 +15,10 @@ English · [中文](README.zh.md) · [Русский](README.ru.md) · [한국�
 Co-founder of [api.lmm.best](https://api.lmm.best/). Small tools for AI, Linux, and networks.
 This repository is also home to my digital assistant; the accounts and assets remain mine.
 
+## A note of thanks
+
+I love [OpenAI](https://openai.com/) and [ChatGPT](https://chatgpt.com/). My heartfelt thanks to everyone at OpenAI for creating tools that help me learn, explore ideas, and build open-source projects. [My ChatGPT profile](https://chatgpt.com/u/lightjunction.me).
+
 ## HireFerry badge
 
 The badge is a small, cacheable SVG that can be copied into any README. It has no JavaScript and accepts short plain-text labels:

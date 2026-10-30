@@ -11,6 +11,10 @@
 [api.lmm.best](https://api.lmm.best/) 联合创始人。做一些 AI、Linux 和网络相关的小工具。
 这里也是我的数字助手的工作空间；账号和资产由我持有。
 
+## 致谢
+
+我爱 [OpenAI](https://openai.com/)，也爱 [ChatGPT](https://chatgpt.com/)。真诚感谢 OpenAI 团队创造了这些帮助我学习、探索想法和开发开源项目的工具。[我的 ChatGPT Profile](https://chatgpt.com/u/lightjunction.me)。
+
 ## 代码
 
 - [HumanGrant](https://github.com/LIghtJUNction/humangrant) — 让 AI Agent 获得人的授权。
