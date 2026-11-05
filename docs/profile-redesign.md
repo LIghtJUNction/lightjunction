@@ -85,8 +85,8 @@ the published profile entry point.
 
 ## Verification
 
-The following commands define the verification procedure; this document does
-not report that they have passed:
+The following commands define the verification procedure. Results for the
+delivered implementation are recorded below.
 
 ```sh
 npm run test:site
@@ -110,17 +110,44 @@ scrolling, and readable text during construction. Also check keyboard access,
 Escape/outside-click dismissal, clipboard success and denial, language changes
 during a pending copy, storage denial, disabled JavaScript, unavailable Canvas,
 reduced motion, forced colors, background tabs, and back/forward restoration.
-Record actual results separately from this implementation description.
+Use the results below to distinguish completed checks from this broader review
+matrix.
+
+### Delivery evidence — November 6, 2026
+
+The implementation and lifecycle tests are committed at
+[`eb59436`](https://github.com/LIghtJUNction/lightjunction/commit/eb594361cc5054705c6782c5495aa1d4a5d1da08).
+Local `npm run check` passed: TypeScript checking, six crypto/public-key tests,
+26 profile/swarm tests, and the Vite production build. The public downloads and
+the two shipped font license files match their source bytes. No runtime
+dependencies were added.
+
+[GitHub CI](https://github.com/LIghtJUNction/lightjunction/actions/runs/42065877946)
+and [Pages deployment](https://github.com/LIghtJUNction/lightjunction/actions/runs/42065878045)
+both succeeded for that commit. The full Python suite passes in CI. Locally,
+184 Python tests passed; the remaining GnuPG integration test could not start
+`gpg-agent` in the execution environment. Its assertion and CI coverage remain
+intact. The existing README link check now accepts both HTML and Markdown links
+while continuing to require every language destination.
+
+The published site was inspected at a 1363 × 936 CSS-pixel viewport in English
+and Chinese. Neither language caused horizontal page overflow. Recompose and
+reload produced new seeds and different project orders while preserving all
+four links. Scrolling changed the active swarm section from `about` to `work`.
+Pause/resume controls, email-copy feedback, and Escape dismissal with restored
+menu focus worked. Automated lifecycle tests cover reduced motion, suspended
+pages, Canvas failure, cleanup, and touch-pointer cancellation. Narrow-screen
+and physical-device visual checks are not included in this browser evidence.
 
 ## Claim and evidence review
 
 | Claim | Evidence to inspect | Status |
 | --- | --- | --- |
-| Content remains prepared and reachable. | `index.html`, `site/profile.mjs`; no-JS and link checks. | Source structure supports the design; browser checks required. |
-| Each visit can vary the presentation. | Fresh seed, scene variants, project shuffle, and entrance delays in the swarm modules. | Implemented mechanism; repeated-visit review required. |
-| The viewport and pointer affect the swarm. | Measured targets, pointer inputs, and swarm stepping. | Code path available for inspection; interaction review required. |
-| Motion can stop without blocking reading. | Motion preference, lifecycle handlers, CSS fallbacks. | Code path available for inspection; lifecycle review required. |
-| Public artifacts retain their bytes. | Source diff and the three `cmp` commands above. | Requires verification on the release build. |
+| Content remains prepared and reachable. | Static-content/link tests and the published English/Chinese page. | Verified. |
+| Each visit can vary the presentation. | Seeded-model tests and published Recompose/reload observations. | Verified. |
+| The viewport and pointer affect the swarm. | Pointer-model tests and the published active-section observation. | Verified within the stated test coverage. |
+| Motion can stop without blocking reading. | Lifecycle tests and the published pause control. | Verified. |
+| Public artifacts retain their bytes. | Source diff and built-output `cmp` checks. | Verified. |
 
 Self-review follows the requested
 [Research Paper Writing skill](https://github.com/Master-cai/Research-Paper-Writing-Skills/blob/main/research-paper-writing/SKILL.md):
@@ -129,8 +156,9 @@ Self-review follows the requested
   content; it makes no AI-generation or algorithmic-novelty claim.
 - **Clarity:** arrangement, targets, construction, and pointer response each
   have one defined role and a corresponding source location.
-- **Evidence:** code descriptions are separated from unreported test results
-  and performance measurements.
-- **Coverage:** browser checks include both interaction and failure paths.
+- **Evidence:** reported results identify the commit, commands, and observation
+  surface; no frame-rate or device-performance measurements are claimed.
+- **Coverage:** automated checks include interaction and failure paths; the
+  browser evidence states its viewport and remaining device-review limits.
 - **Design soundness:** static content, native controls, bounded variation, and
-  pause behavior constrain the decoration; visual quality still needs review.
+  pause behavior constrain the decoration; desktop composition was reviewed.
