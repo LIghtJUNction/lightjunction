@@ -1,10 +1,8 @@
-// Pure motion model. Positions use CSS pixels and all times use seconds.
-const TAU = Math.PI * 2;
-const MAX_PARTICLES = 64;
-const NEIGHBORS = 12;
+// Pure construction choreography. Positions use CSS pixels; time uses milliseconds.
 const finite = (value, fallback = 0) => Number.isFinite(value) ? value : fallback;
 const clamp = (value, minimum, maximum) => Math.max(minimum, Math.min(maximum, value));
-const dimension = value => Math.max(1, finite(value, 1));
+const mix = (from, to, progress) => from + (to - from) * progress;
+const ease = progress => progress * progress * (3 - 2 * progress);
 
 export function createRandom(seed = 0) {
   let state = 2166136261;
@@ -38,99 +36,130 @@ export function createScene(seed, sectionIndex = 0) {
   };
 }
 
-export function createSwarm({ seed = 0, count = 48, width = 1, height = 1 } = {}) {
-  const random = createRandom(`${seed}:swarm`);
-  const w = dimension(width);
-  const h = dimension(height);
-  const length = clamp(Math.floor(finite(count, 48)), 0, MAX_PARTICLES);
-  return Array.from({ length }, (_, id) => {
-    const phase = random() * TAU;
-    return {
-      id,
-      x: random() * w,
-      y: random() * h,
-      vx: Math.cos(phase) * 24,
-      vy: Math.sin(phase) * 24,
-      phase,
-      hue: Math.floor(random() * 360),
-      size: 0.8 + random() * 0.4,
-      group: id % 6,
-      burst: 0,
-      wasPressed: false,
-    };
-  });
+function measuredRect(rect = {}) {
+  return {
+    left: clamp(finite(rect?.left), -100000, 100000),
+    top: clamp(finite(rect?.top), -100000, 100000),
+    width: clamp(finite(rect?.width, 1), 1, 100000),
+    height: clamp(finite(rect?.height, 1), 1, 100000),
+  };
 }
 
-export function stepSwarm(particles, {
-  dt = 1 / 60, time = 0, width = 1, height = 1,
-  pointer = {}, targets = [], progress = 1,
-} = {}) {
-  const step = clamp(finite(dt), 0, 0.05);
-  const clock = finite(time);
-  const w = dimension(width);
-  const h = dimension(height);
-  const points = (Array.isArray(targets) ? targets : [])
-    .filter(point => Number.isFinite(point?.x) && Number.isFinite(point?.y))
-    .slice(0, MAX_PARTICLES);
-  const source = (Array.isArray(particles) ? particles : []).slice(0, MAX_PARTICLES);
-  const pressed = Boolean(pointer?.pressed);
-  const active = Boolean(pointer?.active) && Number.isFinite(pointer?.x) && Number.isFinite(pointer?.y);
-  const assembly = clamp(finite(progress, 1), 0, 1);
-  // Cap the population and sample at most 12 neighbors per cursor: O(n * 12).
-  return source.map((particle, index) => {
-    const phase = finite(particle.phase, index * 2.399963);
-    const x = clamp(finite(particle.x, w / 2), 0, w);
-    const y = clamp(finite(particle.y, h / 2), 0, h);
-    let vx = finite(particle.vx);
-    let vy = finite(particle.vy);
-    const burst = pressed && !particle.wasPressed ? 0.38 : Math.max(0, finite(particle.burst) - step);
-    const target = points[index % points.length];
-    const orbit = clock * 0.65 + phase;
-    const tx = target ? clamp(target.x, 0, w) : w * (0.5 + Math.cos(orbit * 0.47) * 0.28);
-    const ty = target ? clamp(target.y, 0, h) : h * (0.5 + Math.sin(orbit * 0.39) * 0.28);
-    const spring = 3.4 + assembly * 1.6;
-    let ax = (tx + Math.cos(orbit) * 9 - x) * spring;
-    let ay = (ty + Math.sin(orbit) * 9 - y) * spring;
-    const neighbors = Math.min(NEIGHBORS, source.length - 1);
-    for (let j = 1; j <= neighbors; j += 1) {
-      const other = source[(index + j) % source.length];
-      let dx = x - finite(other.x, w / 2);
-      let dy = y - finite(other.y, h / 2);
-      const distance = Math.hypot(dx, dy);
-      if (distance >= 32) continue;
-      if (distance < 0.001) {
-        dx = Math.cos(phase + j);
-        dy = Math.sin(phase + j);
-      }
-      const force = (1 - Math.min(distance, 32) / 32) * 105 / Math.max(1, distance);
-      ax += dx * force;
-      ay += dy * force;
+/** A finite job, not an orbit: approach → drag a frame → reveal its content → leave. */
+export function createBuildTask({ seed = 0, index = 0, rect, kind = 'text', origin } = {}) {
+  const bounds = measuredRect(rect);
+  const type = ['text', 'card', 'line'].includes(kind) ? kind : 'text';
+  const random = createRandom(`${seed}:build:${index}:${type}`);
+  const duration = (minimum, variation) => Math.round(minimum + random() * variation);
+  const durations = type === 'line'
+    ? { approach: duration(220, 80), frame: duration(620, 140), write: 0, settle: duration(150, 40) }
+    : type === 'card'
+      ? { approach: duration(310, 90), frame: duration(700, 140), write: duration(850, 130), settle: duration(220, 40) }
+      : { approach: duration(280, 80), frame: duration(580, 120), write: duration(800, 100), settle: duration(180, 40) };
+  return {
+    kind: type,
+    rect: bounds,
+    durations,
+    duration: Object.values(durations).reduce((sum, value) => sum + value, 0),
+    color: Math.floor(random() * 6),
+    // Keep approach paths attached to the measured element when the page scrolls.
+    originOffset: {
+      x: finite(origin?.x, Math.max(8, bounds.left - 60 - random() * 60)) - bounds.left,
+      y: finite(origin?.y, Math.max(8, bounds.top - 25 - random() * 50)) - bounds.top,
+    },
+  };
+}
+
+function blank(stage, reveal = 0, opacity = 1) {
+  return { stage, reveal, done: stage === 'done', opacity, cursors: [], lines: [], box: null, handles: [], caret: null, rowIndex: null };
+}
+
+function cursor(task, x, y, role, pressed = true, offset = 0) {
+  return { x, y, role, pressed, color: (task.color + offset) % 6 };
+}
+
+function drag(task, rect, progress) {
+  const { left, top, width, height } = rect;
+  if (task.kind === 'line') {
+    const y = top + height / 2;
+    const end = { x: left + width * progress, y };
+    return {
+      ...blank('frame', progress),
+      cursors: [cursor(task, end.x, end.y, 'frame'), cursor(task, left, y, 'align', true, 1)],
+      lines: [{ x1: left, y1: y, x2: end.x, y2: end.y, role: 'draw' }],
+      handles: [{ x: left, y }, end],
+    };
+  }
+  const box = { left, top, width: width * progress, height: height * progress };
+  const right = left + box.width;
+  const bottom = top + box.height;
+  const result = {
+    ...blank('frame'),
+    box,
+    cursors: [cursor(task, right, bottom, 'frame'), cursor(task, right, top, 'align', true, 1)],
+    lines: [{ x1: left - 16, y1: top, x2: right, y2: top, role: 'guide' }],
+    handles: [{ x: left, y: top }, { x: right, y: top }, { x: right, y: bottom }, { x: left, y: bottom }],
+  };
+  if (task.kind === 'card') {
+    result.cursors.push(cursor(task, left, bottom, 'align', true, 2));
+    result.lines.push({ x1: left, y1: top - 16, x2: left, y2: bottom, role: 'guide' });
+  }
+  return result;
+}
+
+function write(task, rect, progress) {
+  const { left, top, width, height } = rect;
+  const result = drag(task, rect, 1);
+  const x = left + width * progress;
+  result.stage = 'write';
+  result.reveal = progress;
+  result.caret = { x, y: top, height };
+  // Range-measured text rows let the cursor type successive lines, not wipe a paragraph.
+  const rows = task.kind === 'text' && Array.isArray(task.rows)
+    ? task.rows.filter(row => row && Number.isFinite(row.width) && row.width > 0 && Number.isFinite(row.height) && row.height > 0).map(measuredRect)
+    : [];
+  if (rows.length) {
+    let remaining = rows.reduce((sum, row) => sum + row.width, 0) * progress;
+    let index = 0;
+    while (index < rows.length - 1 && remaining >= rows[index].width) {
+      remaining -= rows[index].width;
+      index += 1;
     }
-    if (active) {
-      let dx = pointer.x - x;
-      let dy = pointer.y - y;
-      const distance = Math.hypot(dx, dy);
-      const reach = burst > 0 ? 280 : 220;
-      if (distance < reach) {
-        if (distance < 0.001) {
-          dx = Math.cos(phase);
-          dy = Math.sin(phase);
-        }
-        const strength = burst > 0 ? -1800 * burst / 0.38 : 360;
-        const force = strength * (1 - distance / reach) / Math.max(1, distance);
-        ax += dx * force;
-        ay += dy * force;
-      }
+    const row = rows[index];
+    result.rowIndex = index;
+    result.caret = { x: left + row.left + clamp(remaining, 0, row.width), y: top + row.top, height: row.height };
+  }
+  result.cursors = [
+    cursor(task, result.caret.x, result.caret.y + result.caret.height, 'type'),
+    cursor(task, left + width, top, 'align', false, 1),
+  ];
+  return result;
+}
+
+/** Sample the same timeline for both DOM visibility and the workers drawing it. */
+export function sampleBuildTask(task, elapsedMs = 0) {
+  const elapsed = elapsedMs === Infinity ? task.duration : Math.max(0, finite(elapsedMs));
+  if (elapsed >= task.duration) return blank('done', 1, 0);
+  const rect = measuredRect(task.rect);
+  const { approach, frame, write: writing, settle } = task.durations;
+  if (elapsed < approach) {
+    const progress = ease(elapsed / approach);
+    const result = blank('approach', 0, clamp(elapsed / Math.min(100, approach), 0, 1));
+    const destination = { x: rect.left, y: rect.top + (task.kind === 'line' ? rect.height / 2 : 0) };
+    const count = task.kind === 'card' ? 3 : 2;
+    for (let index = 0; index < count; index += 1) {
+      result.cursors.push(cursor(task,
+        mix(rect.left + task.originOffset.x + index * 22, destination.x, progress),
+        mix(rect.top + task.originOffset.y + index * 18, destination.y, progress),
+        index === 0 ? 'frame' : 'align', false, index));
     }
-    const damping = Math.exp(-3.2 * step);
-    vx = (vx + ax * step) * damping;
-    vy = (vy + ay * step) * damping;
-    const speed = Math.hypot(vx, vy);
-    if (speed > 240) { vx *= 240 / speed; vy *= 240 / speed; }
-    const nextX = clamp(x + vx * step, 0, w);
-    const nextY = clamp(y + vy * step, 0, h);
-    if ((nextX === 0 && vx < 0) || (nextX === w && vx > 0)) vx *= -0.3;
-    if ((nextY === 0 && vy < 0) || (nextY === h && vy > 0)) vy *= -0.3;
-    return { ...particle, x: nextX, y: nextY, vx, vy, phase, burst, wasPressed: pressed };
-  });
+    return result;
+  }
+  if (elapsed < approach + frame) return drag(task, rect, ease((elapsed - approach) / frame));
+  if (elapsed < approach + frame + writing) return write(task, rect, ease((elapsed - approach - frame) / writing));
+  const result = task.kind === 'line' ? drag(task, rect, 1) : write(task, rect, 1);
+  result.stage = 'settle';
+  result.opacity = 1 - ease(clamp((elapsed - approach - frame - writing) / settle, 0, 1));
+  result.cursors = result.cursors.map(value => ({ ...value, pressed: false }));
+  return result;
 }

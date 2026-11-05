@@ -17,6 +17,7 @@ test('static profile exposes identity, six real projects, and contact without JS
   assert.equal((html.match(/class="list-link(?: project)?"/g) || []).length, 6);
   assert.match(html, /href="mailto:lightjunction\.me@gmail\.com"/);
   assert.doesNotMatch(html, /<canvas\b|<iframe\b|contenteditable=/i);
+  assert.doesNotMatch(html, /data-build-state=|class="[^"]*\bbuild-item\b/, 'static markup must not conceal content when JavaScript is disabled');
 });
 
 test('new entry points exist and do not load the legacy 3D runtime', () => {

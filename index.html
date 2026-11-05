@@ -13,6 +13,17 @@
   <link rel="canonical" href="https://lightjunction.github.io/lightjunction/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23171717'/%3E%3Cpath d='M8 8v16h7M24 8v10q0 6-6 6M15 8v8h3' fill='none' stroke='white' stroke-width='2.8'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./site/profile.css">
+  <script>
+    // Avoid a complete-page flash; failed/blocked modules still reveal the HTML.
+    try {
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('(forced-colors: active)').matches) {
+        document.documentElement.dataset.construction = 'boot';
+        setTimeout(() => {
+          if (document.documentElement.dataset.construction === 'boot') delete document.documentElement.dataset.construction;
+        }, 3500);
+      }
+    } catch { /* Static HTML remains the fallback. */ }
+  </script>
   <title>LightJunction</title>
 </head>
 <body id="top">
@@ -73,15 +84,16 @@
           </aside>
         </div>
         <div class="intro-bottom">
-          <a class="scroll-note" href="#now"><span aria-hidden="true">↓</span><span data-en="A few things in motion" data-zh="一些正在发生的事">A few things in motion</span></a>
+          <a class="scroll-note" href="#now" data-build><span aria-hidden="true">↓</span><span data-en="A few things in motion" data-zh="一些正在发生的事">A few things in motion</span></a>
           <div class="scene-controls" hidden>
-            <button id="recompose" type="button"><svg class="icon small" aria-hidden="true"><use href="#i-shuffle"/></svg><span data-en="Recompose" data-zh="重新构图">Recompose</span></button>
+            <button id="recompose" type="button"><svg class="icon small" aria-hidden="true"><use href="#i-shuffle"/></svg><span data-en="Build again" data-zh="重新搭建">Build again</span></button>
             <button id="motion-toggle" type="button" aria-pressed="false"><svg class="icon small" aria-hidden="true"><use href="#i-pause"/></svg><span data-en="Pause motion" data-zh="暂停动态">Pause motion</span></button>
           </div>
         </div>
       </section>
 
       <section class="list-section assembly-section" id="now" aria-labelledby="now-title" data-scene>
+        <span class="section-rule" data-build="line" aria-hidden="true"></span>
         <div class="section-heading" data-build><h2 id="now-title" data-en="Working on" data-zh="正在做">Working on</h2><span class="section-index" aria-hidden="true">02 / IN PROGRESS</span></div>
         <ul class="work-list">
           <li><a class="list-link" href="https://github.com/TokenNotIncluded/msg" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg><span class="row-copy"><span class="row-name">msg</span><span class="row-separator"> ~ </span><span data-en="A place for humans & agents" data-zh="人和 Agent 的交流空间">A place for humans &amp; agents</span></span><span class="row-meta" data-en="Identity · Messaging" data-zh="身份 · 消息">Identity · Messaging</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
@@ -90,15 +102,17 @@
       </section>
 
       <section class="list-section assembly-section" id="work" aria-labelledby="work-title" data-scene>
+        <span class="section-rule" data-build="line" aria-hidden="true"></span>
         <div class="section-heading" data-build><div><span class="section-index" aria-hidden="true">03 / SELECTED WORK</span><h2 id="work-title" data-en="Projects" data-zh="项目">Projects</h2></div><a class="all-projects" href="https://github.com/LIghtJUNction?tab=repositories" target="_blank" rel="noopener noreferrer"><span data-en="View all" data-zh="全部仓库">View all</span><svg class="icon small" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
         <ul class="project-list">
-          <li><a class="list-link project" href="https://github.com/LIghtJUNction/MagicNet" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-network"/></svg><span class="row-copy"><span class="row-name">MagicNet</span><span class="row-separator"> ~ </span><span data-en="Networking tools for rooted Android." data-zh="Android root 设备的网络工具。">Networking tools for rooted Android.</span></span><span class="row-meta">Android</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a class="list-link project" href="https://github.com/LIghtJUNction/cortexfs" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg><span class="row-copy"><span class="row-name">CortexFS</span><span class="row-separator"> ~ </span><span data-en="A filesystem for agent context." data-zh="用文件系统组织 Agent 上下文。">A filesystem for agent context.</span></span><span class="row-meta">Rust</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a class="list-link project" href="https://github.com/LIghtJUNction/LightFlow" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg><span class="row-copy"><span class="row-name">LightFlow</span><span class="row-separator"> ~ </span><span data-en="Human-led, code-driven AI workflows." data-zh="由人主导、用代码组织的 AI 工作流。">Human-led, code-driven AI workflows.</span></span><span class="row-meta">Rust</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a class="list-link project" href="https://github.com/LIghtJUNction/OniMods" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-blocks"/></svg><span class="row-copy"><span class="row-name">OniMods</span><span class="row-separator"> ~ </span><span data-en="Mods & MCP tools for Oxygen Not Included." data-zh="《缺氧》模组与 MCP 开发工具。">Mods &amp; MCP tools for Oxygen Not Included.</span></span><span class="row-meta">MCP</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><span class="project-rule" data-build="line" aria-hidden="true"></span><a class="list-link project" href="https://github.com/LIghtJUNction/MagicNet" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-network"/></svg><span class="row-copy"><span class="row-name">MagicNet</span><span class="row-separator"> ~ </span><span data-en="Networking tools for rooted Android." data-zh="Android root 设备的网络工具。">Networking tools for rooted Android.</span></span><span class="row-meta">Android</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><span class="project-rule" data-build="line" aria-hidden="true"></span><a class="list-link project" href="https://github.com/LIghtJUNction/cortexfs" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg><span class="row-copy"><span class="row-name">CortexFS</span><span class="row-separator"> ~ </span><span data-en="A filesystem for agent context." data-zh="用文件系统组织 Agent 上下文。">A filesystem for agent context.</span></span><span class="row-meta">Rust</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><span class="project-rule" data-build="line" aria-hidden="true"></span><a class="list-link project" href="https://github.com/LIghtJUNction/LightFlow" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg><span class="row-copy"><span class="row-name">LightFlow</span><span class="row-separator"> ~ </span><span data-en="Human-led, code-driven AI workflows." data-zh="由人主导、用代码组织的 AI 工作流。">Human-led, code-driven AI workflows.</span></span><span class="row-meta">Rust</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><span class="project-rule" data-build="line" aria-hidden="true"></span><a class="list-link project" href="https://github.com/LIghtJUNction/OniMods" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-blocks"/></svg><span class="row-copy"><span class="row-name">OniMods</span><span class="row-separator"> ~ </span><span data-en="Mods & MCP tools for Oxygen Not Included." data-zh="《缺氧》模组与 MCP 开发工具。">Mods &amp; MCP tools for Oxygen Not Included.</span></span><span class="row-meta">MCP</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
         </ul>
       </section>
       <section class="list-section assembly-section gratitude" id="gratitude" aria-labelledby="gratitude-title" data-scene>
+        <span class="section-rule" data-build="line" aria-hidden="true"></span>
         <h2 id="gratitude-title" data-en="With gratitude" data-zh="真诚致谢">With gratitude</h2>
         <p>
           <span data-en="I love " data-zh="我爱 ">I love </span><a class="text-link" href="https://openai.com/" target="_blank" rel="noopener noreferrer">OpenAI</a><span data-en=" and " data-zh="，也爱"> and </span><a class="text-link" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a><span data-en=". My heartfelt thanks to everyone at OpenAI for creating tools that help me learn, explore ideas, and build open-source projects." data-zh="。真诚感谢 OpenAI 团队创造了这些帮助我学习、探索想法和开发开源项目的工具。">. My heartfelt thanks to everyone at OpenAI for creating tools that help me learn, explore ideas, and build open-source projects.</span>
@@ -107,6 +121,7 @@
       </section>
 
       <section class="list-section encrypted-contact assembly-section" id="contact" aria-labelledby="encryption-title" data-scene>
+        <span class="section-rule" data-build="line" aria-hidden="true"></span>
         <span id="workbench" class="anchor-alias" aria-hidden="true"></span>
         <div class="section-kicker" data-build><span class="small-cross" aria-hidden="true">+</span><span data-en="Good things start with a conversation." data-zh="好事情，从一次交流开始。">Good things start with a conversation.</span></div>
         <p class="contact-line" data-build><span data-en="Have a question or an idea? " data-zh="有问题、有想法，或者只是想聊聊？">Have a question or an idea? </span><a class="text-link" href="mailto:lightjunction.me@gmail.com" data-en="Say hello" data-zh="写封邮件">Say hello</a><span data-en=" at " data-zh="给我："> at </span><span class="email-group"><a class="email" href="mailto:lightjunction.me@gmail.com">lightjunction.me@gmail.com</a><button class="copy-button" id="copy-email" type="button" hidden aria-label="Copy email address" data-en-label="Copy email address" data-zh-label="复制邮箱地址"><svg class="icon small" aria-hidden="true"><use href="#i-copy"/></svg></button></span></p>
@@ -117,14 +132,15 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <nav class="social-links" aria-label="Social and contact links" data-en-label="Social and contact links" data-zh-label="社交与联系链接">
+    <footer class="footer assembly-section" id="footer" data-scene>
+      <span class="section-rule" data-build="line" aria-hidden="true"></span>
+      <nav class="social-links" data-build aria-label="Social and contact links" data-en-label="Social and contact links" data-zh-label="社交与联系链接">
         <a href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg></a>
         <a href="https://x.com/LIghtJUNction_x" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" title="X / Twitter"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></a>
         <a href="mailto:lightjunction.me@gmail.com" aria-label="Email" data-en-label="Email" data-zh-label="邮件" title="lightjunction.me@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></a>
       </nav>
-      <a class="follow-link" href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer"><span data-en="Follow along" data-zh="保持联系">Follow along</span><svg class="icon small" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <div class="colophon"><span data-en="A personal space, built with a little help from agents." data-zh="一个个人空间，也有 Agent 参与构建。">A personal space, built with a little help from agents.</span><a href="https://github.com/LIghtJUNction/lightjunction" target="_blank" rel="noopener noreferrer" data-en="Source" data-zh="源码">Source</a></div>
+      <a class="follow-link" data-build href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer"><span data-en="Follow along" data-zh="保持联系">Follow along</span><svg class="icon small" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <div class="colophon" data-build><span data-en="A personal space, built with a little help from agents." data-zh="一个个人空间，也有 Agent 参与构建。">A personal space, built with a little help from agents.</span><a href="https://github.com/LIghtJUNction/lightjunction" target="_blank" rel="noopener noreferrer" data-en="Source" data-zh="源码">Source</a></div>
     </footer>
   </div>
   <p class="copy-status" id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
