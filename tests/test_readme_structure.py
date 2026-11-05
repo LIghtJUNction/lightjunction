@@ -10,11 +10,15 @@ README_FILES = sorted(Path().glob("README*.md"))
 def test_readme_links_resolve_locally_and_between_languages() -> None:
     for path in README_FILES:
         text = path.read_text(encoding="utf-8")
+        links = [
+            next(part for part in match if part)
+            for match in re.findall(r"\]\(([^)]+)\)|(?:src|href)=\"([^\"]+)\"", text)
+        ]
         for other in README_FILES:
             if other != path:
-                assert f"]({other.name})" in text, (path, other)
-        for link in re.findall(r"\]\(([^)]+)\)|(?:src|href)=\"([^\"]+)\"", text):
-            destination = next(part for part in link if part).split("#", 1)[0]
+                assert other.name in links, (path, other)
+        for link in links:
+            destination = link.split("#", 1)[0]
             if destination and not re.match(r"[a-z]+:", destination):
                 assert Path(destination).is_file(), (path, destination)
         assert "<!-- MSG-POSTS:" not in text, path

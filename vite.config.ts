@@ -14,6 +14,8 @@ export default defineConfig({
                 ['pubkey.asc', './pubkey.asc'],
                 ['age-recipients.txt', './public/age-recipients.txt'],
                 ['junction-ii.png', './public/junction-ii.png'],
+                ['fonts/LICENSE-Manrope.txt', './public/fonts/LICENSE-Manrope.txt'],
+                ['fonts/LICENSE-IBM-Plex-Mono.txt', './public/fonts/LICENSE-IBM-Plex-Mono.txt'],
             ]) {
                 this.emitFile({
                     type: 'asset', fileName,

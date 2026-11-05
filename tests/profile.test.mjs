@@ -7,6 +7,7 @@ const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8'
 const html = read('index.html');
 const css = read('site/profile.css');
 const script = read('site/profile.mjs');
+const swarm = read('site/swarm.mjs');
 
 test('static profile exposes identity, six real projects, and contact without JS', () => {
   assert.match(html, /<h1\b[^>]*>I'm LightJunction<\/h1>/);
@@ -24,8 +25,13 @@ test('new entry points exist and do not load the legacy 3D runtime', () => {
   }
   assert.match(html, /src="\.\/site\/profile\.mjs"/);
   assert.doesNotMatch(html, /site\/(?:site|token-cloud)\.(?:mjs|css)/);
-  assert.doesNotMatch(script, /requestAnimationFrame|setInterval|fetch\(|import\(|https?:\/\//);
-  assert.doesNotMatch(css, /@import|@font-face|url\(/);
+  assert.doesNotMatch(`${script}\n${swarm}`, /\bfetch\s*\(|\bXMLHttpRequest\b|\bWebSocket\b|https?:\/\//);
+  assert.doesNotMatch(css, /@import/i);
+  for (const [, quoted, unquoted] of css.matchAll(/url\(\s*(?:['"]([^'"]+)['"]|([^\s)]+))\s*\)/g)) {
+    const path = quoted || unquoted;
+    assert.match(path, /^\.{1,2}\//, 'font and image URLs must stay local');
+    assert.ok(existsSync(new URL(path, new URL('../site/profile.css', import.meta.url))), path);
+  }
 });
 
 test('every external tab has opener isolation and no placeholder destinations', () => {
@@ -51,12 +57,30 @@ test('public contact downloads and the existing donation destination are retaine
   assert.match(html, /https:\/\/donate\.lmm\.best\/\?project=lightjunction/);
 });
 
-test('profile metadata uses its real deployment URL and a light theme', () => {
+test('prewritten project and profile links retain their real destinations', () => {
+  const destinations = [
+    'https://msg.lmm.best/@lightjunction',
+    'https://github.com/TokenNotIncluded/msg',
+    'https://api.lmm.best/',
+    'https://github.com/LIghtJUNction/cortexfs',
+    'https://github.com/LIghtJUNction/MagicNet',
+    'https://github.com/LIghtJUNction/LightFlow',
+    'https://github.com/LIghtJUNction/OniMods',
+    'https://chatgpt.com/u/lightjunction.me',
+    'https://github.com/LIghtJUNction',
+    'https://x.com/LIghtJUNction_x',
+    'https://github.com/LIghtJUNction/lightjunction',
+  ];
+  for (const destination of destinations) assert.ok(html.includes(`href="${destination}"`), destination);
+});
+
+test('profile metadata uses its real deployment URL and a spacious dark theme', () => {
   assert.match(html, /<html lang="en">/);
-  assert.match(html, /<meta name="theme-color" content="#ffffff">/);
+  assert.match(html, /<meta name="theme-color" content="#0d0f0e">/);
   assert.match(html, /rel="canonical" href="https:\/\/lightjunction\.github\.io\/lightjunction\/"/);
-  assert.match(css, /color-scheme:\s*light/);
-  assert.match(css, /max-width:\s*576px/);
+  assert.match(css, /color-scheme:\s*dark/);
+  assert.match(css, /--paper:\s*#0d0f0e/);
+  assert.match(css, /max-width:\s*1240px/);
 });
 
 test('responsive layout, reduced motion and visible keyboard focus are explicit', () => {
@@ -73,6 +97,14 @@ test('JS-only controls start hidden while the native disclosure remains usable',
   for (const id of ['language-toggle', 'copy-email']) {
     assert.match(html, new RegExp(`<button[^>]*id="${id}"[^>]*hidden`));
   }
+  const controls = html.match(/<div\b[^>]*class="scene-controls"[^>]*hidden[^>]*>([\s\S]*?)<\/div>/)?.[1];
+  assert.ok(controls, 'scene controls must remain hidden until their enhancement succeeds');
+  for (const id of ['recompose', 'motion-toggle']) {
+    assert.match(controls, new RegExp(`<button[^>]*id="${id}"[^>]*type="button"`));
+  }
+  assert.match(controls, /id="motion-toggle"[^>]*aria-pressed="false"/);
+  assert.match(css, /\[hidden\]\s*\{[^}]*display:\s*none\s*!important/);
+  assert.match(css, /\.swarm-canvas\s*\{[^}]*pointer-events:\s*none/);
   assert.match(html, /<details[^>]*id="elsewhere"/);
   assert.match(html, /<summary>/);
   assert.match(script, /event\.key === 'Escape'/);
