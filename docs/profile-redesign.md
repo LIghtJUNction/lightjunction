@@ -1,164 +1,160 @@
-# Viewport-built profile
+# A profile constructed in view
 
-## Purpose
+Updated November 6, 2026 (Asia/Taipei).
 
-The owner's November 6, 2026 (Asia/Taipei) video reference replaces the October text-only
-homepage brief. The profile now uses a swarm of small colored pointers to
-assemble the presentation around the content currently in view. This direction
-supersedes the earlier white-column and no-renderer constraints, and the older
-homepage art direction in `DESIGN.md` and `.impeccable`, for `index.html`.
+## Requirement and reference
 
-The reference supplies an interaction mechanism: pointers gather around element
-boundaries while prepared content appears. The implementation does not generate
-text with AI or copy the reference site's wording, illustrations, or assets.
-All content and links are authored in [`index.html`](../index.html); the
-presentation varies while the same complete set of information remains available.
+The owner rejected the first floating-pointer implementation because the cursors
+did not visibly construct the website. This revision replaces it with finite
+jobs: cursors drag frames and lines, reveal the prepared content, then release
+their handles and disappear. It supersedes the previous motion description and
+the older white-column/no-renderer direction for `index.html`.
 
-## Visual design
+The supplied video establishes a visible order of operations. In the opening
+sequence, the content area is nearly empty through approximately 0.4 seconds;
+frames expand around 0.6 seconds; text and imagery appear inside them around
+0.8–1.2 seconds; completed regions settle around 1.2–1.8 seconds. Newly exposed
+sections receive fresh guides and frames during scrolling. These are approximate
+observations of the reference recording, not measured timings of this site.
+The implementation uses this interaction idea without copying the reference's
+wording, illustrations, or assets.
 
-The reading stage uses a near-black background (`#0d0f0e`), pale-green accent
-(`#d5f4a2`), generous spacing, and thin section rules. Local Manrope and IBM Plex
-Mono fonts provide the typography without a remote font service. The stage is
-at most 1240px wide; mobile layouts use one column and 24px side padding, reduced
-to 20px at widths of 360px or less. These rules live in
-[`site/profile.css`](../site/profile.css).
+All text and links remain authored in [index.html](../index.html). Runtime
+generation means arranging and presenting that content; there is no live AI
+text generation. The near-black background, pale-green accent, local Manrope
+and IBM Plex Mono fonts, generous spacing, and responsive layout remain in
+[site/profile.css](../site/profile.css).
 
-The page retains the existing identity, current projects, selected repositories,
-gratitude, and contact information. Project, social, donation, email, and public
-key destinations remain real links. The design adds no invented employment,
-availability, visitor counts, or live activity claims.
+## Construction mechanism
 
-## Generation method
+[site/swarm-model.mjs](../site/swarm-model.mjs) samples a finite timeline for
+each measured element. [site/swarm.mjs](../site/swarm.mjs) uses that same sample
+to draw the cursors and control the element's CSS clipping. This shared state
+makes the visible operation determine how much content is revealed.
 
-**Arrangement.** Each initialization and **Recompose** action obtains a fresh
-32-bit seed from `crypto.getRandomValues`, with a time/random fallback when that
-API is unavailable. The seed selects among three bounded desktop column
-variants and changes note offsets, pointer paths, and entrance timing. It also
-shuffles the four existing project elements in the DOM, keeping visual and
-keyboard order aligned. This happens only on initialization or recomposition;
-scrolling does not reorder content. Mobile layouts remain single-column.
-The finite layout choices can repeat; a fresh seed does not guarantee a unique
-visible layout.
+| Stage | Visible action | Content state |
+| --- | --- | --- |
+| Approach | A small crew travels to the element's measured origin. | Concealed, with its layout space retained. |
+| Frame | The lead cursor drags a growing rectangle; assistants hold alignment points. | Text and cards remain concealed until the frame is complete. |
+| Write | A cursor and caret move across the prepared content. | The clipping frontier follows the same sampled position. |
+| Settle | Handles and guides fade, then the job completes. | Fully visible; its workers disappear. |
 
-**Viewport targets.** [`site/swarm.mjs`](../site/swarm.mjs) measures actual section
-and element rectangles, then chooses the visible section nearest a point 45%
-down the viewport. Pointer teams trace the boundaries of visible items in that
-section. Scroll, resize, font readiness, and language changes refresh those
-measurements, so the current reading area determines the swarm's work.
+Text jobs use `Range.getClientRects()` to measure the rendered text rows. The
+caret advances through those rows in reading order, and a matching polygon
+reveals completed rows plus the current partial row. The HTML is not split or
+replaced. Cards use the measured element boundary and a horizontal reveal.
+Scroll, resize, font readiness, and language changes refresh the measurements.
 
-**Construction.** Newly visible items receive a short entrance animation and
-temporary outlines with a moving edge marker. Entrances last 650ms with seeded
-delays of up to 180ms; construction guides last about 1.25–1.45 seconds. Items
-animate once per arrangement, and keyboard focus immediately removes an active
-entrance effect. Content stays in the document throughout the presentation.
+Section and project dividers are actual line jobs. Their lead cursor stays at
+the growing line endpoint, while the underlying DOM rule is revealed by the
+same progress value. Rectangle jobs likewise place the lead cursor exactly at
+the expanding corner. Temporary guides, five-pixel handles, and short action
+labels make these operations visible.
 
-**Pointer response.** Nearby swarm pointers are attracted to the user's pointer
-and scatter while it is pressed. The real system cursor remains visible.
-The decorative canvas has `pointer-events: none`; passive pointer listeners do
-not cancel link activation, text selection, or touch scrolling. The swarm has
-22 pointers below 660px and 48 otherwise, with canvas pixel density capped at
-1.5 to bound rendering work. These limits are implementation choices, not a
-measured performance guarantee.
+Individual text jobs take approximately 1.8–2.2 seconds, cards 2.1–2.5 seconds,
+and lines 1.0–1.25 seconds in the model. Several jobs overlap, with a small
+stagger between starts. These are configured animation durations, not measured
+page-load or frame-rate results.
 
-## Compatibility and preservation
+## Viewport queue and variation
 
-Useful content is available without JavaScript or Canvas support. English is
-the static default; [`site/profile.mjs`](../site/profile.mjs) adds Chinese,
-email copying, and disclosure dismissal. Language persistence tolerates denied
-storage. Clipboard failures offer manual copying, and changing language
-invalidates pending clipboard feedback. **Elsewhere** retains its native
-disclosure behavior; Escape closes it and returns focus to its summary.
+Only visible unfinished jobs advance. The queue prioritizes the section nearest
+45% of the viewport height, then starts jobs in visual position order. It allows
+four simultaneous visible jobs on desktop and two below 660 CSS pixels, with
+two or three assigned cursors per job. Partially built content pauses offscreen
+and resumes from its saved progress when it returns. Once visible work is
+complete, the canvas is empty and no idle animation frame loop continues.
 
-Motion is optional. Reduced-motion preferences select a static presentation by
-default, and **Pause motion** stops ongoing animation. Forced-colors mode hides
-the decorative canvas. Hidden documents and `pagehide` cancel the animation
-frame request; visibility restoration and `pageshow` refresh and resume only
-when motion is enabled. No continuous frame loop runs while motion is paused.
+Each initialization and **Build again** action obtains a fresh 32-bit seed from
+`crypto.getRandomValues`, with a time/random fallback. The seed varies bounded
+column arrangements, note offsets, task timings, colors, and project order.
+The four existing project elements are moved in the DOM so reading and keyboard
+order remain aligned. Scrolling never reshuffles content. Finite layout choices
+can repeat; a fresh seed does not guarantee a unique visible layout.
 
-The deployment base remains `/lightjunction/`, and `#about`, `#work`, `#contact`,
-`#workbench`, and `#top` remain valid destinations. The
-[`Vite configuration`](../vite.config.ts) emits `pubkey.asc`,
-`age-recipients.txt`, and `junction-ii.png` from their existing source files.
-Their bytes must remain unchanged by this redesign. No private-key handling or
-challenge changes belong to this work. Legacy experiments remain separate from
-the published profile entry point.
+## Access and failure behavior
+
+Prepared content remains in the document throughout construction. Keyboard
+focus immediately reveals its containing job, and **Build again** preserves
+focus. The canvas is noninteractive (`pointer-events: none`); the native mouse
+cursor, links, and normal scrolling remain available.
+
+**Pause motion** completes all pending jobs and reveals the page. Resuming does
+not hide completed content again; **Build again** starts a new construction.
+Reduced-motion and forced-colors preferences select the readable static state.
+Print styling also exposes all content and hides the canvas.
+
+The small boot script conceals construction targets before the module starts,
+avoiding a flash of the finished page. If the module never initializes, this
+boot concealment expires after 3.5 seconds. Disabled JavaScript leaves normal
+HTML; missing Canvas support, a lost canvas context, or a renderer exception
+releases concealed content. Hidden documents and `pagehide` suspend the frame
+request without consuming construction time. Restoration remeasures the page.
+
+English/Chinese switching, email copying, native contact disclosure, public-key
+downloads, and existing destinations remain part of the profile. The deployment
+base stays `/lightjunction/`. This change does not alter the public key material
+or Challenge II source artifacts.
 
 ## Verification
 
-The following commands define the verification procedure. Results for the
-delivered implementation are recorded below.
-
-```sh
-npm run test:site
-npm run check
-scripts/check-python.sh
-cmp pubkey.asc dist/pubkey.asc
-cmp public/age-recipients.txt dist/age-recipients.txt
-cmp public/junction-ii.png dist/junction-ii.png
-```
-
-`npm run check` runs TypeScript, public-key and crypto tests, profile tests, and
-the production build. The Python gate covers repository structure and related
-checks. The three `cmp` commands require the built output and verify that public
-downloads match the tracked source bytes. The release diff must also show that
-the source key and challenge files themselves were not changed.
-
-Browser review must cover English and Chinese at 320, 390, 773, and 1440 CSS
-pixels, plus 200% zoom. Check fresh visits and **Recompose**, viewport-dependent
-targets, pointer attraction and scattering, native cursor visibility, touch
-scrolling, and readable text during construction. Also check keyboard access,
-Escape/outside-click dismissal, clipboard success and denial, language changes
-during a pending copy, storage denial, disabled JavaScript, unavailable Canvas,
-reduced motion, forced colors, background tabs, and back/forward restoration.
-Use the results below to distinguish completed checks from this broader review
-matrix.
-
-### Delivery evidence — November 6, 2026
-
-The implementation and lifecycle tests are committed at
-[`eb59436`](https://github.com/LIghtJUNction/lightjunction/commit/eb594361cc5054705c6782c5495aa1d4a5d1da08).
+The corrected implementation is committed at
+[ee015ea](https://github.com/LIghtJUNction/lightjunction/commit/ee015ead81e650825c69564deee83db0a87a62cb).
 Local `npm run check` passed: TypeScript checking, six crypto/public-key tests,
-26 profile/swarm tests, and the Vite production build. The public downloads and
-the two shipped font license files match their source bytes. No runtime
-dependencies were added.
+35 site tests, and the Vite production build. The site total comprises 15 profile
+tests, seven construction-model tests, and 13 controller tests.
 
-[GitHub CI](https://github.com/LIghtJUNction/lightjunction/actions/runs/42065877946)
-and [Pages deployment](https://github.com/LIghtJUNction/lightjunction/actions/runs/42065878045)
-both succeeded for that commit. The full Python suite passes in CI. Locally,
-184 Python tests passed; the remaining GnuPG integration test could not start
-`gpg-agent` in the execution environment. Its assertion and CI coverage remain
-intact. The existing README link check now accepts both HTML and Markdown links
-while continuing to require every language destination.
+The model tests verify that frame drawing precedes text/card reveal, cursor
+positions match drawing endpoints, multiline text follows measured rows, and
+completed workers disappear. Controller tests cover viewport queuing and
+resumption, no idle frame loop, fresh seeds without replacing prepared links,
+focus preservation, pause/static modes, page lifecycle, Canvas failure, and
+renderer failure. These tests establish the state and geometry relationships;
+the browser observations below establish the visible construction sequence.
 
-The published site was inspected at a 1363 × 936 CSS-pixel viewport in English
-and Chinese. Neither language caused horizontal page overflow. Recompose and
-reload produced new seeds and different project orders while preserving all
-four links. Scrolling changed the active swarm section from `about` to `work`.
-Pause/resume controls, email-copy feedback, and Escape dismissal with restored
-menu focus worked. Automated lifecycle tests cover reduced motion, suspended
-pages, Canvas failure, cleanup, and touch-pointer cancellation. Narrow-screen
-and physical-device visual checks are not included in this browser evidence.
+Built copies of `pubkey.asc`, `age-recipients.txt`, and `junction-ii.png` matched
+their source bytes with `cmp`; the source artifacts remain unchanged. No runtime
+dependency was added.
 
-## Claim and evidence review
+[GitHub CI](https://github.com/LIghtJUNction/lightjunction/actions/runs/42072251248)
+and [Pages deployment](https://github.com/LIghtJUNction/lightjunction/actions/runs/42072251072)
+both succeeded for `ee015ea`.
 
-| Claim | Evidence to inspect | Status |
-| --- | --- | --- |
-| Content remains prepared and reachable. | Static-content/link tests and the published English/Chinese page. | Verified. |
-| Each visit can vary the presentation. | Seeded-model tests and published Recompose/reload observations. | Verified. |
-| The viewport and pointer affect the swarm. | Pointer-model tests and the published active-section observation. | Verified within the stated test coverage. |
-| Motion can stop without blocking reading. | Lifecycle tests and the published pause control. | Verified. |
-| Public artifacts retain their bytes. | Source diff and built-output `cmp` checks. | Verified. |
+The corrected public page was reviewed in a Chromium browser at 1363 × 936 CSS
+pixels. A fresh English load was captured during frame dragging, partial text
+writing, and completion. During the drag, title and body text remained concealed
+inside the expanding boxes. During writing, the caret and worker tracked the
+visible text frontier. At completion the canvas state was `idle`, all visible
+jobs were done, and no construction cursors remained.
 
-Self-review follows the requested
-[Research Paper Writing skill](https://github.com/Master-cai/Research-Paper-Writing-Skills/blob/main/research-paper-writing/SKILL.md):
+| Browser observation | Captured evidence |
+| --- | --- |
+| Multiple crews drag empty frames before content appears. | [Frame dragging](images/construction-dragging.jpg) |
+| The title and supporting text appear at their moving carets. | [Writing](images/construction-writing.jpg) |
+| Navigating to Projects selects the `work` scene and starts fresh divider/header jobs. | [Project construction](images/construction-work.jpg) |
+| Chinese text fills its first line, then advances through the second line. | [Chinese writing](images/construction-chinese.jpg) |
 
-- **Contribution:** the change is viewport-guided presentation of existing
-  content; it makes no AI-generation or algorithmic-novelty claim.
-- **Clarity:** arrangement, targets, construction, and pointer response each
-  have one defined role and a corresponding source location.
-- **Evidence:** reported results identify the commit, commands, and observation
-  surface; no frame-rate or device-performance measurements are claimed.
-- **Coverage:** automated checks include interaction and failure paths; the
-  browser evidence states its viewport and remaining device-review limits.
-- **Design soundness:** static content, native controls, bounded variation, and
-  pause behavior constrain the decoration; desktop composition was reviewed.
+**Build again** started a new construction and seed; reloading varied the project
+order. English and Chinese had no horizontal page overflow. The Chinese page
+also settled to `idle` with zero visible unfinished jobs. These are actual
+browser screenshots, with no added mock cursors or simulated content. Narrow
+viewport and physical-device visual checks were not performed in this review;
+no device frame-rate or loading-speed claim is made.
+
+## Review notes
+
+This note follows the requested
+[Research Paper Writing skill](https://github.com/Master-cai/Research-Paper-Writing-Skills/blob/main/research-paper-writing/SKILL.md)
+and its method/claim-evidence review guidance.
+
+- **Contribution:** Cursor operations now control content reveal;
+  no AI-generation or algorithmic-novelty claim is made.
+- **Clarity:** The stage table maps to the pure
+  model, DOM controller, and CSS clipping described above.
+- **Evidence:** Local checks cover state, geometry, lifecycle, production output,
+  and preserved downloads; screenshots show the deployed construction stages.
+- **Coverage:** CI and deployment passed. Desktop English/Chinese rendering was
+  observed; narrow viewport and physical-device rendering remain unverified.
+- **Design:** Focus, static modes, boot timeout,
+  and failure cleanup expose prepared content; no device-performance guarantee
+  is claimed.
