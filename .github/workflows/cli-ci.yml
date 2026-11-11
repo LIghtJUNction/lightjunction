@@ -98,7 +98,16 @@ jobs:
       - name: Test
         run: cargo test --locked --all-targets --target "$TARGET"
       - name: Test release, archive and installer safeguards
-        run: uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
+        run: |
+          if [ "$TARGET" = aarch64-pc-windows-msvc ]; then
+            # PowerShell 5.1 process startup adds about 10 minutes on ARM.
+            # x64 covers all legacy error cases; ARM retains both engines in
+            # the real-archive fixture and post-publication installation checks.
+            uv run --no-project python -c 'import os, shutil, sys; sys.exit(0 if os.name == "nt" and shutil.which("pwsh.exe") else "PowerShell 7 is required for the ARM installer unit tests")'
+            PYTHONPATH=scripts uv run --no-project python -m unittest -v test_release test_package_binary test_installers.PowerShell7InstallerTests
+          else
+            uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
+          fi
       - name: Build native release binary
         run: cargo build --release --locked --target "$TARGET" --bin lightjunction
       - name: Package and smoke-test the native executable

@@ -29,6 +29,7 @@ jobs:
   validate:
     name: Native and installer verification
     # Shared native builds use Rust's bundled musl CRT with the runner's C linker.
+    # x64 covers all legacy installer error cases; ARM tests real installs with both PowerShell engines.
     uses: ./.github/workflows/cli-ci.yml
     with:
       bump: ${{ inputs.bump || 'none' }}

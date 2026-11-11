@@ -22,6 +22,7 @@ age_archive="$tools_dir/age-v1.3.2-linux-amd64.tar.gz"
 age_sha256=cbe24006683f8eb669266162894b9a522a1af52f2665fbc63a4bb032ed26ac10
 
 if [[ $age_only == false ]]; then
+  : "${GITHUB_ENV:?GitHub Actions must provide GITHUB_ENV for the private PC/SC runtime}"
   if ! command -v gpg >/dev/null 2>&1; then
     printf 'Real crypto checks require GnuPG (gpg) already installed on the runner.\n' >&2
     exit 1
@@ -50,11 +51,28 @@ if [[ $age_only == false ]]; then
     fi
   done < <(printf '%s\n' "$library_cache" | awk '$1 == "libpcsclite.so.1" && /x86-64/ { print $NF }')
   if [[ -z "$pcsc_runtime" ]]; then
-    printf 'Real crypto checks require a readable x86_64 libpcsclite.so.1 runtime on the runner.\n' >&2
-    exit 1
+    if ! command -v dpkg-deb >/dev/null 2>&1; then
+      printf 'The PC/SC runtime is absent; dpkg-deb is required to extract its verified package.\n' >&2
+      exit 1
+    fi
+    # Official Ubuntu Noble runtime, downloaded from an Ubuntu-listed HTTPS mirror.
+    # SHA-256: https://packages.ubuntu.com/noble/amd64/libpcsclite1/download
+    pcsc_archive="$tools_dir/libpcsclite1_2.0.3-1build1_amd64.deb"
+    pcsc_sha256=703bacc9204a7ecc24486ac8c96d15d0b9e2c91c385388e132ad4fd8f56f035a
+    curl --fail --show-error --location --retry 3 --proto '=https' --proto-redir '=https' \
+      --output "$pcsc_archive" \
+      'https://mirrors.edge.kernel.org/ubuntu/pool/main/p/pcsc-lite/libpcsclite1_2.0.3-1build1_amd64.deb'
+    printf '%s  %s\n' "$pcsc_sha256" "$pcsc_archive" | sha256sum --check --strict -
+    dpkg-deb --extract "$pcsc_archive" "$tools_dir/pcsc-runtime"
+    pcsc_runtime="$tools_dir/pcsc-runtime/usr/lib/x86_64-linux-gnu/libpcsclite.so.1"
+    if [[ ! -f "$pcsc_runtime" || ! -r "$pcsc_runtime" ]]; then
+      printf 'The verified Ubuntu package did not provide a readable PC/SC runtime.\n' >&2
+      exit 1
+    fi
   fi
   mkdir -m 700 "$tools_dir/lib"
   ln -s "$pcsc_runtime" "$tools_dir/lib/libpcsclite.so"
+  ln -s "$pcsc_runtime" "$tools_dir/lib/libpcsclite.so.1"
 fi
 
 curl --fail --show-error --location --retry 3 --proto '=https' --proto-redir '=https' \
@@ -75,5 +93,8 @@ PCSC_LIB_DIR="$tools_dir/lib" PCSC_LIB_NAME=pcsclite \
   --root "$tools_dir/yubikey" --target-dir "$tools_dir/yubikey-build"
 
 test -x "$tools_dir/yubikey/bin/age-plugin-yubikey"
+LD_LIBRARY_PATH="$tools_dir/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" \
+  "$tools_dir/yubikey/bin/age-plugin-yubikey" --version
+printf 'LD_LIBRARY_PATH=%s\n' "$tools_dir/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" >> "$GITHUB_ENV"
 printf '%s\n' "$tools_dir/age" "$tools_dir/yubikey/bin" >> "$GITHUB_PATH"
 printf 'Installed age 1.3.2 and age-plugin-yubikey 0.5.1 for real crypto checks.\n'
