@@ -72,6 +72,33 @@ def check_age(ciphertext: bytes, armored: bool) -> None:
     )
 
 
+def check_gpg_listing(returncode: int, stdout: bytes, stderr: bytes) -> None:
+    diagnostic = (
+        "\nGPG stdout: " + stdout.decode(errors="replace")[:2000]
+        + "\nGPG stderr: " + stderr.decode(errors="replace")[:1000]
+    )
+    require(returncode == 0, "Isolated GPG packet inspection failed" + diagnostic)
+    lines = stdout.splitlines()
+    listing = b"\n".join(lines)
+    recipient_ids = re.findall(rb"(?m)^:pubkey enc packet:.*\bkeyid ([0-9A-F]+)$", listing)
+    require(
+        recipient_ids == [GPG_RECIPIENT],
+        "GPG ciphertext has an unexpected recipient list" + diagnostic,
+    )
+    require(b":symkey enc packet:" not in listing, "GPG added a symmetric recipient" + diagnostic)
+    # GnuPG's parser reports its draft AEAD packet separately from an MDC packet.
+    # Both labels are defined in g10/parse-packet.c in GnuPG 2.4.4 and 2.4.7.
+    encrypted_headers = [
+        line for line in lines
+        if line == b":encrypted data packet:"
+        or re.fullmatch(rb":aead encrypted packet: cipher=[0-9]+ aead=[0-9]+ cb=[0-9]+", line)
+    ]
+    require(
+        len(encrypted_headers) == 1,
+        "GPG ciphertext must contain exactly one recognized encrypted payload" + diagnostic,
+    )
+
+
 def check_gpg(
     ciphertext: bytes,
     armored: bool,
@@ -108,17 +135,7 @@ def check_gpg(
         timeout=60,
         check=False,
     )
-    require(
-        inspection.returncode == 0,
-        "Isolated GPG packet inspection failed: "
-        + inspection.stderr.decode(errors="replace")[:2000],
-    )
-    recipient_ids = re.findall(
-        rb"(?m)^:pubkey enc packet:.*\bkeyid ([0-9A-F]+)$", inspection.stdout
-    )
-    require(recipient_ids == [GPG_RECIPIENT], "GPG ciphertext has an unexpected recipient list")
-    require(b":symkey enc packet:" not in inspection.stdout, "GPG added a symmetric recipient")
-    require(b":encrypted data packet:" in inspection.stdout, "GPG encrypted payload is missing")
+    check_gpg_listing(inspection.returncode, inspection.stdout, inspection.stderr)
 
 
 def check(binary: Path, tools: dict[str, str]) -> int:

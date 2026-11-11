@@ -104,7 +104,7 @@ jobs:
             # x64 covers all legacy error cases; ARM retains both engines in
             # the real-archive fixture and post-publication installation checks.
             uv run --no-project python -c 'import os, shutil, sys; sys.exit(0 if os.name == "nt" and shutil.which("pwsh.exe") else "PowerShell 7 is required for the ARM installer unit tests")'
-            PYTHONPATH=scripts uv run --no-project python -m unittest -v test_release test_package_binary test_installers.PowerShell7InstallerTests
+            PYTHONPATH=scripts uv run --no-project python -m unittest -v test_release test_package_binary test_crypto_checks test_installers.PowerShell7InstallerTests
           else
             uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
           fi
