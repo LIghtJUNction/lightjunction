@@ -1,6 +1,6 @@
 # Benchmarks
 
-`lightjunction 0.1.0` completed the six workloads below with internal median times of 18.39–21.23 µs and external process median times of 1.078–1.140 ms on this host. The release binary was **366,680 bytes**.
+`lightjunction 0.1.1` completed the six workloads below with internal median times of 17.64–20.91 µs and external process median times of 1.012–1.033 ms on this host. The release binary was **367,688 bytes**.
 
 ## Results
 
@@ -8,12 +8,12 @@ Measured on 2026-11-11 with 100 samples and 5 warmup runs per workload. Lower is
 
 | Workload | Internal median (µs) | Internal p95 (µs) | External median (ms) | External p95 (ms) |
 | --- | ---: | ---: | ---: | ---: |
-| Card, no arguments | 18.39 | 41.01 | 1.099 | 1.406 |
-| `about` | 18.81 | 29.71 | 1.078 | 1.568 |
-| `projects` | 20.56 | 45.87 | 1.085 | 1.475 |
-| `tour` | 21.03 | 34.86 | 1.140 | 1.576 |
-| `--help` | 20.28 | 28.94 | 1.121 | 1.473 |
-| `tour --json` | 21.23 | 32.46 | 1.127 | 1.701 |
+| Card, no arguments | 17.64 | 33.04 | 1.012 | 1.364 |
+| `about` | 18.11 | 34.35 | 1.013 | 1.414 |
+| `projects` | 19.59 | 32.51 | 1.012 | 1.374 |
+| `tour` | 20.16 | 34.50 | 1.026 | 1.253 |
+| `--help` | 19.59 | 48.69 | 1.013 | 1.409 |
+| `tour --json` | 20.91 | 33.61 | 1.033 | 1.269 |
 
 Source: [complete results and individual samples](benchmark-results.json).
 

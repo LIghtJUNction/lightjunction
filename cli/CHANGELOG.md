@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Keep every engineering question reachable on clocks with coarse timestamp precision.
+
 ## 0.1.0
 
 - Introduce a Rust terminal profile built with `zclap 0.1.4`.

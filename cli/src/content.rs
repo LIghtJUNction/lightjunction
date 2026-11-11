@@ -1,5 +1,7 @@
+use std::collections::hash_map::DefaultHasher;
+use std::hash::{Hash, Hasher};
 use std::io::{self, Write};
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 use crate::{Error, args::Language};
 
@@ -141,9 +143,8 @@ pub fn render(
         "spark" => {
             let seed = SystemTime::now()
                 .duration_since(UNIX_EPOCH)
-                .unwrap_or_default()
-                .subsec_nanos() as usize;
-            let (en, zh) = SPARKS[seed % SPARKS.len()];
+                .unwrap_or_default();
+            let (en, zh) = SPARKS[spark_index(seed)];
             page.section(
                 l.text("A small engineering question", "一个小小的工程问题"),
                 &[
@@ -210,6 +211,13 @@ fn about(page: &mut Page<'_, impl Write>) -> io::Result<()> {
             ),
         ],
     )
+}
+
+fn spark_index(seed: Duration) -> usize {
+    // Mix the timestamp before reducing it: coarse clocks can have always-even nanoseconds.
+    let mut hash = DefaultHasher::new();
+    seed.hash(&mut hash);
+    (hash.finish() % SPARKS.len() as u64) as usize
 }
 
 fn projects(page: &mut Page<'_, impl Write>, selected: Option<&Project>) -> io::Result<()> {
@@ -347,6 +355,21 @@ fn json_string(out: &mut impl Write, value: &str) -> io::Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn coarse_clock_ticks_can_reach_every_question() {
+        for resolution in [100, 1_000, 1_000_000] {
+            let mut seen = [false; SPARKS.len()];
+            for tick in 0..100 {
+                let seed = Duration::new(1_700_000_000, tick * resolution);
+                seen[spark_index(seed)] = true;
+            }
+            assert!(
+                seen.into_iter().all(|value| value),
+                "resolution={resolution}ns"
+            );
+        }
+    }
 
     #[test]
     fn json_escapes_quotes_backslashes_and_controls_without_losing_unicode() {
