@@ -199,9 +199,7 @@ fn unavailable_encryption_tools_have_clear_errors_and_clean_up_staging_files() {
 #[cfg(unix)]
 mod unix {
     use super::*;
-    use std::ffi::OsString;
     use std::io::Write;
-    use std::os::unix::ffi::OsStringExt;
     use std::os::unix::fs::{PermissionsExt, symlink};
 
     const CIPHERTEXT: &[u8] = b"FAKE-CIPHERTEXT\0END\n";
@@ -402,8 +400,13 @@ mod unix {
         }
     }
 
+    // Linux filesystems accept byte paths; macOS APFS rejects invalid UTF-8 names.
+    #[cfg(target_os = "linux")]
     #[test]
     fn non_utf8_file_names_remain_valid_operating_system_paths() {
+        use std::ffi::OsString;
+        use std::os::unix::ffi::OsStringExt;
+
         for protocol in ["age", "gpg"] {
             let harness = Harness::new();
             let input = harness

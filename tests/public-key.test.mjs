@@ -15,7 +15,14 @@ test('English and Chinese contact instructions publish the configured age key', 
         const markdown = read(path);
         assert.ok(markdown.includes(`\n${AGE_RECIPIENT}\n`), path);
         assert.ok(markdown.includes('(public/age-recipients.txt)'), path);
-        assert.ok(markdown.includes('age -R age-recipients.txt -o message.txt.age message.txt'), path);
+        if (path === '../README.md') {
+            for (const protocol of ['age', 'gpg']) {
+                const command = `lightjunction encrypt ${protocol} --input message.txt --output message.txt.${protocol}`;
+                assert.ok(markdown.includes(command), `${path}: ${command}`);
+            }
+        } else {
+            assert.ok(markdown.includes('age -R age-recipients.txt -o message.txt.age message.txt'), path);
+        }
     }
 });
 

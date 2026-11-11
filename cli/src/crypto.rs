@@ -154,7 +154,10 @@ impl PrivateDirectory {
         };
         for _ in 0..64 {
             let path = base.join(temporary_name());
+            #[cfg(unix)]
             let mut builder = fs::DirBuilder::new();
+            #[cfg(not(unix))]
+            let builder = fs::DirBuilder::new();
             #[cfg(unix)]
             {
                 use std::os::unix::fs::DirBuilderExt;
