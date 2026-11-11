@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1
+
+- Add release archives for Linux, macOS, and Windows on x86_64 and ARM64; Linux binaries target musl.
+- Add shell and PowerShell installers with platform detection, SHA-256 verification, version selection, and custom install directories.
+- Install binaries without Rust or administrator privileges, while leaving shell profiles and persistent `PATH` settings unchanged.
+- Document manual downloads, checksum verification, signing status, and binary-only removal.
+
 ## 0.2.0
 
 - Add `keys [age|gpg|ssh]` to inspect bundled public-key snapshots or export raw key material, with JSON support.

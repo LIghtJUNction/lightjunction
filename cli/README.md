@@ -6,12 +6,96 @@ Built in Rust with [`zclap`](https://crates.io/crates/zclap), with command timin
 
 ## Install
 
+The installers download the binary for your operating system and CPU, verify its SHA-256 checksum, and install it for your user. Rust and administrator privileges are not required.
+
+### Linux and macOS
+
+The script needs `curl`, `tar` with gzip support, `awk`, `sed`, `mktemp`, and either `sha256sum` or `shasum`.
+
 ```sh
-cargo install lightjunction --locked
-lightjunction
+installer=$(mktemp) &&
+curl -fsSL https://github.com/LIghtJUNction/lightjunction/releases/latest/download/install.sh -o "$installer" &&
+sh "$installer" &&
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
-Build with Rust 1.99.1 or later. In a terminal, `lightjunction` opens a menu. When its output is piped or redirected, it prints the introduction card and exits.
+The default directory is `~/.local/bin`. To inspect the script first or choose a version and directory:
+
+```sh
+curl -fsSL https://github.com/LIghtJUNction/lightjunction/releases/latest/download/install.sh -o install-lightjunction.sh &&
+sh install-lightjunction.sh --version 0.2.1 --install-dir "$HOME/.local/bin"
+```
+
+### Windows
+
+In PowerShell 5.1 or later, download the script and then run it:
+
+```powershell
+$installer = Join-Path $env:TEMP ("lightjunction-install-{0}.ps1" -f [guid]::NewGuid())
+Invoke-WebRequest 'https://github.com/LIghtJUNction/lightjunction/releases/latest/download/install.ps1' -OutFile $installer -UseBasicParsing -ErrorAction Stop
+& $installer
+$env:Path = "$env:LOCALAPPDATA\Programs\lightjunction\bin;$env:Path"
+```
+
+The default directory is `$env:LOCALAPPDATA\Programs\lightjunction\bin`. If your system blocks unsigned scripts, use the [manual download](#manual-download). To choose a version and directory:
+
+```powershell
+& $installer -Version 0.2.1 -InstallDir "$env:LOCALAPPDATA\Programs\lightjunction\bin"
+```
+
+The examples add the default install directory to `PATH` for the current session. Both scripts leave shell profiles and persistent `PATH` settings unchanged. For a custom install directory, add that directory to your session's `PATH` before running `lightjunction`. Rerun the installer to update; a version argument accepts `MAJOR.MINOR.PATCH`, without a `v` prefix. `LIGHTJUNCTION_VERSION` and `LIGHTJUNCTION_INSTALL_DIR` provide optional defaults, with explicit arguments taking precedence.
+
+### Manual download
+
+Download an archive and `SHA256SUMS` from the same [GitHub release](https://github.com/LIghtJUNction/lightjunction/releases/latest). Archive names follow `lightjunction-vVERSION-TARGET.tar.gz` on Linux/macOS and `lightjunction-vVERSION-TARGET.zip` on Windows.
+
+| System | CPU | Target |
+| --- | --- | --- |
+| Linux | x86_64 | `x86_64-unknown-linux-musl` |
+| Linux | ARM64 | `aarch64-unknown-linux-musl` |
+| macOS | Intel | `x86_64-apple-darwin` |
+| macOS | Apple silicon | `aarch64-apple-darwin` |
+| Windows | x86_64 | `x86_64-pc-windows-msvc` |
+| Windows | ARM64 | `aarch64-pc-windows-msvc` |
+
+Compute the downloaded archive's checksum with the command for your system. These examples use Linux x86_64, macOS Apple silicon, and Windows x86_64; substitute the filename matching your download.
+
+```sh
+# Linux
+sha256sum lightjunction-v0.2.1-x86_64-unknown-linux-musl.tar.gz
+# macOS
+shasum -a 256 lightjunction-v0.2.1-aarch64-apple-darwin.tar.gz
+```
+
+```powershell
+Get-FileHash .\lightjunction-v0.2.1-x86_64-pc-windows-msvc.zip -Algorithm SHA256
+```
+
+Compare the complete hash with that archive's entry in `SHA256SUMS`, then extract it and copy `lightjunction` or `lightjunction.exe` into a directory on `PATH`. The checksum manifest comes from the same GitHub release: it checks download integrity and is not an independent publisher signature. Binaries are not signed with a macOS Developer ID or Windows Authenticode certificate; macOS builds are not notarized.
+
+### Build with Cargo
+
+With Rust 1.99.1 or later:
+
+```sh
+cargo install lightjunction --locked
+```
+
+Run `lightjunction` to open the menu. When its output is piped or redirected, it prints the introduction card and exits. Encryption commands additionally require the [local encryption tools](#encrypt-a-message), whichever installation method you choose.
+
+### Uninstall a binary installation
+
+Remove only the installed executable. For the default locations:
+
+```sh
+rm "$HOME/.local/bin/lightjunction"
+```
+
+```powershell
+Remove-Item "$env:LOCALAPPDATA\Programs\lightjunction\bin\lightjunction.exe"
+```
+
+For a custom install directory, remove the executable there. The installers create no persistent profile or `PATH` entries to undo.
 
 ## Explore
 
@@ -140,6 +224,8 @@ The parser dependency is pinned to `zclap = "=0.1.4"`. CI is configured to test 
 The repository's [CLI release workflow](https://github.com/LIghtJUNction/lightjunction/blob/main/.github/workflows/cli-release.yml) publishes to crates.io using the GitHub Actions secret `CARGO_REGISTRY_TOKEN`.
 
 Run it manually with `bump` set to `none`, `patch`, `minor`, or `major`, or provide a custom version. A version change in `cli/Cargo.toml` pushed to `main` also starts the release workflow. Publication runs after the workflow's checks.
+
+The `cli-vVERSION` GitHub release includes the six platform archives, `install.sh`, `install.ps1`, and `SHA256SUMS`. Binary installation uses those assets directly and does not run Cargo.
 
 ## License
 

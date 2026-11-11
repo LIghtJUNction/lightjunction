@@ -7,52 +7,135 @@ on:
   pull_request:
     paths: ['cli/**', '.github/workflows/cli-*.yml']
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      bump:
+        type: string
+        default: none
+      version:
+        type: string
+        default: ''
+      release_artifacts:
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
 concurrency:
-  group: cli-ci-${{ github.ref }}
-  cancel-in-progress: true
+  group: cli-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ !inputs.release_artifacts }}
+
+env:
+  RELEASE_BUMP: ${{ inputs.bump || 'none' }}
+  CUSTOM_VERSION: ${{ inputs.version || '' }}
+  MACOSX_DEPLOYMENT_TARGET: '11.0'
+  CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER: musl-gcc
+  CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER: musl-gcc
+  CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_RUSTFLAGS: '-Ctarget-feature=+crt-static'
+  CARGO_TARGET_AARCH64_PC_WINDOWS_MSVC_RUSTFLAGS: '-Ctarget-feature=+crt-static'
 
 jobs:
   check:
-    name: Rust / ${{ matrix.os }}
+    name: Native / ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-24.04
+            target: x86_64-unknown-linux-musl
+            binary: lightjunction
+          - os: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-musl
+            binary: lightjunction
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+            binary: lightjunction
+          - os: macos-15
+            target: aarch64-apple-darwin
+            binary: lightjunction
+          - os: windows-2022
+            target: x86_64-pc-windows-msvc
+            binary: lightjunction.exe
+          - os: windows-11-arm
+            target: aarch64-pc-windows-msvc
+            binary: lightjunction.exe
+    env:
+      TARGET: ${{ matrix.target }}
+      BINARY: ${{ matrix.binary }}
     defaults:
       run:
         shell: bash
         working-directory: cli
     steps:
       - uses: actions/checkout@v6
+      - name: Install native musl linker
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends musl-tools
       - uses: dtolnay/rust-toolchain@1.99.1
         with:
           components: rustfmt, clippy
+          targets: ${{ matrix.target }}
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: '3.13'
+      - name: Require the default branch for publishing
+        if: inputs.release_artifacts
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          if [ "$GITHUB_REF" != "refs/heads/$DEFAULT_BRANCH" ]; then
+            echo 'Releases must run from the default branch.' >&2
+            exit 1
+          fi
+      - name: Prepare the version to validate
+        id: version
+        run: uv run --no-project python scripts/release.py prepare --bump "$RELEASE_BUMP" --version "$CUSTOM_VERSION"
       - name: Format
         run: cargo fmt --all -- --check
       - name: Lint
-        run: cargo clippy --locked --all-targets -- -D warnings
+        run: cargo clippy --locked --all-targets --target "$TARGET" -- -D warnings
       - name: Test
-        run: cargo test --locked --all-targets
-      - name: Test release safeguards
+        run: cargo test --locked --all-targets --target "$TARGET"
+      - name: Test release, archive and installer safeguards
         run: uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Build native release binary
+        run: cargo build --release --locked --target "$TARGET" --bin lightjunction
+      - name: Package and smoke-test the native executable
+        id: package
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: uv run --no-project python scripts/package_binary.py build --target "$TARGET" --version "$VERSION" --binary "target/$TARGET/release/$BINARY" --output-dir "$RUNNER_TEMP/lightjunction-assets"
+      - name: Install the native archive through a local fixture
+        env:
+          ARCHIVE: ${{ steps.package.outputs.archive }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: uv run --no-project python scripts/check_install.py --archive "$ARCHIVE" --target "$TARGET" --version "$VERSION"
       - name: Install real crypto test tools
-        if: runner.os == 'Linux'
+        if: matrix.target == 'x86_64-unknown-linux-musl'
         run: bash scripts/install-crypto-test-tools.sh
       - name: Verify real age and OpenPGP encryption
-        if: runner.os == 'Linux'
-        run: |
-          cargo build --locked --bin lightjunction
-          uv run --no-project python scripts/check_crypto.py --binary target/debug/lightjunction
+        if: matrix.target == 'x86_64-unknown-linux-musl'
+        run: uv run --no-project python scripts/check_crypto.py --binary "target/$TARGET/release/$BINARY"
       - name: Check crates.io package
-        if: runner.os == 'Linux'
-        run: cargo publish --dry-run --locked
+        if: matrix.target == 'x86_64-unknown-linux-musl'
+        env:
+          VERSION_CHANGED: ${{ steps.version.outputs.changed }}
+        run: |
+          flags=()
+          if [ "$VERSION_CHANGED" = true ]; then flags+=(--allow-dirty); fi
+          cargo publish --dry-run --locked "${flags[@]}"
+      - name: Upload the verified native archive
+        if: inputs.release_artifacts
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: binary-${{ matrix.target }}
+          path: ${{ steps.package.outputs.archive }}
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
 

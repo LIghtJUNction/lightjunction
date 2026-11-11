@@ -1,6 +1,6 @@
 [package]
 name = "lightjunction"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 rust-version = "1.99.1"
 description = "An interactive introduction to LIghtJUNction with public keys, age/OpenPGP encryption, and command timings"
@@ -10,7 +10,7 @@ homepage = "https://lightjunction.github.io/lightjunction/"
 readme = "README.md"
 keywords = ["cli", "profile", "encryption", "interactive", "zclap"]
 categories = ["command-line-utilities"]
-include = ["src/**", "tests/**", "keys/**", "Cargo.toml", "Cargo.lock", "README.md", "CHANGELOG.md", "LICENSE", "UPSTREAM.toml"]
+include = ["src/**", "tests/**", "keys/**", "install.sh", "install.ps1", "Cargo.toml", "Cargo.lock", "README.md", "CHANGELOG.md", "LICENSE", "UPSTREAM.toml"]
 
 [dependencies]
 zclap = "=0.1.4"

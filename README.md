@@ -16,13 +16,27 @@ I build open-source tools that are easy to inspect, run, and own. This repositor
 
 Explore my projects, export my public keys, and encrypt a message from your terminal, with command timings:
 
+Linux and macOS:
+
 ```sh
-cargo install lightjunction --locked
-lightjunction
-lightjunction keys ssh
+installer=$(mktemp) &&
+curl -fsSL https://github.com/LIghtJUNction/lightjunction/releases/latest/download/install.sh -o "$installer" &&
+sh "$installer" &&
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
-[CLI commands and development](cli/README.md)
+Windows PowerShell:
+
+```powershell
+$installer = Join-Path $env:TEMP ("lightjunction-install-{0}.ps1" -f [guid]::NewGuid())
+Invoke-WebRequest 'https://github.com/LIghtJUNction/lightjunction/releases/latest/download/install.ps1' -OutFile $installer -UseBasicParsing -ErrorAction Stop
+& $installer
+$env:Path = "$env:LOCALAPPDATA\Programs\lightjunction\bin;$env:Path"
+```
+
+The installers verify the binary checksum and use a directory owned by your user. No Rust or administrator privileges are needed. The `PATH` line applies to the current shell; then run `lightjunction` or `lightjunction keys ssh`.
+
+With Rust 1.99.1+, you can also use `cargo install lightjunction --locked`. If unsigned scripts are blocked, use a [manual download](cli/README.md#manual-download). See the [CLI guide](cli/README.md) for version selection, encryption dependencies, and development.
 
 ## Project Z
 

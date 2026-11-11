@@ -179,7 +179,8 @@ public static class LightjunctionInstallerNative {
     Assert-RegularDestination $Destination
     if ([IO.File]::Exists($Destination)) {
         # Same-volume replacement preserves the previous binary if replacement fails.
-        [IO.File]::Replace($StagedBinary, $Destination, $null)
+        # A plain $null is coerced to an empty backup filename by PowerShell.
+        [IO.File]::Replace($StagedBinary, $Destination, [NullString]::Value)
     } else {
         [IO.File]::Move($StagedBinary, $Destination)
     }
