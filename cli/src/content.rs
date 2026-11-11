@@ -11,6 +11,10 @@ pub struct Display {
     pub json: bool,
 }
 
+const AGE_KEY: &str = include_str!("../keys/age-recipients.txt");
+const GPG_KEY: &str = include_str!("../keys/pubkey.asc");
+const SSH_KEYS: &str = include_str!("../keys/ssh-public-keys.txt");
+
 struct Project {
     id: &'static str,
     name: &'static str,
@@ -90,6 +94,9 @@ pub fn render(
     display: &Display,
     out: &mut impl Write,
 ) -> Result<(), Error> {
+    if command == "keys" {
+        return keys(filter, display, out);
+    }
     let selected = if let Some(name) = filter {
         Some(
             PROJECTS
@@ -161,7 +168,7 @@ pub fn render(
         "help" => page.section(
             concat!("lightjunction ", env!("CARGO_PKG_VERSION")),
             &[
-                "Usage: lightjunction [OPTIONS] [COMMAND] [PROJECT]",
+                "Usage: lightjunction [OPTIONS] [COMMAND] [SUBJECT]",
                 "",
                 "card         A short introduction (default when piped)",
                 "about        Meet LIghtJUNction",
@@ -170,22 +177,72 @@ pub fn render(
                 "links        Public GitHub and website links",
                 "tour         Read the complete introduction",
                 "spark        Draw a small engineering question",
+                "keys [age|gpg|ssh]  Show public keys; a format exports the raw key",
+                "encrypt age|gpg    Encrypt to LIghtJUNction's bundled public key",
                 "",
                 "-i, --interactive  Enter the menu, even with piped input",
                 "    --lang en|zh   Select a language (otherwise use locale)",
                 "    --plain        Disable terminal styling",
                 "    --json         Write structured JSON to stdout",
                 "    --no-timing    Hide timing output",
+                "    --input FILE   Plaintext file, or - for stdin (encrypt only)",
+                "-o, --output FILE  New ciphertext file, or - for stdout (encrypt only)",
+                "-a, --armor        Write text-armored ciphertext (encrypt only)",
                 "-h, --help         Show this help",
                 "-V, --version      Show the version",
                 "",
                 "With no command, a terminal opens the menu. Pipes receive a card.",
                 "Timing goes to stderr. Menu input waiting is measured separately.",
                 "Project names: z, lmm-api, magicnet, onimods, humangrant",
-                "Menu: 1..6, a command, projects NAME, s/stats, ?/help, q/quit/exit",
+                "Encryption needs age + age-plugin-yubikey, or GnuPG >= 2.2 on PATH.",
+                "Example: lightjunction encrypt age --input note.txt -o note.txt.age",
+                "Menu: 1..7, a command, projects NAME, keys FORMAT, s/stats, ?/help, q/quit/exit",
             ],
         )?,
         _ => return Err(Error::Usage("Unknown command".into())),
+    }
+    page.finish()?;
+    Ok(())
+}
+
+fn keys(format: Option<&str>, display: &Display, out: &mut impl Write) -> Result<(), Error> {
+    let selected = match format {
+        Some("age") => Some(("age", AGE_KEY)),
+        Some("gpg") => Some(("gpg", GPG_KEY)),
+        Some("ssh") => Some(("ssh", SSH_KEYS)),
+        None => None,
+        Some(_) => {
+            return Err(Error::Usage(
+                "Choose a public-key format: age, gpg, or ssh".into(),
+            ));
+        }
+    };
+    if let Some((_, key)) = selected
+        && !display.json
+    {
+        out.write_all(key.as_bytes())?;
+        return Ok(());
+    }
+    let mut page = Page::new("keys", display, out)?;
+    if let Some((name, key)) = selected {
+        page.section(name, &[key])?;
+    } else {
+        page.section("age", &[AGE_KEY.trim_end(), "lightjunction keys age"])?;
+        page.section(
+            "OpenPGP",
+            &[
+                "EB21B83AB1E982DF66F08387A67178405F7736FD",
+                "lightjunction keys gpg",
+            ],
+        )?;
+        page.section("SSH", &[SSH_KEYS.trim_end(), "lightjunction keys ssh"])?;
+        page.section(
+            display.language.text("Encrypt a file", "加密文件"),
+            &[
+                "lightjunction encrypt age --input note.txt --output note.txt.age",
+                "lightjunction encrypt gpg --input note.txt --output note.txt.gpg",
+            ],
+        )?;
     }
     page.finish()?;
     Ok(())

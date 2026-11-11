@@ -14,11 +14,12 @@ I build open-source tools that are easy to inspect, run, and own. This repositor
 
 ## Terminal card
 
-Explore my projects from your terminal, with an interactive menu and command timings:
+Explore my projects, export my public keys, and encrypt a message from your terminal, with command timings:
 
 ```sh
 cargo install lightjunction --locked
 lightjunction
+lightjunction keys ssh
 ```
 
 [CLI commands and development](cli/README.md)
@@ -39,17 +40,20 @@ A series of minimal, zero-dependency Rust libraries, each built to do one thing 
 
 ## Contact
 
-[age recipient](public/age-recipients.txt) · [OpenPGP public key](pubkey.asc)
+[age recipient](public/age-recipients.txt) · [OpenPGP public key](pubkey.asc) · [SSH public keys](https://github.com/LIghtJUNction.keys)
 
 ```text
 age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n
 ```
 
-Encrypt a message locally with [age](https://github.com/FiloSottile/age) and [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey):
+Encrypt a message with the CLI's bundled public keys. For age, install [age](https://github.com/FiloSottile/age) and [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey); for OpenPGP, install [GnuPG](https://www.gnupg.org/documentation/).
 
 ```sh
-age -R age-recipients.txt -o message.txt.age message.txt
+lightjunction encrypt age --input message.txt --output message.txt.age
+lightjunction encrypt gpg --input message.txt --output message.txt.gpg
 ```
+
+Encrypting to my age public key does not require a YubiKey; the matching private key and hardware are needed for decryption. The OpenPGP primary fingerprint is `EB21B83AB1E982DF66F08387A67178405F7736FD`. See the [CLI guide](cli/README.md#encrypt-a-message) for file, pipe, and armored output options.
 
 Send the encrypted file to **lightjunction.me@gmail.com**. Never send private keys, passwords, or recovery codes.
 

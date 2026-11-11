@@ -67,6 +67,14 @@ jobs:
           uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
       - name: Build release binary
         run: cargo build --release --locked
+      - name: Install real crypto test tools
+        if: runner.os == 'Linux'
+        run: bash scripts/install-crypto-test-tools.sh
+      - name: Verify real age and OpenPGP encryption
+        if: runner.os == 'Linux'
+        run: |
+          cargo build --locked --bin lightjunction
+          uv run --no-project python scripts/check_crypto.py --binary target/debug/lightjunction
       - name: Validate the prospective package
         if: runner.os == 'Linux'
         # Only the version files may differ here; the publish job commits them.
@@ -144,7 +152,7 @@ jobs:
           RELEASE_TAG: ${{ steps.version.outputs.tag }}
         run: |
           notes="$RUNNER_TEMP/lightjunction-release.md"
-          printf 'Interactive terminal introduction to LIghtJUNction.\n\nInstall:\n```sh\ncargo install lightjunction --locked --version %s\nlightjunction\n```\n\nThe crates.io archive checksum was verified against the official sparse index.\n' "$RELEASE_VERSION" > "$notes"
+          printf 'Interactive terminal introduction to LIghtJUNction, with local age/OpenPGP public-key encryption.\n\nInstall:\n```sh\ncargo install lightjunction --locked --version %s\nlightjunction\n```\n\nThe crates.io archive checksum was verified against the official sparse index.\n' "$RELEASE_VERSION" > "$notes"
           if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release create "$RELEASE_TAG" --verify-tag --title "lightjunction $RELEASE_VERSION" --notes-file "$notes"
           fi

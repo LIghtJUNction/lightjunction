@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0
+
+- Add `keys [age|gpg|ssh]` to inspect bundled public-key snapshots or export raw key material, with JSON support.
+- Add `encrypt age|gpg` for streaming file or standard-input encryption through locally installed age or GnuPG tools.
+- Support armored ciphertext, terminal I/O checks, and staged output files that never replace an existing destination.
+- Isolate GPG from the default keyring and configuration, disable automatic key retrieval and agent startup, and preserve command timings on standard error.
+- Document public-key provenance, encryption dependencies, file and pipeline examples, and the distinction between historical profile benchmarks and encryption timings.
+
 ## 0.1.1
 
 - Keep every engineering question reachable on clocks with coarse timestamp precision.

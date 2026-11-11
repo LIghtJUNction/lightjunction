@@ -1,5 +1,6 @@
 mod args;
 mod content;
+mod crypto;
 mod timing;
 
 use std::ffi::OsString;
@@ -14,6 +15,7 @@ use timing::Stats;
 #[derive(Debug)]
 enum Error {
     Usage(String),
+    Runtime(String),
     Io(io::Error),
 }
 
@@ -68,14 +70,24 @@ fn main() -> ExitCode {
             &mut stats,
             &mut waiting,
         )
+    } else if command == "encrypt" {
+        crypto::encrypt(&options)
     } else {
-        content::render(command, options.project, &display, &mut out)
+        content::render(command, options.subject, &display, &mut out)
     }
     .and_then(|()| out.flush().map_err(Error::Io));
     let success = result.is_ok();
     let exit = match result {
         Ok(()) => ExitCode::SUCCESS,
-        Err(Error::Io(error)) if error.kind() == io::ErrorKind::BrokenPipe => ExitCode::SUCCESS,
+        Err(Error::Io(error))
+            if error.kind() == io::ErrorKind::BrokenPipe && command != "encrypt" =>
+        {
+            ExitCode::SUCCESS
+        }
+        Err(Error::Runtime(message)) => {
+            let _ = writeln!(err, "error: {message}");
+            ExitCode::FAILURE
+        }
         Err(Error::Io(error)) => {
             let _ = writeln!(err, "error: {error}");
             ExitCode::FAILURE
@@ -148,16 +160,18 @@ fn interactive(
             "4" => "links",
             "5" => "tour",
             "6" => "spark",
+            "7" => "keys",
             "?" | "help" | "menu" => "help",
             "s" | "stats" => "stats",
             "0" | "q" | "quit" | "exit" => "quit",
             value => value,
         };
         let project = words.next();
-        let valid = words.next().is_none() && (project.is_none() || command == "projects");
+        let valid =
+            words.next().is_none() && (project.is_none() || matches!(command, "projects" | "keys"));
         let result = if !valid {
             Err(Error::Usage(
-                "Use a menu number, a command, or 'projects NAME'".into(),
+                "Use a menu number, a command, 'projects NAME', or 'keys age|gpg|ssh'".into(),
             ))
         } else {
             match command {
@@ -169,6 +183,7 @@ fn interactive(
                 .map_err(Error::Io),
                 "help" => menu(out, display).map_err(Error::Io),
                 "stats" => stats.distribution(out).map_err(Error::Io),
+                "encrypt" => Err(Error::Usage("Run 'lightjunction encrypt age|gpg --input FILE --output FILE' from your shell".into())),
                 value if args::COMMANDS.contains(&value) => {
                     content::render(value, project, display, out)
                 }
@@ -210,13 +225,17 @@ fn menu(out: &mut impl Write, display: &Display) -> io::Result<()> {
     let l = display.language;
     writeln!(
         out,
-        "  1  {}\n  2  {}\n  3  {}\n  4  {}\n  5  {}\n  6  {}\n",
+        "  1  {}\n  2  {}\n  3  {}\n  4  {}\n  5  {}\n  6  {}\n  7  {}\n",
         l.text("About", "关于我"),
         l.text("Projects", "项目"),
         l.text("Principles", "做事原则"),
         l.text("Links", "找到我"),
         l.text("Take the tour", "逛一圈"),
-        l.text("An engineering spark", "一个工程问题")
+        l.text("An engineering spark", "一个工程问题"),
+        l.text(
+            "Public keys (keys age|gpg|ssh)",
+            "公开密钥（keys age|gpg|ssh）"
+        )
     )?;
     writeln!(
         out,

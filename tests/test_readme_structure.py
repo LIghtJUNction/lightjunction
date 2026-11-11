@@ -54,7 +54,15 @@ def test_encryption_instructions_use_the_published_recipient() -> None:
         text = path.read_text(encoding="utf-8")
         assert "(public/age-recipients.txt)" in text, path
         assert "(pubkey.asc)" in text, path
-        assert "age -R age-recipients.txt -o message.txt.age message.txt" in text, path
+        if path.name == "README.md":
+            for protocol in ("age", "gpg"):
+                command = (
+                    f"lightjunction encrypt {protocol} --input message.txt "
+                    f"--output message.txt.{protocol}"
+                )
+                assert command in text, (path, command)
+        else:
+            assert "age -R age-recipients.txt -o message.txt.age message.txt" in text, path
         assert "message.txt.age" in text and "lightjunction.me@gmail.com" in text, path
     for filename in ("README.md", "README.zh.md"):
         assert recipient in Path(filename).read_text(encoding="utf-8"), filename

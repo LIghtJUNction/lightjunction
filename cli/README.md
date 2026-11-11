@@ -1,8 +1,8 @@
 # lightjunction
 
-An interactive terminal introduction to [LIghtJUNction](https://github.com/LIghtJUNction). Meet the person, explore the projects, and pick up a small engineering question along the way.
+An interactive terminal introduction to [LIghtJUNction](https://github.com/LIghtJUNction). Meet the person, explore the projects, export public keys, and encrypt a message to their age or OpenPGP key.
 
-Built in Rust with [`zclap`](https://crates.io/crates/zclap), with command timings on by default. Everything runs locally: no network requests, telemetry, or persistent activity logs.
+Built in Rust with [`zclap`](https://crates.io/crates/zclap), with command timings on by default. Profile content and public keys are bundled for offline use. The CLI does not fetch keys, collect telemetry, or keep persistent activity logs; encryption uses locally installed tools.
 
 ## Install
 
@@ -32,6 +32,8 @@ lightjunction spark
 | `links` | Public GitHub and website links. |
 | `tour` | The complete introduction, printed all at once. |
 | `spark` | An original engineering question to think about. |
+| `keys [age\|gpg\|ssh]` | A public-key summary, or one format's raw public key. |
+| `encrypt age\|gpg` | Encrypt a file or input stream to the bundled recipient key. |
 
 The collection introduces Project Z, LMM API, MagicNet, OniMods, and HumanGrant. Profile content comes from the [public repository](https://github.com/LIghtJUNction/lightjunction). The questions in `spark` are written for this CLI; they are not historical quotations. The `tour` command prints every section and exits without waiting for input; the menu provides interactive navigation.
 
@@ -41,14 +43,60 @@ In the menu, enter a number or a command. Enter `s` or `stats` for session timin
 printf 'about\nprojects\ns\nq\n' | lightjunction --interactive --plain
 ```
 
+## Public keys
+
+Choose a format to print its raw public key to standard output. Timings remain on standard error, so exported files contain only the key material.
+
+```sh
+lightjunction keys
+lightjunction keys age > lightjunction-age.txt
+lightjunction keys gpg > lightjunction-openpgp.asc
+lightjunction keys ssh > lightjunction-ssh.pub
+lightjunction keys --json
+```
+
+The keys are fixed snapshots included in each release. Their public sources are the repository's [age recipient](https://github.com/LIghtJUNction/lightjunction/blob/main/public/age-recipients.txt), [OpenPGP key](https://github.com/LIghtJUNction/lightjunction/blob/main/pubkey.asc), and [GitHub SSH keys](https://github.com/LIghtJUNction.keys). See [snapshot provenance and fingerprints](keys/README.md) for the exact embedded versions. The OpenPGP primary fingerprint is `EB21B83AB1E982DF66F08387A67178405F7736FD`.
+
+`keys --json` uses the same `sections` array as the profile commands. SSH key export leaves `authorized_keys` and SSH access settings unchanged.
+
+## Encrypt a message
+
+Encryption delegates to `age` or `gpg` found on `PATH`. Install the tools for your chosen format using their official documentation:
+
+| Format | Required tools |
+| --- | --- |
+| age | [age 1.1+](https://github.com/FiloSottile/age#installation) and [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey#installation), because the bundled recipient starts with `age1yubikey1`. |
+| OpenPGP | [GnuPG 2.2+](https://www.gnupg.org/documentation/), providing `gpg` with `--recipient-file` support. |
+
+You can encrypt to the age public recipient without a YubiKey. Decryption requires the recipient's corresponding private key and hardware. The CLI provides encryption and public-key export; it does not decrypt or sign messages.
+
+```sh
+lightjunction encrypt age --input message.txt --output message.txt.age
+lightjunction encrypt gpg --input message.txt --output message.txt.gpg
+printf 'Hello, LIghtJUNction.\n' | lightjunction encrypt age --armor --output hello.age
+lightjunction encrypt gpg --input message.txt --armor
+```
+
+| Encryption option | Behavior |
+| --- | --- |
+| `--input FILE` | Read the file. Omit it or use `--input -` to read standard input. |
+| `--output FILE`, `-o FILE` | Create a new ciphertext file. Omit it or use `--output -` to write to standard output. |
+| `--armor` | Produce text-encoded ciphertext suitable for terminal output. |
+
+`-i` remains the alias for `--interactive`; use the full `--input` name for a file. Encryption refuses to read plaintext from an interactive terminal: supply a file or pipe. Binary ciphertext is refused when standard output is a terminal; choose `--armor` or an output file.
+
+File output is staged and committed only after encryption succeeds, without replacing an existing destination. This atomic no-overwrite commit requires hard-link support on the destination filesystem. There is no overwrite option. Plaintext streams to the encryption tool without being placed in temporary files or process arguments by the CLI. Ciphertext written to standard output can already have been emitted when a later error occurs, so downstream consumers must check the command's exit status; in Bash pipelines, enable `set -o pipefail`.
+
+GPG runs with an isolated temporary home and the bundled key through `--recipient-file`. It skips user configuration, disables automatic key retrieval and agent startup, and leaves the default keyring untouched. Timing and diagnostics stay on standard error for both formats.
+
 ## Output options
 
 | Option | Behavior |
 | --- | --- |
 | `--lang en` / `--lang zh` | Choose English or Chinese. |
 | `--plain` | Disable terminal styling. |
-| `--json` | Print the selected command's content as JSON. |
-| `--interactive` | Open the menu even with piped input. |
+| `--json` | Print profile or public-key content as JSON. Encryption outputs ciphertext. |
+| `--interactive`, `-i` | Open the menu even with piped input. |
 | `--no-timing` | Hide timings after successful argument parsing. |
 | `--help`, `-h` | Show usage. |
 | `--version`, `-V` | Show the installed version. |
@@ -71,7 +119,7 @@ The timer starts inside the running program. It excludes operating-system proces
 
 For end-to-end startup performance, measure the release binary from a separate process. An internal command timing describes a different interval from launching and exiting the executable.
 
-See [measured benchmarks](https://github.com/LIghtJUNction/lightjunction/blob/main/cli/BENCHMARKS.md) for internal and external timings, the test environment, and reproducible results.
+See [measured benchmarks](https://github.com/LIghtJUNction/lightjunction/blob/main/cli/BENCHMARKS.md) for historical measurements of the **0.1.1 introduction commands**, including the environment and raw samples. Those measurements do not cover encryption; encryption timings include the external tool and input/output processing.
 
 ## Develop
 

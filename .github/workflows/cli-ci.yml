@@ -44,6 +44,14 @@ jobs:
         run: cargo test --locked --all-targets
       - name: Test release safeguards
         run: uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Install real crypto test tools
+        if: runner.os == 'Linux'
+        run: bash scripts/install-crypto-test-tools.sh
+      - name: Verify real age and OpenPGP encryption
+        if: runner.os == 'Linux'
+        run: |
+          cargo build --locked --bin lightjunction
+          uv run --no-project python scripts/check_crypto.py --binary target/debug/lightjunction
       - name: Check crates.io package
         if: runner.os == 'Linux'
         run: cargo publish --dry-run --locked
