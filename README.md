@@ -12,6 +12,17 @@
 
 I build open-source tools that are easy to inspect, run, and own. This repository is also the source for my [interactive profile](https://lightjunction.github.io/lightjunction/); the accounts and assets remain mine.
 
+## Terminal card
+
+Explore my projects from your terminal, with an interactive menu and command timings:
+
+```sh
+cargo install lightjunction --locked
+lightjunction
+```
+
+[CLI commands and development](cli/README.md)
+
 ## Project Z
 
 A series of minimal, zero-dependency Rust libraries, each built to do one thing well. Leading AI models help generate the code; small scope and simple interfaces keep every library easy to understand and use.
