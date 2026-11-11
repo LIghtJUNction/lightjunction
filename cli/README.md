@@ -30,10 +30,10 @@ lightjunction spark
 | `projects [project-name]` | The project collection, or one project's introduction. |
 | `principles` | A few ideas behind the work. |
 | `links` | Public GitHub and website links. |
-| `tour` | A guided introduction. |
+| `tour` | The complete introduction, printed all at once. |
 | `spark` | An original engineering question to think about. |
 
-The collection introduces Project Z, LMM API, MagicNet, OniMods, and HumanGrant. Profile content comes from the [public repository](https://github.com/LIghtJUNction/lightjunction). The questions in `spark` are written for this CLI; they are not historical quotations.
+The collection introduces Project Z, LMM API, MagicNet, OniMods, and HumanGrant. Profile content comes from the [public repository](https://github.com/LIghtJUNction/lightjunction). The questions in `spark` are written for this CLI; they are not historical quotations. The `tour` command prints every section and exits without waiting for input; the menu provides interactive navigation.
 
 In the menu, enter a number or a command. Enter `s` or `stats` for session timings, and `q`, `quit`, or `exit` to leave. You can also drive the menu with a script:
 
@@ -47,9 +47,9 @@ printf 'about\nprojects\ns\nq\n' | lightjunction --interactive --plain
 | --- | --- |
 | `--lang en` / `--lang zh` | Choose English or Chinese. |
 | `--plain` | Disable terminal styling. |
-| `--json` | Print the selected command's content as JSON. A JSON tour does not wait for input. |
+| `--json` | Print the selected command's content as JSON. |
 | `--interactive` | Open the menu even with piped input. |
-| `--no-timing` | Hide timing output. |
+| `--no-timing` | Hide timings after successful argument parsing. |
 | `--help`, `-h` | Show usage. |
 | `--version`, `-V` | Show the installed version. |
 
@@ -61,7 +61,7 @@ lightjunction --json projects
 lightjunction --plain --no-timing card
 ```
 
-Command content goes to standard output. Timings go to standard error, so JSON and text remain usable in pipelines.
+Command content goes to standard output. Timings go to standard error, so JSON and text remain usable in pipelines. Argument parsing failures still emit a diagnostic timing line, even when `--no-timing` is present.
 
 ## Timing
 
@@ -70,6 +70,8 @@ Each command reports its elapsed work time by default. Interactive sessions also
 The timer starts inside the running program. It excludes operating-system process startup and the timing line's own output. Waiting for interactive input is recorded separately from command work. Output I/O and machine load can affect the measured work time.
 
 For end-to-end startup performance, measure the release binary from a separate process. An internal command timing describes a different interval from launching and exiting the executable.
+
+See [measured benchmarks](https://github.com/LIghtJUNction/lightjunction/blob/main/cli/BENCHMARKS.md) for internal and external timings, the test environment, and reproducible results.
 
 ## Develop
 
@@ -83,7 +85,7 @@ cargo build --release --locked
 cargo run --release --locked -- --plain card
 ```
 
-The parser dependency is pinned to `zclap = 0.1.4`. CI is configured to test Linux, macOS, and Windows, and to check formatting, linting, and crate packaging.
+The parser dependency is pinned to `zclap = "=0.1.4"`. CI is configured to test Linux, macOS, and Windows, and to check formatting, linting, and crate packaging.
 
 ## Release
 

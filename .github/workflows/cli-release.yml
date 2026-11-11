@@ -1,0 +1,152 @@
+name: CLI Release
+
+on:
+  push:
+    branches: [main]
+    paths: ['cli/Cargo.toml', '.github/workflows/cli-release.yml']
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version increment (use none for the current or custom version)
+        type: choice
+        options: [none, patch, minor, major]
+        default: none
+        required: true
+      version:
+        description: Optional exact stable version, for example 0.2.0 (requires bump=none)
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+# A version is immutable once published. Never cancel an in-flight release.
+concurrency:
+  group: lightjunction-crates-io-release
+  cancel-in-progress: false
+
+env:
+  DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+  RELEASE_BUMP: ${{ inputs.bump || 'none' }}
+  CUSTOM_VERSION: ${{ inputs.version || '' }}
+
+jobs:
+  validate:
+    name: Validate / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    defaults:
+      run:
+        shell: bash
+        working-directory: cli
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@1.99.1
+        with:
+          components: rustfmt, clippy
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: '3.13'
+      - name: Require the default branch
+        run: |
+          if [ "$GITHUB_REF" != "refs/heads/$DEFAULT_BRANCH" ]; then
+            echo 'Releases must run from the default branch.' >&2
+            exit 1
+          fi
+      - name: Prepare the version to validate
+        run: uv run --no-project python scripts/release.py prepare --bump "$RELEASE_BUMP" --version "$CUSTOM_VERSION"
+      - name: Format, lint and test
+        run: |
+          cargo fmt --all -- --check
+          cargo clippy --locked --all-targets -- -D warnings
+          cargo test --locked --all-targets
+          uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Build release binary
+        run: cargo build --release --locked
+      - name: Validate the prospective package
+        if: runner.os == 'Linux'
+        # Only the version files may differ here; the publish job commits them.
+        run: cargo publish --dry-run --locked --allow-dirty
+
+  publish:
+    name: Publish to crates.io
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: dtolnay/rust-toolchain@1.99.1
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: '3.13'
+      - name: Check publishing credential
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: |
+          if [ -z "$CARGO_REGISTRY_TOKEN" ]; then
+            echo 'Missing repository or organization Actions secret CARGO_REGISTRY_TOKEN. Configure a crates.io token allowed to publish lightjunction, then rerun.' >&2
+            exit 1
+          fi
+      - name: Require a clean, current default-branch checkout
+        run: |
+          test "$GITHUB_REF" = "refs/heads/$DEFAULT_BRANCH"
+          test -z "$(git status --porcelain)"
+          remote_sha=$(git ls-remote origin "refs/heads/$DEFAULT_BRANCH" | cut -f1)
+          if [ "$remote_sha" != "$GITHUB_SHA" ]; then
+            echo 'The default branch changed after this run started. Dispatch a new release from its current head.' >&2
+            exit 1
+          fi
+      - name: Prepare the validated version
+        id: version
+        run: uv run --no-project python cli/scripts/release.py prepare --bump "$RELEASE_BUMP" --version "$CUSTOM_VERSION"
+      - name: Commit and push a requested version bump
+        if: steps.version.outputs.changed == 'true'
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add cli/Cargo.toml cli/Cargo.lock
+          git commit -m "chore(cli): release lightjunction $RELEASE_VERSION"
+          git push origin "HEAD:refs/heads/$DEFAULT_BRANCH"
+      - name: Publish and verify the registry checksum
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: uv run --no-project python cli/scripts/release.py publish
+      - name: Tag the verified release
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          if git show-ref --verify --quiet "refs/tags/$RELEASE_TAG"; then
+            if [ "$(git rev-parse "${RELEASE_TAG}^{}")" != "$(git rev-parse HEAD)" ]; then
+              echo 'The existing release tag points to different source. Refusing to replace it.' >&2
+              exit 1
+            fi
+          else
+            git tag "$RELEASE_TAG"
+            git push origin "refs/tags/$RELEASE_TAG"
+          fi
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          notes="$RUNNER_TEMP/lightjunction-release.md"
+          printf 'Interactive terminal introduction to LIghtJUNction.\n\nInstall:\n```sh\ncargo install lightjunction --locked --version %s\nlightjunction\n```\n\nThe crates.io archive checksum was verified against the official sparse index.\n' "$RELEASE_VERSION" > "$notes"
+          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" --verify-tag --title "lightjunction $RELEASE_VERSION" --notes-file "$notes"
+          fi
+          gh release upload "$RELEASE_TAG" "cli/target/package/lightjunction-$RELEASE_VERSION.crate" --clobber
+
