@@ -23,15 +23,16 @@ permissions:
   contents: read
 
 concurrency:
-  group: cli-ci-${{ github.workflow }}-${{ github.ref }}
+  group: cli-ci-${{ github.workflow }}-${{ github.ref }}-${{ inputs.release_artifacts && github.run_id || 'branch' }}
   cancel-in-progress: ${{ !inputs.release_artifacts }}
 
 env:
   RELEASE_BUMP: ${{ inputs.bump || 'none' }}
   CUSTOM_VERSION: ${{ inputs.version || '' }}
   MACOSX_DEPLOYMENT_TARGET: '11.0'
-  CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER: musl-gcc
-  CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER: musl-gcc
+  # Rust supplies the musl CRT; each native runner's C linker completes the binary.
+  CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER: cc
+  CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER: cc
   CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_RUSTFLAGS: '-Ctarget-feature=+crt-static'
   CARGO_TARGET_AARCH64_PC_WINDOWS_MSVC_RUSTFLAGS: '-Ctarget-feature=+crt-static'
 
@@ -71,11 +72,6 @@ jobs:
         working-directory: cli
     steps:
       - uses: actions/checkout@v6
-      - name: Install native musl linker
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes --no-install-recommends musl-tools
       - uses: dtolnay/rust-toolchain@1.99.1
         with:
           components: rustfmt, clippy

@@ -23,8 +23,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Install ShellCheck
-        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Verify the runner's ShellCheck
+        run: shellcheck --version
 
       - name: Run scripts/check-shell.sh
         run: scripts/check-shell.sh
@@ -62,8 +62,8 @@ jobs:
           node-version: '24'
           cache: npm
 
-      - name: Install age for ciphertext validation
-        run: sudo apt-get update && sudo apt-get install -y age
+      - name: Install pinned age for ciphertext validation
+        run: bash cli/scripts/install-crypto-test-tools.sh --age-only
 
       - name: Install npm dependencies
         run: npm ci
