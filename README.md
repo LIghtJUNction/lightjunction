@@ -57,6 +57,8 @@ Send the encrypted file to **lightjunction.me@gmail.com**. Never send private ke
 
 [Website](https://lightjunction.github.io/lightjunction/) · [Notes](https://msg.lmm.best/@lightjunction) · [Support open-source work](https://donate.lmm.best/?project=lightjunction)
 
+[Challenge I — claimed](https://msg.lmm.best/main/184) · [Challenge II — Asymmetric Signal](https://msg.lmm.best/main/185)
+
 ## License
 
-Original material uses [AUL 1.0-draft.1](LICENSE). Earlier MIT grants and third-party terms remain valid; see [LICENSING.md](LICENSING.md).
+Original material uses [AUL 1.0-draft.1](LICENSE), a custom draft not approved by OSI. Earlier MIT grants and third-party terms remain valid; see [LICENSING.md](LICENSING.md).
