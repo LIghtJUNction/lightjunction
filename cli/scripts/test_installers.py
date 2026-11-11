@@ -302,6 +302,56 @@ class InstallerTests(unittest.TestCase):
         self.assertEqual(self.fixture.requests()[0], LATEST)
         self.assertEqual(self.fixture.destination.read_bytes(), PAYLOAD)
 
+    def test_compact_latest_with_escaped_and_nested_metadata(self) -> None:
+        self.fixture.set_latest(
+            f"cli-v{VERSION}",
+            body='Escapes: \\ \" { } [ ] , :\n"tag_name":"cli-v9.9.9","draft":true',
+            author={"tag_name": "cli-v9.9.9", "draft": True, "prerelease": True},
+            assets=[{"tag_name": "cli-v8.8.8", "draft": True}],
+        )
+        data = json.loads(self.fixture.latest.read_text())
+        self.fixture.latest.write_text(json.dumps(data, separators=(",", ":")))
+        result = self.run_installer(version=None)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(self.fixture.destination.read_bytes(), PAYLOAD)
+        self.assertEqual(self.fixture.requests()[0], LATEST)
+
+    def test_nested_latest_fields_do_not_replace_missing_root_fields(self) -> None:
+        self.fixture.latest.write_text(json.dumps({
+            "author": {"tag_name": f"cli-v{VERSION}", "draft": False, "prerelease": False},
+        }, separators=(",", ":")))
+        self.fixture.old_installation()
+        result = self.run_installer(version=None)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(self.fixture.destination.read_bytes(), b"previous installation")
+
+    def test_truncated_latest_metadata_preserves_existing_installation(self) -> None:
+        self.fixture.set_latest(f"cli-v{VERSION}", body="incomplete response")
+        self.fixture.latest.write_text(self.fixture.latest.read_text().rstrip()[:-1])
+        self.fixture.old_installation()
+        result = self.run_installer(version=None)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(self.fixture.destination.read_bytes(), b"previous installation")
+
+    @unittest.skipIf(os.name == "nt", "Unix root-field lexer validation")
+    def test_invalid_root_metadata_preserves_existing_installation(self) -> None:
+        good = json.dumps({"tag_name": f"cli-v{VERSION}", "draft": False, "prerelease": False})
+        for data in (
+            good + "trailing garbage",
+            good + good,
+            good[:-1] + ',"tag_name":"cli-v9.9.9"}',
+            good[:-1] + ',"draft":false}',
+            good[:-1] + ',"body":"unterminated',
+            good[:-1] + ',"assets":[}}',
+            "[" + good + "]",
+        ):
+            with self.subTest(data=data):
+                self.fixture.latest.write_text(data)
+                self.fixture.old_installation()
+                result = self.run_installer(version=None)
+                self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertEqual(self.fixture.destination.read_bytes(), b"previous installation")
+
     def test_invalid_latest_and_prerelease_fail(self) -> None:
         for tag, prerelease in (("site-v1.2.3", False), (f"cli-v{VERSION}", True)):
             with self.subTest(tag=tag, prerelease=prerelease):

@@ -185,7 +185,7 @@ jobs:
       RELEASE_TAG: ${{ needs.publish.outputs.tag }}
       TARGET: ${{ matrix.target }}
     steps:
-      - name: Install and run the published Unix archive
+      - name: Install and run the pinned and latest Unix archives
         if: runner.os != 'Windows'
         shell: bash
         run: |
@@ -198,13 +198,39 @@ jobs:
           [[ "$expected" =~ ^[0-9a-f]{64}$ ]]
           actual=$(shasum -a 256 "$installer" | awk '{print $1}')
           test "$actual" = "$expected"
-          destination="$RUNNER_TEMP/lightjunction-installed"
-          sh "$installer" --version "$RELEASE_VERSION" --install-dir "$destination"
-          reported=$("$destination/lightjunction" --no-timing --version | awk 'NF {$1=$1; print}')
-          test "$reported" = "lightjunction $RELEASE_VERSION"
-          "$destination/lightjunction" keys ssh --no-timing > "$RUNNER_TEMP/lightjunction-ssh.pub"
-          test -s "$RUNNER_TEMP/lightjunction-ssh.pub"
-      - name: Install and run with PowerShell 7 and Windows PowerShell 5.1
+          for mode in pinned latest; do
+            destination="$RUNNER_TEMP/lightjunction-installed-$mode"
+            if [ "$mode" = pinned ]; then
+              sh "$installer" --version "$RELEASE_VERSION" --install-dir "$destination"
+            else
+              # GitHub's latest API can briefly lag publication. Wait for this tag,
+              # then exercise the installer's own resolver without a version argument.
+              deadline=$((SECONDS + 120))
+              latest=''
+              while [ "$SECONDS" -lt "$deadline" ]; do
+                remaining=$((deadline - SECONDS))
+                if [ "$remaining" -gt 15 ]; then remaining=15; fi
+                if latest=$(curl --fail --silent --show-error --location --connect-timeout 5 --max-time "$remaining" --proto '=https' --proto-redir '=https' https://api.github.com/repos/LIghtJUNction/lightjunction/releases/latest | python3 -c 'import json, sys; release = json.load(sys.stdin); print(release.get("tag_name", "") if release.get("draft") is False and release.get("prerelease") is False else "")'); then
+                  if [ "$latest" = "$RELEASE_TAG" ]; then break; fi
+                fi
+                remaining=$((deadline - SECONDS))
+                if [ "$remaining" -le 0 ]; then break; fi
+                if [ "$remaining" -gt 3 ]; then remaining=3; fi
+                sleep "$remaining"
+              done
+              if [ "$latest" != "$RELEASE_TAG" ]; then
+                echo 'The latest stable release did not become visible within 120 seconds.' >&2
+                exit 1
+              fi
+              sh "$installer" --install-dir "$destination"
+            fi
+            reported=$("$destination/lightjunction" --no-timing --version | awk 'NF {$1=$1; print}')
+            test "$reported" = "lightjunction $RELEASE_VERSION"
+            "$destination/lightjunction" keys ssh --no-timing > "$RUNNER_TEMP/lightjunction-ssh-$mode.pub"
+            test -s "$RUNNER_TEMP/lightjunction-ssh-$mode.pub"
+            printf 'PASS: %s installation of lightjunction %s on %s\n' "$mode" "$RELEASE_VERSION" "$TARGET"
+          done
+      - name: Install pinned and latest with PowerShell 7 and Windows PowerShell 5.1
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
@@ -221,16 +247,40 @@ jobs:
           $legacy = Get-Command powershell.exe -ErrorAction SilentlyContinue
           if ($legacy) { $engines += $legacy.Source }
           elseif ($env:TARGET -eq 'x86_64-pc-windows-msvc') { throw 'Windows PowerShell 5.1 is required for the x64 installation check' }
-          $index = 0
-          foreach ($engine in $engines) {
-            $destination = Join-Path $env:RUNNER_TEMP "lightjunction-installed-$index"
-            & $engine -NoProfile -NonInteractive -File $installer -Version $env:RELEASE_VERSION -InstallDir $destination
-            if ($LASTEXITCODE -ne 0) { throw "Installer failed under $engine" }
-            $binary = Join-Path $destination 'lightjunction.exe'
-            $reported = (& $binary --no-timing --version | Out-String).Trim()
-            if ($LASTEXITCODE -ne 0 -or $reported -cne "lightjunction $env:RELEASE_VERSION") { throw 'Installed binary has an unexpected version' }
-            $key = (& $binary keys ssh --no-timing | Out-String).Trim()
-            if ($LASTEXITCODE -ne 0 -or $key -notmatch '^(sk-ssh-|ssh-|ecdsa-)') { throw 'Installed binary did not export its SSH public key' }
-            $index++
+          foreach ($mode in @('pinned', 'latest')) {
+            if ($mode -eq 'latest') {
+              # Allow the same official metadata source used by the installer to propagate.
+              $deadline = [DateTime]::UtcNow.AddSeconds(120)
+              $visible = $false
+              while ([DateTime]::UtcNow -lt $deadline) {
+                $remaining = [Math]::Ceiling(($deadline - [DateTime]::UtcNow).TotalSeconds)
+                if ($remaining -le 0) { break }
+                try {
+                  $release = Invoke-RestMethod -Uri 'https://api.github.com/repos/LIghtJUNction/lightjunction/releases/latest' -TimeoutSec ([Math]::Min(15, $remaining))
+                  $visible = $release.tag_name -ceq $env:RELEASE_TAG -and $release.draft -eq $false -and $release.prerelease -eq $false
+                  if ($visible) { break }
+                } catch { Write-Host 'Waiting for latest-release metadata.' }
+                $delay = [Math]::Min(3000, [Math]::Max(0, ($deadline - [DateTime]::UtcNow).TotalMilliseconds))
+                Start-Sleep -Milliseconds ([int]$delay)
+              }
+              if (-not $visible) { throw 'The latest stable release did not become visible within 120 seconds.' }
+            }
+            $index = 0
+            foreach ($engine in $engines) {
+              $destination = Join-Path $env:RUNNER_TEMP "lightjunction-installed-$mode-$index"
+              if ($mode -eq 'pinned') {
+                & $engine -NoProfile -NonInteractive -File $installer -Version $env:RELEASE_VERSION -InstallDir $destination
+              } else {
+                & $engine -NoProfile -NonInteractive -File $installer -InstallDir $destination
+              }
+              if ($LASTEXITCODE -ne 0) { throw "$mode installer failed under $engine" }
+              $binary = Join-Path $destination 'lightjunction.exe'
+              $reported = (& $binary --no-timing --version | Out-String).Trim()
+              if ($LASTEXITCODE -ne 0 -or $reported -cne "lightjunction $env:RELEASE_VERSION") { throw 'Installed binary has an unexpected version' }
+              $key = (& $binary keys ssh --no-timing | Out-String).Trim()
+              if ($LASTEXITCODE -ne 0 -or $key -notmatch '^(sk-ssh-|ssh-|ecdsa-)') { throw 'Installed binary did not export its SSH public key' }
+              Write-Host "PASS: $mode installation of lightjunction $env:RELEASE_VERSION on $env:TARGET with $engine"
+              $index++
+            }
           }
 

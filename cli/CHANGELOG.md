@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- Fix automatic latest-release detection when GitHub returns compact JSON.
+
 ## 0.2.1
 
 - Add release archives for Linux, macOS, and Windows on x86_64 and ARM64; Linux binaries target musl.

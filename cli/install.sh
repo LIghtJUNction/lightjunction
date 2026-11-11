@@ -91,10 +91,45 @@ download() {
 repository=https://github.com/LIghtJUNction/lightjunction
 if [ -z "$version" ]; then
     download 'https://api.github.com/repos/LIghtJUNction/lightjunction/releases/latest' "$temporary/latest.json"
-    # Match the API's complete tag_name field, never text embedded in release notes.
-    tag=$(sed -n 's/^[[:space:]]*"tag_name"[[:space:]]*:[[:space:]]*"\([^"]*\)"[[:space:]]*,\{0,1\}[[:space:]]*$/\1/p' "$temporary/latest.json")
-    prerelease=$(sed -n 's/^[[:space:]]*"prerelease"[[:space:]]*:[[:space:]]*\([a-z]*\)[[:space:]]*,\{0,1\}[[:space:]]*$/\1/p' "$temporary/latest.json")
-    draft=$(sed -n 's/^[[:space:]]*"draft"[[:space:]]*:[[:space:]]*\([a-z]*\)[[:space:]]*,\{0,1\}[[:space:]]*$/\1/p' "$temporary/latest.json")
+    # GitHub may return compact or pretty JSON. Emit only root-object fields;
+    # quoted punctuation, escapes, and nested metadata must not become fields.
+    awk '
+        {
+            for (i = 1; i <= length($0); i++) {
+                c = substr($0, i, 1)
+                if (quoted) {
+                    if (depth == 1) field = field c
+                    if (escaped) escaped = 0
+                    else if (c == "\\") escaped = 1
+                    else if (c == "\"") quoted = 0
+                } else if (c ~ /[[:space:]]/) {
+                    continue
+                } else if (c == "{" || c == "[") {
+                    if (depth == 0 && (c != "{" || roots++)) { bad = 1; exit }
+                    if (depth == 1) field = field "null"
+                    stack[++depth] = c
+                } else if (depth == 0) {
+                    bad = 1; exit
+                } else if (c == "\"") {
+                    quoted = 1
+                    if (depth == 1) field = field c
+                } else if (c == "}" || c == "]") {
+                    if (stack[depth] != (c == "}" ? "{" : "[")) { bad = 1; exit }
+                    if (depth == 1) { print field; field = "" }
+                    delete stack[depth--]
+                } else if (depth == 1 && c == ",") {
+                    print field; field = ""
+                } else if (depth == 1) {
+                    field = field c
+                }
+            }
+            if (quoted) { bad = 1; exit }
+        }
+        END { if (bad || depth || quoted || roots != 1) exit 1 }
+    ' "$temporary/latest.json" > "$temporary/latest.fields" || fail 'invalid latest-release metadata; specify --version'
+    tag=$(sed -n 's/^"tag_name":"\([^"]*\)"$/\1/p' "$temporary/latest.fields")
+    prerelease=$(sed -n 's/^"prerelease":\([a-z]*\)$/\1/p' "$temporary/latest.fields")
+    draft=$(sed -n 's/^"draft":\([a-z]*\)$/\1/p' "$temporary/latest.fields")
     [ "$prerelease" = false ] && [ "$draft" = false ] || fail 'latest release is not stable; specify --version'
     case "$tag" in cli-v*) version=${tag#cli-v} ;; *) fail 'latest release is not a stable cli-v release; specify --version' ;; esac
     valid_version "$version" || fail 'latest release has an invalid cli-v version; specify --version'
