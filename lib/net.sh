@@ -111,3 +111,8 @@ net_github_latest() {
     response="$(net_http_get "https://api.github.com/repos/$user/$repo/releases/latest")" || return
     jq -er '.tag_name | select(type == "string" and length > 0)' <<<"$response"
 }
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register net \
+        _net_curl net_check net_download net_http_get net_http_post net_http_status net_is_online net_public_ip net_dns_lookup net_wait_for net_github_latest
+fi

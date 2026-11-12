@@ -127,3 +127,8 @@ prompt_progress() {
 }
 
 prompt_confirm() { prompt_yesno "${1:?}" n; }
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register prompt \
+        _prompt_read prompt_yesno prompt_choice prompt_input prompt_password prompt_menu prompt_spinner prompt_progress prompt_confirm
+fi

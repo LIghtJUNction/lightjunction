@@ -410,3 +410,59 @@ def test_zsh_cloud_source_works_on_first_attempt(tmp_path: Path) -> None:
     assert result.returncode == 0, result.stderr
     assert "OK    1" in result.stderr and "OK    2" in result.stderr
     assert requests.read_text().splitlines().count("https://example.invalid/lib/preload.sh") == 1
+
+
+@pytest.mark.parametrize("shell", ["bash", "zsh"])
+def test_funcs_lists_loaded_functions_by_category(shell: str) -> None:
+    import shutil
+
+    executable = shutil.which(shell)
+    if executable is None:
+        pytest.skip(f"{shell} is not installed")
+    result = subprocess.run(
+        [executable, "-fc", r'''
+        set -eu
+        ROOT="$PWD"
+        LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid
+        curl() { local url; for url do :; done; cat "$ROOT/lib/${url##*/}"; }
+        unrelated() { :; }
+        . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/log.sh")
+        import str
+        import log
+        . lib/preload.sh
+        printf '%s\n' '---log---'
+        funcs log
+        printf '%s\n' '---categories---'
+        funcs -c
+        printf '%s\n' '---private---'
+        funcs log -a
+        unset -f ok
+        printf '%s\n' '---removed---'
+        funcs log
+        printf '%s\n' '---all---'
+        funcs
+        printf '%s\n' '---reassigned---'
+        _preload_register other info
+        funcs other
+        if funcs --invalid; then exit 99; else [[ "$?" == 2 ]]; fi
+        '''],
+        cwd=ROOT,
+        env={k: v for k, v in os.environ.items() if not k.startswith("LIGHTJUNCTION_")},
+        text=True,
+        capture_output=True,
+        check=False,
+        timeout=15,
+    )
+    assert result.returncode == 0, result.stderr
+    log, rest = result.stdout.split("---log---\n", 1)[1].split("---categories---\n")
+    assert log == "log:\n  debug\n  err\n  info\n  line\n  ok\n  warn\n"
+    categories, rest = rest.split("---private---\n")
+    assert categories == "log\npreload\nstr\n"
+    private, rest = rest.split("---removed---\n")
+    assert "  _log\n" in private
+    removed, rest = rest.split("---all---\n")
+    assert "  ok\n" not in removed
+    all_functions, reassigned = rest.split("---reassigned---\n")
+    assert "  funcs\n" in all_functions and "  str_trim\n" in all_functions
+    assert "unrelated" not in all_functions and "  _log\n" not in all_functions
+    assert reassigned == "other:\n  info\n"

@@ -41,3 +41,8 @@ line() {
     for ((i = 0; i < 10#$width; i++)); do printf '%s' "${divider:0:1}" >&2; done
     printf '%b\n' "${C_RESET:-}" >&2
 }
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register log \
+        _log err warn ok info debug line
+fi

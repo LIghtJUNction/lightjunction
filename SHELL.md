@@ -50,6 +50,23 @@ set `LIGHTJUNCTION_SHELL_BASE_URL` before loading any library:
 export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/COMMIT_SHA
 ```
 
+## Loaded functions
+
+```bash
+funcs          # Public functions, grouped by library
+funcs log      # Functions in the log category
+funcs -c       # Category names only
+funcs -a       # Include internal helpers beginning with _
+funcs log -a   # Include internal logging helpers
+```
+
+The preloader tracks functions registered by the bundled libraries, including
+libraries sourced directly while the preloader is active. Categories use library
+names such as `log`, `str`, and `preload`. Output is sorted, excludes functions
+that have been removed from the shell, and assigns a shared name to the last
+library that registered it. Unrelated shell functions are not included.
+Load the updated preloader and libraries in a fresh shell to enable this list.
+
 ## Local Bash loader
 
 With `LIGHTJUNCTION_SHELL_BASE_URL` unset, libraries do not fetch the preloader.

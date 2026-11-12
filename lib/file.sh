@@ -102,3 +102,8 @@ file_temp() {
 }
 
 file_backup() { [[ -f "${1:?}" ]] && cp -p -- "$1" "$1.bak"; }
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register file \
+        file_exists file_is_file file_is_dir file_is_readable file_is_writable file_read file_read_lines file_mode file_write file_append file_copy file_move file_size_bytes file_size file_count_lines _file_digest file_md5 file_sha256 file_extension file_basename file_dirname file_temp file_backup
+fi

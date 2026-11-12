@@ -88,3 +88,8 @@ os_sleep() {
     [[ "${1:-}" =~ ^[0-9]+([.][0-9]+)?$ ]] || return 2
     sleep "$1"
 }
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register os \
+        os_detect os_is os_is_root os_kernel os_arch os_distro os_has os_require os_ensure_dir os_tmpdir os_random os_sleep
+fi

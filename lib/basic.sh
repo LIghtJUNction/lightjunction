@@ -89,3 +89,8 @@ $body
 }
 
 __BASIC_SH_LOADED=1
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register basic \
+        fetch _consume run_script hook
+fi

@@ -114,3 +114,8 @@ arr_min() { _arr_reduce min "$@"; }
 arr_first() { (($# > 0)) || return 1; printf '%s\n' "$1"; }
 arr_last() { (($# > 0)) || return 1; printf '%s\n' "${@: -1}"; }
 arr_size() { printf '%d\n' "$#"; }
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register arr \
+        arr_join arr_contains _arr_callback arr_map arr_filter arr_sort arr_unique arr_slice arr_reverse _arr_reduce arr_sum arr_avg arr_max arr_min arr_first arr_last arr_size
+fi

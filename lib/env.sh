@@ -73,3 +73,8 @@ review_then_run() {
 }
 
 if [[ "${STRICT_MODE:-0}" == 1 ]]; then set -euo pipefail; fi
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register env \
+        review_then_run
+fi

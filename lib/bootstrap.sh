@@ -126,3 +126,8 @@ append_managed_block() (
     fi
     mv -f -- "$tmp" "$file"
 )
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register bootstrap \
+        log info ok warn die command_exists init_tmp_dirs make_tmp_dir cleanup_tmp_dirs require_sudo is_interactive ask_yes_no probe_url select_fastest_url github_release_asset_url strip_managed_block validate_managed_markers append_managed_block
+fi

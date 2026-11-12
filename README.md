@@ -48,6 +48,8 @@ export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNct
 . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/log.sh")
 ok "Ready"
 import str
+funcs          # Loaded functions grouped by library
+funcs log      # Only logging functions
 ```
 
 See the [shell guide](SHELL.md) for the preloader, local Bash imports, supported

@@ -118,3 +118,8 @@ random() {
     value="$(openssl rand -hex "$(((length + 1) / 2))")" || return
     printf '%s' "${value:0:length}"
 }
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register crypto \
+        gpg_encrypt gpg_decrypt rsa_encrypt rsa_decrypt rsa_sign rsa_verify rsa_gen_keys aes_encrypt aes_decrypt hash b64_enc b64_dec random
+fi

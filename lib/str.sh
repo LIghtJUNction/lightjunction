@@ -97,3 +97,8 @@ str_rand() {
         printf '%s' "${alphabet:RANDOM % ${#alphabet}:1}"
     done
 }
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register str \
+        str_trim str_split str_contains str_starts_with str_ends_with _str_replace str_replace str_replace_all str_repeat _str_pad str_pad_left str_pad_right str_length str_upper str_lower _str_digest str_hash str_sha256 str_uuid str_rand
+fi

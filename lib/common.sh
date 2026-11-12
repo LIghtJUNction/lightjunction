@@ -74,3 +74,8 @@ md5_file() {
     [[ "$digest" =~ ^[[:xdigit:]]{32}$ ]] || return 1
     printf '%s\n' "$digest"
 }
+
+if [[ ${__PRELOAD_SH_LOADED:-} == 1 ]]; then
+    _preload_register common \
+        err has require is_function_name require_function tmpfile tmpdir file_size_bytes sha256_file md5_file
+fi

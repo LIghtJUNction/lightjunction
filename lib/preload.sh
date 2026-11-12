@@ -37,4 +37,57 @@ import() {
     __PRELOAD_IMPORTED+=("$url")
 }
 
+# Keep category/function pairs without requiring associative arrays (Bash 3.2).
+__PRELOAD_FUNCTIONS=()
+_preload_register() {
+    local category="${1:?}" name entry
+    local retained=()
+    shift
+    for name do
+        retained=()
+        for entry in ${__PRELOAD_FUNCTIONS[@]+"${__PRELOAD_FUNCTIONS[@]}"}; do
+            [[ "${entry#*:}" == "$name" ]] || retained+=("$entry")
+        done
+        __PRELOAD_FUNCTIONS=("${retained[@]}" "$category:$name")
+    done
+}
+
+funcs() {
+    local category='' include_private=0 categories_only=0 argument entry group name
+    local previous=''
+    for argument do
+        case "$argument" in
+            -a) include_private=1 ;;
+            -c) categories_only=1 ;;
+            -h)
+                printf '%s\n' 'Usage: funcs [category] [-a] [-c]'
+                return 0 ;;
+            -*) printf 'Unknown option: %s\n' "$argument" >&2; return 2 ;;
+            *)
+                [[ -z "$category" ]] || return 2
+                category="$argument" ;;
+        esac
+    done
+    for entry in ${__PRELOAD_FUNCTIONS[@]+"${__PRELOAD_FUNCTIONS[@]}"}; do
+        group="${entry%%:*}"
+        name="${entry#*:}"
+        [[ -z "$category" || "$group" == "$category" ]] || continue
+        [[ "$include_private" == 1 || "$name" != _* ]] || continue
+        typeset -f "$name" >/dev/null || continue
+        printf '%s %s\n' "$group" "$name"
+    done | LC_ALL=C sort | while read -r group name; do
+        if [[ "$group" != "$previous" ]]; then
+            if [[ "$categories_only" == 1 ]]; then
+                printf '%s\n' "$group"
+            else
+                printf '%s:\n' "$group"
+            fi
+            previous="$group"
+        fi
+        [[ "$categories_only" == 1 ]] || printf '  %s\n' "$name"
+    done
+}
+
+_preload_register preload import funcs _preload_consume _preload_register
+
 __PRELOAD_SH_LOADED=1
