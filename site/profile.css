@@ -117,12 +117,18 @@ h2 { color: var(--ink); font-size: 20px; font-weight: 450; line-height: 1.35; le
 .collection h3 { color: var(--ink); font-size: clamp(56px, 7vw, 88px); font-weight: 500; line-height: 1.2; letter-spacing: -.075em; margin: 14px 0 18px; }
 .collection-tagline { font-size: 16px; color: var(--ink); }
 .collection-copy { max-width: 480px; font-size: 15px; line-height: 1.9; }
-.collection-copy .intro-link { margin-top: 18px; }
 .collection-domains { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px; margin-top: 58px; }
 .collection-domains > div { border-top: 1px solid var(--line); padding-top: 22px; }
 .collection-domains h4 { font-size: 17px; font-weight: 500; line-height: 1.4; letter-spacing: -.025em; color: var(--ink); margin: 15px 0 12px; }
 .collection-domains p { font-size: 13px; line-height: 1.85; }
-.collection-footnote { margin-top: 36px; font-size: 11px; line-height: 1.8; }
+.collection-directory { margin-top: 36px; border-top: 1px solid var(--line); }
+.collection-directory summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 64px; list-style: none; font-size: 13px; color: var(--accent); }
+.collection-directory summary::-webkit-details-marker { display: none; }
+.directory-symbol { font: 22px var(--mono); transition: transform 180ms ease; }
+.collection-directory[open] .directory-symbol { transform: rotate(45deg); }
+.library-links { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px 24px; padding: 10px 0 16px; }
+.library-links a { display: inline-flex; align-items: center; min-height: 44px; font: 13px var(--mono); }
+.library-links a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 5px; }
 .gratitude { display: grid; grid-template-columns: 1fr 2fr; column-gap: 80px; padding-block: 40px; }
 .gratitude h2 { font-size: 16px; }
 .gratitude p { font-size: 13px; max-width: 600px; }
@@ -206,7 +212,8 @@ html[data-construction='boot'] [data-scene] > p { clip-path: inset(0 100% 0 0); 
   .domain-index { margin-top: 5px; }
   .collection-domains h4 { margin: 0; }
   .collection-domains p { grid-column: 2; }
-  .collection-footnote { margin-top: 28px; }
+  .collection-directory { margin-top: 28px; }
+  .library-links { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 18px; }
   .gratitude { grid-template-columns: 1fr; row-gap: 15px; }
   .gratitude p + p { grid-column: 1; margin-top: 0; }
   .contact-line { font-size: 25px; margin: 28px 0; }
