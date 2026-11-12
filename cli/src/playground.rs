@@ -1,7 +1,7 @@
 use std::io::{self, Write};
 use std::time::{Duration, Instant};
 
-use crossterm::cursor::{Hide, MoveTo, Show};
+use crossterm::cursor::{Hide, Show};
 use crossterm::event::{
     self, Event, KeyCode, KeyEvent, KeyEventKind, KeyModifiers, MouseButton, MouseEvent,
     MouseEventKind,
@@ -653,6 +653,17 @@ impl Drop for TerminalGuard {
     }
 }
 
+// Address every row explicitly. Newlines at the right or bottom edge can
+// wrap twice or scroll the viewport, especially while raw mode is enabled.
+fn paint_terminal(out: &mut impl Write, rendered: &str) -> io::Result<()> {
+    let mut frame = String::with_capacity(rendered.len() + 512);
+    for (row, line) in rendered.lines().enumerate() {
+        frame.push_str(&format!("\x1b[{};1H", row + 1));
+        frame.push_str(line);
+    }
+    out.write_all(frame.as_bytes())
+}
+
 pub fn interactive(display: Display) -> io::Result<()> {
     let _guard = TerminalGuard::enter()?;
     let (width, height) = terminal::size()?;
@@ -667,8 +678,7 @@ pub fn interactive(display: Display) -> io::Result<()> {
         }
         let (width, height) = terminal::size()?;
         app.resize(width as usize, height as usize);
-        execute!(out, MoveTo(0, 0))?;
-        out.write_all(app.render(display, true).as_bytes())?;
+        paint_terminal(&mut out, &app.render(display, true))?;
         out.flush()?;
         if event::poll(FRAME.saturating_sub(started.elapsed()))? {
             match event::read()? {
@@ -699,10 +709,12 @@ pub fn frames(
         write!(out, "\x1b[?25l")?;
     }
     for frame in 0..count {
+        let rendered = app.render(display, terminal && count > 1);
         if terminal && count > 1 {
-            write!(out, "\x1b[H")?;
+            paint_terminal(out, &rendered)?;
+        } else {
+            out.write_all(rendered.as_bytes())?;
         }
-        out.write_all(app.render(display, terminal && count > 1).as_bytes())?;
         if frame + 1 < count {
             app.advance();
             if terminal {
@@ -767,6 +779,30 @@ mod tests {
         assert_eq!(help.lines().count(), 24);
         assert!(help.contains("DRAG  rotate"));
         assert!(!help.contains('▀'));
+    }
+
+    #[test]
+    fn full_screen_paint_never_emits_scrolling_newlines() {
+        let app = App::new(80, 24);
+        for color in [false, true] {
+            let mut output = Vec::new();
+            paint_terminal(
+                &mut output,
+                &app.render(
+                    Display {
+                        language: Language::En,
+                        color,
+                    },
+                    true,
+                ),
+            )
+            .unwrap();
+            let output = String::from_utf8(output).unwrap();
+            assert!(!output.contains(['\n', '\r']));
+            for row in 1..=24 {
+                assert!(output.contains(&format!("\x1b[{row};1H")));
+            }
+        }
     }
 
     #[test]
