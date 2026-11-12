@@ -2,10 +2,29 @@
 
 ## Unreleased
 
-- Replace the static profile and numbered menu with a full-screen terminal playground.
+- Replace the static profile and numbered menu with a full-screen terminal playground while retaining public-key export and encryption.
 - Add generative Orbit, Rain, and Wave scenes with live speed and density controls.
 - Add playable Snake with arrow/WASD controls, scoring, collisions, and restart.
 - Add deterministic seeds, bounded frame rendering, portable raw keyboard input, and updated tests.
+
+## 0.2.2
+
+- Fix automatic latest-release detection when GitHub returns compact JSON.
+
+## 0.2.1
+
+- Add release archives for Linux, macOS, and Windows on x86_64 and ARM64; Linux binaries target musl.
+- Add shell and PowerShell installers with platform detection, SHA-256 verification, version selection, and custom install directories.
+- Install binaries without Rust or administrator privileges, while leaving shell profiles and persistent `PATH` settings unchanged.
+- Document manual downloads, checksum verification, signing status, and binary-only removal.
+
+## 0.2.0
+
+- Add `keys [age|gpg|ssh]` to inspect bundled public-key snapshots or export raw key material, with JSON support.
+- Add `encrypt age|gpg` for streaming file or standard-input encryption through locally installed age or GnuPG tools.
+- Support armored ciphertext, terminal I/O checks, and staged output files that never replace an existing destination.
+- Isolate GPG from the default keyring and configuration, disable automatic key retrieval and agent startup, and preserve command timings on standard error.
+- Document public-key provenance, encryption dependencies, file and pipeline examples, and the distinction between historical profile benchmarks and encryption timings.
 
 ## 0.1.1
 

@@ -1,6 +1,6 @@
 # Benchmarks
 
-`lightjunction 0.1.1` completed the six workloads below with internal median times of 25.22–274.81 µs and external process median times of 1.713–1.979 ms on this host. The release binary was **477,352 bytes**.
+`lightjunction 0.2.2` completed the six workloads below with internal median times of 17.64–171.42 µs and external process median times of 1.466–1.713 ms on this host. The release binary was **518,448 bytes**.
 
 ## Results
 
@@ -8,12 +8,12 @@ Measured on 2026-11-12 with 100 samples and 5 warmup runs per workload. Lower is
 
 | Workload | Internal median (µs) | Internal p95 (µs) | External median (ms) | External p95 (ms) |
 | --- | ---: | ---: | ---: | ---: |
-| Orbit, no arguments | 121.23 | 313.81 | 1.827 | 5.426 |
-| `orbit --seed 42` | 132.23 | 350.97 | 1.898 | 5.362 |
-| `rain --seed 42` | 60.72 | 155.90 | 1.753 | 5.997 |
-| `wave --seed 42` | 274.81 | 721.25 | 1.979 | 6.051 |
-| `snake --seed 42` | 45.53 | 142.49 | 1.743 | 5.600 |
-| `--help` | 25.22 | 61.26 | 1.713 | 4.715 |
+| Orbit, no arguments | 83.04 | 626.32 | 1.509 | 6.816 |
+| `orbit --seed 42` | 78.34 | 471.32 | 1.713 | 6.028 |
+| `rain --seed 42` | 41.08 | 690.30 | 1.618 | 6.316 |
+| `wave --seed 42` | 171.42 | 1512.00 | 1.581 | 5.462 |
+| `snake --seed 42` | 33.82 | 655.72 | 1.562 | 6.626 |
+| `--help` | 17.64 | 33.90 | 1.466 | 5.874 |
 
 Source: [complete results and individual samples](benchmark-results.json).
 

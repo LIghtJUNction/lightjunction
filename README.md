@@ -14,16 +14,29 @@ I build open-source tools that are easy to inspect, run, and own. This repositor
 
 ## Terminal playground
 
-Switch between generative Orbit, Rain, and Wave scenes, or play Snake—right in your terminal:
+Switch between generative Orbit, Rain, and Wave scenes, play Snake, export public keys, or encrypt a message from your terminal.
 
-From a repository checkout:
+Linux and macOS:
 
 ```sh
-cargo install --path cli --locked
-lightjunction
+installer=$(mktemp) &&
+curl -fsSL https://github.com/LIghtJUNction/lightjunction/releases/latest/download/install.sh -o "$installer" &&
+sh "$installer" &&
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
-[CLI controls and development](cli/README.md)
+Windows PowerShell:
+
+```powershell
+$installer = Join-Path $env:TEMP ("lightjunction-install-{0}.ps1" -f [guid]::NewGuid())
+Invoke-WebRequest 'https://github.com/LIghtJUNction/lightjunction/releases/latest/download/install.ps1' -OutFile $installer -UseBasicParsing -ErrorAction Stop
+& $installer
+$env:Path = "$env:LOCALAPPDATA\Programs\lightjunction\bin;$env:Path"
+```
+
+The installers verify the binary checksum and use a directory owned by your user. No Rust or administrator privileges are needed. The `PATH` line applies to the current shell; then run `lightjunction`, `lightjunction snake`, or `lightjunction keys ssh`.
+
+With Rust 1.99.1+, you can also use `cargo install lightjunction --locked`. If unsigned scripts are blocked, use a [manual download](cli/README.md#manual-download). See the [CLI guide](cli/README.md) for controls, version selection, encryption dependencies, and development.
 
 ## Project Z
 
@@ -41,17 +54,20 @@ A series of minimal, zero-dependency Rust libraries, each built to do one thing 
 
 ## Contact
 
-[age recipient](public/age-recipients.txt) · [OpenPGP public key](pubkey.asc)
+[age recipient](public/age-recipients.txt) · [OpenPGP public key](pubkey.asc) · [SSH public keys](https://github.com/LIghtJUNction.keys)
 
 ```text
 age1yubikey1qgaqxkh32x84vm957584pc0980z3x2agpljavmsh3jwz5q02tlth5suju8n
 ```
 
-Encrypt a message locally with [age](https://github.com/FiloSottile/age) and [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey):
+Encrypt a message with the CLI's bundled public keys. For age, install [age](https://github.com/FiloSottile/age) and [age-plugin-yubikey](https://github.com/str4d/age-plugin-yubikey); for OpenPGP, install [GnuPG](https://www.gnupg.org/documentation/).
 
 ```sh
-age -R age-recipients.txt -o message.txt.age message.txt
+lightjunction encrypt age --input message.txt --output message.txt.age
+lightjunction encrypt gpg --input message.txt --output message.txt.gpg
 ```
+
+Encrypting to my age public key does not require a YubiKey; the matching private key and hardware are needed for decryption. The OpenPGP primary fingerprint is `EB21B83AB1E982DF66F08387A67178405F7736FD`. See the [CLI guide](cli/README.md#encrypt-a-message) for file, pipe, and armored output options.
 
 Send the encrypted file to **lightjunction.me@gmail.com**. Never send private keys, passwords, or recovery codes.
 

@@ -20,11 +20,6 @@ on:
 permissions:
   contents: read
 
-# A version is immutable once published. Never cancel an in-flight release.
-concurrency:
-  group: lightjunction-crates-io-release
-  cancel-in-progress: false
-
 env:
   DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
   RELEASE_BUMP: ${{ inputs.bump || 'none' }}
@@ -32,57 +27,31 @@ env:
 
 jobs:
   validate:
-    name: Validate / ${{ matrix.os }}
-    outputs:
-      version_changed: ${{ steps.prepare.outputs.changed }}
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    defaults:
-      run:
-        shell: bash
-        working-directory: cli
-    steps:
-      - uses: actions/checkout@v6
-      - uses: dtolnay/rust-toolchain@1.99.1
-        with:
-          components: rustfmt, clippy
-      - uses: astral-sh/setup-uv@v7
-        with:
-          python-version: '3.13'
-      - name: Require the default branch
-        run: |
-          if [ "$GITHUB_REF" != "refs/heads/$DEFAULT_BRANCH" ]; then
-            echo 'Releases must run from the default branch.' >&2
-            exit 1
-          fi
-      - name: Prepare the version to validate
-        id: prepare
-        run: uv run --no-project python scripts/release.py prepare --bump "$RELEASE_BUMP" --version "$CUSTOM_VERSION"
-      - name: Format, lint and test
-        run: |
-          cargo fmt --all -- --check
-          cargo clippy --locked --all-targets -- -D warnings
-          cargo test --locked --all-targets
-          uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
-      - name: Build release binary
-        run: cargo build --release --locked
-      - name: Validate the prospective package
-        if: runner.os == 'Linux'
-        # Only the version files may differ here; the publish job commits them.
-        run: cargo publish --dry-run --locked --allow-dirty
+    name: Native and installer verification
+    # Shared native builds use Rust's bundled musl CRT with the runner's C linker.
+    # x64 covers all legacy installer error cases; ARM tests real installs with both PowerShell engines.
+    # Real crypto validation accepts GnuPG's classic and AEAD encrypted-packet formats.
+    uses: ./.github/workflows/cli-ci.yml
+    with:
+      bump: ${{ inputs.bump || 'none' }}
+      version: ${{ inputs.version || '' }}
+      release_artifacts: true
 
   publish:
     name: Publish to crates.io
     needs: validate
     if: github.event_name == 'workflow_dispatch' || needs.validate.outputs.version_changed == 'true'
+    # Validation can overlap; immutable publication is serialized and never cancelled.
+    concurrency:
+      group: lightjunction-crates-io-publish
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
       contents: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
     defaults:
       run:
         shell: bash
@@ -94,6 +63,12 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: '3.13'
+      - name: Download all verified native archives
+        uses: actions/download-artifact@v8.0.2
+        with:
+          pattern: binary-*
+          path: ${{ runner.temp }}/lightjunction-archives
+          merge-multiple: true
       - name: Check publishing credential
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
@@ -124,10 +99,23 @@ jobs:
           git add cli/Cargo.toml cli/Cargo.lock
           git commit -m "chore(cli): release lightjunction $RELEASE_VERSION"
           git push origin "HEAD:refs/heads/$DEFAULT_BRANCH"
+      - name: Prepare and validate the complete release asset set
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          cargo package --locked --manifest-path cli/Cargo.toml
+          uv run --no-project python cli/scripts/package_binary.py assemble \
+            --version "$RELEASE_VERSION" \
+            --artifacts "$RUNNER_TEMP/lightjunction-archives" \
+            --crate "cli/target/package/lightjunction-$RELEASE_VERSION.crate" \
+            --output-dir "$RUNNER_TEMP/lightjunction-release-assets"
       - name: Publish and verify the registry checksum
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-        run: uv run --no-project python cli/scripts/release.py publish
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          uv run --no-project python cli/scripts/release.py publish
+          cmp "cli/target/package/lightjunction-$RELEASE_VERSION.crate" "$RUNNER_TEMP/lightjunction-release-assets/lightjunction-$RELEASE_VERSION.crate"
       - name: Tag the verified release
         env:
           RELEASE_TAG: ${{ steps.version.outputs.tag }}
@@ -141,16 +129,159 @@ jobs:
             git tag "$RELEASE_TAG"
             git push origin "refs/tags/$RELEASE_TAG"
           fi
-      - name: Create the GitHub release
+      - name: Verify and publish the complete GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_VERSION: ${{ steps.version.outputs.version }}
           RELEASE_TAG: ${{ steps.version.outputs.tag }}
         run: |
           notes="$RUNNER_TEMP/lightjunction-release.md"
-          printf 'A terminal playground with generative Orbit, Rain, and Wave scenes plus playable Snake.\n\nInstall:\n```sh\ncargo install lightjunction --locked --version %s\nlightjunction\n```\n\nThe crates.io archive checksum was verified against the official sparse index.\n' "$RELEASE_VERSION" > "$notes"
-          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            gh release create "$RELEASE_TAG" --verify-tag --title "lightjunction $RELEASE_VERSION" --notes-file "$notes"
+          assets="$RUNNER_TEMP/lightjunction-release-assets"
+          verified=$(mktemp -d "$RUNNER_TEMP/lightjunction-release-check.XXXXXX")
+          printf '<!-- lightjunction-cli-release -->\nA terminal playground with generative scenes, Snake, public keys and local age/OpenPGP encryption.\n\nNative binaries are available for Linux, macOS and Windows on x86_64 and ARM64. Every download is listed in SHA256SUMS.\n\nQuick install on Linux/macOS:\n```sh\ninstaller=$(mktemp) && curl -fsSL https://github.com/LIghtJUNction/lightjunction/releases/download/%s/install.sh -o "$installer" && sh "$installer" --version %s\n```\n\nWindows: download install.ps1 and run it with -Version %s.\n\nCargo alternative:\n```sh\ncargo install lightjunction --locked --version %s\n```\n' "$RELEASE_TAG" "$RELEASE_VERSION" "$RELEASE_VERSION" "$RELEASE_VERSION" > "$notes"
+          if draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft' 2>/dev/null); then
+            if [ "$draft" != true ]; then
+              gh release download "$RELEASE_TAG" --dir "$verified"
+              uv run --no-project python cli/scripts/package_binary.py compare --expected "$assets" --actual "$verified"
+              gh release view "$RELEASE_TAG" --json url --jq '.url'
+              exit 0
+            fi
+            owned=$(gh release view "$RELEASE_TAG" --json body --jq '.body | contains("<!-- lightjunction-cli-release -->")')
+            if [ "$owned" != true ]; then
+              echo 'An unrelated draft already uses this tag; refusing to replace its assets.' >&2
+              exit 1
+            fi
+          else
+            gh release create "$RELEASE_TAG" --verify-tag --draft --title "lightjunction $RELEASE_VERSION" --notes-file "$notes"
           fi
-          gh release upload "$RELEASE_TAG" "cli/target/package/lightjunction-$RELEASE_VERSION.crate" --clobber
+          gh release upload "$RELEASE_TAG" "$assets"/* --clobber
+          gh release download "$RELEASE_TAG" --dir "$verified"
+          uv run --no-project python cli/scripts/package_binary.py compare --expected "$assets" --actual "$verified"
+          gh release edit "$RELEASE_TAG" --draft=false --latest
+          gh release view "$RELEASE_TAG" --json url --jq '.url'
+
+  install:
+    name: Install published release / ${{ matrix.target }}
+    needs: publish
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            target: x86_64-unknown-linux-musl
+          - os: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-musl
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+          - os: macos-15
+            target: aarch64-apple-darwin
+          - os: windows-2022
+            target: x86_64-pc-windows-msvc
+          - os: windows-11-arm
+            target: aarch64-pc-windows-msvc
+    env:
+      RELEASE_VERSION: ${{ needs.publish.outputs.version }}
+      RELEASE_TAG: ${{ needs.publish.outputs.tag }}
+      TARGET: ${{ matrix.target }}
+    steps:
+      - name: Install and run the pinned and latest Unix archives
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          base="https://github.com/LIghtJUNction/lightjunction/releases/download/$RELEASE_TAG"
+          installer="$RUNNER_TEMP/lightjunction-install.sh"
+          sums="$RUNNER_TEMP/lightjunction-SHA256SUMS"
+          curl --fail --show-error --location --retry 3 --proto '=https' --proto-redir '=https' "$base/install.sh" --output "$installer"
+          curl --fail --show-error --location --retry 3 --proto '=https' --proto-redir '=https' "$base/SHA256SUMS" --output "$sums"
+          expected=$(awk '$2 == "install.sh" {print $1}' "$sums")
+          [[ "$expected" =~ ^[0-9a-f]{64}$ ]]
+          actual=$(shasum -a 256 "$installer" | awk '{print $1}')
+          test "$actual" = "$expected"
+          for mode in pinned latest; do
+            destination="$RUNNER_TEMP/lightjunction-installed-$mode"
+            if [ "$mode" = pinned ]; then
+              sh "$installer" --version "$RELEASE_VERSION" --install-dir "$destination"
+            else
+              # GitHub's latest API can briefly lag publication. Wait for this tag,
+              # then exercise the installer's own resolver without a version argument.
+              deadline=$((SECONDS + 120))
+              latest=''
+              while [ "$SECONDS" -lt "$deadline" ]; do
+                remaining=$((deadline - SECONDS))
+                if [ "$remaining" -gt 15 ]; then remaining=15; fi
+                if latest=$(curl --fail --silent --show-error --location --connect-timeout 5 --max-time "$remaining" --proto '=https' --proto-redir '=https' https://api.github.com/repos/LIghtJUNction/lightjunction/releases/latest | python3 -c 'import json, sys; release = json.load(sys.stdin); print(release.get("tag_name", "") if release.get("draft") is False and release.get("prerelease") is False else "")'); then
+                  if [ "$latest" = "$RELEASE_TAG" ]; then break; fi
+                fi
+                remaining=$((deadline - SECONDS))
+                if [ "$remaining" -le 0 ]; then break; fi
+                if [ "$remaining" -gt 3 ]; then remaining=3; fi
+                sleep "$remaining"
+              done
+              if [ "$latest" != "$RELEASE_TAG" ]; then
+                echo 'The latest stable release did not become visible within 120 seconds.' >&2
+                exit 1
+              fi
+              sh "$installer" --install-dir "$destination"
+            fi
+            reported=$("$destination/lightjunction" --no-timing --version | awk 'NF {$1=$1; print}')
+            test "$reported" = "lightjunction $RELEASE_VERSION"
+            "$destination/lightjunction" keys ssh --no-timing > "$RUNNER_TEMP/lightjunction-ssh-$mode.pub"
+            test -s "$RUNNER_TEMP/lightjunction-ssh-$mode.pub"
+            printf 'PASS: %s installation of lightjunction %s on %s\n' "$mode" "$RELEASE_VERSION" "$TARGET"
+          done
+      - name: Install pinned and latest with PowerShell 7 and Windows PowerShell 5.1
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $base = "https://github.com/LIghtJUNction/lightjunction/releases/download/$env:RELEASE_TAG"
+          $installer = Join-Path $env:RUNNER_TEMP 'lightjunction-install.ps1'
+          $sums = Join-Path $env:RUNNER_TEMP 'lightjunction-SHA256SUMS'
+          Invoke-WebRequest -Uri "$base/install.ps1" -OutFile $installer
+          Invoke-WebRequest -Uri "$base/SHA256SUMS" -OutFile $sums
+          $records = @(Get-Content -LiteralPath $sums | Where-Object { $_ -cmatch '^[0-9a-f]{64}  install\.ps1$' })
+          if ($records.Count -ne 1) { throw 'Missing or duplicate installer checksum' }
+          if ((Get-FileHash -LiteralPath $installer -Algorithm SHA256).Hash.ToLowerInvariant() -cne $records[0].Substring(0, 64)) { throw 'Installer checksum mismatch' }
+          $engines = @((Get-Command pwsh -ErrorAction Stop).Source)
+          $legacy = Get-Command powershell.exe -ErrorAction SilentlyContinue
+          if ($legacy) { $engines += $legacy.Source }
+          elseif ($env:TARGET -eq 'x86_64-pc-windows-msvc') { throw 'Windows PowerShell 5.1 is required for the x64 installation check' }
+          foreach ($mode in @('pinned', 'latest')) {
+            if ($mode -eq 'latest') {
+              # Allow the same official metadata source used by the installer to propagate.
+              $deadline = [DateTime]::UtcNow.AddSeconds(120)
+              $visible = $false
+              while ([DateTime]::UtcNow -lt $deadline) {
+                $remaining = [Math]::Ceiling(($deadline - [DateTime]::UtcNow).TotalSeconds)
+                if ($remaining -le 0) { break }
+                try {
+                  $release = Invoke-RestMethod -Uri 'https://api.github.com/repos/LIghtJUNction/lightjunction/releases/latest' -TimeoutSec ([Math]::Min(15, $remaining))
+                  $visible = $release.tag_name -ceq $env:RELEASE_TAG -and $release.draft -eq $false -and $release.prerelease -eq $false
+                  if ($visible) { break }
+                } catch { Write-Host 'Waiting for latest-release metadata.' }
+                $delay = [Math]::Min(3000, [Math]::Max(0, ($deadline - [DateTime]::UtcNow).TotalMilliseconds))
+                Start-Sleep -Milliseconds ([int]$delay)
+              }
+              if (-not $visible) { throw 'The latest stable release did not become visible within 120 seconds.' }
+            }
+            $index = 0
+            foreach ($engine in $engines) {
+              $destination = Join-Path $env:RUNNER_TEMP "lightjunction-installed-$mode-$index"
+              if ($mode -eq 'pinned') {
+                & $engine -NoProfile -NonInteractive -File $installer -Version $env:RELEASE_VERSION -InstallDir $destination
+              } else {
+                & $engine -NoProfile -NonInteractive -File $installer -InstallDir $destination
+              }
+              if ($LASTEXITCODE -ne 0) { throw "$mode installer failed under $engine" }
+              $binary = Join-Path $destination 'lightjunction.exe'
+              $reported = (& $binary --no-timing --version | Out-String).Trim()
+              if ($LASTEXITCODE -ne 0 -or $reported -cne "lightjunction $env:RELEASE_VERSION") { throw 'Installed binary has an unexpected version' }
+              $key = (& $binary keys ssh --no-timing | Out-String).Trim()
+              if ($LASTEXITCODE -ne 0 -or $key -notmatch '^(sk-ssh-|ssh-|ecdsa-)') { throw 'Installed binary did not export its SSH public key' }
+              Write-Host "PASS: $mode installation of lightjunction $env:RELEASE_VERSION on $env:TARGET with $engine"
+              $index++
+            }
+          }
 

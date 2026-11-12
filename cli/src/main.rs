@@ -1,4 +1,6 @@
 mod args;
+mod crypto;
+mod keys;
 mod playground;
 mod timing;
 
@@ -9,6 +11,19 @@ use std::time::{Instant, SystemTime, UNIX_EPOCH};
 
 use args::Options;
 use playground::{Display, Scene};
+
+#[derive(Debug)]
+enum Error {
+    Usage(String),
+    Runtime(String),
+    Io(io::Error),
+}
+
+impl From<io::Error> for Error {
+    fn from(error: io::Error) -> Self {
+        Self::Io(error)
+    }
+}
 
 fn main() -> ExitCode {
     let started = Instant::now();
@@ -40,11 +55,15 @@ fn main() -> ExitCode {
     };
     let seed = options.seed.unwrap_or_else(random_seed);
     let result = if options.help {
-        help(&mut out, options.language)
+        help(&mut out, options.language).map_err(Error::Io)
     } else if options.version {
-        writeln!(out, "lightjunction {}", env!("CARGO_PKG_VERSION"))
+        writeln!(out, "lightjunction {}", env!("CARGO_PKG_VERSION")).map_err(Error::Io)
+    } else if command == "encrypt" {
+        crypto::encrypt(&options)
+    } else if command == "keys" {
+        keys::render(options.subject, options.language, options.json, &mut out)
     } else if terminal && options.frames.is_none() {
-        playground::interactive(Scene::from_command(command), seed, display)
+        playground::interactive(Scene::from_command(command), seed, display).map_err(Error::Io)
     } else {
         playground::frames(
             Scene::from_command(command),
@@ -54,13 +73,26 @@ fn main() -> ExitCode {
             terminal,
             &mut out,
         )
+        .map_err(Error::Io)
     }
-    .and_then(|()| out.flush());
+    .and_then(|()| out.flush().map_err(Error::Io));
     let success = result.is_ok();
     let exit = match result {
         Ok(()) => ExitCode::SUCCESS,
-        Err(error) if error.kind() == io::ErrorKind::BrokenPipe => ExitCode::SUCCESS,
-        Err(error) => {
+        Err(Error::Io(error))
+            if error.kind() == io::ErrorKind::BrokenPipe && command != "encrypt" =>
+        {
+            ExitCode::SUCCESS
+        }
+        Err(Error::Usage(message)) => {
+            let _ = writeln!(err, "error: {message}");
+            ExitCode::from(2)
+        }
+        Err(Error::Runtime(message)) => {
+            let _ = writeln!(err, "error: {message}");
+            ExitCode::FAILURE
+        }
+        Err(Error::Io(error)) => {
             let _ = writeln!(err, "error: {error}");
             ExitCode::FAILURE
         }
@@ -82,13 +114,22 @@ fn random_seed() -> u64 {
 fn help(out: &mut impl Write, language: args::Language) -> io::Result<()> {
     writeln!(out, "lightjunction {}", env!("CARGO_PKG_VERSION"))?;
     writeln!(out, "LJ://PLAY — orbit / rain / wave / snake\n")?;
-    writeln!(out, "Usage: lightjunction [OPTIONS] [SCENE]\n")?;
-    writeln!(out, "Scenes:")?;
+    writeln!(out, "Usage: lightjunction [OPTIONS] [COMMAND] [FORMAT]\n")?;
+    writeln!(out, "Playground:")?;
     writeln!(out, "  play       Open the playground (default)")?;
     writeln!(out, "  orbit      Generative particle orbits")?;
     writeln!(out, "  rain       Falling terminal glyphs")?;
     writeln!(out, "  wave       Animated color interference")?;
     writeln!(out, "  snake      Playable Snake\n")?;
+    writeln!(out, "Keys and encryption:")?;
+    writeln!(
+        out,
+        "  keys [age|gpg|ssh]  Show or export bundled public keys"
+    )?;
+    writeln!(
+        out,
+        "  encrypt age|gpg     Encrypt to the bundled public key\n"
+    )?;
     writeln!(out, "Keys:")?;
     writeln!(
         out,
@@ -128,6 +169,16 @@ fn help(out: &mut impl Write, language: args::Language) -> io::Result<()> {
         "  --frames N      Render N frames without keyboard input"
     )?;
     writeln!(out, "  --seed N        Reproduce the same particle field")?;
+    writeln!(
+        out,
+        "  --input FILE    Plaintext file, or - for stdin (encrypt only)"
+    )?;
+    writeln!(
+        out,
+        "  -o, --output FILE  New ciphertext file, or - for stdout"
+    )?;
+    writeln!(out, "  -a, --armor     Write text-armored ciphertext")?;
+    writeln!(out, "  --json          Write public-key content as JSON")?;
     writeln!(out, "  --lang en|zh    Select interface language")?;
     writeln!(out, "  --plain         Disable colors")?;
     writeln!(out, "  --no-timing     Hide timing output")?;
@@ -136,7 +187,11 @@ fn help(out: &mut impl Write, language: args::Language) -> io::Result<()> {
     writeln!(out, "Examples:")?;
     writeln!(out, "  lightjunction")?;
     writeln!(out, "  lightjunction snake")?;
-    writeln!(out, "  lightjunction wave --seed 42")?;
+    writeln!(out, "  lightjunction keys age > recipient.txt")?;
+    writeln!(
+        out,
+        "  lightjunction encrypt age --input note.txt -o note.txt.age"
+    )?;
     writeln!(out, "  lightjunction orbit --frames 120 --plain")
 }
 
@@ -151,6 +206,7 @@ mod tests {
         let out = String::from_utf8(out).unwrap();
         assert!(out.contains("ARROWS/WASD"));
         assert!(out.contains("--frames"));
+        assert!(out.contains("encrypt age|gpg"));
         assert!(!out.contains("About"));
         assert!(!out.contains("Principles"));
     }
