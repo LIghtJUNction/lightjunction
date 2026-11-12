@@ -1,16 +1,68 @@
-# Bash helpers
+# Shell library
 
 Use Bash for the full library, not POSIX `sh`. The cloud preloader and logging
-entrypoint also support sourcing from zsh. Local files and online scripts use
-the same loader.
+entrypoint also support zsh; this does not imply that every helper supports zsh.
+
+## Cloud imports
+
+Set the repository base URL, without `/lib`, and load the preloader:
 
 ```bash
+export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main
+. <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh")
+import log
+ok "Ready"
+import str
+str_trim " hello "
+```
+
+You can also source a library directly in Bash or zsh. When the base variable is
+nonempty, each library loads the preloader automatically before defining its
+helpers. This works on the first invocation:
+
+```bash
+export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main
+. <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/log.sh")
+ok "Ready"
+import str
+```
+
+`import log`, `import log.sh`, and `import lib/log.sh` all load
+`$LIGHTJUNCTION_SHELL_BASE_URL/lib/log.sh`. Full HTTP/HTTPS URLs are also accepted.
+The preloader defines `import` once per shell, and successful imports are cached
+by resolved URL. Re-sourcing the preloader preserves that cache. A failed import
+returns an error and remains retryable. Libraries also guard their definitions
+against repeated sourcing.
+
+In Bash, imports stream through process substitution and wait for the download
+process, preserving download and source errors. In zsh, imports first capture a
+successful download, then source it through process substitution: zsh does not
+provide a waitable `$!` for this use. A failed zsh download is not sourced.
+Bash may execute a partial response before a network failure is reported.
+Use trusted sources. A manually written `. <(curl …)` command itself does not
+verify curl's exit status; the error handling above applies to the loader.
+
+Sourcing `lib/preload.sh` directly without setting the variable selects the
+repository's `main` URL by default. To use a custom host or pinned revision,
+set `LIGHTJUNCTION_SHELL_BASE_URL` before loading any library:
+
+```bash
+export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/COMMIT_SHA
+```
+
+## Local Bash loader
+
+With `LIGHTJUNCTION_SHELL_BASE_URL` unset, libraries do not fetch the preloader.
+Use `lib/basic.sh` for local/path imports:
+
+```bash
+unset LIGHTJUNCTION_SHELL_BASE_URL
 source ./lib/basic.sh
 import lib/common.sh
 import lib/os.sh
 ```
 
-Online:
+For a fresh online Bash session using the same path loader:
 
 ```bash
 BASE=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main
@@ -19,34 +71,17 @@ import lib/os.sh
 import https://example.org/library.sh
 ```
 
-For short cloud imports, set the base URL and load the preloader:
+This loader deduplicates successful imports and retains the original five
+repository arguments; omit the old sixth hash argument. Legacy repository
+arguments apply to this local/path loader, not the cloud preloader. When the
+cloud preloader is loaded, its `import` takes precedence; start a fresh shell to
+return to local/path mode.
 
-```bash
-export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main
-. <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh")
-import log
-import str
-```
-
-Every shell library loads the preloader when this variable is nonempty. The
-preloader defines `import` once per shell; successful cloud imports are cached by
-URL. `import log`, `import log.sh`, and `import lib/log.sh` select the same file.
-In zsh, cloud downloads complete successfully before sourcing; Bash streams
-imports and waits for the producer. With the variable unset, libraries remain usable offline and `lib/basic.sh`
-retains its local/path loader and legacy repository arguments. When cloud mode
-is enabled, `import` uses the configured cloud base instead of the local checkout.
-
-`import` uses process substitution, loads in the current shell and deduplicates
-successful imports. No checksum, temporary script file or cleanup trap is needed.
-The original five repository arguments still work; omit the old sixth hash argument.
-
-`fetch path-or-url` prints a local file when available, otherwise downloads it.
-`run_script path-or-url [args...]` runs an executable in a separate Bash process,
-so its shell options, traps and `exit` do not affect the caller.
-
-The loader waits for the download process and returns download/source errors.
-This is streaming execution, not a transaction: a partial response may have
-already executed before a network failure is reported. Use trusted sources.
+`lib/basic.sh` also provides `fetch path-or-url`, which prints a local file when
+available and otherwise downloads it, and `run_script path-or-url [args...]`,
+which executes in a separate Bash process so shell options, traps and `exit`
+do not affect the caller. Loading only `lib/preload.sh` does not define these
+helpers.
 
 ## Sources and revisions
 
@@ -59,6 +94,9 @@ export LIGHTJUNCTION_REF="<commit-sha>"
 BASE="https://raw.githubusercontent.com/LIghtJUNction/lightjunction/$LIGHTJUNCTION_REF"
 bash <(curl -fsSL "$BASE/bootstrap-linux.sh") --help
 ```
+
+These settings control `lib/basic.sh` and setup entrypoints; cloud imports use
+`LIGHTJUNCTION_SHELL_BASE_URL` instead.
 
 Checked-out scripts prefer their own directory, not the caller's working
 directory. `LIGHTJUNCTION_ROOT` can explicitly select a local checkout.
@@ -95,6 +133,8 @@ uv run pytest tests/test_shell_loader.py tests/test_shell_helpers.py tests/test_
 
 Tests use isolated homes, mocked installers and temporary GPG keys. They do not
 install host packages or prove compatibility with physical Android/macOS devices.
+When zsh is installed, the loader tests also cover first-load logging, short
+imports, deduplication, and retrying failed cloud downloads in zsh.
 
 References: [Bash process substitution](https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html),
 [Termux execution environment](https://github.com/termux/termux-packages/wiki/Termux-execution-environment).

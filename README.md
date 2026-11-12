@@ -38,6 +38,21 @@ The installers verify the binary checksum and use a directory owned by your user
 
 With Rust 1.99.1+, you can also use `cargo install lightjunction --locked`. If unsigned scripts are blocked, use a [manual download](cli/README.md#manual-download). See the [CLI guide](cli/README.md) for controls, version selection, encryption dependencies, and development.
 
+## Shell library
+
+Reusable scripts live in `lib/`, with [`preload.sh`](lib/preload.sh) as the cloud loader. In Bash or zsh, load logging directly and
+use short cloud imports:
+
+```bash
+export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main
+. <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/log.sh")
+ok "Ready"
+import str
+```
+
+See the [shell guide](SHELL.md) for the preloader, local Bash imports, supported
+shells, error handling, and pinned revisions.
+
 ## Project Z
 
 A collection of small, composable Rust libraries for protocols, terminals, systems, and AI tooling. Each component has an explicit scope, with attention to runtime cost, memory use, and dependency size.
