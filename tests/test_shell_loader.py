@@ -30,7 +30,7 @@ def test_import_without_checksum(legacy: bool) -> None:
     result = bash(
         r"""
         set -euo pipefail
-        source basic.sh
+        source lib/basic.sh
         curl() { printf 'VALUE=loaded\n'; }
         openssl() { return 99; }
         mktemp() { return 99; }
@@ -40,7 +40,7 @@ def test_import_without_checksum(legacy: bool) -> None:
             import https://example.invalid/fixture.sh
         fi
         [[ "$VALUE" == loaded ]]
-        source basic.sh
+        source lib/basic.sh
         [[ ${#__IMPORTED_FILES[@]} == 1 ]]
         curl() { return 99; }
         if [[ "$1" == legacy ]]; then
@@ -63,7 +63,7 @@ def test_import_propagates_errors_and_does_not_cache(kind: str, status: int) -> 
     result = bash(
         r"""
         set -euo pipefail
-        source basic.sh
+        source lib/basic.sh
         kind="$1"
         curl() {
             case "$kind" in
@@ -88,7 +88,7 @@ def test_nested_import_keeps_the_outer_download_status() -> None:
     result = bash(
         r"""
         set -euo pipefail
-        source basic.sh
+        source lib/basic.sh
         curl() {
             case "${@: -1}" in
                 */outer) printf 'import https://example.invalid/inner\n'; return 22 ;;
@@ -107,7 +107,7 @@ def test_local_import_is_independent_of_cwd(tmp_path: Path) -> None:
     result = bash(
         r"""
         set -euo pipefail
-        source basic.sh
+        source lib/basic.sh
         cd "$1"
         curl() { return 99; }
         import lib/common.sh
@@ -123,7 +123,7 @@ def test_explicit_revision_is_used_without_hash() -> None:
         r"""
         set -euo pipefail
         LIGHTJUNCTION_REF=reviewed-commit
-        source basic.sh
+        source lib/basic.sh
         LIGHTJUNCTION_ROOT=''
         curl() { printf '%s\n' "${@: -1}" >&2; printf 'VALUE=yes\n'; }
         import fixture.sh
@@ -175,7 +175,7 @@ def test_wrapper_preserves_child_errexit_arguments_and_download_status() -> None
     result = bash(
         r"""
         set -euo pipefail
-        source basic.sh
+        source lib/basic.sh
         curl() { printf 'set -e\nprintf "%%s" "$1"\nfalse\nprintf unreachable\n'; }
         if run_script https://example.invalid/test 'one two'; then exit 99; else status=$?; fi
         [[ "$status" == 1 ]]
@@ -228,7 +228,7 @@ def test_shared_temp_and_managed_file_behavior(tmp_path: Path) -> None:
     result = bash(
         r"""
         set -euo pipefail
-        source basic.sh
+        source lib/basic.sh
         import lib/common.sh
         import lib/bootstrap.sh
         unset TMPDIR
@@ -276,7 +276,7 @@ def test_failed_probe_does_not_treat_curl_timing_output_as_success() -> None:
 
 def test_installers_have_no_script_digest_configuration() -> None:
     for name in (
-        "basic.sh",
+        "lib/basic.sh",
         "bootstrap-linux.sh",
         "bootstrap-linux-daed.sh",
         "bootstrap-macbook.sh",

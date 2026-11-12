@@ -31,7 +31,7 @@ def test_hook_copies_original_and_rejects_invalid_names() -> None:
     result = bash(
         r"""
         set -euo pipefail
-        source basic.sh
+        source lib/basic.sh
         greet() { printf 'hello %s' "$1"; }
         hook 'greet()::wrapper' <<'BODY'
         printf '['
@@ -123,11 +123,11 @@ def test_env_and_logging_do_not_change_caller_options_or_messages() -> None:
         set +e +u
         set +o pipefail
         before="$-:$SHELLOPTS:$LC_ALL"
-        NO_COLOR=true source env.sh
+        NO_COLOR=true source lib/env.sh
         [[ "$before" == "$-:$SHELLOPTS:$LC_ALL" ]] || exit 98
         [[ -z "$C_UP$C_RED$C_CLEAR_LINE" ]] || exit 97
         set -euo pipefail
-        source log.sh
+        source lib/log.sh
         LOG_LEVEL=0
         err hidden; warn hidden; ok hidden; info hidden; debug hidden
         LOG_LEVEL=3 info 'literal\n%s' words
@@ -143,9 +143,9 @@ def test_env_and_logging_do_not_change_caller_options_or_messages() -> None:
 def test_review_needs_confirmation_and_forwards_arguments(tmp_path: Path) -> None:
     script = tmp_path / "reviewed.sh"
     script.write_text('printf "%s" "$1"\n', encoding="utf-8")
-    denied = bash('source env.sh; review_then_run "$1"', str(script))
+    denied = bash('source lib/env.sh; review_then_run "$1"', str(script))
     assert denied.returncode == 1
-    allowed = bash('source env.sh; review_then_run "$1" --confirm argument', str(script))
+    allowed = bash('source lib/env.sh; review_then_run "$1" --confirm argument', str(script))
     assert allowed.returncode == 0, allowed.stderr
     assert allowed.stdout == "argument"
 

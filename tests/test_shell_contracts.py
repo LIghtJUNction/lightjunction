@@ -29,7 +29,7 @@ def test_import_accepts_first_party_without_sha() -> None:
         r"""
         set -euo pipefail
         curl() { printf 'LOADED=yes\n'; }
-        source basic.sh
+        source lib/basic.sh
         import fixture.sh
         [[ "$LOADED" == yes ]]
         """,
@@ -42,7 +42,7 @@ def test_import_accepts_custom_source_without_sha() -> None:
         r"""
         set -euo pipefail
         curl() { printf '%s\n' "${@: -1}" >&2; printf 'LOADED=yes\n'; }
-        source basic.sh
+        source lib/basic.sh
         import fixture.sh main lightjunction lightjunction https://example.invalid
         [[ "$LOADED" == yes ]]
         """,
@@ -60,7 +60,7 @@ def test_installers_share_one_loader_without_dependency_pins() -> None:
         "setup-gpg-agent.sh",
     ):
         source = (ROOT / filename).read_text(encoding="utf-8")
-        assert "basic.sh" in source and "LIGHTJUNCTION_REF" in source
+        assert "lib/basic.sh" in source and "LIGHTJUNCTION_REF" in source
         assert "SHA256" not in source
         assert "load_lib()" not in source and "import()" not in source
 
@@ -196,7 +196,7 @@ def test_suppressed_log_calls_succeed_under_errexit() -> None:
         NON_INTERACTIVE=1 C_UP='' C_CLEAR_LINE='' C_DIM='' C_RESET=''
         C_RED='' C_YELLOW='' C_GREEN='' C_BLUE='' C_PURPLE=''
         LOG_LEVEL=0
-        source log.sh
+        source lib/log.sh
         err hidden; warn hidden; ok hidden; info hidden; debug hidden
         printf 'alive\n'
         """,

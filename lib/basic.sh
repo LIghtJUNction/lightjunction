@@ -5,7 +5,7 @@
 LIGHTJUNCTION_RAW_BASE="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/${LIGHTJUNCTION_REF:-main}}"
 LIGHTJUNCTION_ROOT="${LIGHTJUNCTION_ROOT:-}"
 if [[ -z "$LIGHTJUNCTION_ROOT" && -f "${BASH_SOURCE[0]}" ]]; then
-    LIGHTJUNCTION_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+    LIGHTJUNCTION_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 fi
 __IMPORTED_FILES=()
 

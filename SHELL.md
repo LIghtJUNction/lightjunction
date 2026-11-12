@@ -3,7 +3,7 @@
 Use Bash, not POSIX `sh`. Local files and online scripts use the same loader.
 
 ```bash
-source ./basic.sh
+source ./lib/basic.sh
 import lib/common.sh
 import lib/os.sh
 ```
@@ -12,7 +12,7 @@ Online:
 
 ```bash
 BASE=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main
-source <(curl -fsSL "$BASE/basic.sh")
+source <(curl -fsSL "$BASE/lib/basic.sh")
 import lib/os.sh
 import https://example.org/library.sh
 ```
@@ -33,7 +33,7 @@ already executed before a network failure is reported. Use trusted sources.
 
 `LIGHTJUNCTION_RAW_BASE` overrides the repository URL. `LIGHTJUNCTION_REF` selects
 a branch, tag or commit when no custom base is supplied. Set it before loading
-an entrypoint or `basic.sh`; dependencies use the same selected base.
+an entrypoint or `lib/basic.sh`; dependencies use the same selected base.
 
 ```bash
 export LIGHTJUNCTION_REF="<commit-sha>"
@@ -43,6 +43,13 @@ bash <(curl -fsSL "$BASE/bootstrap-linux.sh") --help
 
 Checked-out scripts prefer their own directory, not the caller's working
 directory. `LIGHTJUNCTION_ROOT` can explicitly select a local checkout.
+
+## Layout
+
+`lib/` contains the reusable online shell library, including the loader
+`lib/basic.sh`, terminal defaults in `lib/env.sh`, and logging in `lib/log.sh`.
+Root bootstrap and SSH/GPG scripts are executable setup entrypoints; repository
+maintenance tools live in `scripts/`.
 
 ## Shared behavior
 

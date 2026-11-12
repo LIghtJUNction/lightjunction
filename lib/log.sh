@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Literal messages on stderr. Works with or without env.sh.
+# Literal messages on stderr. Works with or without lib/env.sh.
 
 [[ -n "${__LOG_SH_LOADED:-}" ]] && return 0
 __LOG_SH_LOADED=1
