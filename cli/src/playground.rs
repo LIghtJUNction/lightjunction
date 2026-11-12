@@ -174,6 +174,7 @@ enum Material {
     StrawRib,
     Cape,
     CapeStripe,
+    Cord,
 }
 
 #[derive(Clone, Copy)]
@@ -222,33 +223,59 @@ fn nearest(first: Surface, second: Surface) -> Surface {
     }
 }
 
+fn smooth_join(first: Surface, second: Surface, radius: f64) -> Surface {
+    let blend = (0.5 + 0.5 * (second.distance - first.distance) / radius).clamp(0.0, 1.0);
+    Surface {
+        distance: second.distance * (1.0 - blend) + first.distance * blend
+            - radius * blend * (1.0 - blend),
+        material: if blend > 0.5 {
+            first.material
+        } else {
+            second.material
+        },
+    }
+}
+
 fn dog_surface(point: Vec3) -> Surface {
+    // Paint the cream cheeks on one rounded head rather than attaching two
+    // large muzzle balls. The warm forehead narrows towards the short nose.
     let mut surface = ellipsoid(
         point,
-        Vec3::new(0.0, 0.05, 0.0),
-        Vec3::new(0.82, 0.88, 0.68),
+        Vec3::new(0.0, 0.10, 0.0),
+        Vec3::new(0.83, 0.78, 0.60),
         Material::Fur,
     );
+    surface = smooth_join(
+        surface,
+        ellipsoid(
+            point,
+            Vec3::new(0.0, -0.18, 0.47),
+            Vec3::new(0.61, 0.43, 0.18),
+            Material::Fur,
+        ),
+        0.12,
+    );
     for side in [-1.0, 1.0] {
-        surface = nearest(
+        surface = smooth_join(
             surface,
             tapered_capsule(
                 point,
-                Vec3::new(side * 0.5, 0.55, -0.06),
-                Vec3::new(side * 0.62, 0.87, -0.08),
-                0.3,
+                Vec3::new(side * 0.48, 0.64, -0.01),
+                Vec3::new(side * 0.56, 0.95, -0.02),
+                0.22,
                 0.045,
                 Material::Fur,
             ),
+            0.08,
         );
         surface = nearest(
             surface,
             tapered_capsule(
                 point,
-                Vec3::new(side * 0.52, 0.68, 0.2),
-                Vec3::new(side * 0.60, 0.84, 0.12),
-                0.15,
-                0.025,
+                Vec3::new(side * 0.52, 0.76, 0.15),
+                Vec3::new(side * 0.56, 0.91, 0.07),
+                0.085,
+                0.018,
                 Material::InnerEar,
             ),
         );
@@ -256,8 +283,8 @@ fn dog_surface(point: Vec3) -> Surface {
             surface,
             ellipsoid(
                 point,
-                Vec3::new(side * 0.3, 0.2, 0.64),
-                Vec3::new(0.085, 0.105, 0.075),
+                Vec3::new(side * 0.30, 0.285, 0.605),
+                Vec3::new(0.085, 0.090, 0.045),
                 Material::Dark,
             ),
         );
@@ -265,47 +292,64 @@ fn dog_surface(point: Vec3) -> Surface {
             surface,
             ellipsoid(
                 point,
-                Vec3::new(side * 0.28, 0.23, 0.715),
-                Vec3::new(0.022, 0.026, 0.018),
-                Material::Glint,
-            ),
-        );
-        surface = nearest(
-            surface,
-            ellipsoid(
-                point,
-                Vec3::new(side * 0.19, -0.27, 0.63),
-                Vec3::new(0.36, 0.3, 0.4),
+                Vec3::new(side * 0.255, 0.49, 0.485),
+                Vec3::new(0.036, 0.025, 0.016),
                 Material::Muzzle,
             ),
         );
-    }
-    nearest(
-        nearest(
+        surface = nearest(
             surface,
-            ellipsoid(
+            tapered_capsule(
                 point,
-                Vec3::new(0.0, -0.13, 0.98),
-                Vec3::new(0.2, 0.14, 0.16),
+                Vec3::new(0.0, -0.29, 0.658),
+                Vec3::new(side * 0.105, -0.326, 0.645),
+                0.020,
+                0.016,
                 Material::Dark,
             ),
-        ),
+        );
+    }
+    surface = nearest(
+        surface,
         ellipsoid(
             point,
-            Vec3::new(0.0, -0.45, 0.54),
-            Vec3::new(0.3, 0.18, 0.28),
-            Material::Muzzle,
+            Vec3::new(0.0, -0.075, 0.682),
+            Vec3::new(0.157, 0.108, 0.095),
+            Material::Dark,
+        ),
+    );
+    surface = nearest(
+        surface,
+        ellipsoid(
+            point,
+            Vec3::new(-0.042, -0.038, 0.766),
+            Vec3::new(0.027, 0.020, 0.012),
+            Material::Glint,
+        ),
+    );
+    nearest(
+        surface,
+        tapered_capsule(
+            point,
+            Vec3::new(0.0, -0.178, 0.675),
+            Vec3::new(0.0, -0.29, 0.658),
+            0.019,
+            0.020,
+            Material::Dark,
         ),
     )
 }
 
-// The avatar's broad straw hat is tilted as one solid, so its underside
-// and concentric weave remain visible when the camera orbits.
 fn avatar_surface(point: Vec3) -> Surface {
-    let mut surface = dog_surface(Vec3::new(point.x / 1.12, point.y, point.z));
-    let hat = rotate_z(point.sub(Vec3::new(0.0, 1.05, -0.30)), -0.18);
-    let radial = (hat.x * hat.x + hat.z * hat.z).sqrt();
-    let weave = if (radial * 23.0).sin() > 0.84 {
+    let mut surface = dog_surface(point);
+    // The reference's wide brim sits behind the face. Tilt the complete hat
+    // back, then roll it, keeping its crown, underside and rim in one space.
+    let hat = rotate_x(
+        rotate_z(point.sub(Vec3::new(0.0, 0.44, -0.47)), -0.22),
+        -1.02,
+    );
+    let radial = (hat.x.powi(2) + (hat.z / 0.75).powi(2)).sqrt();
+    let weave = if radial > 1.60 || (radial * 16.0).sin() > 0.58 {
         Material::StrawRib
     } else {
         Material::Straw
@@ -315,7 +359,7 @@ fn avatar_surface(point: Vec3) -> Surface {
         ellipsoid(
             hat,
             Vec3::new(0.0, 0.0, 0.0),
-            Vec3::new(1.46, 0.085, 1.04),
+            Vec3::new(1.70, 0.075, 1.275),
             weave,
         ),
     );
@@ -323,68 +367,77 @@ fn avatar_surface(point: Vec3) -> Surface {
         surface,
         ellipsoid(
             hat,
-            Vec3::new(0.0, 0.1, -0.12),
-            Vec3::new(0.75, 0.44, 0.64),
+            Vec3::new(0.0, 0.14, -0.10),
+            Vec3::new(0.72, 0.31, 0.64),
             Material::Straw,
         ),
     );
 
-    // A tapered cloak wraps the shoulders; an open front reveals the chest.
-    let progress = ((-point.y - 0.55) / 1.5).clamp(0.0, 1.0);
-    let radius = 0.43 + progress * 0.49;
-    let radial = (point.x.powi(2) + (point.z + 0.13).powi(2)).sqrt();
-    let open_front = point.z > 0.1 && point.x.abs() < 0.12 + progress * 0.28;
-    if !open_front {
-        let angle = point.x.atan2(point.z + 0.13);
-        let material = if (angle * 19.0).sin() > 0.1 {
-            Material::CapeStripe
-        } else {
-            Material::Cape
-        };
-        surface = nearest(
-            surface,
-            Surface {
-                distance: (radial - radius)
-                    .abs()
-                    .max(point.y + 0.56)
-                    .max(-2.05 - point.y)
-                    - 0.045,
-                material,
-            },
-        );
-    }
+    // A continuous cloth shell, cut open at the front, reveals the chest.
+    // Broad meridian stripes remain legible at terminal pixel resolutions.
+    let progress = ((-point.y - 0.67) / 1.31).clamp(0.0, 1.0);
+    let radius = 0.41 + progress * 0.57;
+    let radial = (point.x.powi(2) + ((point.z + 0.16) / 0.70).powi(2)).sqrt();
+    let opening = (point.x.abs() - 0.075 - progress * 0.25).max(0.06 - point.z);
+    let angle = point.x.atan2((point.z + 0.16) / 0.70);
+    let stripe = (angle * 14.0).sin();
+    let material = if (opening.abs() < 0.035 && point.z > 0.06) || point.y < -1.94 {
+        Material::Cord
+    } else if stripe > 0.05 {
+        Material::CapeStripe
+    } else {
+        Material::Cape
+    };
+    surface = nearest(
+        surface,
+        Surface {
+            distance: ((radial - radius - 0.012 * stripe).abs() * 0.56 - 0.025)
+                .max(point.y + 0.67)
+                .max(-1.98 - point.y)
+                .max(-opening * 0.6),
+            material,
+        },
+    );
     surface = nearest(
         surface,
         ellipsoid(
             point,
-            Vec3::new(0.0, -1.25, -0.03),
-            Vec3::new(0.39, 0.78, 0.35),
+            Vec3::new(0.0, -1.27, -0.02),
+            Vec3::new(0.36, 0.72, 0.32),
             Material::Muzzle,
         ),
     );
     for side in [-1.0, 1.0] {
+        let bow = rotate_z(point.sub(Vec3::new(side * 0.19, -0.76, 0.46)), side * 0.35);
+        let ring = ((bow.x / 0.17).powi(2) + (bow.y / 0.095).powi(2)).sqrt();
         surface = nearest(
             surface,
-            ellipsoid(
-                point,
-                Vec3::new(side * 0.17, -0.63, 0.47),
-                Vec3::new(0.17, 0.075, 0.06),
-                Material::CapeStripe,
-            ),
+            Surface {
+                distance: (((ring - 1.0) * 0.095).powi(2) + bow.z.powi(2)).sqrt() - 0.032,
+                material: Material::Cord,
+            },
         );
         surface = nearest(
             surface,
             tapered_capsule(
                 point,
-                Vec3::new(side * 0.035, -0.65, 0.49),
-                Vec3::new(side * 0.11, -1.18, 0.44),
-                0.025,
-                0.016,
-                Material::CapeStripe,
+                Vec3::new(side * 0.025, -0.77, 0.45),
+                Vec3::new(side * 0.10, -1.24, 0.37),
+                0.026,
+                0.018,
+                Material::Cord,
             ),
         );
     }
-    surface
+    nearest(
+        surface,
+        ellipsoid(
+            point,
+            Vec3::new(0.0, -0.76, 0.46),
+            Vec3::new(0.065, 0.052, 0.045),
+            Material::Cord,
+        ),
+    )
 }
 
 fn rotate_z(point: Vec3, angle: f64) -> Vec3 {
@@ -411,6 +464,21 @@ fn rotate_x(point: Vec3, angle: f64) -> Vec3 {
         point.x,
         point.y * cos - point.z * sin,
         point.y * sin + point.z * cos,
+    )
+}
+
+fn fur_color(point: Vec3) -> Rgb {
+    // Blend the markings on the surface, so the forehead never becomes a
+    // flat colour boundary at the seam between two geometric primitives.
+    let cheek_line = 0.35 - 0.20 * (1.0 - point.x.abs() / 0.45).max(0.0);
+    let progress = ((cheek_line + 0.16 - point.y) / 0.32).clamp(0.0, 1.0);
+    let front = ((point.z - 0.10) / 0.30).clamp(0.0, 1.0);
+    let cream = progress * progress * (3.0 - 2.0 * progress) * front;
+    let blend = |fur: f64, muzzle: f64| (fur + (muzzle - fur) * cream) as u8;
+    Rgb(
+        blend(221.0, 255.0),
+        blend(184.0, 240.0),
+        blend(133.0, 216.0),
     )
 }
 
@@ -528,16 +596,20 @@ impl App {
         let camera = rotate_x(rotate_y(Vec3::new(0.0, -0.45, 6.4), -yaw), -pitch);
         let key_light = Vec3::new(-0.45, 0.75, 0.8).normalized();
         let glyphs = b" .:-=+*#%@";
+        // Fit the initial view to the shorter physical terminal dimension.
+        // An ASCII character is about twice as tall as a half-block pixel.
+        let aspect = canvas.width as f64 / (canvas.height as f64 * if pixels { 1.0 } else { 2.0 });
+        let scale = self.zoom * aspect.min(1.0);
 
         for row in 0..canvas.height {
             for column in 0..canvas.width {
                 let screen_x = (column as f64 * 2.0 + 1.0 - canvas.width as f64)
                     / canvas.height as f64
                     * if pixels { 0.95 } else { 0.475 }
-                    / self.zoom;
+                    / scale;
                 let screen_y =
                     (canvas.height as f64 - row as f64 * 2.0 - 1.0) / canvas.height as f64 * 0.95
-                        / self.zoom;
+                        / scale;
                 let direction = rotate_x(
                     rotate_y(Vec3::new(screen_x, screen_y, -2.4).normalized(), -yaw),
                     -pitch,
@@ -569,23 +641,24 @@ impl App {
                         - avatar_surface(point.sub(Vec3::new(0.0, 0.0, epsilon))).distance,
                 )
                 .normalized();
-                let normal = rotate_x(rotate_y(normal, yaw), pitch);
+                let normal = rotate_y(rotate_x(normal, pitch), yaw);
                 let diffuse = normal.dot(key_light).max(0.0);
-                let light = 0.58 + diffuse * 0.42;
+                let light = 0.66 + diffuse * 0.34;
                 let rim = (1.0 - normal.z.abs()).powi(2);
                 let base = match material {
-                    Material::Fur => Rgb(242, 213, 164),
-                    Material::Muzzle => Rgb(242, 220, 174),
-                    Material::InnerEar => Rgb(190, 111, 112),
-                    Material::Dark => Rgb(64, 48, 38),
-                    Material::Glint => Rgb(225, 250, 255),
-                    Material::Straw => Rgb(218, 184, 126),
-                    Material::StrawRib => Rgb(132, 101, 64),
-                    Material::Cape => Rgb(216, 235, 245),
-                    Material::CapeStripe => Rgb(65, 119, 177),
+                    Material::Fur => fur_color(point),
+                    Material::Muzzle => Rgb(255, 240, 216),
+                    Material::InnerEar => Rgb(186, 135, 98),
+                    Material::Dark => Rgb(69, 51, 42),
+                    Material::Glint => Rgb(255, 248, 227),
+                    Material::Straw => Rgb(221, 192, 141),
+                    Material::StrawRib => Rgb(172, 138, 93),
+                    Material::Cape => Rgb(222, 239, 245),
+                    Material::CapeStripe => Rgb(111, 149, 195),
+                    Material::Cord => Rgb(41, 73, 102),
                 };
                 let shade =
-                    |channel: u8| (f64::from(channel) * light + rim * 28.0).min(255.0) as u8;
+                    |channel: u8| (f64::from(channel) * light + rim * 14.0).min(255.0) as u8;
                 let glyph = if material == Material::Dark || material == Material::Glint {
                     '@'
                 } else {
@@ -830,6 +903,35 @@ mod tests {
             modifiers: KeyModifiers::NONE,
         });
         assert!(app.zoom > 1.0);
+    }
+
+    #[test]
+    fn initial_view_fits_the_hat_inside_portrait_terminals() {
+        for (width, height) in [(24, 24), (32, 40)] {
+            for pixels in [false, true] {
+                for yaw in [-0.45, 0.0, 0.45] {
+                    let mut app = App::new(width, height);
+                    app.yaw = yaw;
+                    let mut canvas = Canvas::new(width, height * if pixels { 2 } else { 1 });
+                    app.avatar(&mut canvas, pixels);
+                    assert!(canvas.cells.iter().any(|cell| cell.color.is_some()));
+                    for row in 0..canvas.height {
+                        assert!(canvas.cells[row * width].color.is_none());
+                        assert!(canvas.cells[row * width + width - 1].color.is_none());
+                    }
+                    assert!(
+                        canvas.cells[..width]
+                            .iter()
+                            .all(|cell| cell.color.is_none())
+                    );
+                    assert!(
+                        canvas.cells[(canvas.height - 1) * width..]
+                            .iter()
+                            .all(|cell| cell.color.is_none())
+                    );
+                }
+            }
+        }
     }
 
     #[test]
