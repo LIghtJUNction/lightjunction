@@ -3,16 +3,17 @@ name = "lightjunction"
 version = "0.1.1"
 edition = "2024"
 rust-version = "1.99.1"
-description = "A tiny interactive introduction to LIghtJUNction, with honest command timings"
+description = "A keyboard-driven terminal playground with generative art and Snake"
 license-file = "LICENSE"
 repository = "https://github.com/LIghtJUNction/lightjunction"
 homepage = "https://lightjunction.github.io/lightjunction/"
 readme = "README.md"
-keywords = ["cli", "profile", "terminal", "interactive", "zclap"]
+keywords = ["terminal", "interactive", "generative-art", "snake", "zclap"]
 categories = ["command-line-utilities"]
 include = ["src/**", "tests/**", "Cargo.toml", "Cargo.lock", "README.md", "CHANGELOG.md", "LICENSE", "UPSTREAM.toml"]
 
 [dependencies]
+crossterm = { version = "0.29.0", default-features = false, features = ["events", "windows"] }
 zclap = "=0.1.4"
 
 [profile.release]

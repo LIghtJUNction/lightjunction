@@ -1,91 +1,83 @@
 # lightjunction
 
-An interactive terminal introduction to [LIghtJUNction](https://github.com/LIghtJUNction). Meet the person, explore the projects, and pick up a small engineering question along the way.
+A tiny keyboard-driven terminal playground built in Rust. No profile pages, network requests, telemetry, or saved state—just generated motion and a playable game.
 
-Built in Rust with [`zclap`](https://crates.io/crates/zclap), with command timings on by default. Everything runs locally: no network requests, telemetry, or persistent activity logs.
+## Run
 
-## Install
+From this repository:
 
 ```sh
-cargo install lightjunction --locked
+cargo install --path cli --locked
 lightjunction
 ```
 
-Build with Rust 1.99.1 or later. In a terminal, `lightjunction` opens a menu. When its output is piped or redirected, it prints the introduction card and exits.
+Inside `cli/`, use `cargo install --path . --locked` instead. Rust 1.99.1 or later is required.
 
-## Explore
+A terminal opens the full-screen playground. Piped or redirected output receives one generated frame and exits, so scripts never wait for keyboard input.
+
+## Play
 
 ```sh
-lightjunction about
-lightjunction projects
-lightjunction projects magicnet
-lightjunction tour
-lightjunction spark
+lightjunction              # Start in Orbit
+lightjunction rain         # Falling glyph field
+lightjunction wave         # Animated interference colors
+lightjunction snake        # Play Snake
+lightjunction orbit --seed 42
 ```
 
-| Command | What you get |
+| Key | Action |
 | --- | --- |
-| `card` | A compact introduction and places to explore. |
-| `about` | The person and interests behind the projects. |
-| `projects [project-name]` | The project collection, or one project's introduction. |
-| `principles` | A few ideas behind the work. |
-| `links` | Public GitHub and website links. |
-| `tour` | The complete introduction, printed all at once. |
-| `spark` | An original engineering question to think about. |
+| `1` / `2` / `3` / `4` | Jump to Orbit, Rain, Wave, or Snake |
+| `Tab` | Cycle scenes |
+| Arrow keys / WASD | Steer Snake |
+| `Space` | Pause or resume every scene |
+| `+` / `-` | Change animation speed |
+| `[` / `]` | Change particle or glyph density |
+| `R` | Reset the scene and Snake |
+| `?` | Toggle the control panel |
+| `Q` / `Esc` | Leave the playground |
 
-The collection introduces Project Z, LMM API, MagicNet, OniMods, and HumanGrant. Profile content comes from the [public repository](https://github.com/LIghtJUNction/lightjunction). The questions in `spark` are written for this CLI; they are not historical quotations. The `tour` command prints every section and exits without waiting for input; the menu provides interactive navigation.
+Snake has wall and self-collision, score tracking, deterministic food placement, and instant restart with `R` or `Enter` after a crash.
 
-In the menu, enter a number or a command. Enter `s` or `stats` for session timings, and `q`, `quit`, or `exit` to leave. You can also drive the menu with a script:
+## Script and capture
+
+Use `--frames` for bounded output without keyboard input. Combined with `--seed`, it produces reproducible frames:
 
 ```sh
-printf 'about\nprojects\ns\nq\n' | lightjunction --interactive --plain
+lightjunction orbit --frames 120
+lightjunction wave --seed 42 --frames 3 --plain > wave.txt
+lightjunction snake --frames 1 --no-timing
 ```
 
-## Output options
+`--frames` accepts 1–10000. In a terminal, multiple frames animate at 25 frames per second. Without a terminal, frames are written sequentially without ANSI control sequences.
 
 | Option | Behavior |
 | --- | --- |
-| `--lang en` / `--lang zh` | Choose English or Chinese. |
-| `--plain` | Disable terminal styling. |
-| `--json` | Print the selected command's content as JSON. |
-| `--interactive` | Open the menu even with piped input. |
-| `--no-timing` | Hide timings after successful argument parsing. |
-| `--help`, `-h` | Show usage. |
-| `--version`, `-V` | Show the installed version. |
+| `--seed N` | Reproduce particles and Snake food from an unsigned 64-bit seed |
+| `--frames N` | Render a bounded animation without keyboard input |
+| `--lang en` / `--lang zh` | Choose English or Chinese controls |
+| `--plain` | Disable colors |
+| `--no-timing` | Hide timing output |
+| `--help`, `-h` | Show commands and controls |
+| `--version`, `-V` | Show the installed version |
 
-Language selection checks `LC_ALL`, then `LC_MESSAGES`, then `LANG`. Chinese locales select Chinese; other or missing locales select English. An explicit `--lang` takes precedence.
+Language selection checks `LC_ALL`, then `LC_MESSAGES`, then `LANG`. An explicit `--lang` takes precedence. `NO_COLOR` and `TERM=dumb` also disable colors.
 
-```sh
-lightjunction --lang zh about
-lightjunction --json projects
-lightjunction --plain --no-timing card
-```
-
-Command content goes to standard output. Timings go to standard error, so JSON and text remain usable in pipelines. Argument parsing failures still emit a diagnostic timing line, even when `--no-timing` is present.
-
-## Timing
-
-Each command reports its elapsed work time by default. Interactive sessions also track the command count, minimum, mean, maximum, cumulative work time, input wait time, and total session time. Use `stats` during the session or read the summary on exit. Statistics live only for that session.
-
-The timer starts inside the running program. It excludes operating-system process startup and the timing line's own output. Waiting for interactive input is recorded separately from command work. Output I/O and machine load can affect the measured work time.
-
-For end-to-end startup performance, measure the release binary from a separate process. An internal command timing describes a different interval from launching and exiting the executable.
-
-See [measured benchmarks](https://github.com/LIghtJUNction/lightjunction/blob/main/cli/BENCHMARKS.md) for internal and external timings, the test environment, and reproducible results.
+Scene output goes to standard output. Timings go to standard error and can be disabled with `--no-timing`.
 
 ## Develop
 
-The crate is in the `cli/` directory of the [lightjunction repository](https://github.com/LIghtJUNction/lightjunction). From that directory:
+From `cli/`:
 
 ```sh
-cargo fmt --check
+cargo fmt --all -- --check
 cargo clippy --all-targets --locked -- -D warnings
-cargo test --locked
+cargo test --locked --all-targets
 cargo build --release --locked
-cargo run --release --locked -- --plain card
+cargo run --release --locked -- snake
 ```
 
-The parser dependency is pinned to `zclap = "=0.1.4"`. CI is configured to test Linux, macOS, and Windows, and to check formatting, linting, and crate packaging.
+The parser is pinned to `zclap = "=0.1.4"`. `crossterm 0.29` provides portable raw keyboard input and terminal cleanup. CI checks Linux, macOS, and Windows.
 
 ## Release
 

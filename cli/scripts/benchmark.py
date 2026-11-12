@@ -18,12 +18,12 @@ import time
 
 TIMING = re.compile(r"^\[time\] command=\S+ status=ok elapsed=([0-9.]+)(us|ms|s)$", re.MULTILINE)
 WORKLOADS = {
-    "card": [],
-    "about": ["about"],
-    "projects": ["projects"],
-    "tour": ["tour"],
+    "play": [],
+    "orbit": ["orbit", "--seed", "42"],
+    "rain": ["rain", "--seed", "42"],
+    "wave": ["wave", "--seed", "42"],
+    "snake": ["snake", "--seed", "42"],
     "help": ["--help"],
-    "json": ["tour", "--json"],
 }
 
 
@@ -83,17 +83,10 @@ def invoke(binary, args, environment):
     internal = float(match[1]) * {"us": 1, "ms": 1000, "s": 1_000_000}[match[2]]
     if not math.isfinite(internal) or internal < 0:
         raise RuntimeError(f"invalid internal elapsed time: {match[0]}")
-    if "--json" in args:
-        document = json.loads(result.stdout)
-        if not isinstance(document, dict) or not {"command", "language", "sections"} <= document.keys():
-            raise RuntimeError("JSON response is missing its documented envelope")
-        if not isinstance(document["sections"], list):
-            raise RuntimeError("JSON sections must be a list")
-        for section in document["sections"]:
-            if not isinstance(section.get("title"), str) or not isinstance(section.get("lines"), list):
-                raise RuntimeError("JSON section must contain a title and lines")
-            if not all(isinstance(line, str) for line in section["lines"]):
-                raise RuntimeError("JSON section lines must be strings")
+    if b"\x1b" in result.stdout:
+        raise RuntimeError(f"non-terminal output contains ANSI controls for {args!r}")
+    if not result.stdout:
+        raise RuntimeError(f"empty output for {args!r}")
     return elapsed, internal
 
 

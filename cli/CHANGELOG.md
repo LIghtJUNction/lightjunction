@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Replace the static profile and numbered menu with a full-screen terminal playground.
+- Add generative Orbit, Rain, and Wave scenes with live speed and density controls.
+- Add playable Snake with arrow/WASD controls, scoring, collisions, and restart.
+- Add deterministic seeds, bounded frame rendering, portable raw keyboard input, and updated tests.
+
 ## 0.1.1
 
 - Keep every engineering question reachable on clocks with coarse timestamp precision.

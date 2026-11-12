@@ -33,6 +33,8 @@ env:
 jobs:
   validate:
     name: Validate / ${{ matrix.os }}
+    outputs:
+      version_changed: ${{ steps.prepare.outputs.changed }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     strategy:
@@ -58,6 +60,7 @@ jobs:
             exit 1
           fi
       - name: Prepare the version to validate
+        id: prepare
         run: uv run --no-project python scripts/release.py prepare --bump "$RELEASE_BUMP" --version "$CUSTOM_VERSION"
       - name: Format, lint and test
         run: |
@@ -75,6 +78,7 @@ jobs:
   publish:
     name: Publish to crates.io
     needs: validate
+    if: github.event_name == 'workflow_dispatch' || needs.validate.outputs.version_changed == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -144,7 +148,7 @@ jobs:
           RELEASE_TAG: ${{ steps.version.outputs.tag }}
         run: |
           notes="$RUNNER_TEMP/lightjunction-release.md"
-          printf 'Interactive terminal introduction to LIghtJUNction.\n\nInstall:\n```sh\ncargo install lightjunction --locked --version %s\nlightjunction\n```\n\nThe crates.io archive checksum was verified against the official sparse index.\n' "$RELEASE_VERSION" > "$notes"
+          printf 'A terminal playground with generative Orbit, Rain, and Wave scenes plus playable Snake.\n\nInstall:\n```sh\ncargo install lightjunction --locked --version %s\nlightjunction\n```\n\nThe crates.io archive checksum was verified against the official sparse index.\n' "$RELEASE_VERSION" > "$notes"
           if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release create "$RELEASE_TAG" --verify-tag --title "lightjunction $RELEASE_VERSION" --notes-file "$notes"
           fi

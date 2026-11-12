@@ -12,16 +12,18 @@
 
 I build open-source tools that are easy to inspect, run, and own. This repository is also the source for my [interactive profile](https://lightjunction.github.io/lightjunction/); the accounts and assets remain mine.
 
-## Terminal card
+## Terminal playground
 
-Explore my projects from your terminal, with an interactive menu and command timings:
+Switch between generative Orbit, Rain, and Wave scenes, or play Snake—right in your terminal:
+
+From a repository checkout:
 
 ```sh
-cargo install lightjunction --locked
+cargo install --path cli --locked
 lightjunction
 ```
 
-[CLI commands and development](cli/README.md)
+[CLI controls and development](cli/README.md)
 
 ## Project Z
 

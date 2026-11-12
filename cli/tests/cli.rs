@@ -1,4 +1,3 @@
-use std::io::Write;
 use std::process::{Command, Output, Stdio};
 
 fn cli() -> Command {
@@ -14,23 +13,6 @@ fn cli() -> Command {
 
 fn run(args: &[&str]) -> Output {
     cli().args(args).output().expect("run lightjunction")
-}
-
-fn menu(args: &[&str], input: &[u8]) -> Output {
-    let mut child = cli()
-        .args(args)
-        .stdin(Stdio::piped())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .spawn()
-        .expect("start menu");
-    child
-        .stdin
-        .take()
-        .expect("menu stdin")
-        .write_all(input)
-        .expect("write menu choices");
-    child.wait_with_output().expect("finish menu")
 }
 
 fn text(bytes: &[u8]) -> &str {
@@ -61,27 +43,24 @@ fn timed(output: &Output, name: &str, status: &str) {
 }
 
 #[test]
-fn non_terminal_default_is_a_card_and_exits() {
+fn non_terminal_default_is_a_generated_scene_and_exits() {
     let output = run(&[]);
     successful(&output);
-    assert!(text(&output.stdout).contains("LIghtJUNction"));
-    assert!(!text(&output.stdout).contains("lightjunction >"));
-    timed(&output, "card", "ok");
+    let stdout = text(&output.stdout);
+    assert!(stdout.contains("LJ://PLAY"));
+    assert!(stdout.contains("1:ORBIT"));
+    assert!(stdout.contains("LIVE"));
+    assert!(!stdout.contains("lightjunction >"));
+    assert!(!stdout.contains("About"));
+    timed(&output, "play", "ok");
 }
 
 #[test]
-fn every_page_help_and_version_is_timed() {
-    for command in [
-        "card",
-        "about",
-        "projects",
-        "principles",
-        "links",
-        "tour",
-        "spark",
-    ] {
+fn every_scene_help_and_version_is_timed() {
+    for command in ["play", "orbit", "rain", "wave", "snake"] {
         let output = run(&[command]);
         successful(&output);
+        assert!(text(&output.stdout).contains("LJ://PLAY"));
         timed(&output, command, "ok");
     }
     for (flag, command) in [
@@ -100,42 +79,50 @@ fn every_page_help_and_version_is_timed() {
 }
 
 #[test]
-fn options_work_before_and_after_commands() {
+fn seeded_output_is_reproducible_and_scenes_are_distinct() {
+    let first = run(&["orbit", "--seed", "42", "--frames", "8"]);
+    let second = run(&["--seed=42", "--frames=8", "orbit"]);
+    successful(&first);
+    successful(&second);
+    assert_eq!(first.stdout, second.stdout);
+    assert_eq!(text(&first.stdout).matches("LJ://PLAY").count(), 8);
+
+    let rain = run(&["rain", "--seed", "42", "--frames", "8"]);
+    assert_ne!(first.stdout, rain.stdout);
+}
+
+#[test]
+fn options_work_before_and_after_scenes() {
     for arguments in [
-        vec!["--lang", "en", "--plain", "projects", "magicnet"],
-        vec!["projects", "magicnet", "--plain", "--lang=en"],
-        vec!["projects", "--lang", "en", "magicnet", "--plain"],
+        vec!["--lang", "en", "--plain", "snake", "--seed", "7"],
+        vec!["snake", "--seed=7", "--plain", "--lang=en"],
+        vec!["snake", "--lang", "en", "--plain", "--seed", "7"],
     ] {
         let output = run(&arguments);
         successful(&output);
-        assert!(
-            text(&output.stdout)
-                .to_ascii_lowercase()
-                .contains("magicnet")
-        );
-        timed(&output, "projects", "ok");
+        assert!(text(&output.stdout).contains("score:0000"));
+        timed(&output, "snake", "ok");
     }
 }
 
 #[test]
-fn named_projects_are_available() {
-    for project in ["magicnet", "z", "lmm-api", "onimods", "humangrant"] {
-        let output = run(&["projects", project]);
-        successful(&output);
-        timed(&output, "projects", "ok");
-    }
+fn chinese_controls_and_help_are_available() {
+    let output = run(&["snake", "--lang", "zh"]);
+    successful(&output);
+    assert!(text(&output.stdout).contains("方向键 / WASD 控制"));
+    let help = run(&["--lang=zh", "--help"]);
+    successful(&help);
+    assert!(text(&help.stdout).contains("切换场景"));
 }
 
 #[test]
 fn no_timing_keeps_successful_stderr_empty() {
     for command in [
-        "card",
-        "about",
-        "projects",
-        "principles",
-        "links",
-        "tour",
-        "spark",
+        "play",
+        "orbit",
+        "rain",
+        "wave",
+        "snake",
         "--help",
         "--version",
     ] {
@@ -150,45 +137,18 @@ fn no_timing_keeps_successful_stderr_empty() {
 }
 
 #[test]
-fn json_is_clean_and_has_a_consistent_envelope() {
-    for language in ["en", "zh"] {
-        for command in [
-            "card",
-            "about",
-            "projects",
-            "principles",
-            "links",
-            "tour",
-            "spark",
-        ] {
-            let output = run(&[command, "--json", "--lang", language]);
-            successful(&output);
-            let stdout = text(&output.stdout).trim();
-            assert!(stdout.starts_with('{') && stdout.ends_with('}'));
-            for key in ["command", "language", "sections", "title", "lines"] {
-                assert!(
-                    stdout.contains(&format!("\"{key}\"")),
-                    "missing {key}: {stdout}"
-                );
-            }
-            assert!(stdout.contains(&format!("\"{command}\"")));
-            assert!(stdout.contains(&format!("\"{language}\"")));
-            timed(&output, command, "ok");
-        }
-    }
-}
-
-#[test]
 fn usage_errors_exit_two_and_include_timing() {
     for arguments in [
         vec!["unknown"],
         vec!["--unknown"],
         vec!["--lang"],
         vec!["--lang", "fr"],
-        vec!["about", "unexpected"],
-        vec!["projects", "not-a-project"],
-        vec!["--interactive", "about"],
-        vec!["--interactive", "--json"],
+        vec!["--frames", "0"],
+        vec!["--frames", "10001"],
+        vec!["--frames", "many"],
+        vec!["--seed", "-1"],
+        vec!["--seed", "not-a-number"],
+        vec!["snake", "unexpected"],
         vec!["--no-timing", "--unknown"],
     ] {
         let output = run(&arguments);
@@ -206,57 +166,6 @@ fn usage_errors_exit_two_and_include_timing() {
     }
 }
 
-#[test]
-fn menu_records_each_command_and_reports_a_session() {
-    let output = menu(&["--interactive", "--plain"], b"1\n2\ns\nq\n");
-    successful(&output);
-    let stdout = text(&output.stdout);
-    let stderr = text(&output.stderr);
-    assert!(stdout.contains("lightjunction >"));
-    assert!(stdout.contains("[stats] commands=2"));
-    assert_eq!(
-        stderr
-            .lines()
-            .filter(|line| line.starts_with("[time]"))
-            .count(),
-        4
-    );
-    assert!(stderr.contains("command=about status=ok"));
-    assert!(stderr.contains("command=projects status=ok"));
-    assert!(stderr.contains("[stats] commands=4"));
-    assert!(stderr.contains("[session] active="));
-    assert!(stderr.contains(" wait=") && stderr.contains(" total="));
-}
-
-#[test]
-fn menu_handles_eof_and_timing_opt_out() {
-    let eof = menu(&["--interactive"], b"");
-    successful(&eof);
-    assert!(text(&eof.stderr).contains("[stats] commands=0"));
-    let quiet = menu(&["--interactive", "--no-timing"], b"1\ns\nq\n");
-    successful(&quiet);
-    assert!(quiet.stderr.is_empty());
-    assert!(text(&quiet.stdout).contains("[stats]"));
-}
-
-#[test]
-fn menu_recovers_from_unknown_input_without_echoing_control_codes() {
-    let output = menu(&["--interactive"], b"\x1b[31mbogus\n1\nq\n");
-    successful(&output);
-    let stderr = text(&output.stderr);
-    assert!(stderr.contains("command=error status=error"));
-    assert!(stderr.contains("command=about status=ok"));
-    assert!(!stderr.contains('\x1b'));
-}
-
-#[test]
-fn menu_rejects_oversized_lines() {
-    let output = menu(&["--interactive"], &vec![b'x'; 4097]);
-    assert!(!output.status.success());
-    assert!(text(&output.stderr).contains("Input exceeds 4096 bytes"));
-    assert!(!text(&output.stderr).contains("panicked"));
-}
-
 #[cfg(unix)]
 #[test]
 fn non_utf8_arguments_report_usage_errors_without_panicking() {
@@ -264,12 +173,11 @@ fn non_utf8_arguments_report_usage_errors_without_panicking() {
     use std::os::unix::ffi::OsStringExt;
 
     let output = cli()
-        .arg("projects")
         .arg(OsString::from_vec(vec![0xff]))
         .output()
         .expect("run with native non-UTF-8 argument");
     assert_eq!(output.status.code(), Some(2));
-    assert!(text(&output.stderr).contains("valid UTF-8"));
+    assert!(text(&output.stderr).contains("error:"));
     assert!(!text(&output.stderr).contains("panicked"));
     timed(&output, "error", "error");
 }
@@ -280,12 +188,11 @@ fn closed_output_pipe_exits_cleanly_without_a_panic() {
     use std::os::fd::OwnedFd;
     use std::os::unix::net::UnixStream;
 
-    // Close the reader before spawn, so the first write deterministically gets EPIPE.
     let (writer, reader) = UnixStream::pair().expect("output socket pair");
     drop(reader);
     let writer: OwnedFd = writer.into();
     let output = cli()
-        .arg("tour")
+        .args(["orbit", "--frames", "3"])
         .stdout(Stdio::from(writer))
         .stderr(Stdio::piped())
         .output()

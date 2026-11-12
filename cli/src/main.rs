@@ -1,27 +1,14 @@
 mod args;
-mod content;
+mod playground;
 mod timing;
 
 use std::ffi::OsString;
-use std::io::{self, BufRead, IsTerminal, Read, Write};
+use std::io::{self, IsTerminal, Write};
 use std::process::ExitCode;
-use std::time::{Duration, Instant};
+use std::time::{Instant, SystemTime, UNIX_EPOCH};
 
 use args::Options;
-use content::Display;
-use timing::Stats;
-
-#[derive(Debug)]
-enum Error {
-    Usage(String),
-    Io(io::Error),
-}
-
-impl From<io::Error> for Error {
-    fn from(error: io::Error) -> Self {
-        Self::Io(error)
-    }
-}
+use playground::{Display, Scene};
 
 fn main() -> ExitCode {
     let started = Instant::now();
@@ -32,7 +19,6 @@ fn main() -> ExitCode {
         Ok(options) => options,
         Err(message) => {
             let _ = writeln!(err, "error: {message}\nTry 'lightjunction --help'.");
-            // Invalid arguments always get a timing line, even if parsing failed early.
             let _ = timing::command(&mut err, "error", started.elapsed(), false);
             return ExitCode::from(2);
         }
@@ -41,190 +27,117 @@ fn main() -> ExitCode {
     let display = Display {
         language: options.language,
         color: !options.plain
-            && !options.json
-            && io::stdout().is_terminal()
+            && terminal
             && std::env::var_os("NO_COLOR").is_none()
             && std::env::var_os("TERM").is_none_or(|term| term != "dumb"),
-        json: options.json,
     };
-    let menu = !options.help
-        && !options.version
-        && (options.interactive || (terminal && options.command.is_none() && !options.json));
     let command = if options.help {
         "help"
     } else if options.version {
         "version"
     } else {
-        options.command.unwrap_or("card")
+        options.command.unwrap_or("play")
     };
-    let mut stats = Stats::default();
-    let mut waiting = Duration::ZERO;
-    let result = if menu {
-        interactive(
-            &options,
-            &display,
-            &mut out,
-            &mut err,
-            &mut stats,
-            &mut waiting,
-        )
+    let seed = options.seed.unwrap_or_else(random_seed);
+    let result = if options.help {
+        help(&mut out, options.language)
+    } else if options.version {
+        writeln!(out, "lightjunction {}", env!("CARGO_PKG_VERSION"))
+    } else if terminal && options.frames.is_none() {
+        playground::interactive(Scene::from_command(command), seed, display)
     } else {
-        content::render(command, options.project, &display, &mut out)
+        playground::frames(
+            Scene::from_command(command),
+            seed,
+            display,
+            options.frames.unwrap_or(1),
+            terminal,
+            &mut out,
+        )
     }
-    .and_then(|()| out.flush().map_err(Error::Io));
+    .and_then(|()| out.flush());
     let success = result.is_ok();
     let exit = match result {
         Ok(()) => ExitCode::SUCCESS,
-        Err(Error::Io(error)) if error.kind() == io::ErrorKind::BrokenPipe => ExitCode::SUCCESS,
-        Err(Error::Io(error)) => {
+        Err(error) if error.kind() == io::ErrorKind::BrokenPipe => ExitCode::SUCCESS,
+        Err(error) => {
             let _ = writeln!(err, "error: {error}");
             ExitCode::FAILURE
         }
-        Err(Error::Usage(message)) => {
-            let _ = writeln!(err, "error: {message}\nTry 'lightjunction --help'.");
-            ExitCode::from(2)
-        }
     };
     if options.timing {
-        let elapsed = started.elapsed();
-        if menu {
-            let _ = stats.summary(&mut err, elapsed, waiting);
-        } else {
-            let _ = timing::command(&mut err, command, elapsed, success);
-        }
+        let _ = timing::command(&mut err, command, started.elapsed(), success);
     }
     exit
 }
 
-fn read_input(
-    input: &mut impl BufRead,
-    line: &mut String,
-    waiting: &mut Duration,
-) -> io::Result<usize> {
-    line.clear();
-    let started = Instant::now();
-    let result = input.take(4097).read_line(line);
-    *waiting += started.elapsed();
-    let bytes = result?;
-    if bytes > 4096 {
-        return Err(io::Error::new(
-            io::ErrorKind::InvalidData,
-            "Input exceeds 4096 bytes",
-        ));
-    }
-    Ok(bytes)
+fn random_seed() -> u64 {
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_nanos() as u64
+        ^ u64::from(std::process::id()).rotate_left(17)
 }
 
-fn interactive(
-    options: &Options<'_>,
-    display: &Display,
-    out: &mut impl Write,
-    err: &mut impl Write,
-    stats: &mut Stats,
-    waiting: &mut Duration,
-) -> Result<(), Error> {
-    let language = display.language;
-    content::render("card", None, display, out)?;
-    menu(out, display)?;
-    let mut input = io::stdin().lock();
-    let mut line = String::with_capacity(80);
-    loop {
-        write!(out, "\n  lightjunction > ")?;
-        out.flush()?;
-        if read_input(&mut input, &mut line, waiting)? == 0 {
-            writeln!(out)?;
-            return Ok(());
-        }
-        let line = line.trim();
-        if line.is_empty() {
-            continue;
-        }
-        let started = Instant::now();
-        let mut words = line.split_whitespace();
-        let command = match words.next().unwrap_or_default() {
-            "1" => "about",
-            "2" => "projects",
-            "3" => "principles",
-            "4" => "links",
-            "5" => "tour",
-            "6" => "spark",
-            "?" | "help" | "menu" => "help",
-            "s" | "stats" => "stats",
-            "0" | "q" | "quit" | "exit" => "quit",
-            value => value,
-        };
-        let project = words.next();
-        let valid = words.next().is_none() && (project.is_none() || command == "projects");
-        let result = if !valid {
-            Err(Error::Usage(
-                "Use a menu number, a command, or 'projects NAME'".into(),
-            ))
-        } else {
-            match command {
-                "quit" => writeln!(
-                    out,
-                    "\n  {}\n",
-                    language.text("See you at the next commit.", "下个 commit 见。")
-                )
-                .map_err(Error::Io),
-                "help" => menu(out, display).map_err(Error::Io),
-                "stats" => stats.distribution(out).map_err(Error::Io),
-                value if args::COMMANDS.contains(&value) => {
-                    content::render(value, project, display, out)
-                }
-                _ => Err(Error::Usage(
-                    language
-                        .text(
-                            "Unknown command. Type ? for the menu.",
-                            "未知命令。输入 ? 查看菜单。",
-                        )
-                        .into(),
-                )),
-            }
-        };
-        let success = result.is_ok();
-        match result {
-            Err(Error::Usage(message)) => writeln!(err, "error: {message}")?,
-            Err(error) => return Err(error),
-            Ok(()) => {}
-        }
-        out.flush()?;
-        let elapsed = started.elapsed();
-        stats.record(elapsed);
-        if options.timing {
-            // Use a fixed label for invalid input; never echo terminal control sequences.
-            timing::command(
-                err,
-                if success { command } else { "error" },
-                elapsed,
-                success,
-            )?;
-        }
-        if command == "quit" && success {
-            return Ok(());
-        }
-    }
-}
-
-fn menu(out: &mut impl Write, display: &Display) -> io::Result<()> {
-    let l = display.language;
+fn help(out: &mut impl Write, language: args::Language) -> io::Result<()> {
+    writeln!(out, "lightjunction {}", env!("CARGO_PKG_VERSION"))?;
+    writeln!(out, "LJ://PLAY — orbit / rain / wave / snake\n")?;
+    writeln!(out, "Usage: lightjunction [OPTIONS] [SCENE]\n")?;
+    writeln!(out, "Scenes:")?;
+    writeln!(out, "  play       Open the playground (default)")?;
+    writeln!(out, "  orbit      Generative particle orbits")?;
+    writeln!(out, "  rain       Falling terminal glyphs")?;
+    writeln!(out, "  wave       Animated color interference")?;
+    writeln!(out, "  snake      Playable Snake\n")?;
+    writeln!(out, "Keys:")?;
     writeln!(
         out,
-        "  1  {}\n  2  {}\n  3  {}\n  4  {}\n  5  {}\n  6  {}\n",
-        l.text("About", "关于我"),
-        l.text("Projects", "项目"),
-        l.text("Principles", "做事原则"),
-        l.text("Links", "找到我"),
-        l.text("Take the tour", "逛一圈"),
-        l.text("An engineering spark", "一个工程问题")
+        "{}",
+        language.text(
+            "  1-4 / TAB   Switch scenes       SPACE   Pause",
+            "  1-4 / TAB   切换场景            空格    暂停",
+        )
     )?;
     writeln!(
         out,
-        "  s  {}    ?  {}    q  {}",
-        l.text("timing stats", "耗时统计"),
-        l.text("menu", "菜单"),
-        l.text("quit", "退出")
-    )
+        "{}",
+        language.text(
+            "  ARROWS/WASD Steer Snake         +/-     Speed",
+            "  方向键/WASD 控制贪吃蛇          +/-     速度",
+        )
+    )?;
+    writeln!(
+        out,
+        "{}",
+        language.text(
+            "  [ / ]       Density             R       Reset",
+            "  [ / ]       密度                R       重置",
+        )
+    )?;
+    writeln!(
+        out,
+        "{}",
+        language.text(
+            "  ?             Controls          Q/ESC   Quit\n",
+            "  ?             控制说明          Q/ESC   退出\n",
+        )
+    )?;
+    writeln!(out, "Options:")?;
+    writeln!(
+        out,
+        "  --frames N      Render N frames without keyboard input"
+    )?;
+    writeln!(out, "  --seed N        Reproduce the same particle field")?;
+    writeln!(out, "  --lang en|zh    Select interface language")?;
+    writeln!(out, "  --plain         Disable colors")?;
+    writeln!(out, "  --no-timing     Hide timing output")?;
+    writeln!(out, "  -h, --help      Show this help")?;
+    writeln!(out, "  -V, --version   Show the version\n")?;
+    writeln!(out, "Examples:")?;
+    writeln!(out, "  lightjunction")?;
+    writeln!(out, "  lightjunction snake")?;
+    writeln!(out, "  lightjunction wave --seed 42")?;
+    writeln!(out, "  lightjunction orbit --frames 120 --plain")
 }
 
 #[cfg(test)]
@@ -232,21 +145,13 @@ mod tests {
     use super::*;
 
     #[test]
-    fn bounded_input_accepts_eof_and_rejects_unbounded_lines() {
-        let mut line = String::new();
-        let mut wait = Duration::ZERO;
-        assert_eq!(
-            read_input(&mut &b"q\n"[..], &mut line, &mut wait).unwrap(),
-            2
-        );
-        assert_eq!(line, "q\n");
-        assert_eq!(read_input(&mut &b""[..], &mut line, &mut wait).unwrap(), 0);
-        let long = vec![b'x'; 4097];
-        assert_eq!(
-            read_input(&mut long.as_slice(), &mut line, &mut wait)
-                .unwrap_err()
-                .kind(),
-            io::ErrorKind::InvalidData
-        );
+    fn help_describes_actions_not_profile_pages() {
+        let mut out = Vec::new();
+        help(&mut out, args::Language::En).unwrap();
+        let out = String::from_utf8(out).unwrap();
+        assert!(out.contains("ARROWS/WASD"));
+        assert!(out.contains("--frames"));
+        assert!(!out.contains("About"));
+        assert!(!out.contains("Principles"));
     }
 }
