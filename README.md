@@ -54,7 +54,8 @@ funcs log      # Only logging functions
 
 See the [shell guide](SHELL.md) for the preloader, local Bash imports, supported
 shells, error handling, and pinned revisions. The preloader also provides
-`bootstrap` to run the Linux/Termux or macOS setup, and `bootstrap -h` for usage.
+`bootstrap` to open a [categorized software menu](docs/bootstrap.md) on Linux,
+Termux, or macOS; use `bootstrap --dry-run` to preview without installing.
 
 ## Project Z
 

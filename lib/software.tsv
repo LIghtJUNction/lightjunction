@@ -1,0 +1,58 @@
+# category|id|label|method|package or URL|platforms
+ai|codex|Codex CLI · OpenAI 编程助手|npm|@openai/codex|arch,deb,dnf,yum,zypper,apk,brew
+ai|claude|Claude Code · Anthropic 编程助手|script|https://claude.ai/install.sh|arch,deb,dnf,yum,zypper,apk,brew
+ai|gemini|Gemini CLI · Google 编程助手|npm|@google/gemini-cli|arch,deb,dnf,yum,zypper,apk,brew,termux
+ai|llm|LLM · 多模型命令行工具|uv|llm|arch,deb,dnf,yum,zypper,apk,brew
+ai|ollama|Ollama · 本地模型运行器|native|ollama|arch,brew
+base|git|Git · 版本控制|native|git|*
+base|curl|curl · 网络请求|native|curl|*
+base|wget|wget · 文件下载|native|wget|*
+base|jq|jq · JSON 处理|native|jq|*
+base|unzip|unzip · ZIP 解压|native|unzip|*
+base|zip|zip · ZIP 压缩|native|zip|*
+base|tar|tar · 归档工具|native|tar|*
+base|rsync|rsync · 文件同步|native|rsync|*
+base|openssh|OpenSSH · SSH 客户端|native|openssh|*
+base|gnupg|GnuPG · 签名与加密|native|gnupg|*
+base|tree|tree · 目录树|native|tree|*
+base|htop|htop · 进程监控|native|htop|*
+base|btop|btop · 系统监控|native|btop|*
+mirrors|chsrc|chsrc · 跨平台软件换源工具|chsrc|chsrc|arch,deb,dnf,yum,zypper,apk,brew
+mirrors|reflector|Reflector · Arch 镜像测速|native|reflector|arch
+mirrors|nrm|nrm · npm 镜像源管理|npm|nrm|arch,deb,dnf,yum,zypper,apk,brew,termux
+mirrors|termux-tools|Termux 工具 · 含 termux-change-repo|native|termux-tools|termux
+proxy|mihomo|Mihomo · 规则代理内核|native|mihomo|arch,brew
+proxy|sing-box|sing-box · 通用代理平台|native|sing-box|arch,brew
+proxy|clash-verge|Clash Verge Rev · 图形代理客户端|clash|clash-verge-rev|arch,brew
+proxy|proxychains|ProxyChains · 命令行代理包装|native|proxychains-ng|arch,deb,dnf,yum,zypper,apk,brew,termux
+proxy|privoxy|Privoxy · HTTP 代理|native|privoxy|*
+proxy|tor|Tor · 匿名网络客户端|native|tor|*
+proxy|wireguard|WireGuard · VPN 工具|native|wireguard-tools|arch,deb,dnf,yum,zypper,apk,brew
+shell|zsh|Zsh · 交互式 Shell|native|zsh|*
+shell|fish|Fish · 友好交互式 Shell|native|fish|*
+shell|starship|Starship · 跨 Shell 提示符|native|starship|arch,brew,termux
+shell|tmux|tmux · 终端复用|native|tmux|*
+shell|fzf|fzf · 模糊搜索|native|fzf|*
+shell|zoxide|zoxide · 智能目录跳转|native|zoxide|arch,deb,dnf,yum,zypper,apk,brew,termux
+shell|direnv|direnv · 目录环境变量|native|direnv|arch,deb,dnf,yum,zypper,apk,brew,termux
+shell|fastfetch|Fastfetch · 系统信息|native|fastfetch|arch,brew,termux
+shell|ripgrep|ripgrep · 快速文本搜索|native|ripgrep|*
+shell|fd|fd · 快速文件搜索|native|fd|*
+shell|bat|bat · 语法高亮查看文件|native|bat|*
+shell|eza|eza · 现代 ls|native|eza|arch,brew,termux
+dev|node|Node.js 与 npm · JavaScript 运行时|node|node|*
+dev|python|Python 3 · Python 运行时|native|python|*
+dev|uv|uv · Python 包与项目管理|uv-install|uv|arch,deb,dnf,yum,zypper,apk,brew
+dev|rust|Rust · Rust 工具链|native|rust|*
+dev|go|Go · Go 工具链|native|go|*
+dev|cmake|CMake · 构建配置|native|cmake|*
+dev|make|Make · 构建工具|native|make|*
+dev|pkgconf|pkg-config · 编译依赖查询|native|pkgconf|*
+dev|shellcheck|ShellCheck · Shell 静态检查|native|shellcheck|*
+apps|neovim|Neovim · 文本编辑器|native|neovim|*
+apps|vim|Vim · 文本编辑器|native|vim|*
+apps|ghostty|Ghostty · GPU 终端|desktop|ghostty|arch,brew
+apps|mpv|mpv · 视频播放器|native|mpv|arch,deb,dnf,yum,zypper,apk,brew
+apps|ffmpeg|FFmpeg · 音视频处理|native|ffmpeg|*
+apps|obs|OBS Studio · 录屏与直播|desktop|obs-studio|arch,deb,dnf,yum,zypper,brew
+apps|vscode|Visual Studio Code · 代码编辑器|vscode|visual-studio-code|arch,brew

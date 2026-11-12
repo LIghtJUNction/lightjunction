@@ -14,9 +14,8 @@ fi
 [[ ${__BASIC_SH_LOADED:-} == 1 ]] || { printf 'Could not load lib/basic.sh\n' >&2; exit 1; }
 
 import lib/bootstrap.sh
+import lib/menu.sh
 
-BREW_FORMULAE=(bun uv rustup-init fish fastfetch)
-BREW_CASKS=(codex codex-app cc-switch ghostty clash-verge-rev font-jetbrains-mono-nerd-font)
 trap cleanup_tmp_dirs EXIT
 
 load_homebrew_env() {
@@ -56,61 +55,19 @@ brew_install() {
     shift
     for package do
         if ! brew list "--$kind" "$package" >/dev/null 2>&1; then
-            brew install "--$kind" "$package"
+            brew install "--$kind" "$package" || return
         fi
     done
 }
-configure_shells() {
-    local prefix block path fish_path
-    prefix="$(brew --prefix)"
-    block="$(cat <<BLOCK
-if [ -x "$prefix/bin/brew" ]; then
-    eval "\$("$prefix/bin/brew" shellenv)"
-fi
-export BUN_INSTALL="\$HOME/.bun"
-[ ! -d "\$BUN_INSTALL/bin" ] || export PATH="\$BUN_INSTALL/bin:\$PATH"
-[ ! -f "\$HOME/.cargo/env" ] || . "\$HOME/.cargo/env"
-[ ! -d "\$HOME/.local/bin" ] || export PATH="\$HOME/.local/bin:\$PATH"
-BLOCK
-)"
-    for path in "${ZDOTDIR:-$HOME}/.zprofile" "$HOME/.bash_profile"; do
-        append_managed_block "$path" '# >>> lightjunction macbook bootstrap >>>' '# <<< lightjunction macbook bootstrap <<<' "$block"
-    done
-    block="$(cat <<BLOCK
-if test -x "$prefix/bin/brew"
-    eval ("$prefix/bin/brew" shellenv)
-end
-set -gx BUN_INSTALL "\$HOME/.bun"
-fish_add_path -g "\$BUN_INSTALL/bin" "\$HOME/.cargo/bin" "\$HOME/.local/bin"
-BLOCK
-)"
-    append_managed_block "${XDG_CONFIG_HOME:-$HOME/.config}/fish/config.fish" '# >>> lightjunction macbook shell init >>>' '# <<< lightjunction macbook shell init <<<' "$block"
-    fish_path="$prefix/bin/fish"
-    [[ -x "$fish_path" ]] || die "Fish not found: $fish_path"
-    if ! grep -Fqx "$fish_path" /etc/shells; then printf '%s\n' "$fish_path" | sudo tee -a /etc/shells >/dev/null; fi
-    if [[ ${SHELL:-} != "$fish_path" ]]; then chsh -s "$fish_path"; fi
-}
 main() {
     case "${1:-}" in
-        -h|--help) printf '%s\n' 'Usage: bash bootstrap-macbook.sh' 'Install developer tools and desktop apps, configure Ghostty and use Fish as the login shell.'; return ;;
-        '') ;;
+        -h|--help) printf '%s\n' 'Usage: bash bootstrap-macbook.sh' '打开软件分类菜单；--list 列出软件，--dry-run 预览安装。'; return ;;
+        ''|--list|--dry-run) ;;
         *) die "Unexpected argument: $1" ;;
     esac
     [[ $(uname -s) == Darwin ]] || die 'This script only supports macOS.'
     ((EUID != 0)) || die 'Run as a normal macOS administrator, without sudo.'
-    id -Gn | tr ' ' '\n' | grep -qx admin || die 'Administrator group membership is required.'
     case "$(uname -m)" in arm64|x86_64) ;; *) die 'Unsupported macOS architecture.' ;; esac
-    ensure_xcode_cli_tools
-    ensure_homebrew
-    brew_install formula "${BREW_FORMULAE[@]}"
-    brew_install cask "${BREW_CASKS[@]}"
-    if ! command_exists rustc || ! command_exists cargo; then rustup-init -y --no-modify-path; fi
-    configure_shells
-    local ghostty_block
-    ghostty_block="$(fetch lib/ghostty.conf)"
-    [[ -n "$ghostty_block" ]] || die 'Ghostty configuration is empty.'
-    append_managed_block "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty" \
-        '# >>> lightjunction ghostty theme >>>' '# <<< lightjunction ghostty theme <<<' "$ghostty_block"
-    log 'Setup complete. Open a new terminal to use the updated shell environment.'
+    menu_main brew "$@"
 }
 main "$@"

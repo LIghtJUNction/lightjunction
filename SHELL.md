@@ -52,21 +52,39 @@ export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNct
 
 ## Bootstrap
 
-After loading the preloader or any cloud library, run:
+After loading the preloader or any cloud library, `bootstrap` opens a Chinese
+software selection menu for Linux/Termux or macOS:
 
 ```bash
-bootstrap              # Linux/Termux or macOS, detected automatically
-bootstrap -h           # Show dispatcher help without downloading a setup script
-bootstrap linux --help # Show Linux setup options
-bootstrap macbook      # Run the macOS setup
+bootstrap                # Browse categories and select individual software
+bootstrap --list         # List the catalog for this platform
+bootstrap --dry-run      # Use the menu and preview without installing
+bootstrap linux --list   # Explicit Linux target
+bootstrap macbook        # Explicit macOS target
+bootstrap -h             # Dispatcher help without downloading a setup script
 ```
 
-`bootstrap` downloads the selected root setup script from
-`LIGHTJUNCTION_SHELL_BASE_URL`, then executes it in a separate Bash process.
-Its dependencies use the same base URL, including a pinned revision or custom
-host. Downloads must succeed before execution. Arguments after the target are
-forwarded unchanged; the setup script retains its existing prompts and options.
-Running `bootstrap` without `--help` performs system setup.
+Categories cover AI tools, base system utilities, mirror-management tools,
+proxies/networking, shells/terminals, development, and desktop/media. Selections
+persist across categories. Review the plan and confirm inside the menu before
+installation. Missing Node.js/npm or uv dependencies are installed as needed.
+A failed item is reported while remaining selections continue.
+
+`bootstrap` downloads its setup script and catalog from
+`LIGHTJUNCTION_SHELL_BASE_URL` and runs in a separate Bash process. macOS no
+longer installs a fixed bundle or changes the login shell automatically. Mirror
+and proxy configuration remain manual. Package availability depends on the
+configured repositories; Arch AUR apps require an existing paru/yay helper.
+
+For a non-interactive preview:
+
+```bash
+BOOTSTRAP_PACKAGES=git,jq,codex bootstrap --dry-run
+```
+
+Non-interactive runs install nothing by default. The older Linux
+`BOOTSTRAP_FEATURES=shell,fs-bees,cn-desktop` mode remains explicit opt-in.
+See [the menu guide](docs/bootstrap.md) for controls and software categories.
 
 ## Loaded functions
 

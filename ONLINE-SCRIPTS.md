@@ -9,8 +9,11 @@ BASE=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main
 
 ## Linux and Termux
 
-Select the modules to install; without a selection, non-interactive execution
-only reports the platform. An interactive terminal offers module prompts.
+Interactive execution opens the categorized software menu. Non-interactive
+execution installs nothing by default. Use `--list` to browse or `--dry-run` to
+preview. [Menu controls and software categories](docs/bootstrap.md).
+
+The older explicit feature bundles remain available:
 
 ```bash
 BOOTSTRAP_FEATURES=shell bash <(curl -fsSL "$BASE/bootstrap-linux.sh")
@@ -39,10 +42,11 @@ Run as a normal administrator, not through sudo:
 bash <(curl -fsSL "$BASE/bootstrap-macbook.sh")
 ```
 
-Installs the existing Homebrew tool/app bundle, configures Ghostty and changes
-the login shell to Fish. Existing Ghostty settings are kept outside the managed
-block; the theme is stored in `lib/ghostty.conf`. Install Apple Command Line Tools
-when prompted, then rerun. Broken CLT directories are not removed automatically.
+Opens the same category menu, using Homebrew formulae and casks for selected
+software. Homebrew/Apple Command Line Tools are prepared only after installation
+is confirmed. The script no longer installs a fixed bundle, changes the login
+shell, or writes a Ghostty theme automatically. Broken CLT directories are not
+removed automatically.
 
 ## YubiKey client
 

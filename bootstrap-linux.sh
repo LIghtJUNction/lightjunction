@@ -16,8 +16,10 @@ fi
 import lib/common.sh
 import lib/bootstrap.sh
 import lib/os.sh
+import lib/menu.sh
 
 FEATURES=()
+PACKAGES_UPDATED=0
 trap cleanup_tmp_dirs EXIT
 
 pkg_family() {
@@ -33,7 +35,12 @@ install_packages() {
     case "$(pkg_family)" in
         termux) pkg install -y "$@" ;;
         arch) "${SUDO[@]}" pacman -Syu --needed --noconfirm "$@" ;;
-        deb) "${SUDO[@]}" apt-get update; "${SUDO[@]}" apt-get install -y "$@" ;;
+        deb)
+            if [[ "$PACKAGES_UPDATED" == 0 ]]; then
+                "${SUDO[@]}" apt-get update || return
+                PACKAGES_UPDATED=1
+            fi
+            "${SUDO[@]}" apt-get install -y "$@" ;;
         dnf|yum) "${SUDO[@]}" "$(pkg_family)" install -y "$@" ;;
         zypper) "${SUDO[@]}" zypper --non-interactive install "$@" ;;
         apk) "${SUDO[@]}" apk add "$@" ;;
@@ -87,10 +94,7 @@ parse_features() {
     elif ! is_interactive; then
         return 0
     else
-        for feature in shell fs-bees cn-desktop; do
-            if os_is android && [[ "$feature" != shell ]]; then continue; fi
-            if ask_yes_no "Install $feature?" n; then FEATURES+=("$feature"); fi
-        done
+        return 0
     fi
     # Validate the whole selection before installing anything.
     for feature in ${FEATURES[@]+"${FEATURES[@]}"}; do
@@ -107,12 +111,16 @@ main() {
     case "${1:-}" in
         -h|--help)
             printf '%s\n' 'Usage: BOOTSTRAP_FEATURES=shell,fs-bees,cn-desktop bash bootstrap-linux.sh' \
-                'No feature selected: show platform only. Termux supports shell tooling without sudo.'
+                '运行 bootstrap 打开分类菜单；--list 列出软件，--dry-run 预览安装。'
             return ;;
-        '') ;;
+        ''|--list|--dry-run) ;;
         *) die "Unexpected argument: $1" ;;
     esac
     [[ $(uname -s) == Linux ]] || die 'This script requires Linux or Termux.'
+    if [[ -z "${BOOTSTRAP_FEATURES:-}" || -n "${1:-}" ]]; then
+        menu_main "$(pkg_family)" "$@"
+        return
+    fi
     parse_features
     log "Platform: $(os_distro); architecture: $(uname -m)"
     ((${#FEATURES[@]} > 0)) || return 0
