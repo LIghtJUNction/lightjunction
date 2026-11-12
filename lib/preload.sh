@@ -5,14 +5,15 @@ export LIGHTJUNCTION_SHELL_BASE_URL="${LIGHTJUNCTION_SHELL_BASE_URL:-https://raw
 __PRELOAD_IMPORTED=()
 
 _preload_consume() {
-    local producer=$! status=0
+    local producer=$! result=0
     # shellcheck source=/dev/null
-    . "$1" || status=$?
+    . "$1" || result=$?
     wait "$producer" || return
-    return "$status"
+    return "$result"
 }
 
 import() {
+    local body
     local name="${1:?Usage: import library}" url imported
     case "$name" in
         http://*|https://*) url="$name" ;;
@@ -26,7 +27,13 @@ import() {
     for imported in ${__PRELOAD_IMPORTED[@]+"${__PRELOAD_IMPORTED[@]}"}; do
         [[ "$imported" == "$url" ]] && return 0
     done
-    _preload_consume <(curl -fsSL "$url") || return
+    if [[ -n "${ZSH_VERSION:-}" ]]; then
+        body="$(curl -fsSL "$url")" || return
+        # shellcheck source=/dev/null
+        . <(printf '%s\n' "$body") || return
+    else
+        _preload_consume <(curl -fsSL "$url") || return
+    fi
     __PRELOAD_IMPORTED+=("$url")
 }
 

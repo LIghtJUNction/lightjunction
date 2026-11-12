@@ -2,9 +2,17 @@
 # Common installer operations. No network calls or temporary directories on source.
 
 if [[ -n "${LIGHTJUNCTION_SHELL_BASE_URL:-}" && ${__PRELOAD_SH_LOADED:-} != 1 ]]; then
-    # shellcheck source=/dev/null
-    . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh") || return
-    wait "$!" || return
+    if [[ -n "${ZSH_VERSION:-}" ]]; then
+        # zsh does not expose a waitable PID for process substitution.
+        __preload_body="$(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh")" || return
+        # shellcheck source=/dev/null
+        . <(printf '%s\n' "$__preload_body") || return
+        unset __preload_body
+    else
+        # shellcheck source=/dev/null
+        . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh") || return
+        wait "$!" || return
+    fi
     [[ ${__PRELOAD_SH_LOADED:-} == 1 ]] || return 1
 fi
 

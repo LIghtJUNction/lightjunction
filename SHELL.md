@@ -1,6 +1,8 @@
 # Bash helpers
 
-Use Bash, not POSIX `sh`. Local files and online scripts use the same loader.
+Use Bash for the full library, not POSIX `sh`. The cloud preloader and logging
+entrypoint also support sourcing from zsh. Local files and online scripts use
+the same loader.
 
 ```bash
 source ./lib/basic.sh
@@ -29,7 +31,8 @@ import str
 Every shell library loads the preloader when this variable is nonempty. The
 preloader defines `import` once per shell; successful cloud imports are cached by
 URL. `import log`, `import log.sh`, and `import lib/log.sh` select the same file.
-With the variable unset, libraries remain usable offline and `lib/basic.sh`
+In zsh, cloud downloads complete successfully before sourcing; Bash streams
+imports and waits for the producer. With the variable unset, libraries remain usable offline and `lib/basic.sh`
 retains its local/path loader and legacy repository arguments. When cloud mode
 is enabled, `import` uses the configured cloud base instead of the local checkout.
 

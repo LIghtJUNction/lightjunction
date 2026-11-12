@@ -359,3 +359,54 @@ def test_cloud_import_failure_can_be_retried(failure: str) -> None:
         failure,
     )
     assert result.returncode == 0, result.stderr
+
+
+def test_zsh_cloud_source_works_on_first_attempt(tmp_path: Path) -> None:
+    import shutil
+
+    zsh = shutil.which("zsh")
+    if zsh is None:
+        pytest.skip("zsh is not installed")
+    requests = tmp_path / "requests"
+    result = subprocess.run(
+        [
+            zsh,
+            "-fc",
+            r'''
+            set -eu
+            ROOT="$PWD"
+            LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid
+            requests="$1"
+            curl() {
+                local url="${@[-1]}"
+                printf '%s\n' "$url" >>"$requests"
+                cat "$ROOT/lib/${url##*/}"
+            }
+            . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/log.sh")
+            ok 1
+            import log
+            import log
+            import str
+            [[ "$(str_trim ' hello ')" == hello ]]
+            . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/log.sh")
+            ok 2
+            curl() { printf 'BROKEN=yes\n'; return 23; }
+            if import missing; then exit 99; else [[ "$?" == 23 ]]; fi
+            [[ -z "${BROKEN:-}" ]]
+            curl() { printf 'RECOVERED=yes\n'; }
+            import missing
+            [[ "$RECOVERED" == yes ]]
+            ''',
+            "zsh",
+            str(requests),
+        ],
+        cwd=ROOT,
+        env={k: v for k, v in os.environ.items() if not k.startswith("LIGHTJUNCTION_")},
+        text=True,
+        capture_output=True,
+        check=False,
+        timeout=15,
+    )
+    assert result.returncode == 0, result.stderr
+    assert "OK    1" in result.stderr and "OK    2" in result.stderr
+    assert requests.read_text().splitlines().count("https://example.invalid/lib/preload.sh") == 1
