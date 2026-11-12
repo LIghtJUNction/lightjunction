@@ -40,15 +40,17 @@ With Rust 1.99.1+, you can also use `cargo install lightjunction --locked`. If u
 
 ## Project Z
 
-A series of minimal, zero-dependency Rust libraries, each built to do one thing well. Leading AI models help generate the code; small scope and simple interfaces keep every library easy to understand and use.
+A collection of small, composable Rust libraries for protocols, terminals, systems, and AI tooling. Each component has an explicit scope, with attention to runtime cost, memory use, and dependency size.
 
-## Other projects
+## Organizations
 
-- [LMM API](https://github.com/TokenNotIncluded/lmm-api) — a self-hostable model and tool gateway.
-- [msg](https://github.com/TokenNotIncluded/msg) — messaging, identity, and capabilities for humans and agents.
-- [MagicNet](https://github.com/LIghtJUNction/MagicNet) — networking tools for rooted Android.
-- [OniMods](https://github.com/LIghtJUNction/OniMods) — tools and experiments for Oxygen Not Included.
-- [HumanGrant](https://github.com/LIghtJUNction/humangrant) — explicit permission for AI agents.
+Organizations I participate in:
+
+- [TokenNotIncluded](https://github.com/TokenNotIncluded)
+- [WeightLang](https://github.com/WeightLang)
+- [AstrBotDevs](https://github.com/AstrBotDevs)
+- [MemDeco-WG](https://github.com/MemDeco-WG)
+- [recipkg](https://github.com/recipkg)
 
 [All repositories](https://github.com/LIghtJUNction?tab=repositories) · [Contributing](CONTRIBUTING.md)
 

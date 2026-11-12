@@ -9,12 +9,14 @@ const css = read('site/profile.css');
 const script = read('site/profile.mjs');
 const swarm = read('site/swarm.mjs');
 
-test('static profile exposes identity, six real projects, and contact without JS', () => {
+test('static profile exposes identity, organizations, Project Z, and contact without JS', () => {
   assert.match(html, /<h1\b[^>]*>I'm LightJunction<\/h1>/);
-  for (const text of ['msg', 'LMM API', 'CortexFS', 'MagicNet', 'LightFlow', 'OniMods']) {
+  for (const text of ['TokenNotIncluded', 'WeightLang', 'AstrBotDevs', 'MemDeco-WG', 'recipkg', 'Project Z']) {
     assert.ok(html.includes(text), text);
   }
-  assert.equal((html.match(/class="list-link(?: project)?"/g) || []).length, 6);
+  assert.match(html, /<section\b[^>]*id="organizations"/);
+  assert.match(html, /<section\b[^>]*id="collections"/);
+  assert.doesNotMatch(html, /CortexFS|MagicNet|LightFlow|OniMods|LMM API/);
   assert.match(html, /href="mailto:lightjunction\.me@gmail\.com"/);
   assert.doesNotMatch(html, /<canvas\b|<iframe\b|contenteditable=/i);
   assert.doesNotMatch(html, /data-build-state=|class="[^"]*\bbuild-item\b/, 'static markup must not conceal content when JavaScript is disabled');
@@ -49,7 +51,7 @@ test('all fragment links and SVG symbol references resolve to unique IDs', () =>
   for (const [, fragment] of html.matchAll(/\bhref="#([^"]+)"/g)) {
     assert.ok(ids.includes(fragment), fragment);
   }
-  for (const id of ['about', 'work', 'contact', 'workbench']) assert.ok(ids.includes(id));
+  for (const id of ['about', 'organizations', 'collections', 'now', 'work', 'contact', 'workbench']) assert.ok(ids.includes(id));
 });
 
 test('public contact downloads and the existing donation destination are retained', () => {
@@ -58,15 +60,14 @@ test('public contact downloads and the existing donation destination are retaine
   assert.match(html, /https:\/\/donate\.lmm\.best\/\?project=lightjunction/);
 });
 
-test('prewritten project and profile links retain their real destinations', () => {
+test('organization and profile links lead to their real public destinations', () => {
   const destinations = [
     'https://msg.lmm.best/@lightjunction',
-    'https://github.com/TokenNotIncluded/msg',
-    'https://api.lmm.best/',
-    'https://github.com/LIghtJUNction/cortexfs',
-    'https://github.com/LIghtJUNction/MagicNet',
-    'https://github.com/LIghtJUNction/LightFlow',
-    'https://github.com/LIghtJUNction/OniMods',
+    'https://github.com/TokenNotIncluded',
+    'https://github.com/WeightLang',
+    'https://github.com/AstrBotDevs',
+    'https://github.com/MemDeco-WG',
+    'https://github.com/recipkg',
     'https://chatgpt.com/u/lightjunction.me',
     'https://github.com/LIghtJUNction',
     'https://x.com/LIghtJUNction_x',

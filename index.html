@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d0f0e">
-  <meta name="description" content="LightJunction — open-source tools, AI experiments, and practical systems. A small personal corner of the internet.">
-  <meta property="og:title" content="LightJunction">
-  <meta property="og:description" content="Open-source tools, AI experiments, and practical systems.">
+  <meta name="description" content="LightJunction — the organizations I build with and the ideas that connect them. Explore Project Z, a collection of small, composable Rust libraries.">
+  <meta property="og:title" content="LightJunction — Organizations &amp; Project Collections">
+  <meta property="og:description" content="Open-source organizations, shared ideas, and Project Z: small, composable Rust libraries for protocols, systems, and AI tooling.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://lightjunction.github.io/lightjunction/">
   <meta name="twitter:card" content="summary">
@@ -24,7 +24,7 @@
       }
     } catch { /* Static HTML remains the fallback. */ }
   </script>
-  <title>LightJunction</title>
+  <title>LightJunction — Organizations &amp; Project Collections</title>
 </head>
 <body id="top">
   <a class="skip-link" href="#about" data-en="Skip to content" data-zh="跳到正文">Skip to content</a>
@@ -54,7 +54,8 @@
         <span>LightJunction<span class="brand-period">.</span></span>
       </a>
       <nav class="navigation" aria-label="Main navigation" data-en-label="Main navigation" data-zh-label="主导航">
-        <a class="nav-work" href="#work" data-en="Selected work" data-zh="精选项目">Selected work</a>
+        <a href="#organizations" data-en="Organizations" data-zh="组织">Organizations</a>
+        <a href="#collections" data-en="Collections" data-zh="项目集">Collections</a>
         <button class="language-button" id="language-toggle" type="button" hidden aria-label="切换到中文">中文</button>
         <details class="elsewhere" id="elsewhere">
           <summary><span data-en="Elsewhere" data-zh="更多">Elsewhere</span><svg class="icon small" aria-hidden="true"><use href="#i-arrow"/></svg></summary>
@@ -71,20 +72,23 @@
 
     <main>
       <section class="intro assembly-section" id="about" aria-labelledby="intro-title" tabindex="-1" data-scene>
-        <div class="section-kicker" data-build><span class="small-cross" aria-hidden="true">+</span><span data-en="Independent ideas. Open source." data-zh="独立想法，开放源码。">Independent ideas. Open source.</span><span class="edition" aria-hidden="true">LJ / 01</span></div>
+        <div class="section-kicker" data-build><span class="small-cross" aria-hidden="true">+</span><span data-en="Open source. Built together." data-zh="开放源码，一起构建。">Open source. Built together.</span><span class="edition" aria-hidden="true">LJ / 01</span></div>
         <h1 id="intro-title" data-en="I'm LightJunction" data-zh="你好，我是 LightJunction">I'm LightJunction</h1>
         <div class="intro-columns">
           <div class="intro-description" data-build>
-            <p><span data-en="A small corner of the internet for " data-zh="这里放着一些">A small corner of the internet for </span><strong data-en="open-source tools" data-zh="开源工具">open-source tools</strong><span data-en=", AI experiments, and things built out of curiosity." data-zh="、AI 实验，以及出于好奇做出来的东西。">, AI experiments, and things built out of curiosity.</span></p>
-            <a class="intro-link" href="#work"><span data-en="Explore the work" data-zh="看看这些作品">Explore the work</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <p><span data-en="The " data-zh="这里介绍我参与的">The </span><strong data-en="organizations and project collections" data-zh="组织与项目集">organizations and project collections</strong><span data-en=" I build with. Shared tools, open systems, and ideas that grow through collaboration." data-zh="。从共同开发的工具，到开放的系统，让想法在协作中成为软件。"> I build with. Shared tools, open systems, and ideas that grow through collaboration.</span></p>
+            <div class="intro-links">
+              <a class="intro-link" href="#organizations"><span data-en="Meet the organizations" data-zh="了解这些组织">Meet the organizations</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="intro-link secondary-link" href="#project-z"><span data-en="Explore Project Z" data-zh="探索 Project Z">Explore Project Z</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
           </div>
           <aside class="margin-note" data-build>
             <span class="note-marker" aria-hidden="true">[ &nbsp; ]</span>
-            <p data-en="Simple code. Quiet interfaces. Software you can inspect and change. Privacy through encryption." data-zh="代码简洁，界面留白。软件可以阅读和修改，隐私由加密保护。">Simple code. Quiet interfaces. Software you can inspect and change. Privacy through encryption.</p>
+            <p data-en="Small components. Clear boundaries. Open code that we can understand, combine, and improve together." data-zh="组件小，边界清晰。让代码可以被理解、组合，也可以一起改进。">Small components. Clear boundaries. Open code that we can understand, combine, and improve together.</p>
           </aside>
         </div>
         <div class="intro-bottom">
-          <a class="scroll-note" href="#now" data-build><span aria-hidden="true">↓</span><span data-en="A few things in motion" data-zh="一些正在发生的事">A few things in motion</span></a>
+          <a class="scroll-note" href="#organizations" data-build><span aria-hidden="true">↓</span><span data-en="People, systems, and shared work" data-zh="一起做事的人，共同构建的系统">People, systems, and shared work</span></a>
           <div class="scene-controls" hidden>
             <button id="recompose" type="button"><svg class="icon small" aria-hidden="true"><use href="#i-shuffle"/></svg><span data-en="Build again" data-zh="重新搭建">Build again</span></button>
             <button id="motion-toggle" type="button" aria-pressed="false"><svg class="icon small" aria-hidden="true"><use href="#i-pause"/></svg><span data-en="Pause motion" data-zh="暂停动态">Pause motion</span></button>
@@ -92,24 +96,45 @@
         </div>
       </section>
 
-      <section class="list-section assembly-section" id="now" aria-labelledby="now-title" data-scene>
+      <section class="list-section assembly-section" id="organizations" aria-labelledby="organizations-title" data-scene>
+        <span id="now" class="anchor-alias" aria-hidden="true"></span>
         <span class="section-rule" data-build="line" aria-hidden="true"></span>
-        <div class="section-heading" data-build><h2 id="now-title" data-en="Working on" data-zh="正在做">Working on</h2><span class="section-index" aria-hidden="true">02 / IN PROGRESS</span></div>
-        <ul class="work-list">
-          <li><a class="list-link" href="https://github.com/TokenNotIncluded/msg" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg><span class="row-copy"><span class="row-name">msg</span><span class="row-separator"> ~ </span><span data-en="A place for humans & agents" data-zh="人和 Agent 的交流空间">A place for humans &amp; agents</span></span><span class="row-meta" data-en="Identity · Messaging" data-zh="身份 · 消息">Identity · Messaging</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a class="list-link" href="https://api.lmm.best/" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg><span class="row-copy"><span class="row-name">LMM API</span><span class="row-separator"> ~ </span><span data-en="One place for model access" data-zh="统一的 AI 模型入口">One place for model access</span></span><span class="row-meta" data-en="AI tooling" data-zh="AI 工具">AI tooling</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <div class="section-heading" data-build>
+          <div><span class="section-index" aria-hidden="true">02 / ORGANIZATIONS</span><h2 id="organizations-title" data-en="Built together." data-zh="一起构建。">Built together.</h2></div>
+          <p class="section-intro" data-en="The communities and teams I contribute to." data-zh="我参与其中、一起做事的社区与团队。">The communities and teams I contribute to.</p>
+        </div>
+        <ul class="organization-list">
+          <li><a class="list-link organization" href="https://github.com/TokenNotIncluded" target="_blank" rel="noopener noreferrer"><span class="org-mark" aria-hidden="true">T/</span><span class="org-heading"><span class="row-name">TokenNotIncluded</span><span class="row-meta" data-en="AI infrastructure" data-zh="AI 基础设施">AI infrastructure</span></span><span class="org-description" data-en="Open infrastructure for model access, agent runtimes, and observable systems." data-zh="构建开源 AI 基础设施，连接模型、Agent 与应用，让成本和故障可追踪。">Open infrastructure for model access, agent runtimes, and observable systems.</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a class="list-link organization" href="https://github.com/WeightLang" target="_blank" rel="noopener noreferrer"><span class="org-mark" aria-hidden="true">W/</span><span class="org-heading"><span class="row-name">WeightLang</span><span class="row-meta" data-en="Languages &amp; models" data-zh="语言与模型">Languages &amp; models</span></span><span class="org-description" data-en="A language and toolchain for expressing neural architectures and working with their weights." data-zh="用语言表达神经网络架构，围绕模型与权重构建编译器和工具链。">A language and toolchain for expressing neural architectures and working with their weights.</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a class="list-link organization" href="https://github.com/AstrBotDevs" target="_blank" rel="noopener noreferrer"><span class="org-mark" aria-hidden="true">A/</span><span class="org-heading"><span class="row-name">AstrBotDevs</span><span class="row-meta" data-en="Agents &amp; applications" data-zh="Agent 与应用">Agents &amp; applications</span></span><span class="org-description" data-en="AI applications, agent frameworks, and an extensible ecosystem for everyday use." data-zh="面向日常使用的 AI 应用、Agent 框架与可扩展工具生态。">AI applications, agent frameworks, and an extensible ecosystem for everyday use.</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a class="list-link organization" href="https://github.com/MemDeco-WG" target="_blank" rel="noopener noreferrer"><span class="org-mark" aria-hidden="true">M/</span><span class="org-heading"><span class="row-name">MemDeco-WG</span><span class="row-meta" data-en="Android tooling" data-zh="Android 工具">Android tooling</span></span><span class="org-description" data-en="Developer tools for building, testing, and shipping Android root modules." data-zh="围绕 Android root 模块，构建开发、测试与发布工具。">Developer tools for building, testing, and shipping Android root modules.</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a class="list-link organization" href="https://github.com/recipkg" target="_blank" rel="noopener noreferrer"><span class="org-mark" aria-hidden="true">r/</span><span class="org-heading"><span class="row-name">recipkg</span><span class="row-meta" data-en="Software recipes" data-zh="软件配方">Software recipes</span></span><span class="org-description" data-en="Software recipes that capture behavior, dependencies, and acceptance criteria for agents to build from." data-zh="把软件行为、依赖与验收条件写成配方，供 Agent 重建和复用。">Software recipes that capture behavior, dependencies, and acceptance criteria for agents to build from.</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
         </ul>
       </section>
 
-      <section class="list-section assembly-section" id="work" aria-labelledby="work-title" data-scene>
+      <section class="list-section collection-section assembly-section" id="collections" aria-labelledby="collections-title" data-scene>
+        <span id="work" class="anchor-alias" aria-hidden="true"></span>
         <span class="section-rule" data-build="line" aria-hidden="true"></span>
-        <div class="section-heading" data-build><div><span class="section-index" aria-hidden="true">03 / SELECTED WORK</span><h2 id="work-title" data-en="Projects" data-zh="项目">Projects</h2></div><a class="all-projects" href="https://github.com/LIghtJUNction?tab=repositories" target="_blank" rel="noopener noreferrer"><span data-en="View all" data-zh="全部仓库">View all</span><svg class="icon small" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
-        <ul class="project-list">
-          <li><span class="project-rule" data-build="line" aria-hidden="true"></span><a class="list-link project" href="https://github.com/LIghtJUNction/MagicNet" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-network"/></svg><span class="row-copy"><span class="row-name">MagicNet</span><span class="row-separator"> ~ </span><span data-en="Networking tools for rooted Android." data-zh="Android root 设备的网络工具。">Networking tools for rooted Android.</span></span><span class="row-meta">Android</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><span class="project-rule" data-build="line" aria-hidden="true"></span><a class="list-link project" href="https://github.com/LIghtJUNction/cortexfs" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg><span class="row-copy"><span class="row-name">CortexFS</span><span class="row-separator"> ~ </span><span data-en="A filesystem for agent context." data-zh="用文件系统组织 Agent 上下文。">A filesystem for agent context.</span></span><span class="row-meta">Rust</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><span class="project-rule" data-build="line" aria-hidden="true"></span><a class="list-link project" href="https://github.com/LIghtJUNction/LightFlow" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg><span class="row-copy"><span class="row-name">LightFlow</span><span class="row-separator"> ~ </span><span data-en="Human-led, code-driven AI workflows." data-zh="由人主导、用代码组织的 AI 工作流。">Human-led, code-driven AI workflows.</span></span><span class="row-meta">Rust</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><span class="project-rule" data-build="line" aria-hidden="true"></span><a class="list-link project" href="https://github.com/LIghtJUNction/OniMods" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-blocks"/></svg><span class="row-copy"><span class="row-name">OniMods</span><span class="row-separator"> ~ </span><span data-en="Mods & MCP tools for Oxygen Not Included." data-zh="《缺氧》模组与 MCP 开发工具。">Mods &amp; MCP tools for Oxygen Not Included.</span></span><span class="row-meta">MCP</span><svg class="icon row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-        </ul>
+        <div class="section-heading" data-build><div><span class="section-index" aria-hidden="true">03 / COLLECTIONS</span><h2 id="collections-title" data-en="A shared direction." data-zh="一组项目，一个方向。">A shared direction.</h2></div><span class="section-intro" data-en="Independent parts. Designed to fit." data-zh="独立的组件，可以一起使用。">Independent parts. Designed to fit.</span></div>
+        <article class="collection" id="project-z" aria-labelledby="project-z-title">
+          <div class="collection-overview" data-build="card">
+            <div>
+              <span class="collection-label" data-en="RUST LIBRARY COLLECTION" data-zh="RUST 基础库项目集">RUST LIBRARY COLLECTION</span>
+              <h3 id="project-z-title">Project Z<span class="brand-period">.</span></h3>
+              <p class="collection-tagline" data-en="Small components. More room to build." data-zh="小组件，构建更多可能。">Small components. More room to build.</p>
+            </div>
+            <div class="collection-copy">
+              <p data-en="A collection of small, composable Rust libraries for protocols, terminals, systems, and AI tooling. Each component has a focused job, with attention to runtime cost, memory use, and dependency size." data-zh="一组小型、可组合的 Rust 基础库，覆盖协议、终端、系统与 AI 工具。每个组件专注一项能力，持续关注运行开销、内存使用与依赖规模。">A collection of small, composable Rust libraries for protocols, terminals, systems, and AI tooling. Each component has a focused job, with attention to runtime cost, memory use, and dependency size.</p>
+              <a class="intro-link" href="https://github.com/LIghtJUNction?tab=repositories&amp;q=z" target="_blank" rel="noopener noreferrer"><span data-en="Browse the libraries" data-zh="浏览这些库">Browse the libraries</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+          <div class="collection-domains">
+            <div data-build="card"><span class="domain-index" aria-hidden="true">01</span><h4 data-en="Data &amp; protocols" data-zh="数据与协议">Data &amp; protocols</h4><p data-en="Encoding, byte search, and message parsing. Reusable pieces for moving and interpreting data." data-zh="编码、字节搜索与消息解析，为数据的传输和处理提供可复用组件。">Encoding, byte search, and message parsing. Reusable pieces for moving and interpreting data.</p></div>
+            <div data-build="card"><span class="domain-index" aria-hidden="true">02</span><h4 data-en="Terminals &amp; systems" data-zh="终端与系统">Terminals &amp; systems</h4><p data-en="Command-line parsing, terminal output, system sampling, and native plugin interfaces." data-zh="命令行解析、终端输出、系统信息采集与原生插件接口。">Command-line parsing, terminal output, system sampling, and native plugin interfaces.</p></div>
+            <div data-build="card"><span class="domain-index" aria-hidden="true">03</span><h4 data-en="AI infrastructure" data-zh="AI 基础设施">AI infrastructure</h4><p data-en="Protocol conversion, model calls, tool loops, and MCP. Combine the capabilities your application needs." data-zh="协议转换、模型调用、工具回合与 MCP，按应用需要组合基础能力。">Protocol conversion, model calls, tool loops, and MCP. Combine the capabilities your application needs.</p></div>
+          </div>
+          <p class="collection-footnote" data-build data-en="One collection, many focused libraries. Dependencies and platform support are documented by each library." data-zh="一个项目集，多种专注的能力。各库的依赖与平台支持以各自文档为准。">One collection, many focused libraries. Dependencies and platform support are documented by each library.</p>
+        </article>
       </section>
       <section class="list-section assembly-section gratitude" id="gratitude" aria-labelledby="gratitude-title" data-scene>
         <span class="section-rule" data-build="line" aria-hidden="true"></span>
