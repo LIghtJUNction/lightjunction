@@ -37,6 +37,37 @@ import() {
     __PRELOAD_IMPORTED+=("$url")
 }
 
+# Setup scripts run in Bash so they cannot change the caller's shell state.
+bootstrap() {
+    local target='' script body base="${LIGHTJUNCTION_SHELL_BASE_URL%/}"
+    case "${1:-}" in
+        -h|--help)
+            printf '%s\n' 'Usage: bootstrap [linux|macbook|daed] [script arguments...]' \
+                'Without a target, detect Linux/Termux or macOS.' \
+                'Example: bootstrap linux --help'
+            return 0 ;;
+        linux|macbook|daed) target="$1"; shift ;;
+        ''|--*) ;;
+        *) printf 'Unknown bootstrap target: %s\n' "$1" >&2; return 2 ;;
+    esac
+    if [[ -z "$target" ]]; then
+        case "$(uname -s)" in
+            Linux) target=linux ;;
+            Darwin) target=macbook ;;
+            *) printf 'Unsupported platform; select a bootstrap target explicitly.\n' >&2
+               return 2 ;;
+        esac
+    fi
+    case "$target" in
+        linux) script=bootstrap-linux.sh ;;
+        macbook) script=bootstrap-macbook.sh ;;
+        daed) script=bootstrap-linux-daed.sh ;;
+    esac
+    body="$(curl -fsSL "$base/$script")" || return
+    LIGHTJUNCTION_RAW_BASE="$base" LIGHTJUNCTION_ROOT='' \
+        LIGHTJUNCTION_SHELL_BASE_URL="$base" bash <(printf '%s\n' "$body") "$@"
+}
+
 # Keep category/function pairs without requiring associative arrays (Bash 3.2).
 __PRELOAD_FUNCTIONS=()
 _preload_register() {
@@ -88,6 +119,6 @@ funcs() {
     done
 }
 
-_preload_register preload import funcs _preload_consume _preload_register
+_preload_register preload import funcs bootstrap _preload_consume _preload_register
 
 __PRELOAD_SH_LOADED=1

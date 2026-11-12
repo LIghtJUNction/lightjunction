@@ -50,6 +50,25 @@ set `LIGHTJUNCTION_SHELL_BASE_URL` before loading any library:
 export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/COMMIT_SHA
 ```
 
+## Bootstrap
+
+After loading the preloader or any cloud library, run:
+
+```bash
+bootstrap              # Linux/Termux or macOS, detected automatically
+bootstrap -h           # Show dispatcher help without downloading a setup script
+bootstrap linux --help # Show Linux setup options
+bootstrap macbook      # Run the macOS setup
+bootstrap daed         # Run the Linux daed setup
+```
+
+`bootstrap` downloads the selected root setup script from
+`LIGHTJUNCTION_SHELL_BASE_URL`, then executes it in a separate Bash process.
+Its dependencies use the same base URL, including a pinned revision or custom
+host. Downloads must succeed before execution. Arguments after the target are
+forwarded unchanged; the setup script retains its existing prompts and options.
+Running `bootstrap` without `--help` performs system setup.
+
 ## Loaded functions
 
 ```bash

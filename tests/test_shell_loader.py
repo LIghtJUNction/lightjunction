@@ -466,3 +466,58 @@ def test_funcs_lists_loaded_functions_by_category(shell: str) -> None:
     assert "  funcs\n" in all_functions and "  str_trim\n" in all_functions
     assert "unrelated" not in all_functions and "  _log\n" not in all_functions
     assert reassigned == "other:\n  info\n"
+
+
+@pytest.mark.parametrize("shell", ["bash", "zsh"])
+def test_bootstrap_dispatches_and_preserves_shell(shell: str, tmp_path: Path) -> None:
+    import shutil
+
+    executable = shutil.which(shell)
+    if executable is None:
+        pytest.skip(f"{shell} is not installed")
+    result = subprocess.run(
+        [executable, "-fc", r'''
+        set -eu
+        LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid/pinned/
+        . lib/preload.sh
+        requests="$1"
+        curl() {
+            local url
+            for url do :; done
+            printf '%s\n' "$url" >>"$requests"
+            printf '%s\n' 'printf "%s|%s|%s|%s\n" \' \
+                '"$LIGHTJUNCTION_RAW_BASE" "$LIGHTJUNCTION_SHELL_BASE_URL" "$1" "$2"' 'exit 7'
+        }
+        uname() { printf 'Linux\n'; }
+        bootstrap -h >/dev/null
+        [[ ! -e "$requests" ]]
+        if bootstrap linux --help 'two words'; then exit 99; else [[ "$?" == 7 ]]; fi
+        if bootstrap --help-script 'auto linux'; then exit 99; else [[ "$?" == 7 ]]; fi
+        uname() { printf 'Darwin\n'; }
+        if bootstrap --help-script 'auto mac'; then exit 99; else [[ "$?" == 7 ]]; fi
+        if bootstrap daed --help 'explicit daed'; then exit 99; else [[ "$?" == 7 ]]; fi
+        uname() { printf 'FreeBSD\n'; }
+        if bootstrap; then exit 99; else [[ "$?" == 2 ]]; fi
+        if bootstrap unknown; then exit 99; else [[ "$?" == 2 ]]; fi
+        curl() { printf 'touch "$1"\n'; return 23; }
+        if bootstrap linux "$2"; then exit 99; else [[ "$?" == 23 ]]; fi
+        [[ ! -e "$2" ]]
+        funcs preload
+        ''', "shell", str(tmp_path / "requests"), str(tmp_path / "executed")],
+        cwd=ROOT,
+        env={k: v for k, v in os.environ.items() if not k.startswith("LIGHTJUNCTION_")},
+        text=True,
+        capture_output=True,
+        check=False,
+        timeout=15,
+    )
+    assert result.returncode == 0, result.stderr
+    expected = "https://example.invalid/pinned|https://example.invalid/pinned|--help|two words"
+    assert expected in result.stdout
+    assert "  bootstrap\n" in result.stdout
+    assert (tmp_path / "requests").read_text().splitlines() == [
+        "https://example.invalid/pinned/bootstrap-linux.sh",
+        "https://example.invalid/pinned/bootstrap-linux.sh",
+        "https://example.invalid/pinned/bootstrap-macbook.sh",
+        "https://example.invalid/pinned/bootstrap-linux-daed.sh",
+    ]
