@@ -16,15 +16,13 @@ only reports the platform. An interactive terminal offers module prompts.
 BOOTSTRAP_FEATURES=shell bash <(curl -fsSL "$BASE/bootstrap-linux.sh")
 ```
 
-Linux modules: `shell`, `network-daed`, `fs-bees`, `cn-desktop`.
-The `network-daed` module needs systemd. `fs-bees` installs tooling but does not
-enable deduplication automatically. Package availability depends on the distribution.
+Linux modules: `shell`, `fs-bees`, `cn-desktop`. `fs-bees` installs tooling but
+does not enable deduplication automatically. Package availability depends on
+the distribution.
 
-The compatibility wrapper defaults to `network-daed`:
-
-```bash
-bash <(curl -fsSL "$BASE/bootstrap-linux-daed.sh")
-```
+With the [cloud preloader](SHELL.md#bootstrap) loaded, use `bootstrap` to select
+Linux/Termux or macOS automatically, or `bootstrap linux` / `bootstrap macbook`.
+Use `bootstrap -h` for help.
 
 Termux supports the `shell` module using `pkg`, without root or sudo. The other
 Linux modules are rejected. Install the download prerequisites first:

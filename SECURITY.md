@@ -33,9 +33,9 @@ less bootstrap.sh
 bash bootstrap.sh
 ```
 
-Bootstrap entrypoints pin and verify their downloaded helper libraries. Native
-daed packages are accepted only when the direct official GitHub release API
-provides a valid SHA256 digest, even if a mirror supplies the package bytes.
+Bootstrap entrypoints load helper libraries from the selected repository base
+and revision. They do not require a helper checksum; select a trusted source
+and pin a revision when reproducibility is needed.
 Non-interactive Linux runs install no optional features unless
 `BOOTSTRAP_FEATURES` explicitly names them. Arch-family runs also refuse to add
 third-party package repositories automatically; configure a supported official

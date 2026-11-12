@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Linux, macOS and Termux helpers. No package installs or global shell changes.
 
-if [[ -n "${LIGHTJUNCTION_SHELL_BASE_URL:-}" && ${__PRELOAD_SH_LOADED:-} != 1 ]]; then
+if [[ -n "${LIGHTJUNCTION_SHELL_BASE_URL:-}" && ${__PRELOAD_SH_VERSION:-} != 2 ]]; then
     if [[ -n "${ZSH_VERSION:-}" ]]; then
         # zsh does not expose a waitable PID for process substitution.
         __preload_body="$(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh")" || return

@@ -55,7 +55,6 @@ def test_installers_share_one_loader_without_dependency_pins() -> None:
     for filename in (
         "bootstrap-linux.sh",
         "bootstrap-macbook.sh",
-        "bootstrap-linux-daed.sh",
         "deploy-ssh-keys.sh",
         "setup-gpg-agent.sh",
     ):
@@ -302,7 +301,6 @@ def test_live_contribution_lock_cannot_be_stolen_with_zero_ttl(tmp_path: Path) -
 def test_bootstrap_security_static_contracts() -> None:
     linux = (ROOT / "bootstrap-linux.sh").read_text(encoding="utf-8")
     mac = (ROOT / "bootstrap-macbook.sh").read_text(encoding="utf-8")
-    daed = (ROOT / "bootstrap-linux-daed.sh").read_text(encoding="utf-8")
     deploy = (ROOT / "deploy-ssh-keys.sh").read_text(encoding="utf-8")
     tracked_paths = subprocess.run(
         ["git", "ls-files"], cwd=ROOT, check=True, capture_output=True, text=True
@@ -314,13 +312,11 @@ def test_bootstrap_security_static_contracts() -> None:
     assert '[[ -f "$file" ]]' not in mac
     assert "BOOTSTRAP_FEATURES" in linux and "if ! is_interactive" in linux
     assert "cachyos-repo.tar.xz" not in linux
-    assert "github_release_asset_url daeuniverse daed" in linux
     assert "SHA256" not in linux
     assert 'sudo rm -rf "$clt_dir"' not in mac
     assert "BOOTSTRAP_REPAIR_CLT" in mac
     removed_app = "Hid" + "dify"
     assert removed_app not in tracked and removed_app.lower() not in tracked
-    assert "--max-time 120" in daed
     assert "Malformed lightjunction managed key markers" in deploy
 
 

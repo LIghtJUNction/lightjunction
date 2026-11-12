@@ -29,7 +29,7 @@ import str
 
 `import log`, `import log.sh`, and `import lib/log.sh` all load
 `$LIGHTJUNCTION_SHELL_BASE_URL/lib/log.sh`. Full HTTP/HTTPS URLs are also accepted.
-The preloader defines `import` once per shell, and successful imports are cached
+The preloader uses a versioned source guard, and successful imports are cached
 by resolved URL. Re-sourcing the preloader preserves that cache. A failed import
 returns an error and remains retryable. Libraries also guard their definitions
 against repeated sourcing.
@@ -59,7 +59,6 @@ bootstrap              # Linux/Termux or macOS, detected automatically
 bootstrap -h           # Show dispatcher help without downloading a setup script
 bootstrap linux --help # Show Linux setup options
 bootstrap macbook      # Run the macOS setup
-bootstrap daed         # Run the Linux daed setup
 ```
 
 `bootstrap` downloads the selected root setup script from
@@ -84,7 +83,13 @@ libraries sourced directly while the preloader is active. Categories use library
 names such as `log`, `str`, and `preload`. Output is sorted, excludes functions
 that have been removed from the shell, and assigns a shared name to the last
 library that registered it. Unrelated shell functions are not included.
-Load the updated preloader and libraries in a fresh shell to enable this list.
+Sourcing a current library upgrades an older preloader in the same shell while
+preserving the import cache and function registry. To refresh explicitly:
+
+```bash
+. <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh")
+bootstrap -h
+```
 
 ## Local Bash loader
 

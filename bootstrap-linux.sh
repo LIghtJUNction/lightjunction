@@ -17,7 +17,6 @@ import lib/common.sh
 import lib/bootstrap.sh
 import lib/os.sh
 
-DAED_RELEASE_TAGS=("${DAED_VERSION:-v1.23.0}" v1.21.1 v1.15.0)
 FEATURES=()
 trap cleanup_tmp_dirs EXIT
 
@@ -42,42 +41,6 @@ install_packages() {
         portage) "${SUDO[@]}" emerge --ask=n "$@" ;;
         *) die "Package installation is not supported for $(pkg_family)." ;;
     esac
-}
-download_daed_asset() {
-    local asset="${1:?}" output="${2:?}" tag url
-    command_exists jq || install_packages jq
-    for tag in "${DAED_RELEASE_TAGS[@]}"; do
-        url="$(github_release_asset_url daeuniverse daed "$tag" "$asset")" || continue
-        if curl -fL --retry 3 --connect-timeout 15 --max-time 300 -o "$output" -- "$url"; then return 0; fi
-    done
-    die "Could not download daed asset: $asset"
-}
-module_network_daed() {
-    [[ -d /run/systemd/system ]] || die 'network-daed requires a running systemd instance.'
-    if ! command_exists daed; then
-        local family arch work package
-        family="$(pkg_family)"
-        arch="$(uname -m)"
-        case "$family" in
-            arch)
-                grep -q '^\[cachyos\]' /etc/pacman.conf || die 'Configure the CachyOS repository using its official instructions first.'
-                install_packages daed
-                ;;
-            deb|dnf|yum|zypper)
-                work="$(make_tmp_dir)"
-                if [[ "$family" == deb ]]; then package="$work/daed.deb"; else package="$work/daed.rpm"; fi
-                download_daed_asset "installer-daed-linux-$arch.${package##*.}" "$package"
-                case "$family" in
-                    deb) "${SUDO[@]}" apt-get update; "${SUDO[@]}" apt-get install -y "$package" ;;
-                    dnf) "${SUDO[@]}" dnf install -y "$package" ;;
-                    yum) "${SUDO[@]}" yum localinstall -y "$package" ;;
-                    zypper) "${SUDO[@]}" zypper --non-interactive install "$package" ;;
-                esac
-                ;;
-            *) die "daed installation is not supported for $family." ;;
-        esac
-    fi
-    "${SUDO[@]}" systemctl enable --now daed
 }
 module_fs_bees() {
     if ! command_exists findmnt || ! findmnt -t btrfs >/dev/null 2>&1; then
@@ -124,7 +87,7 @@ parse_features() {
     elif ! is_interactive; then
         return 0
     else
-        for feature in shell network-daed fs-bees cn-desktop; do
+        for feature in shell fs-bees cn-desktop; do
             if os_is android && [[ "$feature" != shell ]]; then continue; fi
             if ask_yes_no "Install $feature?" n; then FEATURES+=("$feature"); fi
         done
@@ -133,17 +96,17 @@ parse_features() {
     for feature in ${FEATURES[@]+"${FEATURES[@]}"}; do
         case "$feature" in
             shell) ;;
-            network-daed|daed|fs-bees|bees|bee|cn-desktop|desktop-cn|chinese-desktop)
+            fs-bees|bees|bee|cn-desktop|desktop-cn|chinese-desktop)
                 if os_is android; then die "$feature is not supported in Termux; use BOOTSTRAP_FEATURES=shell."; fi
                 ;;
-            *) die "Unknown feature: $feature (shell, network-daed, fs-bees, cn-desktop)." ;;
+            *) die "Unknown feature: $feature (shell, fs-bees, cn-desktop)." ;;
         esac
     done
 }
 main() {
     case "${1:-}" in
         -h|--help)
-            printf '%s\n' 'Usage: BOOTSTRAP_FEATURES=shell,network-daed,fs-bees,cn-desktop bash bootstrap-linux.sh' \
+            printf '%s\n' 'Usage: BOOTSTRAP_FEATURES=shell,fs-bees,cn-desktop bash bootstrap-linux.sh' \
                 'No feature selected: show platform only. Termux supports shell tooling without sudo.'
             return ;;
         '') ;;
@@ -164,7 +127,6 @@ main() {
     for feature in "${FEATURES[@]}"; do
         case "$feature" in
             shell) module_shell ;;
-            network-daed|daed) module_network_daed ;;
             fs-bees|bees|bee) module_fs_bees ;;
             cn-desktop|desktop-cn|chinese-desktop) module_cn_desktop ;;
         esac

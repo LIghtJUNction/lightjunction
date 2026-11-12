@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Shared cloud import entrypoint. Safe to source repeatedly in the same shell.
-[[ ${__PRELOAD_SH_LOADED:-} == 1 ]] && return 0
+[[ ${__PRELOAD_SH_VERSION:-} == 2 ]] && return 0
 export LIGHTJUNCTION_SHELL_BASE_URL="${LIGHTJUNCTION_SHELL_BASE_URL:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main}"
-__PRELOAD_IMPORTED=()
+if [[ ${__PRELOAD_SH_LOADED:-} != 1 ]]; then __PRELOAD_IMPORTED=(); fi
 
 _preload_consume() {
     local producer=$! result=0
@@ -42,11 +42,11 @@ bootstrap() {
     local target='' script body base="${LIGHTJUNCTION_SHELL_BASE_URL%/}"
     case "${1:-}" in
         -h|--help)
-            printf '%s\n' 'Usage: bootstrap [linux|macbook|daed] [script arguments...]' \
+            printf '%s\n' 'Usage: bootstrap [linux|macbook] [script arguments...]' \
                 'Without a target, detect Linux/Termux or macOS.' \
                 'Example: bootstrap linux --help'
             return 0 ;;
-        linux|macbook|daed) target="$1"; shift ;;
+        linux|macbook) target="$1"; shift ;;
         ''|--*) ;;
         *) printf 'Unknown bootstrap target: %s\n' "$1" >&2; return 2 ;;
     esac
@@ -61,7 +61,6 @@ bootstrap() {
     case "$target" in
         linux) script=bootstrap-linux.sh ;;
         macbook) script=bootstrap-macbook.sh ;;
-        daed) script=bootstrap-linux-daed.sh ;;
     esac
     body="$(curl -fsSL "$base/$script")" || return
     LIGHTJUNCTION_RAW_BASE="$base" LIGHTJUNCTION_ROOT='' \
@@ -69,7 +68,7 @@ bootstrap() {
 }
 
 # Keep category/function pairs without requiring associative arrays (Bash 3.2).
-__PRELOAD_FUNCTIONS=()
+if [[ ${__PRELOAD_SH_LOADED:-} != 1 ]]; then __PRELOAD_FUNCTIONS=(); fi
 _preload_register() {
     local category="${1:?}" name entry
     local retained=()
@@ -121,4 +120,5 @@ funcs() {
 
 _preload_register preload import funcs bootstrap _preload_consume _preload_register
 
+__PRELOAD_SH_VERSION=2
 __PRELOAD_SH_LOADED=1

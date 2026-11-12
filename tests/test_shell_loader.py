@@ -139,7 +139,6 @@ def test_explicit_revision_is_used_without_hash() -> None:
     "name",
     [
         "bootstrap-linux.sh",
-        "bootstrap-linux-daed.sh",
         "bootstrap-macbook.sh",
         "deploy-ssh-keys.sh",
         "setup-gpg-agent.sh",
@@ -201,7 +200,7 @@ def test_linux_rejects_all_invalid_features_before_installing() -> None:
 
 
 def test_termux_rejects_system_modules_before_installing() -> None:
-    result = bash("TERMUX_VERSION=test BOOTSTRAP_FEATURES=network-daed bash bootstrap-linux.sh")
+    result = bash("TERMUX_VERSION=test BOOTSTRAP_FEATURES=fs-bees bash bootstrap-linux.sh")
     assert result.returncode == 1
     assert "not supported in Termux" in result.stderr
 
@@ -278,7 +277,6 @@ def test_installers_have_no_script_digest_configuration() -> None:
     for name in (
         "lib/basic.sh",
         "bootstrap-linux.sh",
-        "bootstrap-linux-daed.sh",
         "bootstrap-macbook.sh",
         "deploy-ssh-keys.sh",
         "setup-gpg-agent.sh",
@@ -495,7 +493,6 @@ def test_bootstrap_dispatches_and_preserves_shell(shell: str, tmp_path: Path) ->
         if bootstrap --help-script 'auto linux'; then exit 99; else [[ "$?" == 7 ]]; fi
         uname() { printf 'Darwin\n'; }
         if bootstrap --help-script 'auto mac'; then exit 99; else [[ "$?" == 7 ]]; fi
-        if bootstrap daed --help 'explicit daed'; then exit 99; else [[ "$?" == 7 ]]; fi
         uname() { printf 'FreeBSD\n'; }
         if bootstrap; then exit 99; else [[ "$?" == 2 ]]; fi
         if bootstrap unknown; then exit 99; else [[ "$?" == 2 ]]; fi
@@ -519,5 +516,46 @@ def test_bootstrap_dispatches_and_preserves_shell(shell: str, tmp_path: Path) ->
         "https://example.invalid/pinned/bootstrap-linux.sh",
         "https://example.invalid/pinned/bootstrap-linux.sh",
         "https://example.invalid/pinned/bootstrap-macbook.sh",
-        "https://example.invalid/pinned/bootstrap-linux-daed.sh",
     ]
+
+
+@pytest.mark.parametrize("shell", ["bash", "zsh"])
+def test_current_library_upgrades_old_preloader_in_same_shell(shell: str) -> None:
+    import shutil
+
+    executable = shutil.which(shell)
+    if executable is None:
+        pytest.skip(f"{shell} is not installed")
+    result = subprocess.run(
+        [executable, "-fc", r'''
+        set -eu
+        ROOT="$PWD"
+        LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid
+        # An old session has already loaded log and imported bootstrap helpers.
+        __PRELOAD_SH_LOADED=1
+        __LOG_SH_LOADED=1
+        __PRELOAD_IMPORTED=(https://example.invalid/lib/bootstrap.sh)
+        __PRELOAD_FUNCTIONS=(old:kept)
+        kept() { :; }
+        import() { return 0; }
+        curl() { local url; for url do :; done; cat "$ROOT/lib/${url##*/}"; }
+        . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/log.sh")
+        [[ "$__PRELOAD_SH_VERSION" == 2 ]]
+        bootstrap -h
+        import bootstrap
+        [[ ${#__PRELOAD_IMPORTED[@]} == 1 ]]
+        . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh")
+        funcs old
+        if bootstrap daed; then exit 99; else [[ "$?" == 2 ]]; fi
+        '''],
+        cwd=ROOT,
+        env={k: v for k, v in os.environ.items() if not k.startswith("LIGHTJUNCTION_")},
+        text=True,
+        capture_output=True,
+        check=False,
+        timeout=15,
+    )
+    assert result.returncode == 0, result.stderr
+    assert "Usage: bootstrap [linux|macbook]" in result.stdout
+    assert "old:\n  kept\n" in result.stdout
+    assert "Unknown bootstrap target: daed" in result.stderr
