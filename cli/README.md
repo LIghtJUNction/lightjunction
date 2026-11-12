@@ -1,6 +1,6 @@
 # lightjunction
 
-A keyboard-driven terminal playground with generative Orbit, Rain, and Wave scenes, playable Snake, bundled public keys, and local age/OpenPGP encryption. No profile pages, network requests, telemetry, or saved activity.
+A full-screen, mouse-driven 3D ASCII dog avatar with bundled public keys and local age/OpenPGP encryption. No profile pages, network requests, telemetry, or saved activity.
 
 Built in Rust with [`zclap`](https://crates.io/crates/zclap) and `crossterm`. Public keys are bundled for offline use; encryption uses locally installed tools.
 
@@ -100,33 +100,17 @@ For a custom install directory, remove the executable there. The installers crea
 ## Play
 
 ```sh
-lightjunction              # Start in Orbit
-lightjunction rain         # Falling glyph field
-lightjunction wave         # Animated interference colors
-lightjunction snake        # Play Snake
-lightjunction orbit --seed 42
+lightjunction
+lightjunction avatar
 ```
 
-| Key | Action |
-| --- | --- |
-| `1` / `2` / `3` / `4` | Jump to Orbit, Rain, Wave, or Snake |
-| `Tab` | Cycle scenes |
-| Arrow keys / WASD | Steer Snake |
-| `Space` | Pause or resume every scene |
-| `+` / `-` | Change animation speed |
-| `[` / `]` | Change particle or glyph density |
-| `R` | Reset the scene and Snake |
-| `?` | Toggle the control panel |
-| `Q` / `Esc` | Leave the playground |
+The dog is a true 3D model, not a flat image. Drag with the left mouse button to rotate it, use the wheel to zoom, and press `Space` to pause. `+` / `-` changes speed, `R` resets the view, `?` toggles controls, and `Q` / `Esc` exits. The interactive view uses the full terminal with no permanent status or prompt text.
 
-Snake has wall and self-collision, score tracking, deterministic food placement, and instant restart with `R` or `Enter` after a crash.
-
-Use `--frames` for bounded output without keyboard input. Combined with `--seed`, it produces reproducible frames:
+Use `--frames` for bounded output without keyboard input:
 
 ```sh
-lightjunction orbit --frames 120
-lightjunction wave --seed 42 --frames 3 --plain > wave.txt
-lightjunction snake --frames 1 --no-timing
+lightjunction avatar --frames 120
+lightjunction avatar --frames 1 --plain --no-timing
 ```
 
 `--frames` accepts 1–10000. In a terminal, multiple frames animate at 25 frames per second. Without a terminal, frames are written sequentially without ANSI control sequences.
@@ -181,7 +165,6 @@ GPG runs with an isolated temporary home and the bundled key through `--recipien
 
 | Option | Behavior |
 | --- | --- |
-| `--seed N` | Reproduce particles and Snake food from an unsigned 64-bit seed |
 | `--frames N` | Render a bounded animation without keyboard input |
 | `--lang en` / `--lang zh` | Choose English or Chinese controls |
 | `--plain` | Disable colors |
@@ -210,7 +193,7 @@ cargo clippy --all-targets --locked -- -D warnings
 cargo test --locked --all-targets
 cargo build --release --locked
 uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
-cargo run --release --locked -- snake
+cargo run --release --locked -- avatar
 ```
 
 The parser is pinned to `zclap = "=0.1.4"`. `crossterm 0.29` provides portable raw keyboard input and terminal cleanup. CI checks Linux, macOS, and Windows on x86_64 and ARM64, including native archives, installers, public keys, and encryption.

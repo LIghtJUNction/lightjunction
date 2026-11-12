@@ -2,7 +2,7 @@ use std::ffi::{OsStr, OsString};
 
 use zclap::{Arg, Command, Event};
 
-pub const COMMANDS: &[&str] = &["play", "orbit", "rain", "wave", "snake", "keys", "encrypt"];
+pub const COMMANDS: &[&str] = &["play", "avatar", "orbit", "keys", "encrypt"];
 
 const ARGS: &[Arg<'static>] = &[
     Arg::flag("help").short('h').help("Show help"),
@@ -21,7 +21,6 @@ const ARGS: &[Arg<'static>] = &[
         .one_of(&["en", "zh"])
         .help("Language: en or zh"),
     Arg::value("frames").help("Render a bounded animation without keyboard input"),
-    Arg::value("seed").help("Seed the particle field and Snake food"),
     Arg::positional("command")
         .one_of(COMMANDS)
         .help("Playground scene, keys, or encrypt"),
@@ -29,7 +28,7 @@ const ARGS: &[Arg<'static>] = &[
 ];
 
 pub const CLI: Command<'static> = Command::new("lightjunction")
-    .about("A terminal playground with generative art, Snake, and public-key encryption")
+    .about("An interactive 3D ASCII dog avatar with public-key encryption")
     .args(ARGS);
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -81,7 +80,6 @@ pub struct Options<'a> {
     pub plain: bool,
     pub timing: bool,
     pub frames: Option<u32>,
-    pub seed: Option<u64>,
     pub help: bool,
     pub version: bool,
 }
@@ -99,7 +97,6 @@ impl<'a> Options<'a> {
             plain: false,
             timing: true,
             frames: None,
-            seed: None,
             help: false,
             version: false,
         };
@@ -141,13 +138,6 @@ impl<'a> Options<'a> {
                                 return Err("--frames expects an integer from 1 to 10000".into());
                             }
                             result.frames = Some(frames);
-                        }
-                        "seed" => {
-                            result.seed = Some(
-                                value
-                                    .parse::<u64>()
-                                    .map_err(|_| "--seed expects an unsigned 64-bit integer")?,
-                            );
                         }
                         "command" => result.command = Some(value),
                         "subject" => result.subject = Some(value),
@@ -197,18 +187,17 @@ mod tests {
     }
 
     #[test]
-    fn parses_scene_and_bounded_animation_options() {
-        let argv = args(&["snake", "--frames=12", "--seed", "42"]);
+    fn parses_avatar_and_bounded_animation_options() {
+        let argv = args(&["avatar", "--frames=12"]);
         let options = Options::parse(&argv).unwrap();
-        assert_eq!(options.command, Some("snake"));
+        assert_eq!(options.command, Some("avatar"));
         assert_eq!(options.frames, Some(12));
-        assert_eq!(options.seed, Some(42));
     }
 
     #[test]
-    fn rejects_zero_frames_and_negative_seeds() {
+    fn rejects_invalid_frame_counts() {
         assert!(Options::parse(&args(&["--frames", "0"])).is_err());
-        assert!(Options::parse(&args(&["--seed", "-1"])).is_err());
+        assert!(Options::parse(&args(&["--frames", "-1"])).is_err());
     }
 
     #[test]
@@ -217,6 +206,6 @@ mod tests {
         assert!(Options::parse(&argv).is_ok());
         assert!(Options::parse(&args(&["encrypt", "ssh"])).is_err());
         assert!(Options::parse(&args(&["keys", "unknown"])).is_err());
-        assert!(Options::parse(&args(&["snake", "--json"])).is_err());
+        assert!(Options::parse(&args(&["avatar", "--json"])).is_err());
     }
 }

@@ -3,9 +3,9 @@
 ## Unreleased
 
 - Replace the static profile and numbered menu with a full-screen terminal playground while retaining public-key export and encryption.
-- Add generative Orbit, Rain, and Wave scenes with live speed and density controls.
-- Add playable Snake with arrow/WASD controls, scoring, collisions, and restart.
-- Add deterministic seeds, bounded frame rendering, portable raw keyboard input, and updated tests.
+- Replace the playground with one full-screen, volumetric 3D ASCII dog avatar.
+- Add automatic rotation, mouse-drag rotation, wheel zoom, and minimal on-screen text.
+- Retain bounded frame rendering and portable keyboard input, with updated tests.
 
 ## 0.2.2
 

@@ -19,10 +19,7 @@ import time
 TIMING = re.compile(r"^\[time\] command=\S+ status=ok elapsed=([0-9.]+)(us|ms|s)$", re.MULTILINE)
 WORKLOADS = {
     "play": [],
-    "orbit": ["orbit", "--seed", "42"],
-    "rain": ["rain", "--seed", "42"],
-    "wave": ["wave", "--seed", "42"],
-    "snake": ["snake", "--seed", "42"],
+    "avatar": ["avatar"],
     "help": ["--help"],
 }
 

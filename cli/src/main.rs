@@ -7,10 +7,10 @@ mod timing;
 use std::ffi::OsString;
 use std::io::{self, IsTerminal, Write};
 use std::process::ExitCode;
-use std::time::{Instant, SystemTime, UNIX_EPOCH};
+use std::time::Instant;
 
 use args::Options;
-use playground::{Display, Scene};
+use playground::Display;
 
 #[derive(Debug)]
 enum Error {
@@ -53,7 +53,6 @@ fn main() -> ExitCode {
     } else {
         options.command.unwrap_or("play")
     };
-    let seed = options.seed.unwrap_or_else(random_seed);
     let result = if options.help {
         help(&mut out, options.language).map_err(Error::Io)
     } else if options.version {
@@ -63,17 +62,10 @@ fn main() -> ExitCode {
     } else if command == "keys" {
         keys::render(options.subject, options.language, options.json, &mut out)
     } else if terminal && options.frames.is_none() {
-        playground::interactive(Scene::from_command(command), seed, display).map_err(Error::Io)
+        playground::interactive(display).map_err(Error::Io)
     } else {
-        playground::frames(
-            Scene::from_command(command),
-            seed,
-            display,
-            options.frames.unwrap_or(1),
-            terminal,
-            &mut out,
-        )
-        .map_err(Error::Io)
+        playground::frames(display, options.frames.unwrap_or(1), terminal, &mut out)
+            .map_err(Error::Io)
     }
     .and_then(|()| out.flush().map_err(Error::Io));
     let success = result.is_ok();
@@ -103,24 +95,13 @@ fn main() -> ExitCode {
     exit
 }
 
-fn random_seed() -> u64 {
-    SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .unwrap_or_default()
-        .as_nanos() as u64
-        ^ u64::from(std::process::id()).rotate_left(17)
-}
-
 fn help(out: &mut impl Write, language: args::Language) -> io::Result<()> {
     writeln!(out, "lightjunction {}", env!("CARGO_PKG_VERSION"))?;
-    writeln!(out, "LJ://PLAY — orbit / rain / wave / snake\n")?;
+    writeln!(out, "LJ://AVATAR — interactive 3D ASCII\n")?;
     writeln!(out, "Usage: lightjunction [OPTIONS] [COMMAND] [FORMAT]\n")?;
     writeln!(out, "Playground:")?;
-    writeln!(out, "  play       Open the playground (default)")?;
-    writeln!(out, "  orbit      Generative particle orbits")?;
-    writeln!(out, "  rain       Falling terminal glyphs")?;
-    writeln!(out, "  wave       Animated color interference")?;
-    writeln!(out, "  snake      Playable Snake\n")?;
+    writeln!(out, "  play       Open the 3D avatar (default)")?;
+    writeln!(out, "  avatar     Open the 3D ASCII avatar\n")?;
     writeln!(out, "Keys and encryption:")?;
     writeln!(
         out,
@@ -135,40 +116,36 @@ fn help(out: &mut impl Write, language: args::Language) -> io::Result<()> {
         out,
         "{}",
         language.text(
-            "  1-4 / TAB   Switch scenes       SPACE   Pause",
-            "  1-4 / TAB   切换场景            空格    暂停",
+            "  DRAG        Rotate              WHEEL   Zoom",
+            "  拖拽        旋转                滚轮    缩放",
         )
     )?;
     writeln!(
         out,
         "{}",
         language.text(
-            "  ARROWS/WASD Steer Snake         +/-     Speed",
-            "  方向键/WASD 控制贪吃蛇          +/-     速度",
+            "  SPACE       Pause               +/-     Speed",
+            "  空格        暂停                +/-     速度",
         )
     )?;
     writeln!(
         out,
         "{}",
         language.text(
-            "  [ / ]       Density             R       Reset",
-            "  [ / ]       密度                R       重置",
+            "  R           Reset               ?       Controls",
+            "  R           重置                ?       控制说明",
         )
     )?;
     writeln!(
         out,
         "{}",
-        language.text(
-            "  ?             Controls          Q/ESC   Quit\n",
-            "  ?             控制说明          Q/ESC   退出\n",
-        )
+        language.text("  Q/ESC       Quit\n", "  Q/ESC       退出\n")
     )?;
     writeln!(out, "Options:")?;
     writeln!(
         out,
         "  --frames N      Render N frames without keyboard input"
     )?;
-    writeln!(out, "  --seed N        Reproduce the same particle field")?;
     writeln!(
         out,
         "  --input FILE    Plaintext file, or - for stdin (encrypt only)"
@@ -186,13 +163,12 @@ fn help(out: &mut impl Write, language: args::Language) -> io::Result<()> {
     writeln!(out, "  -V, --version   Show the version\n")?;
     writeln!(out, "Examples:")?;
     writeln!(out, "  lightjunction")?;
-    writeln!(out, "  lightjunction snake")?;
     writeln!(out, "  lightjunction keys age > recipient.txt")?;
     writeln!(
         out,
         "  lightjunction encrypt age --input note.txt -o note.txt.age"
     )?;
-    writeln!(out, "  lightjunction orbit --frames 120 --plain")
+    writeln!(out, "  lightjunction avatar --frames 120 --plain")
 }
 
 #[cfg(test)]
@@ -204,7 +180,7 @@ mod tests {
         let mut out = Vec::new();
         help(&mut out, args::Language::En).unwrap();
         let out = String::from_utf8(out).unwrap();
-        assert!(out.contains("ARROWS/WASD"));
+        assert!(out.contains("DRAG"));
         assert!(out.contains("--frames"));
         assert!(out.contains("encrypt age|gpg"));
         assert!(!out.contains("About"));

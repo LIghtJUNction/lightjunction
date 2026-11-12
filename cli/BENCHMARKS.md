@@ -1,6 +1,6 @@
 # Benchmarks
 
-`lightjunction 0.3.0` completed the six workloads below with internal median times of 13.85–116.03 µs and external process median times of 1.025–1.142 ms on this host. The release binary was **518,512 bytes**.
+`lightjunction 0.3.0` completed the three workloads below with internal median times of 28.42–2,234.50 µs and external process median times of 1.964–4.212 ms on this host. The release binary was **509,384 bytes**.
 
 ## Results
 
@@ -8,18 +8,15 @@ Measured on 2026-11-12 with 100 samples and 5 warmup runs per workload. Lower is
 
 | Workload | Internal median (µs) | Internal p95 (µs) | External median (ms) | External p95 (ms) |
 | --- | ---: | ---: | ---: | ---: |
-| Orbit, no arguments | 65.98 | 96.10 | 1.105 | 1.952 |
-| `orbit --seed 42` | 55.85 | 101.23 | 1.086 | 1.963 |
-| `rain --seed 42` | 38.95 | 52.68 | 1.063 | 1.822 |
-| `wave --seed 42` | 116.03 | 205.41 | 1.142 | 2.021 |
-| `snake --seed 42` | 28.13 | 48.35 | 1.051 | 1.247 |
-| `--help` | 13.85 | 21.60 | 1.025 | 1.885 |
+| Avatar, no arguments | 2,234.50 | 4,193.00 | 4.212 | 6.411 |
+| `avatar` | 2,214.50 | 3,497.00 | 4.183 | 6.033 |
+| `--help` | 28.42 | 42.19 | 1.964 | 2.521 |
 
 Source: [complete results and individual samples](benchmark-results.json).
 
 ## Measurement boundaries
 
-**Internal time** is the CLI's own elapsed time from entry into `main` through output flush. It excludes operating-system process startup, the final timing line, and process teardown. Every scene renders one frame; no workload waits for interactive input.
+**Internal time** is the CLI's own elapsed time from entry into `main` through output flush. It excludes operating-system process startup, the final timing line, and process teardown. Each avatar workload renders one frame; no workload waits for interactive input.
 
 **External time** is the parent Python process's wall clock around `subprocess.run`. It includes Python overhead, process creation, loader work, command execution, captured stdout and stderr I/O, exit, and waiting for the child process. Both output streams are piped, stdin is closed, the locale is `C`, and colors are disabled.
 

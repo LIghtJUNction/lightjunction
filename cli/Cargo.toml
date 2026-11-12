@@ -3,12 +3,12 @@ name = "lightjunction"
 version = "0.3.0"
 edition = "2024"
 rust-version = "1.99.1"
-description = "A terminal playground with generative art, Snake, and public-key encryption"
+description = "An interactive 3D ASCII dog avatar with public-key encryption"
 license-file = "LICENSE"
 repository = "https://github.com/LIghtJUNction/lightjunction"
 homepage = "https://lightjunction.github.io/lightjunction/"
 readme = "README.md"
-keywords = ["terminal", "interactive", "generative-art", "encryption", "snake"]
+keywords = ["terminal", "interactive", "ascii", "encryption", "3d"]
 categories = ["command-line-utilities"]
 include = ["src/**", "tests/**", "keys/**", "install.sh", "install.ps1", "Cargo.toml", "Cargo.lock", "README.md", "CHANGELOG.md", "LICENSE", "UPSTREAM.toml"]
 
