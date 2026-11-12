@@ -17,6 +17,22 @@ import lib/os.sh
 import https://example.org/library.sh
 ```
 
+For short cloud imports, set the base URL and load the preloader:
+
+```bash
+export LIGHTJUNCTION_SHELL_BASE_URL=https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main
+. <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh")
+import log
+import str
+```
+
+Every shell library loads the preloader when this variable is nonempty. The
+preloader defines `import` once per shell; successful cloud imports are cached by
+URL. `import log`, `import log.sh`, and `import lib/log.sh` select the same file.
+With the variable unset, libraries remain usable offline and `lib/basic.sh`
+retains its local/path loader and legacy repository arguments. When cloud mode
+is enabled, `import` uses the configured cloud base instead of the local checkout.
+
 `import` uses process substitution, loads in the current shell and deduplicates
 successful imports. No checksum, temporary script file or cleanup trap is needed.
 The original five repository arguments still work; omit the old sixth hash argument.

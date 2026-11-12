@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 # GPG/OpenSSL helpers. Pipeline failures stay local to each operation.
 
+if [[ -n "${LIGHTJUNCTION_SHELL_BASE_URL:-}" && ${__PRELOAD_SH_LOADED:-} != 1 ]]; then
+    # shellcheck source=/dev/null
+    . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh") || return
+    wait "$!" || return
+    [[ ${__PRELOAD_SH_LOADED:-} == 1 ]] || return 1
+fi
+
 [[ -n "${__CRYPTO_SH_LOADED:-}" ]] && return 0
 __CRYPTO_SH_LOADED=1
 DEFAULT_GPG_KEY="${DEFAULT_GPG_KEY:-EB21B83AB1E982DF66F08387A67178405F7736FD}" # gitleaks:allow -- public fingerprint

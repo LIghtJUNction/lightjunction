@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 # Filesystem helpers. Writes are atomic; temporary files are private and created.
 
+if [[ -n "${LIGHTJUNCTION_SHELL_BASE_URL:-}" && ${__PRELOAD_SH_LOADED:-} != 1 ]]; then
+    # shellcheck source=/dev/null
+    . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh") || return
+    wait "$!" || return
+    [[ ${__PRELOAD_SH_LOADED:-} == 1 ]] || return 1
+fi
+
 [[ -n "${__file_sh_loaded:-}" ]] && return 0
 __file_sh_loaded=1
 

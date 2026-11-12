@@ -2,6 +2,13 @@
 # shellcheck disable=SC2034
 # Terminal defaults only. STRICT_MODE=1 explicitly opts into set -euo pipefail.
 
+if [[ -n "${LIGHTJUNCTION_SHELL_BASE_URL:-}" && ${__PRELOAD_SH_LOADED:-} != 1 ]]; then
+    # shellcheck source=/dev/null
+    . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh") || return
+    wait "$!" || return
+    [[ ${__PRELOAD_SH_LOADED:-} == 1 ]] || return 1
+fi
+
 [[ -n "${__ENV_SH_LOADED:-}" ]] && return 0
 __ENV_SH_LOADED=1
 : "${SCRIPT_PATH:=${BASH_SOURCE[0]:-}}"

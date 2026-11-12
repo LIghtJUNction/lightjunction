@@ -286,3 +286,76 @@ def test_installers_have_no_script_digest_configuration() -> None:
         text = (ROOT / name).read_text()
         assert "SHA256" not in text
         assert "verify_sha256" not in text
+
+
+@pytest.mark.parametrize("library", sorted(p.name for p in (ROOT / "lib").glob("*.sh")))
+def test_cloud_preload_and_short_imports(tmp_path: Path, library: str) -> None:
+    log = tmp_path / "requests"
+    result = bash(
+        r'''
+        set -euo pipefail
+        ROOT="$PWD"
+        export LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid/custom
+        requests="$2"
+        curl() {
+            local url="${@: -1}"
+            printf '%s\n' "$url" >>"$requests"
+            case "$url" in
+                */lib/preload.sh) cat "$ROOT/lib/preload.sh" ;;
+                */lib/log.sh) cat "$ROOT/lib/log.sh" ;;
+                *) return 22 ;;
+            esac
+        }
+        source "lib/$1"
+        declare -F import >/dev/null
+        import log
+        import log.sh
+        import lib/log.sh
+        source lib/preload.sh
+        import log
+        declare -F info >/dev/null
+        IFS= read -r input
+        printf '%s' "$input"
+        ''',
+        library,
+        str(log),
+        stdin="preserved stdin\n",
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == "preserved stdin"
+    requests = log.read_text().splitlines()
+    assert requests.count("https://example.invalid/custom/lib/log.sh") == 1
+    assert requests.count("https://example.invalid/custom/lib/preload.sh") == (
+        0 if library == "preload.sh" else 1
+    )
+
+
+@pytest.mark.parametrize("failure", ["download", "source", "partial"])
+def test_cloud_import_failure_can_be_retried(failure: str) -> None:
+    result = bash(
+        r'''
+        set -euo pipefail
+        source lib/preload.sh
+        failure="$1"
+        curl() {
+            case "$failure" in
+                download) return 23 ;;
+                source) printf 'return 17\n' ;;
+                partial) printf 'PARTIAL=yes\n'; return 22 ;;
+                success) printf 'RECOVERED=yes\n' ;;
+            esac
+        }
+        if import fixture; then exit 99; else status=$?; fi
+        case "$failure" in
+            download) [[ "$status" == 23 ]] ;;
+            source) [[ "$status" == 17 ]] ;;
+            partial) [[ "$status" == 22 && "$PARTIAL" == yes ]] ;;
+        esac
+        [[ ${#__PRELOAD_IMPORTED[@]} == 0 ]]
+        failure=success
+        import fixture
+        [[ "$RECOVERED" == yes && ${#__PRELOAD_IMPORTED[@]} == 1 ]]
+        ''',
+        failure,
+    )
+    assert result.returncode == 0, result.stderr

@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 # Linux, macOS and Termux helpers. No package installs or global shell changes.
 
+if [[ -n "${LIGHTJUNCTION_SHELL_BASE_URL:-}" && ${__PRELOAD_SH_LOADED:-} != 1 ]]; then
+    # shellcheck source=/dev/null
+    . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh") || return
+    wait "$!" || return
+    [[ ${__PRELOAD_SH_LOADED:-} == 1 ]] || return 1
+fi
+
 [[ -n "${__os_sh_loaded:-}" ]] && return 0
 __os_sh_loaded=1
 

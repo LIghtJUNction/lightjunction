@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 # Prompts read /dev/tty, never the script's stdin. Callers keep REPLY local.
 
+if [[ -n "${LIGHTJUNCTION_SHELL_BASE_URL:-}" && ${__PRELOAD_SH_LOADED:-} != 1 ]]; then
+    # shellcheck source=/dev/null
+    . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh") || return
+    wait "$!" || return
+    [[ ${__PRELOAD_SH_LOADED:-} == 1 ]] || return 1
+fi
+
 [[ -n "${__prompt_sh_loaded:-}" ]] && return 0
 __prompt_sh_loaded=1
 

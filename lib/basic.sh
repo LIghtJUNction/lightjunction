@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 # Shared local/remote loader. Use import path or import URL.
 
+if [[ -n "${LIGHTJUNCTION_SHELL_BASE_URL:-}" && ${__PRELOAD_SH_LOADED:-} != 1 ]]; then
+    # shellcheck source=/dev/null
+    . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh") || return
+    wait "$!" || return
+    [[ ${__PRELOAD_SH_LOADED:-} == 1 ]] || return 1
+fi
+
 [[ ${__BASIC_SH_LOADED:-} == 1 ]] && return 0
 LIGHTJUNCTION_RAW_BASE="${LIGHTJUNCTION_RAW_BASE:-https://raw.githubusercontent.com/LIghtJUNction/lightjunction/${LIGHTJUNCTION_REF:-main}}"
 LIGHTJUNCTION_ROOT="${LIGHTJUNCTION_ROOT:-}"
@@ -34,19 +41,21 @@ _consume() {
     return "$status"
 }
 
-import() {
-    local file="${1:?Usage: import path-or-url}" key imported
-    # Keep the original five repository arguments, without the old checksum argument.
-    if (($# > 1)); then
-        file="${5:-https://raw.githubusercontent.com}/${4:-LIghtJUNction}/${3:-lightjunction}/${2:-main}/$file"
-    fi
-    key="$LIGHTJUNCTION_ROOT|$LIGHTJUNCTION_RAW_BASE|$file"
-    for imported in ${__IMPORTED_FILES[@]+"${__IMPORTED_FILES[@]}"}; do
-        [[ "$imported" == "$key" ]] && return 0
-    done
-    _consume source <(fetch "$file") || return
-    __IMPORTED_FILES+=("$key")
-}
+if [[ ${__PRELOAD_SH_LOADED:-} != 1 ]]; then
+    import() {
+        local file="${1:?Usage: import path-or-url}" key imported
+        # Keep the original five repository arguments, without the old checksum argument.
+        if (($# > 1)); then
+            file="${5:-https://raw.githubusercontent.com}/${4:-LIghtJUNction}/${3:-lightjunction}/${2:-main}/$file"
+        fi
+        key="$LIGHTJUNCTION_ROOT|$LIGHTJUNCTION_RAW_BASE|$file"
+        for imported in ${__IMPORTED_FILES[@]+"${__IMPORTED_FILES[@]}"}; do
+            [[ "$imported" == "$key" ]] && return 0
+        done
+        _consume source <(fetch "$file") || return
+        __IMPORTED_FILES+=("$key")
+    }
+fi
 
 run_script() {
     local file="${1:?Usage: run_script path-or-url [args...]}"
