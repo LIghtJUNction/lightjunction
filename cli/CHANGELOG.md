@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Remodel the dog with a tilted broad straw hat, rounded cream face, short muzzle, defined nose and mouth, striped blue-and-white cape, and navy bow.
+- Fit the avatar to narrow terminal proportions and correct lighting during combined horizontal and vertical rotation.
+- Validate packaged binaries with the avatar command, fixing the obsolete profile-command check in native CI.
 - Replace the static profile and numbered menu with a full-screen terminal playground while retaining public-key export and encryption.
 - Replace the playground with one full-screen, volumetric 3D ASCII dog avatar.
 - Add automatic rotation, mouse-drag rotation, wheel zoom, and minimal on-screen text.

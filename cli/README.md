@@ -104,9 +104,15 @@ lightjunction
 lightjunction avatar
 ```
 
-Color terminals use solid half-block pixels for a clearly visible face and shaded silhouette; `--plain` keeps ASCII output.
+Color terminals render the avatar with shaded half-block pixels; `--plain` uses ASCII characters. The view fits the model to the terminal's proportions, including narrow windows.
 
-The GitHub dog avatar wears its straw hat and striped blue cloak, modeled as actual 3D surfaces with shaded straw rings and a tied collar. It gently turns from side to side to keep its face visible. Drag with the left mouse button to rotate it, use the wheel to zoom, and press `Space` to pause. `+` / `-` changes speed, `R` resets the view, `?` toggles controls, and `Q` / `Esc` exits. The interactive view uses the full terminal with no permanent status or prompt text.
+The dog has a rounded cream face, a short muzzle, a dark nose, and a small mouth. Its broad straw hat tilts back above a blue-and-white striped cape with a navy bow. These features are modeled as 3D surfaces, and the avatar gently turns from side to side.
+
+![Terminal avatar](https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/docs/cli-avatar.png)
+
+[Watch the terminal animation](https://github.com/LIghtJUNction/lightjunction/blob/main/docs/cli-avatar.gif).
+
+Drag with the left mouse button to rotate the avatar, use the wheel to zoom, and press `Space` to pause. `+` / `-` changes speed, `R` resets the view, `?` toggles controls, and `Q` / `Esc` exits. The interactive view uses the full terminal with no permanent status or prompt text.
 
 Use `--frames` for bounded output without keyboard input:
 
@@ -115,7 +121,7 @@ lightjunction avatar --frames 120
 lightjunction avatar --frames 1 --plain --no-timing
 ```
 
-`--frames` accepts 1–10000. In a terminal, multiple frames animate at 25 frames per second. Without a terminal, frames are written sequentially without ANSI control sequences.
+`--frames` accepts 1–10000. In a terminal, the CLI pauses 40 ms between rendered frames. Without a terminal, frames are written sequentially without ANSI control sequences.
 
 ## Public keys
 

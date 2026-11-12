@@ -4,6 +4,7 @@ import hashlib
 import io
 import shutil
 import struct
+import subprocess
 import tarfile
 import tempfile
 import unittest
@@ -173,6 +174,44 @@ class PackageTests(unittest.TestCase):
         ):
             packaging.build(self.crate, binary, target, VERSION, output)
         self.assertEqual(list(output.iterdir()), [])
+
+    def smoke_with_frame(self, frame):
+        keys = b"ssh-ed25519 AAAA fixture\n"
+        key_dir = self.crate / "keys"
+        key_dir.mkdir(exist_ok=True)
+        (key_dir / "ssh-public-keys.txt").write_bytes(keys)
+        outputs = {
+            ("--version",): f"lightjunction {VERSION}\n".encode(),
+            ("avatar", "--frames", "1", "--plain"): frame,
+            ("keys", "ssh"): keys,
+        }
+
+        def run(arguments, **kwargs):
+            self.assertEqual(arguments[1], "--no-timing")
+            return subprocess.CompletedProcess(
+                arguments, 0, stdout=outputs[tuple(arguments[2:])], stderr=b""
+            )
+
+        with (
+            mock.patch("package_binary.read_archive", return_value={"lightjunction": b"fixture"}),
+            mock.patch("package_binary.subprocess.run", side_effect=run),
+        ):
+            packaging.native_smoke(self.root / "unused.tar.gz", packaging.TARGETS[0], VERSION, self.crate)
+
+    def test_native_smoke_uses_the_avatar_and_key_commands(self):
+        self.smoke_with_frame(b"\n" * 11 + b"  #@@#  \n" + b"\n" * 12)
+
+    def test_native_smoke_rejects_missing_or_corrupt_frames(self):
+        for frame in (
+            b"",
+            b"\n" * 24,
+            b"#\n" * 23,
+            b"#\n" * 25,
+            b"\x1b[31m#\n" * 24,
+            "#▀\n".encode() * 24,
+        ):
+            with self.subTest(frame=frame), self.assertRaisesRegex(ValueError, "avatar frame"):
+                self.smoke_with_frame(frame)
 
     def test_assembly_emits_all_ten_assets_and_strict_checksums(self):
         self.write_archives()

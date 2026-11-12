@@ -216,13 +216,14 @@ def native_smoke(archive: Path, target: str, version: str, crate: Path) -> None:
 
         if run("--version").strip() != f"lightjunction {version}".encode():
             raise ValueError("Packaged binary reports a different version")
-        about = json.loads(run("about", "--json", "--lang", "en"))
+        frame = run("avatar", "--frames", "1", "--plain")
         if (
-            about.get("command") != "about"
-            or about.get("language") != "en"
-            or not about.get("sections")
+            len(frame.splitlines()) != 24
+            or not frame.isascii()
+            or b"\x1b" in frame
+            or not any(glyph in frame for glyph in b"@#%*")
         ):
-            raise ValueError("Packaged binary did not produce the expected JSON introduction")
+            raise ValueError("Packaged binary did not produce a plain avatar frame")
         if run("keys", "ssh") != read_regular(crate / "keys" / "ssh-public-keys.txt"):
             raise ValueError("Packaged binary exports different SSH public keys")
 
