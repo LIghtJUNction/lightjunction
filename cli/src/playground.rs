@@ -69,6 +69,32 @@ impl Canvas {
         }
     }
 
+    fn render_pixels(&self) -> String {
+        let background = Rgb(16, 21, 30);
+        let mut output = String::new();
+        for row in (0..self.height).step_by(2) {
+            let mut active = None;
+            for column in 0..self.width {
+                let top = self.cells[row * self.width + column]
+                    .color
+                    .unwrap_or(background);
+                let bottom = self.cells[(row + 1) * self.width + column]
+                    .color
+                    .unwrap_or(background);
+                if active != Some((top, bottom)) {
+                    output.push_str(&format!(
+                        "\x1b[38;2;{};{};{}m\x1b[48;2;{};{};{}m",
+                        top.0, top.1, top.2, bottom.0, bottom.1, bottom.2
+                    ));
+                    active = Some((top, bottom));
+                }
+                output.push('▀');
+            }
+            output.push_str("\x1b[0m\n");
+        }
+        output
+    }
+
     fn render(&self, color: bool, pad: bool) -> String {
         let mut output = String::with_capacity(self.cells.len() * 2 + self.height);
         for row in 0..self.height {
@@ -161,8 +187,11 @@ fn ellipsoid(point: Vec3, center: Vec3, radii: Vec3, material: Material) -> Surf
     let distance =
         ((point.x / radii.x).powi(2) + (point.y / radii.y).powi(2) + (point.z / radii.z).powi(2))
             .sqrt();
+    // Intersect a bounding sphere as well: a thin hat must not force
+    // every ray approaching the face to take tiny steps in empty space.
+    let bound = point.length() - radii.x.max(radii.y).max(radii.z);
     Surface {
-        distance: (distance - 1.0) * radii.x.min(radii.y).min(radii.z),
+        distance: ((distance - 1.0) * radii.x.min(radii.y).min(radii.z)).max(bound),
         material,
     }
 }
@@ -273,8 +302,8 @@ fn dog_surface(point: Vec3) -> Surface {
 // The avatar's broad straw hat is tilted as one solid, so its underside
 // and concentric weave remain visible when the camera orbits.
 fn avatar_surface(point: Vec3) -> Surface {
-    let mut surface = dog_surface(point);
-    let hat = rotate_z(point.sub(Vec3::new(0.0, 0.89, -0.12)), -0.18);
+    let mut surface = dog_surface(Vec3::new(point.x / 1.12, point.y, point.z));
+    let hat = rotate_z(point.sub(Vec3::new(0.0, 1.05, -0.30)), -0.18);
     let radial = (hat.x * hat.x + hat.z * hat.z).sqrt();
     let weave = if (radial * 23.0).sin() > 0.84 {
         Material::StrawRib
@@ -472,7 +501,8 @@ impl App {
     }
 
     pub fn render(&self, display: Display, pad: bool) -> String {
-        let mut canvas = Canvas::new(self.width, self.height);
+        let pixels = display.color && !self.show_help;
+        let mut canvas = Canvas::new(self.width, self.height * if pixels { 2 } else { 1 });
         if self.width < 24 || self.height < 10 {
             return format!(
                 "{}\n",
@@ -481,14 +511,18 @@ impl App {
                     .text("Need a 24x10 terminal.", "终端至少需要 24x10。")
             );
         }
-        self.avatar(&mut canvas);
+        self.avatar(&mut canvas, pixels);
         if self.show_help {
             self.help(&mut canvas, display.language);
         }
-        canvas.render(display.color, pad)
+        if pixels {
+            canvas.render_pixels()
+        } else {
+            canvas.render(display.color, pad)
+        }
     }
 
-    fn avatar(&self, canvas: &mut Canvas) {
+    fn avatar(&self, canvas: &mut Canvas, pixels: bool) {
         let yaw = (self.frame as f64 * 0.008).sin() * 0.45 + self.yaw;
         let pitch = (self.frame as f64 * 0.002).sin() * 0.04 + self.pitch;
         let camera = rotate_x(rotate_y(Vec3::new(0.0, -0.45, 6.4), -yaw), -pitch);
@@ -499,7 +533,7 @@ impl App {
             for column in 0..canvas.width {
                 let screen_x = (column as f64 * 2.0 + 1.0 - canvas.width as f64)
                     / canvas.height as f64
-                    * 0.475
+                    * if pixels { 0.95 } else { 0.475 }
                     / self.zoom;
                 let screen_y =
                     (canvas.height as f64 - row as f64 * 2.0 - 1.0) / canvas.height as f64 * 0.95
@@ -510,7 +544,7 @@ impl App {
                 );
                 let mut travel = 0.0;
                 let mut hit = None;
-                for _ in 0..80 {
+                for _ in 0..240 {
                     let point = camera.add(direction.scale(travel));
                     let surface = avatar_surface(point);
                     if surface.distance < 0.0015 {
@@ -537,13 +571,13 @@ impl App {
                 .normalized();
                 let normal = rotate_x(rotate_y(normal, yaw), pitch);
                 let diffuse = normal.dot(key_light).max(0.0);
-                let light = 0.3 + diffuse * 0.7;
+                let light = 0.58 + diffuse * 0.42;
                 let rim = (1.0 - normal.z.abs()).powi(2);
                 let base = match material {
-                    Material::Fur => Rgb(211, 177, 119),
+                    Material::Fur => Rgb(242, 213, 164),
                     Material::Muzzle => Rgb(242, 220, 174),
                     Material::InnerEar => Rgb(190, 111, 112),
-                    Material::Dark => Rgb(24, 27, 35),
+                    Material::Dark => Rgb(64, 48, 38),
                     Material::Glint => Rgb(225, 250, 255),
                     Material::Straw => Rgb(218, 184, 126),
                     Material::StrawRib => Rgb(132, 101, 64),
@@ -713,6 +747,26 @@ mod tests {
             false,
         );
         assert!(colored.contains("\x1b[38;2;"));
+    }
+
+    #[test]
+    fn pixel_avatar_preserves_terminal_rows_and_help_remains_readable() {
+        let mut app = App::new(80, 24);
+        let display = Display {
+            language: Language::En,
+            color: true,
+        };
+        let rendered = app.render(display, true);
+        assert_eq!(rendered.lines().count(), 24);
+        for line in rendered.lines() {
+            assert_eq!(line.chars().filter(|ch| *ch == '▀').count(), 80);
+        }
+        assert!(rendered.contains("\x1b[48;2;"));
+        app.handle_key(KeyEvent::new(KeyCode::Char('?'), KeyModifiers::NONE));
+        let help = app.render(display, true);
+        assert_eq!(help.lines().count(), 24);
+        assert!(help.contains("DRAG  rotate"));
+        assert!(!help.contains('▀'));
     }
 
     #[test]

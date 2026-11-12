@@ -1,6 +1,6 @@
 # lightjunction
 
-A full-screen, mouse-driven 3D ASCII dog avatar with bundled public keys and local age/OpenPGP encryption. No profile pages, network requests, telemetry, or saved activity.
+A full-screen, mouse-driven 3D dog avatar with bundled public keys and local age/OpenPGP encryption. No profile pages, network requests, telemetry, or saved activity.
 
 Built in Rust with [`zclap`](https://crates.io/crates/zclap) and `crossterm`. Public keys are bundled for offline use; encryption uses locally installed tools.
 
@@ -103,6 +103,8 @@ For a custom install directory, remove the executable there. The installers crea
 lightjunction
 lightjunction avatar
 ```
+
+Color terminals use solid half-block pixels for a clearly visible face and shaded silhouette; `--plain` keeps ASCII output.
 
 The GitHub dog avatar wears its straw hat and striped blue cloak, modeled as actual 3D surfaces with shaded straw rings and a tied collar. It gently turns from side to side to keep its face visible. Drag with the left mouse button to rotate it, use the wheel to zoom, and press `Space` to pause. `+` / `-` changes speed, `R` resets the view, `?` toggles controls, and `Q` / `Esc` exits. The interactive view uses the full terminal with no permanent status or prompt text.
 
