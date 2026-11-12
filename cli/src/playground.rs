@@ -6,7 +6,7 @@ use std::time::{Duration, Instant};
 use crossterm::cursor::{Hide, MoveTo, Show};
 use crossterm::event::{self, Event, KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
 use crossterm::execute;
-use crossterm::terminal::{self, Clear, ClearType};
+use crossterm::terminal::{self};
 
 use crate::args::Language;
 
@@ -105,7 +105,7 @@ impl Canvas {
         }
     }
 
-    fn render(&self, color: bool) -> String {
+    fn render(&self, color: bool, pad: bool) -> String {
         let mut output = String::with_capacity(self.cells.len() * 2 + self.height);
         for row in 0..self.height {
             let start = row * self.width;
@@ -113,6 +113,7 @@ impl Canvas {
                 .iter()
                 .rposition(|cell| cell.ch != ' ')
                 .map_or(start, |last| start + last + 1);
+            let end = if pad { start + self.width } else { end };
             let mut active = None;
             for cell in &self.cells[start..end] {
                 if color && cell.color != active {
@@ -378,7 +379,7 @@ impl App {
         true
     }
 
-    pub fn render(&self, display: Display) -> String {
+    pub fn render(&self, display: Display, pad: bool) -> String {
         let mut canvas = Canvas::new(self.width, self.height);
         if self.width < 34 || self.height < 12 {
             return format!(
@@ -388,6 +389,8 @@ impl App {
                     .text("Need a 34x12 terminal.", "终端至少需要 34x12。")
             );
         }
+        // Render a full-screen frame so the previous frame is overwritten
+        // without clearing the terminal, which stops flicker on fast refresh.
         self.chrome(&mut canvas, display.language);
         match self.scene {
             Scene::Orbit => self.orbit(&mut canvas),
@@ -398,7 +401,7 @@ impl App {
         if self.show_help {
             self.help(&mut canvas, display.language);
         }
-        canvas.render(display.color)
+        canvas.render(display.color, pad)
     }
 
     fn chrome(&self, canvas: &mut Canvas, language: Language) {
@@ -688,8 +691,8 @@ pub fn interactive(scene: Scene, seed: u64, display: Display) -> io::Result<()> 
         }
         let (width, height) = terminal::size()?;
         app.resize(width as usize, height as usize);
-        execute!(out, MoveTo(0, 0), Clear(ClearType::All))?;
-        out.write_all(app.render(display).as_bytes())?;
+        execute!(out, MoveTo(0, 0))?;
+        out.write_all(app.render(display, true).as_bytes())?;
         out.flush()?;
         if event::poll(FRAME.saturating_sub(started.elapsed()))? {
             match event::read()? {
@@ -722,9 +725,9 @@ pub fn frames(
     }
     for frame in 0..count {
         if terminal && count > 1 {
-            write!(out, "\x1b[H\x1b[2J")?;
+            write!(out, "\x1b[H")?;
         }
-        out.write_all(app.render(display).as_bytes())?;
+        out.write_all(app.render(display, terminal && count > 1).as_bytes())?;
         if frame + 1 < count {
             app.advance();
             if terminal {
@@ -757,9 +760,12 @@ mod tests {
             first.advance();
             second.advance();
         }
-        assert_eq!(first.render(display()), second.render(display()));
-        let rain = App::new(Scene::Rain, 42, 60, 20).render(display());
-        assert_ne!(first.render(display()), rain);
+        assert_eq!(
+            first.render(display(), false),
+            second.render(display(), false)
+        );
+        let rain = App::new(Scene::Rain, 42, 60, 20).render(display(), false);
+        assert_ne!(first.render(display(), false), rain);
     }
 
     #[test]
@@ -806,6 +812,6 @@ mod tests {
     #[test]
     fn plain_canvas_never_contains_escape_sequences() {
         let app = App::new(Scene::Wave, 1, 50, 16);
-        assert!(!app.render(display()).contains('\x1b'));
+        assert!(!app.render(display(), false).contains('\x1b'));
     }
 }

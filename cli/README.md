@@ -23,7 +23,7 @@ The default directory is `~/.local/bin`. To inspect the script first or choose a
 
 ```sh
 curl -fsSL https://github.com/LIghtJUNction/lightjunction/releases/latest/download/install.sh -o install-lightjunction.sh &&
-sh install-lightjunction.sh --version 0.2.2 --install-dir "$HOME/.local/bin"
+sh install-lightjunction.sh --version 0.3.0 --install-dir "$HOME/.local/bin"
 ```
 
 ### Windows
@@ -40,7 +40,7 @@ $env:Path = "$env:LOCALAPPDATA\Programs\lightjunction\bin;$env:Path"
 The default directory is `$env:LOCALAPPDATA\Programs\lightjunction\bin`. If your system blocks unsigned scripts, use the [manual download](#manual-download). To choose a version and directory:
 
 ```powershell
-& $installer -Version 0.2.2 -InstallDir "$env:LOCALAPPDATA\Programs\lightjunction\bin"
+& $installer -Version 0.3.0 -InstallDir "$env:LOCALAPPDATA\Programs\lightjunction\bin"
 ```
 
 The examples add the default install directory to `PATH` for the current session. Both scripts leave shell profiles and persistent `PATH` settings unchanged. For a custom install directory, add that directory to your session's `PATH` before running `lightjunction`. Rerun the installer to update; a version argument accepts `MAJOR.MINOR.PATCH`, without a `v` prefix. `LIGHTJUNCTION_VERSION` and `LIGHTJUNCTION_INSTALL_DIR` provide optional defaults, with explicit arguments taking precedence.
@@ -62,13 +62,13 @@ Compute the downloaded archive's checksum with the command for your system. Thes
 
 ```sh
 # Linux
-sha256sum lightjunction-v0.2.2-x86_64-unknown-linux-musl.tar.gz
+sha256sum lightjunction-v0.3.0-x86_64-unknown-linux-musl.tar.gz
 # macOS
-shasum -a 256 lightjunction-v0.2.2-aarch64-apple-darwin.tar.gz
+shasum -a 256 lightjunction-v0.3.0-aarch64-apple-darwin.tar.gz
 ```
 
 ```powershell
-Get-FileHash .\lightjunction-v0.2.2-x86_64-pc-windows-msvc.zip -Algorithm SHA256
+Get-FileHash .\lightjunction-v0.3.0-x86_64-pc-windows-msvc.zip -Algorithm SHA256
 ```
 
 Compare the complete hash with that archive's entry in `SHA256SUMS`, then extract it and copy `lightjunction` or `lightjunction.exe` into a directory on `PATH`. The checksum manifest comes from the same GitHub release: it checks download integrity and is not an independent publisher signature. Binaries are not signed with a macOS Developer ID or Windows Authenticode certificate; macOS builds are not notarized.
