@@ -127,17 +127,15 @@ inside the expanding boxes. During writing, the caret and worker tracked the
 visible text frontier. At completion the canvas state was `idle`, all visible
 jobs were done, and no construction cursors remained.
 
-| Browser observation | Captured evidence |
-| --- | --- |
-| Multiple crews drag empty frames before content appears. | [Frame dragging](images/construction-dragging.jpg) |
-| The title and supporting text appear at their moving carets. | [Writing](images/construction-writing.jpg) |
-| Navigating to Projects selects the `work` scene and starts fresh divider/header jobs. | [Project construction](images/construction-work.jpg) |
-| Chinese text fills its first line, then advances through the second line. | [Chinese writing](images/construction-chinese.jpg) |
+The review also confirmed that navigating to Projects selected the `work` scene
+and started fresh divider/header jobs. Chinese text filled its first line before
+advancing through the second line. The original screenshots are no longer kept
+in the repository.
 
 **Build again** started a new construction and seed; reloading varied the project
 order. English and Chinese had no horizontal page overflow. The Chinese page
-also settled to `idle` with zero visible unfinished jobs. These are actual
-browser screenshots, with no added mock cursors or simulated content. Narrow
+also settled to `idle` with zero visible unfinished jobs. The review used actual
+browser captures, with no added mock cursors or simulated content. Narrow
 viewport and physical-device visual checks were not performed in this review;
 no device frame-rate or loading-speed claim is made.
 

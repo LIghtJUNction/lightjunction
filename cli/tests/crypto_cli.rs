@@ -204,7 +204,7 @@ mod unix {
 
     const CIPHERTEXT: &[u8] = b"FAKE-CIPHERTEXT\0END\n";
     const PAYLOAD: &[u8] = b"private test plaintext\0binary\xff\n";
-    const FAKE_TOOL: &str = "#!/bin/sh\nset -eu\nprintf '%s\\n' \"$@\" > \"$LJ_TEST_ARGV\"\nprevious=''\nfor argument in \"$@\"; do\n  if [ \"$previous\" = '--recipient-file' ]; then /bin/cat \"$argument\" > \"$LJ_TEST_KEY\"; fi\n  previous=$argument\ndone\n/bin/cat > \"$LJ_TEST_INPUT\"\nprintf 'FAKE-CIPHERTEXT\\000END\\n'\nif [ \"${LJ_TEST_FAIL-}\" = 1 ]; then\n  printf 'fake backend rejected input\\n' >&2\n  exit 23\nfi\n";
+    const FAKE_TOOL: &str = "#!/bin/sh\nset -eu\nprintf '%s\\n' \"$@\" > \"$TEST_ARGV\"\nprevious=''\nfor argument in \"$@\"; do\n  if [ \"$previous\" = '--recipient-file' ]; then /bin/cat \"$argument\" > \"$TEST_KEY\"; fi\n  previous=$argument\ndone\n/bin/cat > \"$TEST_INPUT\"\nprintf 'FAKE-CIPHERTEXT\\000END\\n'\nif [ \"${TEST_FAIL-}\" = 1 ]; then\n  printf 'fake backend rejected input\\n' >&2\n  exit 23\nfi\n";
 
     struct Harness {
         root: Directory,
@@ -243,9 +243,9 @@ mod unix {
                 .env("TMPDIR", &self.temporary)
                 .env("TMP", &self.temporary)
                 .env("TEMP", &self.temporary)
-                .env("LJ_TEST_ARGV", self.root.join("argv"))
-                .env("LJ_TEST_INPUT", self.root.join("received"))
-                .env("LJ_TEST_KEY", self.root.join("recipient"));
+                .env("TEST_ARGV", self.root.join("argv"))
+                .env("TEST_INPUT", self.root.join("received"))
+                .env("TEST_KEY", self.root.join("recipient"));
             command
         }
 
@@ -335,7 +335,7 @@ mod unix {
             fs::write(&input, PAYLOAD).unwrap();
             let output = harness
                 .command()
-                .env("LJ_TEST_FAIL", "1")
+                .env("TEST_FAIL", "1")
                 .args(["encrypt", protocol, "--input"])
                 .arg(input)
                 .arg("--output")

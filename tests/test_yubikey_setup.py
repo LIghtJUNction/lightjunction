@@ -381,7 +381,7 @@ def test_server_sync_embeds_local_helper_and_preserves_unmanaged_keys(
             "bash",
             "-c",
             'LIGHTJUNCTION_ROOT="$1"; source "$2"; GPG_PATH="$(command -v gpg)"; '
-            'FETCH_SCRIPT_BODY="$(lj_fetch fetch-ssh-pub-key.sh)"; write_sync_script "$3"',
+            'FETCH_SCRIPT_BODY="$(fetch fetch-ssh-pub-key.sh)"; write_sync_script "$3"',
             "bash",
             str(ROOT),
             str(definitions),

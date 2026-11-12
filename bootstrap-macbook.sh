@@ -107,7 +107,7 @@ main() {
     if ! command_exists rustc || ! command_exists cargo; then rustup-init -y --no-modify-path; fi
     configure_shells
     local ghostty_block
-    ghostty_block="$(lj_fetch lib/ghostty.conf)"
+    ghostty_block="$(fetch lib/ghostty.conf)"
     [[ -n "$ghostty_block" ]] || die 'Ghostty configuration is empty.'
     append_managed_block "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty" \
         '# >>> lightjunction ghostty theme >>>' '# <<< lightjunction ghostty theme <<<' "$ghostty_block"

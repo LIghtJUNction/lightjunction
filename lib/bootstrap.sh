@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Common installer operations. No network calls or temporary directories on source.
 
-[[ ${__lj_bootstrap_sh_loaded:-} == 1 ]] && return 0
-__lj_bootstrap_sh_loaded=1
-LJ_TMP_ROOT=''
+[[ ${__bootstrap_sh_loaded:-} == 1 ]] && return 0
+__bootstrap_sh_loaded=1
+TMP_ROOT=''
 SUDO=()
 # shellcheck disable=SC2034
 if ((EUID != 0)); then SUDO=(sudo); fi
@@ -17,14 +17,14 @@ command_exists() { command -v "${1:?}" >/dev/null 2>&1; }
 
 # Call in the parent shell so command substitutions share one private directory.
 init_tmp_dirs() {
-    [[ -d "$LJ_TMP_ROOT" ]] || LJ_TMP_ROOT="$(mktemp -d "${TMPDIR:-${PREFIX:-}/tmp}/lightjunction-bootstrap.XXXXXX")"
+    [[ -d "$TMP_ROOT" ]] || TMP_ROOT="$(mktemp -d "${TMPDIR:-${PREFIX:-}/tmp}/lightjunction-bootstrap.XXXXXX")"
 }
 make_tmp_dir() {
-    [[ -n "$LJ_TMP_ROOT" ]] || { warn 'Call init_tmp_dirs before make_tmp_dir.'; return 1; }
-    mktemp -d "$LJ_TMP_ROOT/tmp.XXXXXX"
+    [[ -n "$TMP_ROOT" ]] || { warn 'Call init_tmp_dirs before make_tmp_dir.'; return 1; }
+    mktemp -d "$TMP_ROOT/tmp.XXXXXX"
 }
 cleanup_tmp_dirs() {
-    if [[ -n "$LJ_TMP_ROOT" ]]; then rm -rf -- "$LJ_TMP_ROOT"; fi
+    if [[ -n "$TMP_ROOT" ]]; then rm -rf -- "$TMP_ROOT"; fi
 }
 require_sudo() {
     ((EUID == 0)) && return 0

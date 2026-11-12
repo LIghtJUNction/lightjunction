@@ -21,7 +21,7 @@ import https://example.org/library.sh
 successful imports. No checksum, temporary script file or cleanup trap is needed.
 The original five repository arguments still work; omit the old sixth hash argument.
 
-`lj_fetch path-or-url` prints a local file when available, otherwise downloads it.
+`fetch path-or-url` prints a local file when available, otherwise downloads it.
 `run_script path-or-url [args...]` runs an executable in a separate Bash process,
 so its shell options, traps and `exit` do not affect the caller.
 

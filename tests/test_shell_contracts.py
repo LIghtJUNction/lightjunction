@@ -206,7 +206,7 @@ def test_suppressed_log_calls_succeed_under_errexit() -> None:
 
 
 @pytest.mark.parametrize(
-    ("library", "function"), [("lib/common.sh", "lj_sha256_file"), ("lib/file.sh", "file_sha256")]
+    ("library", "function"), [("lib/common.sh", "sha256_file"), ("lib/file.sh", "file_sha256")]
 )
 def test_failing_preferred_checksum_tool_is_not_hidden(
     tmp_path: Path, library: str, function: str

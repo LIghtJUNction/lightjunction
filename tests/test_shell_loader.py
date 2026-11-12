@@ -111,7 +111,7 @@ def test_local_import_is_independent_of_cwd(tmp_path: Path) -> None:
         cd "$1"
         curl() { return 99; }
         import lib/common.sh
-        lj_has bash
+        has bash
         """,
         str(tmp_path),
     )
@@ -234,11 +234,11 @@ def test_shared_temp_and_managed_file_behavior(tmp_path: Path) -> None:
         unset TMPDIR
         PREFIX="$1/usr"
         mkdir -p "$PREFIX/tmp"
-        f="$(lj_tmpfile)"; [[ "$f" == "$PREFIX/tmp/"* ]]; rm "$f"
+        f="$(tmpfile)"; [[ "$f" == "$PREFIX/tmp/"* ]]; rm "$f"
         init_tmp_dirs
         first="$(make_tmp_dir)"; second="$(make_tmp_dir)"
         [[ "$first" != "$second" && "$first" == "$PREFIX/tmp/"* ]]
-        [[ "$(stat -c %a "$LJ_TMP_ROOT")" == 700 ]]
+        [[ "$(stat -c %a "$TMP_ROOT")" == 700 ]]
         cleanup_tmp_dirs
         [[ ! -d "$first" && ! -d "$second" ]]
         target="$1/profile"

@@ -38,7 +38,7 @@ import shutil
 import sys
 from pathlib import Path
 
-config = json.loads(Path(os.environ["LJ_INSTALLER_FIXTURE"]).read_text())
+config = json.loads(Path(os.environ["INSTALLER_FIXTURE"]).read_text())
 arguments = sys.argv[1:]
 if not arguments or arguments[0] != "-q":
     sys.exit("curl did not disable .curlrc")
@@ -65,7 +65,7 @@ function Invoke-WebRequest {
     if ($Uri.Scheme -cne 'https' -or $MaximumRedirection -ne 0) {
         throw 'HTTPS and manual redirect verification are required.'
     }
-    $Fixture = Get-Content -LiteralPath $env:LJ_INSTALLER_FIXTURE -Raw | ConvertFrom-Json
+    $Fixture = Get-Content -LiteralPath $env:INSTALLER_FIXTURE -Raw | ConvertFrom-Json
     [IO.File]::AppendAllText($Fixture.log, $Uri.AbsoluteUri + "`n")
     if ($Fixture.fail -contains $Uri.AbsoluteUri) { throw 'Simulated download failure.' }
     $Source = $Fixture.files.PSObject.Properties[$Uri.AbsoluteUri]
@@ -76,20 +76,20 @@ function Invoke-WebRequest {
         RawContentStream = [IO.MemoryStream]::new([IO.File]::ReadAllBytes([string] $Source.Value))
     }
 }
-if ($env:LJ_INSTALLER_NATIVE -ne '1') {
+if ($env:INSTALLER_NATIVE -ne '1') {
     Add-Type -TypeDefinition @'
 using System;
 public static class LightjunctionInstallerNative {
     public static string Architecture() {
-        return Environment.GetEnvironmentVariable("LJ_INSTALLER_ARCH");
+        return Environment.GetEnvironmentVariable("INSTALLER_ARCH");
     }
 }
 '@
 }
-$Options = Get-Content -LiteralPath $env:LJ_INSTALLER_OPTIONS -Raw | ConvertFrom-Json
+$Options = Get-Content -LiteralPath $env:INSTALLER_OPTIONS -Raw | ConvertFrom-Json
 $Parameters = @{}
 foreach ($Property in $Options.PSObject.Properties) { $Parameters[$Property.Name] = $Property.Value }
-& $env:LJ_INSTALLER_SCRIPT @Parameters
+& $env:INSTALLER_SCRIPT @Parameters
 if (-not $?) { exit 1 }
 '''
 
@@ -160,11 +160,11 @@ class InstallerFixture:
         for name in ("LIGHTJUNCTION_VERSION", "LIGHTJUNCTION_INSTALL_DIR"):
             self.environment.pop(name, None)
         self.environment.update(
-            LJ_INSTALLER_FIXTURE=str(self.config_path),
-            LJ_INSTALLER_OPTIONS=str(self.options),
-            LJ_INSTALLER_SCRIPT=str(CLI / ("install.ps1" if self.windows else "install.sh")),
-            LJ_INSTALLER_ARCH="ARM64" if target.startswith("aarch64") else "AMD64",
-            LJ_INSTALLER_NATIVE="1" if native else "0",
+            INSTALLER_FIXTURE=str(self.config_path),
+            INSTALLER_OPTIONS=str(self.options),
+            INSTALLER_SCRIPT=str(CLI / ("install.ps1" if self.windows else "install.sh")),
+            INSTALLER_ARCH="ARM64" if target.startswith("aarch64") else "AMD64",
+            INSTALLER_NATIVE="1" if native else "0",
             TMPDIR=str(self.temporary),
             TMP=str(self.temporary),
             TEMP=str(self.temporary),
@@ -207,16 +207,16 @@ class InstallerFixture:
         curl.chmod(0o755)
         if not self.native:
             probes = {
-                "uname": '#!/bin/sh\ncase "$1" in -s) printf "%s\\n" "$LJ_INSTALLER_OS" ;; -m) printf "%s\\n" "$LJ_INSTALLER_MACHINE" ;; *) exit 1 ;; esac\n',
-                "sysctl": '#!/bin/sh\nprintf "%s\\n" "${LJ_INSTALLER_ROSETTA:-0}"\n',
+                "uname": '#!/bin/sh\ncase "$1" in -s) printf "%s\\n" "$INSTALLER_OS" ;; -m) printf "%s\\n" "$INSTALLER_MACHINE" ;; *) exit 1 ;; esac\n',
+                "sysctl": '#!/bin/sh\nprintf "%s\\n" "${INSTALLER_ROSETTA:-0}"\n',
             }
             for name, script in probes.items():
                 probe = self.mock_bin / name
                 probe.write_text(script, encoding="utf-8")
                 probe.chmod(0o755)
             self.environment.update(
-                LJ_INSTALLER_OS="Darwin" if "apple" in self.target else "Linux",
-                LJ_INSTALLER_MACHINE="aarch64" if self.target.startswith("aarch64") else "x86_64",
+                INSTALLER_OS="Darwin" if "apple" in self.target else "Linux",
+                INSTALLER_MACHINE="aarch64" if self.target.startswith("aarch64") else "x86_64",
             )
         self.environment["PATH"] = str(self.mock_bin) + os.pathsep + self.environment.get("PATH", "")
         self.wrapper = self.root / "mock_transport.ps1"
@@ -403,13 +403,13 @@ class InstallerTests(unittest.TestCase):
                 self.assert_failure_preserves_old()
 
     def test_unsupported_architecture_does_not_download(self) -> None:
-        self.fixture.environment.update(LJ_INSTALLER_MACHINE="riscv64", LJ_INSTALLER_ARCH="IA64")
+        self.fixture.environment.update(INSTALLER_MACHINE="riscv64", INSTALLER_ARCH="IA64")
         self.assert_failure_preserves_old()
         self.assertEqual(self.fixture.requests(), [])
 
     @unittest.skipIf(os.name == "nt", "Unix operating-system selection")
     def test_unsupported_operating_system_does_not_download(self) -> None:
-        self.fixture.environment["LJ_INSTALLER_OS"] = "FreeBSD"
+        self.fixture.environment["INSTALLER_OS"] = "FreeBSD"
         self.assert_failure_preserves_old()
         self.assertEqual(self.fixture.requests(), [])
 
@@ -452,7 +452,7 @@ class InstallerTests(unittest.TestCase):
         target = "aarch64-pc-windows-msvc" if os.name == "nt" else "aarch64-apple-darwin"
         self.fixture = InstallerFixture(nested, target)
         if os.name != "nt":
-            self.fixture.environment.update(LJ_INSTALLER_MACHINE="x86_64", LJ_INSTALLER_ROSETTA="1")
+            self.fixture.environment.update(INSTALLER_MACHINE="x86_64", INSTALLER_ROSETTA="1")
         result = self.run_installer()
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertEqual(self.fixture.destination.read_bytes(), PAYLOAD)

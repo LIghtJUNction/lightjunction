@@ -17,19 +17,19 @@ fi
 
 C_UP='' C_CLEAR_LINE='' C_RESET='' C_BOLD='' C_DIM='' C_ITALIC='' C_UNDERLINE=''
 C_CURSOR_OFF='' C_CURSOR_ON=''
-_lj_index=30
-for _lj_color in BLACK RED GREEN YELLOW BLUE PURPLE CYAN WHITE; do
-    printf -v "C_$_lj_color" '%s' ''
-    printf -v "B_$_lj_color" '%s' ''
-    printf -v "BG_$_lj_color" '%s' ''
+_index=30
+for _color in BLACK RED GREEN YELLOW BLUE PURPLE CYAN WHITE; do
+    printf -v "C_$_color" '%s' ''
+    printf -v "B_$_color" '%s' ''
+    printf -v "BG_$_color" '%s' ''
     if [[ -t 1 && -z "${NO_COLOR:-}" && "${TERM:-dumb}" != dumb ]]; then
-        printf -v "C_$_lj_color" '\033[0;%dm' "$_lj_index"
-        printf -v "B_$_lj_color" '\033[1;%dm' "$_lj_index"
-        printf -v "BG_$_lj_color" '\033[%dm' "$((_lj_index + 10))"
+        printf -v "C_$_color" '\033[0;%dm' "$_index"
+        printf -v "B_$_color" '\033[1;%dm' "$_index"
+        printf -v "BG_$_color" '\033[%dm' "$((_index + 10))"
     fi
-    _lj_index=$((_lj_index + 1))
+    _index=$((_index + 1))
 done
-unset _lj_color _lj_index
+unset _color _index
 if [[ -n "$C_RED" ]]; then
     C_UP=$'\033[1A' C_CLEAR_LINE=$'\033[2K\r'
     C_RESET=$'\033[0m' C_BOLD=$'\033[1m' C_DIM=$'\033[2m'

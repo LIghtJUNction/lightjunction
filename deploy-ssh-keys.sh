@@ -92,7 +92,7 @@ main() {
     [[ -n "$GPG_PATH" ]] || die 'GPG not found.'
     # Decide platform before downloads or filesystem changes.
     os_is android || [[ -d /run/systemd/system ]] || die 'Requires Termux or a running systemd instance.'
-    FETCH_SCRIPT_BODY="$(lj_fetch fetch-ssh-pub-key.sh)"
+    FETCH_SCRIPT_BODY="$(fetch fetch-ssh-pub-key.sh)"
     [[ -n "$FETCH_SCRIPT_BODY" ]] || die 'Public-key helper is empty.'
     init_tmp_dirs
     trap cleanup_tmp_dirs EXIT

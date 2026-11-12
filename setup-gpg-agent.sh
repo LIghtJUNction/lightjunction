@@ -43,7 +43,7 @@ HELP
     esac
 done
 [[ -z "${SUDO_USER:-}" ]] || die 'Run as your normal user, without sudo.'
-lj_require gpg gpgconf gpg-connect-agent curl
+require gpg gpgconf gpg-connect-agent curl
 
 strip_block() {
     strip_managed_block "$1" "# >>> lightjunction $2 >>>" "# <<< lightjunction $2 <<<"
@@ -72,8 +72,8 @@ if ! grep -Eq '^[[:space:]]*(default|max)-cache-ttl' <<<"$existing"; then
     agent_settings+=$'\ndefault-cache-ttl 3600\nmax-cache-ttl 28800\ndefault-cache-ttl-ssh 3600\nmax-cache-ttl-ssh 28800'
 fi
 
-work="$(lj_tmpdir)"
-lj_fetch fetch-ssh-pub-key.sh >"$work/fetch.sh"
+work="$(tmpdir)"
+fetch fetch-ssh-pub-key.sh >"$work/fetch.sh"
 [[ -s "$work/fetch.sh" ]] || die 'Public-key helper is empty.'
 mkdir -p "$gpg_home" "$HOME/.ssh" "$HOME/.local/share/lightjunction" "$HOME/.local/bin"
 chmod 700 "$gpg_home" "$HOME/.ssh"
@@ -99,16 +99,16 @@ install -m 700 "$work/sync" "$HOME/.local/bin/lightjunction-key-sync"
     cat <<'ENV'
 if command -v gpgconf >/dev/null 2>&1; then
     gpgconf --launch gpg-agent >/dev/null 2>&1 || true
-    if _lj_gpg_tty=$(tty 2>/dev/null); then
-        export GPG_TTY="$_lj_gpg_tty"
+    if _gpg_tty=$(tty 2>/dev/null); then
+        export GPG_TTY="$_gpg_tty"
         gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1 || true
     fi
     if [ -z "${SSH_CONNECTION:-}" ] || [ -z "${SSH_AUTH_SOCK:-}" ]; then
-        if _lj_gpg_socket=$(gpgconf --list-dirs agent-ssh-socket); then
-            export SSH_AUTH_SOCK="$_lj_gpg_socket"
+        if _gpg_socket=$(gpgconf --list-dirs agent-ssh-socket); then
+            export SSH_AUTH_SOCK="$_gpg_socket"
         fi
     fi
-    unset _lj_gpg_tty _lj_gpg_socket
+    unset _gpg_tty _gpg_socket
 fi
 ENV
 } >"$work/env"

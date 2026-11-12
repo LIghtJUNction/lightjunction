@@ -84,8 +84,8 @@ aes_decrypt() (
         return 1
     fi
     printf 'Warning: decrypting legacy unauthenticated AES-CBC ciphertext.\n' >&2
-    printf '%s' "$ciphertext" | openssl base64 -d -A | LJ_OPENSSL_PASSWORD="$password" \
-        openssl enc -aes-256-cbc -pbkdf2 -iter 100000 -d -pass env:LJ_OPENSSL_PASSWORD
+    printf '%s' "$ciphertext" | openssl base64 -d -A | OPENSSL_PASSWORD="$password" \
+        openssl enc -aes-256-cbc -pbkdf2 -iter 100000 -d -pass env:OPENSSL_PASSWORD
 )
 
 hash() {

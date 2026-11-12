@@ -10,8 +10,8 @@ fi
 __IMPORTED_FILES=()
 
 # Also used when an installer needs to save a helper for later offline execution.
-lj_fetch() {
-    local file="${1:?Usage: lj_fetch path-or-url}"
+fetch() {
+    local file="${1:?Usage: fetch path-or-url}"
     case "$file" in
         http://*|https://*) ;;
         *)
@@ -26,7 +26,7 @@ lj_fetch() {
 }
 
 # Capture the producer PID before a sourced library can start a nested import.
-_lj_consume() {
+_consume() {
     local producer=$! status=0
     # shellcheck source=/dev/null
     "$@" || status=$?
@@ -44,7 +44,7 @@ import() {
     for imported in ${__IMPORTED_FILES[@]+"${__IMPORTED_FILES[@]}"}; do
         [[ "$imported" == "$key" ]] && return 0
     done
-    _lj_consume source <(lj_fetch "$file") || return
+    _consume source <(fetch "$file") || return
     __IMPORTED_FILES+=("$key")
 }
 
@@ -52,7 +52,7 @@ run_script() {
     local file="${1:?Usage: run_script path-or-url [args...]}"
     shift
     export LIGHTJUNCTION_ROOT LIGHTJUNCTION_RAW_BASE
-    _lj_consume bash <(lj_fetch "$file") "$@"
+    _consume bash <(fetch "$file") "$@"
 }
 
 hook() {
