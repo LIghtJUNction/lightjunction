@@ -104,7 +104,7 @@ lightjunction
 lightjunction avatar
 ```
 
-The dog is a true 3D model, not a flat image. Drag with the left mouse button to rotate it, use the wheel to zoom, and press `Space` to pause. `+` / `-` changes speed, `R` resets the view, `?` toggles controls, and `Q` / `Esc` exits. The interactive view uses the full terminal with no permanent status or prompt text.
+The GitHub dog avatar wears its straw hat and striped blue cloak, modeled as actual 3D surfaces with shaded straw rings and a tied collar. It gently turns from side to side to keep its face visible. Drag with the left mouse button to rotate it, use the wheel to zoom, and press `Space` to pause. `+` / `-` changes speed, `R` resets the view, `?` toggles controls, and `Q` / `Esc` exits. The interactive view uses the full terminal with no permanent status or prompt text.
 
 Use `--frames` for bounded output without keyboard input:
 

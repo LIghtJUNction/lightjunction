@@ -144,6 +144,10 @@ enum Material {
     InnerEar,
     Dark,
     Glint,
+    Straw,
+    StrawRib,
+    Cape,
+    CapeStripe,
 }
 
 #[derive(Clone, Copy)]
@@ -202,7 +206,7 @@ fn dog_surface(point: Vec3) -> Surface {
             tapered_capsule(
                 point,
                 Vec3::new(side * 0.5, 0.55, -0.06),
-                Vec3::new(side * 0.7, 1.42, -0.08),
+                Vec3::new(side * 0.62, 0.87, -0.08),
                 0.3,
                 0.045,
                 Material::Fur,
@@ -213,7 +217,7 @@ fn dog_surface(point: Vec3) -> Surface {
             tapered_capsule(
                 point,
                 Vec3::new(side * 0.52, 0.68, 0.2),
-                Vec3::new(side * 0.68, 1.31, 0.02),
+                Vec3::new(side * 0.60, 0.84, 0.12),
                 0.15,
                 0.025,
                 Material::InnerEar,
@@ -263,6 +267,103 @@ fn dog_surface(point: Vec3) -> Surface {
             Vec3::new(0.3, 0.18, 0.28),
             Material::Muzzle,
         ),
+    )
+}
+
+// The avatar's broad straw hat is tilted as one solid, so its underside
+// and concentric weave remain visible when the camera orbits.
+fn avatar_surface(point: Vec3) -> Surface {
+    let mut surface = dog_surface(point);
+    let hat = rotate_z(point.sub(Vec3::new(0.0, 0.89, -0.12)), -0.18);
+    let radial = (hat.x * hat.x + hat.z * hat.z).sqrt();
+    let weave = if (radial * 23.0).sin() > 0.84 {
+        Material::StrawRib
+    } else {
+        Material::Straw
+    };
+    surface = nearest(
+        surface,
+        ellipsoid(
+            hat,
+            Vec3::new(0.0, 0.0, 0.0),
+            Vec3::new(1.46, 0.085, 1.04),
+            weave,
+        ),
+    );
+    surface = nearest(
+        surface,
+        ellipsoid(
+            hat,
+            Vec3::new(0.0, 0.1, -0.12),
+            Vec3::new(0.75, 0.44, 0.64),
+            Material::Straw,
+        ),
+    );
+
+    // A tapered cloak wraps the shoulders; an open front reveals the chest.
+    let progress = ((-point.y - 0.55) / 1.5).clamp(0.0, 1.0);
+    let radius = 0.43 + progress * 0.49;
+    let radial = (point.x.powi(2) + (point.z + 0.13).powi(2)).sqrt();
+    let open_front = point.z > 0.1 && point.x.abs() < 0.12 + progress * 0.28;
+    if !open_front {
+        let angle = point.x.atan2(point.z + 0.13);
+        let material = if (angle * 19.0).sin() > 0.1 {
+            Material::CapeStripe
+        } else {
+            Material::Cape
+        };
+        surface = nearest(
+            surface,
+            Surface {
+                distance: (radial - radius)
+                    .abs()
+                    .max(point.y + 0.56)
+                    .max(-2.05 - point.y)
+                    - 0.045,
+                material,
+            },
+        );
+    }
+    surface = nearest(
+        surface,
+        ellipsoid(
+            point,
+            Vec3::new(0.0, -1.25, -0.03),
+            Vec3::new(0.39, 0.78, 0.35),
+            Material::Muzzle,
+        ),
+    );
+    for side in [-1.0, 1.0] {
+        surface = nearest(
+            surface,
+            ellipsoid(
+                point,
+                Vec3::new(side * 0.17, -0.63, 0.47),
+                Vec3::new(0.17, 0.075, 0.06),
+                Material::CapeStripe,
+            ),
+        );
+        surface = nearest(
+            surface,
+            tapered_capsule(
+                point,
+                Vec3::new(side * 0.035, -0.65, 0.49),
+                Vec3::new(side * 0.11, -1.18, 0.44),
+                0.025,
+                0.016,
+                Material::CapeStripe,
+            ),
+        );
+    }
+    surface
+}
+
+fn rotate_z(point: Vec3, angle: f64) -> Vec3 {
+    let (sin, cos) = angle.sin_cos();
+    Vec3::new(
+        point.x * cos - point.y * sin,
+        point.x * sin + point.y * cos,
+        point.z,
     )
 }
 
@@ -388,17 +489,18 @@ impl App {
     }
 
     fn avatar(&self, canvas: &mut Canvas) {
-        let yaw = self.frame as f64 * 0.006 + self.yaw;
+        let yaw = (self.frame as f64 * 0.008).sin() * 0.45 + self.yaw;
         let pitch = (self.frame as f64 * 0.002).sin() * 0.04 + self.pitch;
-        let camera = rotate_x(rotate_y(Vec3::new(0.0, 0.12, 4.2), -yaw), -pitch);
+        let camera = rotate_x(rotate_y(Vec3::new(0.0, -0.45, 6.4), -yaw), -pitch);
         let key_light = Vec3::new(-0.45, 0.75, 0.8).normalized();
         let glyphs = b" .:-=+*#%@";
 
         for row in 0..canvas.height {
             for column in 0..canvas.width {
-                let screen_x =
-                    (column as f64 * 2.0 + 1.0 - canvas.width as f64) / canvas.height as f64 * 0.95
-                        / self.zoom;
+                let screen_x = (column as f64 * 2.0 + 1.0 - canvas.width as f64)
+                    / canvas.height as f64
+                    * 0.475
+                    / self.zoom;
                 let screen_y =
                     (canvas.height as f64 - row as f64 * 2.0 - 1.0) / canvas.height as f64 * 0.95
                         / self.zoom;
@@ -410,13 +512,13 @@ impl App {
                 let mut hit = None;
                 for _ in 0..80 {
                     let point = camera.add(direction.scale(travel));
-                    let surface = dog_surface(point);
+                    let surface = avatar_surface(point);
                     if surface.distance < 0.0015 {
                         hit = Some((point, surface.material));
                         break;
                     }
                     travel += surface.distance.max(0.001) * 0.85;
-                    if travel > 7.0 {
+                    if travel > 10.0 {
                         break;
                     }
                 }
@@ -425,12 +527,12 @@ impl App {
                 };
                 let epsilon = 0.002;
                 let normal = Vec3::new(
-                    dog_surface(point.add(Vec3::new(epsilon, 0.0, 0.0))).distance
-                        - dog_surface(point.sub(Vec3::new(epsilon, 0.0, 0.0))).distance,
-                    dog_surface(point.add(Vec3::new(0.0, epsilon, 0.0))).distance
-                        - dog_surface(point.sub(Vec3::new(0.0, epsilon, 0.0))).distance,
-                    dog_surface(point.add(Vec3::new(0.0, 0.0, epsilon))).distance
-                        - dog_surface(point.sub(Vec3::new(0.0, 0.0, epsilon))).distance,
+                    avatar_surface(point.add(Vec3::new(epsilon, 0.0, 0.0))).distance
+                        - avatar_surface(point.sub(Vec3::new(epsilon, 0.0, 0.0))).distance,
+                    avatar_surface(point.add(Vec3::new(0.0, epsilon, 0.0))).distance
+                        - avatar_surface(point.sub(Vec3::new(0.0, epsilon, 0.0))).distance,
+                    avatar_surface(point.add(Vec3::new(0.0, 0.0, epsilon))).distance
+                        - avatar_surface(point.sub(Vec3::new(0.0, 0.0, epsilon))).distance,
                 )
                 .normalized();
                 let normal = rotate_x(rotate_y(normal, yaw), pitch);
@@ -443,6 +545,10 @@ impl App {
                     Material::InnerEar => Rgb(190, 111, 112),
                     Material::Dark => Rgb(24, 27, 35),
                     Material::Glint => Rgb(225, 250, 255),
+                    Material::Straw => Rgb(218, 184, 126),
+                    Material::StrawRib => Rgb(132, 101, 64),
+                    Material::Cape => Rgb(216, 235, 245),
+                    Material::CapeStripe => Rgb(65, 119, 177),
                 };
                 let shade =
                     |channel: u8| (f64::from(channel) * light + rim * 28.0).min(255.0) as u8;
