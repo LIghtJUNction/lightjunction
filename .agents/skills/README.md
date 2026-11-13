@@ -21,7 +21,6 @@ important decisions.
 | Skill | Purpose |
 | --- | --- |
 | `agentmail-email` | AgentMail mailbox workflow for the assistant's email address. |
-| `bilibili-social` | Read/post Bilibili comments and private messages. |
 | `lmm-best-service-page` | lmm.best static profile-page product workflow. |
 | `opensource-small-pr` | Low-star open-source contribution workflow: candidate queues, small PRs, maintainer follow-up. |
 | `share-file-handoff` | Deliver files to customers via share.lmm.best. |
