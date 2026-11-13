@@ -215,6 +215,7 @@ def test_package_refresh_failure_prevents_install(tmp_path: Path) -> None:
         source "$DEFINITIONS"
         pkg_family() { printf 'deb\n'; }
         SUDO=()
+        require_sudo() { :; }
         apt-get() {
             printf 'APT:%s\n' "$*"
             [[ "$1" != update ]]
@@ -230,3 +231,75 @@ def test_termux_go_uses_golang_package():
     result = run_menu("menu_package go", platform="termux")
     assert result.returncode == 0, result.stderr
     assert result.stdout.strip() == "golang"
+
+
+@pytest.mark.parametrize("selection", ["codex", "uv", "llm", "claude"])
+@pytest.mark.parametrize("platform", ["arch", "deb"])
+def test_user_installations_do_not_require_sudo(selection: str, platform: str) -> None:
+    result = run_menu(
+        r"""
+        menu_catalog
+        menu_toggle SELECTION
+        MENU_DRY_RUN=0
+        df() { :; }
+        findmnt() { :; }
+        init_tmp_dirs() { :; }
+        require_sudo() { printf 'SUDO_CHECK\n'; return 73; }
+        command_exists() {
+            case "$1" in
+                node|npm) return 0 ;;
+                uv) return 1 ;;
+                *) command -v "$1" >/dev/null 2>&1 ;;
+            esac
+        }
+        npm() { printf 'USER_INSTALL:npm %s\n' "$*"; }
+        uv() { printf 'USER_INSTALL:uv %s\n' "$*"; }
+        run_script() { printf 'USER_INSTALL:script %s\n' "$*"; }
+        install_packages() { printf 'NATIVE_INSTALL\n'; return 99; }
+        menu_apply
+        """.replace("SELECTION", selection),
+        platform=platform,
+        stdin="y\n",
+    )
+    assert result.returncode == 0, result.stderr
+    assert "USER_INSTALL:" in result.stdout
+    assert "成功 1 项，失败 0 项" in result.stdout
+    assert "SUDO_CHECK" not in result.stdout
+    assert "NATIVE_INSTALL" not in result.stdout
+
+
+@pytest.mark.parametrize("platform", ["deb", "termux"])
+def test_native_installation_checks_privileges_only_outside_termux(
+    tmp_path: Path, platform: str
+) -> None:
+    source = (ROOT / "bootstrap-linux.sh").read_text().rsplit('\nmain "$@"', 1)[0]
+    definitions = tmp_path / "linux.sh"
+    definitions.write_text(source)
+    result = run_menu(
+        r"""
+        export LIGHTJUNCTION_ROOT="$PWD"
+        source "DEFINITIONS"
+        pkg_family() { printf '%s\n' "$MENU_PLATFORM"; }
+        require_sudo() { printf 'SUDO_CHECK\n'; return 73; }
+        apt-get() { printf 'MUST_NOT_INSTALL\n'; }
+        pkg() { printf 'TERMUX:%s\n' "$*"; }
+        install_packages git
+        """.replace("DEFINITIONS", str(definitions)),
+        platform=platform,
+    )
+    if platform == "termux":
+        assert result.returncode == 0, result.stderr
+        assert result.stdout == "TERMUX:install -y git\n"
+    else:
+        assert result.returncode == 73, result.stderr
+        assert result.stdout == "SUDO_CHECK\n"
+
+
+def test_system_script_checks_privileges_before_fetching_or_running() -> None:
+    result = run_menu(r"""
+        require_sudo() { printf 'SUDO_CHECK\n'; return 73; }
+        curl() { printf MUST_NOT_DOWNLOAD; }
+        menu_install chsrc chsrc
+    """)
+    assert result.returncode == 73, result.stderr
+    assert result.stdout == "SUDO_CHECK\n"

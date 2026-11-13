@@ -177,6 +177,7 @@ menu_install() {
             if [[ "$MENU_PLATFORM" == brew ]]; then
                 brew_install formula chsrc
             else
+                require_sudo || return
                 local body work
                 body="$(curl -fsSL https://chsrc.run/posix)" || return
                 work="$(make_tmp_dir)" || return
@@ -233,8 +234,6 @@ menu_apply() {
     if [[ "$MENU_PLATFORM" == brew ]]; then
         ensure_xcode_cli_tools || return
         ensure_homebrew || return
-    elif [[ "$MENU_PLATFORM" != termux ]]; then
-        require_sudo || return
     fi
     init_tmp_dirs || return
     for entry in "${MENU_ITEMS[@]}"; do

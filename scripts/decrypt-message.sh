@@ -4,10 +4,14 @@ set -euo pipefail
 
 input_source="${1:-}"
 id_file=""
+plaintext_file=""
 cleanup_identity() {
     local result=$?
     if [[ -n "$id_file" ]]; then
         rm -f -- "$id_file" || printf 'Warning: failed to remove temporary identity file.\n' >&2
+    fi
+    if [[ -n "$plaintext_file" ]]; then
+        rm -f -- "$plaintext_file" || printf 'Warning: failed to remove temporary plaintext file.\n' >&2
     fi
     return "$result"
 }
@@ -40,6 +44,11 @@ if [[ "$raw_content" =~ (-----BEGIN PGP MESSAGE-----[[:space:]]*[A-Za-z0-9+/=[:s
     pgp_block="${BASH_REMATCH[1]}"
 fi
 
+# Keep silent attempts private until they succeed; failed decryptors may emit bytes.
+# Shell variables cannot preserve NULs or trailing newlines in plaintext.
+register_identity_cleanup
+plaintext_file="$(mktemp)"
+
 # 1. Try age with YubiKey identity
 if [[ -n "$age_block" ]] && command -v age >/dev/null 2>&1; then
     if command -v age-plugin-yubikey >/dev/null 2>&1; then
@@ -48,10 +57,10 @@ if [[ -n "$age_block" ]] && command -v age >/dev/null 2>&1; then
             id_file="$(mktemp)"
             register_identity_cleanup
             printf '%s\n' "$yubikey_id" >"$id_file"
-            if decrypted="$(printf '%s\n' "$age_block" | age -d -i "$id_file" 2>/dev/null)"; then
+            if printf '%s\n' "$age_block" | age -d -i "$id_file" >"$plaintext_file" 2>/dev/null; then
                 rm -f -- "$id_file"
                 id_file=""
-                printf '%s\n' "$decrypted"
+                cat -- "$plaintext_file"
                 exit 0
             fi
             rm -f -- "$id_file"
@@ -62,8 +71,8 @@ if [[ -n "$age_block" ]] && command -v age >/dev/null 2>&1; then
     # Try default age identity file if available
     default_age_keys="${HOME}/.config/age/keys.txt"
     if [[ -f "$default_age_keys" ]]; then
-        if decrypted="$(printf '%s\n' "$age_block" | age -d -i "$default_age_keys" 2>/dev/null)"; then
-            printf '%s\n' "$decrypted"
+        if printf '%s\n' "$age_block" | age -d -i "$default_age_keys" >"$plaintext_file" 2>/dev/null; then
+            cat -- "$plaintext_file"
             exit 0
         fi
     fi
@@ -72,8 +81,8 @@ fi
 # 2. Try GPG
 if command -v gpg >/dev/null 2>&1; then
     gpg_input="${pgp_block:-$raw_content}"
-    if decrypted="$(printf '%s\n' "$gpg_input" | gpg --decrypt --quiet 2>/dev/null)"; then
-        printf '%s\n' "$decrypted"
+    if printf '%s\n' "$gpg_input" | gpg --decrypt --quiet >"$plaintext_file" 2>/dev/null; then
+        cat -- "$plaintext_file"
         exit 0
     fi
 fi

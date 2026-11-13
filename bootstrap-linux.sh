@@ -32,7 +32,10 @@ pkg_family() {
 }
 install_packages() {
     (($# > 0)) || return 0
-    case "$(pkg_family)" in
+    local family
+    family="$(pkg_family)"
+    if [[ "$family" != termux ]]; then require_sudo || return; fi
+    case "$family" in
         termux) pkg install -y "$@" ;;
         arch) "${SUDO[@]}" pacman -Syu --needed --noconfirm "$@" ;;
         deb)
@@ -127,8 +130,6 @@ main() {
     if os_is android; then
         ((EUID != 0)) || die 'Run Termux package installation without root.'
         SUDO=()
-    else
-        require_sudo
     fi
     init_tmp_dirs
     local feature

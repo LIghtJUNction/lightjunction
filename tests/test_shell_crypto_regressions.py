@@ -254,7 +254,7 @@ def test_decrypt_cleans_temp_identity_and_preserves_status(
     )
     assert result.returncode == status, result.stderr
     assert set(tmp_path.iterdir()) == before
-    assert result.stdout == ("plaintext\n" if mode == "success" else "")
+    assert result.stdout == ("plaintext" if mode == "success" else "")
 
 
 @pytest.mark.parametrize(
@@ -330,3 +330,107 @@ def test_rsa_signal_after_private_link_preserves_complete_pair(tmp_path: Path) -
     assert result.returncode == 0, result.stderr
     directory = tmp_path / "home/.ssh"
     assert sorted(p.name for p in directory.iterdir()) == ["private", "public"]
+
+
+@pytest.mark.parametrize("backend", ["yubikey", "age-default", "gpg"])
+@pytest.mark.parametrize(
+    "plaintext", [b"", b"line", b"line\n", b"line\n\n", b"a\x00b", b"\x00\xff\n"]
+)
+@pytest.mark.parametrize("use_stdin", [False, True])
+def test_silent_decryption_preserves_plaintext_bytes(
+    tmp_path: Path, backend: str, plaintext: bytes, use_stdin: bool
+) -> None:
+    env, ciphertext = decrypt_fixture(tmp_path, "success")
+    payload = tmp_path / "payload"
+    payload.write_bytes(plaintext)
+    env["PAYLOAD"] = str(payload)
+    tools = tmp_path / "bin"
+    if backend != "yubikey":
+        (tools / "age-plugin-yubikey").unlink()
+    if backend == "age-default":
+        keys = tmp_path / "home/.config/age/keys.txt"
+        keys.parent.mkdir(parents=True)
+        keys.write_text("synthetic identity")
+    decryptor = tools / ("gpg" if backend == "gpg" else "age")
+    decryptor.write_text('#!/bin/bash\ncat >/dev/null\ncat -- "$PAYLOAD"\n')
+    decryptor.chmod(0o755)
+    bash = shutil.which("bash")
+    assert bash
+    before = set(tmp_path.iterdir())
+    result = subprocess.run(
+        [bash, "scripts/decrypt-message.sh", "-" if use_stdin else str(ciphertext)],
+        input=ciphertext.read_bytes() if use_stdin else None,
+        cwd=ROOT,
+        env=env,
+        capture_output=True,
+        check=False,
+        timeout=10,
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == plaintext
+    assert set(tmp_path.iterdir()) == before
+
+
+def test_failed_silent_attempt_does_not_leak_partial_plaintext(tmp_path: Path) -> None:
+    env, ciphertext = decrypt_fixture(tmp_path, "failure")
+    tools = tmp_path / "bin"
+    (tools / "age").write_text("#!/bin/bash\nprintf partial-secret\nexit 17\n")
+    gpg = tools / "gpg"
+    gpg.write_text("#!/bin/bash\nprintf final-plaintext\n")
+    gpg.chmod(0o755)
+    bash = shutil.which("bash")
+    assert bash
+    before = set(tmp_path.iterdir())
+    result = subprocess.run(
+        [bash, "scripts/decrypt-message.sh", str(ciphertext)],
+        cwd=ROOT,
+        env=env,
+        capture_output=True,
+        check=False,
+        timeout=10,
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == b"final-plaintext"
+    assert set(tmp_path.iterdir()) == before
+
+
+@pytest.mark.parametrize(
+    "plaintext", [b"", b"line", b"line\n", b"line\n\n", b"a\x00b", b"\x00\xff\n"]
+)
+def test_real_age_decryption_round_trip_is_byte_exact(tmp_path: Path, plaintext: bytes) -> None:
+    age, keygen, bash = shutil.which("age"), shutil.which("age-keygen"), shutil.which("bash")
+    if not age or not keygen or not bash:
+        pytest.skip("age, age-keygen and bash are required")
+    env, ciphertext = decrypt_fixture(tmp_path, "success")
+    tools = tmp_path / "bin"
+    (tools / "age-plugin-yubikey").unlink()
+    (tools / "age").unlink()
+    (tools / "age").symlink_to(age)
+    keys = tmp_path / "home/.config/age/keys.txt"
+    keys.parent.mkdir(parents=True)
+    subprocess.run([keygen, "-o", str(keys)], capture_output=True, check=True, timeout=10)
+    recipient = (
+        subprocess.run([keygen, "-y", str(keys)], capture_output=True, check=True, timeout=10)
+        .stdout.decode()
+        .strip()
+    )
+    encrypted = subprocess.run(
+        [age, "--armor", "-r", recipient],
+        input=plaintext,
+        capture_output=True,
+        check=True,
+        timeout=10,
+    )
+    ciphertext.write_bytes(encrypted.stdout)
+    before = set(tmp_path.iterdir())
+    result = subprocess.run(
+        [bash, "scripts/decrypt-message.sh", str(ciphertext)],
+        cwd=ROOT,
+        env=env,
+        capture_output=True,
+        check=False,
+        timeout=10,
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == plaintext
+    assert set(tmp_path.iterdir()) == before
