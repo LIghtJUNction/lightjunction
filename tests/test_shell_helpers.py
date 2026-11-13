@@ -23,7 +23,10 @@ def bash(script: str, *args: str, stdin: str = "") -> subprocess.CompletedProces
         text=True,
         check=False,
         timeout=15,
-        env={**os.environ, "LC_ALL": "C.UTF-8"},
+        env={
+            **{k: v for k, v in os.environ.items() if not k.startswith("LIGHTJUNCTION_")},
+            "LC_ALL": "C.UTF-8",
+        },
     )
 
 

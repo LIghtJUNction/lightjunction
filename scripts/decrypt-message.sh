@@ -3,6 +3,20 @@
 set -euo pipefail
 
 input_source="${1:-}"
+id_file=""
+cleanup_identity() {
+    local result=$?
+    if [[ -n "$id_file" ]]; then
+        rm -f -- "$id_file" || printf 'Warning: failed to remove temporary identity file.\n' >&2
+    fi
+    return "$result"
+}
+register_identity_cleanup() {
+    trap cleanup_identity EXIT
+    trap 'exit 129' HUP
+    trap 'exit 130' INT
+    trap 'exit 143' TERM
+}
 
 if [[ -n "$input_source" && "$input_source" != "-" ]]; then
     if [[ ! -f "$input_source" ]]; then
@@ -32,13 +46,16 @@ if [[ -n "$age_block" ]] && command -v age >/dev/null 2>&1; then
         yubikey_id="$(age-plugin-yubikey --identity 2>/dev/null || true)"
         if [[ -n "$yubikey_id" ]]; then
             id_file="$(mktemp)"
-            printf '%s\n' "$yubikey_id" > "$id_file"
+            register_identity_cleanup
+            printf '%s\n' "$yubikey_id" >"$id_file"
             if decrypted="$(printf '%s\n' "$age_block" | age -d -i "$id_file" 2>/dev/null)"; then
-                rm -f "$id_file"
+                rm -f -- "$id_file"
+                id_file=""
                 printf '%s\n' "$decrypted"
                 exit 0
             fi
-            rm -f "$id_file"
+            rm -f -- "$id_file"
+            id_file=""
         fi
     fi
 
@@ -67,9 +84,11 @@ if [[ -n "$age_block" ]] && command -v age >/dev/null 2>&1; then
         yubikey_id="$(age-plugin-yubikey --identity 2>/dev/null || true)"
         if [[ -n "$yubikey_id" ]]; then
             id_file="$(mktemp)"
-            printf '%s\n' "$yubikey_id" > "$id_file"
+            register_identity_cleanup
+            printf '%s\n' "$yubikey_id" >"$id_file"
             printf '%s\n' "$age_block" | age -d -i "$id_file"
-            rm -f "$id_file"
+            rm -f -- "$id_file"
+            id_file=""
             exit 0
         fi
     fi

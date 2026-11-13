@@ -290,7 +290,7 @@ def test_installers_have_no_script_digest_configuration() -> None:
 def test_cloud_preload_and_short_imports(tmp_path: Path, library: str) -> None:
     log = tmp_path / "requests"
     result = bash(
-        r'''
+        r"""
         set -euo pipefail
         ROOT="$PWD"
         export LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid/custom
@@ -314,7 +314,7 @@ def test_cloud_preload_and_short_imports(tmp_path: Path, library: str) -> None:
         declare -F info >/dev/null
         IFS= read -r input
         printf '%s' "$input"
-        ''',
+        """,
         library,
         str(log),
         stdin="preserved stdin\n",
@@ -331,7 +331,7 @@ def test_cloud_preload_and_short_imports(tmp_path: Path, library: str) -> None:
 @pytest.mark.parametrize("failure", ["download", "source", "partial"])
 def test_cloud_import_failure_can_be_retried(failure: str) -> None:
     result = bash(
-        r'''
+        r"""
         set -euo pipefail
         source lib/preload.sh
         failure="$1"
@@ -353,7 +353,7 @@ def test_cloud_import_failure_can_be_retried(failure: str) -> None:
         failure=success
         import fixture
         [[ "$RECOVERED" == yes && ${#__PRELOAD_IMPORTED[@]} == 1 ]]
-        ''',
+        """,
         failure,
     )
     assert result.returncode == 0, result.stderr
@@ -370,7 +370,7 @@ def test_zsh_cloud_source_works_on_first_attempt(tmp_path: Path) -> None:
         [
             zsh,
             "-fc",
-            r'''
+            r"""
             set -eu
             ROOT="$PWD"
             LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid
@@ -394,7 +394,7 @@ def test_zsh_cloud_source_works_on_first_attempt(tmp_path: Path) -> None:
             curl() { printf 'RECOVERED=yes\n'; }
             import missing
             [[ "$RECOVERED" == yes ]]
-            ''',
+            """,
             "zsh",
             str(requests),
         ],
@@ -418,7 +418,10 @@ def test_funcs_lists_loaded_functions_by_category(shell: str) -> None:
     if executable is None:
         pytest.skip(f"{shell} is not installed")
     result = subprocess.run(
-        [executable, "-fc", r'''
+        [
+            executable,
+            "-fc",
+            r"""
         set -eu
         ROOT="$PWD"
         LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid
@@ -443,7 +446,8 @@ def test_funcs_lists_loaded_functions_by_category(shell: str) -> None:
         _preload_register other info
         funcs other
         if funcs --invalid; then exit 99; else [[ "$?" == 2 ]]; fi
-        '''],
+        """,
+        ],
         cwd=ROOT,
         env={k: v for k, v in os.environ.items() if not k.startswith("LIGHTJUNCTION_")},
         text=True,
@@ -474,7 +478,10 @@ def test_bootstrap_dispatches_and_preserves_shell(shell: str, tmp_path: Path) ->
     if executable is None:
         pytest.skip(f"{shell} is not installed")
     result = subprocess.run(
-        [executable, "-fc", r'''
+        [
+            executable,
+            "-fc",
+            r"""
         set -eu
         LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid/pinned/
         . lib/preload.sh
@@ -500,7 +507,11 @@ def test_bootstrap_dispatches_and_preserves_shell(shell: str, tmp_path: Path) ->
         if bootstrap linux "$2"; then exit 99; else [[ "$?" == 23 ]]; fi
         [[ ! -e "$2" ]]
         funcs preload
-        ''', "shell", str(tmp_path / "requests"), str(tmp_path / "executed")],
+        """,
+            "shell",
+            str(tmp_path / "requests"),
+            str(tmp_path / "executed"),
+        ],
         cwd=ROOT,
         env={k: v for k, v in os.environ.items() if not k.startswith("LIGHTJUNCTION_")},
         text=True,
@@ -527,7 +538,10 @@ def test_current_library_upgrades_old_preloader_in_same_shell(shell: str) -> Non
     if executable is None:
         pytest.skip(f"{shell} is not installed")
     result = subprocess.run(
-        [executable, "-fc", r'''
+        [
+            executable,
+            "-fc",
+            r"""
         set -eu
         ROOT="$PWD"
         LIGHTJUNCTION_SHELL_BASE_URL=https://example.invalid
@@ -547,7 +561,8 @@ def test_current_library_upgrades_old_preloader_in_same_shell(shell: str) -> Non
         . <(curl -fsSL "$LIGHTJUNCTION_SHELL_BASE_URL/lib/preload.sh")
         funcs old
         if bootstrap daed; then exit 99; else [[ "$?" == 2 ]]; fi
-        '''],
+        """,
+        ],
         cwd=ROOT,
         env={k: v for k, v in os.environ.items() if not k.startswith("LIGHTJUNCTION_")},
         text=True,

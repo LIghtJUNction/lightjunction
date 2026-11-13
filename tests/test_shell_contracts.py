@@ -14,9 +14,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def run_bash(script: str, *args: str) -> subprocess.CompletedProcess[str]:
     """Run an isolated Bash contract script from the repository root."""
+    env = {k: v for k, v in os.environ.items() if not k.startswith("LIGHTJUNCTION_")}
     return subprocess.run(
         ["bash", "-c", script, "bash", *args],
         cwd=ROOT,
+        env=env,
         check=False,
         capture_output=True,
         text=True,
