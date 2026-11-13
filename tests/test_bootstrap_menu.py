@@ -224,3 +224,9 @@ def test_package_refresh_failure_prevents_install(tmp_path: Path) -> None:
     )
     assert result.returncode == 0, result.stderr
     assert result.stdout == "APT:update\n"
+
+
+def test_termux_go_uses_golang_package():
+    result = run_menu("menu_package go", platform="termux")
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip() == "golang"

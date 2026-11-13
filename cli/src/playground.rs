@@ -701,16 +701,17 @@ pub struct TerminalGuard;
 impl TerminalGuard {
     fn enter() -> io::Result<Self> {
         terminal::enable_raw_mode()?;
+        let guard = Self;
         if let Err(error) = execute!(
             io::stdout(),
             EnterAlternateScreen,
             Hide,
             event::EnableMouseCapture
         ) {
-            terminal::disable_raw_mode()?;
+            drop(guard);
             return Err(error);
         }
-        Ok(Self)
+        Ok(guard)
     }
 }
 
@@ -777,6 +778,23 @@ pub fn frames(
     } else {
         (DEFAULT_WIDTH, DEFAULT_HEIGHT)
     };
+    struct CursorGuard<'a, W: Write> {
+        out: &'a mut W,
+        hidden: bool,
+    }
+    impl<W: Write> Drop for CursorGuard<'_, W> {
+        fn drop(&mut self) {
+            if self.hidden {
+                let _ = self.out.write_all(b"\x1b[?25h");
+                let _ = self.out.flush();
+            }
+        }
+    }
+    let mut guard = CursorGuard {
+        out,
+        hidden: terminal && count > 1,
+    };
+    let out = &mut guard.out;
     let mut app = App::new(width, height);
     if terminal && count > 1 {
         write!(out, "\x1b[?25l")?;
@@ -810,6 +828,33 @@ mod tests {
             language: Language::En,
             color: false,
         }
+    }
+
+    #[test]
+    fn bounded_frames_restore_cursor_after_write_failure() {
+        struct FailingWriter {
+            bytes: Vec<u8>,
+            failed: bool,
+        }
+        impl Write for FailingWriter {
+            fn write(&mut self, bytes: &[u8]) -> io::Result<usize> {
+                if !self.failed && self.bytes.ends_with(b"\x1b[?25l") {
+                    self.failed = true;
+                    return Err(io::Error::other("frame failed"));
+                }
+                self.bytes.extend_from_slice(bytes);
+                Ok(bytes.len())
+            }
+            fn flush(&mut self) -> io::Result<()> {
+                Ok(())
+            }
+        }
+        let mut out = FailingWriter {
+            bytes: Vec::new(),
+            failed: false,
+        };
+        assert!(frames(display(), 2, true, &mut out).is_err());
+        assert!(out.bytes.ends_with(b"\x1b[?25h"));
     }
 
     #[test]

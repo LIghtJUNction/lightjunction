@@ -323,5 +323,11 @@ export function initAsciiJunctions(): void {
     const canvases = document.querySelectorAll<HTMLCanvasElement>(
         "[data-ascii-junction]",
     );
-    for (const canvas of canvases) new AsciiJunction(canvas);
+    for (const canvas of canvases) {
+        try {
+            new AsciiJunction(canvas);
+        } catch {
+            canvas.hidden = true;
+        }
+    }
 }

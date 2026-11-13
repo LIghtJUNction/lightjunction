@@ -515,7 +515,15 @@ def test_typescript_uses_strict_frontend_checks() -> None:
 def test_pages_workflow_uses_node_24_actions() -> None:
     workflow = Path(".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
 
-    assert "actions/attest-build-provenance@v4" in workflow
-    assert "actions/configure-pages@v6" in workflow
-    assert "actions/upload-pages-artifact@v5" in workflow
-    assert "actions/deploy-pages@v5" in workflow
+    assert re.search(r"actions/attest-build-provenance@[0-9a-f]{40} # v4\b", workflow)
+    assert re.search(r"actions/configure-pages@[0-9a-f]{40} # v6\b", workflow)
+    assert re.search(r"actions/upload-pages-artifact@[0-9a-f]{40} # v5\b", workflow)
+    assert re.search(r"actions/deploy-pages@[0-9a-f]{40} # v5\b", workflow)
+
+
+def test_external_workflow_actions_are_sha_pinned() -> None:
+    for path in Path(".github/workflows").glob("*.yml"):
+        for action in re.findall(r"^\s*(?:-\s*)?uses:\s*(\S+)", path.read_text(), re.MULTILINE):
+            if action.startswith(("./", "docker://")):
+                continue
+            assert re.fullmatch(r"[^@]+@[0-9a-f]{40}", action), (path, action)

@@ -12,7 +12,7 @@ before(async () => {
     directory = await mkdtemp(join(tmpdir(), 'lightjunction-shader-dom-'));
     await build({ configFile: false, publicDir: false, logLevel: 'silent', build: {
         outDir: directory, emptyOutDir: true,
-        lib: { entry: fileURLToPath(new URL('../src/shader-gallery.ts', import.meta.url)), formats: ['es'], fileName: () => 'gallery.mjs' },
+        lib: { entry: Object.fromEntries(['gallery', 'ascii', 'singularity'].map((name, i) => [name, fileURLToPath(new URL(['../src/shader-gallery.ts', '../src/ascii-junction.ts', '../src/singularity-renderer.ts'][i], import.meta.url))])), formats: ['es'], fileName: (_, name) => `${name}.mjs` },
     } });
 });
 after(async () => { if (directory) await rm(directory, { recursive: true, force: true }); });
@@ -20,7 +20,7 @@ after(async () => { if (directory) await rm(directory, { recursive: true, force:
 async function using(reduced, check) {
     const window = new Window();
     const document = window.document;
-    document.body.innerHTML = `<button data-shader-previous></button><span data-shader-position></span><button data-shader-next></button><div data-shader-track tabindex="0">${['ink', 'fold', 'neon', 'unknown'].map(engine => `<article data-shader-card data-shader-engine="${engine}"><h3>${engine}</h3><canvas data-shader-canvas></canvas><span data-shader-status></span><div data-shader-fallback hidden></div><button data-shader-action="pause">Pause</button><button data-shader-action="reset">Reset</button></article>`).join('')}</div><div data-shader-dots></div>`;
+    document.body.innerHTML = `<button data-shader-previous></button><span data-shader-position></span><button data-shader-next></button><div data-shader-track tabindex="0">${['ink', 'fold', 'neon', 'unknown', 'singularity'].map(engine => `<article data-shader-card data-shader-engine="${engine}"><h3>${engine}</h3><canvas data-shader-canvas></canvas><span data-shader-status></span><div data-shader-fallback hidden></div><button data-shader-action="pause">Pause</button><button data-shader-action="reset">Reset</button></article>`).join('')}</div><div data-shader-dots></div>`;
     Object.defineProperty(document, 'hidden', { configurable: true, value: false });
     const motion = new window.EventTarget(); motion.matches = reduced;
     window.matchMedia = () => motion;
@@ -29,6 +29,11 @@ async function using(reduced, check) {
     window.HTMLCanvasElement.prototype.getContext = function () {
         const state = { sources: [], draws: 0, uniforms: {} };
         const gl = {
+            createTexture: () => ({}), createFramebuffer: () => ({}),
+            bindTexture() {}, texParameteri() {}, texImage2D() {}, bindFramebuffer() {},
+            framebufferTexture2D() {}, checkFramebufferStatus: () => 99, FRAMEBUFFER_COMPLETE: 99,
+            deleteFramebuffer() {}, deleteTexture() {}, getExtension: () => null, disable() {},
+            activeTexture() {}, uniform1i() {}, uniform2f() {},
             VERTEX_SHADER: 1, FRAGMENT_SHADER: 2, COMPILE_STATUS: 3, LINK_STATUS: 4, TRIANGLES: 5,
             createShader: type => ({ type }), shaderSource: (shader, source) => { state.sources.push(source); }, compileShader() {},
             getShaderParameter: () => true, deleteShader() {}, createProgram: () => ({}),
@@ -53,7 +58,7 @@ async function using(reduced, check) {
     const globals = { window, document, Element: window.Element,
         requestAnimationFrame: callback => { callbacks.set(++nextId, callback); return nextId; },
         cancelAnimationFrame: id => callbacks.delete(id), IntersectionObserver,
-        ResizeObserver: class { observe() {} },
+        ResizeObserver: class { observe() {} disconnect() {} },
     };
     const saved = new Map(Object.keys(globals).map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)]));
     for (const [key, value] of Object.entries(globals)) Object.defineProperty(globalThis, key, { configurable: true, writable: true, value });
@@ -124,4 +129,60 @@ test('reduced motion starts settled, supports explicit resume, and hidden tabs s
     Object.defineProperty(env.document, 'hidden', { configurable: true, value: false });
     env.document.dispatchEvent(new env.window.Event('visibilitychange')); env.step();
     assert.equal(env.state(1).draws, draws + 1);
+}));
+
+
+test('Singularity cancels frames while paused, offscreen, and document-hidden', async () => using(false, env => {
+    env.visible(4, true); env.step();
+    assert.ok(env.state(4).draws > 0);
+    env.action(4, 'pause');
+    assert.equal(env.callbacks.size, 0);
+    const draws = env.state(4).draws;
+    env.step(); assert.equal(env.state(4).draws, draws);
+    env.action(4, 'pause'); assert.equal(env.callbacks.size, 1);
+    env.visible(4, false); assert.equal(env.callbacks.size, 0);
+    env.visible(4, true);
+    Object.defineProperty(env.document, 'hidden', { configurable: true, value: true });
+    env.document.dispatchEvent(new env.window.Event('visibilitychange'));
+    assert.equal(env.callbacks.size, 0);
+    Object.defineProperty(env.document, 'hidden', { configurable: true, value: false });
+    env.document.dispatchEvent(new env.window.Event('visibilitychange'));
+    assert.equal(env.callbacks.size, 1);
+}));
+
+test('Singularity reduced motion stays idle', async () => using(true, env => {
+    env.visible(4, true); env.step();
+    assert.ok(env.state(4).draws > 0);
+    assert.equal(env.callbacks.size, 0);
+}));
+
+
+test('unavailable Canvas 2D does not abort later optional initialization', async () => {
+    const window = new Window();
+    window.document.body.innerHTML = '<canvas data-ascii-junction></canvas><canvas data-ascii-junction></canvas>';
+    const previous = globalThis.document;
+    globalThis.document = window.document;
+    let attempts = 0;
+    window.HTMLCanvasElement.prototype.getContext = () => { attempts++; return null; };
+    try {
+        const { initAsciiJunctions } = await import(pathToFileURL(join(directory, 'ascii.mjs')));
+        assert.doesNotThrow(() => initAsciiJunctions());
+        assert.equal(attempts, 2);
+        assert.ok([...window.document.querySelectorAll('canvas')].every(canvas => canvas.hidden));
+    } finally {
+        if (previous === undefined) delete globalThis.document; else globalThis.document = previous;
+        await window.happyDOM.close();
+    }
+});
+
+
+test('Singularity disposal cancels animation and cannot restart it', async () => using(false, async env => {
+    const { SingularityForgeRenderer } = await import(pathToFileURL(join(directory, 'singularity.mjs')));
+    const renderer = new SingularityForgeRenderer(env.document.createElement('canvas'));
+    renderer.start(); renderer.updateVisibility(true);
+    assert.equal(env.callbacks.size, 1);
+    renderer.dispose(); renderer.dispose();
+    assert.equal(env.callbacks.size, 0);
+    renderer.updateVisibility(true); renderer.togglePaused(); renderer.togglePaused();
+    assert.equal(env.callbacks.size, 0);
 }));

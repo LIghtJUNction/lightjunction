@@ -124,6 +124,7 @@ menu_package() {
         dnf:pkgconf|yum:pkgconf) package=pkgconf-pkg-config ;;
         xbps:fish) package=fish-shell ;;
         termux:nodejs) package=nodejs-lts ;;
+        termux:go) package=golang ;;
         termux:rust) package=rust ;;
         brew:obs-studio) package=obs ;;
     esac

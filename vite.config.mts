@@ -29,5 +29,5 @@ export default defineConfig({
         emptyOutDir: true,
         rolldownOptions: { input: 'index.html' },
     },
-    server: { port: 3000, open: true },
+    server: { host: '127.0.0.1', port: 3000, open: true },
 })

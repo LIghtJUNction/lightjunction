@@ -288,7 +288,9 @@ export class SingularityForgeRenderer {
     private mouseX = 0;
     private mouseY = 0;
     private mouseDown = false;
-    private visible = true;
+    private visible = false;
+    private frameId: number | null = null;
+    private disposed = false;
     private paused = false;
 
     constructor(canvas: HTMLCanvasElement) {
@@ -362,13 +364,15 @@ export class SingularityForgeRenderer {
     }
 
     start(): void {
+        if (this.disposed) return;
         this.resize();
-        requestAnimationFrame(this.frame);
+        document.addEventListener("visibilitychange", this.syncAnimation);
+        this.syncAnimation();
     }
 
     updateVisibility(visible: boolean): void {
         this.visible = visible;
-        this.previous = performance.now();
+        this.syncAnimation();
     }
 
     isPaused(): boolean {
@@ -377,16 +381,18 @@ export class SingularityForgeRenderer {
 
     togglePaused(): void {
         this.paused = !this.paused;
-        this.previous = performance.now();
+        this.syncAnimation();
     }
 
     reset(): void {
         this.elapsed = 0;
         this.previous = performance.now();
+        this.drawSettled();
     }
 
     toggleBloom(): boolean {
         this.bloomEnabled = !this.bloomEnabled;
+        this.drawSettled();
         return this.bloomEnabled;
     }
 
@@ -401,6 +407,7 @@ export class SingularityForgeRenderer {
     }
 
     private resize = (): void => {
+        if (this.disposed) return;
         const bounds = this.canvas.getBoundingClientRect();
         const cssWidth = Math.max(1, bounds.width || this.canvas.clientWidth);
         const cssHeight = Math.max(
@@ -451,6 +458,7 @@ export class SingularityForgeRenderer {
             width: bloomWidth,
             height: bloomHeight,
         });
+        this.drawSettled();
     };
 
     private updatePointer(event: PointerEvent): void {
@@ -605,15 +613,51 @@ export class SingularityForgeRenderer {
         gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
 
+    private drawSettled(): void {
+        if (this.disposed || !this.visible || !this.paused || document.hidden) return;
+        this.renderScene();
+        this.renderBloom();
+        this.renderComposite();
+    }
+
+    private syncAnimation = (): void => {
+        if (this.frameId !== null) cancelAnimationFrame(this.frameId);
+        this.frameId = null;
+        this.previous = performance.now();
+        this.drawSettled();
+        if (!this.disposed && this.visible && !this.paused && !document.hidden) {
+            this.frameId = requestAnimationFrame(this.frame);
+        }
+    };
+
+    dispose(): void {
+        if (this.disposed) return;
+        this.disposed = true;
+        this.syncAnimation();
+        document.removeEventListener("visibilitychange", this.syncAnimation);
+        window.removeEventListener("resize", this.resize);
+        this.resizeObserver?.disconnect();
+        this.canvas.removeEventListener("pointerdown", this.handlePointerDown);
+        this.canvas.removeEventListener("pointermove", this.handlePointerMove);
+        this.canvas.removeEventListener("pointerup", this.handlePointerUp);
+        this.canvas.removeEventListener("pointercancel", this.handlePointerCancel);
+        destroyRenderTarget(this.gl, this.sceneTarget);
+        destroyRenderTarget(this.gl, this.bloomA);
+        destroyRenderTarget(this.gl, this.bloomB);
+        this.gl.deleteProgram(this.sceneProgram);
+        this.gl.deleteProgram(this.blurProgram);
+        this.gl.deleteProgram(this.compositeProgram);
+    }
+
     private frame = (now: number): void => {
+        this.frameId = null;
+        if (this.disposed || !this.visible || this.paused || document.hidden) return;
         const delta = Math.min((now - this.previous) * 0.001, 0.1);
         this.previous = now;
-        if (!this.paused) this.elapsed += delta;
-        if (this.visible && !document.hidden) {
-            this.renderScene();
-            this.renderBloom();
-            this.renderComposite();
-        }
-        requestAnimationFrame(this.frame);
+        this.elapsed += delta;
+        this.renderScene();
+        this.renderBloom();
+        this.renderComposite();
+        this.frameId = requestAnimationFrame(this.frame);
     };
 }
