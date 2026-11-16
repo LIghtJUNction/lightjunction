@@ -21,6 +21,11 @@
 
 [모든 프로젝트](https://github.com/LIghtJUNction?tab=repositories) · [플랫폼 소스](https://github.com/TokenNotIncluded/api.lmm.best) · [스크립트 명령](ONLINE-SCRIPTS.md) · [기여 안내](CONTRIBUTING.md)
 
+
+## AI 에이전트 평가
+
+**Binance Benchmark** *(개발 중)*는 AI 에이전트의 Binance 시장 데이터 분석 능력을 평가하는 실험적 프로젝트입니다. Harbor로 작업, 실행 환경과 검증 절차를 구성하고 SSMCP로 평가 클라이언트를 연결합니다. 첫 `market-analysis` 작업의 기본 구조가 마련되었으며, 작업별 테스트는 개발 중입니다.
+
 ## 암호화 연락
 
 [age 공개 수신자](public/age-recipients.txt) · [OpenPGP 공개 키](pubkey.asc)

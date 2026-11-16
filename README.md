@@ -61,6 +61,11 @@ Termux, or macOS; use `bootstrap --dry-run` to preview without installing.
 
 A collection of small, composable Rust libraries for protocols, terminals, systems, and AI tooling. Each component has an explicit scope, with attention to runtime cost, memory use, and dependency size.
 
+
+## Agent evaluation
+
+**Binance Benchmark** *(in development)* is an experimental benchmark for AI agents analyzing Binance market data. It uses Harbor task packages for execution environments and verification, with SSMCP connecting evaluation clients. The first `market-analysis` task is scaffolded; task-specific tests are still being developed.
+
 ## Organizations
 
 Organizations I participate in:

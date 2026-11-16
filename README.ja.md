@@ -21,6 +21,11 @@
 
 [全プロジェクト](https://github.com/LIghtJUNction?tab=repositories) · [プラットフォームのソース](https://github.com/TokenNotIncluded/api.lmm.best) · [スクリプトのコマンド](ONLINE-SCRIPTS.md) · [貢献ガイド](CONTRIBUTING.md)
 
+
+## AI エージェントの評価
+
+**Binance Benchmark**（開発中）は、AI エージェントによる Binance の市場データ分析を評価する実験的なプロジェクトです。Harbor でタスク、実行環境と検証手順を構成し、SSMCP 経由で評価クライアントを接続します。最初の `market-analysis` タスクはひな形の段階で、個別のテストは開発中です。
+
 ## 暗号化して連絡
 
 [age 公開受信者](public/age-recipients.txt) · [OpenPGP 公開鍵](pubkey.asc)

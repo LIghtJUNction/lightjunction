@@ -21,6 +21,11 @@
 
 [Все проекты](https://github.com/LIghtJUNction?tab=repositories) · [Код платформы](https://github.com/TokenNotIncluded/api.lmm.best) · [Команды](ONLINE-SCRIPTS.md) · [Участие](CONTRIBUTING.md)
 
+
+## Оценка ИИ-агентов
+
+**Binance Benchmark** *(в разработке)* — экспериментальный проект для оценки того, как ИИ-агенты анализируют рыночные данные Binance. Задания, среда выполнения и проверка организованы с помощью Harbor; оценочные клиенты подключаются через SSMCP. Подготовлен каркас задачи `market-analysis`, а специальные тесты ещё разрабатываются.
+
 ## Зашифрованная связь
 
 [Публичный получатель age](public/age-recipients.txt) · [Публичный ключ OpenPGP](pubkey.asc)

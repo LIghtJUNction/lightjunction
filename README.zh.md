@@ -25,6 +25,11 @@
 
 [全部项目](https://github.com/LIghtJUNction?tab=repositories) · [平台源码](https://github.com/TokenNotIncluded/api.lmm.best) · [脚本命令](ONLINE-SCRIPTS.md) · [参与贡献](CONTRIBUTING.md)
 
+
+## Agent 基准测试
+
+**Binance Benchmark**（开发中）是针对 AI Agent 的 Binance 市场数据分析评测项目。使用 Harbor 组织任务、运行环境与验证流程，通过 SSMCP 连接评测客户端。已建立 `market-analysis` 任务骨架，专项测试仍在完善。
+
 ## 加密联系
 
 [age 公开接收密钥](public/age-recipients.txt) · [OpenPGP 公钥](pubkey.asc)
