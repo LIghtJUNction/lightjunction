@@ -24,6 +24,8 @@
 
 ## AI 에이전트 평가
 
+**[Weight Initialization Benchmark](https://github.com/WeightLang/benchmark)**는 Harbor와 WeightLang을 사용하여 AI 에이전트가 MLP, CNN, 잔차 신경망, Transformer 구조에 맞는 가중치 초기화 알고리즘을 설계하는 능력을 평가하는 초기 단계의 벤치마크입니다. v0.1 프로토콜은 CPU에서 24회의 쌍별 실험으로 후보 초기 가중치를 무작위 초기화 기준과 비교합니다. 제가 [Benchmark Radar에 제출](https://github.com/ktwu01/benchmark-radar/issues/1215)했으며, [PR #1269](https://github.com/ktwu01/benchmark-radar/pull/1269)을 통해 독자 요청 기반 탐색 목록에 추가되었습니다. 실제 AI 에이전트의 평가 결과는 아직 없습니다.
+
 **Binance Benchmark** *(개발 중)*는 AI 에이전트의 Binance 시장 데이터 분석 능력을 평가하는 실험적 프로젝트입니다. Harbor로 작업, 실행 환경과 검증 절차를 구성하고 SSMCP로 평가 클라이언트를 연결합니다. 첫 `market-analysis` 작업의 기본 구조가 마련되었으며, 작업별 테스트는 개발 중입니다.
 
 ## 암호화 연락
