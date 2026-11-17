@@ -64,6 +64,8 @@ A collection of small, composable Rust libraries for protocols, terminals, syste
 
 ## Agent evaluation
 
+**[Weight Initialization Benchmark](https://github.com/WeightLang/benchmark)** is an early-stage Harbor + WeightLang benchmark for AI agents that design architecture-aware weight initialization algorithms. Its v0.1 protocol compares candidate weights with random-initialization controls across 24 paired CPU trials spanning MLP, CNN, residual, and Transformer models. I [submitted it to Benchmark Radar](https://github.com/ktwu01/benchmark-radar/issues/1215), where [PR #1269](https://github.com/ktwu01/benchmark-radar/pull/1269) added it to the reader-request discovery list; real-agent results are pending.
+
 **Binance Benchmark** *(in development)* is an experimental benchmark for AI agents analyzing Binance market data. It uses Harbor task packages for execution environments and verification, with SSMCP connecting evaluation clients. The first `market-analysis` task is scaffolded; task-specific tests are still being developed.
 
 ## Organizations
