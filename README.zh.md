@@ -28,6 +28,8 @@
 
 ## Agent 基准测试
 
+**[Weight Initialization Benchmark（权重初始化基准测试）](https://github.com/WeightLang/benchmark)** 使用 Harbor 和 WeightLang，评估 AI Agent 能否针对 MLP、CNN、残差网络和 Transformer 设计与架构匹配的权重初始化算法。v0.1 在小型 CPU 模型上开展 24 组配对试验，与随机初始化基线比较。我已将其[提交给 Benchmark Radar](https://github.com/ktwu01/benchmark-radar/issues/1215)，并通过上游合并的 [PR #1269](https://github.com/ktwu01/benchmark-radar/pull/1269) 加入读者请求发现列表；目前属于雷达线索，真实 Agent 成绩仍待补充。
+
 **Binance Benchmark**（开发中）是针对 AI Agent 的 Binance 市场数据分析评测项目。使用 Harbor 组织任务、运行环境与验证流程，通过 SSMCP 连接评测客户端。已建立 `market-analysis` 任务骨架，专项测试仍在完善。
 
 ## 加密联系
