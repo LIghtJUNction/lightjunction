@@ -24,6 +24,8 @@
 
 ## AI エージェントの評価
 
+**[Weight Initialization Benchmark](https://github.com/WeightLang/benchmark)** は、Harbor と WeightLang を使い、AI エージェントが MLP、CNN、残差ネットワーク、Transformer の構造に応じた重み初期化アルゴリズムを設計できるかを評価する初期段階のベンチマークです。v0.1 では小規模な CPU モデル上で 24 件の対応付き試行を行い、候補の初期重みをランダム初期化の基準手法と比較します。私が [Benchmark Radar に投稿](https://github.com/ktwu01/benchmark-radar/issues/1215)し、[PR #1269](https://github.com/ktwu01/benchmark-radar/pull/1269) によって読者リクエストの発見リストに追加されました。実際の AI エージェントによる評価結果は今後の課題です。
+
 **Binance Benchmark**（開発中）は、AI エージェントによる Binance の市場データ分析を評価する実験的なプロジェクトです。Harbor でタスク、実行環境と検証手順を構成し、SSMCP 経由で評価クライアントを接続します。最初の `market-analysis` タスクはひな形の段階で、個別のテストは開発中です。
 
 ## 暗号化して連絡
