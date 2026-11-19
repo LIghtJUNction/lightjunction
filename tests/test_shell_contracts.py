@@ -304,11 +304,18 @@ def test_bootstrap_security_static_contracts() -> None:
     linux = (ROOT / "bootstrap-linux.sh").read_text(encoding="utf-8")
     mac = (ROOT / "bootstrap-macbook.sh").read_text(encoding="utf-8")
     deploy = (ROOT / "deploy-ssh-keys.sh").read_text(encoding="utf-8")
-    tracked_paths = subprocess.run(
-        ["git", "ls-files"], cwd=ROOT, check=True, capture_output=True, text=True
+    working_paths = subprocess.run(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
     ).stdout.splitlines()
+    # Review the working tree before staging, including new files and pending deletions.
     tracked = "\n".join(
-        (ROOT / path).read_text(encoding="utf-8", errors="replace") for path in tracked_paths
+        (ROOT / path).read_text(encoding="utf-8", errors="replace")
+        for path in working_paths
+        if (ROOT / path).is_file()
     )
     assert '[[ -f "$file" ]]' not in linux
     assert '[[ -f "$file" ]]' not in mac

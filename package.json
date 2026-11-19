@@ -1,8 +1,8 @@
 {
-  "name": "lightjunction-terminal",
+  "name": "lightjunction-profile",
   "version": "1.0.0",
   "private": true,
-  "description": "LIghtJUNction — small tools, open code, encrypted contact",
+  "description": "LightJunction — organizations, Project Z, and encrypted contact",
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
@@ -14,22 +14,16 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run test:crypto && npm run build",
-    "test:site": "node --test tests/profile.test.mjs tests/swarm*.test.mjs",
-    "test:legacy": "npm run test:game && npm run test:exploration && npm run test:shaders && node --test tests/particle-text.test.mjs",
-    "test:crypto": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/age-crypto.test.mjs tests/public-key.test.mjs",
-    "test:exploration": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/expedition-*.test.mjs",
-    "test:shaders": "node --test --test-timeout=30000 tests/shader-gallery.test.mjs",
-    "test:game": "node --test --test-timeout=30000 tests/token-drift*.test.mjs"
+    "test:site": "node --test tests/profile.test.mjs",
+    "test:crypto": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-timeout=30000 tests/age-crypto.test.mjs tests/public-key.test.mjs"
   },
   "dependencies": {
     "@noble/ciphers": "^2.4.0",
     "@noble/curves": "2.4.0",
     "@scure/base": "2.4.0",
-    "age-encryption": "0.3.1",
-    "openpgp": "^6.3.1"
+    "age-encryption": "0.3.1"
   },
   "devDependencies": {
-    "happy-dom": "^21.0.4",
     "typescript": "^6.0.3",
     "vite": "^8.3.8"
   }

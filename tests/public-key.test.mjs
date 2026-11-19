@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { AGE_RECIPIENT, GPG_FINGERPRINT } from '../src/public-key.ts';
+import { AGE_RECIPIENT, GPG_PUBLIC_KEY } from '../src/public-key.ts';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
 
@@ -26,11 +26,8 @@ test('English and Chinese contact instructions publish the configured age key', 
     }
 });
 
-test('terminal contact reuses shared public keys instead of hardcoded copies', () => {
-    const terminal = read('../src/terminal.ts');
-    assert.ok(!terminal.includes(AGE_RECIPIENT));
-    assert.ok(!terminal.includes(GPG_FINGERPRINT));
-    assert.ok(terminal.includes('escapeHtml(AGE_RECIPIENT)'));
-    assert.ok(terminal.includes('escapeHtml(GPG_FINGERPRINT)'));
-    assert.ok(terminal.includes('navigator.clipboard.writeText(AGE_RECIPIENT)'));
+test('website downloads and the published CLI carry identical public keys', () => {
+    assert.equal(read('../pubkey.asc').trim(), GPG_PUBLIC_KEY.trim());
+    assert.equal(read('../cli/keys/pubkey.asc').trim(), GPG_PUBLIC_KEY.trim());
+    assert.equal(read('../cli/keys/age-recipients.txt').trim(), AGE_RECIPIENT);
 });

@@ -7,7 +7,6 @@ const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8'
 const html = read('index.html');
 const css = read('site/profile.css');
 const script = read('site/profile.mjs');
-const swarm = read('site/swarm.mjs');
 
 test('static profile exposes identity, organizations, Project Z, and contact without JS', () => {
   assert.match(html, /<h1\b[^>]*>I'm LightJunction<\/h1>/);
@@ -19,7 +18,7 @@ test('static profile exposes identity, organizations, Project Z, and contact wit
   assert.doesNotMatch(html, /CortexFS|MagicNet|LightFlow|OniMods|LMM API/);
   assert.match(html, /href="mailto:lightjunction\.me@gmail\.com"/);
   assert.doesNotMatch(html, /<canvas\b|<iframe\b|contenteditable=/i);
-  assert.doesNotMatch(html, /data-build-state=|class="[^"]*\bbuild-item\b/, 'static markup must not conceal content when JavaScript is disabled');
+  assert.doesNotMatch(html, /data-build|data-scene|data-construction|scene-controls/, 'content must be visible immediately, without an animation bootstrap');
 });
 
 test('new entry points exist and do not load the legacy 3D runtime', () => {
@@ -28,7 +27,7 @@ test('new entry points exist and do not load the legacy 3D runtime', () => {
   }
   assert.match(html, /src="\.\/site\/profile\.mjs"/);
   assert.doesNotMatch(html, /site\/(?:site|token-cloud)\.(?:mjs|css)/);
-  assert.doesNotMatch(`${script}\n${swarm}`, /\bfetch\s*\(|\bXMLHttpRequest\b|\bWebSocket\b|https?:\/\//);
+  assert.doesNotMatch(script, /\bfetch\s*\(|\bXMLHttpRequest\b|\bWebSocket\b|https?:\/\//);
   assert.doesNotMatch(css, /@import/i);
   for (const [, quoted, unquoted] of css.matchAll(/url\(\s*(?:['"]([^'"]+)['"]|([^\s)]+))\s*\)/g)) {
     const path = quoted || unquoted;
@@ -99,14 +98,7 @@ test('JS-only controls start hidden while the native disclosure remains usable',
   for (const id of ['language-toggle', 'copy-email']) {
     assert.match(html, new RegExp(`<button[^>]*id="${id}"[^>]*hidden`));
   }
-  const controls = html.match(/<div\b[^>]*class="scene-controls"[^>]*hidden[^>]*>([\s\S]*?)<\/div>/)?.[1];
-  assert.ok(controls, 'scene controls must remain hidden until their enhancement succeeds');
-  for (const id of ['recompose', 'motion-toggle']) {
-    assert.match(controls, new RegExp(`<button[^>]*id="${id}"[^>]*type="button"`));
-  }
-  assert.match(controls, /id="motion-toggle"[^>]*aria-pressed="false"/);
   assert.match(css, /\[hidden\]\s*\{[^}]*display:\s*none\s*!important/);
-  assert.match(css, /\.swarm-canvas\s*\{[^}]*pointer-events:\s*none/);
   assert.match(html, /<details[^>]*id="elsewhere"/);
   assert.match(html, /<summary>/);
   assert.match(script, /event\.key === 'Escape'/);

@@ -1,51 +1,70 @@
 # Contributing
 
-This is a personal profile repository, but focused fixes and improvements are
-welcome.
+Focused fixes are welcome. Keep changes tied to a visible problem, verify them
+locally, and preserve the public keys and Challenge II material.
 
-## Local Setup
+## Local setup
 
-```bash
+```sh
 npm ci
 uv sync --dev
 ```
 
-## Quality Gates
+Node.js 24 or newer runs the frontend checks. The crypto integration tests also
+need the `age` executable. Rust commands use the toolchain pinned in
+`cli/rust-toolchain.toml`.
 
-Run the same checks that CI uses:
+## Local checks
 
-```bash
-scripts/check.sh
+Run the domain checks affected by a change:
+
+```sh
+scripts/check-shell.sh      # Bash syntax and ShellCheck
+scripts/check-python.sh     # Ruff, mypy, and pytest
+scripts/check-frontend.sh   # Crypto checks, profile tests, and production build
+scripts/check.sh            # All three domains above
 ```
 
-CI runs the shell, Python, and frontend gates as separate parallel jobs. Each
-one calls the matching domain script directly, so you can also run just the
-part you touched:
+For CLI changes, run these commands from `cli/`:
 
-```bash
-scripts/check-shell.sh      # bash -n + shellcheck
-scripts/check-python.sh     # ruff format/lint + mypy + pytest
-scripts/check-frontend.sh   # npm run check (typecheck + build)
+```sh
+cargo fmt --all -- --check
+cargo clippy --locked --all-targets -- -D warnings
+cargo test --locked --all-targets
+uv run --no-project python -m unittest discover -s scripts -p 'test_*.py'
 ```
 
-## Pull Requests
-
-- Keep changes scoped and explain the user-visible reason.
-- Do not commit generated files from `dist/`, `logs/`, caches, or local env
-  files.
-- Keep the README stable and concise; link to notes instead of embedding feeds.
+Daily verification runs locally. The CI workflows remain available on demand,
+and the CLI matrix is reused by the official release workflow. Pages deployment
+runs when published website inputs change. CLI release preparation, native
+artifacts, and registry publication remain in the release workflow.
 
 ## Repository map
 
-- `index.html` and `site/profile.*`: the published static profile.
-- `src/`, the other HTML pages, and `site/particle-*`: retained experiments;
-  they are not shipped with the profile. Run `npm run test:legacy` to check them.
-- `scripts/` and the root shell scripts: local tools and setup helpers.
-- `.agents/skills/` and `AGENTS.md`: assistant workflows and operating rules.
+| Path | Purpose |
+| --- | --- |
+| `index.html`, `site/profile.*` | Published profile and optional browser enhancements |
+| `archive.html`, `public/junction-ii.png` | Original public Challenge II section and artifact |
+| `public/fonts/`, `public/readme-hero.svg` | Current fonts and README artwork |
+| `pubkey.asc`, `public/age-recipients.txt` | Public contact downloads |
+| `src/age-crypto.ts`, `src/public-key.ts` | Retained, independently tested crypto helper and public constants |
+| `cli/` | Rust command-line tool, installers, and release tooling |
+| `scripts/`, `lib/`, root shell scripts | Local checks and machine setup helpers |
+| `tests/` | Current profile, crypto, repository, and shell regression checks |
+| `.agents/skills/`, `AGENTS.md` | Repository workflows and operating instructions |
+| `workspace/` | Ignored local working material |
 
-Only CI and Pages deployment run automatically. The historical project-card
-snapshot can be refreshed manually with `uv run scripts/fetch-github-data.py`.
+Retired games, visual experiments, generated project snapshots, and their tests
+are available through Git history. Do not restore them as build inputs without a
+current product requirement.
 
-## Licensing and upstream feedback
+## Changes and licensing
 
-Read [LICENSE](LICENSE), [LICENSING.md](LICENSING.md) and [UPSTREAM.toml](UPSTREAM.toml) before submitting. New contributors may submit only code they have rights to license. For a fork following an external upstream, AUL asks for confirmed upstream issues and retained changes to be reported upstream, with no duplicate reports or disclosure of secrets. AUL does not grant access or publication authority.
+Keep commits scoped, describe the user-visible reason, and include the checks
+actually run. Never commit `dist/`, build caches, credentials, or local runtime
+state. Keep README identity and contact information stable.
+
+Read [LICENSE](LICENSE), [LICENSING.md](LICENSING.md), and
+[UPSTREAM.toml](UPSTREAM.toml) before contributing. Submit only material you have
+the right to license. An upstream feedback requirement does not authorize
+publishing private data or secrets.

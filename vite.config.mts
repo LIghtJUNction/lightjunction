@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { defineConfig } from 'vite'
 
-// One public website. Legacy game/archive sources remain in Git, not in dist.
+// Publish the profile, its downloads, and the preserved static challenge.
 export default defineConfig({
     root: '.',
     base: '/lightjunction/',
@@ -9,6 +9,11 @@ export default defineConfig({
     plugins: [{
         name: 'public-downloads',
         generateBundle() {
+            // Keep the protected source section verbatim. Only resolve its image
+            // against archive.html's deployment directory in the generated copy.
+            const archive = readFileSync(new URL('./archive.html', import.meta.url), 'utf8')
+                .replace('src="/junction-ii.png"', 'src="./junction-ii.png"')
+            this.emitFile({ type: 'asset', fileName: 'archive.html', source: archive })
             // Keep public keys and the original challenge available verbatim.
             for (const [fileName, sourcePath] of [
                 ['pubkey.asc', './pubkey.asc'],

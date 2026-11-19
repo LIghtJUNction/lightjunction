@@ -1,6 +1,4 @@
 /** Progressive enhancements only: the profile and its links work without JS. */
-import { initSwarm } from './swarm.mjs';
-
 const storageKey = 'lightjunction.profile.language';
 
 export function readLanguage(storage) {
@@ -37,7 +35,6 @@ export function initProfile(root, browser) {
   let language = applyLanguage(root, readLanguage(storage));
   let feedbackTimer;
   let feedbackVersion = 0;
-  let scene;
   const toggle = root.getElementById('language-toggle');
   const copy = root.getElementById('copy-email');
   const status = root.getElementById('copy-status');
@@ -58,7 +55,6 @@ export function initProfile(root, browser) {
   toggle.addEventListener('click', () => {
     clearFeedback();
     language = applyLanguage(root, language === 'en' ? 'zh' : 'en');
-    scene?.refresh();
     try { storage?.setItem(storageKey, language); } catch { /* Preference persistence is optional. */ }
   });
 
@@ -86,7 +82,6 @@ export function initProfile(root, browser) {
     }
   });
   browser.addEventListener('pagehide', clearFeedback);
-  scene = initSwarm(root, browser);
 }
 
 if (typeof document !== 'undefined') initProfile(document, window);

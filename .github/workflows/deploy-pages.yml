@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'archive.html'
       - 'site/**'
       - 'public/**'
       - 'pubkey.asc'

@@ -1,34 +1,22 @@
 [project]
 name = "lightjunction"
 version = "0.1.0"
-description = "LIghtJUNction personal homepage and GitHub automation"
+description = "LightJunction profile and local tooling checks"
 requires-python = ">=3.11"
-dependencies = [
-    "requests>=2.32.0",
-]
+dependencies = []
 
 [dependency-groups]
 dev = [
     "mypy>=2.1.0",
     "pytest>=8.0.0",
     "ruff>=0.15.16",
-    "types-requests>=2.33.0.20260518",
 ]
 
 [tool.mypy]
 python_version = "3.11"
 warn_return_any = true
 warn_unused_ignores = true
-files = [
-    "scripts",
-    "tests",
-]
-
-[[tool.mypy.overrides]]
-module = [
-    "fetch_github_data",
-]
-ignore_missing_imports = true
+files = ["tests"]
 
 [tool.ruff]
 line-length = 100

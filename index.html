@@ -13,17 +13,6 @@
   <link rel="canonical" href="https://lightjunction.github.io/lightjunction/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23171717'/%3E%3Cpath d='M8 8v16h7M24 8v10q0 6-6 6M15 8v8h3' fill='none' stroke='white' stroke-width='2.8'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./site/profile.css">
-  <script>
-    // Avoid a complete-page flash; failed/blocked modules still reveal the HTML.
-    try {
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('(forced-colors: active)').matches) {
-        document.documentElement.dataset.construction = 'boot';
-        setTimeout(() => {
-          if (document.documentElement.dataset.construction === 'boot') delete document.documentElement.dataset.construction;
-        }, 3500);
-      }
-    } catch { /* Static HTML remains the fallback. */ }
-  </script>
   <title>LightJunction — Organizations &amp; Project Collections</title>
 </head>
 <body id="top">
@@ -31,17 +20,9 @@
   <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
-      <symbol id="i-message" viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6 4V6a2 2 0 0 1 2-2Z"/><path d="M7 9h10M7 13h6"/></symbol>
-      <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.6 7.4L22 12l-7.4 2.6L12 22l-2.6-7.4L2 12l7.4-2.6Z"/></symbol>
-      <symbol id="i-network" viewBox="0 0 24 24"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="19" r="3"/><path d="M8 6h8M6.5 8.5l4 8M17.5 8.5l-4 8"/></symbol>
-      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 10 5-10 5L2 8ZM2 12l10 5 10-5M2 16l10 5 10-5"/></symbol>
-      <symbol id="i-flow" viewBox="0 0 24 24"><path d="M2 16h5V6h10v10h5M2 20h9V10h2v10h9"/></symbol>
-      <symbol id="i-blocks" viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></symbol>
       <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></symbol>
       <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
       <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
-      <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M3 7h3c5 0 7 10 12 10h3M17 13l4 4-4 4M3 17h3c2 0 4-2 5-4M14 8c1-1 3-1 4-1h3M17 3l4 4-4 4"/></symbol>
-      <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
       <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .8a11.2 11.2 0 0 0-3.54 21.82c.56.1.77-.24.77-.54v-2.09c-3.12.68-3.78-1.33-3.78-1.33-.51-1.29-1.25-1.63-1.25-1.63-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.62 1.22 3.26.93.1-.73.39-1.22.71-1.5-2.49-.28-5.1-1.25-5.1-5.54 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.08 1.15a10.72 10.72 0 0 1 5.6 0c2.14-1.45 3.08-1.15 3.08-1.15.61 1.54.23 2.68.11 2.96.72.78 1.15 1.78 1.15 3 0 4.3-2.62 5.26-5.11 5.54.4.35.76 1.03.76 2.08v3.06c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></symbol>
       <symbol id="i-x" viewBox="0 0 24 24"><path d="m3 3 14 18h4L7 3ZM21 3l-7.2 8.1M3 21l7.2-8.1"/></symbol>
     </defs>
@@ -71,35 +52,31 @@
     </header>
 
     <main>
-      <section class="intro assembly-section" id="about" aria-labelledby="intro-title" tabindex="-1" data-scene>
-        <div class="section-kicker" data-build><span class="small-cross" aria-hidden="true">+</span><span data-en="Open source. Built together." data-zh="开放源码，一起构建。">Open source. Built together.</span><span class="edition" aria-hidden="true">LJ / 01</span></div>
+      <section class="intro page-section" id="about" aria-labelledby="intro-title" tabindex="-1">
+        <div class="section-kicker"><span class="small-cross" aria-hidden="true">+</span><span data-en="Open source. Built together." data-zh="开放源码，一起构建。">Open source. Built together.</span><span class="edition" aria-hidden="true">LJ / 01</span></div>
         <h1 id="intro-title" data-en="I'm LightJunction" data-zh="你好，我是 LightJunction">I'm LightJunction</h1>
         <div class="intro-columns">
-          <div class="intro-description" data-build>
+          <div class="intro-description">
             <p><span data-en="The " data-zh="这里介绍我参与的">The </span><strong data-en="organizations and project collections" data-zh="组织与项目集">organizations and project collections</strong><span data-en=" I build with. Shared tools, open systems, and ideas that grow through collaboration." data-zh="。从共同开发的工具，到开放的系统，让想法在协作中成为软件。"> I build with. Shared tools, open systems, and ideas that grow through collaboration.</span></p>
             <div class="intro-links">
               <a class="intro-link" href="#organizations"><span data-en="Meet the organizations" data-zh="了解这些组织">Meet the organizations</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
               <a class="intro-link secondary-link" href="#project-z"><span data-en="Explore Project Z" data-zh="探索 Project Z">Explore Project Z</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
           </div>
-          <aside class="margin-note" data-build>
+          <aside class="margin-note">
             <span class="note-marker" aria-hidden="true">[ &nbsp; ]</span>
             <p data-en="Small components. Clear boundaries. Open code that we can understand, combine, and improve together." data-zh="组件小，边界清晰。让代码可以被理解、组合，也可以一起改进。">Small components. Clear boundaries. Open code that we can understand, combine, and improve together.</p>
           </aside>
         </div>
         <div class="intro-bottom">
-          <a class="scroll-note" href="#organizations" data-build><span aria-hidden="true">↓</span><span data-en="People, systems, and shared work" data-zh="一起做事的人，共同构建的系统">People, systems, and shared work</span></a>
-          <div class="scene-controls" hidden>
-            <button id="recompose" type="button"><svg class="icon small" aria-hidden="true"><use href="#i-shuffle"/></svg><span data-en="Build again" data-zh="重新搭建">Build again</span></button>
-            <button id="motion-toggle" type="button" aria-pressed="false"><svg class="icon small" aria-hidden="true"><use href="#i-pause"/></svg><span data-en="Pause motion" data-zh="暂停动态">Pause motion</span></button>
-          </div>
+          <a class="scroll-note" href="#organizations"><span aria-hidden="true">↓</span><span data-en="People, systems, and shared work" data-zh="一起做事的人，共同构建的系统">People, systems, and shared work</span></a>
         </div>
       </section>
 
-      <section class="list-section assembly-section" id="organizations" aria-labelledby="organizations-title" data-scene>
+      <section class="list-section page-section" id="organizations" aria-labelledby="organizations-title">
         <span id="now" class="anchor-alias" aria-hidden="true"></span>
-        <span class="section-rule" data-build="line" aria-hidden="true"></span>
-        <div class="section-heading" data-build>
+        <span class="section-rule" aria-hidden="true"></span>
+        <div class="section-heading">
           <div><span class="section-index" aria-hidden="true">02 / ORGANIZATIONS</span><h2 id="organizations-title" data-en="Built together." data-zh="一起构建。">Built together.</h2></div>
           <p class="section-intro" data-en="The communities and teams I contribute to." data-zh="我参与其中、一起做事的社区与团队。">The communities and teams I contribute to.</p>
         </div>
@@ -112,12 +89,12 @@
         </ul>
       </section>
 
-      <section class="list-section collection-section assembly-section" id="collections" aria-labelledby="collections-title" data-scene>
+      <section class="list-section collection-section page-section" id="collections" aria-labelledby="collections-title">
         <span id="work" class="anchor-alias" aria-hidden="true"></span>
-        <span class="section-rule" data-build="line" aria-hidden="true"></span>
-        <div class="section-heading" data-build><div><span class="section-index" aria-hidden="true">03 / COLLECTIONS</span><h2 id="collections-title" data-en="A shared direction." data-zh="一组项目，一个方向。">A shared direction.</h2></div><span class="section-intro" data-en="Independent parts. Designed to fit." data-zh="独立的组件，可以一起使用。">Independent parts. Designed to fit.</span></div>
+        <span class="section-rule" aria-hidden="true"></span>
+        <div class="section-heading"><div><span class="section-index" aria-hidden="true">03 / COLLECTIONS</span><h2 id="collections-title" data-en="A shared direction." data-zh="一组项目，一个方向。">A shared direction.</h2></div><span class="section-intro" data-en="Independent parts. Designed to fit." data-zh="独立的组件，可以一起使用。">Independent parts. Designed to fit.</span></div>
         <article class="collection" id="project-z" aria-labelledby="project-z-title">
-          <div class="collection-overview" data-build="card">
+          <div class="collection-overview">
             <div>
               <span class="collection-label" data-en="RUST LIBRARY COLLECTION" data-zh="RUST 基础库项目集">RUST LIBRARY COLLECTION</span>
               <h3 id="project-z-title">Project Z<span class="brand-period">.</span></h3>
@@ -128,11 +105,11 @@
             </div>
           </div>
           <div class="collection-domains">
-            <div data-build="card"><span class="domain-index" aria-hidden="true">01</span><h4 data-en="Data &amp; protocols" data-zh="数据与协议">Data &amp; protocols</h4><p data-en="Encoding, byte search, and message parsing. Reusable pieces for moving and interpreting data." data-zh="编码、字节搜索与消息解析，为数据的传输和处理提供可复用组件。">Encoding, byte search, and message parsing. Reusable pieces for moving and interpreting data.</p></div>
-            <div data-build="card"><span class="domain-index" aria-hidden="true">02</span><h4 data-en="Terminals &amp; systems" data-zh="终端与系统">Terminals &amp; systems</h4><p data-en="Command-line parsing, terminal output, system sampling, and native plugin interfaces." data-zh="命令行解析、终端输出、系统信息采集与原生插件接口。">Command-line parsing, terminal output, system sampling, and native plugin interfaces.</p></div>
-            <div data-build="card"><span class="domain-index" aria-hidden="true">03</span><h4 data-en="AI infrastructure" data-zh="AI 基础设施">AI infrastructure</h4><p data-en="Protocol conversion, model calls, tool loops, and MCP. Combine the capabilities your application needs." data-zh="协议转换、模型调用、工具回合与 MCP，按应用需要组合基础能力。">Protocol conversion, model calls, tool loops, and MCP. Combine the capabilities your application needs.</p></div>
+            <div><span class="domain-index" aria-hidden="true">01</span><h4 data-en="Data &amp; protocols" data-zh="数据与协议">Data &amp; protocols</h4><p data-en="Encoding, byte search, and message parsing. Reusable pieces for moving and interpreting data." data-zh="编码、字节搜索与消息解析，为数据的传输和处理提供可复用组件。">Encoding, byte search, and message parsing. Reusable pieces for moving and interpreting data.</p></div>
+            <div><span class="domain-index" aria-hidden="true">02</span><h4 data-en="Terminals &amp; systems" data-zh="终端与系统">Terminals &amp; systems</h4><p data-en="Command-line parsing, terminal output, system sampling, and native plugin interfaces." data-zh="命令行解析、终端输出、系统信息采集与原生插件接口。">Command-line parsing, terminal output, system sampling, and native plugin interfaces.</p></div>
+            <div><span class="domain-index" aria-hidden="true">03</span><h4 data-en="AI infrastructure" data-zh="AI 基础设施">AI infrastructure</h4><p data-en="Protocol conversion, model calls, tool loops, and MCP. Combine the capabilities your application needs." data-zh="协议转换、模型调用、工具回合与 MCP，按应用需要组合基础能力。">Protocol conversion, model calls, tool loops, and MCP. Combine the capabilities your application needs.</p></div>
           </div>
-          <details class="collection-directory" data-build="card">
+          <details class="collection-directory">
             <summary><span data-en="Explore the library collection" data-zh="展开组件目录">Explore the library collection</span><span class="directory-symbol" aria-hidden="true">+</span></summary>
             <nav class="library-links" aria-label="Project Z libraries" data-en-label="Project Z libraries" data-zh-label="Project Z 组件目录">
               <a href="https://github.com/LIghtJUNction/z58" target="_blank" rel="noopener noreferrer">z58</a>
@@ -156,8 +133,8 @@
           </details>
         </article>
       </section>
-      <section class="list-section assembly-section gratitude" id="gratitude" aria-labelledby="gratitude-title" data-scene>
-        <span class="section-rule" data-build="line" aria-hidden="true"></span>
+      <section class="list-section page-section gratitude" id="gratitude" aria-labelledby="gratitude-title">
+        <span class="section-rule" aria-hidden="true"></span>
         <h2 id="gratitude-title" data-en="With gratitude" data-zh="真诚致谢">With gratitude</h2>
         <p>
           <span data-en="I love " data-zh="我爱 ">I love </span><a class="text-link" href="https://openai.com/" target="_blank" rel="noopener noreferrer">OpenAI</a><span data-en=" and " data-zh="，也爱"> and </span><a class="text-link" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a><span data-en=". My heartfelt thanks to everyone at OpenAI for creating tools that help me learn, explore ideas, and build open-source projects." data-zh="。真诚感谢 OpenAI 团队创造了这些帮助我学习、探索想法和开发开源项目的工具。">. My heartfelt thanks to everyone at OpenAI for creating tools that help me learn, explore ideas, and build open-source projects.</span>
@@ -165,11 +142,11 @@
         <p><a class="text-link" href="https://chatgpt.com/u/lightjunction.me" target="_blank" rel="noopener noreferrer" data-en="My ChatGPT profile" data-zh="我的 ChatGPT Profile">My ChatGPT profile</a></p>
       </section>
 
-      <section class="list-section encrypted-contact assembly-section" id="contact" aria-labelledby="encryption-title" data-scene>
-        <span class="section-rule" data-build="line" aria-hidden="true"></span>
+      <section class="list-section encrypted-contact page-section" id="contact" aria-labelledby="encryption-title">
+        <span class="section-rule" aria-hidden="true"></span>
         <span id="workbench" class="anchor-alias" aria-hidden="true"></span>
-        <div class="section-kicker" data-build><span class="small-cross" aria-hidden="true">+</span><span data-en="Good things start with a conversation." data-zh="好事情，从一次交流开始。">Good things start with a conversation.</span></div>
-        <p class="contact-line" data-build><span data-en="Have a question or an idea? " data-zh="有问题、有想法，或者只是想聊聊？">Have a question or an idea? </span><a class="text-link" href="mailto:lightjunction.me@gmail.com" data-en="Say hello" data-zh="写封邮件">Say hello</a><span data-en=" at " data-zh="给我："> at </span><span class="email-group"><a class="email" href="mailto:lightjunction.me@gmail.com">lightjunction.me@gmail.com</a><button class="copy-button" id="copy-email" type="button" hidden aria-label="Copy email address" data-en-label="Copy email address" data-zh-label="复制邮箱地址"><svg class="icon small" aria-hidden="true"><use href="#i-copy"/></svg></button></span></p>
+        <div class="section-kicker"><span class="small-cross" aria-hidden="true">+</span><span data-en="Good things start with a conversation." data-zh="好事情，从一次交流开始。">Good things start with a conversation.</span></div>
+        <p class="contact-line"><span data-en="Have a question or an idea? " data-zh="有问题、有想法，或者只是想聊聊？">Have a question or an idea? </span><a class="text-link" href="mailto:lightjunction.me@gmail.com" data-en="Say hello" data-zh="写封邮件">Say hello</a><span data-en=" at " data-zh="给我："> at </span><span class="email-group"><a class="email" href="mailto:lightjunction.me@gmail.com">lightjunction.me@gmail.com</a><button class="copy-button" id="copy-email" type="button" hidden aria-label="Copy email address" data-en-label="Copy email address" data-zh-label="复制邮箱地址"><svg class="icon small" aria-hidden="true"><use href="#i-copy"/></svg></button></span></p>
         <h2 id="encryption-title" data-en="Encrypted contact" data-zh="加密联系">Encrypted contact</h2>
         <p><a class="text-link" href="./age-recipients.txt" download data-en="age recipient" data-zh="age 公开接收密钥">age recipient</a> · <a class="text-link" href="./pubkey.asc" download data-en="OpenPGP public key" data-zh="OpenPGP 公钥">OpenPGP public key</a></p>
         <p data-en="Download the age recipient, encrypt locally, then email the .age file." data-zh="下载 age 接收密钥，在本地加密，再通过邮件发送 .age 文件。">Download the age recipient, encrypt locally, then email the .age file.</p>
@@ -177,19 +154,18 @@
       </section>
     </main>
 
-    <footer class="footer assembly-section" id="footer" data-scene>
-      <span class="section-rule" data-build="line" aria-hidden="true"></span>
-      <nav class="social-links" data-build aria-label="Social and contact links" data-en-label="Social and contact links" data-zh-label="社交与联系链接">
+    <footer class="footer page-section" id="footer">
+      <span class="section-rule" aria-hidden="true"></span>
+      <nav class="social-links" aria-label="Social and contact links" data-en-label="Social and contact links" data-zh-label="社交与联系链接">
         <a href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg></a>
         <a href="https://x.com/LIghtJUNction_x" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" title="X / Twitter"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></a>
         <a href="mailto:lightjunction.me@gmail.com" aria-label="Email" data-en-label="Email" data-zh-label="邮件" title="lightjunction.me@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></a>
       </nav>
-      <a class="follow-link" data-build href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer"><span data-en="Follow along" data-zh="保持联系">Follow along</span><svg class="icon small" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <div class="colophon" data-build><span data-en="A personal space, built with a little help from agents." data-zh="一个个人空间，也有 Agent 参与构建。">A personal space, built with a little help from agents.</span><a href="https://github.com/LIghtJUNction/lightjunction" target="_blank" rel="noopener noreferrer" data-en="Source" data-zh="源码">Source</a></div>
+      <a class="follow-link" href="https://github.com/LIghtJUNction" target="_blank" rel="noopener noreferrer"><span data-en="Follow along" data-zh="保持联系">Follow along</span><svg class="icon small" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <div class="colophon"><span data-en="A personal space, built with a little help from agents." data-zh="一个个人空间，也有 Agent 参与构建。">A personal space, built with a little help from agents.</span><a href="https://github.com/LIghtJUNction/lightjunction" target="_blank" rel="noopener noreferrer" data-en="Source" data-zh="源码">Source</a></div>
     </footer>
   </div>
   <p class="copy-status" id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
-  <p class="visually-hidden" id="scene-status" role="status" aria-live="polite" aria-atomic="true"></p>
   <script type="module" src="./site/profile.mjs"></script>
 </body>
 </html>
