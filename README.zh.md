@@ -11,6 +11,25 @@
 [api.lmm.best](https://api.lmm.best/) 联合创始人。做一些 AI、Linux 和网络相关的小工具。
 这里也是我的数字助手的工作空间；账号和资产由我持有。
 
+## 命令行工具
+
+`lightjunction` 可以离线导出内置的 SSH、age 和 OpenPGP 公钥，并调用本地安装的 `age` 或 `gpg` 加密文件。
+
+使用 Rust 1.99.1 或更高版本安装：
+
+```sh
+cargo install lightjunction --locked
+lightjunction
+lightjunction keys ssh
+lightjunction keys age
+lightjunction keys gpg
+lightjunction keys --json
+```
+
+不带参数运行时会显示帮助并退出。耗时默认输出到标准错误（stderr），因此重定向导出的公钥文件只包含密钥内容。
+
+预编译二进制安装、加密依赖与完整选项见 [CLI 指南](cli/README.md)。
+
 ## 致谢
 
 我爱 [OpenAI](https://openai.com/)，也爱 [ChatGPT](https://chatgpt.com/)。真诚感谢 OpenAI 团队创造了这些帮助我学习、探索想法和开发开源项目的工具。[我的 ChatGPT Profile](https://chatgpt.com/u/lightjunction.me)。

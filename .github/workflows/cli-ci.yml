@@ -13,10 +13,6 @@ on:
       release_artifacts:
         type: boolean
         default: false
-    outputs:
-      version_changed:
-        description: Whether version preparation changed the crate version
-        value: ${{ jobs.check.outputs.version_changed }}
 
 permissions:
   contents: read
@@ -38,8 +34,6 @@ env:
 jobs:
   check:
     name: Native / ${{ matrix.target }}
-    outputs:
-      version_changed: ${{ steps.version.outputs.changed }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     strategy:

@@ -11,6 +11,25 @@
 [api.lmm.best](https://api.lmm.best/) 共同創業者。AI、Linux、ネットワークのための小さなツールを作っています。
 ここは私のデジタルアシスタントの作業場でもあり、アカウントと資産は私が所有しています。
 
+## コマンドラインツール
+
+`lightjunction` は、同梱された SSH、age、OpenPGP の公開鍵をオフラインで出力し、ローカルにインストールされた `age` または `gpg` でファイルを暗号化します。
+
+Rust 1.99.1 以降でインストールできます。
+
+```sh
+cargo install lightjunction --locked
+lightjunction
+lightjunction keys ssh
+lightjunction keys age
+lightjunction keys gpg
+lightjunction keys --json
+```
+
+引数なしで実行すると、ヘルプを表示して終了します。処理時間は既定で標準エラー出力に表示されるため、リダイレクトした公開鍵ファイルには鍵の内容だけが保存されます。
+
+ビルド済みバイナリのインストール、暗号化に必要なツール、すべてのオプションは [CLI ガイド](cli/README.md) を参照してください。
+
 ## コード
 
 - [HumanGrant](https://github.com/LIghtJUNction/humangrant) — AI エージェントへの人による権限付与。

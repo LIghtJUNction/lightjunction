@@ -216,16 +216,22 @@ def native_smoke(archive: Path, target: str, version: str, crate: Path) -> None:
 
         if run("--version").strip() != f"lightjunction {version}".encode():
             raise ValueError("Packaged binary reports a different version")
-        frame = run("avatar", "--frames", "1", "--plain")
+        help_text = run("--lang", "en", "--help")
         if (
-            len(frame.splitlines()) != 24
-            or not frame.isascii()
-            or b"\x1b" in frame
-            or not any(glyph in frame for glyph in b"@#%*")
+            b"Usage:" not in help_text
+            or b"keys" not in help_text
+            or b"encrypt" not in help_text
+            or b"\x1b" in help_text
+            or run("--lang", "en") != help_text
         ):
-            raise ValueError("Packaged binary did not produce a plain avatar frame")
-        if run("keys", "ssh") != read_regular(crate / "keys" / "ssh-public-keys.txt"):
-            raise ValueError("Packaged binary exports different SSH public keys")
+            raise ValueError("Packaged binary did not produce plain command help")
+        for format_name, filename in (
+            ("ssh", "ssh-public-keys.txt"),
+            ("age", "age-recipients.txt"),
+            ("gpg", "pubkey.asc"),
+        ):
+            if run("keys", format_name) != read_regular(crate / "keys" / filename):
+                raise ValueError(f"Packaged binary exports different {format_name} public keys")
 
 
 def build(crate: Path, binary: Path, target: str, version: str, output: Path) -> Path:

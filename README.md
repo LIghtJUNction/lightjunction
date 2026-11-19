@@ -12,9 +12,9 @@
 
 I build open-source tools that are easy to inspect, run, and own. This repository is also the source for my [interactive profile](https://lightjunction.github.io/lightjunction/); the accounts and assets remain mine.
 
-## Terminal playground
+## Command-line utility
 
-Switch between generative Orbit, Rain, and Wave scenes, play Snake, export public keys, or encrypt a message from your terminal.
+`lightjunction` exports bundled SSH, age, and OpenPGP public keys offline and encrypts files with locally installed `age` or `gpg`.
 
 Linux and macOS:
 
@@ -34,9 +34,18 @@ Invoke-WebRequest 'https://github.com/LIghtJUNction/lightjunction/releases/lates
 $env:Path = "$env:LOCALAPPDATA\Programs\lightjunction\bin;$env:Path"
 ```
 
-The installers verify the binary checksum and use a directory owned by your user. No Rust or administrator privileges are needed. The `PATH` line applies to the current shell; then run `lightjunction`, `lightjunction snake`, or `lightjunction keys ssh`.
+The installers verify the binary checksum and use a directory owned by your user. No Rust or administrator privileges are needed. The `PATH` line applies to the current shell. Run `lightjunction` without arguments to print help and exit.
 
-With Rust 1.99.1+, you can also use `cargo install lightjunction --locked`. If unsigned scripts are blocked, use a [manual download](cli/README.md#manual-download). See the [CLI guide](cli/README.md) for controls, version selection, encryption dependencies, and development.
+```sh
+lightjunction keys ssh
+lightjunction keys age
+lightjunction keys gpg
+lightjunction keys --json
+```
+
+Command timings go to standard error by default, so redirected public-key files contain only the key material.
+
+With Rust 1.99.1+, you can also use `cargo install lightjunction --locked`. If unsigned scripts are blocked, use a [manual download](cli/README.md#manual-download). See the [CLI guide](cli/README.md) for commands, version selection, encryption dependencies, and development.
 
 ## Shell library
 

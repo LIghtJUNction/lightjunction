@@ -1,19 +1,18 @@
 [package]
 name = "lightjunction"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2024"
 rust-version = "1.99.1"
-description = "An interactive 3D ASCII dog avatar with public-key encryption"
+description = "Public-key export and local age/OpenPGP file encryption"
 license-file = "LICENSE"
 repository = "https://github.com/LIghtJUNction/lightjunction"
 homepage = "https://lightjunction.github.io/lightjunction/"
 readme = "README.md"
-keywords = ["terminal", "interactive", "ascii", "encryption", "3d"]
+keywords = ["cli", "public-key", "age", "openpgp", "encryption"]
 categories = ["command-line-utilities"]
 include = ["src/**", "tests/**", "keys/**", "install.sh", "install.ps1", "Cargo.toml", "Cargo.lock", "README.md", "CHANGELOG.md", "LICENSE", "UPSTREAM.toml"]
 
 [dependencies]
-crossterm = { version = "0.29.0", default-features = false, features = ["events", "windows"] }
 zclap = "=0.1.4"
 
 [profile.release]

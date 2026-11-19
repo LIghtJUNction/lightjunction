@@ -1,8 +1,8 @@
 # lightjunction
 
-A full-screen, mouse-driven 3D dog avatar with bundled public keys and local age/OpenPGP encryption. No profile pages, network requests, telemetry, or saved activity.
+A small command-line utility for exporting LIghtJUNction’s public keys and encrypting files with age or OpenPGP.
 
-Built in Rust with [`zclap`](https://crates.io/crates/zclap) and `crossterm`. Public keys are bundled for offline use; encryption uses locally installed tools.
+Built in Rust with [`zclap`](https://crates.io/crates/zclap). Public keys are bundled for offline use; encryption uses locally installed tools.
 
 ## Install
 
@@ -23,7 +23,7 @@ The default directory is `~/.local/bin`. To inspect the script first or choose a
 
 ```sh
 curl -fsSL https://github.com/LIghtJUNction/lightjunction/releases/latest/download/install.sh -o install-lightjunction.sh &&
-sh install-lightjunction.sh --version 0.3.0 --install-dir "$HOME/.local/bin"
+sh install-lightjunction.sh --version 0.4.0 --install-dir "$HOME/.local/bin"
 ```
 
 ### Windows
@@ -40,7 +40,7 @@ $env:Path = "$env:LOCALAPPDATA\Programs\lightjunction\bin;$env:Path"
 The default directory is `$env:LOCALAPPDATA\Programs\lightjunction\bin`. If your system blocks unsigned scripts, use the [manual download](#manual-download). To choose a version and directory:
 
 ```powershell
-& $installer -Version 0.3.0 -InstallDir "$env:LOCALAPPDATA\Programs\lightjunction\bin"
+& $installer -Version 0.4.0 -InstallDir "$env:LOCALAPPDATA\Programs\lightjunction\bin"
 ```
 
 The examples add the default install directory to `PATH` for the current session. Both scripts leave shell profiles and persistent `PATH` settings unchanged. For a custom install directory, add that directory to your session's `PATH` before running `lightjunction`. Rerun the installer to update; a version argument accepts `MAJOR.MINOR.PATCH`, without a `v` prefix. `LIGHTJUNCTION_VERSION` and `LIGHTJUNCTION_INSTALL_DIR` provide optional defaults, with explicit arguments taking precedence.
@@ -62,13 +62,13 @@ Compute the downloaded archive's checksum with the command for your system. Thes
 
 ```sh
 # Linux
-sha256sum lightjunction-v0.3.0-x86_64-unknown-linux-musl.tar.gz
+sha256sum lightjunction-v0.4.0-x86_64-unknown-linux-musl.tar.gz
 # macOS
-shasum -a 256 lightjunction-v0.3.0-aarch64-apple-darwin.tar.gz
+shasum -a 256 lightjunction-v0.4.0-aarch64-apple-darwin.tar.gz
 ```
 
 ```powershell
-Get-FileHash .\lightjunction-v0.3.0-x86_64-pc-windows-msvc.zip -Algorithm SHA256
+Get-FileHash .\lightjunction-v0.4.0-x86_64-pc-windows-msvc.zip -Algorithm SHA256
 ```
 
 Compare the complete hash with that archive's entry in `SHA256SUMS`, then extract it and copy `lightjunction` or `lightjunction.exe` into a directory on `PATH`. The checksum manifest comes from the same GitHub release: it checks download integrity and is not an independent publisher signature. Binaries are not signed with a macOS Developer ID or Windows Authenticode certificate; macOS builds are not notarized.
@@ -81,7 +81,7 @@ With Rust 1.99.1 or later:
 cargo install lightjunction --locked
 ```
 
-From a repository checkout, use `cargo install --path cli --locked` instead. Run `lightjunction` to open the playground. Piped or redirected output receives one generated frame and exits. Encryption commands additionally require the [local encryption tools](#encrypt-a-message).
+From a repository checkout, use `cargo install --path cli --locked` instead. Run `lightjunction` to see the commands. It prints help and exits in both interactive terminals and pipelines. Encryption commands additionally require the [local encryption tools](#encrypt-a-message).
 
 ### Uninstall a binary installation
 
@@ -97,31 +97,18 @@ Remove-Item "$env:LOCALAPPDATA\Programs\lightjunction\bin\lightjunction.exe"
 
 For a custom install directory, remove the executable there. The installers create no persistent profile or `PATH` entries to undo.
 
-## Play
+## Commands
 
 ```sh
 lightjunction
-lightjunction avatar
+lightjunction keys
+lightjunction keys --json
+lightjunction encrypt age --input message.txt --output message.txt.age
 ```
 
-Color terminals render the avatar with shaded half-block pixels; `--plain` uses ASCII characters. The view fits the model to the terminal's proportions, including narrow windows.
+With no arguments, the command prints help and exits. Public-key export and encryption use plain text or raw bytes and never take over the terminal.
 
-The dog has a rounded cream face, a short muzzle, a dark nose, and a small mouth. Its broad straw hat tilts back above a blue-and-white striped cape with a navy bow. These features are modeled as 3D surfaces, and the avatar gently turns from side to side.
-
-![Terminal avatar](https://raw.githubusercontent.com/LIghtJUNction/lightjunction/main/docs/cli-avatar.png)
-
-[Watch the terminal animation](https://github.com/LIghtJUNction/lightjunction/blob/main/docs/cli-avatar.gif).
-
-Drag with the left mouse button to rotate the avatar, use the wheel to zoom, and press `Space` to pause. `+` / `-` changes speed, `R` resets the view, `?` toggles controls, and `Q` / `Esc` exits. The interactive view uses the full terminal with no permanent status or prompt text.
-
-Use `--frames` for bounded output without keyboard input:
-
-```sh
-lightjunction avatar --frames 120
-lightjunction avatar --frames 1 --plain --no-timing
-```
-
-`--frames` accepts 1–10000. In a terminal, the CLI pauses 40 ms between rendered frames. Without a terminal, frames are written sequentially without ANSI control sequences.
+The 3D avatar and its `play`, `avatar`, and `orbit` commands have been removed, along with `--frames` and `--plain`. Older invocations return a usage error with exit status 2.
 
 ## Public keys
 
@@ -173,23 +160,21 @@ GPG runs with an isolated temporary home and the bundled key through `--recipien
 
 | Option | Behavior |
 | --- | --- |
-| `--frames N` | Render a bounded animation without keyboard input |
-| `--lang en` / `--lang zh` | Choose English or Chinese controls |
-| `--plain` | Disable colors |
+| `--lang en` / `--lang zh` | Choose English or Chinese help and key descriptions |
 | `--json` | Print public-key content as JSON; encryption outputs ciphertext |
 | `--no-timing` | Hide timing output |
 | `--help`, `-h` | Show commands and controls |
 | `--version`, `-V` | Show the installed version |
 
-Language selection checks `LC_ALL`, then `LC_MESSAGES`, then `LANG`. An explicit `--lang` takes precedence. `NO_COLOR` and `TERM=dumb` also disable colors.
+Language selection checks `LC_ALL`, then `LC_MESSAGES`, then `LANG`. An explicit `--lang` takes precedence. Output contains no terminal color or cursor-control sequences.
 
-Scene and key output goes to standard output. Timings go to standard error, so raw keys, JSON, and generated frames remain usable in pipelines. Argument parsing failures still emit a diagnostic timing line, even when `--no-timing` is present.
+Help, keys, JSON, and ciphertext go to standard output. Timings go to standard error, so exported files and pipelines receive only the requested content. Argument parsing failures still emit a diagnostic timing line, even when `--no-timing` is present.
 
 ## Timing
 
 Each command reports its elapsed work time by default. The timer starts inside the running program and excludes operating-system process startup and the timing line's own output. Output I/O and machine load can affect the measurement.
 
-See [measured benchmarks](https://github.com/LIghtJUNction/lightjunction/blob/main/cli/BENCHMARKS.md) for non-interactive scene timings and reproducible raw samples. Those measurements do not cover live terminal rendering or encryption; encryption timings include the external tool and input/output processing.
+Encryption timings include the external tool and input/output processing.
 
 ## Develop
 
@@ -201,10 +186,10 @@ cargo clippy --all-targets --locked -- -D warnings
 cargo test --locked --all-targets
 cargo build --release --locked
 uv run --no-project python -m unittest discover -s scripts -p 'test_*.py' -v
-cargo run --release --locked -- avatar
+cargo run --release --locked -- keys
 ```
 
-The parser is pinned to `zclap = "=0.1.4"`. `crossterm 0.29` provides portable raw keyboard input and terminal cleanup. CI checks Linux, macOS, and Windows on x86_64 and ARM64, including native archives, installers, public keys, and encryption.
+The parser is pinned to `zclap = "=0.1.4"`, the crate’s only dependency. The release workflow builds Linux, macOS, and Windows archives on x86_64 and ARM64 and checks installers, public keys, and encryption.
 
 ## Release
 

@@ -175,16 +175,22 @@ class PackageTests(unittest.TestCase):
             packaging.build(self.crate, binary, target, VERSION, output)
         self.assertEqual(list(output.iterdir()), [])
 
-    def smoke_with_frame(self, frame):
-        keys = b"ssh-ed25519 AAAA fixture\n"
+    def smoke_with_help(self, help_text, default_help=None, corrupt_key=None):
         key_dir = self.crate / "keys"
         key_dir.mkdir(exist_ok=True)
-        (key_dir / "ssh-public-keys.txt").write_bytes(keys)
         outputs = {
             ("--version",): f"lightjunction {VERSION}\n".encode(),
-            ("avatar", "--frames", "1", "--plain"): frame,
-            ("keys", "ssh"): keys,
+            ("--lang", "en", "--help"): help_text,
+            ("--lang", "en"): help_text if default_help is None else default_help,
         }
+        for format_name, filename in (
+            ("ssh", "ssh-public-keys.txt"),
+            ("age", "age-recipients.txt"),
+            ("gpg", "pubkey.asc"),
+        ):
+            key = f"{format_name} public fixture\n".encode()
+            (key_dir / filename).write_bytes(key)
+            outputs[("keys", format_name)] = b"wrong key" if corrupt_key == format_name else key
 
         def run(arguments, **kwargs):
             self.assertEqual(arguments[1], "--no-timing")
@@ -198,20 +204,30 @@ class PackageTests(unittest.TestCase):
         ):
             packaging.native_smoke(self.root / "unused.tar.gz", packaging.TARGETS[0], VERSION, self.crate)
 
-    def test_native_smoke_uses_the_avatar_and_key_commands(self):
-        self.smoke_with_frame(b"\n" * 11 + b"  #@@#  \n" + b"\n" * 12)
+    def test_native_smoke_uses_help_and_all_key_formats(self):
+        self.smoke_with_help(b"Usage: lightjunction [keys|encrypt]\n")
 
-    def test_native_smoke_rejects_missing_or_corrupt_frames(self):
-        for frame in (
+    def test_native_smoke_rejects_empty_incomplete_or_terminal_help(self):
+        for help_text in (
             b"",
-            b"\n" * 24,
-            b"#\n" * 23,
-            b"#\n" * 25,
-            b"\x1b[31m#\n" * 24,
-            "#▀\n".encode() * 24,
+            b"lightjunction keys encrypt",
+            b"Usage: lightjunction keys",
+            b"Usage: lightjunction encrypt",
+            b"\x1b[31mUsage: lightjunction keys encrypt",
         ):
-            with self.subTest(frame=frame), self.assertRaisesRegex(ValueError, "avatar frame"):
-                self.smoke_with_frame(frame)
+            with self.subTest(help_text=help_text), self.assertRaisesRegex(ValueError, "command help"):
+                self.smoke_with_help(help_text)
+
+    def test_native_smoke_rejects_a_different_default_command(self):
+        with self.assertRaisesRegex(ValueError, "command help"):
+            self.smoke_with_help(b"Usage: lightjunction keys encrypt", default_help=b"old scene")
+
+    def test_native_smoke_rejects_corrupt_public_keys(self):
+        for format_name in ("ssh", "age", "gpg"):
+            with self.subTest(format_name=format_name), self.assertRaisesRegex(
+                ValueError, "different .* public keys"
+            ):
+                self.smoke_with_help(b"Usage: lightjunction keys encrypt", corrupt_key=format_name)
 
     def test_assembly_emits_all_ten_assets_and_strict_checksums(self):
         self.write_archives()

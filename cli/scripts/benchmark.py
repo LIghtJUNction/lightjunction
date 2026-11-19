@@ -18,8 +18,8 @@ import time
 
 TIMING = re.compile(r"^\[time\] command=\S+ status=ok elapsed=([0-9.]+)(us|ms|s)$", re.MULTILINE)
 WORKLOADS = {
-    "play": [],
-    "avatar": ["avatar"],
+    "default_help": [],
+    "ssh_keys": ["keys", "ssh"],
     "help": ["--help"],
 }
 

@@ -1,14 +1,12 @@
 # Changelog
 
-## Unreleased
+## 0.4.0
 
-- Remodel the dog with a tilted broad straw hat, rounded cream face, short muzzle, defined nose and mouth, striped blue-and-white cape, and navy bow.
-- Fit the avatar to narrow terminal proportions and correct lighting during combined horizontal and vertical rotation.
-- Validate packaged binaries with the avatar command, fixing the obsolete profile-command check in native CI.
-- Replace the static profile and numbered menu with a full-screen terminal playground while retaining public-key export and encryption.
-- Replace the playground with one full-screen, volumetric 3D ASCII dog avatar.
-- Add automatic rotation, mouse-drag rotation, wheel zoom, and minimal on-screen text.
-- Retain bounded frame rendering and portable keyboard input, with updated tests.
+- Remove the 3D avatar, full-screen terminal mode, and `crossterm` dependency.
+- Show concise help when invoked without arguments; retain age, OpenPGP, and SSH public-key export, JSON output, and local encryption.
+- Remove `play`, `avatar`, `orbit`, `--frames`, and `--plain`; retired invocations return a usage error.
+- Describe useful commands in both English and Chinese, with locale detection and explicit language selection.
+- Report a successful timing status when a public-key or help consumer closes its output pipe.
 
 ## 0.2.2
 

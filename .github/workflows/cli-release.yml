@@ -3,7 +3,7 @@ name: CLI Release
 on:
   push:
     branches: [main]
-    paths: ['cli/Cargo.toml', '.github/workflows/cli-release.yml']
+    paths: ['cli/Cargo.toml']
   workflow_dispatch:
     inputs:
       bump:
@@ -40,7 +40,6 @@ jobs:
   publish:
     name: Publish to crates.io
     needs: validate
-    if: github.event_name == 'workflow_dispatch' || needs.validate.outputs.version_changed == 'true'
     # Validation can overlap; immutable publication is serialized and never cancelled.
     concurrency:
       group: lightjunction-crates-io-publish
@@ -140,7 +139,7 @@ jobs:
           notes="$RUNNER_TEMP/lightjunction-release.md"
           assets="$RUNNER_TEMP/lightjunction-release-assets"
           verified=$(mktemp -d "$RUNNER_TEMP/lightjunction-release-check.XXXXXX")
-          printf '<!-- lightjunction-cli-release -->\nA full-screen interactive 3D ASCII dog avatar, public keys and local age/OpenPGP encryption.\n\nNative binaries are available for Linux, macOS and Windows on x86_64 and ARM64. Every download is listed in SHA256SUMS.\n\nQuick install on Linux/macOS:\n```sh\ninstaller=$(mktemp) && curl -fsSL https://github.com/LIghtJUNction/lightjunction/releases/download/%s/install.sh -o "$installer" && sh "$installer" --version %s\n```\n\nWindows: download install.ps1 and run it with -Version %s.\n\nCargo alternative:\n```sh\ncargo install lightjunction --locked --version %s\n```\n' "$RELEASE_TAG" "$RELEASE_VERSION" "$RELEASE_VERSION" "$RELEASE_VERSION" > "$notes"
+          printf '<!-- lightjunction-cli-release -->\nA small command-line tool for public keys and local age/OpenPGP encryption.\n\nNative binaries are available for Linux, macOS and Windows on x86_64 and ARM64. Every download is listed in SHA256SUMS.\n\nQuick install on Linux/macOS:\n```sh\ninstaller=$(mktemp) && curl -fsSL https://github.com/LIghtJUNction/lightjunction/releases/download/%s/install.sh -o "$installer" && sh "$installer" --version %s\n```\n\nWindows: download install.ps1 and run it with -Version %s.\n\nCargo alternative:\n```sh\ncargo install lightjunction --locked --version %s\n```\n' "$RELEASE_TAG" "$RELEASE_VERSION" "$RELEASE_VERSION" "$RELEASE_VERSION" > "$notes"
           if draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft' 2>/dev/null); then
             if [ "$draft" != true ]; then
               gh release download "$RELEASE_TAG" --dir "$verified"

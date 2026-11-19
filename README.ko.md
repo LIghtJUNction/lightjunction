@@ -11,6 +11,25 @@
 [api.lmm.best](https://api.lmm.best/) 공동 창업자. AI, Linux, 네트워크를 위한 작은 도구를 만듭니다.
 이곳은 제 디지털 비서의 작업 공간이기도 하며, 계정과 자산은 제가 소유합니다.
 
+## 명령줄 도구
+
+`lightjunction`은 내장된 SSH, age, OpenPGP 공개 키를 오프라인으로 출력하고, 로컬에 설치된 `age` 또는 `gpg`로 파일을 암호화합니다.
+
+Rust 1.99.1 이상으로 설치할 수 있습니다.
+
+```sh
+cargo install lightjunction --locked
+lightjunction
+lightjunction keys ssh
+lightjunction keys age
+lightjunction keys gpg
+lightjunction keys --json
+```
+
+인수 없이 실행하면 도움말을 표시하고 종료합니다. 실행 시간은 기본적으로 표준 오류(stderr)에 출력되므로, 리디렉션한 공개 키 파일에는 키 내용만 저장됩니다.
+
+미리 빌드된 바이너리 설치, 암호화에 필요한 도구, 전체 옵션은 [CLI 안내](cli/README.md)를 참고하세요.
+
 ## 코드
 
 - [HumanGrant](https://github.com/LIghtJUNction/humangrant) — AI 에이전트에 대한 사람의 권한 부여.
