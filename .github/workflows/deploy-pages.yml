@@ -3,6 +3,16 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+    paths:
+      - 'index.html'
+      - 'site/**'
+      - 'public/**'
+      - 'pubkey.asc'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.mts'
+      - 'tests/profile.test.mjs'
+      - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
 permissions:

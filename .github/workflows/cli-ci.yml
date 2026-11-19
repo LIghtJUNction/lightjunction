@@ -1,11 +1,6 @@
 name: CLI CI
 
 on:
-  push:
-    branches: [main]
-    paths: ['cli/**', '.github/workflows/cli-*.yml']
-  pull_request:
-    paths: ['cli/**', '.github/workflows/cli-*.yml']
   workflow_dispatch:
   workflow_call:
     inputs:
