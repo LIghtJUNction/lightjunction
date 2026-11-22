@@ -2,10 +2,6 @@
   <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — simplicity, beauty, openness, freedom, encryption" width="100%"></a>
 </p>
 
-<p align="center">
-  English · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · <a href="README.ko.md">한국어</a> · <a href="README.ja.md">日本語</a>
-</p>
-
 ## LIghtJUNction
 
 **Simplicity · Beauty · Openness · Freedom · Encryption.**
