@@ -10,10 +10,13 @@
 
 **Simplicity · Beauty · Openness · Freedom · Encryption.**
 
-AI很垃圾，我废了很大功夫才从一堆垃圾里凑出能用的玩意。
-AI很强，所以我用AI做了这些东西。
-我很垃圾，所以我用AI做这些东西。
-我很强，对，我很强。
+- AI很垃圾，我废了很大功夫才从一堆垃圾里凑出能用的玩意。
+
+- AI很强，所以我用AI做了这些东西。
+
+- 我很垃圾，所以我用AI做这些东西。
+
+- 我很强，对，我很强。
 
 I build open-source tools that are easy to inspect, run, and own. This repository is also the source for my [interactive profile](https://lightjunction.github.io/lightjunction/); the accounts and assets remain mine.
 
