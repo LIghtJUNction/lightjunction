@@ -1,3 +1,4 @@
+<!--
 <p align="center">
   <a href="https://lightjunction.github.io/lightjunction/"><img src="public/readme-hero.svg" alt="LIghtJUNction — simplicity, beauty, openness, freedom, encryption" width="100%"></a>
 </p>
@@ -121,3 +122,4 @@ Send the encrypted file to **lightjunction.me@gmail.com**. Never send private ke
 ## License
 
 Original material uses [AUL 1.0-draft.1](LICENSE), a custom draft not approved by OSI. Earlier MIT grants and third-party terms remain valid; see [LICENSING.md](LICENSING.md).
+-->
