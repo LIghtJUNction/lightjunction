@@ -28,6 +28,7 @@ from bs4 import BeautifulSoup
 from PIL import Image, ImageChops, ImageDraw, ImageFont
 
 W, H, M = 576, 180, 28
+SCROLL_MS, README_STEP, SOURCE_STEP = 40, 2, 3
 SENTENCES = (
     "AI is terrible. I had to dig through a pile of junk to piece together something usable.",
     "AI is powerful, so I used AI to build these things.",
@@ -50,8 +51,7 @@ PAL.putpalette(bytes(c for rgb in COLORS[:-1] for c in rgb))
 LUT = [min(range(4), key=lambda i: abs(v - COLORS[i][0])) for v in range(256)]
 CSS = f"""
 *{{box-sizing:border-box}} html,body{{margin:0;background:#000;color:#eee}}
-main{{margin:11px {M}px;width:{W - 2 * M}px;height:{H - 22}px;
-column-width:{W - 2 * M}px;column-gap:{2 * M}px;column-fill:auto;
+main{{margin:11px {M}px;width:{W - 2 * M}px;
 font:12px/1.36 'Noto Sans',sans-serif;overflow-wrap:anywhere;orphans:2;widows:2}}
 h1,h2,h3,h4{{font-weight:600;margin:0 0 5px;break-after:avoid;line-height:1.2}}
 h1{{font-size:20px}} h2{{font-size:17px}} h3,h4{{font-size:14px}}
@@ -67,8 +67,8 @@ table{{border-collapse:collapse;max-width:100%}} td,th{{padding:3px 6px}}
 """
 
 
-def screenshots(html):
-    """Render Markdown with the installed Chromium's DevTools protocol."""
+def screenshot(html):
+    """Render one continuous document with Chromium's DevTools protocol."""
     chrome = shutil.which("chromium") or shutil.which("google-chrome")
     if not chrome:
         raise RuntimeError("Chromium or Google Chrome is required")
@@ -116,11 +116,11 @@ def screenshots(html):
                             raise RuntimeError(reply["error"])
                         return reply["result"]
 
-                def viewport(width):
+                def viewport(height):
                     cdp(
                         "Emulation.setDeviceMetricsOverride",
-                        width=width,
-                        height=H,
+                        width=W,
+                        height=height,
                         deviceScaleFactor=1,
                         mobile=False,
                     )
@@ -137,24 +137,28 @@ def screenshots(html):
                     return result["result"].get("value")
 
                 cdp("Page.enable")
-                viewport(W)
+                viewport(H)
                 tree = cdp("Page.getFrameTree")
                 cdp("Page.setDocumentContent", frameId=tree["frameTree"]["frame"]["id"], html=html)
                 evaluate("document.fonts.ready.then(()=>true)")
                 evaluate("Promise.all([...document.images].map(i=>i.decode()))")
                 if evaluate("[...document.images].some(i=>!i.naturalWidth)"):
                     raise RuntimeError("README image failed to render")
-                count = evaluate(
-                    f"Math.ceil((document.querySelector('main').scrollWidth+{2 * M})/{W})"
+                height = max(
+                    H,
+                    evaluate(
+                        "Math.ceil(document.querySelector('main')"
+                        ".getBoundingClientRect().bottom + 11)"
+                    ),
                 )
-                viewport(W * count)
-                for i in range(count):
-                    data = cdp(
-                        "Page.captureScreenshot",
-                        format="png",
-                        clip={"x": W * i, "y": 0, "width": W, "height": H, "scale": 1},
-                    )
-                    yield Image.open(io.BytesIO(base64.b64decode(data["data"]))).convert("RGB")
+                viewport(height)
+                data = cdp(
+                    "Page.captureScreenshot",
+                    format="png",
+                    clip={"x": 0, "y": 0, "width": W, "height": height, "scale": 1},
+                    captureBeyondViewport=True,
+                )
+                return Image.open(io.BytesIO(base64.b64decode(data["data"]))).convert("RGB")
             finally:
                 if ws is not None:
                     ws.close()
@@ -166,7 +170,7 @@ def screenshots(html):
                     proc.wait()
 
 
-def readme_pages(path):
+def readme_document(path):
     raw = path.read_text(encoding="utf-8")
     # Recover the real content of a GIF-only profile, avoiding self-embedding.
     hidden = re.findall(r"<!--(.*?)-->", raw, re.S)
@@ -191,7 +195,7 @@ def readme_pages(path):
         img["src"] = f"data:{mime};base64," + base64.b64encode(data).decode()
         img.attrs.pop("srcset", None)
     csp = "default-src 'none'; img-src data:; style-src 'unsafe-inline'; font-src 'none'"
-    yield from screenshots(
+    return screenshot(
         f'<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="{csp}">'
         f"<style>{CSS}</style><main>{soup}</main>"
     )
@@ -276,25 +280,67 @@ def frame(p, last, ms):
     )
 
 
+def scroll_positions(end, step):
+    """Ease in/out over a few pixels, with no jumps or repeated positions."""
+    y = 0
+    yield y
+    while y < end:
+        stride = min(step, 1 + min(y, end - y) // 6)
+        y = min(end, y + stride)
+        yield y
+
+
+def source_document(font):
+    """Render every physical source line into one continuous strip."""
+    cols = int((W - 2 * M) / font.getlength("M"))
+    lines = []
+    for line in Path(__file__).read_text(encoding="utf-8").splitlines():
+        lines.extend(
+            textwrap.wrap(
+                line,
+                cols,
+                replace_whitespace=False,
+                drop_whitespace=False,
+                break_on_hyphens=False,
+            )
+            or [""]
+        )
+    im = Image.new("L", (W, max(H, 16 + len(lines) * 13)))
+    d = ImageDraw.Draw(im)
+    for i, line in enumerate(lines):
+        d.text((M, 8 + i * 13), line, font=font, fill=238)
+    return im
+
+
 def render(readme, output, font_path):
     font = ImageFont.truetype(font_path, 19)
     small = ImageFont.truetype(font_path, 10)
     rng = random.Random(20261125)
     last = None
     frames = total = 0
-    pages = list(readme_pages(readme))
+    document = readme_document(readme)
+    source = source_document(small)
     with output.open("wb") as fp:
         fp.write(b"GIF89a" + struct.pack("<HHBBB", W, H, 0xF2, 0, 0))
         fp.write(bytes(c for rgb in COLORS for c in rgb))
         fp.write(b"!\xff\x0bNETSCAPE2.0\x03\x01\x00\x00\x00")
 
-        def push(im, ms):
+        def push_indices(p, ms):
             nonlocal last, frames, total
-            p = indices(im)
             fp.write(frame(p, last, ms))
             last = p
             frames += 1
             total += ms
+
+        def push(im, ms):
+            push_indices(indices(im), ms)
+
+        def scroll(im, step):
+            strip = indices(im)
+            end = strip.height - H
+            for y in scroll_positions(end, step):
+                delay = 1600 if y == end else 1400 if y == 0 else SCROLL_MS
+                push_indices(strip.crop((0, y, W, y + H)), delay)
 
         def type_frame(s, n, ms):
             im = Image.new("L", (W, H))
@@ -329,29 +375,10 @@ def render(readme, output, font_path):
         for i, s in enumerate(SENTENCES):
             typing(s, 4100 if i == 3 else 3100)
         typing("$ cat README.md", 1000, False)
-        for im in pages:
-            push(im, 4000)
+        scroll(document, README_STEP)
         typing(f"$ cat {Path(__file__).name}", 1000, False)
-        # Read every line of this very script, without omitting long lines.
+        scroll(source, SOURCE_STEP)
         cols = int((W - 2 * M) / small.getlength("M"))
-        lines = []
-        for line in Path(__file__).read_text(encoding="utf-8").splitlines():
-            lines.extend(
-                textwrap.wrap(
-                    line,
-                    cols,
-                    replace_whitespace=False,
-                    drop_whitespace=False,
-                    break_on_hyphens=False,
-                )
-                or [""]
-            )
-        for i in range(0, len(lines), 13):
-            im = Image.new("L", (W, H))
-            d = ImageDraw.Draw(im)
-            for j, line in enumerate(lines[i : i + 13]):
-                d.text((M, 8 + j * 13), line, font=small, fill=238)
-            push(im, 2800)
 
         # A size field changes the size it describes. Solve the fixed point.
         def final(n):
@@ -387,7 +414,8 @@ def render(readme, output, font_path):
             fp.write(b"!\xfe" + (bytes([gap - 4]) + b" " * (gap - 4) if gap > 3 else b"") + b"\x00")
         fp.write(b";")
     assert output.stat().st_size == target
-    print(f"{len(pages)} README pages; {frames + 1} frames; {(total + 4500) / 1000:.2f} s")
+    print(f"README: {document.height}px; source: {source.height}px")
+    print(f"{frames + 1} frames; {(total + 4500) / 1000:.2f} s")
     print(f"{target} bytes; self-reference exact; comment padding={gap} bytes")
 
 
