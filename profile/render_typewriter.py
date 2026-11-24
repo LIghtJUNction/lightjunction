@@ -3,6 +3,7 @@
 
 Install profile/requirements.txt, Chromium and Noto Sans / Noto Sans Mono.
 Run from the repository root: python profile/render_typewriter.py
+The GIF scrolls this file verbatim; gif_codec.py is the reusable encoder.
 """
 
 import argparse
@@ -21,10 +22,11 @@ from urllib.request import urlopen
 
 import mistune
 from bs4 import BeautifulSoup
+from gif_codec import PALETTE, STATS, encode_frame
 from PIL import Image, ImageChops, ImageDraw, ImageFont
 
-W, H, M = 384, 96, 16
-FRAME_MS, README_STEP, SOURCE_STEP = 40, 5, 8
+W, H, M = 448, 96, 18
+FRAME_MS, README_STEP, SOURCE_STEP = 40, 6, 11
 LIMIT = 1024 * 1024
 SENTENCES = (
     "AI is terrible. I had to dig through a pile of junk to piece together something usable.",
@@ -34,13 +36,13 @@ SENTENCES = (
 )
 CSS = f"""
 *{{box-sizing:border-box}}
-body{{margin:0;background:#000;color:#fff;font:8px/1.35 'Noto Sans',sans-serif}}
+body{{margin:0;background:#000;color:#fff;font:10px/1.35 'Noto Sans',sans-serif}}
 main{{margin:8px {M}px;overflow-wrap:anywhere;display:flow-root}}
 h1,h2,h3,h4,p,ul,ol,pre{{margin:0 0 5px}}
-h1,h2{{font-size:13px}} h3,h4{{font-size:11px}} ul,ol{{padding-left:16px}}
+h1,h2{{font-size:15px}} h3,h4{{font-size:12px}} ul,ol{{padding-left:16px}}
 a{{color:inherit;text-decoration:underline}}
-pre,code{{font:8px/1.3 'Noto Sans Mono',monospace;white-space:pre-wrap}}
-img{{display:block;max-width:100%;max-height:80px;object-fit:contain;margin:auto}}
+pre,code{{font:9px/1.3 'Noto Sans Mono',monospace;white-space:pre-wrap}}
+img{{display:block;max-width:100%;max-height:90px;object-fit:contain;margin:auto}}
 """
 
 
@@ -102,12 +104,12 @@ def document(path):
 
 
 def indexed(im, smooth=False):
-    levels = [0 if v < 40 else 4 if v < 125 else 5 if v < 210 else 1 for v in range(256)]
-    gray = im.convert("L").point(levels if smooth else [int(v >= 100) for v in range(256)])
+    levels = [0 if v < 40 else 1 if v < 125 else 2 if v < 210 else 3 for v in range(256)]
+    gray = im.convert("L").point(levels if smooth else [3 * int(v >= 85) for v in range(256)])
     if im.mode == "RGB":
         r, _, b = im.split()
         warm = ImageChops.subtract(r, b).point(lambda v: 255 if v > 45 else 0)
-        gray.paste(2, mask=warm)
+        gray.paste(4, mask=warm)
     return gray
 
 
@@ -116,75 +118,11 @@ def source(font):
     lines = []
     for line in Path(__file__).read_text(encoding="utf-8").splitlines():
         lines.extend(textwrap.wrap(line, cols, drop_whitespace=False) or [""])
-    im = Image.new("L", (W, max(H, 12 + 9 * len(lines))))
+    im = Image.new("L", (W, max(H, 12 + 11 * len(lines))))
     draw = ImageDraw.Draw(im)
     for i, line in enumerate(lines):
-        draw.text((M, 6 + 9 * i), line, font=font, fill=255)
+        draw.text((M, 6 + 11 * i), line, font=font, fill=255)
     return indexed(im)
-
-
-def lzw(pixels):
-    minimum = max(2, max(pixels).bit_length())
-    clear = 1 << minimum
-    table, next_code, width = {}, clear + 2, minimum + 1
-    buf = bytearray()
-    acc = bits = 0
-
-    def emit(code):
-        nonlocal acc, bits
-        acc |= code << bits
-        bits += width
-        while bits >= 8:
-            buf.append(acc & 255)
-            acc >>= 8
-            bits -= 8
-
-    emit(clear)
-    prefix = pixels[0]
-    for pixel in pixels[1:]:
-        key = prefix * 8 + pixel
-        if key in table:
-            prefix = table[key]
-            continue
-        emit(prefix)
-        if next_code < 4096:
-            table[key] = next_code
-            next_code += 1
-            if next_code > 1 << width and width < 12:
-                width += 1
-        else:
-            emit(clear)
-            table, next_code, width = {}, clear + 2, minimum + 1
-        prefix = pixel
-    emit(prefix)
-    if next_code == 1 << width and width < 12:
-        width += 1
-    emit(clear + 1)
-    if bits:
-        buf.append(acc)
-    blocks = (bytes([len(buf[i : i + 255])]) + buf[i : i + 255] for i in range(0, len(buf), 255))
-    return bytes([minimum]) + b"".join(blocks) + b"\x00"
-
-
-def frame(im, prev, ms):
-    box = (0, 0, W, H) if prev is None else ImageChops.difference(im, prev).getbbox()
-    x, y, r, b = box or (0, 0, 1, 1)
-    box = (x, y, r, b)
-    a = im.crop(box)
-    data, transparent = lzw(a.tobytes()), 0
-    if prev is not None:
-        same = ImageChops.difference(a, prev.crop(box)).point(lambda v: 0 if v else 255)
-        a.paste(3, mask=same)
-        delta = lzw(a.tobytes())
-        if len(delta) < len(data):
-            data, transparent = delta, 1
-    return (
-        b"!\xf9\x04"
-        + struct.pack("<BHBB", 4 + transparent, ms // 10, 3, 0)
-        + b","
-        + struct.pack("<HHHHB", x, y, r - x, b - y, 0)
-        + data
-    )
 
 
 def positions(end, step):
@@ -196,49 +134,20 @@ def positions(end, step):
 
 
 def render(readme, output, font_path, readme_step, source_step):
-    font = ImageFont.truetype(font_path, 13)
-    small = ImageFont.truetype(font_path, 8)
+    font = ImageFont.truetype(font_path, 15)
+    small = ImageFont.truetype(font_path, 10)
     rng = random.Random(20261125)
     doc, code = indexed(document(readme)), source(small)
     prev = None
     frames = total = 0
     with output.open("wb") as fp:
         fp.write(b"GIF89a" + struct.pack("<HHBBB", W, H, 0xF2, 0, 0))
-        fp.write(
-            bytes(
-                (
-                    0,
-                    0,
-                    0,
-                    238,
-                    238,
-                    238,
-                    173,
-                    104,
-                    60,
-                    255,
-                    0,
-                    255,
-                    82,
-                    82,
-                    82,
-                    168,
-                    168,
-                    168,
-                    250,
-                    249,
-                    246,
-                    41,
-                    39,
-                    34,
-                )
-            )
-        )
+        fp.write(PALETTE)
         fp.write(b"!\xff\x0bNETSCAPE2.0\x03\x01\x00\x00\x00")
 
         def push(im, ms):
             nonlocal prev, frames, total
-            fp.write(frame(im, prev, ms))
+            fp.write(encode_frame(im, prev, ms, measure=True))
             prev = im
             frames += 1
             total += ms
@@ -250,17 +159,17 @@ def render(readme, output, font_path, readme_step, source_step):
             def show(n, ms):
                 im = Image.new("L", (W, H))
                 d = ImageDraw.Draw(im)
-                x, y, start = M, 36, 0
+                x, y, start = M, 40, 0
                 for i, line in enumerate(lines):
                     start = s.index(line, start)
                     if n < start:
                         break
                     part = line[: n - start]
-                    y = 36 + i * 19
+                    y = 40 + i * 21
                     d.text((M, y), part, font=font, fill=255, anchor="ls")
                     x = round(M + font.getlength(part))
                     start += len(line)
-                d.rectangle((x + 2, y - 10, x + 3, y + 2), fill=255)
+                d.rectangle((x + 2, y - 12, x + 3, y + 2), fill=255)
                 push(indexed(im, smooth=True), ms)
 
             show(0, 180)
@@ -286,9 +195,9 @@ def render(readme, output, font_path, readme_step, source_step):
         def last(n):
             im = Image.new("L", (W, H))
             d = ImageDraw.Draw(im)
-            d.text((M, 22), f"$ stat -c '%s bytes' {output.name}", font=small, fill=255)
-            d.text((M, 48), f"{n} bytes", font=font, fill=255)
-            return frame(indexed(im, smooth=True), prev, 4500)
+            d.text((M, 24), f"$ stat -c '%s bytes' {output.name}", font=small, fill=255)
+            d.text((M, 52), f"{n} bytes", font=font, fill=255)
+            return encode_frame(indexed(im, smooth=True), prev, 4500)
 
         prefix = fp.tell()
         estimate = prefix + len(last(prefix)) + 1
@@ -311,6 +220,7 @@ def render(readme, output, font_path, readme_step, source_step):
         f"{frames + 1} frames; {(total + 4500) / 1000:.2f}s"
     )
     print(f"{n} bytes; exact size; comment padding={gap}")
+    print(dict(STATS))
     if n > LIMIT:
         raise RuntimeError(f"GIF exceeds {LIMIT} bytes")
 
